@@ -1,0 +1,26 @@
+{
+  "name": "byjuun_blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "author": "BY-juun",
+  "license": "MIT",
+  "dependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "antd": "^4.16.8",
+    "next": "^9.5.5",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "styled-components": "^5.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.31.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
+}
