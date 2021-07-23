@@ -1,5 +1,5 @@
 {
-  "name": "byjuun_blog",
+  "name": "by-juun-blog",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,14 +7,18 @@
     "dev": "next"
   },
   "author": "BY-juun",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "antd": "^4.16.8",
     "next": "^9.5.5",
+    "next-redux-wrapper": "^6.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
     "styled-components": "^5.3.0"
   },
   "devDependencies": {

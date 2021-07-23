@@ -1,10 +1,15 @@
 import React from 'react';
 import AppLayout from "../components/AppLayout";
+import {useSelector} from 'react-redux';
+import PostCard from '../components/PostCard';
+
+
 
 const Home = () => {
+    const {Posts} = useSelector((state)=>(state.post));
     return(
         <AppLayout>
-            <div>byjuun 웹사이트</div>
+            {Posts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}
         </AppLayout>
     );
 }
