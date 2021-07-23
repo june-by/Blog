@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Row, Col, Card, Calendar, Tag, Divider } from 'antd';
 import styled from "styled-components";
-const { SubMenu } = Menu;
+import {useForm} from 'react-hook-form';
+import {useSelector} from 'react-redux';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const MyCard = styled(Card)`
     width : 300;
@@ -25,6 +28,8 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 const AppLayout = ({ children }) => {
+    const isLoggedIn = useSelector((state)=>state.user.isLoggedIn); 
+    const {me} = useSelector((state)=>state.user);   
     return (
         <div>
             <MainTitle>By_juun Blog</MainTitle>
@@ -38,14 +43,21 @@ const AppLayout = ({ children }) => {
                 <Menu.Item>
                     <Link href="/introduction"><a>블로그소개</a></Link>
                 </Menu.Item>
+                <Menu.Item>
+                    <Link href="/visitor"><a>방명록</a></Link>
+                </Menu.Item>
+                { me ? <Menu.Item>
+                    <Link href="/Write"><a>글쓰기</a></Link>
+                </Menu.Item> : null}
             </Menu>
             <Row gutter={8}>
                 <Col xs={24} sm = {6} md={4}> {/* 24등분 xs 모바일 md 데스크탑*/}
+                    {isLoggedIn ? <UserProfile /> : <LoginForm />}
                     <MyCard>
                         <p>오늘 방문자 10</p>
                         <p>총 방문자 1000</p>
                     </MyCard>
-                    <Menu style = {{width : "256"}} defaultSelectedKeys = {['1']} defaultOpenKeys = {['sub1']}  mode = "inline" >
+                    <Menu style = {{width : "256"}}  mode = "inline" >
                         <Menu.Item key="1">
                             <a href = "/JavaScript">JavaScript</a>
                         </Menu.Item>
