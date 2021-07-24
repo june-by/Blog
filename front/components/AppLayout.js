@@ -5,19 +5,17 @@ import { Menu, Row, Col, Card, Calendar, Tag, Divider } from 'antd';
 import styled from "styled-components";
 import {useForm} from 'react-hook-form';
 import {useSelector} from 'react-redux';
-import LoginForm from './LoginForm';
-import UserProfile from './UserProfile';
 
 const MyCard = styled(Card)`
     width : 300;
 `;
 
-const MainTitle = styled.div`
+const MainTitle = styled.a`
     font-size: 45px;
     padding-left: 25px;
-    padding-bottom: 15px;
+    padding-bottom: 15px;   
     margin-top: 15px;
-    border-bottom: 0.5px solid gray;
+    text-align : center;
 `
 
 const TagWrapper = styled.div`
@@ -28,11 +26,11 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 const AppLayout = ({ children }) => {
-    const isLoggedIn = useSelector((state)=>state.user.isLoggedIn); 
-    const {me} = useSelector((state)=>state.user);   
     return (
         <div>
-            <MainTitle>By_juun Blog</MainTitle>
+            <div style = {{textAlign : "center" ,borderBottom : "0.7px solid gray"}}>
+            <Link href = "/"><MainTitle>By_juun Blog</MainTitle></Link>
+            </div>
             <Menu mode="horizontal">
                 <Menu.Item>
                     <Link href="/"><a>Home</a></Link>
@@ -44,15 +42,11 @@ const AppLayout = ({ children }) => {
                     <Link href="/introduction"><a>블로그소개</a></Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Link href="/visitor"><a>방명록</a></Link>
-                </Menu.Item>
-                { me ? <Menu.Item>
                     <Link href="/Write"><a>글쓰기</a></Link>
-                </Menu.Item> : null}
+                </Menu.Item>
             </Menu>
             <Row gutter={8}>
                 <Col xs={24} sm = {6} md={4}> {/* 24등분 xs 모바일 md 데스크탑*/}
-                    {isLoggedIn ? <UserProfile /> : <LoginForm />}
                     <MyCard>
                         <p>오늘 방문자 10</p>
                         <p>총 방문자 1000</p>

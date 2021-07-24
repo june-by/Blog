@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard';
 
 const Home = () => {
     const {Posts} = useSelector((state)=>(state.post));
+    console.log(Posts.length);
     return(
         <AppLayout>
             {Posts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}

@@ -1,9 +1,9 @@
-import React , {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
-import {Button,Form,Input } from 'antd';
-import { useDispatch } from 'react-redux';
-import addPost from "../reducers/post";
+import { Button, Form, Input, Select } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPost } from "../reducers/post";
 const LoginButton = styled(Button)`
 
 margin-right : 10px;
@@ -16,38 +16,57 @@ const FormWrapper = styled(Form)`
 padding : 10px;
 `;
 
-const WritePostForm = ()=>{
+const WritePostForm = () => {
     const dispatch = useDispatch();
+    const { addPostLoading } = useSelector((state) => state.post);
     const [title, onChangeTitle] = useInput('');
+    const [category, setCategory] = useState('');
     const [content, onChangeContent] = useInput('');
     const [hashTag, onChangeHashtag] = useInput('');
-    const {TextArea} = Input;
-    const onSubmitForm = useCallback(() => {
-        dispatch(addPost);
-    },[]);
+    const { TextArea } = Input;
 
-    return(
-        <FormWrapper onFinish = {onSubmitForm}>
-        <div>
-            <label htmlFor='title'>제목</label>
-            <br />
-            <TextArea onChange = {onChangeTitle} style={{width : "100%"}}/>
-        </div>
-        <div>
-            <label htmlFor='hashtag'>해시태그</label>
-            <br />
-            <TextArea onChange = {onChangeHashtag} style={{width : "100%"}}/>
-        </div>
-        <div>
-            <label htmlFor='Content'>내용</label>
-            <TextArea onChange = {onChangeContent} style={{width : "100%" ,height : "700px"}}/>
-        </div>
-        <ButtonWrapper>
-            <LoginButton type="primary"
-                htmlType="submit"
-                loading={false}>등록</LoginButton>
-        </ButtonWrapper>
-    </FormWrapper>
+    const onSubmitForm = useCallback(() => {
+        console.log(title);
+        console.log(category);
+        console.log(hashTag);
+        console.log(content);
+        dispatch(addPost,{title,category,hashTag,content});
+    }, [title,category,hashTag,content]);
+
+    const handleTeacherChange = useCallback((value)=>{
+        setCategory(value);
+    },[category])
+
+    return (
+        <FormWrapper onFinish={onSubmitForm}>
+            <div>
+                <label htmlFor='title'>제목</label>
+                <br />
+                <TextArea value= {title} onChange={onChangeTitle} style={{ width: "100%" }} />
+            </div>
+            <div>
+                <label htmlFor='belong'>카테고리</label>
+                <br />
+                <Select  style={{ width: "100%" }}  onChange={handleTeacherChange}>
+                    <Select.Option value="JavaScript">JavaScript</Select.Option>
+                    <Select.Option value="React">React</Select.Option>
+                </Select>
+            </div>
+            <div>
+                <label htmlFor='hashtag'>해시태그</label>
+                <br />
+                <TextArea value= {hashTag} onChange={onChangeHashtag} style={{ width: "100%" }} />
+            </div>
+            <div>
+                <label htmlFor='Content'>내용</label>
+                <TextArea value= {content} onChange={onChangeContent} style={{ width: "100%", height: "700px" }} />
+            </div>
+            <ButtonWrapper>
+                <LoginButton type="primary"
+                    htmlType="submit"
+                    loading={addPostLoading}>등록</LoginButton>
+            </ButtonWrapper>
+        </FormWrapper>
     );
 }
 
