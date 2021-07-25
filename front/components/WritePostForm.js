@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
 import { Button, Form, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from "../reducers/post";
+import { addPost, ADD_POST_REQUEST } from "../reducers/post";
+import Router from 'next/router';
 const LoginButton = styled(Button)`
+
 
 margin-right : 10px;
 `;
@@ -18,19 +20,30 @@ padding : 10px;
 
 const WritePostForm = () => {
     const dispatch = useDispatch();
-    const { addPostLoading } = useSelector((state) => state.post);
+    const { addPostLoading,addPostDone } = useSelector((state) => state.post);
     const [title, onChangeTitle] = useInput('');
     const [category, setCategory] = useState('');
     const [content, onChangeContent] = useInput('');
     const [hashTag, onChangeHashtag] = useInput('');
     const { TextArea } = Input;
 
+
     const onSubmitForm = useCallback(() => {
-        console.log(title);
-        console.log(category);
-        console.log(hashTag);
-        console.log(content);
-        dispatch(addPost,{title,category,hashTag,content});
+        const hashTagSplit = [];
+        hashTag.split(/(#[^\s#]+)/g).map((v)=>{
+            if(v.match(/(#[^\s#]+)/)){
+                hashTagSplit.push(v);
+            }
+        })
+        dispatch({
+            type : ADD_POST_REQUEST,
+            data : {
+                title, category, hashTagSplit, content,
+            }
+        })
+        setTimeout(()=>{ //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
+            Router.push('/');
+        },1000 );
     }, [title,category,hashTag,content]);
 
     const handleTeacherChange = useCallback((value)=>{

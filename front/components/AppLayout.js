@@ -53,10 +53,13 @@ const AppLayout = ({ children }) => {
                     </MyCard>
                     <Menu style = {{width : "256"}}  mode = "inline" >
                         <Menu.Item key="1">
-                            <a href = "/JavaScript">JavaScript</a>
+                            <a href = "/category/JavaScript">JavaScript</a>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <div>메뉴추가하고 링크달 예정</div>
+                            <a href = "/category/React">React</a>
+                        </Menu.Item>
+                        <Menu.Item key="3">
+                            <a href = "/category/TypeScript">TypeScript</a>
                         </Menu.Item>
                     </Menu>
                 </Col>

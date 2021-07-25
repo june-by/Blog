@@ -1,13 +1,19 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import AppLayout from "../components/AppLayout";
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import PostCard from '../components/PostCard';
-
+import {LOAD_POSTS_REQUEST} from '../reducers/post';
 
 
 const Home = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({
+          type: LOAD_POSTS_REQUEST,
+        });
+      }, []);
+
     const {Posts} = useSelector((state)=>(state.post));
-    console.log(Posts.length);
     return(
         <AppLayout>
             {Posts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}
