@@ -7,5 +7,5 @@ export default (initialValue = null) => {
     const handler = useCallback((e) => { //Component의 props로 넘겨주는 함수를 usecallback사용!
         setValue(e.target.value);
     }, []);
-    return [value,handler];
+    return [value,handler,setValue];
 }
