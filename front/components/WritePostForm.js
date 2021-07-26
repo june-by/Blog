@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useInput from '../hooks/useInput';
-import styled, {createGlobalStyle} from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Button, Form, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost, ADD_POST_REQUEST } from "../reducers/post";
@@ -31,6 +31,8 @@ margin-top : 10px;
 const FormWrapper = styled(Form)`
 padding : 10px;
 `;
+
+
 
 const WritePostForm = () => {
     const dispatch = useDispatch();
@@ -67,9 +69,9 @@ const WritePostForm = () => {
         const data = editor.getData();
         setContent(data);
     }
-    
+
     return (
-       
+
         <FormWrapper onFinish={onSubmitForm}>
             <Global />
             <div>
@@ -90,8 +92,22 @@ const WritePostForm = () => {
                 <br />
                 <TextArea value={hashTag} onChange={onChangeHashtag} style={{ width: "100%" }} />
             </div>
-            
-            <CKEditor style = {{marginTop : "10px"}}editor={ClassicEditor} data="<p>내용</p>" onChange={onChangeCKEditor}></CKEditor>
+            <div>
+                <label htmlFor='content'>내용</label>
+                <br />
+                <CKEditor editor={ClassicEditor}
+                    data="<p></p>"
+                    onChange={onChangeCKEditor}
+                    config = {
+                        {
+                            ckfinder : {
+                                uploadUrl : "http://localhost:3085/uploads"
+                            }
+                        }
+                    }
+                    style={{ marginTop: "10px" }}>     
+                </CKEditor>
+            </div>
             <ButtonWrapper>
                 <LoginButton type="primary"
                     htmlType="submit"
