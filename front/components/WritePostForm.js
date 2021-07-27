@@ -45,6 +45,7 @@ const WritePostForm = () => {
 
 
     const onSubmitForm = useCallback(() => {
+
         const hashTagSplit = [];
         hashTag.split(/(#[^\s#]+)/g).map((v) => {
             if (v.match(/(#[^\s#]+)/)) {

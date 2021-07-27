@@ -6,12 +6,12 @@ import {LOAD_POSTS_REQUEST} from '../reducers/post';
 
 
 const Home = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({
-          type: LOAD_POSTS_REQUEST,
-        });
-      }, []);
+    //const dispatch = useDispatch();
+    //useEffect(() => {
+        //dispatch({
+          //type: LOAD_POSTS_REQUEST,
+        //});
+      //}, []);
 
     const {Posts} = useSelector((state)=>(state.post));
     return(

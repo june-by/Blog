@@ -1,4 +1,4 @@
-import { all, fork, delay, takeLatest, put } from 'redux-saga/effects';
+import { all, fork, delay, takeLatest, put , call} from 'redux-saga/effects';
 import axios from 'axios'
 
 import {
@@ -17,26 +17,28 @@ import {
     REMOVE_POST_SUCCESS,
 } from '../reducers/post';
 
+
 function addPostAPI(data) {
-    return axios.post('/api/post', data);
+    console.log("axios 호출");
+    return axios.post('/post', data);
 }
 
 function* addPost(action) {
+    console.log("add post");
     try {
-        yield delay(1000);
-        //const result = yield call(logInAPI,action.data)
-
+        const result = yield call(addPostAPI,action.data)
         yield put({ //put은 dispatch라고 생각
             type: ADD_POST_SUCCESS,
-            data : action.data,
+            data : result.data,
             //data : result.data //성공결과가 담긴다
         })
     } catch (error) {
-        yield put({
-            type: ADD_POST_FAILURE,
-            data: error.response.data //실패결과가 담긴다
-        })
-    }
+        console.log(error.response);
+            yield put({
+                type: ADD_POST_FAILURE,
+                error: error.response //실패결과가 담긴다
+            })
+        }
 
 }
 
@@ -90,7 +92,6 @@ function loadPostsAPI(data) {
 function* loadPosts(action) {
     try {
         yield delay(1000);
-        console.log("watch");
         //const result = yield call(logInAPI,action.data)
         yield put({ //put은 dispatch라고 생각
             type: LOAD_POSTS_SUCCESS,
@@ -106,6 +107,7 @@ function* loadPosts(action) {
 }
 
 function* watchAddPost() {
+    console.log("watch add post");
     yield takeLatest(ADD_POST_REQUEST, addPost);
 } //eventlistner와 비슷
 

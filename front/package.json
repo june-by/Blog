@@ -16,6 +16,7 @@
     "antd": "^4.16.8",
     "axios": "^0.21.1",
     "faker": "^5.5.3",
+    "html-react-parser": "^1.2.7",
     "immer": "^9.0.5",
     "next": "^9.5.5",
     "next-redux-wrapper": "^6.0.2",
