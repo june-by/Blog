@@ -107,7 +107,6 @@ function* loadPosts(action) {
 }
 
 function* watchAddPost() {
-    console.log("watch add post");
     yield takeLatest(ADD_POST_REQUEST, addPost);
 } //eventlistner와 비슷
 

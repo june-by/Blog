@@ -1,19 +1,46 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const morgan = require('morgan');
+const session = require('express-session');
 const multiparty = require('connect-multiparty');
 const cors = require('cors');
-const postRouter = require('./routes/post');
 const fs = require('fs');
 const { v4 } = require('uuid');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
 const path = require('path');
+const db = require('./models');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const multipartyMiddelware = multiparty({ uploadDir: './images' });
+const passportConfig = require('./passport');
+
 const app = express();
+
+db.sequelize.sync()
+    .then(()=>{
+        console.log("db연결 성공");
+    })
+    .catch((err)=>{
+        console.error(err);
+    })
+
+
+passportConfig();
 app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret : process.env.COOKIE_SECRET,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
     res.send("ㅎㅇ");

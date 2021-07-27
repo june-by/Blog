@@ -1,13 +1,18 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu, Row, Col, Card, Calendar, Tag, Divider } from 'antd';
+import { Menu, Row, Col, Card, Calendar, Tag, Divider,Button } from 'antd';
 import styled from "styled-components";
-import {useForm} from 'react-hook-form';
-import {useSelector} from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { LOG_OUT_REQUEST } from '../reducers/user';
+import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
 
 const MyCard = styled(Card)`
     width : 300;
+`;
+
+const changeNicknameButton = styled(Button)`
+    margin-left : 15px;
 `;
 
 const MainTitle = styled.a`
@@ -26,10 +31,19 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 const AppLayout = ({ children }) => {
+    const { me,logOutLoading } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const onLogout = useCallback(() => {
+      dispatch({
+        type: LOG_OUT_REQUEST,
+      });
+    }, []);
+
     return (
         <div>
-            <div style = {{textAlign : "center" ,borderBottom : "0.7px solid gray"}}>
-            <Link href = "/"><MainTitle>By_juun Blog</MainTitle></Link>
+            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
+                <Link href="/"><MainTitle>By_juun Blog</MainTitle></Link>
             </div>
             <Menu mode="horizontal">
                 <Menu.Item>
@@ -41,32 +55,56 @@ const AppLayout = ({ children }) => {
                 <Menu.Item>
                     <Link href="/introduction"><a>블로그소개</a></Link>
                 </Menu.Item>
+                {me
+                    ? null
+                    :
+                    <Menu.Item>
+                        <Link href="/login"><a>로그인</a></Link>
+                    </Menu.Item>}
+
                 <Menu.Item>
-                    <Link href="/Write"><a>글쓰기</a></Link>
+                    <Link href="/login"><RiKakaoTalkFill /></Link>
                 </Menu.Item>
+                <Menu.Item>
+                    <Link href="/login"><RiFacebookBoxFill /></Link>
+                </Menu.Item>
+                <Menu.Item>
+                    <Link href="/login"><RiGoogleFill /></Link>
+                </Menu.Item>
+                {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
+                {me && me.nickname === 'By_juun' && <Menu.Item>
+                    <Link href="/Write"><a>글쓰기</a></Link>
+                </Menu.Item>}
+
             </Menu>
             <Row gutter={8}>
-                <Col xs={24} sm = {6} md={4}> {/* 24등분 xs 모바일 md 데스크탑*/}
-                    <MyCard>
-                        <p>오늘 방문자 10</p>
-                        <p>총 방문자 1000</p>
-                    </MyCard>
-                    <Menu style = {{width : "256"}}  mode = "inline" >
+                <Col xs={24} sm={6} md={4}> {/* 24등분 xs 모바일 md 데스크탑*/}
+                    {me &&
+                        <div>
+                            <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
+                            <div style = {{marginTop : "15px"}}>
+                            <Button onClick={onLogout} loading={logOutLoading}>로그아웃</Button>
+                            <Button  style = {{marginLeft : "10px"}}onClick={onLogout} loading={logOutLoading}>닉네임변경</Button>
+                            </div>
+                            </Card>
+                        </div>
+                    }
+                    <Menu style={{ width: "256" }} mode="inline" >
                         <Menu.Item key="1">
-                            <a href = "/category/JavaScript">JavaScript</a>
+                            <a href="/category/JavaScript">JavaScript</a>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <a href = "/category/React">React</a>
+                            <a href="/category/React">React</a>
                         </Menu.Item>
                         <Menu.Item key="3">
-                            <a href = "/category/TypeScript">TypeScript</a>
+                            <a href="/category/TypeScript">TypeScript</a>
                         </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={24} sm = {18} md={14}>
+                <Col xs={24} sm={18} md={14}>
                     {children}
                 </Col>
-                <Col xs={0} sm = {0} md={6}>
+                <Col xs={0} sm={0} md={6}>
                     <Calendar fullscreen={false} />
                     <Divider orientation="center">Tag</Divider>
                     <TagWrapper>
