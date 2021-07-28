@@ -1,7 +1,11 @@
-import { all, delay, fork, put, takeLatest, call } from 'redux-saga/effects';
+import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
+  KAKAO_LOG_IN_REQUEST,
+  LOAD_MY_INFO_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -13,13 +17,26 @@ import {
   SIGN_UP_SUCCESS,
 } from '../reducers/user';
 
+
+function kakaologInAPI() {
+  return axios.get('/user/kakao');
+}
+
+
+function* kakaologIn() {
+  try {
+    yield call(kakaologInAPI);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 function logInAPI(data) {
   return axios.post('/user/login', data);
 }
 
 function* logIn(action) {
   try {
-    console.log('saga logIn');
     const result = yield call(logInAPI,action.data);
     yield put({
       type: LOG_IN_SUCCESS,
@@ -35,7 +52,7 @@ function* logIn(action) {
 }
 
 function logOutAPI() {
-  return axios.post('/user/logout');
+  return axios.get('/user/logout');
 }
 
 function* logOut() {
@@ -74,6 +91,30 @@ function* signUp(action) {
   }
 }
 
+function loadUserAPI() {
+  return axios.get('/user');
+}
+
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI);
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchKaKaoLogIn() {
+  yield takeLatest(KAKAO_LOG_IN_REQUEST, kakaologIn);
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -86,10 +127,16 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+function* watchLoadUser() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadUser);
+}
+
 export default function* userSaga() {
   yield all([
+    fork(watchLoadUser),
+    fork(watchSignUp),
+    fork(watchKaKaoLogIn),
     fork(watchLogIn),
     fork(watchLogOut),
-    fork(watchSignUp),
   ]);
 }

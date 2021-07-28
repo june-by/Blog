@@ -5,7 +5,7 @@ module.exports={
   "development": {
     "username": "root",
     "password": process.env.DB_PASSWORD,
-    "database": "byjuun-com",
+    "database": "Byjuun.com",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

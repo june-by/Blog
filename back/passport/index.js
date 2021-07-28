@@ -1,6 +1,7 @@
 const passport = require('passport');
 const local = require('./local');
 const {User} = require('../models');
+const kakao = require('./kakao');
 module.exports = () => {
     passport.serializeUser((user, done) => {
         done(null,user.id); //서버에는 userid만 들고 있는다
@@ -14,6 +15,6 @@ module.exports = () => {
             console.error(error);
         }
     });
-
     local();
+    kakao();
 }

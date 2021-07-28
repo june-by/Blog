@@ -27,7 +27,11 @@ db.sequelize.sync()
 
 
 passportConfig();
-app.use(cors());
+app.use(cors({
+    origin : true,
+    credentials :true , //이걸 해줘야 cookie도 같이 보낼 수 있다.
+}));
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));

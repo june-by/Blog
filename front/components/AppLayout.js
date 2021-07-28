@@ -1,11 +1,12 @@
-import React,{useCallback} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu, Row, Col, Card, Calendar, Tag, Divider,Button } from 'antd';
+import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button } from 'antd';
 import styled from "styled-components";
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
+
 
 const MyCard = styled(Card)`
     width : 300;
@@ -31,14 +32,17 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 const AppLayout = ({ children }) => {
-    const { me,logOutLoading } = useSelector((state) => state.user);
+    const { me, logOutLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onLogout = useCallback(() => {
-      dispatch({
-        type: LOG_OUT_REQUEST,
-      });
+        dispatch({
+            type: LOG_OUT_REQUEST,
+        });
     }, []);
+
+
+    
 
     return (
         <div>
@@ -63,7 +67,7 @@ const AppLayout = ({ children }) => {
                     </Menu.Item>}
 
                 <Menu.Item>
-                    <Link href="/login"><RiKakaoTalkFill /></Link>
+                    <Link href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /></Link>
                 </Menu.Item>
                 <Menu.Item>
                     <Link href="/login"><RiFacebookBoxFill /></Link>
@@ -82,10 +86,10 @@ const AppLayout = ({ children }) => {
                     {me &&
                         <div>
                             <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
-                            <div style = {{marginTop : "15px"}}>
-                            <Button onClick={onLogout} loading={logOutLoading}>로그아웃</Button>
-                            <Button  style = {{marginLeft : "10px"}}onClick={onLogout} loading={logOutLoading}>닉네임변경</Button>
-                            </div>
+                                <div style={{ marginTop: "15px" }}>
+                                    <Button onClick={onLogout} loading={logOutLoading}>로그아웃</Button>
+                                    <Button style={{ marginLeft: "10px" }} onClick={onLogout} loading={logOutLoading}>닉네임변경</Button>
+                                </div>
                             </Card>
                         </div>
                     }

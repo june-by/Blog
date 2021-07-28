@@ -4,7 +4,30 @@ const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const passport = require('passport');
 
-router.post('/signup', async(req,res,next)=>{
+router.get('/',async(req,res,next)=>{
+    try{
+        if(req.user) //새로고침해도 로그인 유지되도록
+        {
+            const user = await User.findOne({
+                where : {id : req.user.id}
+            });
+            const fullUserWithoutPassword = await User.findOne({
+                where : {id : user.id},
+                attributes : {
+                    exclude : ['password']
+                },
+            });
+            return res.status(200).json(fullUserWithoutPassword);
+        }else {
+            res.status(200).json(null);
+        }
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+})
+
+router.post('/signup', async (req, res, next) => {
     try { //await하는애들은 비동기니까 try catch로 감싸기
         const exUser = await User.findOne({ //ID가 같은사람이 있는지 검사
             where: {
@@ -20,7 +43,7 @@ router.post('/signup', async(req,res,next)=>{
                 nickname: req.body.nickname,
             }
         })
-        if(exUser2) {
+        if (exUser2) {
             return res.status(403).send('이미 사용 중인 닉네임 입니다');
         }
 
@@ -37,38 +60,43 @@ router.post('/signup', async(req,res,next)=>{
     }
 });
 
-router.post('/login',(req,res,next)=>{
-    passport.authenticate('local',(err,user,info)=>{
-        if(err){
-            console.error(error);
-            return next(error);
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.error(err);
+            return next(err);
         }
-        if(info){
+        if (info) {
             return res.status(401).send(info.reason);
         }
-        return req.login(user, async(loginErr) => {
+        return req.login(user, async (loginErr) => {
             if (loginErr) {
-              console.error(loginErr);
-              return next(loginErr);
+                console.error(loginErr);
+                return next(loginErr);
             }
             const fullUserWithoutPassword = await User.findOne({
-                where : {id : user.id},
-                attributes : {
-                    exclude : ['password']
+                where: { id: user.id },
+                attributes: {
+                    exclude: ['password']
                 },
             });
             return res.status(200).json(fullUserWithoutPassword);
-          });
-    })(req,res,next);
+        });
+    })(req, res, next);
 })
 
-router.get('/logout',(req,res,next)=>{
+router.get('/logout', (req, res, next) => {
     req.logout();
     req.session.destroy();
     res.send('ok');
 })
 
+router.get('/kakao', passport.authenticate('kakao'));
 
-
-module.exports = router; 
+router.get('/kakao/callback', passport.authenticate('kakao', {
+    failureRedirect: 'http://localhost:3000',
+}), (req, res) => {
+   return res.redirect("http://localhost:3000")
+});
+module.exports = router;
 
