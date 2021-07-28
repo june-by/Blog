@@ -70,7 +70,7 @@ const AppLayout = ({ children }) => {
                     <Link href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /></Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Link href="/login"><RiFacebookBoxFill /></Link>
+                    <Link href = "http://localhost:3085/user/facebook"><RiFacebookBoxFill /></Link>
                 </Menu.Item>
                 <Menu.Item>
                     <Link href="/login"><RiGoogleFill /></Link>

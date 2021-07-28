@@ -112,7 +112,7 @@ const Signup = () => {
         <div style={{ marginTop: 10 }}>
           <Button type="primary" htmlType="submit" loading={signUploading}>가입하기</Button>
           <Button2 href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /> 카카오 로그인</Button2>
-          <Button2> <RiFacebookBoxFill /> 페이스북 로그인</Button2>
+          <Button2 href = "http://localhost:3085/user/facebook"> <RiFacebookBoxFill /> 페이스북 로그인</Button2>
           <Button2> <RiGoogleFill /> 구글 로그인</Button2>
         </div>
       </Form>

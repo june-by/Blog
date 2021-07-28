@@ -70,7 +70,7 @@ const LoginForm = () => {
       </FormWrapper>
       <div style = {{margin : "10px"}}>
         <Button href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill />카카오 로그인</Button>
-        <Button2> <RiFacebookBoxFill />페이스북 로그인</Button2>
+        <Button2 href = "http://localhost:3085/user/facebook"> <RiFacebookBoxFill />페이스북 로그인</Button2>
         <Button2> < RiGoogleFill/>구글 로그인</Button2>
       </div>
     </>

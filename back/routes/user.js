@@ -98,5 +98,14 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 }), (req, res) => {
    return res.redirect("http://localhost:3000")
 });
+
+router.get('/facebook', passport.authenticate('facebook'));
+
+router.get('/facebook/callback', passport.authenticate('facebook', {
+    failureRedirect: 'http://localhost:3000',
+}), (req, res) => {
+   return res.redirect("http://localhost:3000")
+});
+
 module.exports = router;
 
