@@ -12,10 +12,6 @@ const MyCard = styled(Card)`
     width : 300;
 `;
 
-const changeNicknameButton = styled(Button)`
-    margin-left : 15px;
-`;
-
 const MainTitle = styled.a`
     font-size: 45px;
     padding-left: 25px;
@@ -31,8 +27,10 @@ const TagWrapper = styled.div`
 const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
+
+
 const AppLayout = ({ children }) => {
-    const { me, logOutLoading } = useSelector((state) => state.user);
+    const { me, logOutLoading} = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onLogout = useCallback(() => {
@@ -41,8 +39,6 @@ const AppLayout = ({ children }) => {
         });
     }, []);
 
-
-    
 
     return (
         <div>
@@ -88,7 +84,7 @@ const AppLayout = ({ children }) => {
                             <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
                                 <div style={{ marginTop: "15px" }}>
                                     <Button onClick={onLogout} loading={logOutLoading}>로그아웃</Button>
-                                    <Button style={{ marginLeft: "10px" }} onClick={onLogout} loading={logOutLoading}>닉네임변경</Button>
+                                    <Button style={{ marginLeft: "10px" }} href = "/changeNickname" >닉네임변경</Button>
                                 </div>
                             </Card>
                         </div>

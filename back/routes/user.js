@@ -107,5 +107,24 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
    return res.redirect("http://localhost:3000")
 });
 
+router.patch('/changeNickname', async(req,res,next)=>{
+    if(!req.user){
+        return res.status(403).send('로그인이 되어 있지 않습니다');
+    }
+    try{
+        await User.update({
+            nickname : req.body.nickname
+        }, 
+            {
+                where : { id : req.user.id }
+            }
+        );
+        return res.status(201).json(req.user);
+    }catch(err){
+        console.error(err);
+        next(err);
+    }
+})
+
 module.exports = router;
 

@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/signup": [
+    "/changeNickname": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/signup.js"
+      "static/chunks/pages/changeNickname.js"
     ]
   },
   "ampFirstPages": []
