@@ -18,18 +18,18 @@ const passportConfig = require('./passport');
 const app = express();
 
 db.sequelize.sync()
-    .then(()=>{
+    .then(() => {
         console.log("db연결 성공");
     })
-    .catch((err)=>{
+    .catch((err) => {
         console.error(err);
     })
 
 
 passportConfig();
 app.use(cors({
-    origin : true,
-    credentials :true , //이걸 해줘야 cookie도 같이 보낼 수 있다.
+    origin: true,
+    credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
 
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -38,7 +38,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret : process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,25 +52,29 @@ app.get('/', (req, res) => {
 
 //이거 나중에 multer이용해서 받은거 디비에 저장하고... 그러고 게시물이랑 해줘야할듯?.....
 //multer수업듣고나서 합시다.
+//req.file.path에 /image/제목.jpeg 이런식으로 들어가있는데?
 app.post('/uploads', multipartyMiddelware, (req, res) => {
-    //const orifilepath = req.files.upload.path;
-    //const orifilename = req.files.upload.name;
-    //const srvfilename = v4() + path.extname(orifilename);
-    //fs.readFile(orifilepath, function (err, data) {
-      //  var newPath = __dirname + '/../public/uploads/' + srvfilename;
-        //fs.writeFile(newPath, data, function (err) {
-          //  if (err) console.log({ err: err });
-            //else {
-              //  const html = "{\"filename\" : \"" + orifilename + "\", \"uploaded\" : 1, \"url\": \"/uploads/" + srvfilename + "\"}"
-                //console.log(html)
-                //res.send(html);
-            //}
-        //});
-    //});
+    console.log("req.files");
+    console.log(req.files);
+    console.log("end");
+    const orifilepath = req.files.upload.path;
+    const orifilename = req.files.upload.name;
+    const srvfilename = v4() + path.extname(orifilename);
+    fs.readFile(orifilepath, function (err, data) {
+        var newPath = __dirname + '/../public/uploads/' + srvfilename;
+        fs.writeFile(newPath, data, function (err) {
+            if (err) console.log({ err: err });
+            else {
+                const html = "{\"filename\" : \"" + orifilename + "\", \"uploaded\" : 1, \"url\": \"/uploads/" + srvfilename + "\"}"
+                console.log(html)
+                res.send(html);
+            }
+        });
+    });
     console.log(req.files.upload);
-    //console.log(orifilepath);
-    //console.log(orifilename);
-    //console.log(srvfilename);
+    console.log( "orifilepath" + orifilepath);
+    console.log("orifilename"+orifilename);
+    console.log("srvfilename" + srvfilename);
 })
 
 app.listen(3085, () => {
