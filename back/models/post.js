@@ -1,8 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
     const Post = sequelize.define('Post',{
+        title: {
+            type: DataTypes.STRING(30),
+            allowNull: false, //필수
+        },
         content : {
             type : DataTypes.TEXT,
             allowNull : false,
+        },
+        category: {
+            type: DataTypes.STRING(30),
+            allowNull: false, //필수
+        },
+        hashTag: {
+            type: DataTypes.STRING(30),
+            allowNull: false, //필수
         },
     },{
         charset : 'utf8mb4',

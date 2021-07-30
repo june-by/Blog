@@ -42,7 +42,7 @@ const AppLayout = ({ children }) => {
 
     return (
         <div>
-            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
+            <div styl   e={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
                 <Link href="/"><MainTitle>By_juun Blog</MainTitle></Link>
             </div>
             <Menu mode="horizontal">
@@ -78,7 +78,7 @@ const AppLayout = ({ children }) => {
 
             </Menu>
             <Row gutter={8}>
-                <Col xs={24} sm={6} md={4}> {/* 24등분 xs 모바일 md 데스크탑*/}
+                <Col xs={24} sm={6} md={6}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me &&
                         <div>
                             <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
@@ -101,7 +101,7 @@ const AppLayout = ({ children }) => {
                         </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={24} sm={18} md={14}>
+                <Col xs={24} sm={18} md={12}>
                     {children}
                 </Col>
                 <Col xs={0} sm={0} md={6}>

@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const db = require('./models');
 const postRouter = require('./routes/post');
+const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const multipartyMiddelware = multiparty({ uploadDir: './images' });
 const passportConfig = require('./passport');
@@ -44,6 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/post', postRouter);
+app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
@@ -53,28 +55,21 @@ app.get('/', (req, res) => {
 //이거 나중에 multer이용해서 받은거 디비에 저장하고... 그러고 게시물이랑 해줘야할듯?.....
 //multer수업듣고나서 합시다.
 //req.file.path에 /image/제목.jpeg 이런식으로 들어가있는데?
+app.use('/',express.static(path.join(__dirname,'uploads')));
 app.post('/uploads', multipartyMiddelware, (req, res) => {
-    console.log("req.files");
-    console.log(req.files);
-    console.log("end");
-    const orifilepath = req.files.upload.path;
-    const orifilename = req.files.upload.name;
-    const srvfilename = v4() + path.extname(orifilename);
-    fs.readFile(orifilepath, function (err, data) {
-        var newPath = __dirname + '/../public/uploads/' + srvfilename;
-        fs.writeFile(newPath, data, function (err) {
-            if (err) console.log({ err: err });
-            else {
-                const html = "{\"filename\" : \"" + orifilename + "\", \"uploaded\" : 1, \"url\": \"/uploads/" + srvfilename + "\"}"
-                console.log(html)
-                res.send(html);
-            }
+    console.log("req files : ", req.files);
+    const  TempFile = req.files.upload;
+    const TempPathfile = TempFile.path;
+    const targetPathUrl = path.join(__dirname,"./uploads/"+TempFile.name);
+
+    fs.rename(TempPathfile,targetPathUrl,err=>{
+        res.status(200).json({
+            uploaded : true,
+            url : "http://localhost:3085/"+TempFile.name
         });
+
+        if(err) return console.err(err);
     });
-    console.log(req.files.upload);
-    console.log( "orifilepath" + orifilepath);
-    console.log("orifilename"+orifilename);
-    console.log("srvfilename" + srvfilename);
 })
 
 app.listen(3085, () => {

@@ -8,7 +8,6 @@ import {
     ADD_POST_FAILURE,
     ADD_POST_REQUEST,
     ADD_POST_SUCCESS,
-    generateDummyPost,
     LOAD_POSTS_FAILURE,
     LOAD_POSTS_REQUEST,
     LOAD_POSTS_SUCCESS,
@@ -19,7 +18,6 @@ import {
 
 
 function addPostAPI(data) {
-    console.log("axios 호출");
     return axios.post('/post', data);
 }
 
@@ -27,7 +25,10 @@ function* addPost(action) {
     console.log("add post");
     try {
         const result = yield call(addPostAPI,action.data)
+        console.log("결과");
+        console.log(result.data);
         yield put({ //put은 dispatch라고 생각
+            
             type: ADD_POST_SUCCESS,
             data : result.data,
             //data : result.data //성공결과가 담긴다
@@ -85,18 +86,17 @@ function* updatePost(action) {
     }
 }
 
-function loadPostsAPI(data) {
-    return axios.post('/api/post', data);
+function loadPostsAPI() {
+    return axios.get('/posts/load');
 }
 
 function* loadPosts(action) {
     try {
-        yield delay(1000);
-        //const result = yield call(logInAPI,action.data)
+        const result = yield call(loadPostsAPI)
         yield put({ //put은 dispatch라고 생각
             type: LOAD_POSTS_SUCCESS,
             //data : result.data //성공결과가 담긴다
-            data : generateDummyPost(10),
+            data : result.data,
         })
     } catch (error) {
         yield put({

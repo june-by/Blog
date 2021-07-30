@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@ckeditor/ckeditor5-build-classic": "^29.0.0",
+    "@ckeditor/ckeditor5-image": "^29.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.2",
     "@ckeditor/ckeditor5-upload": "^29.0.0",
     "antd": "^4.16.8",

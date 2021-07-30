@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+
 export const Global = createGlobalStyle`
     .ck.ck-reset, .ck.ck-reset_all, .ck.ck-reset_all *{
         margintop : 15px;
@@ -45,17 +46,10 @@ const WritePostForm = () => {
 
 
     const onSubmitForm = useCallback(() => {
-
-        const hashTagSplit = [];
-        hashTag.split(/(#[^\s#]+)/g).map((v) => {
-            if (v.match(/(#[^\s#]+)/)) {
-                hashTagSplit.push(v);
-            }
-        })
         dispatch({
             type: ADD_POST_REQUEST,
             data: {
-                title, category, hashTagSplit, content,
+                title, category, hashTag, content,
             }
         })
         setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
@@ -100,12 +94,13 @@ const WritePostForm = () => {
                     data="<p></p>"
                     onChange={onChangeCKEditor}
                     config = {
-                        {
+                        {   
                             ckfinder : {
                                 uploadUrl : "http://localhost:3085/uploads"
-                            }
+                            },
                         }
                     }
+                    
                     style={{ marginTop: "10px" }}>     
                 </CKEditor>
             </div>
