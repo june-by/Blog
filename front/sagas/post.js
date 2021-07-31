@@ -11,6 +11,12 @@ import {
     LOAD_POSTS_FAILURE,
     LOAD_POSTS_REQUEST,
     LOAD_POSTS_SUCCESS,
+    LOAD_CATEGORYPOSTS_FAILURE,
+    LOAD_CATEGORYPOSTS_REQUEST,
+    LOAD_CATEGORYPOSTS_SUCCESS,
+    LOAD_CURPOST_FAILURE,
+    LOAD_CURPOST_REQUEST,
+    LOAD_CURPOST_SUCCESS,
     REMOVE_POST_FAILURE,
     REMOVE_POST_REQUEST,
     REMOVE_POST_SUCCESS,
@@ -106,6 +112,47 @@ function* loadPosts(action) {
     }
 }
 
+
+function loadCategorypostsAPI(data) {
+    return axios.get(`/posts/load/${data}`);
+}
+
+function* loadCategoryposts(action) {
+    try {
+        const result = yield call(loadCategorypostsAPI,action.data)
+        yield put({ //put은 dispatch라고 생각
+            type: LOAD_CATEGORYPOSTS_SUCCESS,
+            //data : result.data //성공결과가 담긴다
+            data : result.data,
+        })
+    } catch (error) {
+        yield put({
+            type: LOAD_CATEGORYPOSTS_FAILURE,
+            data: error.response.data //실패결과가 담긴다
+        })
+    }
+}
+
+function loadCurpostAPI(data) {
+    return axios.get(`/post/load/${data}`);
+}
+
+function* loadCurpost(action) {
+    try {
+        const result = yield call(loadCurpostAPI,action.data)
+        yield put({ //put은 dispatch라고 생각
+            type: LOAD_CURPOST_SUCCESS,
+            //data : result.data //성공결과가 담긴다
+            data : result.data,
+        })
+    } catch (error) {
+        yield put({
+            type: LOAD_CURPOST_FAILURE,
+            data: error.response.data //실패결과가 담긴다
+        })
+    }
+}
+
 function* watchAddPost() {
     yield takeLatest(ADD_POST_REQUEST, addPost);
 } //eventlistner와 비슷
@@ -122,11 +169,21 @@ function* watchLoadPost() {
     yield takeLatest(LOAD_POSTS_REQUEST, loadPosts);
 } //eventlistner와 비슷
 
+function* watchLoadCurpost() {
+    yield takeLatest(LOAD_CURPOST_REQUEST, loadCurpost);
+} //eventlistner와 비슷
+
+function* watchLoadCatoryposts() {
+    yield takeLatest(LOAD_CATEGORYPOSTS_REQUEST, loadCategoryposts);
+} //eventlistner와 비슷
+
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
         fork(watchRemovePost),
         fork(watchUpdatePost),
         fork(watchLoadPost),
+        fork(watchLoadCurpost),
+        fork(watchLoadCatoryposts),
     ])
 }

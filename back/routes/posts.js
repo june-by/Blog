@@ -18,4 +18,21 @@ router.get('/load',async(req,res,next)=>{ //loadpost
     }
 })
 
+router.get('/load/:category',async(req,res,next)=>{
+    try{
+        const posts = await Post.findAll({
+            where : {category : req.params.category},
+            limit : 10,
+            order : [
+                ['createdAt','DESC'],
+            ]
+            
+        })
+        res.status(200).json(posts);
+    }catch(err){
+        console.error(err);
+        next(err);
+    }
+})
+
 module.exports = router; 

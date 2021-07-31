@@ -2,11 +2,17 @@ import shortId from 'shortid';
 import faker from 'faker';
 import produce from '../util/produce';
 export const initialState = {
-    Posts:[],
+    Posts: [],
     currentPost: null,
     loadPostsLoading: false,
     loadPostsDone: false,
     loadPostsError: null,
+    loadCategorypostsLoading: false,
+    loadCategorypostsDone: false,
+    loadCategorypostsError: null,
+    loadCurpostLoading: false,
+    loadCurpostDone: false,
+    loadCurpostError: null,
     addPostLoading: false,
     addPostDone: false,
     addPostError: null,
@@ -17,6 +23,14 @@ export const initialState = {
     updatePostDone: false,
     updatePostError: null,
 }
+
+export const LOAD_CURPOST_REQUEST = 'LOAD_CURPOST_REQUEST';
+export const LOAD_CURPOST_SUCCESS = 'LOAD_CURPOST_SUCCESS';
+export const LOAD_CURPOST_FAILURE = 'LOAD_CURPOST_FAILURE';
+
+export const LOAD_CATEGORYPOSTS_REQUEST = 'LOAD_CATEGORYPOSTS_REQUEST';
+export const LOAD_CATEGORYPOSTS_SUCCESS = 'LOAD_CATEGORYPOSTS_SUCCESS';
+export const LOAD_CATEGORYPOSTS_FAILURE = 'LOAD_CATEGORYPOSTS_FAILURE';
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
@@ -45,13 +59,13 @@ const reducer = (state = initialState, action) =>
                 draft.addPostError = false;
                 break;
             case ADD_POST_SUCCESS:
-                draft.addPostLoading= false;
-                draft.addPostDone= true;
+                draft.addPostLoading = false;
+                draft.addPostDone = true;
                 draft.Posts.unshift(action.data);
                 break;
             case ADD_POST_FAILURE:
-                draft.addPostLoading= false;
-                draft.addPostError= action.error;
+                draft.addPostLoading = false;
+                draft.addPostError = action.error;
                 break;
             case REMOVE_POST_REQUEST:
                 draft.removePostLoading = true;
@@ -61,11 +75,11 @@ const reducer = (state = initialState, action) =>
             case REMOVE_POST_SUCCESS:
                 draft.removePostLoading = false;
                 draft.removePostDone = true;
-                draft.Posts = draft.Posts.filter((v)=>v.id!==action.data);
+                draft.Posts = draft.Posts.filter((v) => v.id !== action.data);
                 break;
             case REMOVE_POST_FAILURE:
-                draft.removePostLoading= false;
-                draft.removePostError= action.error;
+                draft.removePostLoading = false;
+                draft.removePostError = action.error;
                 break;
 
             case UPDATE_POST_REQUEST:
@@ -76,11 +90,11 @@ const reducer = (state = initialState, action) =>
             case UPDATE_POST_SUCCESS:
                 draft.updatePostLoading = false;
                 draft.updatePostDone = true;
-                draft.Posts = draft.Posts.filter((v)=>v.id!==action.data);
+                draft.Posts = draft.Posts.filter((v) => v.id !== action.data);
                 break;
             case UPDATE_POST_FAILURE:
-                draft.updatePostLoading= false;
-                draft.updatePostError= action.error;
+                draft.updatePostLoading = false;
+                draft.updatePostError = action.error;
                 break;
 
             case LOAD_POSTS_REQUEST:
@@ -94,8 +108,38 @@ const reducer = (state = initialState, action) =>
                 draft.Posts = action.data.concat(draft.Posts);
                 break;
             case LOAD_POSTS_FAILURE:
-                draft.loadPsostLoading= false;
-                draft.loadPostError= action.error;
+                draft.loadPostLoading = false;
+                draft.loadPostError = action.error;
+                break;
+
+            case LOAD_CURPOST_REQUEST:
+                draft.loadCurpostLoading = true;
+                draft.loadCurpostDone = false;
+                draft.loadCurpostError = false;
+                break;
+            case LOAD_CURPOST_SUCCESS:
+                draft.loadCurpostLoading = false;
+                draft.loadCurpostDone = true;
+                draft.currentPost = action.data;
+                break;
+            case LOAD_CURPOST_FAILURE:
+                draft.loadPCurpostLoading = false;
+                draft.loadCurpostError = action.error;
+                break;
+
+            case LOAD_CATEGORYPOSTS_REQUEST:
+                draft.loadCatorypostLoading = true;
+                draft.loadCatorypostDone = false;
+                draft.loadCatorypostError = false;
+                break;
+            case LOAD_CATEGORYPOSTS_SUCCESS:
+                draft.loadCatorypostLoading = false;
+                draft.loadCatorypostDone = true;
+                draft.Posts = action.data.concat(draft.Posts);
+                break;
+            case LOAD_CATEGORYPOSTS_FAILURE:
+                draft.loadPCatorypostLoading = false;
+                draft.loadCatorypostError = action.error;
                 break;
             default:
                 break;

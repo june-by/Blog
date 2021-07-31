@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
-
+import {MailOutlined, GithubOutlined} from '@ant-design/icons'
 
 const MyCard = styled(Card)`
     width : 300;
@@ -42,8 +42,10 @@ const AppLayout = ({ children }) => {
 
     return (
         <div>
-            <div styl   e={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
-                <Link href="/"><MainTitle>By_juun Blog</MainTitle></Link>
+            
+            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
+                
+                <Link href="/"><MainTitle>By_juun</MainTitle></Link>
             </div>
             <Menu mode="horizontal">
                 <Menu.Item>
@@ -75,9 +77,8 @@ const AppLayout = ({ children }) => {
                 {me && me.nickname === 'By_juun' && <Menu.Item>
                     <Link href="/Write"><a>글쓰기</a></Link>
                 </Menu.Item>}
-
             </Menu>
-            <Row gutter={8}>
+            <Row style = {{borderTop : "0.1px solid #f0f0f0"}}>
                 <Col xs={24} sm={6} md={6}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me &&
                         <div>
@@ -89,7 +90,7 @@ const AppLayout = ({ children }) => {
                             </Card>
                         </div>
                     }
-                    <Menu style={{ width: "256" }} mode="inline" >
+                    <Menu style={{ width: "256", borderRight : "none" }} mode="inline" >
                         <Menu.Item key="1">
                             <a href="/category/JavaScript">JavaScript</a>
                         </Menu.Item>
@@ -101,11 +102,10 @@ const AppLayout = ({ children }) => {
                         </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={24} sm={18} md={12}>
+                <Col xs={24} sm={18} md={12} style = {{borderLeft : "0.1px solid #f0f0f0", borderRight : "0.1px solid #f0f0f0", height : "auto" , minHeight : "881px"}}>
                     {children}
                 </Col>
                 <Col xs={0} sm={0} md={6}>
-                    <Calendar fullscreen={false} />
                     <Divider orientation="center">Tag</Divider>
                     <TagWrapper>
                         <Taged color="#f50">JavaScript</Taged>
@@ -119,6 +119,12 @@ const AppLayout = ({ children }) => {
                         <Taged color="cyan">OS</Taged>
                         <Taged color="#108ee9">...</Taged>
                     </TagWrapper>
+                    <div style = {{textAlign : 'center', fontSize : "16px" ,marginTop : "15px"}}>
+                    <MailOutlined /> <div style = {{display : "inline-block"}}>neostgeart@gmail.com</div>
+                    </div>
+                    <div  style = {{textAlign : 'center', fontSize : "16px", marginTop : "15px"}}>
+                    <GithubOutlined /> <a href="https://github.com/BY-juun">https://github.com/BY-juun</a>
+                    </div>
                 </Col>
             </Row>
 
