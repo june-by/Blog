@@ -79,7 +79,7 @@ const AppLayout = ({ children }) => {
                 </Menu.Item>}
             </Menu>
             <Row style = {{borderTop : "0.1px solid #f0f0f0"}}>
-                <Col xs={24} sm={6} md={6}> {/* 24등분 xs 모바일 md 데스크탑*/}
+                <Col xs={24} sm={6} md={5}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me &&
                         <div>
                             <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
@@ -100,14 +100,23 @@ const AppLayout = ({ children }) => {
                         <Menu.Item key="3">
                             <a href="/category/TypeScript">TypeScript</a>
                         </Menu.Item>
+                        <Menu.Item key="4">
+                            <a href="/category/OperatingSystem">OperatingSystem</a>
+                        </Menu.Item>
+                        <Menu.Item key="5">
+                            <a href="/category/DataBase">DataBase</a>
+                        </Menu.Item>
+                        <Menu.Item key="6">
+                            <a href="/category/Browser">Browser</a>
+                        </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={24} sm={18} md={12} style = {{borderLeft : "0.1px solid #f0f0f0", borderRight : "0.1px solid #f0f0f0", height : "auto" , minHeight : "881px"}}>
+                <Col xs={24} sm={18} md={13} style = {{borderLeft : "0.1px solid #f0f0f0", borderRight : "0.1px solid #f0f0f0", height : "auto" , minHeight : "881px"}}>
                     {children}
                 </Col>
                 <Col xs={0} sm={0} md={6}>
                     <Divider orientation="center">Tag</Divider>
-                    <TagWrapper>
+                    <TagWrapper style = {{textAlign : "center"}}>
                         <Taged color="#f50">JavaScript</Taged>
                         <Taged color="#2db7f5">React</Taged>
                         <Taged color="#87d068">TypeScript</Taged>

@@ -35,7 +35,7 @@ const Post = () => {
             tags = {<Tag color = "blue">{currentPost.category}</Tag>}
             subTitle={currentPost.hashTag}
             />}
-            <div style = {{marginLeft : "10px"}}>{currentPost &&ReactHtmlParser(currentPost.content)}</div>
+            <div style = {{marginLeft : "10px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
         </AppLayout>
     )
 };

@@ -5,8 +5,10 @@ import { Button, Form, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost, ADD_POST_REQUEST } from "../reducers/post";
 import Router from 'next/router';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import dynamic from 'next/dynamic'
+const Editor = dynamic(() => import('./Editor'), {
+  ssr: false
+})
 
 
 export const Global = createGlobalStyle`
@@ -16,7 +18,6 @@ export const Global = createGlobalStyle`
     .ck.ck-editor {
         margin-top : 15px;
     }
-
     .ck-content { 
         height : 500px;
     }
@@ -60,10 +61,7 @@ const WritePostForm = () => {
     const handleTeacherChange = useCallback((value) => {
         setCategory(value);
     }, [category])
-    const onChangeCKEditor = (event, editor) => {
-        const data = editor.getData();
-        setContent(data);
-    }
+    
 
     return (
 
@@ -90,19 +88,7 @@ const WritePostForm = () => {
             <div>
                 <label htmlFor='content'>내용</label>
                 <br />
-                <CKEditor editor={ClassicEditor}
-                    data="<p></p>"
-                    onChange={onChangeCKEditor}
-                    config = {
-                        {   
-                            ckfinder : {
-                                uploadUrl : "http://localhost:3085/uploads"
-                            },
-                        }
-                    }
-                    
-                    style={{ marginTop: "10px" }}>     
-                </CKEditor>
+                <Editor setContent = {setContent}/>
             </div>
             <ButtonWrapper>
                 <LoginButton type="primary"

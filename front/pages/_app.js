@@ -6,20 +6,21 @@ import PropTypes from 'prop-types'
 import Head from 'next/head'; //Head component
 import wrapper from '../store/configureStore';
 
-const Nodebird = ({ Component }) => {
+const ByJuun = ({ Component }) => {
     return (
         <>
             <Head>
                 <meta charSet="utf-8"></meta>
                 <title>BY-juun Blog</title>
+                <link rel="shortcut icon" href="/favicon.ico" />
             </Head>
             <Component />
         </>
     );
 }
 
-Nodebird.propTypes = {
-    Componenet: PropTypes.elementType.isRequired,
+ByJuun.propTypes = {
+    Component: PropTypes.elementType.isRequired,
 }
 
-export default wrapper.withRedux(Nodebird);
+export default wrapper.withRedux(ByJuun);
