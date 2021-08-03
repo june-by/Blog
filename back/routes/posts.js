@@ -22,7 +22,6 @@ router.get('/load/:category',async(req,res,next)=>{
     try{
         const posts = await Post.findAll({
             where : {category : req.params.category},
-            limit : 10,
             order : [
                 ['createdAt','DESC'],
             ]

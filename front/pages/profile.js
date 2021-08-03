@@ -5,7 +5,7 @@ import { Descriptions } from 'antd';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios';
-
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 
 const Profile = () => {
     return (

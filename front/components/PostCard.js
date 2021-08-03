@@ -1,4 +1,4 @@
-import {Card} from 'antd';
+import {Card, Tag} from 'antd';
 import { useCallback } from 'react';
 import ReactHtmlParser from 'html-react-parser'
 
@@ -18,11 +18,9 @@ const PostCard = ({ post }) => {
     }
     
     return (
-        <Card title={post.title}  extra={<><div style = {{display:"inline-block", marginRight : "5px" , borderTop : "0"}}>작성일자 : {post.createdAt.substr(0,10)}</div>
-        <a style = {{fontSize : "19px"}} href={`/post/${id}`} >More</a></>} >
-            {category && <div>Category : <a href = {`category/${category}`}>{category}</a></div> } 
-            {hashTag && hashTagSplit.map((value,index) => <p style = {{display : "inline", marginRight : "5px"}}>  
-            <p style = {{display : "inline" ,color : "blue"}}> {value[0]} </p>  {value.slice(1)}  </p>)}
+        <Card title={post.title}  extra={<><Tag color = "geekblue"><div>Category : <a href = {`category/${category}`}>{category}</a></div></Tag><div style = {{display:"inline-block", marginRight : "5px" , borderTop : "0"}}>작성일자 : {post.createdAt.substr(0,10)}</div>
+        <a style = {{fontSize : "19px", color : "blue"}} href={`/post/${id}`} >More</a></>} >
+            {hashTag && hashTagSplit.map((value,index) => <Tag color = "blue"><div>{value[0]}{value.slice(1)}</div></Tag>)}
         </Card>
     );
 }

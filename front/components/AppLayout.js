@@ -43,10 +43,12 @@ const AppLayout = ({ children }) => {
     return (
         <div>
             
-            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" }}>
-                
-                <Link href="/"><MainTitle>By_juun</MainTitle></Link>
+            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" ,paddingBottom : "15px"}}>
+                <div style = {{textAlign : "right"}}>v0.2.1</div>
+                <Link href="/"><a><img src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
+                <Link href="/"><a><img src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
             </div>
+            
             <Menu mode="horizontal">
                 <Menu.Item>
                     <Link href="/"><a>Home</a></Link>
