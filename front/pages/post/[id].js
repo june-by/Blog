@@ -5,8 +5,12 @@ import { useEffect } from "react";
 import { LOAD_CURPOST_REQUEST } from "../../reducers/post";
 import ReactHtmlParser from 'html-react-parser'
 import { PageHeader, Tag} from 'antd';
-import { current } from "immer";
-
+import CommentForm from '../../components/CommentForm';
+import CommentList from '../../components/CommentList';
+import wrapper from "../../store/configureStore";
+import { END } from 'redux-saga';
+import axios from 'axios'
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 //More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
 //그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
 const Post = () => {
@@ -14,7 +18,7 @@ const Post = () => {
     const router = useRouter();
     const { id } = router.query;
     const { currentPost } = useSelector((state) => state.post);
-    
+    const {me} = useSelector((state)=>state.user);
     useEffect(()=>{
         console.log(id);
         if(id){
@@ -35,9 +39,26 @@ const Post = () => {
             tags = {<Tag color = "blue">{currentPost.category}</Tag>}
             subTitle={currentPost.hashTag}
             />}
-            <div style = {{marginLeft : "10px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
+            <div style = {{marginLeft : "15px",marginRight : "15px", border : "0.5px solid lightskyblue" ,height : "700px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
+            {me ? <CommentForm postId = {id}/> : <div>댓글을 작성하려면 로그인 해주세요</div>}
+            
         </AppLayout>
     )
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    //원래 브라우저에서 cookie를 알아서 넣어주는데 , SSR시에는 브라우저 개입을 못하니까 프론트서버에서 헤더에 쿠키를 넣어서 보내줘야 한다.
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    })
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+  });
+  
 
 export default Post;

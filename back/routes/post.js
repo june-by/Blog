@@ -2,6 +2,7 @@ const express = require('express');
 const multiparty = require('connect-multiparty');
 const router = express.Router();
 const {Post, Comment,User} = require('../models');
+const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 
 const multipartyMiddelware = multiparty({uploadDir : './images'});
 router.post('/', async(req,res,next)=>{
@@ -19,6 +20,33 @@ router.post('/', async(req,res,next)=>{
     }
 });
 
+router.post('/:postId/comment',isLoggedIn,async(req,res,next)=>{
+    try {
+        const post = await Post.findOne({ //게시글 존재하는지 확인
+            where: { id: req.params.postId }
+        })
+        if (!post) {
+            return res.status(403).send('존재하지 않는 게시글입니다');
+        }
+        const comment = await Comment.create({
+            content: req.body.comment,
+            PostId: parseInt(req.params.postId, 10),
+            UserId: req.user.id,
+        })
+        const fullComment = await Comment.findOne({
+            where: { id: comment.id },
+            include: [{
+                model: User,
+                attributes: ['id', 'nickname'],
+            }]
+        })
+        res.status(201).json(fullComment);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+})
+
 router.get('/load/:postId',async(req,res,next)=>{
     try{
         const post = await Post.findOne({
@@ -32,13 +60,13 @@ router.get('/load/:postId',async(req,res,next)=>{
             //order : [
               //  [Comment, 'createdAt', 'DESC']
             //], //최신 작성된것부터 가져온다.
-            //inclue : [{
-              //  model : Comment,
-               // include : [{
-                 //   model : User,
-                   // attribute : ["id","nickname"]
-                //}]
-            //}]
+            include : [{
+               model : Comment,
+               include : [{
+                   model : User,
+                   attribute : ["id","nickname"]
+                }]
+            }]
         })
         return res.status(201).json(fullPost);
     }catch(err){

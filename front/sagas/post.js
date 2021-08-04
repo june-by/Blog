@@ -8,6 +8,9 @@ import {
     ADD_POST_FAILURE,
     ADD_POST_REQUEST,
     ADD_POST_SUCCESS,
+    ADD_COMMENT_FAILURE,
+    ADD_COMMENT_REQUEST,
+    ADD_COMMENT_SUCCESS,
     LOAD_POSTS_FAILURE,
     LOAD_POSTS_REQUEST,
     LOAD_POSTS_SUCCESS,
@@ -28,11 +31,8 @@ function addPostAPI(data) {
 }
 
 function* addPost(action) {
-    console.log("add post");
     try {
         const result = yield call(addPostAPI,action.data)
-        console.log("결과");
-        console.log(result.data);
         yield put({ //put은 dispatch라고 생각
             
             type: ADD_POST_SUCCESS,
@@ -40,7 +40,7 @@ function* addPost(action) {
             //data : result.data //성공결과가 담긴다
         })
     } catch (error) {
-        console.log(error.response);
+        console.error(error);
             yield put({
                 type: ADD_POST_FAILURE,
                 error: error.response //실패결과가 담긴다
@@ -49,6 +49,28 @@ function* addPost(action) {
 
 }
 
+
+function addCommentAPI(data) {
+    return axios.post(`/post/${data.postId}/comment`, data);
+}
+
+function* addComment(action) {
+    try {
+        const result = yield call(addCommentAPI,action.data)
+        console.log(result);
+        yield put({ //put은 dispatch라고 생각
+            type: ADD_COMMENT_SUCCESS,
+            data : result.data,
+        })
+    } catch (error) {
+        console.error(error);
+            yield put({
+                type: ADD_COMMENT_FAILURE,
+                error: error.response //실패결과가 담긴다
+            })
+        }
+
+}
 
 
 function removePostAPI(data) {
@@ -64,6 +86,7 @@ function* removePost(action) {
             //data : result.data //성공결과가 담긴다
         })
     } catch (error) {
+        console.error(error);
         yield put({
             type: REMOVE_POST_FAILURE,
             data: error.response.data //실패결과가 담긴다
@@ -85,6 +108,7 @@ function* updatePost(action) {
             //data : result.data //성공결과가 담긴다
         })
     } catch (error) {
+        console.error(error);
         yield put({
             type: UPDATE_POST_FAILURE,
             data: error.response.data //실패결과가 담긴다
@@ -105,6 +129,7 @@ function* loadPosts(action) {
             data : result.data,
         })
     } catch (error) {
+        console.error(error);
         yield put({
             type: LOAD_POSTS_FAILURE,
             data: error.response.data //실패결과가 담긴다
@@ -126,6 +151,7 @@ function* loadCategoryposts(action) {
             data : result.data,
         })
     } catch (error) {
+        console.error(error);
         yield put({
             type: LOAD_CATEGORYPOSTS_FAILURE,
             data: error.response.data //실패결과가 담긴다
@@ -146,6 +172,7 @@ function* loadCurpost(action) {
             data : result.data,
         })
     } catch (error) {
+        console.error(error);
         yield put({
             type: LOAD_CURPOST_FAILURE,
             data: error.response.data //실패결과가 담긴다
@@ -155,6 +182,10 @@ function* loadCurpost(action) {
 
 function* watchAddPost() {
     yield takeLatest(ADD_POST_REQUEST, addPost);
+} //eventlistner와 비슷
+
+function* watchAddComment() {
+    yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 } //eventlistner와 비슷
 
 function* watchRemovePost() {
@@ -180,6 +211,7 @@ function* watchLoadCatoryposts() {
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
+        fork(watchAddComment),
         fork(watchRemovePost),
         fork(watchUpdatePost),
         fork(watchLoadPost),
