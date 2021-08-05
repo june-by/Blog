@@ -18,7 +18,7 @@ const PostCard = ({ post }) => {
     }
     
     return (
-        <Card title={post.title}  extra={<><Tag color = "geekblue"><div>Category : <a href = {`category/${category}`}>{category}</a></div></Tag><div style = {{display:"inline-block", marginRight : "5px" , borderTop : "0"}}>작성일자 : {post.createdAt.substr(0,10)}</div>
+        <Card title={post.title}  extra={<><Tag color = "geekblue"><div>Category : <a href = {`category/${category}`}>{category}</a></div></Tag><div style = {{display:"inline-block", marginRight : "5px" , borderTop : "0"}}>{post.createdAt.substr(0,10)}</div>
         <a style = {{fontSize : "19px", color : "blue"}} href={`/post/${id}`} >More</a></>} >
             {hashTag && hashTagSplit.map((value,index) => <Tag color = "blue"><div>{value[0]}{value.slice(1)}</div></Tag>)}
         </Card>

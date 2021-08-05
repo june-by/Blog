@@ -39,6 +39,7 @@
     "faker": "^5.5.3",
     "html-react-parser": "^1.2.7",
     "immer": "^9.0.5",
+    "moment": "^2.29.1",
     "next": "^9.5.5",
     "next-images": "^1.8.1",
     "next-redux-wrapper": "^6.0.2",

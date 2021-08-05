@@ -64,7 +64,7 @@ router.get('/load/:postId',async(req,res,next)=>{
                model : Comment,
                include : [{
                    model : User,
-                   attribute : ["id","nickname"]
+                   attributes : ["id","nickname"]
                 }]
             }]
         })

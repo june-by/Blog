@@ -2,17 +2,20 @@ import AppLayout from "../../components/AppLayout";
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
+import {FormOutlined} from '@ant-design/icons'
 import { LOAD_CURPOST_REQUEST } from "../../reducers/post";
 import ReactHtmlParser from 'html-react-parser'
-import { PageHeader, Tag} from 'antd';
+import { PageHeader, Tag, Comment, Avatar} from 'antd';
 import CommentForm from '../../components/CommentForm';
-import CommentList from '../../components/CommentList';
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
+import moment from 'moment';
 //More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
 //그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
+
+moment.locale("ko");
 const Post = () => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -32,16 +35,28 @@ const Post = () => {
 
     return (
         <AppLayout>
-            {currentPost && <div style = {{textAlign : "right", marginRight : "10px", marginTop : "20px"}}>작성일자 : {currentPost.createdAt.substr(0,10)}</div>}
+            {currentPost && <div style = {{textAlign : "right", marginRight : "10px", marginTop : "20px"}}>{moment(currentPost.createdAt).format('L')}</div>}
             {currentPost && <h1 style = {{textAlign : "center", marginTop : "30px"}}>{currentPost.title}</h1>}
             {currentPost && <PageHeader
             className="site-page-header"
             tags = {<Tag color = "blue">{currentPost.category}</Tag>}
             subTitle={currentPost.hashTag}
             />}
-            <div style = {{marginLeft : "15px",marginRight : "15px", border : "0.5px solid lightskyblue" ,height : "700px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
-            {me ? <CommentForm postId = {id}/> : <div>댓글을 작성하려면 로그인 해주세요</div>}
-            
+            <div style = {{marginLeft : "15px",marginRight : "15px",minHeight : "700px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
+            {me ? <CommentForm postId = {id}/> : <div style = {{textAlign : "center", marginTop : "15px",marginBottom : "15px", fontSize : "20px"}}><FormOutlined /><div>댓글을 작성하려면 로그인 해주세요</div></div>}
+            <div style = {{borderTop : "0.5px solid lightgray" , marginTop : "10px", marginRight : "15px", marginLeft : "15px", marginBottom : "15px"}}>
+            {currentPost && currentPost.Comments 
+            &&
+            currentPost.Comments.map((commentInfo) => <Comment key = {commentInfo.id}  
+             datetime = {moment(commentInfo.createdAt,"YYYYMMDD").format('L')}
+             author = {commentInfo.User.nickname} 
+             content = {commentInfo.content} 
+             avatar = {
+                 <Avatar>{commentInfo.User.nickname[0]}</Avatar>
+             }>
+             </Comment> )
+            }
+            </div>
         </AppLayout>
     )
 };

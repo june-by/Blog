@@ -28,6 +28,9 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 
+const Title = styled.img`
+
+`;
 
 const AppLayout = ({ children }) => {
     const { me, logOutLoading} = useSelector((state) => state.user);
@@ -45,8 +48,8 @@ const AppLayout = ({ children }) => {
             
             <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" ,paddingBottom : "15px"}}>
                 <div style = {{textAlign : "right"}}>v0.2.1</div>
-                <Link href="/"><a><img src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
-                <Link href="/"><a><img src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
+                <Link href="/"><a><Title src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
+                <Link href="/"><a><Title src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
             </div>
             
             <Menu mode="horizontal">

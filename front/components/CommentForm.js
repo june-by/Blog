@@ -17,12 +17,13 @@ const CommentForm = ({ postId }) => {
             type : ADD_COMMENT_REQUEST,
             data : {postId, comment}
         })
+        setComment('');
     }, [comment]);
 
     return (
-        <Form onFinish={onSubmitComment} style = {{display : "flex", paddingTop : "15px", height : "100px"}}>
-            <Input name="user-comment" type="text" value={comment} onChange={onChangeComment} style = {{marginRight : "20px", marginLeft : "15px"}} required />
-            <Button type="primary" htmlType="submit" loading = {addCommentLoading} style= {{marginRight : "15px", marginTop : "25px"}} >입력</Button>
+        <Form onFinish={onSubmitComment} style = {{display : "flex", paddingTop : "15px", height : "100px", paddingBottom : "15px"}}>
+            <Input placeholder = "댓글을 입력해주세요. 과도한 비난은 피해주시면 감사하겠습니다. " name="user-comment" type="text" value={comment} onChange={onChangeComment} style = {{marginRight : "20px", marginLeft : "15px"}} required />
+            <Button type="primary" htmlType="submit" loading = {addCommentLoading} style= {{marginRight : "15px", marginTop : "20px"}} >입력</Button>
         </Form>
     );
 };

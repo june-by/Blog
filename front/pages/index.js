@@ -8,11 +8,12 @@ import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
 
+
 const Home = () => {
   const { Posts } = useSelector((state) => (state.post));
   return (
     <AppLayout>
-      {Posts.map((post) => <PostCard key={post.id} post={post} style />)}
+      {Posts.map((post) => <PostCard key={post.id} post={post}  />)}
     </AppLayout>
   );
 }

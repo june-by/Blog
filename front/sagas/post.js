@@ -57,7 +57,7 @@ function addCommentAPI(data) {
 function* addComment(action) {
     try {
         const result = yield call(addCommentAPI,action.data)
-        console.log(result);
+        console.log("결과 : " , result);
         yield put({ //put은 dispatch라고 생각
             type: ADD_COMMENT_SUCCESS,
             data : result.data,
