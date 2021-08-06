@@ -5,7 +5,7 @@ import Router from 'next/router';
 import Head from 'next/head';
 import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
 import styled from 'styled-components';
-import { SIGN_UP_REQUEST } from '../reducers/user';
+import { SIGN_UP_REQUEST, LOAD_MY_INFO_REQUEST } from '../reducers/user';
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
 import wrapper from "../store/configureStore";
@@ -13,7 +13,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 
 const Button2 = styled(Button)`
-  margin-left : 15px;
+  margin-right : 15px;
 `;
 
 
@@ -112,11 +112,13 @@ const Signup = () => {
           <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>회원가입에 동의합니다.</Checkbox>
           {termError && <div style={{ color: 'red' }}>약관에 동의하셔야 합니다.</div>}
         </div>
-        <div style={{ marginTop: 10 }}>
+        <div style={{ marginTop: "10px" }}>
           <Button type="primary" htmlType="submit" loading={signUploading}>가입하기</Button>
-          <Button2 href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /> 카카오 로그인</Button2>
-          <Button2 href = "http://localhost:3085/user/facebook"> <RiFacebookBoxFill /> 페이스북 로그인</Button2>
-          <Button2> <RiGoogleFill /> 구글 로그인</Button2>
+        </div>
+        <div style = {{marginTop : "10px"}}>
+          <Button2 href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /> 카카오 회원가입</Button2>
+          <Button2 href = "http://localhost:3085/user/facebook"> <RiFacebookBoxFill /> 페이스북 회원가입</Button2>
+          <Button2> <RiGoogleFill /> 구글 회원가입</Button2>
         </div>
       </Form>
     </AppLayout>

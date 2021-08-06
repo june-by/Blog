@@ -1,12 +1,17 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button } from 'antd';
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
-import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
-import {MailOutlined, GithubOutlined} from '@ant-design/icons'
+import {SiTypescript,SiJavascript} from 'react-icons/si';
+import {GrReactjs} from 'react-icons/gr';
+import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill ,RiComputerFill} from 'react-icons/ri'
+import {GoBrowser} from 'react-icons/go';
+import {FiDatabase} from 'react-icons/fi';
+import {MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons'
+import { Footer, Header } from 'antd/lib/layout/layout';
 
 const MyCard = styled(Card)`
     width : 300;
@@ -34,6 +39,7 @@ const Title = styled.img`
 
 const AppLayout = ({ children }) => {
     const { me, logOutLoading} = useSelector((state) => state.user);
+
     const dispatch = useDispatch();
 
     const onLogout = useCallback(() => {
@@ -41,17 +47,13 @@ const AppLayout = ({ children }) => {
             type: LOG_OUT_REQUEST,
         });
     }, []);
-
-
     return (
         <div>
-            
-            <div style={{ textAlign: "center", borderBottom: "0.7px solid gray" ,paddingBottom : "15px"}}>
+            <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;" ,paddingBottom : "15px"}}>
                 <div style = {{textAlign : "right"}}>v0.2.1</div>
                 <Link href="/"><a><Title src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
                 <Link href="/"><a><Title src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
             </div>
-            
             <Menu mode="horizontal">
                 <Menu.Item>
                     <Link href="/"><a>Home</a></Link>
@@ -59,25 +61,12 @@ const AppLayout = ({ children }) => {
                 <Menu.Item>
                     <Link href="/profile"><a>프로필</a></Link>
                 </Menu.Item>
-                <Menu.Item>
-                    <Link href="/introduction"><a>블로그소개</a></Link>
-                </Menu.Item>
                 {me
                     ? null
                     :
                     <Menu.Item>
                         <Link href="/login"><a>로그인</a></Link>
                     </Menu.Item>}
-
-                <Menu.Item>
-                    <Link href = "http://localhost:3085/user/kakao"><RiKakaoTalkFill /></Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link href = "http://localhost:3085/user/facebook"><RiFacebookBoxFill /></Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link href="/login"><RiGoogleFill /></Link>
-                </Menu.Item>
                 {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
                 {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
                     <Link href="/Write"><a>글쓰기</a></Link>
@@ -97,24 +86,25 @@ const AppLayout = ({ children }) => {
                     }
                     <Menu style={{ width: "256", borderRight : "none" }} mode="inline" >
                         <Menu.Item key="1">
-                            <a href="/category/JavaScript">JavaScript</a>
+                            <a href="/category/JavaScript"><SiJavascript style = {{color : "darkgrey", marginRight :"15px"}}/>JavaScript</a>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <a href="/category/React">React</a>
+                            <a href="/category/React"><GrReactjs style= {{color : "darkgrey",  marginRight :"15px"}} />React</a>
                         </Menu.Item>
                         <Menu.Item key="3">
-                            <a href="/category/TypeScript">TypeScript</a>
+                            <a href="/category/TypeScript"><SiTypescript style= {{color : "darkgrey",  marginRight :"15px"}}/>TypeScript</a>
                         </Menu.Item>
                         <Menu.Item key="4">
-                            <a href="/category/OperatingSystem">OperatingSystem</a>
+                            <a href="/category/OperatingSystem"><RiComputerFill style= {{color : "darkgrey",  marginRight :"15px"}}/>OperatingSystem</a>
                         </Menu.Item>
                         <Menu.Item key="5">
-                            <a href="/category/DataBase">DataBase</a>
+                            <a href="/category/DataBase"><FiDatabase style= {{color : "darkgrey",  marginRight :"15px"}}/>DataBase</a>
                         </Menu.Item>
                         <Menu.Item key="6">
-                            <a href="/category/Browser">Browser</a>
+                            <a href="/category/Browser"><GoBrowser style= {{color : "darkgrey",  marginRight :"15px"}}/>Browser</a>
                         </Menu.Item>
                     </Menu>
+                    
                 </Col>
                 <Col xs={24} sm={18} md={13} style = {{borderLeft : "0.1px solid #f0f0f0", borderRight : "0.1px solid #f0f0f0", height : "auto" , minHeight : "881px"}}>
                     {children}
@@ -141,7 +131,7 @@ const AppLayout = ({ children }) => {
                     </div>
                 </Col>
             </Row>
-
+            <Footer  style={{ textAlign: 'center' }}>ByJuun.com @2021 Created by By_Juun</Footer>
         </div>
     );
 };

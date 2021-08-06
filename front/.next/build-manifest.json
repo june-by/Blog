@@ -19,11 +19,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/index.js"
     ],
-    "/UpdatePost/[id]": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/UpdatePost/[id].js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -35,6 +30,26 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/login": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/login.js"
+    ],
+    "/next/dist/pages/_error": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/next/dist/pages/_error.js"
+    ],
+    "/profile": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/profile.js"
+    ],
+    "/signup": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/signup.js"
     ]
   },
   "ampFirstPages": []

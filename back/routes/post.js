@@ -95,7 +95,7 @@ router.patch('/:postId',isLoggedIn,async(req,res,next)=>{
         if(req.user.nickname !== "By_juun"){
             return res.status(403).send("글을 삭제할 권한이 없습니다");
         }
-        const post = await Post.update({
+        await Post.update({
             title : req.body.title,
             category : req.body.category,
             hashTag : req.body.hashTag,
@@ -103,7 +103,7 @@ router.patch('/:postId',isLoggedIn,async(req,res,next)=>{
         },{
             where : {id : req.params.postId}
         })
-        res.json(post);
+        res.json({message : "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다"});
     }catch(error){
         console.error(err);
         next(err);

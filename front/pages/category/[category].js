@@ -17,7 +17,7 @@ const category = () => {
     const [current,setCurrent] = useState(1);
     const {Posts} = useSelector((state)=>(state.post));
     let startIndex = 0; 
-    let lastIndex = 5;
+    let lastIndex = 6;
     const [showPosts, setShowPosts] = useState(Posts.slice(startIndex,lastIndex));
     const router = useRouter();
     const { category } = router.query;
@@ -25,8 +25,8 @@ const category = () => {
     const onChange = useCallback(page => {
         setCurrent(page);
         console.log(current);
-        startIndex = (page-1) * 5;
-        lastIndex = startIndex + 5;
+        startIndex = (page-1) * 6;
+        lastIndex = startIndex + 6;
         setShowPosts(Posts.slice(startIndex,lastIndex));
     },[current,showPosts]);
     

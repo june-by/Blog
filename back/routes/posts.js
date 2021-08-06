@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/load',async(req,res,next)=>{ //loadpost
     try{
         const posts = await Post.findAll({
-            limit : 10,
+            limit : 6,
             order : [
                 ['createdAt','DESC'],
             ]
