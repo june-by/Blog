@@ -1,11 +1,11 @@
 import AppLayout from "../../components/AppLayout";
-import { useRouter } from 'next/router';
+import  Router, {useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {FormOutlined} from '@ant-design/icons'
-import { LOAD_CURPOST_REQUEST } from "../../reducers/post";
+import { LOAD_CURPOST_REQUEST,REMOVE_POST_REQUEST } from "../../reducers/post";
 import ReactHtmlParser from 'html-react-parser'
-import { PageHeader, Tag, Comment, Avatar} from 'antd';
+import { PageHeader, Tag, Comment, Avatar, Button} from 'antd';
 import CommentForm from '../../components/CommentForm';
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
@@ -20,7 +20,7 @@ const Post = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { id } = router.query;
-    const { currentPost } = useSelector((state) => state.post);
+    const { currentPost,removePostDone , removePostLoading} = useSelector((state) => state.post);
     const {me} = useSelector((state)=>state.user);
     useEffect(()=>{
         console.log(id);
@@ -33,8 +33,35 @@ const Post = () => {
         
     },[id])
 
+    useEffect(()=>{
+        if(removePostDone){
+            alert("해당 글이 삭제되었습니다");
+            Router.push('/');
+        }
+    },[removePostDone])
+
+    const onClickDelete = useCallback(()=>{
+        const onemore = prompt("정말 삭제하시겠습니까? 삭제를 원하면 delete를 입력해주세요");
+        if(onemore === "delete")
+        {
+            dispatch({
+               type : REMOVE_POST_REQUEST,
+               data : id,
+            })
+        }
+    },[]);
+
     return (
         <AppLayout>
+            {me && me.nickname === "By_juun" &&
+                <div style = {{textAlign : "right" , marginTop : "15px"}}>
+                    {me && me.email === "neostgeart@gmail.com" 
+                    && <Button style = {{backgroundColor : "lightblue"}}><a  href = {`/UpdatePost/${id}`}>글 수정</a></Button>}
+                    {me && me.email === "neostgeart@gmail.com" 
+                    && <Button style = {{backgroundColor : "palevioletred"}} onClick = {onClickDelete} loading = {removePostLoading}>글 삭제</Button>}
+                </div>
+            }
+            
             {currentPost && <div style = {{textAlign : "right", marginRight : "10px", marginTop : "20px"}}>{moment(currentPost.createdAt).format('L')}</div>}
             {currentPost && <h1 style = {{textAlign : "center", marginTop : "30px"}}>{currentPost.title}</h1>}
             {currentPost && <PageHeader

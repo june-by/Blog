@@ -112,6 +112,10 @@ router.patch('/changeNickname', async(req,res,next)=>{
         return res.status(403).send('로그인이 되어 있지 않습니다');
     }
     try{
+        const tempuser = await User.findOne({where : {nickname : req.body.nickname}});
+        if(tempuser){
+            return res.status(403).send("이미 사용중인 닉네임입니다");
+        }
         await User.update({
             nickname : req.body.nickname
         }, 

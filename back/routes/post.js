@@ -75,9 +75,40 @@ router.get('/load/:postId',async(req,res,next)=>{
     }
 })
 
-router.delete('/',(req,res)=>{
-    res.json({id : 1});
+router.delete('/:postId',isLoggedIn,async(req,res,next)=>{
+    try{
+        if(req.user.nickname !== "By_juun"){
+            return res.status(403).send("글을 삭제할 권한이 없습니다");
+        }
+        await Post.destroy({
+            where: { id: req.params.postId },
+        });
+        res.json({ PostId: parseInt(req.params.postId) });
+    }catch(error){
+        console.error(err);
+        next(err);
+    }
 });
+
+router.patch('/:postId',isLoggedIn,async(req,res,next)=>{
+    try{
+        if(req.user.nickname !== "By_juun"){
+            return res.status(403).send("글을 삭제할 권한이 없습니다");
+        }
+        const post = await Post.update({
+            title : req.body.title,
+            category : req.body.category,
+            hashTag : req.body.hashTag,
+            content : req.body.content
+        },{
+            where : {id : req.params.postId}
+        })
+        res.json(post);
+    }catch(error){
+        console.error(err);
+        next(err);
+    }
+})
 
 
 

@@ -74,16 +74,15 @@ function* addComment(action) {
 
 
 function removePostAPI(data) {
-    return axios.post('/api/post', data);
+    return axios.delete(`/post/${data}`);
 }
 
 function* removePost(action) {
     try {
-        yield delay(1000);
-        //const result = yield call(logInAPI,action.data)
+        const result = yield call(removePostAPI,action.data);
         yield put({ //put은 dispatch라고 생각
             type: REMOVE_POST_SUCCESS,
-            //data : result.data //성공결과가 담긴다
+            data : result.data //성공결과가 담긴다
         })
     } catch (error) {
         console.error(error);
@@ -96,16 +95,16 @@ function* removePost(action) {
 }
 
 function updatePostAPI(data) {
-    return axios.post('/api/post', data);
+    return axios.patch(`/post/${data.id}`, data);
 }
 
 function* updatePost(action) {
-    try {
-        yield delay(1000);
-        //const result = yield call(logInAPI,action.data)
+    try {        
+        const result = yield call(updatePostAPI,action.data)
+        console.log(result.data);
         yield put({ //put은 dispatch라고 생각
             type: UPDATE_POST_SUCCESS,
-            //data : result.data //성공결과가 담긴다
+            data : result.data //성공결과가 담긴다
         })
     } catch (error) {
         console.error(error);

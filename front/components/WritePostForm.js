@@ -3,7 +3,7 @@ import useInput from '../hooks/useInput';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Button, Form, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost, ADD_POST_REQUEST } from "../reducers/post";
+import { addPost, ADD_POST_REQUEST, UPDATE_POST_REQUEST} from "../reducers/post";
 import Router from 'next/router';
 import dynamic from 'next/dynamic'
 const Editor = dynamic(() => import('./Editor'), {
@@ -36,7 +36,7 @@ padding : 10px;
 
 
 
-const WritePostForm = () => {
+const WritePostForm = ({id}) => {
     const dispatch = useDispatch();
     const { addPostLoading, addPostDone } = useSelector((state) => state.post);
     const [title, onChangeTitle] = useInput('');
@@ -47,16 +47,25 @@ const WritePostForm = () => {
 
 
     const onSubmitForm = useCallback(() => {
-        dispatch({
-            type: ADD_POST_REQUEST,
-            data: {
-                title, category, hashTag, content,
-            }
-        })
+        if(id){
+            dispatch({
+                type : UPDATE_POST_REQUEST,
+                data : {
+                    title,category, hashTag,content, id
+                }
+            })
+        }else{
+            dispatch({
+                type: ADD_POST_REQUEST,
+                data: {
+                    title, category, hashTag, content,
+                }
+            })
+        }
         setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
             Router.push('/');
         }, 1000);
-    }, [title, category, hashTag, content]);
+    }, [title, category, hashTag, content,id]);
 
     const handleTeacherChange = useCallback((value) => {
         setCategory(value);

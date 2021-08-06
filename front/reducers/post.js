@@ -111,11 +111,16 @@ const reducer = (state = initialState, action) =>
                 draft.updatePostDone = false;
                 draft.updatePostError = false;
                 break;
-            case UPDATE_POST_SUCCESS:
+            case UPDATE_POST_SUCCESS:{
                 draft.updatePostLoading = false;
                 draft.updatePostDone = true;
-                draft.Posts = draft.Posts.filter((v) => v.id !== action.data);
+                draft.Posts.find((v) => v.id === action.data.id).title = action.data.title;
+                draft.Posts.find((v) => v.id === action.data.id).category = action.data.category;
+                draft.Posts.find((v) => v.id === action.data.id).hashTag = action.data.hashTag;
+                draft.Posts.find((v) => v.id === action.data.id).content = action.data.content;
+
                 break;
+            }
             case UPDATE_POST_FAILURE:
                 draft.updatePostLoading = false;
                 draft.updatePostError = action.error;
