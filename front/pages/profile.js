@@ -15,15 +15,15 @@ const Profile = () => {
             </Head>
             <AppLayout>
                 <Descriptions title="By-Juun(안병준)" bordered size = "dfault" style = {{textAlign:"center", marginTop : "15px"}}>
-                    <Descriptions.Item label="한줄소개" >JavaScript를 사랑하는 개발자</Descriptions.Item>
+                    <Descriptions.Item label="한줄소개" span={2}>JavaScript를 사랑하는 개발자</Descriptions.Item>
                     <Descriptions.Item label="Github "><a href="https://github.com/BY-juun">https://github.com/BY-juun</a></Descriptions.Item>
-                    <Descriptions.Item label="From">
+                    <Descriptions.Item label="From" span={2}>
                         Ajou University 
                         <br />
                         Department of Software
                     </Descriptions.Item>
                     <Descriptions.Item label="Birth">1998.06.13</Descriptions.Item>
-                    <Descriptions.Item label="History" span={3}>
+                    <Descriptions.Item label="History" span={2}>
                         2017 아주대학교 소프트웨어학과
                         <br />
                         2021년 Github활동시작
@@ -36,9 +36,11 @@ const Profile = () => {
                         <br />
                         React, ReactHooks
                         <br />
-                        NextJs
+                        NextJs (SSR)
                         <br />
-                        NodeJS, Express, Sequelize, Mongoose
+                        NodeJS, Express
+                        <br />
+                        Sequelize, Mongoose
                         <br />
                     </Descriptions.Item>
                 </Descriptions>

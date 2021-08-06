@@ -71,7 +71,7 @@ const Post = () => {
             />}
             <div style = {{marginLeft : "15px",marginRight : "15px",minHeight : "700px"}}>{currentPost && ReactHtmlParser(currentPost.content)}</div>
             {me ? <CommentForm postId = {id}/> : <div style = {{textAlign : "center", marginTop : "15px",marginBottom : "15px", fontSize : "20px"}}><FormOutlined /><div>댓글을 작성하려면 로그인 해주세요</div></div>}
-            <div style = {{borderTop : "0.5px solid lightgray" , marginTop : "10px", marginRight : "15px", marginLeft : "15px", marginBottom : "15px"}}>
+            <div style = {{borderTop : "0.5px solid lightsteelblue" , marginTop : "10px", marginRight : "15px", marginLeft : "15px", marginBottom : "15px"}}>
             {currentPost && currentPost.Comments 
             &&
             currentPost.Comments.map((commentInfo) => <Comment key = {commentInfo.id}  

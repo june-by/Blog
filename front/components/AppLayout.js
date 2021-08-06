@@ -33,8 +33,13 @@ const Taged = styled(Tag)`
     margin-bottom : 10px;
 `;
 
-const Title = styled.img`
+const RowWrapper = styled(Row)`
+    border-top : 0.1px solid #f0f0f0;
+`;
 
+const ButtonWrapper = styled(Button)`
+    border-color : lightsteelblue;
+    border-radius : 20px;
 `;
 
 const AppLayout = ({ children }) => {
@@ -51,8 +56,8 @@ const AppLayout = ({ children }) => {
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;" ,paddingBottom : "15px"}}>
                 <div style = {{textAlign : "right"}}>v0.2.1</div>
-                <Link href="/"><a><Title src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
-                <Link href="/"><a><Title src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
+                <Link href="/"><a><img src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
+                <Link href="/"><a><img src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
             </div>
             <Menu mode="horizontal">
                 <Menu.Item>
@@ -72,36 +77,36 @@ const AppLayout = ({ children }) => {
                     <Link href="/Write"><a>글쓰기</a></Link>
                 </Menu.Item>}
             </Menu>
-            <Row style = {{borderTop : "0.1px solid #f0f0f0"}}>
+            <RowWrapper>
                 <Col xs={24} sm={6} md={5}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me &&
-                        <div>
-                            <Card><Card.Meta title={`환영합니다! ${me.nickname}님`} />
+                        <div stlye = {{textAlign : "center"}}>
+                            <Card ><Card.Meta title={`환영합니다! ${me.nickname}님`} />
                                 <div style={{ marginTop: "15px" }}>
-                                    <Button onClick={onLogout} loading={logOutLoading}>로그아웃</Button>
-                                    <Button style={{ marginLeft: "10px" }} href = "/changeNickname" >닉네임변경</Button>
+                                    <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>
+                                    <ButtonWrapper style={{ marginLeft: "10px" }} href = "/changeNickname" >닉네임변경</ButtonWrapper>
                                 </div>
                             </Card>
                         </div>
                     }
                     <Menu style={{ width: "256", borderRight : "none" }} mode="inline" >
                         <Menu.Item key="1">
-                            <a href="/category/JavaScript"><SiJavascript style = {{color : "darkgrey", marginRight :"15px"}}/>JavaScript</a>
+                            <a href="/category/JavaScript"><SiJavascript style = {{color : "lightsteelblue", marginRight :"15px"}}/>JavaScript</a>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <a href="/category/React"><GrReactjs style= {{color : "darkgrey",  marginRight :"15px"}} />React</a>
+                            <a href="/category/React"><GrReactjs style= {{color : "lightsteelblue",  marginRight :"15px"}} />React</a>
                         </Menu.Item>
                         <Menu.Item key="3">
-                            <a href="/category/TypeScript"><SiTypescript style= {{color : "darkgrey",  marginRight :"15px"}}/>TypeScript</a>
+                            <a href="/category/TypeScript"><SiTypescript style= {{color : "lightsteelblue",  marginRight :"15px"}}/>TypeScript</a>
                         </Menu.Item>
                         <Menu.Item key="4">
-                            <a href="/category/OperatingSystem"><RiComputerFill style= {{color : "darkgrey",  marginRight :"15px"}}/>OperatingSystem</a>
+                            <a href="/category/OperatingSystem"><RiComputerFill style= {{color : "lightsteelblue",  marginRight :"15px"}}/>OperatingSystem</a>
                         </Menu.Item>
                         <Menu.Item key="5">
-                            <a href="/category/DataBase"><FiDatabase style= {{color : "darkgrey",  marginRight :"15px"}}/>DataBase</a>
+                            <a href="/category/DataBase"><FiDatabase style= {{color : "lightsteelblue",  marginRight :"15px"}}/>DataBase</a>
                         </Menu.Item>
                         <Menu.Item key="6">
-                            <a href="/category/Browser"><GoBrowser style= {{color : "darkgrey",  marginRight :"15px"}}/>Browser</a>
+                            <a href="/category/Browser"><GoBrowser style= {{color : "lightsteelblue",  marginRight :"15px"}}/>Browser</a>
                         </Menu.Item>
                     </Menu>
                     
@@ -112,12 +117,27 @@ const AppLayout = ({ children }) => {
                 <Col xs={0} sm={0} md={6}>
                     <Divider orientation="center">Tag</Divider>
                     <TagWrapper style = {{textAlign : "center"}}>
-                        <Taged color="#f50">JavaScript</Taged>
-                        <Taged color="#2db7f5">React</Taged>
-                        <Taged color="#87d068">TypeScript</Taged>
-                        <Taged color="magenta">데이터베이스</Taged>
-                        <Taged color="red">DataBase</Taged>
-                        <Taged color="#87d068">DB</Taged>
+                        <div>
+                            <Taged color="#f50">JavaScript</Taged>
+                            <Taged color="purple">JS</Taged>
+                        </div>
+                        <div>
+                            <Taged color="#2db7f5">React</Taged>
+                            <Taged color="default">React Hooks</Taged>
+                        </div>
+                        <div>
+                            <Taged color="magenta">데이터베이스</Taged>
+                            <Taged color="red">DataBase</Taged>
+                            <Taged color="#87d068">DB</Taged>
+                        </div>
+                        <div>
+                            <Taged color="#87d068">TypeScript</Taged>
+                            <Taged color="geekblue">TS</Taged>
+                        </div>
+                        <div>
+                            <Taged color="default">Next JS</Taged>
+                        </div>
+                        
                         <Taged color="lime">운영체제</Taged>
                         <Taged color="green">OperatingSystem</Taged>
                         <Taged color="cyan">OS</Taged>
@@ -130,8 +150,8 @@ const AppLayout = ({ children }) => {
                     <GithubOutlined /> <a href="https://github.com/BY-juun">https://github.com/BY-juun</a>
                     </div>
                 </Col>
-            </Row>
-            <Footer  style={{ textAlign: 'center' }}>ByJuun.com @2021 Created by By_Juun</Footer>
+            </RowWrapper>
+            <Footer  style={{ textAlign: 'center', background : "lightsteelblue" }}>ByJuun.com @2021 Created by By_Juun</Footer>
         </div>
     );
 };

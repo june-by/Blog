@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <AppLayout>
       {Posts.map((post) => <PostCard key={post.id} post={post}  />)}
-      <div style = {{textAlign : "center", marginTop : "20px", fontSize : "25px"}}><SmileTwoTone/> 방문해주셔서 감사합니다 <SmileTwoTone/></div>
+      <div style = {{textAlign : "center", marginTop : "10px", marginBottom : "10px",fontSize : "25px"}}><SmileTwoTone/> 방문해주셔서 감사합니다 <SmileTwoTone/></div>
     </AppLayout>
   );
 }

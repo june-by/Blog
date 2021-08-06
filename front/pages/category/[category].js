@@ -39,7 +39,7 @@ const category = () => {
             <AppLayout>
                 {console.log("return안에 : ", showPosts)}
                 {showPosts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}
-                <Pagination style = {{textAlign : "center", marginTop : "20px"}} current={current} onChange={onChange} total={Posts.length*2} />
+                <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length*2} />
             </AppLayout>
         </> 
     );
