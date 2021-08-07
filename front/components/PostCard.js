@@ -25,9 +25,10 @@ const PostCard = ({ post }) => {
 
     return (
         <CardWrapper title={post.title}
-            extra={<><Tag color="geekblue"><div>Category : <a href={`category/${category}`}>{category}</a></div></Tag>
+            extra={<>
                 <div style={{ display: "inline-block", marginRight: "5px", borderTop: "0" }}>{post.createdAt.substr(0, 10)}</div>
                 <a style={{ fontSize: "19px", color: "blue" }} href={`/post/${id}`} >More</a></>} >
+                <div style = {{marginBottom : "15px"}}><Tag color="geekblue"><div>Category : <a href={`category/${category}`}>{category}</a></div></Tag></div>
             {hashTag && hashTagSplit.map((value, index) => <Tag color="blue"><div>{value[0]}{value.slice(1)}</div></Tag>)}
         </CardWrapper>
     );

@@ -13,6 +13,9 @@ export const initialState = {
     loadCurpostLoading: false,
     loadCurpostDone: false,
     loadCurpostError: null,
+    searchPostsLoading: false,
+    searchPostsDone: false,
+    searchPostsError: null,
     addPostLoading: false,
     addPostDone: false,
     addPostError: null,
@@ -38,6 +41,10 @@ export const LOAD_CATEGORYPOSTS_FAILURE = 'LOAD_CATEGORYPOSTS_FAILURE';
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
+
+export const SEARCH_POSTS_REQUEST = 'SEARCH_POSTS_REQUEST';
+export const SEARCH_POSTS_SUCCESS = 'SEARCH_POSTS_SUCCESS';
+export const SEARCH_POSTS_FAILURE = 'SEARCH_POSTS_FAILURE';
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -90,7 +97,7 @@ const reducer = (state = initialState, action) =>
                 draft.addCommentLoading = false;
                 draft.addCommentError = action.error;
                 break;
-                
+
             case REMOVE_POST_REQUEST:
                 draft.removePostLoading = true;
                 draft.removePostDone = false;
@@ -133,6 +140,21 @@ const reducer = (state = initialState, action) =>
             case LOAD_POSTS_FAILURE:
                 draft.loadPostLoading = false;
                 draft.loadPostError = action.error;
+                break;
+
+            case SEARCH_POSTS_REQUEST:
+                draft.searchPostsLoading = true;
+                draft.searchPostDone = false;
+                draft.searchPostError = false;
+                break;
+            case SEARCH_POSTS_SUCCESS:
+                draft.searchPostsLoading = false;
+                draft.searchPostsDone = true;
+                draft.Posts = action.data.concat(draft.Posts);
+                break;
+            case SEARCH_POSTS_FAILURE:
+                draft.searchPostsLoading = false;
+                draft.searchPostsError = action.error;
                 break;
 
             case LOAD_CURPOST_REQUEST:

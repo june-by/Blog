@@ -20,18 +20,14 @@ const Post = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { id } = router.query;
-    const { currentPost,removePostDone , removePostLoading} = useSelector((state) => state.post);
+    const { currentPost,removePostDone , removePostLoading, loadCurpostError} = useSelector((state) => state.post);
     const {me} = useSelector((state)=>state.user);
+
     useEffect(()=>{
-        console.log(id);
-        if(id){
-            dispatch({
-                type : LOAD_CURPOST_REQUEST,
-                data : id,
-            })
+        if(loadCurpostError){
+            alert(loadCurpostError);
         }
-        
-    },[id])
+    },[loadCurpostError])
 
     useEffect(()=>{
         if(removePostDone){
@@ -98,6 +94,11 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     context.store.dispatch({
       type: LOAD_MY_INFO_REQUEST,
     })
+    context.store.dispatch({
+        type : LOAD_CURPOST_REQUEST,
+        data : context.params.id,
+    })
+
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   });

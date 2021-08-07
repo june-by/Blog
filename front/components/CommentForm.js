@@ -11,8 +11,16 @@ import { ADD_COMMENT_REQUEST } from '../reducers/post';
 const CommentForm = ({ postId }) => {
 
     const [comment, onChangeComment, setComment] = useInput('');
-    const {addCommentLoading} = useSelector((state)=>state.post);
+    const {addCommentLoading, addCommentError} = useSelector((state)=>state.post);
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(addCommentError){
+            alert(addCommentError);
+            setComment('');
+        }
+    },[addCommentError])
+
     const onSubmitComment = useCallback(() => {
         dispatch({
             type : ADD_COMMENT_REQUEST,
@@ -20,6 +28,8 @@ const CommentForm = ({ postId }) => {
         })
         setComment('');
     }, [comment]);
+
+
 
     return (
         <Form onFinish={onSubmitComment} style = {{display : "flex", paddingTop : "15px", height : "100px", paddingBottom : "15px"}}>

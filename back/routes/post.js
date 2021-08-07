@@ -93,7 +93,7 @@ router.delete('/:postId',isLoggedIn,async(req,res,next)=>{
 router.patch('/:postId',isLoggedIn,async(req,res,next)=>{
     try{
         if(req.user.nickname !== "By_juun"){
-            return res.status(403).send("글을 삭제할 권한이 없습니다");
+            return res.status(403).send("글을 수정할 권한이 없습니다");
         }
         await Post.update({
             title : req.body.title,

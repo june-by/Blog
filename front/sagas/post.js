@@ -14,6 +14,9 @@ import {
     LOAD_POSTS_FAILURE,
     LOAD_POSTS_REQUEST,
     LOAD_POSTS_SUCCESS,
+    SEARCH_POSTS_FAILURE,
+    SEARCH_POSTS_REQUEST,
+    SEARCH_POSTS_SUCCESS,
     LOAD_CATEGORYPOSTS_FAILURE,
     LOAD_CATEGORYPOSTS_REQUEST,
     LOAD_CATEGORYPOSTS_SUCCESS,
@@ -136,6 +139,27 @@ function* loadPosts(action) {
     }
 }
 
+function searchPostsAPI(data) {
+    return axios.get(`/posts/search/${encodeURIComponent(data)}`);
+}
+
+function* searchPosts(action) {
+    try {
+        console.log("action.data : ", action.data);
+        const result = yield call(searchPostsAPI,action.data)
+        yield put({ //put은 dispatch라고 생각
+            type: SEARCH_POSTS_SUCCESS,
+            data : result.data,
+        })
+    } catch (error) {
+        console.error(error);
+        yield put({
+            type: SEARCH_POSTS_FAILURE,
+            data: error.response.data //실패결과가 담긴다
+        })
+    }
+}
+
 
 function loadCategorypostsAPI(data) {
     return axios.get(`/posts/load/${data}`);
@@ -207,6 +231,11 @@ function* watchLoadCatoryposts() {
     yield takeLatest(LOAD_CATEGORYPOSTS_REQUEST, loadCategoryposts);
 } //eventlistner와 비슷
 
+function* watchLoadSearchposts() {
+    yield takeLatest(SEARCH_POSTS_REQUEST, searchPosts);
+} //eventlistner와 비슷
+
+
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
@@ -216,5 +245,6 @@ export default function* postSaga() {
         fork(watchLoadPost),
         fork(watchLoadCurpost),
         fork(watchLoadCatoryposts),
+        fork(watchLoadSearchposts),
     ])
 }

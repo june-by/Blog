@@ -95,6 +95,11 @@ const WritePostForm = ({ id }) => {
                 <Select style={{ width: "100%" }} onChange={handleTeacherChange}>
                     <Select.Option value="JavaScript">JavaScript</Select.Option>
                     <Select.Option value="React">React</Select.Option>
+                    <Select.Option value="TypeScript">TypeScript</Select.Option>
+                    <Select.Option value="Database">Database</Select.Option>
+                    <Select.Option value="OperatingSystem">OperatingSystem</Select.Option>
+                    <Select.Option value="Browser">Browser</Select.Option>
+                    <Select.Option value="Error">Error</Select.Option>
                 </Select>
             </div>
             <div>

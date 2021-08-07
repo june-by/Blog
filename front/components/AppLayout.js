@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button } from 'antd';
-import styled from "styled-components";
+import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button, Input,Avatar } from 'antd';
+import styled , {createGlobalStyle}from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import {SiTypescript,SiJavascript} from 'react-icons/si';
 import {GrReactjs} from 'react-icons/gr';
-import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill ,RiComputerFill} from 'react-icons/ri'
+import { RiComputerFill} from 'react-icons/ri'
 import {GoBrowser} from 'react-icons/go';
 import {FiDatabase} from 'react-icons/fi';
 import {MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
-
+import  Router  from 'next/router';
+const { Search } = Input;
+const { Meta } = Card;
 const MyCard = styled(Card)`
     width : 300;
 `;
@@ -29,8 +31,16 @@ const TagWrapper = styled.div`
     text-align : center;
 `;
 
+const SearchWrapper = styled.div`
+    width : 80%;
+    margin : auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+`;
+
 const Taged = styled(Tag)`
     margin-bottom : 10px;
+    
 `;
 
 const RowWrapper = styled(Row)`
@@ -38,13 +48,17 @@ const RowWrapper = styled(Row)`
 `;
 
 const ButtonWrapper = styled(Button)`
-    border-color : lightsteelblue;
-    border-radius : 20px;
+    border : none;
+`;
+
+export const Global = createGlobalStyle`
+    .ant-card-meta-title{
+        margin-top : 20px;
+    }
 `;
 
 const AppLayout = ({ children }) => {
     const { me, logOutLoading} = useSelector((state) => state.user);
-
     const dispatch = useDispatch();
 
     const onLogout = useCallback(() => {
@@ -52,12 +66,15 @@ const AppLayout = ({ children }) => {
             type: LOG_OUT_REQUEST,
         });
     }, []);
+
+    const onSearch = useCallback((value)=>{
+        location.href = `/SearchPost/${value}`;
+    },[])
     return (
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;" ,paddingBottom : "15px"}}>
                 <div style = {{textAlign : "right"}}>v0.2.1</div>
-                <Link href="/"><a><img src = 'B.jpeg' width = "50px" height = "70px"/></a></Link>
-                <Link href="/"><a><img src = 'Y.jpeg' width = "70px" height = "70px" style = {{marginLeft : "-20px"}}/></a></Link>
+                <Link href="/"><a style = {{fontSize : "50px"}}>ByJuun</a></Link>
             </div>
             <Menu mode="horizontal">
                 <Menu.Item>
@@ -81,14 +98,18 @@ const AppLayout = ({ children }) => {
                 <Col xs={24} sm={6} md={5}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me &&
                         <div stlye = {{textAlign : "center"}}>
-                            <Card ><Card.Meta title={`환영합니다! ${me.nickname}님`} />
-                                <div style={{ marginTop: "15px" }}>
-                                    <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>
-                                    <ButtonWrapper style={{ marginLeft: "10px" }} href = "/changeNickname" >닉네임변경</ButtonWrapper>
-                                </div>
+                            <Card actions={[
+                                <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
+                                <ButtonWrapper href = "/changeNickname" >닉네임변경</ButtonWrapper>
+                            ]}>
+                                <Global />
+                                <Meta avatar = {<Avatar size = {64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
                             </Card>
                         </div>
                     }
+                    <SearchWrapper>
+                        <Search placeholder="게시글 검색" onSearch={onSearch} enterButton />
+                    </SearchWrapper>
                     <Menu style={{ width: "256", borderRight : "none" }} mode="inline" >
                         <Menu.Item key="1">
                             <a href="/category/JavaScript"><SiJavascript style = {{color : "lightsteelblue", marginRight :"15px"}}/>JavaScript</a>
