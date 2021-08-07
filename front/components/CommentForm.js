@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
-import { useCallback } from 'react';
+import { useCallback,useEffect } from 'react';
 import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_COMMENT_REQUEST } from '../reducers/post';

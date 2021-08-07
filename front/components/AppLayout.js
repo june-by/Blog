@@ -103,7 +103,7 @@ const AppLayout = ({ children }) => {
                                 <ButtonWrapper href = "/changeNickname" >닉네임변경</ButtonWrapper>
                             ]}>
                                 <Global />
-                                <Meta avatar = {<Avatar size = {64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
+                                <Meta avatar = {<Avatar style = {{backgroundColor : me.color}} size = {64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
                             </Card>
                         </div>
                     }

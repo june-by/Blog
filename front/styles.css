@@ -1,0 +1,14 @@
+.image_resized img {
+    width: 100%;
+}
+
+.image_resized {
+    margin : auto;
+}
+
+.image-style-align-right{
+    float : right;
+}
+.image-style-align-left{
+    float : left;
+}

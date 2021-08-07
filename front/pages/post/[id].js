@@ -75,7 +75,7 @@ const Post = () => {
              author = {commentInfo.User.nickname} 
              content = {commentInfo.content} 
              avatar = {
-                 <Avatar>{commentInfo.User.nickname[0]}</Avatar>
+                 <Avatar style={{backgroundColor : commentInfo.User.color}}>{commentInfo.User.nickname[0]}</Avatar>
              }>
              </Comment> )
             }

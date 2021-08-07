@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input,Alert } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import Head from 'next/head';
@@ -58,12 +58,14 @@ const Signup = () => {
   
   useEffect(()=>{
     if(me && id){
+      alert("로그인 한 사용자는 회원가입이 불가능 합니다 메인화면으로 이동합니다");
       Router.replace('/');
     }
   },[me,id])
 
   useEffect(() => {
     if(signUpDone){
+      alert("회원가입이 완료되었습니다! 메인화면으로 이동합니다");
       Router.push('/')
     }
   }, [signUpDone]);

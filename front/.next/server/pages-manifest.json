@@ -3,7 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/": "pages/index.js",
-  "/SearchPost/[keyword]": "pages/SearchPost/[keyword].js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/category/[category]": "pages/category/[category].js"
+  "/profile": "pages/profile.js"
 }

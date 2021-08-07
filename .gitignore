@@ -3,4 +3,5 @@ node_modules
 .env
 images
 uploads
-styles.css
+.babelrc
+.eslintrc.json

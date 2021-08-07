@@ -37,7 +37,7 @@ router.post('/:postId/comment',isLoggedIn,async(req,res,next)=>{
             where: { id: comment.id },
             include: [{
                 model: User,
-                attributes: ['id', 'nickname'],
+                attributes: ['id', 'nickname',"color"],
             }]
         })
         res.status(201).json(fullComment);
@@ -64,7 +64,7 @@ router.get('/load/:postId',async(req,res,next)=>{
                model : Comment,
                include : [{
                    model : User,
-                   attributes : ["id","nickname"]
+                   attributes : ["id","nickname","color"]
                 }]
             }]
         })
