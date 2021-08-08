@@ -5,3 +5,4 @@ images
 uploads
 .babelrc
 .eslintrc.json
+.next

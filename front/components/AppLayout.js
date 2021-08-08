@@ -7,9 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import { SiTypescript, SiJavascript } from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
-import { RiComputerFill } from 'react-icons/ri'
-import { GoBrowser } from 'react-icons/go';
+import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
 import { FiDatabase } from 'react-icons/fi';
+import {AiOutlineHtml5} from 'react-icons/ai';
+import {TiFlowSwitch} from 'react-icons/ti';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
 import Router from 'next/router';
@@ -105,7 +106,8 @@ const AppLayout = ({ children }) => {
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;", paddingBottom: "15px" }}>
                 <div style={{ textAlign: "right" }}>v0.2.1</div>
-                <Link href="/"><a style={{ fontSize: "50px" }}>ByJuun</a></Link>
+                {mobileview && <Link href="/"><a><img style = {{width:"50%"}} src = "/Original on Transparent.png"/></a></Link>}
+                {!mobileview && <Link href="/"><a><img style = {{width:"20%"}} src = "/Original on Transparent.png"/></a></Link>}
             </div>
             <Menu mode="horizontal">
                 {mobileview && <Menu.Item>
@@ -175,43 +177,55 @@ const AppLayout = ({ children }) => {
                     {!mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "lightsteelblue", marginRight: "15px" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <a href="/category/React"><GrReactjs style={{ color: "lightsteelblue", marginRight: "15px" }} />React</a>
+                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />React</a>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <a href="/category/TypeScript"><SiTypescript style={{ color: "lightsteelblue", marginRight: "15px" }} />TypeScript</a>
+                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "lightsteelblue", marginRight: "15px" }} />OperatingSystem</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="5">
-                                <a href="/category/DataBase"><FiDatabase style={{ color: "lightsteelblue", marginRight: "15px" }} />DataBase</a>
+                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Browser"><GoBrowser style={{ color: "lightsteelblue", marginRight: "15px" }} />Browser</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Algorithm</a>
+                            </Menu.Item>
+                            <Menu.Item key="7">
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />HTML-CSS</a>
+                            </Menu.Item>
+                            <Menu.Item key="8">
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
                     {collapsed &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "lightsteelblue", marginRight: "15px" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <a href="/category/React"><GrReactjs style={{ color: "lightsteelblue", marginRight: "15px" }} />React</a>
+                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />React</a>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <a href="/category/TypeScript"><SiTypescript style={{ color: "lightsteelblue", marginRight: "15px" }} />TypeScript</a>
+                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "lightsteelblue", marginRight: "15px" }} />OperatingSystem</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="5">
-                                <a href="/category/DataBase"><FiDatabase style={{ color: "lightsteelblue", marginRight: "15px" }} />DataBase</a>
+                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Browser"><GoBrowser style={{ color: "lightsteelblue", marginRight: "15px" }} />Browser</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />Algorithm</a>
+                            </Menu.Item>
+                            <Menu.Item key="7">
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />HTML-CSS</a>
+                            </Menu.Item>
+                            <Menu.Item key="8">
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
 
@@ -239,9 +253,9 @@ const AppLayout = ({ children }) => {
                             <Taged color="default">React Hooks</Taged>
                         </div>
                         <div>
-                            <Taged color="magenta">데이터베이스</Taged>
-                            <Taged color="red">DataBase</Taged>
-                            <Taged color="#87d068">DB</Taged>
+                            <Taged color="magenta">자료구조</Taged>
+                            <Taged color="red">DataStructure</Taged>
+                            <Taged color="#87d068">자구</Taged>
                         </div>
                         <div>
                             <Taged color="#87d068">TypeScript</Taged>

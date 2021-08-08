@@ -38,7 +38,7 @@ padding : 10px;
 
 const WritePostForm = ({ id }) => {
     const dispatch = useDispatch();
-    const { addPostLoading, updatePostDone } = useSelector((state) => state.post);
+    const { addPostLoading, updatePostDone,addPostDone } = useSelector((state) => state.post);
     const [title, onChangeTitle] = useInput('');
     const [category, setCategory] = useState('');
     const [content, onChangeContent, setContent] = useInput('');
@@ -53,6 +53,15 @@ const WritePostForm = ({ id }) => {
             }, 1000);
         }
     }, [updatePostDone])
+
+    useEffect(() => {
+        if (addPostDone) {
+            alert("게시글 등록 완료!");
+            setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
+                Router.push('/');
+            }, 1000);
+        }
+    }, [addPostDone])
 
 
     const onSubmitForm = useCallback(() => {
@@ -96,10 +105,11 @@ const WritePostForm = ({ id }) => {
                     <Select.Option value="JavaScript">JavaScript</Select.Option>
                     <Select.Option value="React">React</Select.Option>
                     <Select.Option value="TypeScript">TypeScript</Select.Option>
-                    <Select.Option value="Database">Database</Select.Option>
+                    <Select.Option value="DataStructure">DataStructure</Select.Option>
                     <Select.Option value="OperatingSystem">OperatingSystem</Select.Option>
-                    <Select.Option value="Browser">Browser</Select.Option>
+                    <Select.Option value="HTML-CSS">HTML-CSS</Select.Option>
                     <Select.Option value="Error">Error</Select.Option>
+                    <Select.Option value="Algorithm">Algorithm</Select.Option>
                 </Select>
             </div>
             <div>

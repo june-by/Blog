@@ -26234,7 +26234,12 @@ div.ant-typography-edit-content.ant-typography-rtl {
 
 /*# sourceMappingURL=antd.css.map*/
 .image_resized img {
+    max-width: 100%;
     width: 100%;
+}
+
+figure{
+    max-width: 100%;
 }
 
 .image_resized {

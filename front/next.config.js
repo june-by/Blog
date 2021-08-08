@@ -1,9 +1,13 @@
 const withImages = require("next-images")
 const withCSS = require("@zeit/next-css")
 const { styles } = require('@ckeditor/ckeditor5-dev-utils')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled : process.env.ANALYZE === 'true',
+})
 
-module.exports = withCSS(
+module.exports = withBundleAnalyzer(withCSS(
   withImages({
+    compress : true,
     webpack(config, options) {
       config.module.rules.forEach(function (rule, index, array) {
         const test = rule.test && rule.test.toString() || ''
@@ -45,8 +49,16 @@ module.exports = withCSS(
         test: /ckeditor5-[^/]+\/theme\/icons\/.+\.svg$/,
         use: ['raw-loader']
       })
-
-      return config
+      const prod = process.env.NODE_ENV === 'production';
+      return{
+        ...config,
+        mode : prod? 'production' : 'development',
+        devtool : prod ? 'hidden-source-map' : 'eval',
+        plugins : [
+          ...config.plugins,
+          new options.webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/ko$/),
+        ],
+      }
     }
   })
-)
+))

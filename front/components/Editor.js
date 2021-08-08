@@ -26,7 +26,7 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import Indent from '@ckeditor/ckeditor5-indent/src/indent'
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock'
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
 
 const Editor = ({ setContent }) => {
   const [isLayoutReady, setIsLayoutReady] = useState(false)
@@ -47,7 +47,8 @@ const Editor = ({ setContent }) => {
         onChange={onChangeCKEditor}
         config={{
           plugins: [
-              Essentials,
+            
+            Essentials,
             Paragraph,
             Bold,
             Italic,
@@ -57,6 +58,7 @@ const Editor = ({ setContent }) => {
             Underline,
             Strikethrough,
             BlockQuote,
+            CodeBlock,
             Font,
             Alignment,
             List,
@@ -95,6 +97,7 @@ const Editor = ({ setContent }) => {
             'bulletedList',
             'numberedList',
             'blockQuote',
+            'codeBlock',
             '|',
             'link',
             'insertTable',
@@ -189,6 +192,24 @@ const Editor = ({ setContent }) => {
                 'threeQuarters'
               ]
             }
+          },
+          codeBlock: {
+            languages: [
+              { language: 'plaintext', label: 'Plain text' },
+              { language: 'c', label: 'C' },
+              { language: 'cs', label: 'C#' },
+              { language: 'cpp', label: 'C++' },
+              { language: 'css', label: 'CSS' },
+              { language: 'diff', label: 'Diff' },
+              { language: 'html', label: 'HTML' },
+              { language: 'java', label: 'Java' },
+              { language: 'javascript', label: 'JavaScript' },
+              { language: 'php', label: 'PHP' },
+              { language: 'python', label: 'Python' },
+              { language: 'ruby', label: 'Ruby' },
+              { language: 'typescript', label: 'TypeScript' },
+              { language: 'xml', label: 'XML' }
+            ]
           },
           
         }}

@@ -1,5 +1,4 @@
-import shortId from 'shortid';
-import faker from 'faker';
+
 import produce from '../util/produce';
 export const initialState = {
     Posts: [],
