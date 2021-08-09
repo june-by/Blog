@@ -1,95 +1,75 @@
 {
   "./Editor": [
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
+      "id": "./node_modules/antd/dist/antd.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
+      "id": 1,
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-editor-classic/theme/classiceditor.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/colorgrid/colorgrid.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/icon/icon.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/inputtext/inputtext.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/label/label.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css",
+      "id": "./styles.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css",
+      "id": 2,
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-block-quote/theme/blockquote.css",
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/blocktoolbar.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/toolbar.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/tooltip/tooltip.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/globals/globals.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
       "file": "static/css/styles.chunk.css"
     },
     {
@@ -137,86 +117,6 @@
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/table.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableselection.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/antd/dist/antd.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": 1,
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./styles.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": 2,
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-block-quote/theme/blockquote.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-editor-classic/theme/classiceditor.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
       "id": "./node_modules/@ckeditor/ckeditor5-link/theme/link.css",
       "file": "static/css/styles.chunk.css"
     },
@@ -238,6 +138,22 @@
     },
     {
       "id": "./node_modules/@ckeditor/ckeditor5-media-embed/theme/mediaform.css",
+      "file": "static/css/styles.chunk.css"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css",
+      "file": "static/css/styles.chunk.css"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/table.css",
+      "file": "static/css/styles.chunk.css"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css",
+      "file": "static/css/styles.chunk.css"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableselection.css",
       "file": "static/css/styles.chunk.css"
     },
     {
@@ -269,15 +185,7 @@
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
       "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
       "file": "static/css/styles.chunk.css"
     },
     {
@@ -318,98 +226,6 @@
     },
     {
       "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/colorgrid/colorgrid.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/icon/icon.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/inputtext/inputtext.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/label/label.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/blocktoolbar.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/toolbar.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/tooltip/tooltip.css",
-      "file": "static/css/styles.chunk.css"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/globals/globals.css",
       "file": "static/css/styles.chunk.css"
     },
     {
@@ -609,95 +425,75 @@
       "file": "static/css/styles.chunk.css"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
+      "id": "./node_modules/antd/dist/antd.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
+      "id": 1,
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-editor-classic/theme/classiceditor.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/colorgrid/colorgrid.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/icon/icon.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/inputtext/inputtext.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/label/label.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css",
+      "id": "./styles.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css",
+      "id": 2,
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-block-quote/theme/blockquote.css",
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/blocktoolbar.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/toolbar.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/tooltip/tooltip.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/globals/globals.css",
+      "id": "./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
       "file": "static/chunks/styles.js"
     },
     {
@@ -745,86 +541,6 @@
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/table.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableselection.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/dist/antd.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": 1,
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./styles.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": 2,
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-block-quote/theme/blockquote.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-editor-classic/theme/classiceditor.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
       "id": "./node_modules/@ckeditor/ckeditor5-link/theme/link.css",
       "file": "static/chunks/styles.js"
     },
@@ -846,6 +562,22 @@
     },
     {
       "id": "./node_modules/@ckeditor/ckeditor5-media-embed/theme/mediaform.css",
+      "file": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css",
+      "file": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/table.css",
+      "file": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css",
+      "file": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/@ckeditor/ckeditor5-table/theme/tableselection.css",
       "file": "static/chunks/styles.js"
     },
     {
@@ -877,15 +609,7 @@
       "file": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
       "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
       "file": "static/chunks/styles.js"
     },
     {
@@ -926,98 +650,6 @@
     },
     {
       "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-clipboard/theme/clipboard.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/theme/placeholder.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/colorgrid/colorgrid.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/splitbutton.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/formheader/formheader.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/icon/icon.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/inputtext/inputtext.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/label/label.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/labeledfield/labeledfieldview.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonrotator.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/fakepanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/blocktoolbar.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/toolbar/toolbar.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/components/tooltip/tooltip.css",
-      "file": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/globals/globals.css",
       "file": "static/chunks/styles.js"
     },
     {
@@ -1362,1042 +994,6 @@
     },
     {
       "id": "./node_modules/@ckeditor/ckeditor5-clipboard/src/utils/viewtoplaintext.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/command.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/commandcollection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/context.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/contextplugin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editingkeystrokehandler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/editor.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/editorui.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/utils/attachtoform.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/utils/dataapimixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/utils/elementapimixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/editor/utils/securesourceelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/multicommand.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/pendingactions.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/plugin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/src/plugincollection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-bottom.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-center.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-justify.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-left.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-middle.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-right.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/align-top.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/cancel.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/caption.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/check.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/eraser.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/image.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/low-vision.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-center.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-left.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-right.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-size-full.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-size-large.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-size-medium.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/object-size-small.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/pencil.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/pilcrow.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/quote.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-core/theme/icons/three-vertical-dots.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/controller/datacontroller.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/controller/editingcontroller.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/conversion.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/mapper.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/modelconsumable.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/conversion/viewconsumable.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/dataprocessor/basichtmlwriter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/dataprocessor/htmldataprocessor.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/batch.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/differ.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/document.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/documentfragment.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/documentselection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/element.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/history.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/liveposition.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/liverange.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/markercollection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/model.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/node.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/nodelist.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/attributeoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/detachoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/insertoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/markeroperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/mergeoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/moveoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/nooperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/operation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/operationfactory.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/renameoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/rootattributeoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/splitoperation.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/transform.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/operation/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/position.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/range.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/rootelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/schema.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/selection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/text.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/textproxy.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/treewalker.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/autoparagraphing.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/deletecontent.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/getselectedcontent.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/insertcontent.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/modifyselection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/model/writer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/attributeelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/containerelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/document.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/documentfragment.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/documentselection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/domconverter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/downcastwriter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/editableelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/element.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/emptyelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/filler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/matcher.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/node.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/bubblingemittermixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/clickobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/compositionobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/domeventdata.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/focusobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/inputobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/keyobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/observer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/observer/selectionobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/placeholder.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/position.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/range.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/rawelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/renderer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/rooteditableelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/selection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/styles/background.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/styles/border.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/styles/margin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/styles/padding.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/styles/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/stylesmap.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/text.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/textproxy.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/treewalker.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/uielement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/upcastwriter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-engine/src/view/view.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/enter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/entercommand.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/enterobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/shiftenter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/shiftentercommand.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-enter/src/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/bindings/injectcsstransitiondisabler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/bindings/preventdefault.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/bindings/submithandler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/button/buttonview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/button/switchbuttonview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/colorgrid/colorgridview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/colorgrid/colortileview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/colorgrid/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/componentfactory.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/dropdown/button/dropdownbuttonview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/dropdown/button/splitbuttonview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/dropdown/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/editableui/editableuiview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/editableui/inline/inlineeditableuiview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/editorui/bodycollection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/editorui/boxed/boxededitoruiview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/editorui/editoruiview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/focuscycler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/formheader/formheaderview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/icon/iconview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/inputtext/inputtextview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/label/labelview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/labeledfield/labeledfieldview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/labeledfield/utils.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/list/listitemview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/list/listseparatorview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/list/listview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/model.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/notification/notification.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/panel/sticky/stickypanelview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/template.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/balloon/balloontoolbar.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/block/blockbuttonview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/block/blocktoolbar.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/enabletoolbarkeyboardfocus.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/normalizetoolbarconfig.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/toolbarseparatorview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/toolbar/toolbarview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/tooltip/tooltipview.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/view.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/src/viewcollection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/icons/color-tile-check.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/icons/next-arrow.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-ui/theme/icons/previous-arrow.svg",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/ckeditorerror.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/collection.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/comparearrays.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/config.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/count.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/diff.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/createelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/emittermixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/getancestors.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/getborderwidths.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/getcommonancestor.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/getdatafromelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/indexof.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/insertat.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/isnode.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/isrange.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/istext.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/iswindow.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/position.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/rect.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/remove.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/resizeobserver.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/scroll.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/setdatainelement.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/dom/tounit.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/elementreplacer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/emittermixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/env.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/eventinfo.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/fastdiff.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/first.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/focustracker.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/isiterable.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/keyboard.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/keystrokehandler.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/language.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/locale.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/mix.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/objecttomap.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/observablemixin.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/priorities.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/spy.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/toarray.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/tomap.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/translation-service.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/uid.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/unicode.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/@ckeditor/ckeditor5-utils/src/version.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/ckeditor5/src/core.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/ckeditor5/src/engine.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/ckeditor5/src/enter.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/ckeditor5/src/ui.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-code-block/node_modules/ckeditor5/src/utils.js",
       "file": "static/chunks/1.js"
     },
     {
@@ -3913,6 +2509,10 @@
       "file": "static/chunks/1.js"
     },
     {
+      "id": "./node_modules/@ckeditor/ckeditor5-ui/src/iframe/iframeview.js",
+      "file": "static/chunks/1.js"
+    },
+    {
       "id": "./node_modules/@ckeditor/ckeditor5-ui/src/index.js",
       "file": "static/chunks/1.js"
     },
@@ -4130,10 +2730,6 @@
     },
     {
       "id": "./node_modules/@ckeditor/ckeditor5-utils/src/dom/getborderwidths.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/@ckeditor/ckeditor5-utils/src/dom/getcommonancestor.js",
       "file": "static/chunks/1.js"
     },
     {
