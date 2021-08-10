@@ -32,15 +32,15 @@ db.sequelize.sync()
 passportConfig();
 
 if(process.env.NODE_ENV === 'production'){
-    app.use(margon("combined"));
+    app.use(morgan("combined"));
     app.use(hpp());
     app.use(helmet());
 }else{
-    app.use(margon("dev"));
+    app.use(morgan("dev"));
 }
 
 app.use(cors({
-    origin: ['http://localhost:3000','Byjuun.com'],
+    origin: ['http://localhost:3000','Byjuun.com','3.35.17.154'],
     credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
 
@@ -83,6 +83,6 @@ app.post('/uploads', multipartyMiddelware, (req, res) => {
     });
 })
 
-app.listen(3085, () => {
+app.listen(80, () => {
     console.log("서버 실행 중");
 })
