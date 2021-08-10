@@ -7,6 +7,8 @@ const cors = require('cors');
 const fs = require('fs');
 const { v4 } = require('uuid');
 const passport = require('passport');
+const hpp =require('hpp');
+const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const db = require('./models');
@@ -28,11 +30,20 @@ db.sequelize.sync()
 
 
 passportConfig();
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(margon("combined"));
+    app.use(hpp());
+    app.use(helmet());
+}else{
+    app.use(margon("dev"));
+}
+
 app.use(cors({
-    origin: true,
+    origin: ['http://localhost:3000','Byjuun.com'],
     credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
-app.use(margon("dev"));
+
 app.use(bodyparser.urlencoded({ extended: true,  limit:"50mb", }));
 app.use(bodyparser.json({  limit:"50mb",}));
 app.use(cookieParser(process.env.COOKIE_SECRET));

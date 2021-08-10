@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app",
-    "start" : "node app"
+    "start": "node app"
   },
   "author": "By-juun",
   "license": "MIT",
@@ -19,6 +19,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "hpp": "^0.2.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
