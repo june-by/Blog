@@ -17,3 +17,9 @@ figure{
 .image-style-align-left{
     float : left;
 }
+
+pre{
+    border: 1px solid lightgrey;
+    background: lightgrey;
+    padding: 10px;
+}
