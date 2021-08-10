@@ -1,9 +1,17 @@
 {
+  "/404": "pages/404.html",
+  "/500": "pages/500.js",
+  "/SearchPost/[keyword]": "pages/SearchPost/[keyword].js",
+  "/UpdatePost/[id]": "pages/UpdatePost/[id].js",
+  "/Write": "pages/Write.html",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/": "pages/index.js",
+  "/category/[category]": "pages/category/[category].js",
   "/changeNickname": "pages/changeNickname.js",
+  "/": "pages/index.js",
+  "/login": "pages/login.html",
+  "/post/[id]": "pages/post/[id].js",
   "/profile": "pages/profile.js",
-  "/404": "pages/404.js"
+  "/signup": "pages/signup.js",
+  "/_error": "pages/_error.js"
 }
