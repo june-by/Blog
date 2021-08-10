@@ -40,7 +40,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 app.use(cors({
-    origin: ['http://localhost:3000','http://byjuun.com'],
+    origin: true,
     credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
 
