@@ -27,6 +27,7 @@ import Indent from '@ckeditor/ckeditor5-indent/src/indent'
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock'
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+import {backUrl} from '../config/config';
 
 const Editor = ({ setContent }) => {
   const [isLayoutReady, setIsLayoutReady] = useState(false)
@@ -76,7 +77,7 @@ const Editor = ({ setContent }) => {
             TextTransformation,
           ],
           simpleUpload : {
-            uploadUrl : "http://localhost:3085/uploads"
+            uploadUrl : `${backUrl}/uploads`
             
         },
           toolbar: [

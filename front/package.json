@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "ANALYZE=true NODE_EVN=production next build",
-    "start" : "NODE_ENV=production next start -p 3000"
+    "start": "NODE_ENV=production next start -p 3000"
   },
   "author": "BY-juun",
   "license": "ISC",
@@ -45,6 +45,7 @@
     "next": "^9.5.5",
     "next-images": "^1.8.1",
     "next-redux-wrapper": "^6.0.2",
+    "pm2": "^5.1.0",
     "prop-types": "^15.7.2",
     "raw-loader": "^4.0.2",
     "react": "^16.14.0",
