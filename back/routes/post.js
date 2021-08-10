@@ -104,7 +104,7 @@ router.patch('/:postId',isLoggedIn,async(req,res,next)=>{
             where : {id : req.params.postId}
         })
         res.json({message : "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다"});
-    }catch(error){
+    }catch(err){
         console.error(err);
         next(err);
     }

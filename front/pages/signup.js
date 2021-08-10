@@ -23,7 +23,7 @@ const SignUpFormWrapper = styled.div`
   border-radius: 40px;
   padding: 30px;
   height: 530px;
-  width : 60%;
+  width : 80%;
 `;
 
 
