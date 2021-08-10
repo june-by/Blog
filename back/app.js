@@ -81,7 +81,7 @@ app.post('/uploads', multipartyMiddelware, (req, res) => {
     fs.rename(TempPathfile,targetPathUrl,err=>{
         res.status(200).json({
             uploaded : true,
-            url : "http://byjuun.com/"+TempFile.name
+            url : "http://api.byjuun.com/"+TempFile.name
         });
 
         if(err) return console.err(err);

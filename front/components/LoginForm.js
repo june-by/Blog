@@ -40,7 +40,7 @@ const LoginFormWrapper = styled.div`
   border-radius: 40px;
   padding: 30px;
   height: 400px;
-  width : 60%;
+  width : 80%;
 `;
 
 const LoginForm = () => {
