@@ -148,8 +148,8 @@ const Signup = () => {
           <Button3 type="primary" htmlType="submit" loading={signUploading}>가입하기</Button3>
         </div>
         <div style = {{marginTop : "10px"}}>
-          <Button3 href = "3.35.17.154/user/kakao"><RiKakaoTalkFill /> 카카오 회원가입</Button3>
-          <Button3 href = "3.35.17.154/user/facebook"> <RiFacebookBoxFill /> 페이스북 회원가입</Button3>
+          <Button3 href = "13.124.205.42/user/kakao"><RiKakaoTalkFill /> 카카오 회원가입</Button3>
+          <Button3 href = "13.124.205.42/user/facebook"> <RiFacebookBoxFill /> 페이스북 회원가입</Button3>
           <Button3> <RiGoogleFill /> 구글 회원가입</Button3>
         </div>
       </Form>
