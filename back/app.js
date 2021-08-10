@@ -51,18 +51,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
-}));
-app.use(passport.initialize());
-app.use(passport.session({
-    saveUninitialized : false,
-    resave : false,
-    secret :process.env.COOKIE_SECRET,
     cookie : {
         httpOnly : true,
         secure : false,
         domain : process.env.NODE_ENV === 'production' && '.byjuun.com'
     }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
