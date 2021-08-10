@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import AppLayout from "../components/AppLayout";
 import Head from 'next/head';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button,message } from 'antd';
 import useInput from '../hooks/useInput';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ const changeNickname = () => {
     
     useEffect(()=>{
         if(!me){
-            alert("로그인 해야 합니다");
+            message.error("로그인 해야 합니다");
             Router.replace('/');
         }
         if(changeNicknameDone)
@@ -28,7 +28,7 @@ const changeNickname = () => {
         }
         if(changeNicknameError)
         {
-            alert(changeNicknameError);
+            message.error(changeNicknameError);
             setNickname('');
         }
     },[changeNicknameDone,changeNicknameError,me])
@@ -51,11 +51,9 @@ const changeNickname = () => {
                 <title>닉네임 수정</title>
             </Head>
             <AppLayout>
-                <Form onFinish = {onSubmitNickname}>
+                <Form onFinish = {onSubmitNickname} style = {{textAlign : "center", marginTop : "25px"}}>
                     <div style = {{display : "inline-block"}}>
-                        <label htmlFor="user-nick">닉네임</label>
-                        <br />
-                        <Input name="user-nick" value={nickname} required onChange={onChangeNickname}/>
+                        <Input name="user-nick" placeholder = "nickname" value={nickname} required onChange={onChangeNickname}/>
                     </div>
                     <Button type="primary" htmlType="submit" loading={changeNicknameLoading}>변경</Button>
                 </Form>

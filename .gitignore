@@ -3,6 +3,5 @@ node_modules
 .env
 images
 uploads
-.babelrc
-.eslintrc.json
 .next
+ByJuuncom.pem

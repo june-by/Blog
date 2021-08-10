@@ -1,6 +1,6 @@
 
 import PropTypes from 'prop-types';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button ,message} from 'antd';
 import Link from 'next/link';
 import { useCallback,useEffect } from 'react';
 import useInput from '../hooks/useInput';
@@ -16,7 +16,7 @@ const CommentForm = ({ postId }) => {
 
     useEffect(()=>{
         if(addCommentError){
-            alert(addCommentError);
+            message.error(addCommentError);
             setComment('');
         }
     },[addCommentError])

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,15 +57,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (logInError) {
-      alert(logInError);
+      message.error(logInError);
     }
   }, [logInError]);
 
-  const kakaologin = useCallback(() => {
-    dispatch({
-      type : KAKAO_LOG_IN_REQUEST,
-    })
-  },[])
 
   return (
     <>

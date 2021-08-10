@@ -32,7 +32,7 @@ const PostCard = ({ post }) => {
         {
             title: (
                 <>
-                    <SiJavascript size="24" style={{ marginRight: "10px", color: "dodgerblue", verticalAlign: "middle" }} />{post.title}
+                    <SiJavascript size="24" style={{ marginRight: "10px", color: "gold", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
         },
@@ -53,7 +53,7 @@ const PostCard = ({ post }) => {
         {
             title: (
                 <>
-                    <RiComputerFill size="24" style={{ marginRight: "10px", color: "dodgerblue", verticalAlign: "middle" }} />{post.title}
+                    <RiComputerFill size="24" style={{ marginRight: "10px", color: "forestgreen", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
         },
@@ -67,21 +67,21 @@ const PostCard = ({ post }) => {
         {
             title: (
                 <>
-                    <AiOutlineHtml5 size="24" style={{ marginRight: "10px", color: "dodgerblue", verticalAlign: "middle" }} />{post.title}
+                    <AiOutlineHtml5 size="24" style={{ marginRight: "10px", color: "orangered", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
         },
         {
             title: (
                 <>
-                    <RiErrorWarningLine size="24" style={{ marginRight: "10px", color: "dodgerblue", verticalAlign: "middle" }} />{post.title}
+                    <RiErrorWarningLine size="24" style={{ marginRight: "10px", color: "red", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
         },
         {
             title: (
                 <>
-                    <TiFlowSwitch size="24" style={{ marginRight: "10px", color: "dodgerblue", verticalAlign: "middle" }} />{post.title}
+                    <TiFlowSwitch size="24" style={{ marginRight: "10px", color: "lightpink", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
         }

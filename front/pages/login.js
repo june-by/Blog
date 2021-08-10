@@ -7,7 +7,7 @@ import Router from 'next/router';
 
 const Signup = () => {
 
-    const {me, signUpDone} = useSelector((state)=>state.user);
+    const {me} = useSelector((state)=>state.user);
     const id = me?.id;
     useEffect(()=>{
         if(me && id){

@@ -2,10 +2,10 @@ import AppLayout from "../../components/AppLayout";
 import  Router, {useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect } from "react";
-import {FormOutlined} from '@ant-design/icons'
+import {FormOutlined, ExclamationCircleOutlined} from '@ant-design/icons'
 import { LOAD_CURPOST_REQUEST,REMOVE_POST_REQUEST } from "../../reducers/post";
 import ReactHtmlParser from 'html-react-parser'
-import { PageHeader, Tag, Comment, Avatar, Button} from 'antd';
+import { PageHeader, Tag, Comment, Avatar, Button,message, Modal} from 'antd';
 import CommentForm from '../../components/CommentForm';
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
@@ -14,7 +14,7 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 import moment from 'moment';
 //More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
 //그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
-
+const { confirm } = Modal;
 moment.locale("ko");
 const Post = () => {
     const dispatch = useDispatch();
@@ -25,26 +25,28 @@ const Post = () => {
 
     useEffect(()=>{
         if(loadCurpostError){
-            alert(loadCurpostError);
+            message.error(loadCurpostError);
         }
     },[loadCurpostError])
 
     useEffect(()=>{
         if(removePostDone){
-            alert("해당 글이 삭제되었습니다");
+            message.success("해당 글이 삭제되었습니다");
             Router.push('/');
         }
     },[removePostDone])
 
     const onClickDelete = useCallback(()=>{
-        const onemore = prompt("정말 삭제하시겠습니까? 삭제를 원하면 delete를 입력해주세요");
-        if(onemore === "delete")
-        {
-            dispatch({
-               type : REMOVE_POST_REQUEST,
-               data : id,
-            })
-        }
+        confirm({
+            title: '이 게시글을 정말 삭제하시겠습니까?',
+            icon: <ExclamationCircleOutlined />,
+            onOk() {
+                dispatch({
+                    type : REMOVE_POST_REQUEST,
+                    data : id,
+                 })
+            },
+          });
     },[]);
 
     return (

@@ -24,7 +24,6 @@ const category = () => {
 
     const onChange = useCallback(page => {
         setCurrent(page);
-        console.log(current);
         startIndex = (page-1) * 6;
         lastIndex = startIndex + 6;
         setShowPosts(Posts.slice(startIndex,lastIndex));

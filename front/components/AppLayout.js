@@ -177,7 +177,7 @@ const AppLayout = ({ children }) => {
                     {!mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />React</a>
@@ -186,25 +186,25 @@ const AppLayout = ({ children }) => {
                                 <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="5">
                                 <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Algorithm</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px",verticalAlign: "middle" }} />Algorithm</a>
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />HTML-CSS</a>
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px",verticalAlign: "middle" }} />HTML-CSS</a>
                             </Menu.Item>
                             <Menu.Item key="8">
-                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
-                    {collapsed &&
+                    {collapsed && mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />React</a>
@@ -213,19 +213,19 @@ const AppLayout = ({ children }) => {
                                 <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="5">
                                 <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />Algorithm</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px" ,verticalAlign: "middle"}} />Algorithm</a>
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />HTML-CSS</a>
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px" ,verticalAlign: "middle"}} />HTML-CSS</a>
                             </Menu.Item>
                             <Menu.Item key="8">
-                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
 

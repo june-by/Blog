@@ -4,7 +4,7 @@ import Head from 'next/head';
 import  Router, {useRouter } from 'next/router';
 import WritePostForm from '../../components/WritePostForm';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
-
+import {message} from 'antd';
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
@@ -17,7 +17,7 @@ const UpdatePost= () => {
     useEffect(()=>{
         if(me.email !== "neostgeart@gmail.com")
         {
-            alert("글 수정 권한이 없습니다");
+            message.error("글 수정 권한이 없습니다");
             Router.replace('/');
         }
     },[me])

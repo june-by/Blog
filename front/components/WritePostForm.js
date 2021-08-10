@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useInput from '../hooks/useInput';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select,message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost, ADD_POST_REQUEST, UPDATE_POST_REQUEST } from "../reducers/post";
 import Router from 'next/router';
@@ -47,7 +47,7 @@ const WritePostForm = ({ id }) => {
 
     useEffect(() => {
         if (updatePostDone) {
-            alert(updatePostDone);
+            message.success(updatePostDone);
             setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
                 Router.push('/');
             }, 1000);
@@ -56,7 +56,7 @@ const WritePostForm = ({ id }) => {
 
     useEffect(() => {
         if (addPostDone) {
-            alert("게시글 등록 완료!");
+            message.success("게시글 등록 완료!");
             setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
                 Router.push('/');
             }, 1000);
