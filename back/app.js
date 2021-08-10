@@ -40,7 +40,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 app.use(cors({
-    origin: ['http://localhost:3000','Byjuun.com','http://3.35.17.154'],
+    origin: ['http://localhost:3000','http://byjuun.com'],
     credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
 
@@ -53,7 +53,16 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
 }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({
+    saveUninitialized : false,
+    resave : false,
+    secret :process.env.COOKIE_SECRET,
+    cookie : {
+        httpOnly : true,
+        secure : false,
+        domain : process.env.NODE_ENV === 'production' && '.byjuun.com'
+    }
+}));
 
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
@@ -76,7 +85,7 @@ app.post('/uploads', multipartyMiddelware, (req, res) => {
     fs.rename(TempPathfile,targetPathUrl,err=>{
         res.status(200).json({
             uploaded : true,
-            url : "http://localhost:3085/"+TempFile.name
+            url : "http://byjuun.com/"+TempFile.name
         });
 
         if(err) return console.err(err);

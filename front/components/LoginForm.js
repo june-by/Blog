@@ -86,8 +86,8 @@ const LoginForm = () => {
         <ButtonWrapper>
           <Button3 type="primary" htmlType="submit" loading={logInLoading}>로그인</Button3>
           <Link href="/signup"><a><Button3>회원가입</Button3></a></Link>
-          <Button3 href =  "13.124.205.42/user/kakao"><RiKakaoTalkFill />카카오 로그인</Button3>
-          <Button3 href = "13.124.205.42/user/facebook"> <RiFacebookBoxFill />페이스북 로그인</Button3>
+          <Button3 href =  "http://api.byjuun.com/user/kakao"><RiKakaoTalkFill />카카오 로그인</Button3>
+          <Button3 href = "http://api.byjuun.com/user/facebook"> <RiFacebookBoxFill />페이스북 로그인</Button3>
           <Button3> < RiGoogleFill/>구글 로그인</Button3>
         </ButtonWrapper>
       </FormWrapper>
