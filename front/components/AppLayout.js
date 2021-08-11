@@ -14,20 +14,8 @@ import { TiFlowSwitch } from 'react-icons/ti';
 import { FaNodeJs } from 'react-icons/fa';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
-import Router from 'next/router';
 const { Search } = Input;
 const { Meta } = Card;
-const MyCard = styled(Card)`
-    width : 300;
-`;
-
-const MainTitle = styled.a`
-    font-size: 45px;
-    padding-left: 25px;
-    padding-bottom: 15px;   
-    margin-top: 15px;
-    text-align : center;
-`
 
 const TagWrapper = styled.div`
     text-align : center;

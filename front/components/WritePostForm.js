@@ -3,7 +3,7 @@ import useInput from '../hooks/useInput';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Button, Form, Input, Select,message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost, ADD_POST_REQUEST, UPDATE_POST_REQUEST } from "../reducers/post";
+import {  ADD_POST_REQUEST, UPDATE_POST_REQUEST } from "../reducers/post";
 import Router from 'next/router';
 import dynamic from 'next/dynamic'
 const Editor = dynamic(() => import('./Editor'), {

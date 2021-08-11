@@ -14,6 +14,9 @@ const ByJuun = ({ Component }) => {
                 <meta charSet="utf-8"></meta>
                 <title>BY-juun Blog</title>
                 <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs2015.min.css"/>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> 
+                <script>hljs.initHighlightingOnLoad();</script>
             </Head>
             <Component />
         </>
