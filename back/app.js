@@ -5,19 +5,22 @@ const session = require('express-session');
 const multiparty = require('connect-multiparty');
 const cors = require('cors');
 const fs = require('fs');
-const { v4 } = require('uuid');
 const passport = require('passport');
 const hpp =require('hpp');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const dotenv = require('dotenv');
 const db = require('./models');
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const multipartyMiddelware = multiparty({ uploadDir: './images' });
 const passportConfig = require('./passport');
-
+const AWS = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+dotenv.config();
 const app = express();
 
 db.sequelize.sync()
@@ -68,23 +71,29 @@ app.get('/', (req, res) => {
     res.send("ㅎㅇ");
 })
 
-//이거 나중에 multer이용해서 받은거 디비에 저장하고... 그러고 게시물이랑 해줘야할듯?.....
-//multer수업듣고나서 합시다.
-//req.file.path에 /image/제목.jpeg 이런식으로 들어가있는데?
+
+AWS.config.update({
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    region: 'ap-northeast-2',
+})
+
+const upload = multer({
+    storage: multerS3({
+        s3: new AWS.S3(),
+        bucket: 'byjuun.com',
+        key(req, file, cb) {
+            cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
+        }
+    }),
+});
+
+
 app.use('/',express.static(path.join(__dirname,'uploads')));
-app.post('/uploads', multipartyMiddelware, (req, res) => {
-    console.log("req files : ", req.files);
-    const  TempFile = req.files.upload;
-    const TempPathfile = TempFile.path;
-    const targetPathUrl = path.join(__dirname,"./uploads/"+TempFile.name);
-
-    fs.rename(TempPathfile,targetPathUrl,err=>{
-        res.status(200).json({
-            uploaded : true,
-            url : "http://api.byjuun.com/"+TempFile.name
-        });
-
-        if(err) return console.err(err);
+app.post('/uploads',upload.single("upload"), (req, res) => {
+    res.status(200).json({
+        uploaded: true,
+        url: req.file.location,
     });
 })
 

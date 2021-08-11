@@ -1,11 +1,17 @@
-.image_resized img {
-    max-width: 100%;
-    width: 100%;
-}
 
 figure{
     max-width: 100%;
 }
+
+img{
+    width:100%;
+}
+
+.image_resized {
+    max-width: 100%;
+    width: 100%;
+}
+
 
 .image_resized {
     margin : auto;
@@ -16,10 +22,4 @@ figure{
 }
 .image-style-align-left{
     float : left;
-}
-
-pre{
-    border: 1px solid lightgrey;
-    background: lightgrey;
-    padding: 10px;
 }
