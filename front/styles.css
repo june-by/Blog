@@ -23,3 +23,8 @@ img{
 .image-style-align-left{
     float : left;
 }
+
+pre{
+    background: lightgrey;
+    border: 1px solid lightgrey;
+}
