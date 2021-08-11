@@ -7,10 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import { SiTypescript, SiJavascript } from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
-import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
+import { RiComputerFill, RiErrorWarningLine } from 'react-icons/ri'
 import { FiDatabase } from 'react-icons/fi';
-import {AiOutlineHtml5} from 'react-icons/ai';
-import {TiFlowSwitch} from 'react-icons/ti';
+import { AiOutlineHtml5 } from 'react-icons/ai';
+import { TiFlowSwitch } from 'react-icons/ti';
+import { FaNodeJs } from 'react-icons/fa';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
 import Router from 'next/router';
@@ -85,29 +86,29 @@ const AppLayout = ({ children }) => {
     }, [])
 
     const toggleCollapsed = useCallback(() => {
-        if(!collapsed){
-            if(mobileSearch){
+        if (!collapsed) {
+            if (mobileSearch) {
                 setMobileSearch(false);
             }
         }
         setCollapsed(!collapsed);
-    }, [collapsed,mobileSearch]);
+    }, [collapsed, mobileSearch]);
 
     const onClickSearchMenu = useCallback(() => {
-        if(!mobileSearch){
-            if(collapsed){
+        if (!mobileSearch) {
+            if (collapsed) {
                 setCollapsed(false);
             }
         }
         setMobileSearch(!mobileSearch);
-    }, [mobileSearch,collapsed]);
+    }, [mobileSearch, collapsed]);
 
     return (
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;", paddingBottom: "15px" }}>
                 <div style={{ textAlign: "right" }}>v0.2.1</div>
-                {mobileview && <Link href="/"><a><img style = {{width:"50%"}} src = "/Original on Transparent.png"/></a></Link>}
-                {!mobileview && <Link href="/"><a><img style = {{width:"20%"}} src = "/Original on Transparent.png"/></a></Link>}
+                {mobileview && <Link href="/"><a><img style={{ width: "50%" }} src="/Original on Transparent.png" /></a></Link>}
+                {!mobileview && <Link href="/"><a><img style={{ width: "20%" }} src="/Original on Transparent.png" /></a></Link>}
             </div>
             <Menu mode="horizontal">
                 {mobileview && <Menu.Item>
@@ -130,7 +131,7 @@ const AppLayout = ({ children }) => {
                 {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
                 <Menu.Item>
                     <Link href="/profile"><a>프로필</a></Link>
-                </Menu.Item>    
+                </Menu.Item>
                 {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
                     <Link href="/Write"><a>글쓰기</a></Link>
                 </Menu.Item>}
@@ -177,55 +178,61 @@ const AppLayout = ({ children }) => {
                     {!mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px", verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />React</a>
+                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />React</a>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />TypeScript</a>
+                                <a href="/category/NodeJs"><FaNodeJs style={{ color: "green", marginRight: "15px", verticalAlign: "middle" }} />NodeJs</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
+                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="5">
-                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px", verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px",verticalAlign: "middle" }} />Algorithm</a>
+                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px",verticalAlign: "middle" }} />HTML-CSS</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px", verticalAlign: "middle" }} />Algorithm</a>
                             </Menu.Item>
                             <Menu.Item key="8">
-                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px", verticalAlign: "middle" }} />HTML-CSS</a>
+                            </Menu.Item>
+                            <Menu.Item key="9">
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px", verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
                     {collapsed && mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                             <Menu.Item key="1">
-                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px",verticalAlign: "middle" }} />JavaScript</a>
+                                <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px", verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />React</a>
+                                <a href="/category/React"><GrReactjs style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />React</a>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px" ,verticalAlign: "middle"}} />TypeScript</a>
+                                <a href="/category/NodeJs"><FaNodeJs style={{ color: "green", marginRight: "15px", verticalAlign: "middle" }} />NodeJs</a>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px",verticalAlign: "middle" }} />OperatingSystem</a>
+                                <a href="/category/TypeScript"><SiTypescript style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />TypeScript</a>
                             </Menu.Item>
                             <Menu.Item key="5">
-                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px",verticalAlign: "middle" }} />DataStructure</a>
+                                <a href="/category/OperatingSystem"><RiComputerFill style={{ color: "forestgreen", marginRight: "15px", verticalAlign: "middle" }} />OperatingSystem</a>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px" ,verticalAlign: "middle"}} />Algorithm</a>
+                                <a href="/category/DataStructure"><FiDatabase style={{ color: "dodgerblue", marginRight: "15px", verticalAlign: "middle" }} />DataStructure</a>
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px" ,verticalAlign: "middle"}} />HTML-CSS</a>
+                                <a href="/category/Algorithm"><TiFlowSwitch style={{ color: "lightpink", marginRight: "15px", verticalAlign: "middle" }} />Algorithm</a>
                             </Menu.Item>
                             <Menu.Item key="8">
-                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px",verticalAlign: "middle" }} />Error</a>
+                                <a href="/category/HTML-CSS"><AiOutlineHtml5 style={{ color: "orangered", marginRight: "15px", verticalAlign: "middle" }} />HTML-CSS</a>
+                            </Menu.Item>
+                            <Menu.Item key="9">
+                                <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px", verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
                         </Menu>}
 
@@ -236,7 +243,7 @@ const AppLayout = ({ children }) => {
                         <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" }}>
                             <MailOutlined /> <div style={{ display: "inline-block" }}>neostgeart@gmail.com</div>
                         </div>
-                        <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" ,marginBottom : "15px"}}>
+                        <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px", marginBottom: "15px" }}>
                             <GithubOutlined /> <a href="https://github.com/BY-juun">https://github.com/BY-juun</a>
                         </div>
                     </div>}

@@ -2,10 +2,11 @@ import { Card, Tag } from 'antd';
 import styled from 'styled-components';
 import { SiTypescript, SiJavascript } from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
-import { RiComputerFill, RiErrorWarningLine} from 'react-icons/ri'
+import { RiComputerFill, RiErrorWarningLine } from 'react-icons/ri'
 import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
-import {TiFlowSwitch} from 'react-icons/ti';
+import { TiFlowSwitch } from 'react-icons/ti';
+import { FaNodeJs } from 'react-icons/fa';
 //전체 post 를 가져와서 띄어주는 글 (최신순으로)
 
 const CardWrapper = styled(Card)`
@@ -84,6 +85,13 @@ const PostCard = ({ post }) => {
                     <TiFlowSwitch size="24" style={{ marginRight: "10px", color: "lightpink", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
+        },
+        {
+            title: (
+                <>
+                    <FaNodeJs size="24" style={{ marginRight: "10px", color: "green", verticalAlign: "middle" }} />{post.title}
+                </>
+            ),
         }
     ];
 
@@ -113,6 +121,9 @@ const PostCard = ({ post }) => {
                 break;
             case "Algorithm":
                 titleLogo = cardTitle[7];
+                break;
+            case "NodeJs":
+                titleLogo = cardTitle[8];
                 break;
             default:
                 break;

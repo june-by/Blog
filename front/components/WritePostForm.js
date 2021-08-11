@@ -105,6 +105,7 @@ const WritePostForm = ({ id }) => {
                     <Select.Option value="JavaScript">JavaScript</Select.Option>
                     <Select.Option value="React">React</Select.Option>
                     <Select.Option value="TypeScript">TypeScript</Select.Option>
+                    <Select.Option value="NodeJs">NodeJs</Select.Option>
                     <Select.Option value="DataStructure">DataStructure</Select.Option>
                     <Select.Option value="OperatingSystem">OperatingSystem</Select.Option>
                     <Select.Option value="HTML-CSS">HTML-CSS</Select.Option>
