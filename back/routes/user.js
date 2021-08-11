@@ -130,17 +130,17 @@ router.get('/logout', (req, res, next) => {
 router.get('/kakao', passport.authenticate('kakao'));
 
 router.get('/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: 'http://localhost:3000',
+    failureRedirect: 'http://byjuun.com',
 }), (req, res) => {
-    return res.redirect("http://localhost:3000")
+    return res.redirect("http://byjuun.com")
 });
 
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get('/facebook/callback', passport.authenticate('facebook', {
-    failureRedirect: 'http://localhost:3000',
+    failureRedirect: 'http://byjuun.com',
 }), (req, res) => {
-    return res.redirect("http://localhost:3000")
+    return res.redirect("http://byjuun.com")
 });
 
 router.patch('/changeNickname', async (req, res, next) => {
