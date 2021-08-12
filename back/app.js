@@ -55,7 +55,7 @@ app.use(session({
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie : {
-        httpOnly : true,
+        httpOnly : true, //cookie는 javascript로 조작할 수 없도록.
         secure : false,
         domain : process.env.NODE_ENV === 'production' && '.byjuun.com'
     }
