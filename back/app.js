@@ -54,6 +54,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
+    proxy : true,
     cookie : {
         httpOnly : true, //cookie는 javascript로 조작할 수 없도록.
         secure : false,
@@ -62,6 +63,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.set('trust proxy',1);
 
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
