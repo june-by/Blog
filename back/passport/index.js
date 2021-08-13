@@ -20,4 +20,5 @@ module.exports = () => {
     local();
     kakao();
     facebook();
+    google();
 }
