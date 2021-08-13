@@ -1,6 +1,6 @@
-#byjuun.com
+# byjuun.com
 
-##Fronted
+## Fronted
 
 ### ReactJs
 ### NestJs
@@ -8,8 +8,8 @@
 ### antd
 ### Ckeditor
 
-##Backed
+## Backed
 
-###Express
-###Sequelize
-###AWS S3
+### Express
+### Sequelize
+### AWS S3
