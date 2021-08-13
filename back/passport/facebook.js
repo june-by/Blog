@@ -8,7 +8,7 @@ module.exports = () => {
   passport.use(new FacebookStrategy({ 
     clientID: process.env.FACEBOOK_ID,
     clientSecret : process.env.FACEBOOK_PWD,
-    callbackURL: '/user/facebook/callback',
+    callbackURL: 'https://api.byjuun.com/user/facebook/callback',
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       const exUser = await User.findOne({

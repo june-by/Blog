@@ -143,6 +143,14 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
     return res.redirect("https://byjuun.com")
 });
 
+router.get('/google', passport.authenticate('google'));
+
+router.get('/google/callback', passport.authenticate('google', {
+    failureRedirect: 'https://byjuun.com',
+}), (req, res) => {
+    return res.redirect("https://byjuun.com")
+});
+
 router.patch('/changeNickname', async (req, res, next) => {
     if (!req.user) {
         return res.status(403).send('로그인이 되어 있지 않습니다');

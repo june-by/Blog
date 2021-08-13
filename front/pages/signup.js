@@ -150,7 +150,7 @@ const Signup = () => {
         <div style = {{marginTop : "10px"}}>
           <Button3 href = "http://api.byjuun.com/user/kakao"><RiKakaoTalkFill /> 카카오 회원가입</Button3>
           <Button3 href = "http://api.byjuun.com/user/facebook"> <RiFacebookBoxFill /> 페이스북 회원가입</Button3>
-          <Button3> <RiGoogleFill /> 구글 회원가입</Button3>
+          <Button3 href = "http://api.byjuun.com/user/google"> <RiGoogleFill /> 구글 회원가입</Button3>
         </div>
       </Form>
       </SignUpFormWrapper>

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "ANALYZE=true NODE_EVN=production next build",
-    "start": "NODE_ENV=production next start -p 80"
+    "start": "NODE_ENV=production next start -p 3060"
   },
   "author": "BY-juun",
   "license": "ISC",
