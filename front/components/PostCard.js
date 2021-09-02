@@ -7,6 +7,7 @@ import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
 import { TiFlowSwitch } from 'react-icons/ti';
 import { FaNodeJs } from 'react-icons/fa';
+import { IoSchoolOutline } from 'react-icons/io';
 //전체 post 를 가져와서 띄어주는 글 (최신순으로)
 
 const CardWrapper = styled(Card)`
@@ -92,6 +93,20 @@ const PostCard = ({ post }) => {
                     <FaNodeJs size="24" style={{ marginRight: "10px", color: "green", verticalAlign: "middle" }} />{post.title}
                 </>
             ),
+        },
+        {
+            title: (
+                <>
+                    <IoSchoolOutline size="24" style={{ marginRight: "10px", color: "steelblue", verticalAlign: "middle" }} />{post.title}
+                </>
+            ),
+        },
+        {
+            title: (
+                <>
+                    <IoSchoolOutline size="24" style={{ marginRight: "10px", color: "mediumseagreen", verticalAlign: "middle" }} />{post.title}
+                </>
+            ),
         }
     ];
 
@@ -124,6 +139,12 @@ const PostCard = ({ post }) => {
                 break;
             case "NodeJs":
                 titleLogo = cardTitle[8];
+                break;
+            case "IntensiveEducation1":
+                titleLogo = cardTitle[9];
+                break;
+            case "IntensiveEducation2":
+                titleLogo = cardTitle[10];
                 break;
             default:
                 break;

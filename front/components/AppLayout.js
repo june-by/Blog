@@ -12,6 +12,7 @@ import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
 import { TiFlowSwitch } from 'react-icons/ti';
 import { FaNodeJs } from 'react-icons/fa';
+import {IoSchoolOutline} from 'react-icons/io';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
 const { Search } = Input;
@@ -192,6 +193,12 @@ const AppLayout = ({ children }) => {
                             <Menu.Item key="9">
                                 <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px", verticalAlign: "middle" }} />Error</a>
                             </Menu.Item>
+                            <Menu.Item key="10">
+                                <a href="/category/IntensiveEducation1"><IoSchoolOutline style={{ color: "steelblue", marginRight: "15px", verticalAlign: "middle" }} />집중교육1</a>
+                            </Menu.Item>
+                            <Menu.Item key="11">
+                                <a href="/category/IntensiveEducation2"><IoSchoolOutline style={{ color: "mediumseagreen", marginRight: "15px", verticalAlign: "middle" }} />집중교육2</a>
+                            </Menu.Item>
                         </Menu>}
                     {collapsed && mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
@@ -221,6 +228,12 @@ const AppLayout = ({ children }) => {
                             </Menu.Item>
                             <Menu.Item key="9">
                                 <a href="/category/Error"><RiErrorWarningLine style={{ color: "red", marginRight: "15px", verticalAlign: "middle" }} />Error</a>
+                            </Menu.Item>
+                            <Menu.Item key="10">
+                                <a href="/category/IntensiveEducation1"><IoSchoolOutline style={{ color: "steelblue", marginRight: "15px", verticalAlign: "middle" }} />집중교육1</a>
+                            </Menu.Item>
+                            <Menu.Item key="11">
+                                <a href="/category/IntensiveEducation2"><IoSchoolOutline style={{ color: "mediumseagreen", marginRight: "15px", verticalAlign: "middle" }} />집중교육2</a>
                             </Menu.Item>
                         </Menu>}
 

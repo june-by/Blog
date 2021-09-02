@@ -111,6 +111,8 @@ const WritePostForm = ({ id }) => {
                     <Select.Option value="HTML-CSS">HTML-CSS</Select.Option>
                     <Select.Option value="Error">Error</Select.Option>
                     <Select.Option value="Algorithm">Algorithm</Select.Option>
+                    <Select.Option value="IntensiveEducation1">IntensiveEducation1</Select.Option>
+                    <Select.Option value="IntensiveEducation2">IntensiveEducation2</Select.Option>
                 </Select>
             </div>
             <div>
