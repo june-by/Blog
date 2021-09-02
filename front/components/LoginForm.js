@@ -3,9 +3,8 @@ import { Form, Input, Button, message } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import KaKaoLogin from 'react-kakao-login'
 import useInput from '../hooks/useInput';
-import { KAKAO_LOG_IN_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
+import {LOG_IN_REQUEST } from '../reducers/user';
 import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
 import {backUrl} from '../config/config';
 const ButtonWrapper = styled.div`

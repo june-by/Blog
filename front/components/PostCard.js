@@ -7,7 +7,7 @@ import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
 import { TiFlowSwitch } from 'react-icons/ti';
 import { FaNodeJs } from 'react-icons/fa';
-import { IoSchoolOutline } from 'react-icons/io';
+import { IoSchoolOutline } from 'react-icons/io5';
 //전체 post 를 가져와서 띄어주는 글 (최신순으로)
 
 const CardWrapper = styled(Card)`
