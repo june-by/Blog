@@ -5,18 +5,30 @@ import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button, Input, Avatar } f
 import styled, { createGlobalStyle } from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
-import { SiTypescript, SiJavascript } from 'react-icons/si';
+import { SiTypescript, SiJavascript ,SiNextDotJs,SiRedux} from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
-import { RiComputerFill, RiErrorWarningLine } from 'react-icons/ri'
-import { FiDatabase } from 'react-icons/fi';
-import { AiOutlineHtml5 } from 'react-icons/ai';
-import { TiFlowSwitch } from 'react-icons/ti';
-import { FaNodeJs } from 'react-icons/fa';
-import {IoSchoolOutline} from 'react-icons/io5';
+import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
+import { FiDatabase,FiServer } from 'react-icons/fi';
+import {AiOutlineHtml5,AiFillCar} from 'react-icons/ai';
+import {TiFlowSwitch} from 'react-icons/ti';
+import {GiVendingMachine} from 'react-icons/gi';
+import {DiCss3} from 'react-icons/di';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Footer, Header } from 'antd/lib/layout/layout';
+import Router from 'next/router';
 const { Search } = Input;
 const { Meta } = Card;
+const MyCard = styled(Card)`
+    width : 300;
+`;
+
+const MainTitle = styled.a`
+    font-size: 45px;
+    padding-left: 25px;
+    padding-bottom: 15px;   
+    margin-top: 15px;
+    text-align : center;
+`
 
 const TagWrapper = styled.div`
     text-align : center;
@@ -75,29 +87,29 @@ const AppLayout = ({ children }) => {
     }, [])
 
     const toggleCollapsed = useCallback(() => {
-        if (!collapsed) {
-            if (mobileSearch) {
+        if(!collapsed){
+            if(mobileSearch){
                 setMobileSearch(false);
             }
         }
         setCollapsed(!collapsed);
-    }, [collapsed, mobileSearch]);
+    }, [collapsed,mobileSearch]);
 
     const onClickSearchMenu = useCallback(() => {
-        if (!mobileSearch) {
-            if (collapsed) {
+        if(!mobileSearch){
+            if(collapsed){
                 setCollapsed(false);
             }
         }
         setMobileSearch(!mobileSearch);
-    }, [mobileSearch, collapsed]);
+    }, [mobileSearch,collapsed]);
 
     return (
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;", paddingBottom: "15px" }}>
-                <div style={{ textAlign: "right" }}>v0.2.2</div>
-                {mobileview && <Link href="/"><a><img style={{ width: "50%" }} src="/Original on Transparent.png" /></a></Link>}
-                {!mobileview && <Link href="/"><a><img style={{ width: "20%" }} src="/Original on Transparent.png" /></a></Link>}
+                <div style={{ textAlign: "right" }}>v0.2.4</div>
+                {mobileview && <Link href="/"><a><img style = {{width:"50%"}} src = "/Original on Transparent.png"/></a></Link>}
+                {!mobileview && <Link href="/"><a><img style = {{width:"20%"}} src = "/Original on Transparent.png"/></a></Link>}
             </div>
             <Menu mode="horizontal">
                 {mobileview && <Menu.Item>
@@ -111,6 +123,9 @@ const AppLayout = ({ children }) => {
                         <Link href="/"><a>Home</a></Link>
                     </Menu.Item>
                 }
+                <Menu.Item>
+                    <Link href="/profile"><a>프로필</a></Link>
+                </Menu.Item>
                 {me
                     ? null
                     :
@@ -118,9 +133,6 @@ const AppLayout = ({ children }) => {
                         <Link href="/login"><a>로그인</a></Link>
                     </Menu.Item>}
                 {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
-                <Menu.Item>
-                    <Link href="/profile"><a>프로필</a></Link>
-                </Menu.Item>
                 {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
                     <Link href="/Write"><a>글쓰기</a></Link>
                 </Menu.Item>}
@@ -166,7 +178,7 @@ const AppLayout = ({ children }) => {
 
                     {!mobileview &&
                         <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
-                            <Menu.Item key="1">
+                             <Menu.Item key="1">
                                 <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px", verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
                             <Menu.Item key="2">
@@ -244,7 +256,7 @@ const AppLayout = ({ children }) => {
                         <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" }}>
                             <MailOutlined /> <div style={{ display: "inline-block" }}>neostgeart@gmail.com</div>
                         </div>
-                        <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px", marginBottom: "15px" }}>
+                        <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" ,marginBottom : "15px"}}>
                             <GithubOutlined /> <a href="https://github.com/BY-juun">https://github.com/BY-juun</a>
                         </div>
                     </div>}
@@ -253,29 +265,50 @@ const AppLayout = ({ children }) => {
                     <Divider orientation="center">Tag</Divider>
                     <TagWrapper style={{ textAlign: "center" }}>
                         <div>
-                            <Taged color="#f50">JavaScript</Taged>
-                            <Taged color="purple">JS</Taged>
+                            <Taged icon={<SiJavascript style = {{verticalAlign:"middle"}}/>}  color="yellow"> JavaScript</Taged>
+                            <Taged icon={<SiJavascript style = {{verticalAlign:"middle"}}/>} color="orange"> JS</Taged>
                         </div>
                         <div>
-                            <Taged color="#2db7f5">React</Taged>
-                            <Taged color="default">React Hooks</Taged>
+                            <Taged icon={<AiOutlineHtml5 style = {{verticalAlign:"middle"}}/>}  color="#f50"> HTML</Taged>
+                            <Taged icon={<DiCss3 style = {{verticalAlign:"middle"}}/>} color="purple"> CSS</Taged>
                         </div>
                         <div>
-                            <Taged color="magenta">자료구조</Taged>
-                            <Taged color="red">DataStructure</Taged>
-                            <Taged color="#87d068">자구</Taged>
+                            <Taged color="#2db7f5" icon={<GrReactjs style = {{verticalAlign:"middle"}}/>} > React</Taged>
+                            <Taged color="default" icon={<GrReactjs style = {{verticalAlign:"middle"}}/>} > React Hooks</Taged>
                         </div>
                         <div>
-                            <Taged color="#87d068">TypeScript</Taged>
-                            <Taged color="geekblue">TS</Taged>
+                            <Taged color="violet" icon={<SiRedux style = {{verticalAlign:"middle"}}/>} > Redux</Taged>
+                            <Taged color="blue" icon={<SiRedux style = {{verticalAlign:"middle"}}/>} > Redux Saga</Taged>
                         </div>
                         <div>
-                            <Taged color="default">Next JS</Taged>
+                            <Taged icon={<FiDatabase style = {{verticalAlign:"middle"}}/>} color="magenta" > 자료구조</Taged>
+                            <Taged icon={<FiDatabase style = {{verticalAlign:"middle"}}/>} color="red"> DataStructure</Taged>
+                            <Taged icon={<FiDatabase style = {{verticalAlign:"middle"}}/>} color="#87d068"> 자구</Taged>
                         </div>
                         <div>
-                            <Taged color="lime">운영체제</Taged>
-                            <Taged color="green">OperatingSystem</Taged>
-                            <Taged color="cyan">OS</Taged>
+                            <Taged icon={<SiTypescript style = {{verticalAlign:"middle"}}/>} color="#87d068"> TypeScript</Taged>
+                            <Taged icon={<SiTypescript style = {{verticalAlign:"middle"}}/>} color="geekblue"> TS</Taged>
+                        </div>
+                        <div>
+                            <Taged icon={<SiNextDotJs style = {{verticalAlign:"middle"}}/>} color="default"> Next JS</Taged>
+                            <Taged icon={<FiServer style = {{verticalAlign:"middle"}}/>} color="default"> ServersideRendering</Taged>
+                        </div>
+                        <div>
+                            <Taged icon={<RiComputerFill style = {{verticalAlign:"middle"}}/>} color="lime"> 운영체제</Taged>
+                            <Taged icon={<RiComputerFill style = {{verticalAlign:"middle"}}/>} color="green"> OperatingSystem</Taged>
+                            <Taged icon={<RiComputerFill style = {{verticalAlign:"middle"}}/>} color="cyan"> OS</Taged>
+                        </div>
+                        <div>
+                            <Taged icon={<TiFlowSwitch style = {{verticalAlign:"middle"}}/>} color="pink"> Algorithm</Taged>
+                            <Taged icon={<TiFlowSwitch style = {{verticalAlign:"middle"}}/>} color="violet"> 알고리즘</Taged>
+                        </div>
+                        <div>
+                            <Taged icon={<RiErrorWarningLine style = {{verticalAlign:"middle"}}/>} color="red"> Error</Taged>
+                            <Taged icon={<RiErrorWarningLine style = {{verticalAlign:"middle"}}/>} color="palevioletred"> 에러모음</Taged>
+                        </div>
+                        <div>
+                            <Taged icon={<AiFillCar style = {{verticalAlign:"middle"}}/>} color="lightblue"> 자동차</Taged>
+                            <Taged icon={<GiVendingMachine style = {{verticalAlign:"middle"}}/>} color="default"> ECU</Taged>
                         </div>
                     </TagWrapper>
                     <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" }}>
