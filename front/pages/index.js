@@ -7,14 +7,13 @@ import { LOAD_POSTS_REQUEST } from '../reducers/post';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
-import { SmileTwoTone} from '@ant-design/icons';
 
 const Home = () => {
   const { Posts } = useSelector((state) => (state.post));
   return (
     <AppLayout>
       {Posts.map((post) => <PostCard key={post.id} post={post}  />)}
-      <div style = {{textAlign : "center", marginTop : "10px", marginBottom : "10px",fontSize : "25px"}}><SmileTwoTone/> 방문해주셔서 감사합니다 <SmileTwoTone/></div>
+      <div style = {{marginBottom : "20px"}}></div>
     </AppLayout>
   );
 }

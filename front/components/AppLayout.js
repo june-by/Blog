@@ -95,7 +95,7 @@ const AppLayout = ({ children }) => {
     return (
         <div>
             <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;", paddingBottom: "15px" }}>
-                <div style={{ textAlign: "right" }}>v0.2.1</div>
+                <div style={{ textAlign: "right" }}>v0.2.2</div>
                 {mobileview && <Link href="/"><a><img style={{ width: "50%" }} src="/Original on Transparent.png" /></a></Link>}
                 {!mobileview && <Link href="/"><a><img style={{ width: "20%" }} src="/Original on Transparent.png" /></a></Link>}
             </div>
@@ -272,11 +272,11 @@ const AppLayout = ({ children }) => {
                         <div>
                             <Taged color="default">Next JS</Taged>
                         </div>
-
-                        <Taged color="lime">운영체제</Taged>
-                        <Taged color="green">OperatingSystem</Taged>
-                        <Taged color="cyan">OS</Taged>
-                        <Taged color="#108ee9">...</Taged>
+                        <div>
+                            <Taged color="lime">운영체제</Taged>
+                            <Taged color="green">OperatingSystem</Taged>
+                            <Taged color="cyan">OS</Taged>
+                        </div>
                     </TagWrapper>
                     <div style={{ textAlign: 'center', fontSize: "16px", marginTop: "15px" }}>
                         <MailOutlined /> <div style={{ display: "inline-block" }}>neostgeart@gmail.com</div>
