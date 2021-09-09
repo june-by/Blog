@@ -11,11 +11,7 @@ import { IoSchoolOutline } from 'react-icons/io5';
 //전체 post 를 가져와서 띄어주는 글 (최신순으로)
 
 const CardWrapper = styled(Card)`
-    width : 90%;
-    border : 1px solid lightsteelblue;
-    border-radius : 30px;
     margin : auto;
-    margin-top : 10px;
 `;
 
 const StyledTag = styled(Tag)`

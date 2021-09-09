@@ -147,7 +147,7 @@ const AppLayout = ({ children }) => {
                             <Card actions={[
                                 <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
                                 <ButtonWrapper href="/changeNickname" >닉네임변경</ButtonWrapper>
-                            ]}>
+                            ]} style = {{minHeight : "172px"}}>
                                 <Global />
                                 <Meta avatar={<Avatar style={{ backgroundColor: me.color }} size={64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
                             </Card>
