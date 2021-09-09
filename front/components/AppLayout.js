@@ -10,6 +10,7 @@ import { GrReactjs } from 'react-icons/gr';
 import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
 import { FiDatabase,FiServer } from 'react-icons/fi';
 import {AiOutlineHtml5,AiFillCar} from 'react-icons/ai';
+import { FaNodeJs } from 'react-icons/fa';
 import {TiFlowSwitch} from 'react-icons/ti';
 import {GiVendingMachine} from 'react-icons/gi';
 import {DiCss3} from 'react-icons/di';
