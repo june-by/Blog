@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyparser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const multiparty = require('connect-multiparty');
@@ -47,8 +46,8 @@ app.use(cors({
     credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
 }));
 
-app.use(bodyparser.urlencoded({ extended: true,  limit:"50mb", }));
-app.use(bodyparser.json({  limit:"50mb",}));
+app.use(express.urlencoded({ extended: true,  limit:"50mb", }));
+app.use(express.json({  limit:"50mb",}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
