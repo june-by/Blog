@@ -10,12 +10,12 @@ img{
 .image_resized {
     max-width: 100%;
     width: 100%;
-    margin-bottom : 15px;
 }
 
 
 .image_resized {
     margin : auto;
+    margin-bottom : 15px;
 }
 
 .image-style-align-right{
