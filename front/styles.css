@@ -10,6 +10,7 @@ img{
 .image_resized {
     max-width: 100%;
     width: 100%;
+    margin-bottom : 15px;
 }
 
 
@@ -19,7 +20,9 @@ img{
 
 .image-style-align-right{
     float : right;
+    margin-left : 20px;
 }
 .image-style-align-left{
     float : left;
+    margin-right: 20px;
 }
