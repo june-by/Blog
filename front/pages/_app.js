@@ -14,8 +14,8 @@ const ByJuun = ({ Component }) => {
                 <meta charSet="utf-8"></meta>
                 <title>BY-juun Blog</title>
                 <link rel="shortcut icon" href="/favicon.ico" />
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs2015.min.css"/>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> 
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/rebecca.min.css"/>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script> 
                 <script>hljs.initHighlightingOnLoad();</script>
                 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
             </Head>
