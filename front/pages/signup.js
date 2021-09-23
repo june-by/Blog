@@ -19,8 +19,6 @@ const Button2 = styled(Button)`
 const SignUpFormWrapper = styled.div`
   margin: auto;
   margin-top : 30px;
-  border: 1px solid lightgrey;
-  border-radius: 40px;
   padding: 30px;
   height: 530px;
   width : 80%;

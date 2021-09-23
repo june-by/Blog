@@ -51,6 +51,7 @@ const Post = () => {
 
     return (
         <AppLayout>
+            <div style = {{padding : "28px"}}>
             {me && me.nickname === "By_juun" &&
                 <div style = {{textAlign : "right" , marginTop : "15px"}}>
                     {me && me.email === "neostgeart@gmail.com" 
@@ -81,6 +82,7 @@ const Post = () => {
              }>
              </Comment> )
             }
+            </div>
             </div>
         </AppLayout>
     )

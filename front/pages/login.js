@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm';
 import { useSelector } from 'react-redux';
 import Router from 'next/router';
 
-const Signup = () => {
+const Login = () => {
 
     const {me} = useSelector((state)=>state.user);
     const id = me?.id;
@@ -28,4 +28,4 @@ const Signup = () => {
     );
 }
 
-export default Signup;
+export default Login;
