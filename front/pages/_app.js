@@ -16,7 +16,7 @@ const ByJuun = ({ Component }) => {
                 <link rel="shortcut icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/rebecca.min.css"/>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script> 
-                <script>hljs.initHighlightingOnLoad();</script>
+                <script>hljs.highlightAll();</script>
                 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
             </Head>
             <Component />
