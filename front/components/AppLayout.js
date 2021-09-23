@@ -1,22 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button, Input, Avatar } from 'antd';
+import { Menu, Row, Col, Card, Calendar, Tag, Divider, Button, Input, Avatar,Layout } from 'antd';
 import styled, { createGlobalStyle } from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import { SiTypescript, SiJavascript ,SiNextDotJs,SiRedux} from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
+import { FaNodeJs } from 'react-icons/fa';
+import {BiDoorOpen} from 'react-icons/bi'
+import {IoSchoolOutline} from 'react-icons/io5';
 import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
 import { FiDatabase,FiServer } from 'react-icons/fi';
 import {AiOutlineHtml5,AiFillCar} from 'react-icons/ai';
-import { FaNodeJs } from 'react-icons/fa';
-import {IoSchoolOutline} from 'react-icons/io5';
 import {TiFlowSwitch} from 'react-icons/ti';
 import {GiVendingMachine} from 'react-icons/gi';
 import {DiCss3} from 'react-icons/di';
-import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
-import { Footer, Header } from 'antd/lib/layout/layout';
+import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined, LayoutFilled } from '@ant-design/icons'
+import { Footer } from 'antd/lib/layout/layout';
+const {Header} = Layout;
 import Router from 'next/router';
 const { Search } = Input;
 const { Meta } = Card;
@@ -56,6 +58,11 @@ const ButtonWrapper = styled(Button)`
     border : none;
 `;
 
+const countWrapper = styled.div`
+    text-align : center;
+    margin-top : 15px;
+    margin-bottom : 25px;
+`;
 export const Global = createGlobalStyle`
     .ant-card-meta-title{
         margin-top : 20px;
@@ -63,7 +70,7 @@ export const Global = createGlobalStyle`
 `;
 
 const AppLayout = ({ children }) => {
-    const { me, logOutLoading } = useSelector((state) => state.user);
+    const { me, logOutLoading,totalvisitor,todayvisitor } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [mobileview, setMobileview] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -73,6 +80,7 @@ const AppLayout = ({ children }) => {
             type: LOG_OUT_REQUEST,
         });
     }, []);
+    
 
     useEffect(() => {
         const setResponsiveness = () => {
@@ -108,42 +116,46 @@ const AppLayout = ({ children }) => {
 
     return (
         <div>
-            <div style={{ textAlign: "center", borderBottom: "3px solid #f0f0f0;", paddingBottom: "15px" }}>
-                <div style={{ textAlign: "right" }}>v0.2.6</div>
-                {mobileview && <Link href="/"><a><img style = {{width:"50%"}} src = "/Original on Transparent.png"/></a></Link>}
-                {!mobileview && <Link href="/"><a><img style = {{width:"20%"}} src = "/Original on Transparent.png"/></a></Link>}
-            </div>
-            <Menu mode="horizontal">
-                {mobileview && <Menu.Item>
-                    <Button onClick={toggleCollapsed} style={{ marginBottom: 16, border: "none" }}>
-                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
-                    </Button>
-                </Menu.Item>}
-
-                {!mobileview &&
-                    <Menu.Item>
-                        <Link href="/"><a>Home</a></Link>
-                    </Menu.Item>
-                }
-                <Menu.Item>
-                    <Link href="/profile"><a>프로필</a></Link>
-                </Menu.Item>
-                {me
-                    ? null
-                    :
-                    <Menu.Item>
-                        <Link href="/login"><a>로그인</a></Link>
+            <div style={{ position: 'fixed', zIndex: 1, width: '100%' ,borderBottom : "0.1px solid lightgrey",backgroundColor : "white",boxShadow : "lightgrey 1px 1px 3px 1px"}}>
+                {!mobileview && <Link href="/"><a><img 
+                style = {{width:"100px",height : "50px", float:"left", 
+                backgroundColor : "white",marginLeft : "113px",
+                marginRight:"113px",marginTop : "10px",marginBottom : "10px"}} 
+                src = "/Original on Transparent.png"/></a></Link>}
+                <Menu mode="horizontal" style = {{height : "57px",borderBottom : "none",marginTop : "15px"}}>
+                    {mobileview && <Menu.Item>
+                        <Button onClick={toggleCollapsed} style={{ marginBottom: 16, border: "none" }}>
+                            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
+                        </Button>
                     </Menu.Item>}
-                {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
-                {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
-                    <Link href="/Write"><a>글쓰기</a></Link>
-                </Menu.Item>}
-                {mobileview && <Menu.Item onClick={onClickSearchMenu}>게시글 검색</Menu.Item>}
+
+                    {!mobileview &&
+                        <Menu.Item>
+                            <Link href="/"><a>Home</a></Link>
+                        </Menu.Item> 
+                    }
+                    <Menu.Item>
+                        <Link href="/profile"><a>프로필</a></Link>
+                    </Menu.Item>
+                    {me
+                        ? null
+                        :
+                        <Menu.Item style = {{verticalAlign : "middle"}}>
+                            <Link href="/login"><a>로그인</a></Link>
+                        </Menu.Item>}
+                    {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
+                    {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
+                        <Link href="/Write"><a>글쓰기</a></Link>
+                    </Menu.Item>}
+                    {mobileview && <Menu.Item onClick={onClickSearchMenu}>게시글 검색</Menu.Item>}
             </Menu>
+            </div>
+            
+            <div style = {{paddingTop : "70px"}}>
             <RowWrapper>
                 <Col xs={24} sm={6} md={5}> {/* 24등분 xs 모바일 md 데스크탑*/}
                     {me && !mobileview &&
-                        <div stlye={{ textAlign: "center" }}>
+                        <div stlye={{ textAlign: "center"}} >
                             <Card actions={[
                                 <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
                                 <ButtonWrapper href="/changeNickname" >닉네임변경</ButtonWrapper>
@@ -215,7 +227,7 @@ const AppLayout = ({ children }) => {
                             </Menu.Item>
                         </Menu>}
                     {collapsed && mobileview &&
-                        <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
+                        <Menu style={{ width: "256", borderRight: "none",position:"fixed",zIndex : "2" }} mode="inline" >
                             <Menu.Item key="1">
                                 <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px", verticalAlign: "middle" }} />JavaScript</a>
                             </Menu.Item>
@@ -264,7 +276,7 @@ const AppLayout = ({ children }) => {
                     </div>}
                 </Col>
                 <Col xs={0} sm={0} md={6}>
-                    <Divider orientation="center">Tag</Divider>
+                <Divider orientation="center">Tag</Divider>
                     <TagWrapper style={{ textAlign: "center" }}>
                         <div>
                             <Taged icon={<SiJavascript style = {{verticalAlign:"middle"}}/>}  color="yellow"> JavaScript</Taged>
@@ -321,6 +333,7 @@ const AppLayout = ({ children }) => {
                     </div>
                 </Col>
             </RowWrapper>
+            </div>
             <Footer style={{ textAlign: 'center', background: "lightsteelblue" }}>ByJuun.com @2021 Created by By_Juun</Footer>
         </div>
     );
