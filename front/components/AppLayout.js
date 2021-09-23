@@ -8,7 +8,6 @@ import { LOG_OUT_REQUEST } from '../reducers/user';
 import { SiTypescript, SiJavascript ,SiNextDotJs,SiRedux} from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';
 import { FaNodeJs } from 'react-icons/fa';
-import {BiDoorOpen} from 'react-icons/bi'
 import {IoSchoolOutline} from 'react-icons/io5';
 import { RiComputerFill , RiErrorWarningLine} from 'react-icons/ri'
 import { FiDatabase,FiServer } from 'react-icons/fi';
@@ -18,22 +17,8 @@ import {GiVendingMachine} from 'react-icons/gi';
 import {DiCss3} from 'react-icons/di';
 import { MailOutlined, GithubOutlined, MenuUnfoldOutlined, MenuFoldOutlined, LayoutFilled } from '@ant-design/icons'
 import { Footer } from 'antd/lib/layout/layout';
-const {Header} = Layout;
-import Router from 'next/router';
 const { Search } = Input;
 const { Meta } = Card;
-const MyCard = styled(Card)`
-    width : 300;
-`;
-
-const MainTitle = styled.a`
-    font-size: 45px;
-    padding-left: 25px;
-    padding-bottom: 15px;   
-    margin-top: 15px;
-    text-align : center;
-`
-
 const TagWrapper = styled.div`
     text-align : center;
 `;
@@ -58,11 +43,7 @@ const ButtonWrapper = styled(Button)`
     border : none;
 `;
 
-const countWrapper = styled.div`
-    text-align : center;
-    margin-top : 15px;
-    margin-bottom : 25px;
-`;
+
 export const Global = createGlobalStyle`
     .ant-card-meta-title{
         margin-top : 20px;
@@ -70,7 +51,7 @@ export const Global = createGlobalStyle`
 `;
 
 const AppLayout = ({ children }) => {
-    const { me, logOutLoading,totalvisitor,todayvisitor } = useSelector((state) => state.user);
+    const { me, logOutLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [mobileview, setMobileview] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
@@ -119,8 +100,8 @@ const AppLayout = ({ children }) => {
             <div style={{ position: 'fixed', zIndex: 1, width: '100%' ,borderBottom : "0.1px solid lightgrey",backgroundColor : "white",boxShadow : "lightgrey 1px 1px 3px 1px"}}>
                 {!mobileview && <Link href="/"><a><img 
                 style = {{width:"100px",height : "50px", float:"left", 
-                backgroundColor : "white",marginLeft : "113px",
-                marginRight:"113px",marginTop : "10px",marginBottom : "10px"}} 
+                backgroundColor : "white",marginLeft : "123px",
+                marginRight:"123px",marginTop : "10px",marginBottom : "10px"}} 
                 src = "/Original on Transparent.png"/></a></Link>}
                 <Menu mode="horizontal" style = {{height : "57px",borderBottom : "none",marginTop : "15px"}}>
                     {mobileview && <Menu.Item>
