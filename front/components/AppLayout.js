@@ -110,14 +110,11 @@ const AppLayout = ({ children }) => {
                         </Button>
                     </Menu.Item>}
 
-                    {!mobileview &&
-                        <Menu.Item>
-                            <Link href="/"><a>Home</a></Link>
-                        </Menu.Item> 
-                    }
+                    
                     <Menu.Item>
-                        <Link href="/profile"><a>프로필</a></Link>
-                    </Menu.Item>
+                        <Link href="/"><a>Home</a></Link>
+                    </Menu.Item> 
+                    
                     {me
                         ? null
                         :
@@ -125,6 +122,9 @@ const AppLayout = ({ children }) => {
                             <Link href="/login"><a>로그인</a></Link>
                         </Menu.Item>}
                     {!me && <Menu.Item><Link href="/signup"><a>회원가입</a></Link></Menu.Item>}
+                    <Menu.Item>
+                        <Link href="/profile"><a>프로필</a></Link>
+                    </Menu.Item>
                     {me && me.email === "neostgeart@gmail.com" && <Menu.Item>
                         <Link href="/Write"><a>글쓰기</a></Link>
                     </Menu.Item>}
