@@ -30,6 +30,8 @@ export default class MyDocument extends Document {
         return (
             <Html>
               <Head>
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5441996260068044"
+     crossorigin="anonymous"></script>
               </Head>
               <body>
                 <Main />
