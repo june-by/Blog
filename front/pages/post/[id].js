@@ -12,8 +12,6 @@ import { END } from 'redux-saga';
 import axios from 'axios'
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 import moment from 'moment';
-//More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
-//그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
 const { confirm } = Modal;
 moment.locale("ko");
 const Post = () => {
@@ -51,7 +49,7 @@ const Post = () => {
 
     return (
         <AppLayout>
-            <div style = {{padding : "28px"}}>
+            <div >
             {me && me.nickname === "By_juun" &&
                 <div style = {{textAlign : "right" , marginTop : "15px"}}>
                     {me && me.email === "neostgeart@gmail.com" 
