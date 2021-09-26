@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
         return (
             <Html>
               <Head>
-              <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; child-src 'self'; script-src 'self''unsafe-inline';"/>
+              <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
               <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5441996260068044"
      crossorigin="anonymous"></script>
               </Head>
