@@ -217,6 +217,7 @@ const AppLayout = ({ children }) => {
                             </Menu>}
                         {collapsed && mobileview &&
                             <div style = {{position: "fixed", zIndex: "2", width : "100%" }}>
+                                {me && 
                                 <div stlye={{ textAlign: "center" }}>
                                     <Card actions={[
                                         <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
@@ -225,7 +226,7 @@ const AppLayout = ({ children }) => {
                                         <Global />
                                         <Meta avatar={<Avatar style={{ backgroundColor: me.color }} size={64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
                                     </Card>
-                                </div>
+                                </div>}
                                 <Menu style={{ width: "256", borderRight: "none" }} mode="inline" >
                                     <Menu.Item key="1">
                                         <a href="/category/JavaScript"><SiJavascript style={{ color: "gold", marginRight: "15px", verticalAlign: "middle" }} />JavaScript</a>
