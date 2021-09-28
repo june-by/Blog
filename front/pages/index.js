@@ -6,8 +6,15 @@ import { LOAD_POSTS_REQUEST } from '../reducers/post';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
+import { createGlobalStyle } from "styled-components";
 import { Pagination } from 'antd';
 import ListComponent from '../components/ListComponent';
+
+export const Global = createGlobalStyle`
+    .ant-pagination-options{
+        display : none;
+    }
+`;
 
 const Home = () => {
   const { Posts } = useSelector((state) => (state.post));
@@ -27,6 +34,7 @@ const Home = () => {
     <AppLayout>
       <ListComponent Posts = {showPosts}/>
       <div style = {{marginBottom : "15px"}}></div>
+      <Global />
       <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length-1} />
     </AppLayout>
   );
