@@ -41,6 +41,15 @@ const ListComponent = ({ Posts }) => {
       size="24"
       style={{ color: "lightpink", verticalAlign: "middle" }}
     />,
+    <FaNodeJs size="24" style={{ color: "green", verticalAlign: "middle" }} />,
+    <IoSchoolOutline
+      size="24"
+      style={{ color: "steelblue", verticalAlign: "middle" }}
+    />,
+    <IoSchoolOutline
+      size="24"
+      style={{ color: "mediumseagreen", verticalAlign: "middle" }}
+    />,
   ];
   for (let post of Posts) {
     let avatar;
@@ -69,6 +78,15 @@ const ListComponent = ({ Posts }) => {
           break;
         case "Algorithm":
           avatar = cardTitle[7];
+          break;
+        case "NodeJs":
+          avatar = cardTitle[8];
+          break;
+        case "IntensiveEducation1":
+          avatar = cardTitle[9];
+          break;
+        case "IntensiveEducation2":
+          avatar = cardTitle[10];
           break;
         default:
           break;
