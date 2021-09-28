@@ -7,17 +7,10 @@ const Op = sequelize.Op;
 router.get('/load',async(req,res,next)=>{ //loadpost
     try{
         const posts = await Post.findAll({
-            limit : 12,
             order : [
                 ['createdAt','DESC'],
             ],
-            include : [{
-                model : Comment,
-                include : [{
-                    model : User,
-                    attributes : ["id"]
-                 }]
-             }]
+            attributes : ['id','title','category','createdAt']
         })
         res.status(200).json(posts);
     }catch(error){
