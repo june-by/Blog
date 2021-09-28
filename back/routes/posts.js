@@ -7,7 +7,7 @@ const Op = sequelize.Op;
 router.get('/load',async(req,res,next)=>{ //loadpost
     try{
         const posts = await Post.findAll({
-            limit : 10,
+            limit : 12,
             order : [
                 ['createdAt','DESC'],
             ],

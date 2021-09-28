@@ -16,7 +16,7 @@ const keyword = () => {
     const {Posts} = useSelector((state)=>(state.post));
     console.log("posts : ", Posts);
     let startIndex = 0; 
-    let lastIndex = 8;
+    let lastIndex = 9;
     const [showPosts, setShowPosts] = useState(Posts.slice(startIndex,lastIndex));
     const router = useRouter();
     const { keyword } = router.query;
@@ -24,8 +24,8 @@ const keyword = () => {
     const onChange = useCallback(page => {
         setCurrent(page);
         console.log(current);
-        startIndex = (page-1) * 8;
-        lastIndex = startIndex + 8;
+        startIndex = (page-1) * 9;
+        lastIndex = startIndex + 9;
         setShowPosts(Posts.slice(startIndex,lastIndex));
     },[current,showPosts]);
     
@@ -38,7 +38,7 @@ const keyword = () => {
             <AppLayout>
                 <h1 style = {{marginTop : "45px",textAlign : "center"}}>Search {keyword}</h1>
                 <ListComponent Posts = {showPosts}/>
-                <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length*2} />
+                <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length+1} />
             </AppLayout>
         </> 
     );
