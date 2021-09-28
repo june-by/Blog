@@ -1,5 +1,5 @@
 const express = require('express');
-const { Post, User } = require('../models');
+const { Post, User,Comment } = require('../models');
 const router = express.Router();
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
@@ -7,11 +7,17 @@ const Op = sequelize.Op;
 router.get('/load',async(req,res,next)=>{ //loadpost
     try{
         const posts = await Post.findAll({
-            limit : 6,
+            limit : 10,
             order : [
                 ['createdAt','DESC'],
-            ]
-            
+            ],
+            include : [{
+                model : Comment,
+                include : [{
+                    model : User,
+                    attributes : ["id"]
+                 }]
+             }]
         })
         res.status(200).json(posts);
     }catch(error){

@@ -1,22 +1,22 @@
 import AppLayout from "../../components/AppLayout";
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
-import PostCard from '../../components/PostCard';
 import {SEARCH_POSTS_REQUEST} from '../../reducers/post'
 import { Pagination } from 'antd';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
+import ListComponent from "../../components/ListComponent";
 
 const keyword = () => {
     const [current,setCurrent] = useState(1);
     const {Posts} = useSelector((state)=>(state.post));
     console.log("posts : ", Posts);
     let startIndex = 0; 
-    let lastIndex = 6;
+    let lastIndex = 8;
     const [showPosts, setShowPosts] = useState(Posts.slice(startIndex,lastIndex));
     const router = useRouter();
     const { keyword } = router.query;
@@ -24,8 +24,8 @@ const keyword = () => {
     const onChange = useCallback(page => {
         setCurrent(page);
         console.log(current);
-        startIndex = (page-1) * 6;
-        lastIndex = startIndex + 6;
+        startIndex = (page-1) * 8;
+        lastIndex = startIndex + 8;
         setShowPosts(Posts.slice(startIndex,lastIndex));
     },[current,showPosts]);
     
@@ -36,8 +36,8 @@ const keyword = () => {
                 <title>{keyword}검색</title>
             </Head>
             <AppLayout>
-                {console.log("return안에 : ", showPosts)}
-                {showPosts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}
+                <h1 style = {{marginTop : "45px",textAlign : "center"}}>Search {keyword}</h1>
+                <ListComponent Posts = {showPosts}/>
                 <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length*2} />
             </AppLayout>
         </> 

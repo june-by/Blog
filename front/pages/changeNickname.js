@@ -3,9 +3,8 @@ import AppLayout from "../components/AppLayout";
 import Head from 'next/head';
 import { Form, Input, Button,message } from 'antd';
 import useInput from '../hooks/useInput';
-import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
+import { LOAD_MY_INFO_REQUEST,CHANGE_NICKNAME_REQUEST } from '../reducers/user'
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
 import Router from 'next/router';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';

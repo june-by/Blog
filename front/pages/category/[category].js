@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import PostCard from '../../components/PostCard';
 import {LOAD_CATEGORYPOSTS_REQUEST} from '../../reducers/post'
 import { Pagination } from 'antd';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 import wrapper from "../../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
+import ListComponent from "../../components/ListComponent";
 
 //More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
 //그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
@@ -17,15 +17,15 @@ const category = () => {
     const [current,setCurrent] = useState(1);
     const {Posts} = useSelector((state)=>(state.post));
     let startIndex = 0; 
-    let lastIndex = 6;
+    let lastIndex = 8;
     const [showPosts, setShowPosts] = useState(Posts.slice(startIndex,lastIndex));
     const router = useRouter();
     const { category } = router.query;
 
     const onChange = useCallback(page => {
         setCurrent(page);
-        startIndex = (page-1) * 6;
-        lastIndex = startIndex + 6;
+        startIndex = (page-1) * 8;
+        lastIndex = startIndex + 8;
         setShowPosts(Posts.slice(startIndex,lastIndex));
     },[current,showPosts]);
     
@@ -36,7 +36,8 @@ const category = () => {
                 <title>{category}</title>
             </Head>
             <AppLayout>
-                {showPosts.map((post)=> <PostCard  key = {post.id} post = {post} style/>)}
+                <h1 style = {{marginTop : "45px",textAlign : "center"}}>{category}</h1>
+                <ListComponent Posts = {showPosts}/>
                 <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length*2} />
             </AppLayout>
         </> 
