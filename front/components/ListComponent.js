@@ -5,6 +5,8 @@ import { FiDatabase } from "react-icons/fi";
 import { AiOutlineHtml5 } from "react-icons/ai";
 import { TiFlowSwitch } from "react-icons/ti";
 import { List, Avatar, Space } from "antd";
+import { FaNodeJs } from 'react-icons/fa';
+import { IoSchoolOutline } from 'react-icons/io5';
 
 const ListComponent = ({ Posts }) => {
   const listData = [];
