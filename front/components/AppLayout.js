@@ -84,7 +84,7 @@ const AppLayout = ({ children }) => {
     return (
         <div>
             <div style={{ position: 'fixed', zIndex: 1, width: '100%', borderBottom: "0.1px solid lightgrey", backgroundColor: "white", boxShadow: "lightgrey 1px 1px 3px 1px" }}>
-                {!mobileview && <Link href="/"><a><img
+                {!mobileview && <Link href="https://byjuun.com"><a><img
                     style={{
                         width: "100px", height: "50px", float: "left",
                         backgroundColor: "white", marginLeft: "150px",
@@ -98,11 +98,11 @@ const AppLayout = ({ children }) => {
                         </Button>
                     </Menu.Item>}
 
-                    {!mobileview &&
-                        <Menu.Item>
-                            <Link href="/"><a>Home</a></Link>
-                        </Menu.Item>
-                    }
+           
+                    <Menu.Item>
+                        <Link href="https://byjuun.com"><a>Home</a></Link>
+                    </Menu.Item>
+                    
                     <Menu.Item>
                         <Link href="/profile"><a>프로필</a></Link>
                     </Menu.Item>
@@ -126,8 +126,8 @@ const AppLayout = ({ children }) => {
                         {me && !mobileview &&
                             <div stlye={{ textAlign: "center" }} >
                                 <Card actions={[
-                                    <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
-                                    <ButtonWrapper href="/changeNickname" >닉네임변경</ButtonWrapper>
+                                    <ButtonWrapper key = '1' onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
+                                    <ButtonWrapper key = '2' href="/changeNickname" >닉네임변경</ButtonWrapper>
                                 ]} style={{ minHeight: "172px" }}>
                                     <Global />
                                     <Meta avatar={<Avatar style={{ backgroundColor: me.color }} size={64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
@@ -155,8 +155,8 @@ const AppLayout = ({ children }) => {
                                 {me && 
                                 <div stlye={{ textAlign: "center" }}>
                                     <Card actions={[
-                                        <ButtonWrapper onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
-                                        <ButtonWrapper href="/changeNickname" >닉네임변경</ButtonWrapper>
+                                        <ButtonWrapper key = '1' onClick={onLogout} loading={logOutLoading}>로그아웃</ButtonWrapper>,
+                                        <ButtonWrapper key = '2' href="/changeNickname" >닉네임변경</ButtonWrapper>
                                     ]}>
                                         <Global />
                                         <Meta avatar={<Avatar style={{ backgroundColor: me.color }} size={64}>{me.nickname[0]}</Avatar>} title={`환영합니다! ${me.nickname}님`} />
