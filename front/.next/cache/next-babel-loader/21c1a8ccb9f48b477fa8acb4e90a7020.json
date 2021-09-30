@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var backUrl = \"https://api.byjuun.com\";","map":{"version":3,"sources":["/Users/byeongjun/My blog/front/config/config.js"],"names":["backUrl"],"mappings":"AAAA,OAAO,IAAMA,OAAO,GAAG,wBAAhB","sourcesContent":["export const backUrl = \"https://api.byjuun.com\";"]},"metadata":{},"sourceType":"module"}
