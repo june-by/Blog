@@ -84,13 +84,13 @@ const AppLayout = ({ children }) => {
     return (
         <div>
             <div style={{ position: 'fixed', zIndex: 1, width: '100%', borderBottom: "0.1px solid lightgrey", backgroundColor: "white", boxShadow: "lightgrey 1px 1px 3px 1px" }}>
-                {!mobileview && <Link><a href="https://byjuun.com"><img
+                {!mobileview && <a href="https://byjuun.com"><img
                     style={{
                         width: "100px", height: "50px", float: "left",
                         backgroundColor: "white", marginLeft: "150px",
                         marginRight: "150px", marginTop: "10px", marginBottom: "10px"
                     }}
-                    src="/Original on Transparent.png" /></a></Link>}
+                    src="/Original on Transparent.png" /></a>}
                 <Menu mode="horizontal" style={{ height: "57px", borderBottom: "none", marginTop: "15px" }}>
                     {mobileview && <Menu.Item>
                         <Button onClick={toggleCollapsed} style={{ marginBottom: 16, border: "none" }}>
@@ -100,7 +100,7 @@ const AppLayout = ({ children }) => {
 
            
                     <Menu.Item>
-                        <Link><a href="https://byjuun.com">Home</a></Link>
+                        <a href="https://byjuun.com">Home</a>
                     </Menu.Item>
                     
                     <Menu.Item>
