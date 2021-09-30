@@ -84,7 +84,7 @@ const AppLayout = ({ children }) => {
     return (
         <div>
             <div style={{ position: 'fixed', zIndex: 1, width: '100%', borderBottom: "0.1px solid lightgrey", backgroundColor: "white", boxShadow: "lightgrey 1px 1px 3px 1px" }}>
-                {!mobileview && <Link href="https://byjuun.com"><a><img
+                {!mobileview && <Link><a href="https://byjuun.com"><img
                     style={{
                         width: "100px", height: "50px", float: "left",
                         backgroundColor: "white", marginLeft: "150px",
@@ -100,7 +100,7 @@ const AppLayout = ({ children }) => {
 
            
                     <Menu.Item>
-                        <Link href="https://byjuun.com"><a>Home</a></Link>
+                        <Link><a href="https://byjuun.com">Home</a></Link>
                     </Menu.Item>
                     
                     <Menu.Item>
