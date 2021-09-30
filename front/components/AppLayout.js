@@ -97,15 +97,10 @@ const AppLayout = ({ children }) => {
                             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
                         </Button>
                     </Menu.Item>}
-
-           
                     <Menu.Item>
                         <a href="https://byjuun.com">Home</a>
                     </Menu.Item>
                     
-                    <Menu.Item>
-                        <Link href="/profile"><a>프로필</a></Link>
-                    </Menu.Item>
                     {me
                         ? null
                         :
@@ -117,6 +112,9 @@ const AppLayout = ({ children }) => {
                         <Link href="/Write"><a>글쓰기</a></Link>
                     </Menu.Item>}
                     {mobileview && <Menu.Item onClick={onClickSearchMenu}>게시글 검색</Menu.Item>}
+                    <Menu.Item>
+                        <Link href="/profile"><a>프로필</a></Link>
+                    </Menu.Item>
                 </Menu>
             </div>
 
