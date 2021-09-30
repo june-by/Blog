@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Menu} from 'antd';
 import { SiTypescript, SiJavascript } from 'react-icons/si';
 import { GrReactjs } from 'react-icons/gr';

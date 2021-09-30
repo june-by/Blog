@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import AppLayout from "../../components/AppLayout";
 import  Router, {useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';

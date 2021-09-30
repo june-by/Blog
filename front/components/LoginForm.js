@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
 import {LOG_IN_REQUEST } from '../reducers/user';
 import { RiKakaoTalkFill, RiFacebookBoxFill, RiGoogleFill } from 'react-icons/ri'
-import {backUrl} from '../config/config';
 const ButtonWrapper = styled.div`
   margin-top: 15px;
 `;

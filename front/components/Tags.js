@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {  Tag, Divider} from 'antd';
 import styled from "styled-components";
 import { SiTypescript, SiJavascript, SiNextDotJs, SiRedux } from 'react-icons/si';

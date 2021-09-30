@@ -1,7 +1,7 @@
 import AppLayout from "../../components/AppLayout";
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import React, { useCallback, useEffect, useState } from 'react';
+import {  useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
 import {LOAD_CATEGORYPOSTS_REQUEST} from '../../reducers/post'
 import { Pagination } from 'antd';

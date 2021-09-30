@@ -12,10 +12,6 @@ import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios';
 
-const Button2 = styled(Button)`
-  margin-right : 15px;
-`;
-
 const SignUpFormWrapper = styled.div`
   margin: auto;
   margin-top : 30px;

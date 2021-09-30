@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/react-in-jsx-scope */
 import { SiTypescript, SiJavascript } from "react-icons/si";
 import { GrReactjs } from "react-icons/gr";
 import { RiComputerFill, RiErrorWarningLine } from "react-icons/ri";

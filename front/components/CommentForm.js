@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 
 import PropTypes from 'prop-types';
 import { Form, Input, Button ,message} from 'antd';

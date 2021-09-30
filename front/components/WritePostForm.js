@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import useInput from '../hooks/useInput';
 import styled, { createGlobalStyle } from 'styled-components';
