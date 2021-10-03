@@ -3684,7 +3684,7 @@ const WritePostForm = ({
       antd__WEBPACK_IMPORTED_MODULE_3__["message"].success(updatePostDone);
       setTimeout(() => {
         //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
-        next_router__WEBPACK_IMPORTED_MODULE_6___default.a.push('/');
+        next_router__WEBPACK_IMPORTED_MODULE_6___default.a.replace('/');
       }, 1000);
     }
   }, [updatePostDone]);
@@ -3693,7 +3693,7 @@ const WritePostForm = ({
       antd__WEBPACK_IMPORTED_MODULE_3__["message"].success("게시글 등록 완료!");
       setTimeout(() => {
         //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
-        next_router__WEBPACK_IMPORTED_MODULE_6___default.a.push('/');
+        next_router__WEBPACK_IMPORTED_MODULE_6___default.a.replace('/');
       }, 1000);
     }
   }, [addPostDone]);

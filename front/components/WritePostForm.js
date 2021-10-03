@@ -51,7 +51,7 @@ const WritePostForm = ({ id }) => {
         if (updatePostDone) {
             message.success(updatePostDone);
             setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
-                Router.push('/');
+                Router.replace('/');
             }, 1000);
         }
     }, [updatePostDone])
@@ -60,7 +60,7 @@ const WritePostForm = ({ id }) => {
         if (addPostDone) {
             message.success("게시글 등록 완료!");
             setTimeout(() => { //여기 나중에 res.redirect('/')이런식으로 바꿔줘야함.
-                Router.push('/');
+                Router.replace('/');
             }, 1000);
         }
     }, [addPostDone])

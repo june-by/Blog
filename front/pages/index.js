@@ -35,7 +35,7 @@ const Home = () => {
       <ListComponent Posts = {mainPosts}/>
       <div style = {{marginBottom : "15px"}}></div>
       <Global />
-      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length-1} />
+      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length-(Posts.length % 10)} />
     </AppLayout>
   );
 }
@@ -47,11 +47,11 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
   context.store.dispatch({
-    type: LOAD_MY_INFO_REQUEST,
-  })
-  context.store.dispatch({
     type: LOAD_POSTS_REQUEST,
   });
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST,
+  })
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
 });

@@ -1896,7 +1896,7 @@ const Home = () => {
     },
     current: current,
     onChange: onChange,
-    total: Posts.length - 1
+    total: Posts.length - Posts.length % 10
   }));
 };
 
@@ -1909,10 +1909,10 @@ const getServerSideProps = _store_configureStore__WEBPACK_IMPORTED_MODULE_5__[/*
   }
 
   context.store.dispatch({
-    type: _reducers_user__WEBPACK_IMPORTED_MODULE_3__[/* LOAD_MY_INFO_REQUEST */ "e"]
+    type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__[/* LOAD_POSTS_REQUEST */ "n"]
   });
   context.store.dispatch({
-    type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__[/* LOAD_POSTS_REQUEST */ "n"]
+    type: _reducers_user__WEBPACK_IMPORTED_MODULE_3__[/* LOAD_MY_INFO_REQUEST */ "e"]
   });
   context.store.dispatch(redux_saga__WEBPACK_IMPORTED_MODULE_6__["END"]);
   await context.store.sagaTask.toPromise();
