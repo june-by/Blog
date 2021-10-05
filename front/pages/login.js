@@ -18,14 +18,11 @@ const Login = () => {
         if(me && id){
             if(logInDone){
                 message.success("로그인이 완료되었습니다! 메인화면으로 이동합니다.");
-                setTimeout(()=>{
-                    Router.replace('/');
-                },1000);
-            }else{
+                Router.replace('/');
+            }
+             else{
                 message.error("이미 로그인한 사용자입니다. 메인화면으로 이동합니다.");
-                setTimeout(()=>{
-                    Router.replace('/');
-                },1000);
+                Router.replace('/');
             }
             
         }

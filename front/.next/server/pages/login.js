@@ -2010,14 +2010,10 @@ const Login = () => {
     if (me && id) {
       if (logInDone) {
         external_antd_["message"].success("로그인이 완료되었습니다! 메인화면으로 이동합니다.");
-        setTimeout(() => {
-          router_default.a.replace('/');
-        }, 1000);
+        router_default.a.replace('/');
       } else {
         external_antd_["message"].error("이미 로그인한 사용자입니다. 메인화면으로 이동합니다.");
-        setTimeout(() => {
-          router_default.a.replace('/');
-        }, 1000);
+        router_default.a.replace('/');
       }
     }
   }, [me, id]);
