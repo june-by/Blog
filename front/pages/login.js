@@ -5,6 +5,7 @@ import LoginForm from '../components/LoginForm';
 import { useSelector } from 'react-redux';
 import Router from 'next/router';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
@@ -48,6 +49,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
+    context.store.dispatch({
+        type: LOAD_POSTS_REQUEST,
+      });
     context.store.dispatch({
       type: LOAD_MY_INFO_REQUEST,
     })

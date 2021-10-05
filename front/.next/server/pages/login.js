@@ -1976,6 +1976,9 @@ const LoginForm = () => {
 var router_ = __webpack_require__("4Q3z");
 var router_default = /*#__PURE__*/__webpack_require__.n(router_);
 
+// EXTERNAL MODULE: ./reducers/post.js
+var post = __webpack_require__("p+NB");
+
 // EXTERNAL MODULE: ./store/configureStore.js + 4 modules
 var configureStore = __webpack_require__("AQn3");
 
@@ -1988,6 +1991,7 @@ var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_)
 
 // CONCATENATED MODULE: ./pages/login.js
 var login_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -2028,6 +2032,9 @@ const getServerSideProps = configureStore["a" /* default */].getServerSideProps(
     external_axios_default.a.defaults.headers.Cookie = cookie;
   }
 
+  context.store.dispatch({
+    type: post["n" /* LOAD_POSTS_REQUEST */]
+  });
   context.store.dispatch({
     type: user["e" /* LOAD_MY_INFO_REQUEST */]
   });
