@@ -728,9 +728,9 @@ const AppLayout = ({
       backgroundColor: "white",
       boxShadow: "lightgrey 1px 1px 3px 1px"
     }
-  }, !mobileview && AppLayout_jsx("a", {
-    href: "https://byjuun.com"
-  }, AppLayout_jsx("img", {
+  }, !mobileview && AppLayout_jsx(link_default.a, {
+    href: "/"
+  }, AppLayout_jsx("a", null, AppLayout_jsx("img", {
     style: {
       width: "100px",
       height: "50px",
@@ -742,7 +742,7 @@ const AppLayout = ({
       marginBottom: "10px"
     },
     src: "/Original on Transparent.png"
-  })), AppLayout_jsx(external_antd_["Menu"], {
+  }))), AppLayout_jsx(external_antd_["Menu"], {
     mode: "horizontal",
     style: {
       height: "57px",
@@ -755,9 +755,9 @@ const AppLayout = ({
       marginBottom: 16,
       border: "none"
     }
-  }, /*#__PURE__*/external_react_default.a.createElement(collapsed ? icons_["MenuUnfoldOutlined"] : icons_["MenuFoldOutlined"]))), AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx("a", {
-    href: "https://byjuun.com"
-  }, "Home")), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
+  }, /*#__PURE__*/external_react_default.a.createElement(collapsed ? icons_["MenuUnfoldOutlined"] : icons_["MenuFoldOutlined"]))), AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx(link_default.a, {
+    href: "/"
+  }, AppLayout_jsx("a", null, "Home"))), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
     style: {
       verticalAlign: "middle"
     }
