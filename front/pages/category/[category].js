@@ -17,15 +17,15 @@ const category = () => {
     const [current,setCurrent] = useState(1);
     const {Posts} = useSelector((state)=>(state.post));
     let startIndex = 0; 
-    let lastIndex = 9;
+    let lastIndex = 10;
     const [showPosts, setShowPosts] = useState(Posts.slice(startIndex,lastIndex));
     const router = useRouter();
     const { category } = router.query;
 
     const onChange = useCallback(page => {
         setCurrent(page);
-        startIndex = (page-1) * 9;
-        lastIndex = startIndex + 9;
+        startIndex = (page-1) * 10;
+        lastIndex = startIndex + 10;
         setShowPosts(Posts.slice(startIndex,lastIndex));
     },[current,showPosts]);
     
@@ -38,7 +38,7 @@ const category = () => {
             <AppLayout>
                 <h1 style = {{marginTop : "45px",textAlign : "center"}}>{category}</h1>
                 <ListComponent Posts = {showPosts}/>
-                <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length+1} />
+                <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length} />
             </AppLayout>
         </> 
     );

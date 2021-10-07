@@ -3903,7 +3903,7 @@ const keyword = () => {
   } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post);
   console.log("posts : ", Posts);
   let startIndex = 0;
-  let lastIndex = 9;
+  let lastIndex = 10;
   const {
     0: showPosts,
     1: setShowPosts
@@ -3915,8 +3915,8 @@ const keyword = () => {
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_3__["useCallback"])(page => {
     setCurrent(page);
     console.log(current);
-    startIndex = (page - 1) * 9;
-    lastIndex = startIndex + 9;
+    startIndex = (page - 1) * 10;
+    lastIndex = startIndex + 10;
     setShowPosts(Posts.slice(startIndex, lastIndex));
   }, [current, showPosts]);
   return __jsx(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_4___default.a, null, __jsx("title", null, keyword, "\uAC80\uC0C9")), __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], null, __jsx("h1", {
@@ -3934,7 +3934,7 @@ const keyword = () => {
     },
     current: current,
     onChange: onChange,
-    total: Posts.length + 1
+    total: Posts.length + 10
   })));
 };
 
