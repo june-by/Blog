@@ -25,8 +25,8 @@ router.get('/load/:category',async(req,res,next)=>{
             where : {category : req.params.category},
             order : [
                 ['createdAt','DESC'],
-            ]
-            
+            ],
+            attributes : ['id','title','category','createdAt']
         })
         res.status(200).json(posts);
     }catch(err){
