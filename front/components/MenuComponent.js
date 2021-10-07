@@ -8,14 +8,13 @@ import {  RiErrorWarningLine,RiComputerFill } from 'react-icons/ri'
 import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
 import { TiFlowSwitch } from 'react-icons/ti';
-import Link from 'next/link';
+
 
 const MenuComponent = () => {
   return (
     <Menu style={{ width: "256", borderRight: "none" }} mode="inline">
       <Menu.Item key="1">
-        <Link href="/category/JavaScript">
-        <a>
+        <a href="/category/JavaScript">
           <SiJavascript
             style={{
               color: "gold",
@@ -25,11 +24,9 @@ const MenuComponent = () => {
           />
           JavaScript
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link href="/category/React">
-        <a>
+        <a href="/category/React">
           <GrReactjs
             style={{
               color: "dodgerblue",
@@ -39,11 +36,9 @@ const MenuComponent = () => {
           />
           React
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link href="/category/NodeJs">
-        <a>
+        <a href="/category/NodeJs">
           <FaNodeJs
             style={{
               color: "green",
@@ -53,11 +48,9 @@ const MenuComponent = () => {
           />
           NodeJs
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <Link href="/category/TypeScript">
-        <a>
+        <a href="/category/TypeScript">
           <SiTypescript
             style={{
               color: "dodgerblue",
@@ -67,11 +60,9 @@ const MenuComponent = () => {
           />
           TypeScript
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="5">
-        <Link href="/category/OperatingSystem">
-        <a>
+        <a href="/category/OperatingSystem">
           <RiComputerFill
             style={{
               color: "forestgreen",
@@ -81,11 +72,9 @@ const MenuComponent = () => {
           />
           OperatingSystem
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="6">
-        <Link href="/category/DataStructure">
-        <a>
+        <a href="/category/DataStructure">
           <FiDatabase
             style={{
               color: "dodgerblue",
@@ -95,11 +84,9 @@ const MenuComponent = () => {
           />
           DataStructure
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="7">
-        <Link href="/category/Algorithm">
-        <a >
+        <a href="/category/Algorithm">
           <TiFlowSwitch
             style={{
               color: "lightpink",
@@ -109,11 +96,9 @@ const MenuComponent = () => {
           />
           Algorithm
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="8">
-        <Link href="/category/HTML-CSS">
-        <a>
+        <a href="/category/HTML-CSS">
           <AiOutlineHtml5
             style={{
               color: "orangered",
@@ -123,11 +108,9 @@ const MenuComponent = () => {
           />
           HTML-CSS
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="9">
-        <Link href="/category/Error">
-        <a>
+        <a href="/category/Error">
           <RiErrorWarningLine
             style={{
               color: "red",
@@ -137,11 +120,9 @@ const MenuComponent = () => {
           />
           Error
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="10">
-        <Link href="/category/IntensiveEducation1">
-        <a>
+        <a href="/category/IntensiveEducation1">
           <IoSchoolOutline
             style={{
               color: "steelblue",
@@ -151,11 +132,9 @@ const MenuComponent = () => {
           />
           집중교육1
         </a>
-        </Link>
       </Menu.Item>
       <Menu.Item key="11">
-        <Link href="/category/IntensiveEducation2">
-        <a>
+        <a href="/category/IntensiveEducation2">
           <IoSchoolOutline
             style={{
               color: "mediumseagreen",
@@ -165,7 +144,6 @@ const MenuComponent = () => {
           />
           집중교육2
         </a>
-        </Link>
       </Menu.Item>
     </Menu>
   );
