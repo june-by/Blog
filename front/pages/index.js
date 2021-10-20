@@ -18,25 +18,25 @@ export const Global = createGlobalStyle`
 
 const Home = () => {
   
-  const [current,setCurrent] = useState(1);
-  let startIndex = 0; 
-  let lastIndex = 11;
-  const totalPosts = useSelector((state)=>(state.post.Posts));
-  let Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
+  //const [current,setCurrent] = useState(1);
+  //const [startIndex, setStartIndex] = useState(0);
+  //const [lastIndex, setLastIndex] = useState(11);
+  //const totalPosts = useSelector((state)=>(state.post.Posts));
+  const Posts = useSelector((state) => (state.post.Posts.slice(0,11)));
 
-  const onChange = useCallback((page) => {
-    setCurrent(page);
-    startIndex = (page-1) * 11;
-    lastIndex = startIndex + 11;
-    Posts = totalPosts.slice(startIndex,lastIndex);
-},[current,]);
+  //const onChange = useCallback((page) => {
+    //setCurrent(page);
+    //setStartIndex((page-1)*11);
+    //setLastIndex(startIndex + 11);
+   // Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
+//},[current,]);
 
   return (
     <AppLayout>
       <ListComponent Posts = {Posts}/>
       <div style = {{marginBottom : "15px"}}></div>
       <Global />
-      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={totalPosts.length-(totalPosts.length % 10)} />
+      {/*<Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={totalPosts.length-(totalPosts.length % 10)} />*/}
     </AppLayout>
   );
 }

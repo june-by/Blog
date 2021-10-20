@@ -1863,36 +1863,24 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const Global = Object(styled_components__WEBPACK_IMPORTED_MODULE_8__["createGlobalStyle"])([".ant-pagination-options{display:none;}"]);
 
 const Home = () => {
-  const {
-    0: current,
-    1: setCurrent
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
-  let startIndex = 0;
-  let lastIndex = 11;
-  const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
-  let Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
-  const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
-    setCurrent(page);
-    startIndex = (page - 1) * 11;
-    lastIndex = startIndex + 11;
-    Posts = totalPosts.slice(startIndex, lastIndex);
-  }, [current]);
+  //const [current,setCurrent] = useState(1);
+  //const [startIndex, setStartIndex] = useState(0);
+  //const [lastIndex, setLastIndex] = useState(11);
+  //const totalPosts = useSelector((state)=>(state.post.Posts));
+  const Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(0, 11)); //const onChange = useCallback((page) => {
+  //setCurrent(page);
+  //setStartIndex((page-1)*11);
+  //setLastIndex(startIndex + 11);
+  // Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
+  //},[current,]);
+
   return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     Posts: Posts
   }), __jsx("div", {
     style: {
       marginBottom: "15px"
     }
-  }), __jsx(Global, null), __jsx(antd__WEBPACK_IMPORTED_MODULE_9__["Pagination"], {
-    style: {
-      textAlign: "center",
-      marginTop: "20px",
-      marginBottom: "15px"
-    },
-    current: current,
-    onChange: onChange,
-    total: totalPosts.length - totalPosts.length % 10
-  }));
+  }), __jsx(Global, null));
 };
 
 const getServerSideProps = _store_configureStore__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].getServerSideProps(async context => {
