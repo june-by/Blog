@@ -17,22 +17,21 @@ export const Global = createGlobalStyle`
 `;
 
 const Home = () => {
-  const { Posts } = useSelector((state) => (state.post));
+  
   const [current,setCurrent] = useState(1);
-  let startIndex = 0; 
-  let lastIndex = 11;
-  const [mainPosts, setMainPosts] = useState(Posts.slice(startIndex,lastIndex));
+  const [startIndex, setStartIndex] = useState(0);
+  const [lastIndex, setLastIndex] = useState(11);
+  const Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
 
-  const onChange = useCallback(page => {
+  const onChange = useCallback((page) => {
     setCurrent(page);
-    startIndex = (page-1) * 11;
-    lastIndex = startIndex + 11;
-    setMainPosts(Posts.slice(startIndex,lastIndex));
-},[current,mainPosts]);
+    setStartIndex((page-1)*11);
+    setLastIndex(startIndex + 11);
+},[current,]);
 
   return (
     <AppLayout>
-      <ListComponent Posts = {mainPosts}/>
+      <ListComponent Posts = {Posts}/>
       <div style = {{marginBottom : "15px"}}></div>
       <Global />
       <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length-(Posts.length % 10)} />

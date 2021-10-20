@@ -681,9 +681,9 @@ const AppLayout = ({
       backgroundColor: "white",
       boxShadow: "lightgrey 1px 1px 3px 1px"
     }
-  }, !mobileview && AppLayout_jsx("a", {
-    href: "https://byjuun.com"
-  }, AppLayout_jsx("img", {
+  }, !mobileview && AppLayout_jsx(link_default.a, {
+    href: "/"
+  }, AppLayout_jsx("a", null, AppLayout_jsx("img", {
     style: {
       width: "100px",
       height: "50px",
@@ -695,7 +695,7 @@ const AppLayout = ({
       marginBottom: "10px"
     },
     src: "/Original on Transparent.png"
-  })), AppLayout_jsx(external_antd_["Menu"], {
+  }))), AppLayout_jsx(external_antd_["Menu"], {
     mode: "horizontal",
     style: {
       height: "57px",
@@ -708,9 +708,9 @@ const AppLayout = ({
       marginBottom: 16,
       border: "none"
     }
-  }, /*#__PURE__*/external_react_default.a.createElement(collapsed ? icons_["MenuUnfoldOutlined"] : icons_["MenuFoldOutlined"]))), AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx("a", {
-    href: "https://byjuun.com"
-  }, "Home")), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
+  }, /*#__PURE__*/external_react_default.a.createElement(collapsed ? icons_["MenuUnfoldOutlined"] : icons_["MenuFoldOutlined"]))), AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx(link_default.a, {
+    href: "/"
+  }, AppLayout_jsx("a", null, "Home"))), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
     style: {
       verticalAlign: "middle"
     }
@@ -1864,26 +1864,25 @@ const Global = Object(styled_components__WEBPACK_IMPORTED_MODULE_8__["createGlob
 
 const Home = () => {
   const {
-    Posts
-  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post);
-  const {
     0: current,
     1: setCurrent
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
-  let startIndex = 0;
-  let lastIndex = 11;
   const {
-    0: mainPosts,
-    1: setMainPosts
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(Posts.slice(startIndex, lastIndex));
+    0: startIndex,
+    1: setStartIndex
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
+  const {
+    0: lastIndex,
+    1: setLastIndex
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(11);
+  const Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
     setCurrent(page);
-    startIndex = (page - 1) * 11;
-    lastIndex = startIndex + 11;
-    setMainPosts(Posts.slice(startIndex, lastIndex));
-  }, [current, mainPosts]);
+    setStartIndex((page - 1) * 11);
+    setLastIndex(startIndex + 11);
+  }, [current]);
   return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-    Posts: mainPosts
+    Posts: Posts
   }), __jsx("div", {
     style: {
       marginBottom: "15px"
