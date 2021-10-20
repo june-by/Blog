@@ -21,6 +21,7 @@ const Home = () => {
   const [current,setCurrent] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(11);
+  const totalPosts = useSelector((state)=>(state.post.Posts));
   const Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
 
   const onChange = useCallback((page) => {
@@ -34,7 +35,7 @@ const Home = () => {
       <ListComponent Posts = {Posts}/>
       <div style = {{marginBottom : "15px"}}></div>
       <Global />
-      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={Posts.length-(Posts.length % 10)} />
+      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={totalPosts.length-(totalPosts.length % 10)} />
     </AppLayout>
   );
 }

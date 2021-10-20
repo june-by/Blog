@@ -1875,6 +1875,7 @@ const Home = () => {
     0: lastIndex,
     1: setLastIndex
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(11);
+  const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
   const Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
     setCurrent(page);
@@ -1895,7 +1896,7 @@ const Home = () => {
     },
     current: current,
     onChange: onChange,
-    total: Posts.length - Posts.length % 10
+    total: totalPosts.length - totalPosts.length % 10
   }));
 };
 
