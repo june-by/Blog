@@ -1876,11 +1876,12 @@ const Home = () => {
     1: setLastIndex
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(11);
   const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
-  const Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
+  let Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
     setCurrent(page);
     setStartIndex((page - 1) * 11);
     setLastIndex(startIndex + 11);
+    Posts = totalPosts.slice(startIndex, lastIndex);
   }, [current]);
   return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     Posts: Posts
