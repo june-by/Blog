@@ -1867,20 +1867,14 @@ const Home = () => {
     0: current,
     1: setCurrent
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
-  const {
-    0: startIndex,
-    1: setStartIndex
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
-  const {
-    0: lastIndex,
-    1: setLastIndex
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(11);
+  let startIndex = 0;
+  let lastIndex = 11;
   const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
   let Posts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
     setCurrent(page);
-    setStartIndex((page - 1) * 11);
-    setLastIndex(startIndex + 11);
+    startIndex = (page - 1) * 11;
+    lastIndex = startIndex + 11;
     Posts = totalPosts.slice(startIndex, lastIndex);
   }, [current]);
   return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {

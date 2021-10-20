@@ -19,15 +19,15 @@ export const Global = createGlobalStyle`
 const Home = () => {
   
   const [current,setCurrent] = useState(1);
-  const [startIndex, setStartIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(11);
+  let startIndex = 0; 
+  let lastIndex = 11;
   const totalPosts = useSelector((state)=>(state.post.Posts));
   let Posts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
 
   const onChange = useCallback((page) => {
     setCurrent(page);
-    setStartIndex((page-1)*11);
-    setLastIndex(startIndex + 11);
+    startIndex = (page-1) * 11;
+    lastIndex = startIndex + 11;
     Posts = totalPosts.slice(startIndex,lastIndex);
 },[current,]);
 
