@@ -237,6 +237,7 @@ var __jsx = external_react_default.a.createElement;
 
 
 
+
 const MenuComponent = () => {
   return __jsx(external_antd_["Menu"], {
     style: {
@@ -246,115 +247,115 @@ const MenuComponent = () => {
     mode: "inline"
   }, __jsx(external_antd_["Menu"].Item, {
     key: "1"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/JavaScript"
-  }, __jsx(si_["SiJavascript"], {
+  }, __jsx("a", null, __jsx(si_["SiJavascript"], {
     style: {
       color: "gold",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "JavaScript")), __jsx(external_antd_["Menu"].Item, {
+  }), "JavaScript"))), __jsx(external_antd_["Menu"].Item, {
     key: "2"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/React"
-  }, __jsx(gr_["GrReactjs"], {
+  }, __jsx("a", null, __jsx(gr_["GrReactjs"], {
     style: {
       color: "dodgerblue",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "React")), __jsx(external_antd_["Menu"].Item, {
+  }), "React"))), __jsx(external_antd_["Menu"].Item, {
     key: "3"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/NodeJs"
-  }, __jsx(fa_["FaNodeJs"], {
+  }, __jsx("a", null, __jsx(fa_["FaNodeJs"], {
     style: {
       color: "green",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "NodeJs")), __jsx(external_antd_["Menu"].Item, {
+  }), "NodeJs"))), __jsx(external_antd_["Menu"].Item, {
     key: "4"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/TypeScript"
-  }, __jsx(si_["SiTypescript"], {
+  }, __jsx("a", null, __jsx(si_["SiTypescript"], {
     style: {
       color: "dodgerblue",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "TypeScript")), __jsx(external_antd_["Menu"].Item, {
+  }), "TypeScript"))), __jsx(external_antd_["Menu"].Item, {
     key: "5"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/OperatingSystem"
-  }, __jsx(ri_["RiComputerFill"], {
+  }, __jsx("a", null, __jsx(ri_["RiComputerFill"], {
     style: {
       color: "forestgreen",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "OperatingSystem")), __jsx(external_antd_["Menu"].Item, {
+  }), "OperatingSystem"))), __jsx(external_antd_["Menu"].Item, {
     key: "6"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/DataStructure"
-  }, __jsx(fi_["FiDatabase"], {
+  }, __jsx("a", null, __jsx(fi_["FiDatabase"], {
     style: {
       color: "dodgerblue",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "DataStructure")), __jsx(external_antd_["Menu"].Item, {
+  }), "DataStructure"))), __jsx(external_antd_["Menu"].Item, {
     key: "7"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/Algorithm"
-  }, __jsx(ti_["TiFlowSwitch"], {
+  }, __jsx("a", null, __jsx(ti_["TiFlowSwitch"], {
     style: {
       color: "lightpink",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "Algorithm")), __jsx(external_antd_["Menu"].Item, {
+  }), "Algorithm"))), __jsx(external_antd_["Menu"].Item, {
     key: "8"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/HTML-CSS"
-  }, __jsx(ai_["AiOutlineHtml5"], {
+  }, __jsx("a", null, __jsx(ai_["AiOutlineHtml5"], {
     style: {
       color: "orangered",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "HTML-CSS")), __jsx(external_antd_["Menu"].Item, {
+  }), "HTML-CSS"))), __jsx(external_antd_["Menu"].Item, {
     key: "9"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/Error"
-  }, __jsx(ri_["RiErrorWarningLine"], {
+  }, __jsx("a", null, __jsx(ri_["RiErrorWarningLine"], {
     style: {
       color: "red",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "Error")), __jsx(external_antd_["Menu"].Item, {
+  }), "Error"))), __jsx(external_antd_["Menu"].Item, {
     key: "10"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/IntensiveEducation1"
-  }, __jsx(io5_["IoSchoolOutline"], {
+  }, __jsx("a", null, __jsx(io5_["IoSchoolOutline"], {
     style: {
       color: "steelblue",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "\uC9D1\uC911\uAD50\uC7211")), __jsx(external_antd_["Menu"].Item, {
+  }), "\uC9D1\uC911\uAD50\uC7211"))), __jsx(external_antd_["Menu"].Item, {
     key: "11"
-  }, __jsx("a", {
+  }, __jsx(link_default.a, {
     href: "/category/IntensiveEducation2"
-  }, __jsx(io5_["IoSchoolOutline"], {
+  }, __jsx("a", null, __jsx(io5_["IoSchoolOutline"], {
     style: {
       color: "mediumseagreen",
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "\uC9D1\uC911\uAD50\uC7212")));
+  }), "\uC9D1\uC911\uAD50\uC7212"))));
 };
 
 /* harmony default export */ var components_MenuComponent = (MenuComponent);
@@ -4145,15 +4146,14 @@ const category = () => {
     0: current,
     1: setCurrent
   } = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(1);
-  const {
-    Posts
-  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post);
   let startIndex = 0;
   let lastIndex = 10;
+  const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
+  const firstPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const {
-    0: showPosts,
-    1: setShowPosts
-  } = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(Posts.slice(startIndex, lastIndex));
+    0: posts,
+    1: setPosts
+  } = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(null);
   const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
   const {
     category
@@ -4162,15 +4162,17 @@ const category = () => {
     setCurrent(page);
     startIndex = (page - 1) * 10;
     lastIndex = startIndex + 10;
-    setShowPosts(Posts.slice(startIndex, lastIndex));
-  }, [current, showPosts]);
+    setPosts(totalPosts.slice(startIndex, lastIndex));
+  }, [current]);
   return __jsx(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_4___default.a, null, __jsx("title", null, category)), __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], null, __jsx("h1", {
     style: {
       marginTop: "45px",
       textAlign: "center"
     }
-  }, category), __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
-    Posts: showPosts
+  }, category), posts ? __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+    Posts: posts
+  }) : __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+    Posts: firstPosts
   }), __jsx(antd__WEBPACK_IMPORTED_MODULE_6__["Pagination"], {
     style: {
       textAlign: "center",
@@ -4179,14 +4181,14 @@ const category = () => {
     },
     current: current,
     onChange: onChange,
-    total: Posts.length
+    total: totalPosts.length
   })));
 };
 
 const getServerSideProps = _store_configureStore__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].getServerSideProps(async context => {
   //원래 브라우저에서 cookie를 알아서 넣어주는데 , SSR시에는 브라우저 개입을 못하니까 프론트서버에서 헤더에 쿠키를 넣어서 보내줘야 한다.
-  const cookie = context.req ? context.req.headers.cookie : '';
-  axios__WEBPACK_IMPORTED_MODULE_10___default.a.defaults.headers.Cookie = '';
+  const cookie = context.req ? context.req.headers.cookie : "";
+  axios__WEBPACK_IMPORTED_MODULE_10___default.a.defaults.headers.Cookie = "";
 
   if (context.req && cookie) {
     axios__WEBPACK_IMPORTED_MODULE_10___default.a.defaults.headers.Cookie = cookie;
