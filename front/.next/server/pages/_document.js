@@ -152,6 +152,20 @@ class MyDocument extends next_document__WEBPACK_IMPORTED_MODULE_1___default.a {
       async: true,
       src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5441996260068044",
       crossOrigin: "anonymous"
+    }), __jsx("script", {
+      async: true,
+      src: "https://www.googletagmanager.com/gtag/js?id=G-ZQWF7YN9JF"
+    }), __jsx("script", {
+      dangerouslySetInnerHTML: {
+        __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-ZQWF7YN9JF', {
+                    page_path: window.location.pathname,
+                    });
+                `
+      }
     })), __jsx("body", null, __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["Main"], null), __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["NextScript"], null)));
   }
 

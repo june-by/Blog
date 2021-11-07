@@ -33,6 +33,19 @@ export default class MyDocument extends Document {
               <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
               <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5441996260068044"
      crossOrigin="anonymous"></script>
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQWF7YN9JF"></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                    __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-ZQWF7YN9JF', {
+                    page_path: window.location.pathname,
+                    });
+                `,
+                    }}
+                />
               </Head>
               <body>
                 <Main />

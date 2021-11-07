@@ -1,13 +1,26 @@
 /* eslint-disable react/prop-types */
 //page의 공통 부분 처리
-import React from 'react';
+import React,{useEffect} from 'react';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types'
 import Head from 'next/head'; //Head component
 import wrapper from '../store/configureStore';
 import '../styles.css'
+import { useRouter } from 'next/router'
+import * as ga from '../lib/ga';
 
 const ByJuun = ({ Component }) => {
+    const router = useRouter()
+    useEffect(() => {
+        const handleRouteChange = (url) => {
+          ga.pageview(url)
+        }
+        router.events.on('routeChangeComplete', handleRouteChange)
+    
+        return () => {
+          router.events.off('routeChangeComplete', handleRouteChange)
+        }
+      }, [router.events])
     return (
         <>
             <Head>
