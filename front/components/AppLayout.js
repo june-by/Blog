@@ -34,7 +34,7 @@ const ButtonWrapper = styled(Button)`
 
 const MainLogo = styled.div`
   border: 0.1px solid lightgrey;
-  background-image: url('../public/Original.png');
+  background-image: url('/public/Original.png');
   width: 50px;
   height: 50px;
   background-size: 75px;

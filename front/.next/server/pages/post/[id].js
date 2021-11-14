@@ -432,7 +432,7 @@ const ButtonWrapper = external_styled_components_default()(external_antd_["Butto
 const MainLogo = external_styled_components_default.a.div.withConfig({
   displayName: "AppLayout__MainLogo",
   componentId: "sc-18x68v7-3"
-})(["border:0.1px solid lightgrey;background-image:url('../public/Original.png');width:50px;height:50px;background-size:75px;background-position:50%;border-radius:70%;overflow:hidden;float:left;margin-top:10px;margin-left:175px;margin-right:175px;"]);
+})(["border:0.1px solid lightgrey;background-image:url('/public/Original.png');width:50px;height:50px;background-size:75px;background-position:50%;border-radius:70%;overflow:hidden;float:left;margin-top:10px;margin-left:175px;margin-right:175px;"]);
 const Global = Object(external_styled_components_["createGlobalStyle"])([".ant-card-meta-title{margin-top:20px;}"]);
 
 const AppLayout = ({
