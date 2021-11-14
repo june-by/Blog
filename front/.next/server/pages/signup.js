@@ -157,6 +157,13 @@ function withRouter(ComposedComponent) {
 
 /***/ }),
 
+/***/ "12h4":
+/***/ (function(module, exports) {
+
+module.exports = "/_next/static/images/Original-7279304121a8b12c05c12d99be166994.png";
+
+/***/ }),
+
 /***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -367,217 +374,21 @@ const MenuComponent = () => {
 };
 
 /* harmony default export */ var components_MenuComponent = (MenuComponent);
-// EXTERNAL MODULE: external "react-icons/gi"
-var gi_ = __webpack_require__("kS/G");
-
-// EXTERNAL MODULE: external "react-icons/di"
-var di_ = __webpack_require__("Yz+/");
-
 // CONCATENATED MODULE: ./components/Tags.js
 
 var Tags_jsx = external_react_default.a.createElement;
 
 /* eslint-disable react/react-in-jsx-scope */
 
+/* eslint-disable react/jsx-no-comment-textnodes */
 
-
-
-
-
-
-
-
-
-
-const TagWrapper = external_styled_components_default.a.div.withConfig({
-  displayName: "Tags__TagWrapper",
-  componentId: "sc-1on6y1e-0"
-})(["text-align:center;"]);
-const Taged = external_styled_components_default()(external_antd_["Tag"]).withConfig({
-  displayName: "Tags__Taged",
-  componentId: "sc-1on6y1e-1"
-})(["margin-bottom:10px;"]);
 
 const Tags = () => {
-  return Tags_jsx(external_react_default.a.Fragment, null, Tags_jsx(external_antd_["Divider"], {
-    orientation: "center"
-  }, "Tag"), Tags_jsx(TagWrapper, {
-    style: {
-      textAlign: "center"
-    }
-  }, Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(si_["SiJavascript"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "yellow"
-  }, " ", "JavaScript"), Tags_jsx(Taged, {
-    icon: Tags_jsx(si_["SiJavascript"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "orange"
-  }, " ", "JS")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(ai_["AiOutlineHtml5"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "#f50"
-  }, " ", "HTML"), Tags_jsx(Taged, {
-    icon: Tags_jsx(di_["DiCss3"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "purple"
-  }, " ", "CSS")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    color: "#2db7f5",
-    icon: Tags_jsx(gr_["GrReactjs"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    })
-  }, " ", "React"), Tags_jsx(Taged, {
-    color: "default",
-    icon: Tags_jsx(gr_["GrReactjs"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    })
-  }, " ", "React Hooks")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    color: "violet",
-    icon: Tags_jsx(si_["SiRedux"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    })
-  }, " ", "Redux"), Tags_jsx(Taged, {
-    color: "blue",
-    icon: Tags_jsx(si_["SiRedux"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    })
-  }, " ", "Redux Saga")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(fi_["FiDatabase"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "magenta"
-  }, " ", "\uC790\uB8CC\uAD6C\uC870"), Tags_jsx(Taged, {
-    icon: Tags_jsx(fi_["FiDatabase"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "red"
-  }, " ", "DataStructure"), Tags_jsx(Taged, {
-    icon: Tags_jsx(fi_["FiDatabase"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "#87d068"
-  }, " ", "\uC790\uAD6C")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(si_["SiTypescript"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "#87d068"
-  }, " ", "TypeScript"), Tags_jsx(Taged, {
-    icon: Tags_jsx(si_["SiTypescript"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "geekblue"
-  }, " ", "TS")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(si_["SiNextDotJs"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "default"
-  }, " ", "Next JS"), Tags_jsx(Taged, {
-    icon: Tags_jsx(fi_["FiServer"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "default"
-  }, " ", "ServersideRendering")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(ri_["RiComputerFill"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "lime"
-  }, " ", "\uC6B4\uC601\uCCB4\uC81C"), Tags_jsx(Taged, {
-    icon: Tags_jsx(ri_["RiComputerFill"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "green"
-  }, " ", "OperatingSystem"), Tags_jsx(Taged, {
-    icon: Tags_jsx(ri_["RiComputerFill"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "cyan"
-  }, " ", "OS")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(ti_["TiFlowSwitch"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "pink"
-  }, " ", "Algorithm"), Tags_jsx(Taged, {
-    icon: Tags_jsx(ti_["TiFlowSwitch"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "violet"
-  }, " ", "\uC54C\uACE0\uB9AC\uC998")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(ri_["RiErrorWarningLine"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "red"
-  }, " ", "Error"), Tags_jsx(Taged, {
-    icon: Tags_jsx(ri_["RiErrorWarningLine"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "palevioletred"
-  }, " ", "\uC5D0\uB7EC\uBAA8\uC74C")), Tags_jsx("div", null, Tags_jsx(Taged, {
-    icon: Tags_jsx(ai_["AiFillCar"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "lightblue"
-  }, " ", "\uC790\uB3D9\uCC28"), Tags_jsx(Taged, {
-    icon: Tags_jsx(gi_["GiVendingMachine"], {
-      style: {
-        verticalAlign: "middle"
-      }
-    }),
-    color: "default"
-  }, " ", "ECU"))), Tags_jsx("div", {
+  return Tags_jsx(external_react_default.a.Fragment, null, Tags_jsx("div", {
     style: {
       textAlign: "center",
       fontSize: "16px",
-      marginTop: "15px"
+      marginTop: "50px"
     }
   }, Tags_jsx(icons_["MailOutlined"], null), " ", Tags_jsx("div", {
     style: {
@@ -595,6 +406,10 @@ const Tags = () => {
 };
 
 /* harmony default export */ var components_Tags = (Tags);
+// EXTERNAL MODULE: ./public/Original.png
+var Original = __webpack_require__("12h4");
+var Original_default = /*#__PURE__*/__webpack_require__.n(Original);
+
 // CONCATENATED MODULE: ./components/AppLayout.js
 var AppLayout_jsx = external_react_default.a.createElement;
 
@@ -613,6 +428,7 @@ const {
 const {
   Meta
 } = external_antd_["Card"];
+
 const SearchWrapper = external_styled_components_default.a.div.withConfig({
   displayName: "AppLayout__SearchWrapper",
   componentId: "sc-18x68v7-0"
@@ -625,6 +441,10 @@ const ButtonWrapper = external_styled_components_default()(external_antd_["Butto
   displayName: "AppLayout__ButtonWrapper",
   componentId: "sc-18x68v7-2"
 })(["border:none;"]);
+const MainLogo = external_styled_components_default.a.div.withConfig({
+  displayName: "AppLayout__MainLogo",
+  componentId: "sc-18x68v7-3"
+})(["border:0.1px solid lightgrey;background-image:url(", ");width:50px;height:50px;background-size:75px;background-position:50%;border-radius:70%;overflow:hidden;float:left;margin-top:10px;margin-left:175px;margin-right:175px;"], Original_default.a);
 const Global = Object(external_styled_components_["createGlobalStyle"])([".ant-card-meta-title{margin-top:20px;}"]);
 
 const AppLayout = ({
@@ -658,7 +478,7 @@ const AppLayout = ({
     };
 
     setResponsiveness();
-    window.addEventListener('resize', () => setResponsiveness());
+    window.addEventListener("resize", () => setResponsiveness());
   }, []);
   const onSearch = Object(external_react_["useCallback"])(value => {
     location.href = `/SearchPost/${value}`;
@@ -683,35 +503,23 @@ const AppLayout = ({
   }, [mobileSearch, collapsed]);
   return AppLayout_jsx("div", null, AppLayout_jsx("div", {
     style: {
-      position: 'fixed',
+      position: "fixed",
       zIndex: 1,
-      width: '100%',
+      width: "100%",
       borderBottom: "0.1px solid lightgrey",
       backgroundColor: "white",
       boxShadow: "lightgrey 1px 1px 3px 1px"
     }
   }, !mobileview && AppLayout_jsx(link_default.a, {
     href: "/"
-  }, AppLayout_jsx("a", null, AppLayout_jsx("img", {
-    style: {
-      width: "100px",
-      height: "50px",
-      float: "left",
-      backgroundColor: "white",
-      marginLeft: "150px",
-      marginRight: "150px",
-      marginTop: "10px",
-      marginBottom: "10px"
-    },
-    src: "/Original on Transparent.png"
-  }))), AppLayout_jsx(external_antd_["Menu"], {
+  }, AppLayout_jsx("a", null, " ", AppLayout_jsx(MainLogo, null))), AppLayout_jsx(external_antd_["Menu"], {
     mode: "horizontal",
     style: {
       height: "57px",
       borderBottom: "none",
       marginTop: "15px"
     }
-  }, mobileview && AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx(external_antd_["Button"], {
+  }, mobileview && AppLayout_jsx(external_react_default.a.Fragment, null, AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx(external_antd_["Button"], {
     onClick: toggleCollapsed,
     style: {
       marginBottom: 16,
@@ -719,7 +527,7 @@ const AppLayout = ({
     }
   }, /*#__PURE__*/external_react_default.a.createElement(collapsed ? icons_["MenuUnfoldOutlined"] : icons_["MenuFoldOutlined"]))), AppLayout_jsx(external_antd_["Menu"].Item, null, AppLayout_jsx(link_default.a, {
     href: "/"
-  }, AppLayout_jsx("a", null, "Home"))), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
+  }, AppLayout_jsx("a", null, "Home")))), me ? null : AppLayout_jsx(external_antd_["Menu"].Item, {
     style: {
       verticalAlign: "middle"
     }
@@ -740,7 +548,7 @@ const AppLayout = ({
   }, AppLayout_jsx(RowWrapper, null, AppLayout_jsx(external_antd_["Col"], {
     xs: 24,
     sm: 6,
-    md: 5
+    md: 6
   }, " ", me && !mobileview && AppLayout_jsx("div", {
     stlye: {
       textAlign: "center"
@@ -803,7 +611,7 @@ const AppLayout = ({
   }))), AppLayout_jsx(components_MenuComponent, null))), AppLayout_jsx(external_antd_["Col"], {
     xs: 24,
     sm: 18,
-    md: 13,
+    md: 12,
     style: {
       borderLeft: "0.1px solid #f0f0f0",
       borderRight: "0.1px solid #f0f0f0",
@@ -812,7 +620,7 @@ const AppLayout = ({
     }
   }, children, mobileview && AppLayout_jsx("div", null, AppLayout_jsx("div", {
     style: {
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: "16px",
       marginTop: "15px"
     }
@@ -822,7 +630,7 @@ const AppLayout = ({
     }
   }, "neostgeart@gmail.com")), AppLayout_jsx("div", {
     style: {
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: "16px",
       marginTop: "15px",
       marginBottom: "15px"
@@ -835,7 +643,7 @@ const AppLayout = ({
     md: 6
   }, AppLayout_jsx(components_Tags, null)))), AppLayout_jsx(layout_["Footer"], {
     style: {
-      textAlign: 'center',
+      textAlign: "center",
       background: "lightsteelblue"
     }
   }, "ByJuun.com @2021 Created by By_Juun"));
@@ -2054,13 +1862,6 @@ function getRouteRegex(normalizedRoute) {
     groups
   };
 }
-
-/***/ }),
-
-/***/ "Yz+/":
-/***/ (function(module, exports) {
-
-module.exports = require("react-icons/di");
 
 /***/ }),
 
@@ -3501,13 +3302,6 @@ function parseRelativeUrl(url, base) {
   Object(immer__WEBPACK_IMPORTED_MODULE_0__["enableES5"])();
   return Object(immer__WEBPACK_IMPORTED_MODULE_0__["produce"])(...args);
 });
-
-/***/ }),
-
-/***/ "kS/G":
-/***/ (function(module, exports) {
-
-module.exports = require("react-icons/gi");
 
 /***/ }),
 
