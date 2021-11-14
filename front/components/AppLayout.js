@@ -16,6 +16,7 @@ import MenuComponent from "./MenuComponent";
 import Tags from "./Tags";
 const { Search } = Input;
 const { Meta } = Card;
+import img from "../public/Original.png";
 
 const SearchWrapper = styled.div`
   width: 80%;
@@ -30,21 +31,6 @@ const RowWrapper = styled(Row)`
 
 const ButtonWrapper = styled(Button)`
   border: none;
-`;
-
-const MainLogo = styled.div`
-  border: 0.1px solid lightgrey;
-  background-image: url('/public/Original.png');
-  width: 50px;
-  height: 50px;
-  background-size: 75px;
-  background-position: 50%;
-  border-radius: 70%;
-  overflow: hidden;
-  float: left;
-  margin-top: 10px;
-  margin-left: 175px;
-  margin-right: 175px;
 `;
 
 export const Global = createGlobalStyle`
@@ -109,14 +95,13 @@ const AppLayout = ({ children }) => {
           boxShadow: "lightgrey 1px 1px 3px 1px",
         }}
       >
-        {!mobileview && (
-          <Link href="/">
-            <a>
-              {" "}
-              <MainLogo></MainLogo>
-            </a>
-          </Link>
-        )}
+         {!mobileview && <Link href="/"><a><img
+                    style={{
+                        width: "50px", height: "50px", float: "left",
+                        backgroundColor: "white", marginLeft: "210px",
+                        marginRight: "210px", marginTop: "10px", marginBottom: "10px", border : "0.1px solid lightgrey", borderRadius : "70%"
+                    }}
+                    src="/Original.png" /></a></Link>}
 
         <Menu
           mode="horizontal"
