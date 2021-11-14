@@ -165,13 +165,6 @@ module.exports = __webpack_require__("LxqN");
 
 /***/ }),
 
-/***/ "12h4":
-/***/ (function(module, exports) {
-
-module.exports = "/_next/static/images/Original-7279304121a8b12c05c12d99be166994.png";
-
-/***/ }),
-
 /***/ "1fKG":
 /***/ (function(module, exports) {
 
@@ -406,10 +399,6 @@ const Tags = () => {
 };
 
 /* harmony default export */ var components_Tags = (Tags);
-// EXTERNAL MODULE: ./public/Original.png
-var Original = __webpack_require__("12h4");
-var Original_default = /*#__PURE__*/__webpack_require__.n(Original);
-
 // CONCATENATED MODULE: ./components/AppLayout.js
 var AppLayout_jsx = external_react_default.a.createElement;
 
@@ -428,7 +417,6 @@ const {
 const {
   Meta
 } = external_antd_["Card"];
-
 const SearchWrapper = external_styled_components_default.a.div.withConfig({
   displayName: "AppLayout__SearchWrapper",
   componentId: "sc-18x68v7-0"
@@ -444,7 +432,7 @@ const ButtonWrapper = external_styled_components_default()(external_antd_["Butto
 const MainLogo = external_styled_components_default.a.div.withConfig({
   displayName: "AppLayout__MainLogo",
   componentId: "sc-18x68v7-3"
-})(["border:0.1px solid lightgrey;background-image:url(", ");width:50px;height:50px;background-size:75px;background-position:50%;border-radius:70%;overflow:hidden;float:left;margin-top:10px;margin-left:175px;margin-right:175px;"], Original_default.a);
+})(["border:0.1px solid lightgrey;background-image:url('../public/Original.png');width:50px;height:50px;background-size:75px;background-position:50%;border-radius:70%;overflow:hidden;float:left;margin-top:10px;margin-left:175px;margin-right:175px;"]);
 const Global = Object(external_styled_components_["createGlobalStyle"])([".ant-card-meta-title{margin-top:20px;}"]);
 
 const AppLayout = ({

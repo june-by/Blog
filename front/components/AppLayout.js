@@ -16,7 +16,6 @@ import MenuComponent from "./MenuComponent";
 import Tags from "./Tags";
 const { Search } = Input;
 const { Meta } = Card;
-import img from "../public/Original.png";
 
 const SearchWrapper = styled.div`
   width: 80%;
@@ -35,7 +34,7 @@ const ButtonWrapper = styled(Button)`
 
 const MainLogo = styled.div`
   border: 0.1px solid lightgrey;
-  background-image: url(${img});
+  background-image: url('../public/Original.png');
   width: 50px;
   height: 50px;
   background-size: 75px;
