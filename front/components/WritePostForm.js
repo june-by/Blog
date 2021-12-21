@@ -106,6 +106,7 @@ const WritePostForm = ({ id }) => {
                 <Select style={{ width: "100%" }} onChange={handleTeacherChange}>
                     <Select.Option value="JavaScript">JavaScript</Select.Option>
                     <Select.Option value="React">React</Select.Option>
+                    <Select.Option value="web">web</Select.Option>
                     <Select.Option value="TypeScript">TypeScript</Select.Option>
                     <Select.Option value="NodeJs">NodeJs</Select.Option>
                     <Select.Option value="DataStructure">DataStructure</Select.Option>
@@ -114,7 +115,6 @@ const WritePostForm = ({ id }) => {
                     <Select.Option value="Error">Error</Select.Option>
                     <Select.Option value="Algorithm">Algorithm</Select.Option>
                     <Select.Option value="IntensiveEducation1">IntensiveEducation1</Select.Option>
-                    <Select.Option value="IntensiveEducation2">IntensiveEducation2</Select.Option>
                 </Select>
             </div>
             <div>

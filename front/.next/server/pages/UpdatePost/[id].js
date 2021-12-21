@@ -276,11 +276,15 @@ var ai_ = __webpack_require__("/WcL");
 // EXTERNAL MODULE: external "react-icons/ti"
 var ti_ = __webpack_require__("2FnJ");
 
+// EXTERNAL MODULE: external "react-icons/gi"
+var gi_ = __webpack_require__("kS/G");
+
 // CONCATENATED MODULE: ./components/MenuComponent.js
 
 var __jsx = external_react_default.a.createElement;
 
 /* eslint-disable react/react-in-jsx-scope */
+
 
 
 
@@ -320,6 +324,16 @@ const MenuComponent = () => {
       verticalAlign: "middle"
     }
   }), "React"))), __jsx(external_antd_["Menu"].Item, {
+    key: "11"
+  }, __jsx(link_default.a, {
+    href: "/category/web"
+  }, __jsx("a", null, __jsx(gi_["GiWireframeGlobe"], {
+    style: {
+      color: "dodgerblue",
+      marginRight: "15px",
+      verticalAlign: "middle"
+    }
+  }), "\uC9D1\uC911\uAD50\uC7212"))), __jsx(external_antd_["Menu"].Item, {
     key: "3"
   }, __jsx(link_default.a, {
     href: "/category/NodeJs"
@@ -399,17 +413,7 @@ const MenuComponent = () => {
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "\uC9D1\uC911\uAD50\uC7211"))), __jsx(external_antd_["Menu"].Item, {
-    key: "11"
-  }, __jsx(link_default.a, {
-    href: "/category/IntensiveEducation2"
-  }, __jsx("a", null, __jsx(io5_["IoSchoolOutline"], {
-    style: {
-      color: "mediumseagreen",
-      marginRight: "15px",
-      verticalAlign: "middle"
-    }
-  }), "\uC9D1\uC911\uAD50\uC7212"))));
+  }), "\uC9D1\uC911\uAD50\uC7211"))));
 };
 
 /* harmony default export */ var components_MenuComponent = (MenuComponent);
@@ -3557,6 +3561,8 @@ const WritePostForm = ({
   }, "JavaScript"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "React"
   }, "React"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
+    value: "web"
+  }, "web"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "TypeScript"
   }, "TypeScript"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "NodeJs"
@@ -3572,9 +3578,7 @@ const WritePostForm = ({
     value: "Algorithm"
   }, "Algorithm"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "IntensiveEducation1"
-  }, "IntensiveEducation1"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
-    value: "IntensiveEducation2"
-  }, "IntensiveEducation2"))), __jsx("div", null, __jsx("label", {
+  }, "IntensiveEducation1"))), __jsx("div", null, __jsx("label", {
     htmlFor: "hashtag"
   }, "\uD574\uC2DC\uD0DC\uADF8"), __jsx("br", null), __jsx(TextArea, {
     value: hashTag,
@@ -3656,6 +3660,13 @@ function parseRelativeUrl(url, base) {
   Object(immer__WEBPACK_IMPORTED_MODULE_0__["enableES5"])();
   return Object(immer__WEBPACK_IMPORTED_MODULE_0__["produce"])(...args);
 });
+
+/***/ }),
+
+/***/ "kS/G":
+/***/ (function(module, exports) {
+
+module.exports = require("react-icons/gi");
 
 /***/ }),
 

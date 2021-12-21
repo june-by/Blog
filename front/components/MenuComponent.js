@@ -8,6 +8,7 @@ import {  RiErrorWarningLine,RiComputerFill } from 'react-icons/ri'
 import { FiDatabase } from 'react-icons/fi';
 import { AiOutlineHtml5 } from 'react-icons/ai';
 import { TiFlowSwitch } from 'react-icons/ti';
+import {GiWireframeGlobe} from 'react-icons/gi';
 import Link from 'next/link'
 
 const MenuComponent = () => {
@@ -38,6 +39,20 @@ const MenuComponent = () => {
             }}
           />
           React
+        </a>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="11">
+        <Link href="/category/web">
+        <a>
+          <GiWireframeGlobe
+            style={{
+              color: "dodgerblue",
+              marginRight: "15px",
+              verticalAlign: "middle",
+            }}
+          />
+          집중교육2
         </a>
         </Link>
       </Menu.Item>
@@ -153,20 +168,7 @@ const MenuComponent = () => {
         </a>
         </Link>
       </Menu.Item>
-      <Menu.Item key="11">
-        <Link href="/category/IntensiveEducation2">
-        <a>
-          <IoSchoolOutline
-            style={{
-              color: "mediumseagreen",
-              marginRight: "15px",
-              verticalAlign: "middle",
-            }}
-          />
-          집중교육2
-        </a>
-        </Link>
-      </Menu.Item>
+
     </Menu>
   );
 };
