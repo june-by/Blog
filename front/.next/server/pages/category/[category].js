@@ -279,10 +279,10 @@ const MenuComponent = () => {
   }), "React"))), __jsx(external_antd_["Menu"].Item, {
     key: "11"
   }, __jsx(link_default.a, {
-    href: "/category/web"
+    href: "/category/Web"
   }, __jsx("a", null, __jsx(gi_["GiWireframeGlobe"], {
     style: {
-      color: "dodgerblue",
+      color: "darkgrey",
       marginRight: "15px",
       verticalAlign: "middle"
     }
@@ -1880,6 +1880,8 @@ function getRouteRegex(normalizedRoute) {
 /* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_icons_fa__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react_icons_io5__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("UhKp");
 /* harmony import */ var react_icons_io5__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_icons_io5__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var react_icons_gi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("kS/G");
+/* harmony import */ var react_icons_gi__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_icons_gi__WEBPACK_IMPORTED_MODULE_10__);
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -1888,6 +1890,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 /* eslint-disable react/jsx-key */
 
 /* eslint-disable react/react-in-jsx-scope */
+
 
 
 
@@ -1962,10 +1965,10 @@ const ListComponent = ({
       color: "steelblue",
       verticalAlign: "middle"
     }
-  }), __jsx(react_icons_io5__WEBPACK_IMPORTED_MODULE_9__["IoSchoolOutline"], {
+  }), __jsx(react_icons_gi__WEBPACK_IMPORTED_MODULE_10__["GiWireframeGlobe"], {
     size: "24",
     style: {
-      color: "mediumseagreen",
+      color: "darkgrey",
       verticalAlign: "middle"
     }
   })];
@@ -2015,7 +2018,7 @@ const ListComponent = ({
           avatar = cardTitle[9];
           break;
 
-        case "IntensiveEducation2":
+        case "Web":
           avatar = cardTitle[10];
           break;
 

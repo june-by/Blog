@@ -10,6 +10,7 @@ import { TiFlowSwitch } from "react-icons/ti";
 import { List, Avatar } from "antd";
 import { FaNodeJs } from 'react-icons/fa';
 import { IoSchoolOutline } from 'react-icons/io5';
+import {GiWireframeGlobe} from 'react-icons/gi';
 
 const ListComponent = ({ Posts }) => {
   const listData = [];
@@ -51,9 +52,9 @@ const ListComponent = ({ Posts }) => {
       size="24"
       style={{ color: "steelblue", verticalAlign: "middle" }}
     />,
-    <IoSchoolOutline
+    <GiWireframeGlobe
       size="24"
-      style={{ color: "mediumseagreen", verticalAlign: "middle" }}
+      style={{ color: "darkgrey", verticalAlign: "middle" }}
     />,
   ];
   for (let post of Posts) {
@@ -90,7 +91,7 @@ const ListComponent = ({ Posts }) => {
         case "IntensiveEducation1":
           avatar = cardTitle[9];
           break;
-        case "IntensiveEducation2":
+        case "Web":
           avatar = cardTitle[10];
           break;
         default:

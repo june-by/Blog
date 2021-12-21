@@ -43,11 +43,11 @@ const MenuComponent = () => {
         </Link>
       </Menu.Item>
       <Menu.Item key="11">
-        <Link href="/category/web">
+        <Link href="/category/Web">
         <a>
           <GiWireframeGlobe
             style={{
-              color: "dodgerblue",
+              color: "darkgrey",
               marginRight: "15px",
               verticalAlign: "middle",
             }}

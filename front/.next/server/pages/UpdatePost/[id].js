@@ -326,10 +326,10 @@ const MenuComponent = () => {
   }), "React"))), __jsx(external_antd_["Menu"].Item, {
     key: "11"
   }, __jsx(link_default.a, {
-    href: "/category/web"
+    href: "/category/Web"
   }, __jsx("a", null, __jsx(gi_["GiWireframeGlobe"], {
     style: {
-      color: "dodgerblue",
+      color: "darkgrey",
       marginRight: "15px",
       verticalAlign: "middle"
     }
@@ -3561,8 +3561,8 @@ const WritePostForm = ({
   }, "JavaScript"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "React"
   }, "React"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
-    value: "web"
-  }, "web"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
+    value: "Web"
+  }, "Web"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "TypeScript"
   }, "TypeScript"), __jsx(antd__WEBPACK_IMPORTED_MODULE_3__["Select"].Option, {
     value: "NodeJs"
