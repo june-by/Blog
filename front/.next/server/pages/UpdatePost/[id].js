@@ -333,7 +333,7 @@ const MenuComponent = () => {
       marginRight: "15px",
       verticalAlign: "middle"
     }
-  }), "\uC9D1\uC911\uAD50\uC7212"))), __jsx(external_antd_["Menu"].Item, {
+  }), "Web"))), __jsx(external_antd_["Menu"].Item, {
     key: "3"
   }, __jsx(link_default.a, {
     href: "/category/NodeJs"

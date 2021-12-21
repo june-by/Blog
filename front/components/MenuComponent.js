@@ -52,7 +52,7 @@ const MenuComponent = () => {
               verticalAlign: "middle",
             }}
           />
-          집중교육2
+          Web
         </a>
         </Link>
       </Menu.Item>
