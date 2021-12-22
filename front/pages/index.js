@@ -1,8 +1,8 @@
-import React,{useState,useCallback} from 'react';
+import React,{useState,useCallback, useEffect} from 'react';
 import AppLayout from "../components/AppLayout";
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
-import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
 import wrapper from "../store/configureStore";
 import { END } from 'redux-saga';
 import axios from 'axios'
@@ -17,30 +17,29 @@ export const Global = createGlobalStyle`
 `;
 
 const Home = () => {
-  
+  const dispatch = useDispatch();
   const [current,setCurrent] = useState(1);
-  let startIndex = 0;
-  let lastIndex = 11;
-  const totalPosts = useSelector((state)=>(state.post.Posts));
-  const firstPosts = useSelector((state) => (state.post.Posts.slice(startIndex,lastIndex)));
-  const [posts,setPosts] = useState(null);
+  const {Posts, currentPageNum} = useSelector((state)=>(state.post));
+
+  useEffect(()=>{
+    setCurrent(currentPageNum);
+  },[currentPageNum])
 
   const onChange = useCallback((page) => {
-    setCurrent(page);
-    startIndex = ((page-1)*11);
-    lastIndex = (startIndex + 11);
-    setPosts(totalPosts.slice(startIndex,lastIndex))
-},[current,startIndex,lastIndex]);
+    return dispatch({
+      type: LOAD_MAIN_POSTS_REQUEST,
+      data : {
+        page
+      }
+    })
+  },[]);
 
   return (
     <AppLayout>
-      {posts 
-      ? <ListComponent Posts = {posts}/>
-      : <ListComponent Posts = {firstPosts}/>
-      }
+      <ListComponent Posts = {Posts}/>
       <div style = {{marginBottom : "15px"}}></div>
       <Global />
-      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={totalPosts.length - (totalPosts.length % 10)} />
+      <Pagination style = {{textAlign : "center", marginTop : "20px", marginBottom : "15px"}} current={current} onChange={onChange} total={80} />
     </AppLayout>
   );
 }
@@ -52,7 +51,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
   context.store.dispatch({
-    type: LOAD_POSTS_REQUEST,
+    type: LOAD_MAIN_POSTS_REQUEST,
+    data : {
+      page : 1
+    }
   });
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,

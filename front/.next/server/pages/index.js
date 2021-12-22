@@ -967,7 +967,7 @@ const rootReducer = (state, action) => {
       {
         const combinedReducers = Object(external_redux_["combineReducers"])({
           user: user["p" /* default */],
-          post: post["y" /* default */]
+          post: post["z" /* default */]
         });
         return combinedReducers(state, action);
       }
@@ -983,7 +983,6 @@ var external_axios_ = __webpack_require__("zr5I");
 var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_);
 
 // CONCATENATED MODULE: ./sagas/post.js
-/* eslint-disable no-unused-vars */
 
 
 
@@ -1067,37 +1066,41 @@ function* updatePost(action) {
     console.log(result.data);
     yield Object(effects_["put"])({
       //put은 dispatch라고 생각
-      type: post["x" /* UPDATE_POST_SUCCESS */],
+      type: post["y" /* UPDATE_POST_SUCCESS */],
       data: result.data //성공결과가 담긴다
 
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
-      type: post["v" /* UPDATE_POST_FAILURE */],
+      type: post["w" /* UPDATE_POST_FAILURE */],
       data: error.response.data //실패결과가 담긴다
 
     });
   }
 }
 
-function loadPostsAPI() {
-  return external_axios_default.a.get('/posts/load');
+function loadMainPostsAPI(data) {
+  return external_axios_default.a.get(`/posts/load/main/${data.page}`);
 }
 
-function* loadPosts(action) {
+function* loadMainPosts(action) {
   try {
-    const result = yield Object(effects_["call"])(loadPostsAPI);
+    const result = yield Object(effects_["call"])(loadMainPostsAPI, action.data);
     yield Object(effects_["put"])({
       //put은 dispatch라고 생각
-      type: post["o" /* LOAD_POSTS_SUCCESS */],
+      type: post["o" /* LOAD_MAIN_POSTS_SUCCESS */],
       //data : result.data //성공결과가 담긴다
       data: result.data
+    });
+    yield Object(effects_["put"])({
+      type: post["v" /* SET_CURRENT_PAGENUM */],
+      data: action.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
-      type: post["m" /* LOAD_POSTS_FAILURE */],
+      type: post["m" /* LOAD_MAIN_POSTS_FAILURE */],
       data: error.response.data //실패결과가 담긴다
 
     });
@@ -1128,7 +1131,7 @@ function* searchPosts(action) {
 }
 
 function loadCategorypostsAPI(data) {
-  return external_axios_default.a.get(`/posts/load/${data}`);
+  return external_axios_default.a.get(`/posts/load/${data.category}/${data.page}`);
 }
 
 function* loadCategoryposts(action) {
@@ -1137,8 +1140,11 @@ function* loadCategoryposts(action) {
     yield Object(effects_["put"])({
       //put은 dispatch라고 생각
       type: post["i" /* LOAD_CATEGORYPOSTS_SUCCESS */],
-      //data : result.data //성공결과가 담긴다
       data: result.data
+    });
+    yield Object(effects_["put"])({
+      type: post["v" /* SET_CURRENT_PAGENUM */],
+      data: action.data
     });
   } catch (error) {
     console.error(error);
@@ -1189,12 +1195,12 @@ function* watchRemovePost() {
 
 
 function* watchUpdatePost() {
-  yield Object(effects_["takeLatest"])(post["w" /* UPDATE_POST_REQUEST */], updatePost);
+  yield Object(effects_["takeLatest"])(post["x" /* UPDATE_POST_REQUEST */], updatePost);
 } //eventlistner와 비슷
 
 
-function* watchLoadPost() {
-  yield Object(effects_["takeLatest"])(post["n" /* LOAD_POSTS_REQUEST */], loadPosts);
+function* watchLoadMainPost() {
+  yield Object(effects_["takeLatest"])(post["n" /* LOAD_MAIN_POSTS_REQUEST */], loadMainPosts);
 } //eventlistner와 비슷
 
 
@@ -1214,7 +1220,7 @@ function* watchLoadSearchposts() {
 
 
 function* postSaga() {
-  yield Object(effects_["all"])([Object(effects_["fork"])(watchAddPost), Object(effects_["fork"])(watchAddComment), Object(effects_["fork"])(watchRemovePost), Object(effects_["fork"])(watchUpdatePost), Object(effects_["fork"])(watchLoadPost), Object(effects_["fork"])(watchLoadCurpost), Object(effects_["fork"])(watchLoadCatoryposts), Object(effects_["fork"])(watchLoadSearchposts)]);
+  yield Object(effects_["all"])([Object(effects_["fork"])(watchAddPost), Object(effects_["fork"])(watchAddComment), Object(effects_["fork"])(watchRemovePost), Object(effects_["fork"])(watchUpdatePost), Object(effects_["fork"])(watchLoadMainPost), Object(effects_["fork"])(watchLoadCurpost), Object(effects_["fork"])(watchLoadCatoryposts), Object(effects_["fork"])(watchLoadSearchposts)]);
 }
 // CONCATENATED MODULE: ./sagas/user.js
 /* eslint-disable no-unused-vars */
@@ -1685,28 +1691,28 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const Global = Object(styled_components__WEBPACK_IMPORTED_MODULE_8__["createGlobalStyle"])([".ant-pagination-options{display:none;}"]);
 
 const Home = () => {
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
   const {
     0: current,
     1: setCurrent
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
-  let startIndex = 0;
-  let lastIndex = 11;
-  const totalPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts);
-  const firstPosts = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post.Posts.slice(startIndex, lastIndex));
   const {
-    0: posts,
-    1: setPosts
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+    Posts,
+    currentPageNum
+  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    setCurrent(currentPageNum);
+  }, [currentPageNum]);
   const onChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(page => {
-    setCurrent(page);
-    startIndex = (page - 1) * 11;
-    lastIndex = startIndex + 11;
-    setPosts(totalPosts.slice(startIndex, lastIndex));
-  }, [current, startIndex, lastIndex]);
-  return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, posts ? __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-    Posts: posts
-  }) : __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-    Posts: firstPosts
+    return dispatch({
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__[/* LOAD_MAIN_POSTS_REQUEST */ "n"],
+      data: {
+        page
+      }
+    });
+  }, []);
+  return __jsx(_components_AppLayout__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], null, __jsx(_components_ListComponent__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+    Posts: Posts
   }), __jsx("div", {
     style: {
       marginBottom: "15px"
@@ -1719,7 +1725,7 @@ const Home = () => {
     },
     current: current,
     onChange: onChange,
-    total: totalPosts.length - totalPosts.length % 10
+    total: 80
   }));
 };
 
@@ -1732,7 +1738,10 @@ const getServerSideProps = _store_configureStore__WEBPACK_IMPORTED_MODULE_5__[/*
   }
 
   context.store.dispatch({
-    type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__[/* LOAD_POSTS_REQUEST */ "n"]
+    type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__[/* LOAD_MAIN_POSTS_REQUEST */ "n"],
+    data: {
+      page: 1
+    }
   });
   context.store.dispatch({
     type: _reducers_user__WEBPACK_IMPORTED_MODULE_3__[/* LOAD_MY_INFO_REQUEST */ "e"]
@@ -3768,15 +3777,16 @@ module.exports = require("@ant-design/icons");
 
 "use strict";
 /* unused harmony export initialState */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SET_CURRENT_PAGENUM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LOAD_CURPOST_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return LOAD_CURPOST_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return LOAD_CURPOST_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LOAD_CATEGORYPOSTS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return LOAD_CATEGORYPOSTS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOAD_CATEGORYPOSTS_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOAD_POSTS_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return LOAD_POSTS_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOAD_POSTS_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOAD_MAIN_POSTS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return LOAD_MAIN_POSTS_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOAD_MAIN_POSTS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SEARCH_POSTS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return SEARCH_POSTS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SEARCH_POSTS_FAILURE; });
@@ -3789,17 +3799,20 @@ module.exports = require("@ant-design/icons");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return REMOVE_POST_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return REMOVE_POST_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return REMOVE_POST_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return UPDATE_POST_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return UPDATE_POST_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return UPDATE_POST_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return UPDATE_POST_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return UPDATE_POST_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return UPDATE_POST_FAILURE; });
 /* harmony import */ var _util_produce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ionj");
 
 const initialState = {
   Posts: [],
+  currentPageNum: null,
   currentPost: null,
-  loadPostsLoading: false,
-  loadPostsDone: false,
-  loadPostsError: null,
+  ForwardPost: null,
+  BackwardPost: null,
+  loadMainPostsLoading: false,
+  loadMainPostsDone: false,
+  loadMainPostsError: null,
   loadCategorypostsLoading: false,
   loadCategorypostsDone: false,
   loadCategorypostsError: null,
@@ -3822,30 +3835,31 @@ const initialState = {
   updatePostDone: false,
   updatePostError: null
 };
-const LOAD_CURPOST_REQUEST = 'LOAD_CURPOST_REQUEST';
-const LOAD_CURPOST_SUCCESS = 'LOAD_CURPOST_SUCCESS';
-const LOAD_CURPOST_FAILURE = 'LOAD_CURPOST_FAILURE';
-const LOAD_CATEGORYPOSTS_REQUEST = 'LOAD_CATEGORYPOSTS_REQUEST';
-const LOAD_CATEGORYPOSTS_SUCCESS = 'LOAD_CATEGORYPOSTS_SUCCESS';
-const LOAD_CATEGORYPOSTS_FAILURE = 'LOAD_CATEGORYPOSTS_FAILURE';
-const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
-const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
-const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
-const SEARCH_POSTS_REQUEST = 'SEARCH_POSTS_REQUEST';
-const SEARCH_POSTS_SUCCESS = 'SEARCH_POSTS_SUCCESS';
-const SEARCH_POSTS_FAILURE = 'SEARCH_POSTS_FAILURE';
-const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
-const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
-const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
-const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
-const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
-const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
-const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
-const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
-const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
-const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
-const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
+const SET_CURRENT_PAGENUM = "SET_CURRENT_PAGENUM";
+const LOAD_CURPOST_REQUEST = "LOAD_CURPOST_REQUEST";
+const LOAD_CURPOST_SUCCESS = "LOAD_CURPOST_SUCCESS";
+const LOAD_CURPOST_FAILURE = "LOAD_CURPOST_FAILURE";
+const LOAD_CATEGORYPOSTS_REQUEST = "LOAD_CATEGORYPOSTS_REQUEST";
+const LOAD_CATEGORYPOSTS_SUCCESS = "LOAD_CATEGORYPOSTS_SUCCESS";
+const LOAD_CATEGORYPOSTS_FAILURE = "LOAD_CATEGORYPOSTS_FAILURE";
+const LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
+const LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS";
+const LOAD_MAIN_POSTS_FAILURE = "LOAD_MAIN_POSTS_FAILURE";
+const SEARCH_POSTS_REQUEST = "SEARCH_POSTS_REQUEST";
+const SEARCH_POSTS_SUCCESS = "SEARCH_POSTS_SUCCESS";
+const SEARCH_POSTS_FAILURE = "SEARCH_POSTS_FAILURE";
+const ADD_POST_REQUEST = "ADD_POST_REQUEST";
+const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
+const ADD_POST_FAILURE = "ADD_POST_FAILURE";
+const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
+const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
+const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
+const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
+const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
+const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
+const UPDATE_POST_REQUEST = "UPDATE_POST_REQUEST";
+const UPDATE_POST_SUCCESS = "UPDATE_POST_SUCCESS";
+const UPDATE_POST_FAILURE = "UPDATE_POST_FAILURE";
 
 const reducer = (state = initialState, action) => Object(_util_produce__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(state, draft => {
   switch (action.type) {
@@ -3918,21 +3932,21 @@ const reducer = (state = initialState, action) => Object(_util_produce__WEBPACK_
       draft.updatePostError = action.error;
       break;
 
-    case LOAD_POSTS_REQUEST:
-      draft.loadPostLoading = true;
-      draft.loadPostDone = false;
-      draft.loadPostError = false;
+    case LOAD_MAIN_POSTS_REQUEST:
+      draft.loadMainPostLoading = true;
+      draft.loadMainPostDone = false;
+      draft.loadMainPostError = false;
       break;
 
-    case LOAD_POSTS_SUCCESS:
-      draft.loadPostLoading = false;
-      draft.loadPostDone = true;
-      draft.Posts = action.data.concat(draft.Posts);
+    case LOAD_MAIN_POSTS_SUCCESS:
+      draft.loadMainPostLoading = false;
+      draft.loadMainPostDone = true;
+      draft.Posts = action.data;
       break;
 
-    case LOAD_POSTS_FAILURE:
-      draft.loadPostLoading = false;
-      draft.loadPostError = action.error;
+    case LOAD_MAIN_POSTS_FAILURE:
+      draft.loadMainPostLoading = false;
+      draft.loadMainPostError = action.error;
       break;
 
     case SEARCH_POSTS_REQUEST:
@@ -3970,20 +3984,24 @@ const reducer = (state = initialState, action) => Object(_util_produce__WEBPACK_
       break;
 
     case LOAD_CATEGORYPOSTS_REQUEST:
-      draft.loadCatorypostLoading = true;
-      draft.loadCatorypostDone = false;
-      draft.loadCatorypostError = false;
+      draft.loadCategorypostsLoading = true;
+      draft.loadCategorypostsDone = false;
+      draft.loadCategorypostsError = false;
       break;
 
     case LOAD_CATEGORYPOSTS_SUCCESS:
-      draft.loadCatorypostLoading = false;
-      draft.loadCatorypostDone = true;
-      draft.Posts = action.data.concat(draft.Posts);
+      draft.loadCategorypostsLoading = false;
+      draft.loadCategorypostsDone = true;
+      draft.Posts = action.data;
       break;
 
     case LOAD_CATEGORYPOSTS_FAILURE:
-      draft.loadPCatorypostLoading = false;
-      draft.loadCatorypostError = action.error;
+      draft.loadCategorypostsLoading = false;
+      draft.loadCategorypostsError = action.error;
+      break;
+
+    case SET_CURRENT_PAGENUM:
+      draft.currentPageNum = action.data.page;
       break;
 
     default:
@@ -3991,7 +4009,7 @@ const reducer = (state = initialState, action) => Object(_util_produce__WEBPACK_
   }
 });
 
-/* harmony default export */ __webpack_exports__["y"] = (reducer);
+/* harmony default export */ __webpack_exports__["z"] = (reducer);
 
 /***/ }),
 

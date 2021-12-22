@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { all, fork, delay, takeLatest, put , call} from 'redux-saga/effects';
+import { all, fork, takeLatest, put , call} from 'redux-saga/effects';
 import axios from 'axios'
 
 import {
+    SET_CURRENT_PAGENUM,
     UPDATE_POST_FAILURE,
     UPDATE_POST_REQUEST,
     UPDATE_POST_SUCCESS,
@@ -12,9 +12,9 @@ import {
     ADD_COMMENT_FAILURE,
     ADD_COMMENT_REQUEST,
     ADD_COMMENT_SUCCESS,
-    LOAD_POSTS_FAILURE,
-    LOAD_POSTS_REQUEST,
-    LOAD_POSTS_SUCCESS,
+    LOAD_MAIN_POSTS_FAILURE,
+    LOAD_MAIN_POSTS_REQUEST,
+    LOAD_MAIN_POSTS_SUCCESS,
     SEARCH_POSTS_FAILURE,
     SEARCH_POSTS_REQUEST,
     SEARCH_POSTS_SUCCESS,
@@ -119,22 +119,26 @@ function* updatePost(action) {
     }
 }
 
-function loadPostsAPI() {
-    return axios.get('/posts/load');
+function loadMainPostsAPI(data) {
+    return axios.get(`/posts/load/main/${data.page}`);
 }
 
-function* loadPosts(action) {
+function* loadMainPosts(action) {
     try {
-        const result = yield call(loadPostsAPI)
+        const result = yield call(loadMainPostsAPI,action.data)
         yield put({ //put은 dispatch라고 생각
-            type: LOAD_POSTS_SUCCESS,
+            type: LOAD_MAIN_POSTS_SUCCESS,
             //data : result.data //성공결과가 담긴다
             data : result.data,
+        })
+        yield put({
+            type : SET_CURRENT_PAGENUM,
+            data : action.data,
         })
     } catch (error) {
         console.error(error);
         yield put({
-            type: LOAD_POSTS_FAILURE,
+            type: LOAD_MAIN_POSTS_FAILURE,
             data: error.response.data //실패결과가 담긴다
         })
     }
@@ -163,7 +167,7 @@ function* searchPosts(action) {
 
 
 function loadCategorypostsAPI(data) {
-    return axios.get(`/posts/load/${data}`);
+    return axios.get(`/posts/load/${data.category}/${data.page}`);
 }
 
 function* loadCategoryposts(action) {
@@ -171,8 +175,11 @@ function* loadCategoryposts(action) {
         const result = yield call(loadCategorypostsAPI,action.data)
         yield put({ //put은 dispatch라고 생각
             type: LOAD_CATEGORYPOSTS_SUCCESS,
-            //data : result.data //성공결과가 담긴다
             data : result.data,
+        })
+        yield put({
+            type : SET_CURRENT_PAGENUM,
+            data : action.data,
         })
     } catch (error) {
         console.error(error);
@@ -220,8 +227,8 @@ function* watchUpdatePost() {
     yield takeLatest(UPDATE_POST_REQUEST, updatePost);
 } //eventlistner와 비슷
 
-function* watchLoadPost() {
-    yield takeLatest(LOAD_POSTS_REQUEST, loadPosts);
+function* watchLoadMainPost() {
+    yield takeLatest(LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
 } //eventlistner와 비슷
 
 function* watchLoadCurpost() {
@@ -237,13 +244,14 @@ function* watchLoadSearchposts() {
 } //eventlistner와 비슷
 
 
+
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
         fork(watchAddComment),
         fork(watchRemovePost),
         fork(watchUpdatePost),
-        fork(watchLoadPost),
+        fork(watchLoadMainPost),
         fork(watchLoadCurpost),
         fork(watchLoadCatoryposts),
         fork(watchLoadSearchposts),

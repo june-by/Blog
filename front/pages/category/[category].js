@@ -1,7 +1,7 @@
 import AppLayout from "../../components/AppLayout";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import React, { useCallback,  useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import { LOAD_CATEGORYPOSTS_REQUEST } from "../../reducers/post";
 import { Pagination } from "antd";
@@ -11,28 +11,31 @@ import { END } from "redux-saga";
 import axios from "axios";
 import ListComponent from "../../components/ListComponent";
 
-//More button을 누르면, 해당 글의 id를 가지고 Post Component로 온다
-//그렇다면 나는 서버로 해당 id에 해당하는 글을 가지고 와서 이를 보여주면댐.
+
 const category = () => {
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
-  let startIndex = 0;
-  let lastIndex = 10;
-  const totalPosts = useSelector((state) => state.post.Posts);
-  const firstPosts = useSelector((state) =>
-    state.post.Posts.slice(startIndex, lastIndex)
-  );
-  const [posts, setPosts] = useState(null);
+  const {Posts, currentPageNum} = useSelector((state)=>(state.post));
+
+  
   const router = useRouter();
   const { category } = router.query;
 
+  useEffect(()=>{
+    setCurrent(currentPageNum);
+  },[currentPageNum]);
+
   const onChange = useCallback(
     (page) => {
-      setCurrent(page);
-      startIndex = (page - 1) * 10;
-      lastIndex = startIndex + 10;
-      setPosts(totalPosts.slice(startIndex, lastIndex));
+      return dispatch({
+        type : LOAD_CATEGORYPOSTS_REQUEST,
+        data : {
+          category : category,
+          page : page,
+        }
+      })
     },
-    [current]
+    [category]
   );
 
   return (
@@ -42,11 +45,7 @@ const category = () => {
       </Head>
       <AppLayout>
         <h1 style={{ marginTop: "45px", textAlign: "center" }}>{category}</h1>
-        {posts ? (
-          <ListComponent Posts={posts} />
-        ) : (
-          <ListComponent Posts={firstPosts} />
-        )}
+        <ListComponent Posts = {Posts}/>
         <Pagination
           style={{
             textAlign: "center",
@@ -55,7 +54,7 @@ const category = () => {
           }}
           current={current}
           onChange={onChange}
-          total={totalPosts.length}
+          total={20}
         />
       </AppLayout>
     </>
@@ -75,7 +74,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     context.store.dispatch({
       type: LOAD_CATEGORYPOSTS_REQUEST,
-      data: context.params.category,
+      data: {
+        category : context.params.category,
+        page : 1
+      }
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();

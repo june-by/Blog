@@ -4,14 +4,17 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
-router.get('/load',async(req,res,next)=>{ //loadpost
+router.get('/load/main/:page',async(req,res,next)=>{ //loadpost
     try{
         const posts = await Post.findAll({
             order : [
                 ['createdAt','DESC'],
             ],
+            limit : 11,
+            offset : (req.params.page-1) * 11,
             attributes : ['id','title','category','createdAt']
         })
+        console.log(posts.length);
         res.status(200).json(posts);
     }catch(error){
         console.error(error);
@@ -19,13 +22,15 @@ router.get('/load',async(req,res,next)=>{ //loadpost
     }
 })
 
-router.get('/load/:category',async(req,res,next)=>{
+router.get('/load/:category/:page',async(req,res,next)=>{
     try{
         const posts = await Post.findAll({
             where : {category : req.params.category},
             order : [
                 ['createdAt','DESC'],
             ],
+            limit : 11,
+            offset : (req.params.page-1)*11,
             attributes : ['id','title','category','createdAt']
         })
         res.status(200).json(posts);
