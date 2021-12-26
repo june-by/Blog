@@ -14,11 +14,32 @@ router.get('/load/main/:page',async(req,res,next)=>{ //loadpost
             offset : (req.params.page-1) * 11,
             attributes : ['id','title','category','createdAt']
         })
-        console.log(posts.length);
+
         res.status(200).json(posts);
     }catch(error){
         console.error(error);
         next(error);
+    }
+})
+
+router.get('/load/length/:category',async(req,res,next)=>{
+    try{
+        let posts;
+        if(req.params.category !== "main"){
+            posts = await Post.findAll({
+                where : {category : req.params.category},
+                attributes : ['id']
+            })
+        }
+        else{
+            posts = await Post.findAll({
+                attributes : ['id']
+            })
+        }
+        res.status(200).json({length : posts.length});
+    }catch(err){
+        console.error(err);
+        next(err);
     }
 })
 
@@ -40,6 +61,7 @@ router.get('/load/:category/:page',async(req,res,next)=>{
     }
 })
 
+
 router.get('/search/:keyword',async(req,res,next)=>{
     try{
         const posts = await Post.findAll({
@@ -52,7 +74,6 @@ router.get('/search/:keyword',async(req,res,next)=>{
                 ['createdAt','DESC'],
             ]
         })
-        console.log("posts : ", posts);
         res.status(200).json(posts);
     }catch(err){
         console.error(err);

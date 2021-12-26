@@ -24,6 +24,9 @@ import {
     LOAD_CURPOST_FAILURE,
     LOAD_CURPOST_REQUEST,
     LOAD_CURPOST_SUCCESS,
+    LOAD_POSTNUM_FAILURE,
+    LOAD_POSTNUM_REQUEST,
+    LOAD_POSTNUM_SUCCESS,
     REMOVE_POST_FAILURE,
     REMOVE_POST_REQUEST,
     REMOVE_POST_SUCCESS,
@@ -37,17 +40,15 @@ function addPostAPI(data) {
 function* addPost(action) {
     try {
         const result = yield call(addPostAPI,action.data)
-        yield put({ //put은 dispatch라고 생각
-            
+        yield put({ 
             type: ADD_POST_SUCCESS,
             data : result.data,
-            //data : result.data //성공결과가 담긴다
         })
     } catch (error) {
         console.error(error);
             yield put({
                 type: ADD_POST_FAILURE,
-                error: error.response //실패결과가 담긴다
+                error: error.response 
             })
         }
 
@@ -61,8 +62,7 @@ function addCommentAPI(data) {
 function* addComment(action) {
     try {
         const result = yield call(addCommentAPI,action.data)
-        console.log("결과 : " , result);
-        yield put({ //put은 dispatch라고 생각
+        yield put({ 
             type: ADD_COMMENT_SUCCESS,
             data : result.data,
         })
@@ -70,7 +70,7 @@ function* addComment(action) {
         console.error(error);
             yield put({
                 type: ADD_COMMENT_FAILURE,
-                error: error.response //실패결과가 담긴다
+                error: error.response 
             })
         }
 
@@ -84,15 +84,15 @@ function removePostAPI(data) {
 function* removePost(action) {
     try {
         const result = yield call(removePostAPI,action.data);
-        yield put({ //put은 dispatch라고 생각
+        yield put({ 
             type: REMOVE_POST_SUCCESS,
-            data : result.data //성공결과가 담긴다
+            data : result.data
         })
     } catch (error) {
         console.error(error);
         yield put({
             type: REMOVE_POST_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data
         })
     }
 
@@ -106,15 +106,15 @@ function* updatePost(action) {
     try {        
         const result = yield call(updatePostAPI,action.data)
         console.log(result.data);
-        yield put({ //put은 dispatch라고 생각
+        yield put({
             type: UPDATE_POST_SUCCESS,
-            data : result.data //성공결과가 담긴다
+            data : result.data 
         })
     } catch (error) {
         console.error(error);
         yield put({
             type: UPDATE_POST_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data
         })
     }
 }
@@ -126,9 +126,8 @@ function loadMainPostsAPI(data) {
 function* loadMainPosts(action) {
     try {
         const result = yield call(loadMainPostsAPI,action.data)
-        yield put({ //put은 dispatch라고 생각
+        yield put({ 
             type: LOAD_MAIN_POSTS_SUCCESS,
-            //data : result.data //성공결과가 담긴다
             data : result.data,
         })
         yield put({
@@ -139,7 +138,7 @@ function* loadMainPosts(action) {
         console.error(error);
         yield put({
             type: LOAD_MAIN_POSTS_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data 
         })
     }
 }
@@ -152,7 +151,7 @@ function* searchPosts(action) {
     try {
         console.log("action.data : ", action.data);
         const result = yield call(searchPostsAPI,action.data)
-        yield put({ //put은 dispatch라고 생각
+        yield put({
             type: SEARCH_POSTS_SUCCESS,
             data : result.data,
         })
@@ -160,7 +159,7 @@ function* searchPosts(action) {
         console.error(error);
         yield put({
             type: SEARCH_POSTS_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data 
         })
     }
 }
@@ -173,7 +172,7 @@ function loadCategorypostsAPI(data) {
 function* loadCategoryposts(action) {
     try {
         const result = yield call(loadCategorypostsAPI,action.data)
-        yield put({ //put은 dispatch라고 생각
+        yield put({ 
             type: LOAD_CATEGORYPOSTS_SUCCESS,
             data : result.data,
         })
@@ -185,7 +184,7 @@ function* loadCategoryposts(action) {
         console.error(error);
         yield put({
             type: LOAD_CATEGORYPOSTS_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data 
         })
     }
 }
@@ -197,51 +196,73 @@ function loadCurpostAPI(data) {
 function* loadCurpost(action) {
     try {
         const result = yield call(loadCurpostAPI,action.data)
-        yield put({ //put은 dispatch라고 생각
+        yield put({ 
             type: LOAD_CURPOST_SUCCESS,
-            //data : result.data //성공결과가 담긴다
             data : result.data,
         })
     } catch (error) {
         console.error(error);
         yield put({
             type: LOAD_CURPOST_FAILURE,
-            data: error.response.data //실패결과가 담긴다
+            data: error.response.data 
+        })
+    }
+}
+
+function loadPostNumAPI(data) {
+    return axios.get(`/posts/load/length/${data}`);
+}
+
+function* loadPostNum(action) {
+    try {
+        const result = yield call(loadPostNumAPI,action.data)
+        yield put({ 
+            type: LOAD_POSTNUM_SUCCESS,
+            data : result.data,
+        })
+    } catch (error) {
+        console.error(error);
+        yield put({
+            type: LOAD_POSTNUM_FAILURE,
+            data: error.response.data 
         })
     }
 }
 
 function* watchAddPost() {
     yield takeLatest(ADD_POST_REQUEST, addPost);
-} //eventlistner와 비슷
+} 
 
 function* watchAddComment() {
     yield takeLatest(ADD_COMMENT_REQUEST, addComment);
-} //eventlistner와 비슷
+} 
 
 function* watchRemovePost() {
     yield takeLatest(REMOVE_POST_REQUEST, removePost);
-} //eventlistner와 비슷
+} 
 
 function* watchUpdatePost() {
     yield takeLatest(UPDATE_POST_REQUEST, updatePost);
-} //eventlistner와 비슷
+} 
 
 function* watchLoadMainPost() {
     yield takeLatest(LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
-} //eventlistner와 비슷
+}
 
 function* watchLoadCurpost() {
     yield takeLatest(LOAD_CURPOST_REQUEST, loadCurpost);
-} //eventlistner와 비슷
-
+} 
 function* watchLoadCatoryposts() {
     yield takeLatest(LOAD_CATEGORYPOSTS_REQUEST, loadCategoryposts);
-} //eventlistner와 비슷
+} 
 
 function* watchLoadSearchposts() {
     yield takeLatest(SEARCH_POSTS_REQUEST, searchPosts);
-} //eventlistner와 비슷
+} 
+
+function* watchLoadPostnum() {
+    yield takeLatest(LOAD_POSTNUM_REQUEST, loadPostNum);
+} 
 
 
 
@@ -255,5 +276,6 @@ export default function* postSaga() {
         fork(watchLoadCurpost),
         fork(watchLoadCatoryposts),
         fork(watchLoadSearchposts),
+        fork(watchLoadPostnum),
     ])
 }

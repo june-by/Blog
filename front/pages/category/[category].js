@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
-import { LOAD_CATEGORYPOSTS_REQUEST } from "../../reducers/post";
+import { LOAD_CATEGORYPOSTS_REQUEST, LOAD_POSTNUM_REQUEST } from "../../reducers/post";
 import { Pagination } from "antd";
 import { LOAD_MY_INFO_REQUEST } from "../../reducers/user";
 import wrapper from "../../store/configureStore";
@@ -15,8 +15,7 @@ import ListComponent from "../../components/ListComponent";
 const category = () => {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
-  const {Posts, currentPageNum} = useSelector((state)=>(state.post));
-
+  const {Posts, currentPageNum, PostNum} = useSelector((state)=>(state.post));
   
   const router = useRouter();
   const { category } = router.query;
@@ -54,7 +53,7 @@ const category = () => {
           }}
           current={current}
           onChange={onChange}
-          total={20}
+          total = {PostNum-(PostNum/11)}
         />
       </AppLayout>
     </>
@@ -78,6 +77,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
         category : context.params.category,
         page : 1
       }
+    });
+    context.store.dispatch({
+        type : LOAD_POSTNUM_REQUEST,
+        data : context.params.category,
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();

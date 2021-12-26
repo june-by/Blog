@@ -996,7 +996,7 @@ const rootReducer = (state, action) => {
       {
         const combinedReducers = Object(external_redux_["combineReducers"])({
           user: user["p" /* default */],
-          post: post["z" /* default */]
+          post: post["C" /* default */]
         });
         return combinedReducers(state, action);
       }
@@ -1024,17 +1024,14 @@ function* addPost(action) {
   try {
     const result = yield Object(effects_["call"])(addPostAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
       type: post["f" /* ADD_POST_SUCCESS */],
-      data: result.data //data : result.data //성공결과가 담긴다
-
+      data: result.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
       type: post["d" /* ADD_POST_FAILURE */],
-      error: error.response //실패결과가 담긴다
-
+      error: error.response
     });
   }
 }
@@ -1046,9 +1043,7 @@ function addCommentAPI(data) {
 function* addComment(action) {
   try {
     const result = yield Object(effects_["call"])(addCommentAPI, action.data);
-    console.log("결과 : ", result);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
       type: post["c" /* ADD_COMMENT_SUCCESS */],
       data: result.data
     });
@@ -1056,8 +1051,7 @@ function* addComment(action) {
     console.error(error);
     yield Object(effects_["put"])({
       type: post["a" /* ADD_COMMENT_FAILURE */],
-      error: error.response //실패결과가 담긴다
-
+      error: error.response
     });
   }
 }
@@ -1070,17 +1064,14 @@ function* removePost(action) {
   try {
     const result = yield Object(effects_["call"])(removePostAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
-      type: post["r" /* REMOVE_POST_SUCCESS */],
-      data: result.data //성공결과가 담긴다
-
+      type: post["u" /* REMOVE_POST_SUCCESS */],
+      data: result.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
-      type: post["p" /* REMOVE_POST_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
-
+      type: post["s" /* REMOVE_POST_FAILURE */],
+      data: error.response.data
     });
   }
 }
@@ -1094,17 +1085,14 @@ function* updatePost(action) {
     const result = yield Object(effects_["call"])(updatePostAPI, action.data);
     console.log(result.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
-      type: post["y" /* UPDATE_POST_SUCCESS */],
-      data: result.data //성공결과가 담긴다
-
+      type: post["B" /* UPDATE_POST_SUCCESS */],
+      data: result.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
-      type: post["w" /* UPDATE_POST_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
-
+      type: post["z" /* UPDATE_POST_FAILURE */],
+      data: error.response.data
     });
   }
 }
@@ -1117,21 +1105,18 @@ function* loadMainPosts(action) {
   try {
     const result = yield Object(effects_["call"])(loadMainPostsAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
       type: post["o" /* LOAD_MAIN_POSTS_SUCCESS */],
-      //data : result.data //성공결과가 담긴다
       data: result.data
     });
     yield Object(effects_["put"])({
-      type: post["v" /* SET_CURRENT_PAGENUM */],
+      type: post["y" /* SET_CURRENT_PAGENUM */],
       data: action.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
       type: post["m" /* LOAD_MAIN_POSTS_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
-
+      data: error.response.data
     });
   }
 }
@@ -1145,16 +1130,14 @@ function* searchPosts(action) {
     console.log("action.data : ", action.data);
     const result = yield Object(effects_["call"])(searchPostsAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
-      type: post["u" /* SEARCH_POSTS_SUCCESS */],
+      type: post["x" /* SEARCH_POSTS_SUCCESS */],
       data: result.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
-      type: post["s" /* SEARCH_POSTS_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
-
+      type: post["v" /* SEARCH_POSTS_FAILURE */],
+      data: error.response.data
     });
   }
 }
@@ -1167,20 +1150,18 @@ function* loadCategoryposts(action) {
   try {
     const result = yield Object(effects_["call"])(loadCategorypostsAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
       type: post["i" /* LOAD_CATEGORYPOSTS_SUCCESS */],
       data: result.data
     });
     yield Object(effects_["put"])({
-      type: post["v" /* SET_CURRENT_PAGENUM */],
+      type: post["y" /* SET_CURRENT_PAGENUM */],
       data: action.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
       type: post["g" /* LOAD_CATEGORYPOSTS_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
-
+      data: error.response.data
     });
   }
 }
@@ -1193,63 +1174,76 @@ function* loadCurpost(action) {
   try {
     const result = yield Object(effects_["call"])(loadCurpostAPI, action.data);
     yield Object(effects_["put"])({
-      //put은 dispatch라고 생각
       type: post["l" /* LOAD_CURPOST_SUCCESS */],
-      //data : result.data //성공결과가 담긴다
       data: result.data
     });
   } catch (error) {
     console.error(error);
     yield Object(effects_["put"])({
       type: post["j" /* LOAD_CURPOST_FAILURE */],
-      data: error.response.data //실패결과가 담긴다
+      data: error.response.data
+    });
+  }
+}
 
+function loadPostNumAPI(data) {
+  return external_axios_default.a.get(`/posts/load/length/${data}`);
+}
+
+function* loadPostNum(action) {
+  try {
+    const result = yield Object(effects_["call"])(loadPostNumAPI, action.data);
+    yield Object(effects_["put"])({
+      type: post["r" /* LOAD_POSTNUM_SUCCESS */],
+      data: result.data
+    });
+  } catch (error) {
+    console.error(error);
+    yield Object(effects_["put"])({
+      type: post["p" /* LOAD_POSTNUM_FAILURE */],
+      data: error.response.data
     });
   }
 }
 
 function* watchAddPost() {
   yield Object(effects_["takeLatest"])(post["e" /* ADD_POST_REQUEST */], addPost);
-} //eventlistner와 비슷
-
+}
 
 function* watchAddComment() {
   yield Object(effects_["takeLatest"])(post["b" /* ADD_COMMENT_REQUEST */], addComment);
-} //eventlistner와 비슷
-
+}
 
 function* watchRemovePost() {
-  yield Object(effects_["takeLatest"])(post["q" /* REMOVE_POST_REQUEST */], removePost);
-} //eventlistner와 비슷
-
+  yield Object(effects_["takeLatest"])(post["t" /* REMOVE_POST_REQUEST */], removePost);
+}
 
 function* watchUpdatePost() {
-  yield Object(effects_["takeLatest"])(post["x" /* UPDATE_POST_REQUEST */], updatePost);
-} //eventlistner와 비슷
-
+  yield Object(effects_["takeLatest"])(post["A" /* UPDATE_POST_REQUEST */], updatePost);
+}
 
 function* watchLoadMainPost() {
   yield Object(effects_["takeLatest"])(post["n" /* LOAD_MAIN_POSTS_REQUEST */], loadMainPosts);
-} //eventlistner와 비슷
-
+}
 
 function* watchLoadCurpost() {
   yield Object(effects_["takeLatest"])(post["k" /* LOAD_CURPOST_REQUEST */], loadCurpost);
-} //eventlistner와 비슷
-
+}
 
 function* watchLoadCatoryposts() {
   yield Object(effects_["takeLatest"])(post["h" /* LOAD_CATEGORYPOSTS_REQUEST */], loadCategoryposts);
-} //eventlistner와 비슷
-
+}
 
 function* watchLoadSearchposts() {
-  yield Object(effects_["takeLatest"])(post["t" /* SEARCH_POSTS_REQUEST */], searchPosts);
-} //eventlistner와 비슷
+  yield Object(effects_["takeLatest"])(post["w" /* SEARCH_POSTS_REQUEST */], searchPosts);
+}
 
+function* watchLoadPostnum() {
+  yield Object(effects_["takeLatest"])(post["q" /* LOAD_POSTNUM_REQUEST */], loadPostNum);
+}
 
 function* postSaga() {
-  yield Object(effects_["all"])([Object(effects_["fork"])(watchAddPost), Object(effects_["fork"])(watchAddComment), Object(effects_["fork"])(watchRemovePost), Object(effects_["fork"])(watchUpdatePost), Object(effects_["fork"])(watchLoadMainPost), Object(effects_["fork"])(watchLoadCurpost), Object(effects_["fork"])(watchLoadCatoryposts), Object(effects_["fork"])(watchLoadSearchposts)]);
+  yield Object(effects_["all"])([Object(effects_["fork"])(watchAddPost), Object(effects_["fork"])(watchAddComment), Object(effects_["fork"])(watchRemovePost), Object(effects_["fork"])(watchUpdatePost), Object(effects_["fork"])(watchLoadMainPost), Object(effects_["fork"])(watchLoadCurpost), Object(effects_["fork"])(watchLoadCatoryposts), Object(effects_["fork"])(watchLoadSearchposts), Object(effects_["fork"])(watchLoadPostnum)]);
 }
 // CONCATENATED MODULE: ./sagas/user.js
 /* eslint-disable no-unused-vars */
@@ -3700,7 +3694,10 @@ module.exports = require("@ant-design/icons");
 
 "use strict";
 /* unused harmony export initialState */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SET_CURRENT_PAGENUM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return SET_CURRENT_PAGENUM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return LOAD_POSTNUM_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return LOAD_POSTNUM_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return LOAD_POSTNUM_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LOAD_CURPOST_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return LOAD_CURPOST_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return LOAD_CURPOST_FAILURE; });
@@ -3710,29 +3707,28 @@ module.exports = require("@ant-design/icons");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOAD_MAIN_POSTS_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return LOAD_MAIN_POSTS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOAD_MAIN_POSTS_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SEARCH_POSTS_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return SEARCH_POSTS_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SEARCH_POSTS_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SEARCH_POSTS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SEARCH_POSTS_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SEARCH_POSTS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ADD_POST_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ADD_POST_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ADD_POST_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ADD_COMMENT_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ADD_COMMENT_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_COMMENT_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return REMOVE_POST_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return REMOVE_POST_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return REMOVE_POST_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return UPDATE_POST_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return UPDATE_POST_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return UPDATE_POST_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return REMOVE_POST_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return REMOVE_POST_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return REMOVE_POST_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return UPDATE_POST_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return UPDATE_POST_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return UPDATE_POST_FAILURE; });
 /* harmony import */ var _util_produce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ionj");
 
 const initialState = {
   Posts: [],
   currentPageNum: null,
   currentPost: null,
-  ForwardPost: null,
-  BackwardPost: null,
+  PostNum: null,
   loadMainPostsLoading: false,
   loadMainPostsDone: false,
   loadMainPostsError: null,
@@ -3759,6 +3755,9 @@ const initialState = {
   updatePostError: null
 };
 const SET_CURRENT_PAGENUM = "SET_CURRENT_PAGENUM";
+const LOAD_POSTNUM_REQUEST = "LOAD_POSTNUM_REQUEST";
+const LOAD_POSTNUM_SUCCESS = "LOAD_POSTNUM_SUCCESS";
+const LOAD_POSTNUM_FAILURE = "LOAD_POSTNUM_FAILURE";
 const LOAD_CURPOST_REQUEST = "LOAD_CURPOST_REQUEST";
 const LOAD_CURPOST_SUCCESS = "LOAD_CURPOST_SUCCESS";
 const LOAD_CURPOST_FAILURE = "LOAD_CURPOST_FAILURE";
@@ -3927,12 +3926,16 @@ const reducer = (state = initialState, action) => Object(_util_produce__WEBPACK_
       draft.currentPageNum = action.data.page;
       break;
 
+    case LOAD_POSTNUM_SUCCESS:
+      draft.PostNum = action.data.length;
+      break;
+
     default:
       break;
   }
 });
 
-/* harmony default export */ __webpack_exports__["z"] = (reducer);
+/* harmony default export */ __webpack_exports__["C"] = (reducer);
 
 /***/ }),
 

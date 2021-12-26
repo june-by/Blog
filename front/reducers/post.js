@@ -3,8 +3,7 @@ export const initialState = {
   Posts: [],
   currentPageNum : null,
   currentPost: null,
-  ForwardPost : null,
-  BackwardPost : null,
+  PostNum : null,
   loadMainPostsLoading: false,
   loadMainPostsDone: false,
   loadMainPostsError: null,
@@ -32,6 +31,10 @@ export const initialState = {
 };
 
 export const SET_CURRENT_PAGENUM = "SET_CURRENT_PAGENUM";
+
+export const LOAD_POSTNUM_REQUEST = "LOAD_POSTNUM_REQUEST";
+export const LOAD_POSTNUM_SUCCESS = "LOAD_POSTNUM_SUCCESS";
+export const LOAD_POSTNUM_FAILURE = "LOAD_POSTNUM_FAILURE";
 
 export const LOAD_CURPOST_REQUEST = "LOAD_CURPOST_REQUEST";
 export const LOAD_CURPOST_SUCCESS = "LOAD_CURPOST_SUCCESS";
@@ -194,6 +197,9 @@ const reducer = (state = initialState, action) =>
         draft.currentPageNum = action.data.page;
         break;
 
+      case LOAD_POSTNUM_SUCCESS:
+          draft.PostNum = action.data.length;
+          break;
       default:
         break;
     }
