@@ -48,7 +48,7 @@ router.get('/load/:category/:page',async(req,res,next)=>{
         const posts = await Post.findAll({
             where : {category : req.params.category},
             order : [
-                ['createdAt','DESC'],
+                ['createdAt','DESC'], 
             ],
             limit : 11,
             offset : (req.params.page-1)*11,
