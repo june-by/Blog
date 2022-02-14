@@ -172,3 +172,4 @@ router.get('/search/:keyword',async(req,res,next)=>{
     }
 })
 ```
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&theme=algolia&show_icons=true)
