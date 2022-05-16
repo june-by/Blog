@@ -1,1 +1,0 @@
-export const backUrl = "https://api.byjuun.com";
