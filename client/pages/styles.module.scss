@@ -1,2 +1,14 @@
+@import "../utils/utils.scss";
 .HomeWrapper {
+  margin-top: 75px;
+  padding: 0 20%;
+  @include mobile {
+    padding: 0 5%;
+  }
+  @include tablet {
+    padding: 0 10%;
+  }
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
 }

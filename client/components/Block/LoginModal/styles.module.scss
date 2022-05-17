@@ -1,0 +1,22 @@
+@import "../../../utils/utils.scss";
+
+.LoginTitle {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+}
+
+.Form {
+  input {
+    @include CustomInput;
+    margin-bottom: 10px;
+  }
+  button {
+    @include CustomBtn;
+  }
+}
