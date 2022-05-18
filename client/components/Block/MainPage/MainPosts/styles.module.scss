@@ -1,0 +1,14 @@
+@import "../../../../utils/utils.scss";
+
+.MainPosts {
+	margin-top: 25px;
+	display: flex;
+	align-items: center;
+	flex-flow: wrap;
+	gap: 2%;
+	margin-bottom: 50px;
+
+	@include tablet {
+		gap: 4%;
+	}
+}

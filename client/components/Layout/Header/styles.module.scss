@@ -1,43 +1,52 @@
 @import "../../../utils/utils.scss";
+
 .HeaderRoot {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 0 20%;
-  height: 50px;
-  background: #5f5d61;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: space-between;
-  @include mobile {
-    padding: 0 5%;
-  }
-  @include tablet {
-    padding: 0 10%;
-  }
-  @include tablet_landscape {
-    padding: 0 10%;
-  }
-  &_title {
-    font-size: 20px;
-    cursor: pointer;
-  }
-  &_left {
-    display: flex;
-    gap: 25px;
-    height: 50px;
-    align-items: center;
-    span {
-      display: flex;
-      height: 50px;
-      align-items: center;
-      cursor: pointer;
-      height: 100%;
-      &:hover {
-        color: white;
-        border-bottom: 1px solid white;
-      }
-    }
-  }
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	padding: 0 20%;
+	height: 50px;
+	background: #5f5d61;
+	display: flex;
+	color: white;
+	align-items: center;
+	justify-content: space-between;
+
+	@include mobile {
+		padding: 0 5%;
+	}
+
+	@include tablet {
+		padding: 0 10%;
+	}
+
+	@include tablet_landscape {
+		padding: 0 10%;
+	}
+
+	&_title {
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+	&_left {
+		display: flex;
+		gap: 25px;
+		height: 50px;
+		align-items: center;
+
+		span {
+			display: flex;
+			height: 50px;
+			align-items: center;
+			cursor: pointer;
+			height: 100%;
+
+			&:hover {
+				color: white;
+				border-bottom: 1px solid white;
+			}
+		}
+	}
 }

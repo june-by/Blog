@@ -1,0 +1,11 @@
+.PageBtn {
+	background-color: rgba(50, 50, 124, 0.08);
+	padding: 0.3rem 0.8rem;
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+
+	&:hover {
+		background: #c5c5c7;
+	}
+}
