@@ -1,14 +1,18 @@
 @import "../../../../utils/utils.scss";
 
 .MainPosts {
-	margin-top: 25px;
-	display: flex;
-	align-items: center;
-	flex-flow: wrap;
-	gap: 2%;
-	margin-bottom: 50px;
-
-	@include tablet {
-		gap: 4%;
-	}
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 2%;
+  margin-bottom: 50px;
+  width: 100%;
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include mobile {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 }
