@@ -12,6 +12,10 @@ export const getPostThumbNail = (category: string) => {
       return "/OS.png";
     case "DataStructure":
       return "/DataStructure.png";
+    case "Web":
+      return "/Web.png";
+    case "HTML-CSS":
+      return "/HTMLCSS.png";
     default:
       return "";
   }

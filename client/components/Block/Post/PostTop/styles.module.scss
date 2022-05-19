@@ -1,0 +1,47 @@
+.PostTitle {
+  font-size: 3rem;
+  line-height: 1.5;
+  letter-spacing: -0.004em;
+  margin-top: 0px;
+  font-weight: 800;
+  color: var(--text1);
+  margin-bottom: 2rem;
+  word-break: keep-all;
+  transition: color 0.125s ease-in 0s;
+}
+
+.AdditionalInfo {
+  span {
+    font-size: 17px;
+  }
+  button {
+    background: #0099fa;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    margin-left: 15px;
+    &:hover {
+      background: #6185e5;
+    }
+  }
+}
+
+.goBackBtn {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  span {
+    margin-top: 5px;
+  }
+  img {
+    width: 20px;
+    height: 17px;
+  }
+}

@@ -3,8 +3,8 @@
 .MainPosts {
   margin-top: 25px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 2%;
   margin-bottom: 50px;
   width: 100%;
@@ -12,7 +12,6 @@
     grid-template-columns: 1fr 1fr;
   }
   @include mobile {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    display: block;
   }
 }

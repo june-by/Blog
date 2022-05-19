@@ -1,12 +1,13 @@
-@import "../utils/utils.scss";
+@import "../../utils/utils.scss";
 
-.HomeWrapper {
-  margin-top: 75px;
-  padding: 0 15%;
+.Post {
+  margin-top: 100px;
+  padding: 0 25%;
   margin-bottom: 100px;
 
   @include mobile {
     padding: 0 5%;
+    margin-top: 75px;
   }
 
   @include tablet {
