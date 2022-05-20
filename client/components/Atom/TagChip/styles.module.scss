@@ -1,0 +1,15 @@
+.TagChip {
+  background: #0099fa;
+  color: white;
+  padding: 13px 15px;
+  font-size: 15px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}

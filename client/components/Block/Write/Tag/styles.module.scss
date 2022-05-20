@@ -1,0 +1,16 @@
+@import "../../../../utils/utils.scss";
+.Tag {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  input {
+    @include CustomInput;
+    width: 250px;
+  }
+}
+
+.TagArrWrapper {
+  margin-left: 20px;
+  display: flex;
+  gap: 10px;
+}
