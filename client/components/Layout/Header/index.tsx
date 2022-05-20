@@ -20,6 +20,7 @@ const Header = () => {
           ByJuun.com
         </div>
         <div className={styles.HeaderRoot_left}>
+          <span onClick={gotoPage("/Write")}>글 작성</span>
           <span onClick={onClickSearch}>검색</span>
           <span onClick={onClickLogin}>로그인</span>
           <span onClick={onClickSignUp}>회원가입</span>

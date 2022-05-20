@@ -1,5 +1,5 @@
-import { getCategoryPostAPI, getOnePostAPI, getPostsNumAPI } from "./../../API/Post/index";
-import { useQuery } from "react-query";
+import { AddCommentAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI } from "./../../API/Post/index";
+import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
 
 export const useGetMainPost = (pageNum: number) => {
@@ -35,5 +35,13 @@ export const useGetCategoryPosts = (category: string) => {
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+  });
+};
+
+export const useAddComment = () => {
+  return useMutation(AddCommentAPI, {
+    onSuccess: () => {
+      return alert("댓글 등록 성공");
+    },
   });
 };

@@ -6,6 +6,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Header from "../components/Layout/Header";
 import Banner from "../components/Layout/Banner";
+import "react-quill/dist/quill.snow.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());

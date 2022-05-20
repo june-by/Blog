@@ -17,7 +17,7 @@ const PostTop = ({ title, createdAt, category }: Props) => {
     router.back();
   }, []);
   return (
-    <div>
+    <div className={styles.PostTop}>
       <button onClick={goBack} className={styles.goBackBtn}>
         <img src="/back_icon.png" alt="뒤로가기" />
         <span>뒤로가기</span>

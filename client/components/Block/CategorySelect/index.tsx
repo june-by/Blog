@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import CategoryChip from "../../Atom/CategoryChip";
 import styles from "./styles.module.scss";
-import { Category } from "./category";
+import { Category } from "../../../utils/category";
 import { useRouter } from "next/router";
 
 const CategorySelect = () => {

@@ -1,0 +1,24 @@
+@import "../../../../utils/utils.scss";
+
+.CommentForm {
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-top: 0.5px solid #c8c8c8;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+  }
+  textarea {
+    @include CustomInput;
+    resize: none;
+    height: 100px;
+  }
+  button {
+    @include CustomBtn;
+    width: 20%;
+  }
+}

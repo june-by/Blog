@@ -19,3 +19,8 @@ export const getCategoryPostAPI = async (category: string) => {
   const { data } = await customAxios.get(`/posts/load/${category}/${1}`);
   return data;
 };
+
+export const AddCommentAPI = async ({ postId, comment }: { postId: number; comment: string }) => {
+  const { data } = await customAxios.post(`/post/${postId}/comment`, { comment: comment });
+  return data;
+};

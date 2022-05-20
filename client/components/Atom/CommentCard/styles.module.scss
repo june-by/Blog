@@ -1,0 +1,19 @@
+@import "../../../utils/utils.scss";
+.CommentCard {
+  border-bottom: 0.5px solid #c8c8c8;
+  padding-top: 7px;
+  padding-bottom: 25px;
+}
+.CommentTop {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  span {
+    opacity: 0.4;
+  }
+}
+
+.CommentContent {
+  @include CustomInput;
+  min-height: 100px;
+}
