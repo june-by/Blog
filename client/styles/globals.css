@@ -17,3 +17,7 @@ a {
 .ql-editor {
   min-height: 500px;
 }
+
+.hljs {
+  line-height: 20px;
+}

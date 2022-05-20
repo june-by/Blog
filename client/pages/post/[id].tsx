@@ -8,6 +8,7 @@ import CommentList from "../../components/Block/Post/CommentList";
 import PostContent from "../../components/Block/Post/PostContent";
 import PostTop from "../../components/Block/Post/PostTop";
 import { useGetOnePost } from "../../Hooks/Post";
+import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";
 
 const Post = () => {
@@ -22,6 +23,7 @@ const Post = () => {
           <PostContent content={Post.content} />
           <CommentForm />
           <CommentList Comments={Post.Comments} />
+          <ScrollBtn />
         </>
       ) : (
         <></>
