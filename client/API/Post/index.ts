@@ -7,7 +7,9 @@ export const getMainPostsAPI = async (page: number) => {
 
 export const getPostsNumAPI = async (category: string) => {
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
-  return data;
+  const { length } = data;
+  if (length % 12 === 0) return length / 12;
+  else return Math.floor(length / 12) + 1;
 };
 
 export const getOnePostAPI = async (id: number) => {
@@ -15,8 +17,13 @@ export const getOnePostAPI = async (id: number) => {
   return data;
 };
 
-export const getCategoryPostAPI = async (category: string) => {
-  const { data } = await customAxios.get(`/posts/load/${category}/${1}`);
+export const getCategoryPostAPI = async (category: string, pageNum: number) => {
+  const { data } = await customAxios.get(`/posts/load/${category}/${pageNum}`);
+  return data;
+};
+
+export const getSearchPostAPI = async (search: string) => {
+  const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}`);
   return data;
 };
 

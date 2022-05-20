@@ -20,4 +20,9 @@ a {
 
 .hljs {
   line-height: 20px;
+  font-size: 15px;
+}
+
+.ql-snow .ql-editor pre.ql-syntax {
+  background-color: #fafafa;
 }

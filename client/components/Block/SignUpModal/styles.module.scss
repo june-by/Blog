@@ -12,6 +12,10 @@
 }
 
 .Form {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+  }
   input {
     @include CustomInput;
     margin-bottom: 10px;

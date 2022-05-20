@@ -1,17 +1,19 @@
-@import "../../../../utils/utils.scss";
+@import "../../../utils/utils.scss";
 
-.MainPosts {
+.PostsRoot {
+  max-height: 75vh;
   margin-top: 25px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 2%;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   width: 100%;
   @include tablet {
     grid-template-columns: 1fr 1fr;
   }
   @include mobile {
     display: block;
+    max-height: none;
   }
 }

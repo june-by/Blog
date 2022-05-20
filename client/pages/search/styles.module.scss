@@ -1,0 +1,19 @@
+@import "../../utils/utils.scss";
+
+.SearchWrapper {
+  margin-top: 75px;
+  padding: 0 15%;
+  margin-bottom: 100px;
+
+  @include mobile {
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 10%;
+  }
+
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
+}

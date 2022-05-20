@@ -26,27 +26,51 @@
   }
 
   &_title {
-    font-size: 20px;
-    cursor: pointer;
-  }
-
-  &_left {
     display: flex;
-    gap: 25px;
-    height: 50px;
     align-items: center;
-
+    gap: 10px;
     span {
-      display: flex;
-      height: 50px;
-      align-items: center;
+      font-size: 20px;
       cursor: pointer;
-      height: 100%;
-
-      &:hover {
-        color: white;
-        border-bottom: 1px solid white;
+      margin-right: 10px;
+    }
+    img {
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+      border-radius: 100%;
+      margin-top: 5px;
+    }
+    &_email {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      width: 0px;
+      transition: width 0.5s ease;
+      @include mobile {
+        font-size: 12px;
       }
     }
+  }
+
+  &_mobileBtn {
+    display: none;
+    @include mobile {
+      display: block;
+      button {
+        border: none;
+        background: none;
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}
+
+.HeaderRightWrapper {
+  @include mobile {
+    display: none;
   }
 }

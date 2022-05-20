@@ -1,44 +1,43 @@
 @import "../../../utils/utils.scss";
 
 .LoginTitle {
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: space-between;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 
-	button {
-		cursor: pointer;
-		border: none;
-		background: none;
-	}
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
 }
 
 .Form {
-	@include mobile {
-		display: block;
-	}
+  display: flex;
+  gap: 5%;
+  margin-top: 25px;
+  @include mobile {
+    flex-direction: column;
+  }
 
-	display: flex;
-	gap: 5%;
-	margin-top: 25px;
+  input {
+    @include CustomInput;
+    margin-bottom: 10px;
+    width: 75%;
+    height: 100%;
 
-	input {
-		@include CustomInput;
-		margin-bottom: 10px;
-		width: 75%;
-		height: 100%;
+    @include mobile {
+      width: 100%;
+    }
+  }
 
-		@include mobile {
-			width: 100%;
-		}
-	}
+  button {
+    @include CustomBtn;
+    width: 20%;
+    height: 100%;
 
-	button {
-		@include CustomBtn;
-		width: 20%;
-		height: 100%;
-
-		@include mobile {
-			width: 100%;
-		}
-	}
+    @include mobile {
+      width: 100%;
+    }
+  }
 }

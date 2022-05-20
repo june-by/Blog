@@ -1,0 +1,23 @@
+@import "../../../utils/utils.scss";
+
+.HeaderRight {
+  display: flex;
+  gap: 25px;
+  height: 50px;
+  align-items: center;
+  @include mobile {
+    flex-direction: column;
+  }
+  span {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+
+    &:hover {
+      color: white;
+      border-bottom: 1px solid white;
+    }
+  }
+}

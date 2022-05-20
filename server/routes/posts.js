@@ -13,7 +13,6 @@ router.get("/load/main/:page", async (req, res, next) => {
       offset: (req.params.page - 1) * 12,
       attributes: ["id", "title", "category", "createdAt"],
     });
-    console.log(posts);
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);
@@ -64,6 +63,9 @@ router.get("/search/:keyword", async (req, res, next) => {
         title: {
           [Op.like]: "%" + decodeURIComponent(req.params.keyword) + "%",
         },
+      },
+      attributes: {
+        exclude: ["content", "hashTag", "updatedAt"],
       },
       order: [["createdAt", "DESC"]],
     });

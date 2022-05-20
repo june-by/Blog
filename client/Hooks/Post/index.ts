@@ -1,9 +1,10 @@
-import { AddCommentAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI } from "./../../API/Post/index";
+import { AddCommentAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, getSearchPostAPI } from "./../../API/Post/index";
 import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
+import { PostsType } from "../../Types/Post";
 
 export const useGetMainPost = (pageNum: number) => {
-  return useQuery(["MainPosts"], () => getMainPostsAPI(pageNum), {
+  return useQuery<Array<PostsType>>(["MainPosts", pageNum], () => getMainPostsAPI(pageNum), {
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
@@ -29,8 +30,17 @@ export const useGetPostNum = (Category: string) => {
   });
 };
 
-export const useGetCategoryPosts = (category: string) => {
-  return useQuery(["CategoryPost", category], () => getCategoryPostAPI(category), {
+export const useGetCategoryPosts = (category: string, pageNum: number) => {
+  return useQuery<Array<PostsType>>(["CategoryPost", category, pageNum], () => getCategoryPostAPI(category, pageNum), {
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+};
+
+export const useGetSearchPosts = (search: string) => {
+  return useQuery<Array<PostsType>>(["SearchPost", search], () => getSearchPostAPI(search), {
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
