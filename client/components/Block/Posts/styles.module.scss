@@ -11,6 +11,7 @@
   width: 100%;
   @include tablet {
     grid-template-columns: 1fr 1fr;
+    max-height: none;
   }
   @include mobile {
     display: block;

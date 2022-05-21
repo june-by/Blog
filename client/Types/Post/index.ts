@@ -18,3 +18,10 @@ export interface CommentType {
   id: number;
   updatedAt: Date;
 }
+
+export interface AddPostParams {
+  title: string;
+  category: string;
+  content: string;
+  tagArr: Array<string | null>;
+}

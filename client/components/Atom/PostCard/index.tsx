@@ -13,7 +13,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
         <img src={getPostThumbNail(post.category)} />
       </div>
       <div className={styles.PostCard_titleBox}>
-        <span>{post.title}</span>
+        <span className={styles.PostCard_titleBox_title}>{post.title}</span>
         <div>
           <span>{dateForm(post.createdAt)}</span>
         </div>

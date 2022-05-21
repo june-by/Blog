@@ -50,7 +50,7 @@ const formats = [
   "video",
 ];
 
-const Editor = ({ content, setContent }: { content: string; setContent: React.Dispatch<React.SetStateAction<string>> }) => {
+const PostEditor = ({ content, setContent }: { content: string; setContent: React.Dispatch<React.SetStateAction<string>> }) => {
   const onChange = useCallback((e: string) => {
     setContent(e);
   }, []);
@@ -67,4 +67,4 @@ const Editor = ({ content, setContent }: { content: string; setContent: React.Di
   );
 };
 
-export default Editor;
+export default PostEditor;

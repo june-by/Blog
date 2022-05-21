@@ -6,6 +6,13 @@ const PostContent = ({ content }: { content: string }) => {
   useEffect(() => {
     hljs.highlightAll();
   }, []);
+
+  useEffect(() => {
+    const $preTags = document.getElementsByTagName("pre");
+    for (const tag of $preTags as any) {
+      tag.className += " hljs";
+    }
+  }, []);
   return (
     <>
       <Head>

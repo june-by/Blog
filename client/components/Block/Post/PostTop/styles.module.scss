@@ -32,6 +32,24 @@
   }
 }
 
+.TopArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.DeleteBtn {
+  background: #0099fa;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  &:hover {
+    background: #6185e5;
+  }
+}
+
 .goBackBtn {
   border: none;
   background: none;

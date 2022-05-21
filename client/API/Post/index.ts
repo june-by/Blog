@@ -1,3 +1,4 @@
+import { AddPostParams } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
 
 export const getMainPostsAPI = async (page: number) => {
@@ -24,6 +25,16 @@ export const getCategoryPostAPI = async (category: string, pageNum: number) => {
 
 export const getSearchPostAPI = async (search: string) => {
   const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}`);
+  return data;
+};
+
+export const AddPostAPI = async (reqData: AddPostParams) => {
+  const { data } = await customAxios.post("/post", reqData);
+  return data;
+};
+
+export const DeletePostAPI = async (id: number) => {
+  const { data } = await customAxios.delete(`/post/${id}`);
   return data;
 };
 

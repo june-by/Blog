@@ -1,7 +1,8 @@
-import { AddCommentAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, getSearchPostAPI } from "./../../API/Post/index";
-import { useMutation, useQuery } from "react-query";
+import { AddCommentAPI, AddPostAPI, DeletePostAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, getSearchPostAPI } from "./../../API/Post/index";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
 import { PostsType } from "../../Types/Post";
+import { useRouter } from "next/router";
 
 export const useGetMainPost = (pageNum: number) => {
   return useQuery<Array<PostsType>>(["MainPosts", pageNum], () => getMainPostsAPI(pageNum), {
@@ -45,6 +46,24 @@ export const useGetSearchPosts = (search: string) => {
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+  });
+};
+
+export const useAddPost = () => {
+  return useMutation(AddPostAPI, {
+    onSuccess: () => {
+      alert("게시글 등록 성공");
+      return window.location.replace("/");
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  return useMutation(DeletePostAPI, {
+    onSuccess: () => {
+      alert("게시글 삭제 성공");
+      return window.location.replace("/");
+    },
   });
 };
 
