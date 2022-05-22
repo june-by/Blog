@@ -4,6 +4,8 @@ export const getPostThumbNail = (category: string) => {
       return "/JavaScript.png";
     case "React":
       return "/React.png";
+    case "Web":
+      return "/Web.png";
     case "TypeScript":
       return "/TypeScript.png";
     case "NodeJs":
@@ -12,12 +14,10 @@ export const getPostThumbNail = (category: string) => {
       return "/OS.png";
     case "DataStructure":
       return "/DataStructure.png";
-    case "Web":
-      return "/Web.png";
     case "HTML-CSS":
       return "/HTMLCSS.png";
     case "학교공부":
-      return "schoolstudy.png";
+      return "/schoolstudy.png";
     default:
       return "";
   }

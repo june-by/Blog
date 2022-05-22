@@ -5,9 +5,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 2%;
-  margin-bottom: 25px;
+  gap: 1.5%;
+  margin-bottom: 15px;
   width: 100%;
+  max-height: 80vh;
   @include tablet {
     grid-template-columns: 1fr 1fr;
     max-height: none;

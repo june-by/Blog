@@ -25,7 +25,11 @@ const PostCard = ({ post }: { post: PostsType }) => {
         <div className={styles.PostCard_titleBox_tagBox}>
           {post.Tags.length !== 0 &&
             post.Tags.map((tag) => {
-              return <span onClick={(e) => onClickTag(e, String(tag?.content))}>#{tag?.content} </span>;
+              return (
+                <span key={tag?.id} onClick={(e) => onClickTag(e, String(tag?.content))}>
+                  #{tag?.content}{" "}
+                </span>
+              );
             })}
         </div>
         <div className={styles.PostCard_titleBox_createdAt}>

@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Head>
             <meta charSet="utf-8"></meta>
             <title>ByJuun.com</title>
+            <link rel="shortcut icon" href="/favicon.ico" />
           </Head>
           <Component {...pageProps} />
           <ReactQueryDevtools initialIsOpen={false} />

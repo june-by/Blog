@@ -1,4 +1,5 @@
 import { GetServerSideProps, GetStaticProps } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { dehydrate, QueryClient } from "react-query";
@@ -16,19 +17,31 @@ const Post = () => {
 
   const { data: Post, isLoading } = useGetOnePost(Number(query.id));
   return (
-    <div className={styles.Post}>
-      {!isLoading && Post ? (
-        <>
-          <PostTop Post={Post} />
-          <PostContent content={Post.content} />
-          <CommentForm />
-          <CommentList Comments={Post.Comments} />
-          <ScrollBtn />
-        </>
-      ) : (
-        <></>
-      )}
-    </div>
+    <>
+      <Head>
+        <meta charSet="utf-8"></meta>
+        <title>{Post?.title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content={Post?.content.substring(0, 100)} />
+        <meta property="og:title" content={Post?.title} />
+        <meta property="og:description" content={Post?.content.substring(0, 100)} />
+        <meta property="og:image" content={"/original.png"} />
+        <meta property="og:url" content={`https://byjuun.com/post/${query.id}`} />
+      </Head>
+      <div className={styles.Post}>
+        {!isLoading && Post ? (
+          <>
+            <PostTop Post={Post} />
+            <PostContent content={Post.content} />
+            <CommentForm />
+            <CommentList Comments={Post.Comments} />
+            <ScrollBtn />
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
   );
 };
 

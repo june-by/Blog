@@ -82,7 +82,7 @@ export const useEditPost = () => {
   return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
     onSuccess: () => {
       alert("게시글 수정 성공");
-      return window.location.replace("/");
+      return window.location.replace(`/post/${query.id}`);
     },
   });
 };

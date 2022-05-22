@@ -14,6 +14,10 @@ const Pagination = ({ totalPage, pageNum, setPageNum }: Props) => {
   const onClickPageBtn = useCallback(
     (idx) => () => {
       if (idx === "...") return;
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       if (idx === "이전") {
         if (pageNum - 1 > 0) {
           return setPageNum((prev) => prev - 1);

@@ -17,4 +17,12 @@
   @include tablet_landscape {
     padding: 0 10%;
   }
+
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    word-break: break-all;
+  }
 }
