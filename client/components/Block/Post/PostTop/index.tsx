@@ -1,52 +1,51 @@
-import { useRouter } from "next/router";
-import React, { useCallback } from "react";
-import { useDeletePost } from "../../../../Hooks/Post";
+import React from "react";
 import useGotoPage from "../../../../Hooks/useGotoPage";
 import { useGetUserInfo } from "../../../../Hooks/User";
+import { PostType, TagType } from "../../../../Types/Post";
 import { dateForm } from "../../../../utils/dateForm";
+import GoBackBtn from "../../../Atom/GoBackBtn";
+import PostDelBtn from "../../../Atom/PostDelBtn";
+import PostEditBtn from "../../../Atom/PostEditBtn";
 import styles from "./styles.module.scss";
 
 interface Props {
-  title: string;
-  category: string;
-  createdAt: Date;
+  Post: PostType;
 }
 
-const PostTop = ({ title, createdAt, category }: Props) => {
+const PostTop = ({ Post }: Props) => {
   const gotoPage = useGotoPage();
-  const router = useRouter();
-  const deleteMutation = useDeletePost();
-
-  const goBack = useCallback(() => {
-    router.back();
-  }, []);
-
-  const deletePost = useCallback(() => {
-    deleteMutation.mutate(Number(router.query.id));
-  }, []);
-
+  const { title, createdAt, category, Tags, id } = Post;
   const { data: UserInfo } = useGetUserInfo();
+
   return (
     <div className={styles.PostTop}>
       <div className={styles.TopArea}>
         <div>
-          <button onClick={goBack} className={styles.goBackBtn}>
-            <img src="/back_icon.png" alt="뒤로가기" />
-            <span>뒤로가기</span>
-          </button>
+          <GoBackBtn />
         </div>
         <div>
           {UserInfo?.nickname === "By_juun" && (
-            <button className={styles.DeleteBtn} onClick={deletePost}>
-              글 삭제하기
-            </button>
+            <>
+              <PostDelBtn />
+              <PostEditBtn id={id} />
+            </>
           )}
         </div>
       </div>
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
-        <span>{dateForm(createdAt)}</span>
+        <span className={styles.AdditionalInfo_createdAt}>{dateForm(createdAt)}</span>
         <button onClick={gotoPage(`/category/${category}`)}>{category}</button>
+        <div className={styles.AdditionalInfo_Tag}>
+          {Tags.length !== 0 &&
+            Tags.map((tag) => {
+              return (
+                <span key={tag?.id} onClick={gotoPage(`/tag/${String(tag?.content)}`)}>
+                  #{tag?.content}{" "}
+                </span>
+              );
+            })}
+        </div>
       </div>
     </div>
   );

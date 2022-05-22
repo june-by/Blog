@@ -17,9 +17,9 @@ const Post = () => {
   const { data: Post, isLoading } = useGetOnePost(Number(query.id));
   return (
     <div className={styles.Post}>
-      {!isLoading ? (
+      {!isLoading && Post ? (
         <>
-          <PostTop title={Post.title} category={Post.category} createdAt={Post.createdAt} />
+          <PostTop Post={Post} />
           <PostContent content={Post.content} />
           <CommentForm />
           <CommentList Comments={Post.Comments} />

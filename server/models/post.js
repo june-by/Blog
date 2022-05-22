@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false, //필수
       },
       content: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT("long"),
         allowNull: false,
       },
       category: {

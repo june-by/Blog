@@ -1,7 +1,17 @@
-import { AddCommentAPI, AddPostAPI, DeletePostAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, getSearchPostAPI } from "./../../API/Post/index";
+import {
+  AddCommentAPI,
+  AddPostAPI,
+  DeletePostAPI,
+  EditPostAPI,
+  getCategoryPostAPI,
+  getOnePostAPI,
+  getPostsNumAPI,
+  getSearchPostAPI,
+  getTagPostAPI,
+} from "./../../API/Post/index";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
-import { PostsType } from "../../Types/Post";
+import { AddPostParams, PostsType, PostType } from "../../Types/Post";
 import { useRouter } from "next/router";
 
 export const useGetMainPost = (pageNum: number) => {
@@ -14,7 +24,7 @@ export const useGetMainPost = (pageNum: number) => {
 };
 
 export const useGetOnePost = (id: number) => {
-  return useQuery(["Post", id], () => getOnePostAPI(id), {
+  return useQuery<PostType>(["Post", id], () => getOnePostAPI(id), {
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
@@ -49,10 +59,29 @@ export const useGetSearchPosts = (search: string) => {
   });
 };
 
+export const useGetTagPosts = (tag: string) => {
+  return useQuery<Array<PostsType>>(["TagPost", tag], () => getTagPostAPI(tag), {
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+};
+
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
     onSuccess: () => {
       alert("게시글 등록 성공");
+      return window.location.replace("/");
+    },
+  });
+};
+
+export const useEditPost = () => {
+  const { query } = useRouter();
+  return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
+    onSuccess: () => {
+      alert("게시글 수정 성공");
       return window.location.replace("/");
     },
   });

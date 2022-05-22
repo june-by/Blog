@@ -31,3 +31,7 @@ pre {
 .ql-snow .ql-editor pre.ql-syntax {
   background-color: #fafafa;
 }
+
+li {
+  margin-bottom: 5px;
+}

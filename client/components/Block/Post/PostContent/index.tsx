@@ -16,7 +16,7 @@ const PostContent = ({ content }: { content: string }) => {
   return (
     <>
       <Head>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-light.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-dark.min.css" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
       </Head>
       <div className="Code" dangerouslySetInnerHTML={{ __html: content }}></div>

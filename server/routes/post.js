@@ -73,15 +73,21 @@ router.get("/load/:postId", async (req, res, next) => {
       //order : [
       //  [Comment, 'createdAt', 'DESC']
       //], //최신 작성된것부터 가져온다.
+      attributes: ["category", "content", "createdAt", "id", "title"],
       include: [
         {
           model: Comment,
+          attributes: ["content", "createdAt"],
           include: [
             {
               model: User,
-              attributes: ["id", "nickname", "color"],
+              attributes: ["nickname"],
             },
           ],
+        },
+        {
+          model: Tag,
+          attributes: ["id", "content"],
         },
       ],
     });
@@ -112,17 +118,29 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
     if (req.user.nickname !== "By_juun") {
       return res.status(403).send("글을 수정할 권한이 없습니다");
     }
+    const { title, category, content, tagArr } = req.body;
+
     await Post.update(
       {
-        title: req.body.title,
-        category: req.body.category,
-        hashTag: req.body.hashTag,
-        content: req.body.content,
+        title: title,
+        category: category,
+        content: content,
       },
       {
         where: { id: req.params.postId },
       }
     );
+    const post = await Post.findOne({ where: { id: req.params.postId } });
+    if (tagArr.length !== 0) {
+      const result = await Promise.all(
+        tagArr.map((tag) =>
+          Tag.findOrCreate({
+            where: { content: tag.toLowerCase() },
+          })
+        )
+      );
+      await post.setTags(result.map((v) => v[0]));
+    }
     res.json({ message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다" });
   } catch (err) {
     console.error(err);

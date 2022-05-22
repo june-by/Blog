@@ -1,8 +1,7 @@
 @import "../../../utils/utils.scss";
 
 .PostsRoot {
-  max-height: 75vh;
-  margin-top: 25px;
+  margin-top: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;

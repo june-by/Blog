@@ -1,22 +1,27 @@
+export interface PostType {
+  category: string;
+  content: string;
+  createdAt: Date;
+  id: number;
+  title: string;
+  Comments: Array<null | CommentType>;
+  Tags: Array<null | TagType>;
+}
+
 export interface PostsType {
   category: string;
   createdAt: Date;
   id: number;
   title: string;
+  Tags: Array<null | TagType>;
 }
 
 export interface CommentType {
-  PostId: number;
   User: {
-    color: string;
-    id: number;
     nickname: string;
   };
-  UserId: number;
   content: string;
   createdAt: Date;
-  id: number;
-  updatedAt: Date;
 }
 
 export interface AddPostParams {
@@ -24,4 +29,9 @@ export interface AddPostParams {
   category: string;
   content: string;
   tagArr: Array<string | null>;
+}
+
+export interface TagType {
+  id: number;
+  content: string;
 }

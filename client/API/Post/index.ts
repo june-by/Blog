@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { AddPostParams } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
 
@@ -28,8 +29,18 @@ export const getSearchPostAPI = async (search: string) => {
   return data;
 };
 
+export const getTagPostAPI = async (tag: string) => {
+  const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}`);
+  return data;
+};
+
 export const AddPostAPI = async (reqData: AddPostParams) => {
   const { data } = await customAxios.post("/post", reqData);
+  return data;
+};
+
+export const EditPostAPI = async (reqData: AddPostParams, id: number) => {
+  const { data } = await customAxios.patch(`/post/${id}`, reqData);
   return data;
 };
 

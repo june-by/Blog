@@ -3,12 +3,13 @@ import { CommentType } from "../../../../Types/Post";
 import CommentCard from "../../../Atom/CommentCard";
 import styles from "./styles.module.scss";
 
-const CommentList = ({ Comments }: { Comments: Array<CommentType> | undefined }) => {
+const CommentList = ({ Comments }: { Comments: Array<CommentType | null> }) => {
   return (
     <div className={styles.CommentList}>
-      {Comments?.map((comment, idx) => {
-        return <CommentCard key={comment.id} comment={comment} idx={idx} />;
-      })}
+      {Comments &&
+        Comments?.map((comment, idx) => {
+          return <CommentCard key={idx} comment={comment} idx={idx} />;
+        })}
     </div>
   );
 };

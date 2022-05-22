@@ -1,5 +1,5 @@
 const express = require("express");
-const { Post, User, Comment } = require("../models");
+const { Post, User, Comment, Tag } = require("../models");
 const router = express.Router();
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
@@ -12,6 +12,12 @@ router.get("/load/main/:page", async (req, res, next) => {
       limit: 12,
       offset: (req.params.page - 1) * 12,
       attributes: ["id", "title", "category", "createdAt"],
+      include: [
+        {
+          model: Tag,
+          attributes: ["id", "content"],
+        },
+      ],
     });
     res.status(200).json(posts);
   } catch (error) {
@@ -48,6 +54,12 @@ router.get("/load/:category/:page", async (req, res, next) => {
       limit: 12,
       offset: (req.params.page - 1) * 12,
       attributes: ["id", "title", "category", "createdAt"],
+      include: [
+        {
+          model: Tag,
+          attributes: ["id", "content"],
+        },
+      ],
     });
     res.status(200).json(posts);
   } catch (err) {
@@ -65,8 +77,36 @@ router.get("/search/:keyword", async (req, res, next) => {
         },
       },
       attributes: {
-        exclude: ["content", "hashTag", "updatedAt"],
+        exclude: ["content", "updatedAt"],
       },
+      include: [
+        {
+          model: Tag,
+          attributes: ["id", "content"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/tag/:keyword", async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      attributes: {
+        exclude: ["content", "updatedAt"],
+      },
+      include: [
+        {
+          model: Tag,
+          where: { content: req.params.keyword },
+          attributes: ["id", "content"],
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
     res.status(200).json(posts);
