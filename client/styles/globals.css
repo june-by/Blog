@@ -26,6 +26,7 @@ a {
 pre {
   padding: 1rem;
   background: #fafafa;
+  overflow: auto;
 }
 
 .ql-snow .ql-editor pre.ql-syntax {
@@ -34,4 +35,8 @@ pre {
 
 li {
   margin-bottom: 5px;
+}
+
+.ql-editor {
+  max-height: 65vh;
 }

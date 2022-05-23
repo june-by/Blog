@@ -14,13 +14,13 @@ const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr }: Pr
   const { data: Post, isLoading } = useGetOnePost(Number(query.id));
 
   useEffect(() => {
-    if (Post && !isLoading) {
+    if (Post && !isLoading && query.mode === "Edit") {
       titleRef!.current!.value = Post.title;
       setCategoryInfo(Post.category);
       setContent(Post.content);
       setTagArr(Post.Tags.map((tag) => String(tag?.content)));
     }
-  }, [Post, isLoading]);
+  }, [Post, isLoading, query]);
 };
 
 export default useSetEditData;

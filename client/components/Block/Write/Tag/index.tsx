@@ -28,8 +28,8 @@ const Tag = ({ tagArr, setTagArr }: Props) => {
       </form>
       <div className={styles.TagArrWrapper}>
         {tagArr?.length !== 0 &&
-          tagArr.map((tag) => {
-            return <TagChip tag={tag} setTagArr={setTagArr} />;
+          tagArr.map((tag, idx) => {
+            return <TagChip key={idx} tag={tag} setTagArr={setTagArr} />;
           })}
       </div>
     </div>

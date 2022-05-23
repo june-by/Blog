@@ -1,3 +1,4 @@
+@import "../../../../utils/utils.scss";
 .PostTop {
   margin-bottom: 50px;
 }
@@ -12,6 +13,10 @@
   margin-bottom: 2rem;
   word-break: keep-all;
   transition: color 0.125s ease-in 0s;
+  @include mobile {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .AdditionalInfo {

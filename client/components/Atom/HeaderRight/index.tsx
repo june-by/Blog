@@ -1,5 +1,5 @@
+import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import useGotoPage from "../../../Hooks/useGotoPage";
 import useOpenModal from "../../../Hooks/useOpenModal";
 import { useGetUserInfo, useLogOut } from "../../../Hooks/User";
 import LoginModal from "../../Block/LoginModal";
@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
-  const gotoPage = useGotoPage();
+  const router = useRouter();
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
@@ -21,10 +21,17 @@ const HeaderRight = () => {
     LogoutMutation.mutate();
   }, []);
 
+  const gotoWrite = useCallback(() => {
+    router.push({
+      pathname: "/Write",
+      query: { mode: "Write" },
+    });
+  }, []);
+
   return (
     <>
       <div className={styles.HeaderRight}>
-        {UserInfo?.nickname === "By_juun" && <span onClick={gotoPage("/Write")}>글 작성</span>}
+        {UserInfo?.nickname === "By_juun" && <span onClick={gotoWrite}>글 작성</span>}
         <span onClick={onClickSearch}>검색</span>
         {UserInfo === null ? (
           <>

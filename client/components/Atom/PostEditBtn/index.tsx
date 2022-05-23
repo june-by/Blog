@@ -5,7 +5,10 @@ import styles from "./styles.module.scss";
 const PostEditBtn = ({ id }: { id: number }) => {
   const router = useRouter();
   const gotoEdit = useCallback(() => {
-    router.push(`/Edit/${id}`);
+    router.push({
+      pathname: "/Write",
+      query: { mode: "Edit", id: id },
+    });
   }, []);
   return (
     <button className={styles.EditBtn} onClick={gotoEdit}>
