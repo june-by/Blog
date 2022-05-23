@@ -9,7 +9,7 @@ const PostEditBtn = ({ id }: { id: number }) => {
       pathname: "/Write",
       query: { mode: "Edit", id: id },
     });
-  }, []);
+  }, [router, id]);
   return (
     <button className={styles.EditBtn} onClick={gotoEdit}>
       글 수정하기

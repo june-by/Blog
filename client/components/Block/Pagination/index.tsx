@@ -28,7 +28,7 @@ const Pagination = ({ totalPage, pageNum, setPageNum }: Props) => {
         }
       } else setPageNum(idx);
     },
-    [pageNum, totalPage]
+    [pageNum, totalPage, setPageNum]
   );
 
   useEffect(() => {

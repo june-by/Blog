@@ -11,13 +11,16 @@ const CommentForm = () => {
 
   const { data: UserInfo } = useGetUserInfo();
 
-  const submitComment = useCallback((e) => {
-    e.stopPropagation();
-    if (!CommentRef.current) return;
-    if (UserInfo === null) return alert("* 로그인 후 댓글을 작성할 수 있습니다");
-    if (CommentRef.current.value === "") return alert("* 내용을 작성해주세요");
-    AddCommentMutation.mutate({ postId: Number(query.id), comment: CommentRef.current.value });
-  }, []);
+  const submitComment = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (!CommentRef.current) return;
+      if (UserInfo === null) return alert("* 로그인 후 댓글을 작성할 수 있습니다");
+      if (CommentRef.current.value === "") return alert("* 내용을 작성해주세요");
+      AddCommentMutation.mutate({ postId: Number(query.id), comment: CommentRef.current.value });
+    },
+    [AddCommentMutation]
+  );
 
   return (
     <div className={styles.CommentForm}>

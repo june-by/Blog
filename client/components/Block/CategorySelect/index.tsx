@@ -7,9 +7,12 @@ import { useRouter } from "next/router";
 const CategorySelect = () => {
   const router = useRouter();
 
-  const onClickCategory = useCallback((category: string) => {
-    router.push(`/category/${category}`);
-  }, []);
+  const onClickCategory = useCallback(
+    (category: string) => {
+      router.push(`/category/${category}`);
+    },
+    [router]
+  );
 
   return (
     <div className={styles.CategorySelect}>

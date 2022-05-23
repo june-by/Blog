@@ -19,14 +19,14 @@ const HeaderRight = () => {
 
   const LogOut = useCallback(() => {
     LogoutMutation.mutate();
-  }, []);
+  }, [LogoutMutation]);
 
   const gotoWrite = useCallback(() => {
     router.push({
       pathname: "/Write",
       query: { mode: "Write" },
     });
-  }, []);
+  }, [router]);
 
   return (
     <>

@@ -10,7 +10,7 @@ const PostDelBtn = () => {
     if (window.confirm("* 정말 삭제하시겠습니까?")) {
       deleteMutation.mutate(Number(router.query.id));
     }
-  }, []);
+  }, [deleteMutation]);
 
   return (
     <button className={styles.DeleteBtn} onClick={deletePost}>

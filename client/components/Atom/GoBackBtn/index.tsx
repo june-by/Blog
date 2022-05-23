@@ -6,7 +6,7 @@ const GoBackBtn = () => {
   const router = useRouter();
   const goBack = useCallback(() => {
     router.back();
-  }, []);
+  }, [router]);
   return (
     <button onClick={goBack} className={styles.goBackBtn}>
       <img src="/back_icon.png" alt="뒤로가기" />

@@ -14,19 +14,22 @@ const LoginModal = ({ open, setOpen }: Props) => {
 
   const closeModal = useCallback(() => {
     setOpen(false);
-  }, []);
+  }, [setOpen]);
 
   const loginMutation = useLogin(closeModal);
 
-  const submit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!emailRef.current || !passwordRef.current) return;
-    const reqData = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    };
-    loginMutation.mutate(reqData);
-  }, []);
+  const submit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!emailRef.current || !passwordRef.current) return;
+      const reqData = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      };
+      loginMutation.mutate(reqData);
+    },
+    [loginMutation]
+  );
 
   return (
     <div>
@@ -35,7 +38,7 @@ const LoginModal = ({ open, setOpen }: Props) => {
           <div className={styles.LoginTitle}>
             <span>로그인</span>
             <button onClick={closeModal}>
-              <Image src="/close_btn.png" width={35} height={35} />
+              <Image src="/close_btn.png" width={35} height={35} alt="닫기" />
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>

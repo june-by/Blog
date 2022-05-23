@@ -6,6 +6,7 @@ import hljs from "highlight.js";
 import Head from "next/head";
 import ReactQuill from "react-quill";
 import { customAxios } from "../../../../utils/CustomAxios";
+import Script from "next/script";
 
 interface Props {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -98,7 +99,7 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
     <>
       <Head>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-light.min.css" />
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+        <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
       </Head>
       <div className={styles.Editor}>
         <QuillNoSSRWrapper forwardedRef={QuillRef} value={content} onChange={onChange} modules={modules} formats={formats} theme="snow" />

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import hljs from "highlight.js";
 import Head from "next/head";
+import Script from "next/script";
 
 const PostContent = ({ content }: { content: string }) => {
   useEffect(() => {
@@ -17,7 +18,7 @@ const PostContent = ({ content }: { content: string }) => {
     <>
       <Head>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-dark.min.css" />
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+        <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
       </Head>
       <div className="Code" dangerouslySetInnerHTML={{ __html: content }}></div>
     </>
