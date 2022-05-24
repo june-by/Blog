@@ -10,11 +10,14 @@ interface Props {
 const Tag = ({ tagArr, setTagArr }: Props) => {
   const tagRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitTag = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!tagRef.current) return;
-    setTagArr((prev) => [...prev, String(tagRef?.current?.value)]);
-  }, []);
+  const onSubmitTag = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!tagRef.current) return;
+      setTagArr((prev) => [...prev, String(tagRef?.current?.value)]);
+    },
+    [setTagArr]
+  );
 
   useEffect(() => {
     if (!tagRef.current) return;

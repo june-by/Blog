@@ -19,7 +19,7 @@ const CommentForm = () => {
       if (CommentRef.current.value === "") return alert("* 내용을 작성해주세요");
       AddCommentMutation.mutate({ postId: Number(query.id), comment: CommentRef.current.value });
     },
-    [AddCommentMutation]
+    [AddCommentMutation, UserInfo, query.id]
   );
 
   return (

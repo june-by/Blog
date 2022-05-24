@@ -34,7 +34,7 @@ const Write = () => {
     };
     if (query.mode === "Write") AddPostMutation.mutate(reqData);
     else EditPostMutation.mutate(reqData);
-  }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation]);
+  }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, query.mode]);
 
   useCheckAdmin();
   useSetEditData({ titleRef: titleRef, setCategoryInfo: setCategoryInfo, setContent: setContent, setTagArr: setTagArr });

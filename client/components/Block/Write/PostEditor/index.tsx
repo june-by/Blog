@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
-import Head from "next/head";
 import ReactQuill from "react-quill";
 import { customAxios } from "../../../../utils/CustomAxios";
 import Script from "next/script";
+import "highlight.js/styles/atom-one-dark.css";
 
 interface Props {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -20,9 +20,11 @@ interface Props {
 const QuillNoSSRWrapper = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-    return React.forwardRef(({ forwardedRef, ...props }: Props) => {
+    const TempEditor = React.forwardRef(({ forwardedRef, ...props }: Props) => {
       return <RQ ref={forwardedRef} {...props} />;
     });
+    TempEditor.displayName = "TempEditor";
+    return TempEditor;
   },
   { ssr: false }
 );
@@ -47,9 +49,12 @@ const formats = [
 
 const PostEditor = ({ content, setContent }: { content: string; setContent: React.Dispatch<React.SetStateAction<string>> }) => {
   const QuillRef = useRef<ReactQuill>(null);
-  const onChange = useCallback((e: string) => {
-    setContent(e);
-  }, []);
+  const onChange = useCallback(
+    (e: string) => {
+      setContent(e);
+    },
+    [setContent]
+  );
 
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -97,10 +102,7 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
   );
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-light.min.css" />
-        <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
-      </Head>
+      <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
       <div className={styles.Editor}>
         <QuillNoSSRWrapper forwardedRef={QuillRef} value={content} onChange={onChange} modules={modules} formats={formats} theme="snow" />
       </div>

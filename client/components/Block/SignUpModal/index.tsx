@@ -17,23 +17,26 @@ const SignUpModal = ({ open, setOpen }: Props) => {
 
   const closeModal = useCallback(() => {
     setOpen(false);
-  }, []);
+  }, [setOpen]);
 
   const signUpMutation = useSignUp(closeModal);
 
-  const submit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
-    if (passwordRef.current.value !== passwordCheckRef.current.value) return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
+  const submit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
+      if (passwordRef.current.value !== passwordCheckRef.current.value) return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
 
-    const reqData = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      nickname: nicknameRef.current.value,
-    };
+      const reqData = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+        nickname: nicknameRef.current.value,
+      };
 
-    signUpMutation.mutate(reqData);
-  }, []);
+      signUpMutation.mutate(reqData);
+    },
+    [signUpMutation]
+  );
 
   return (
     <div>
@@ -42,7 +45,7 @@ const SignUpModal = ({ open, setOpen }: Props) => {
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
             <button onClick={closeModal}>
-              <Image src="/close_btn.png" width={35} height={35} />
+              <Image src="/close_btn.png" width={35} height={35} alt="닫기" />
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>

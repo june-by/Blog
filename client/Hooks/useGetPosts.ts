@@ -1,34 +1,25 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { PostsType } from "../Types/Post";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "./Post";
 
 interface Props {
-	setPost: React.Dispatch<React.SetStateAction<PostsType[] | undefined>>;
-	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-	pageNum: number;
+  pageNum: number;
 }
 
-const useGetPosts = ({ setPost, setIsLoading, pageNum }: Props) => {
-	const { query } = useRouter();
-	const { data: CategoryPost, isLoading: categoryLoading } = useGetCategoryPosts(query.category as string, pageNum);
-	const { data: SearchPosts, isLoading: searchLoading } = useGetSearchPosts(String(query.search));
-	const { data: TagPost, isLoading: tagLoading } = useGetTagPosts(query.content as string);
+type ReturnTypes = [PostsType[] | undefined, boolean];
 
-	useEffect(() => {
-		if (query.category) {
-			setPost(CategoryPost);
-			setIsLoading(categoryLoading);
-		}
-		else if (query.search) {
-			setPost(SearchPosts);
-			setIsLoading(searchLoading)
-		}
-		else if (query.tag) {
-			setPost(TagPost);
-			setIsLoading(tagLoading);
-		}
-	}, [query])
+const useGetPosts = ({ pageNum }: Props): ReturnTypes => {
+  const { query } = useRouter();
+  if (query.category) {
+    const { data: CategoryPost, isLoading: categoryLoading } = useGetCategoryPosts(String(query.category), pageNum);
+    return [CategoryPost, categoryLoading];
+  } else if (query.search) {
+    const { data: SearchPosts, isLoading: searchLoading } = useGetSearchPosts(String(query.search));
+    return [SearchPosts, searchLoading];
+  } else {
+    const { data: TagPost, isLoading: tagLoading } = useGetTagPosts(String(query.tag));
+    return [TagPost, tagLoading];
+  }
 };
 
 export default useGetPosts;
