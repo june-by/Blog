@@ -1,9 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
-const multiparty = require("connect-multiparty");
 const cors = require("cors");
-const fs = require("fs");
 const passport = require("passport");
 const hpp = require("hpp");
 const helmet = require("helmet");
@@ -14,7 +12,6 @@ const db = require("./models");
 const postRouter = require("./routes/post");
 const postsRouter = require("./routes/posts");
 const userRouter = require("./routes/user");
-const multipartyMiddelware = multiparty({ uploadDir: "./images" });
 const passportConfig = require("./passport");
 const AWS = require("aws-sdk");
 const multer = require("multer");
@@ -41,12 +38,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(morgan("dev"));
 }
 
-app.use(
-  cors({
-    origin: true,
-    credentials: true, //이걸 해줘야 cookie도 같이 보낼 수 있다.
-  })
-);
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
@@ -59,7 +51,7 @@ app.use(
     proxy: true,
     cookie: {
       httpOnly: true, //cookie는 javascript로 조작할 수 없도록.
-      secure: false,
+      secure: true,
       domain: process.env.NODE_ENV === "production" && ".byjuun.com",
     },
   })
@@ -100,6 +92,6 @@ app.post("/uploads", upload.single("img"), (req, res) => {
   });
 });
 
-app.listen(80, () => {
+app.listen(3065, () => {
   console.log("서버 실행 중");
 });
