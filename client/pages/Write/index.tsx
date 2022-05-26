@@ -11,47 +11,47 @@ import useSetEditData from "../../Hooks/useSetEditData";
 import { useRouter } from "next/router";
 
 const Write = () => {
-  const { query } = useRouter();
-  const titleRef = useRef<HTMLInputElement>(null);
-  const [categoryInfo, setCategoryInfo] = useState(Category[0]);
-  const [content, setContent] = useState<string>("");
-  const [tagArr, setTagArr] = useState<Array<string>>([]);
+	const { query } = useRouter();
+	const titleRef = useRef<HTMLInputElement>(null);
+	const [categoryInfo, setCategoryInfo] = useState(Category[0]);
+	const [content, setContent] = useState<string>("");
+	const [tagArr, setTagArr] = useState<Array<string>>([]);
 
-  const AddPostMutation = useAddPost();
-  const EditPostMutation = useEditPost();
+	const AddPostMutation = useAddPost();
+	const EditPostMutation = useEditPost();
 
-  const onChangeCategory = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategoryInfo(e.target.value);
-  }, []);
+	const onChangeCategory = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+		setCategoryInfo(e.target.value);
+	}, []);
 
-  const submitPost = useCallback(() => {
-    if (!titleRef.current) return;
-    const reqData = {
-      title: titleRef.current.value,
-      category: categoryInfo,
-      content: content,
-      tagArr: tagArr,
-    };
-    if (query.mode === "Write") AddPostMutation.mutate(reqData);
-    else EditPostMutation.mutate(reqData);
-  }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, query.mode]);
+	const submitPost = useCallback(() => {
+		if (!titleRef.current) return;
+		const reqData = {
+			title: titleRef.current.value,
+			category: categoryInfo,
+			content: content,
+			tagArr: tagArr,
+		};
+		if (query.mode === "Write") AddPostMutation.mutate(reqData);
+		else EditPostMutation.mutate(reqData);
+	}, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, query.mode]);
 
-  useCheckAdmin();
-  useSetEditData({ titleRef: titleRef, setCategoryInfo: setCategoryInfo, setContent: setContent, setTagArr: setTagArr });
+	//useCheckAdmin();
+	useSetEditData({ titleRef: titleRef, setCategoryInfo: setCategoryInfo, setContent: setContent, setTagArr: setTagArr });
 
-  return (
-    <div className={styles.Write}>
-      <div className={styles.titleArea}>
-        <input className={styles.titleInput} placeholder="제목" ref={titleRef} />
-        <button onClick={submitPost}>등록</button>
-      </div>
-      <div className={styles.etcArea}>
-        <CategorySelectInWrite onChangeCategory={onChangeCategory} />
-        <Tag tagArr={tagArr} setTagArr={setTagArr} />
-      </div>
-      <PostEditor content={content} setContent={setContent} />
-    </div>
-  );
+	return (
+		<div className={styles.Write}>
+			<div className={styles.titleArea}>
+				<input className={styles.titleInput} placeholder="제목" ref={titleRef} />
+				<button onClick={submitPost}>등록</button>
+			</div>
+			<div className={styles.etcArea}>
+				<CategorySelectInWrite onChangeCategory={onChangeCategory} />
+				<Tag tagArr={tagArr} setTagArr={setTagArr} />
+			</div>
+			<PostEditor content={content} setContent={setContent} />
+		</div>
+	);
 };
 
 export default Write;

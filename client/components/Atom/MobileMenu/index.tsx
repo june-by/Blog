@@ -16,7 +16,6 @@ const MobileMenu = ({ open, setOpen }: Props) => {
 	const menuRef = useRef<HTMLDivElement>(null);
 	const router = useRouter();
 
-	useWidthAnimation(menuRef, open);
 	const onClose = useCallback(() => {
 		setOpen(false);
 	}, [setOpen])
@@ -29,8 +28,11 @@ const MobileMenu = ({ open, setOpen }: Props) => {
 		})
 	}, [])
 
+	useWidthAnimation(menuRef, open);
+
 	return (
-		<>
+		<div >
+			{open && <div className={styles.MobileOverLay} onClick={onClose}></div>}
 			<div ref={menuRef} className={styles.MobileMenu}>
 				<div className={styles.CloseArea}>
 					<button onClick={onClose}><Image src="/goBack.png" width={10} height={13} alt="더보기" /></button>
@@ -42,7 +44,7 @@ const MobileMenu = ({ open, setOpen }: Props) => {
 					})}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

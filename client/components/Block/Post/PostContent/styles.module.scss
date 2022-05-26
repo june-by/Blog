@@ -1,0 +1,69 @@
+@import "../../../../utils/utils.scss";
+
+.PostContent {
+	position: relative;
+	display: flex;
+}
+
+.Content {
+	@include tablet {
+		width: 100%;
+	}
+
+	@include mobile {
+		width: 100%;
+	}
+
+	@include desktop {
+		width: 100%;
+	}
+
+	blockquote {
+		margin: 2rem 0px;
+		border-left: 4px solid #0099fa;
+		padding: 1rem 1rem 1rem 2rem;
+	}
+
+	a {
+		color: #0099fa;
+		font-weight: 600;
+
+		&:hover {
+			color: #6185e5;
+		}
+	}
+}
+
+.TopicWrapper {
+	display: none;
+
+	@include desktop {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 19vw;
+		margin-left: 3vw;
+		display: flex;
+		flex-direction: column;
+		font-weight: 600;
+
+		&_second {
+			border-left: 1px solid #C8C8C8;
+			padding-left: 2vw;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+
+			div {
+				width: fit-content;
+				cursor: pointer;
+				padding-bottom: 10px;
+
+				&:hover {
+					color: #6185e5;
+				}
+			}
+
+		}
+	}
+}
