@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(30),
         allowNull: false, //필수
       },
+      thumbNailUrl: {
+        type: DataTypes.STRING(100),
+        allowNull: true, //필수
+      },
     },
     {
       charset: "utf8mb4",

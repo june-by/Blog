@@ -11,7 +11,7 @@ router.get("/load/main/:page", async (req, res, next) => {
       order: [["createdAt", "DESC"]],
       limit: 12,
       offset: (req.params.page - 1) * 12,
-      attributes: ["id", "title", "category", "createdAt"],
+      attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
       include: [
         {
           model: Tag,
@@ -53,7 +53,7 @@ router.get("/load/:category/:page", async (req, res, next) => {
       order: [["createdAt", "DESC"]],
       limit: 12,
       offset: (req.params.page - 1) * 12,
-      attributes: ["id", "title", "category", "createdAt"],
+      attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
       include: [
         {
           model: Tag,
@@ -77,7 +77,7 @@ router.get("/search/:keyword", async (req, res, next) => {
         },
       },
       attributes: {
-        exclude: ["content", "updatedAt"],
+        exclude: ["content", "updatedAt", "thumbNailUrl"],
       },
       include: [
         {
@@ -98,7 +98,7 @@ router.get("/tag/:keyword", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       attributes: {
-        exclude: ["content", "updatedAt"],
+        exclude: ["content", "updatedAt", "thumbNailUrl"],
       },
       include: [
         {

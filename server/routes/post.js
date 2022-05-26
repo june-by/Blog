@@ -7,11 +7,12 @@ const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const multipartyMiddelware = multiparty({ uploadDir: "./images" });
 router.post("/", async (req, res, next) => {
   try {
-    const { title, category, content, tagArr } = req.body;
+    const { title, category, content, tagArr, thumbNailUrl } = req.body;
     const post = await Post.create({
       title: title,
       category: category,
       content: content,
+      thumbNailUrl: thumbNailUrl,
     });
     if (tagArr.length !== 0) {
       const result = await Promise.all(
@@ -118,13 +119,14 @@ router.patch("/:postId", isLoggedIn, async (req, res, next) => {
     if (req.user.nickname !== "By_juun") {
       return res.status(403).send("글을 수정할 권한이 없습니다");
     }
-    const { title, category, content, tagArr } = req.body;
+    const { title, category, content, tagArr, thumbNailUrl } = req.body;
 
     await Post.update(
       {
         title: title,
         category: category,
         content: content,
+        thumbNailUrl: thumbNailUrl,
       },
       {
         where: { id: req.params.postId },
