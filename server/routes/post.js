@@ -74,7 +74,7 @@ router.get("/load/:postId", async (req, res, next) => {
       //order : [
       //  [Comment, 'createdAt', 'DESC']
       //], //최신 작성된것부터 가져온다.
-      attributes: ["category", "content", "createdAt", "id", "title", "thumbNail"],
+      attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl"],
       include: [
         {
           model: Comment,
