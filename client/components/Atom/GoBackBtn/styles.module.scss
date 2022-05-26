@@ -1,13 +1,27 @@
+@import "../../../utils/utils.scss";
+
 .goBackBtn {
-  border: none;
-  background: none;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 15px;
-  cursor: pointer;
-  margin-bottom: 15px;
-  span {
-    margin-top: 5px;
-  }
+	border: none;
+	background: none;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 15px;
+	cursor: pointer;
+	margin-bottom: 15px;
+	padding-left: 0px;
+
+	img {
+		width: 20px;
+		height: 17px;
+
+		@include mobile {
+			width: 13px;
+			height: 9px;
+		}
+	}
+
+	span {
+		margin-top: 5px;
+	}
 }

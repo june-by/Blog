@@ -1,16 +1,43 @@
 .MobileMenu {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  width: 150px;
-  height: 0px;
-  background: #5f5d61;
-  position: absolute;
-  top: 50px;
-  right: -2px;
-  transition: height 0.5s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	display: inline-block;
+	width: 0px;
+	height: 100vh;
+	background: #5f5d61;
+	position: absolute;
+	top: 0;
+	right: -2px;
+	transition: width 0.2s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	border-left: 1px solid #918F94;
+}
+
+.CloseArea {
+	height: 50px;
+	display: flex;
+	justify-content: flex-start;
+	padding-left: 5vw;
+	align-items: center;
+	width: 100%;
+	border-bottom: 1px solid #918F94;
+
+	button {
+		border: none;
+		background: none;
+	}
+}
+
+.MenuArea {
+	width: 100%;
+	text-align: left;
+	padding-left: 5vw;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	font-weight: 600;
+
 }
