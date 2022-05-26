@@ -32,7 +32,7 @@ const Header = () => {
 
 	useHideHeader(setHide);
 
-	useHeaderAnimation(headerRef, hide);
+	useHeaderAnimation(headerRef, hide, setHide);
 
 	return (
 		<>
