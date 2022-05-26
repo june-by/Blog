@@ -25,10 +25,11 @@ const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
       }
     };
   }, []);
+  console.log(thumbNailUrl);
   return (
     <div className={styles.PickThumbNail}>
       <button onClick={onClickSetThumbNail}>썸네일 설정</button>
-      {thumbNailUrl !== "null" && <img src={thumbNailUrl} alt="썸네일" />}
+      {thumbNailUrl && <img src={thumbNailUrl} alt="썸네일" />}
     </div>
   );
 };
