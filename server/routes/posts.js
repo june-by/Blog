@@ -77,7 +77,7 @@ router.get("/search/:keyword", async (req, res, next) => {
         },
       },
       attributes: {
-        exclude: ["content", "updatedAt", "thumbNailUrl"],
+        exclude: ["content", "updatedAt"],
       },
       include: [
         {
@@ -98,7 +98,7 @@ router.get("/tag/:keyword", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       attributes: {
-        exclude: ["content", "updatedAt", "thumbNailUrl"],
+        exclude: ["content", "updatedAt"],
       },
       include: [
         {
