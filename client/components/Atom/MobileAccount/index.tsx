@@ -29,13 +29,13 @@ const MobileAccount = () => {
 			{UserInfo !== null ?
 				<>
 					{["검색", "로그아웃"].map((menu) => {
-						return <div onClick={onClickMenu(menu)}>{menu}</div>
+						return <div key={menu} onClick={onClickMenu(menu)}>{menu}</div>
 					})}
 				</>
 				:
 				<>
 					{["검색", "로그인", "회원가입"].map((menu) => {
-						return <div onClick={onClickMenu(menu)}>{menu}</div>
+						return <div key={menu} onClick={onClickMenu(menu)}>{menu}</div>
 					})}
 				</>}
 			{openLogin && <LoginModal open={openLogin} setOpen={setOpenLogin} />}

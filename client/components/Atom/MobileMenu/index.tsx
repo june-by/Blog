@@ -38,7 +38,7 @@ const MobileMenu = ({ open, setOpen }: Props) => {
 				<div className={styles.MenuArea}>
 					<MobileAccount />
 					{Category.map((category) => {
-						return <div onClick={onClickMenu(category)}>{category}</div>
+						return <div key={category} onClick={onClickMenu(category)}>{category}</div>
 					})}
 				</div>
 			</div>
