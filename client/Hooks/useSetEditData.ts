@@ -7,9 +7,10 @@ interface Props {
   setCategoryInfo: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<string>>;
   setTagArr: React.Dispatch<React.SetStateAction<string[]>>;
+  setThumbNailUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr }: Props) => {
+const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr, setThumbNailUrl }: Props) => {
   const { query } = useRouter();
   const { data: Post, isLoading } = useGetOnePost(Number(query.id));
 
@@ -19,6 +20,7 @@ const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr }: Pr
       setCategoryInfo(Post.category);
       setContent(Post.content);
       setTagArr(Post.Tags.map((tag) => String(tag?.content)));
+      setThumbNailUrl(String(Post.thumbNailUrl));
     }
   }, [Post, isLoading, query]);
 };

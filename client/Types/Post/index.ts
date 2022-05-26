@@ -6,6 +6,7 @@ export interface PostType {
   title: string;
   Comments: Array<null | CommentType>;
   Tags: Array<null | TagType>;
+  thumbNailUrl: null | string;
 }
 
 export interface PostsType {
@@ -14,6 +15,7 @@ export interface PostsType {
   id: number;
   title: string;
   Tags: Array<null | TagType>;
+  thumbNailUrl: string | null;
 }
 
 export interface CommentType {
@@ -29,6 +31,7 @@ export interface AddPostParams {
   category: string;
   content: string;
   tagArr: Array<string | null>;
+  thumbNailUrl: string;
 }
 
 export interface TagType {

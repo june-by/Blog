@@ -1,0 +1,15 @@
+@import "../../../../utils/utils.scss";
+.PickThumbNail {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  button {
+    @include CustomBtn;
+    width: 15%;
+  }
+  img {
+    width: 274px;
+    height: 137px;
+  }
+}
