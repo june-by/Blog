@@ -4,9 +4,9 @@
   margin-top: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 1.5%;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
   width: 100%;
   max-height: 80vh;
   @include tablet {
@@ -17,4 +17,12 @@
     display: block;
     max-height: none;
   }
+}
+
+.TagAndSearch {
+  max-height: none;
+}
+
+.Default {
+  max-height: none;
 }

@@ -10,8 +10,8 @@ export const getMainPostsAPI = async (page: number) => {
 export const getPostsNumAPI = async (category: string) => {
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
   const { length } = data;
-  if (length % 12 === 0) return length / 12;
-  else return Math.floor(length / 12) + 1;
+  if (length % 16 === 0) return length / 16;
+  else return Math.floor(length / 16) + 1;
 };
 
 export const getOnePostAPI = async (id: number) => {
