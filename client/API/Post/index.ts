@@ -8,6 +8,7 @@ export const getMainPostsAPI = async (page: number) => {
 };
 
 export const getPostsNumAPI = async (category: string) => {
+  if (category === undefined) return;
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
   const { length } = data;
   if (length % 16 === 0) return length / 16;
