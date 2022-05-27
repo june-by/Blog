@@ -17,7 +17,7 @@ const Post = () => {
   const { query } = useRouter();
 
   const { data: Post, isLoading } = useGetOnePost(Number(query.id));
-  console.log(Post);
+
   return (
     <>
       <Head>

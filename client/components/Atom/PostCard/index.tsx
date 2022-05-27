@@ -19,6 +19,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
     },
     [router]
   );
+
   return (
     <div className={styles.PostCard} onClick={gotoPage(`/post/${post.id}`)}>
       <div className={styles.PostCard_imgWrapper}>
