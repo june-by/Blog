@@ -32,6 +32,10 @@
       color: #6185e5;
     }
   }
+  img {
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+  }
 }
 
 .TopicWrapper {
