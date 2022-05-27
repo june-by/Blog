@@ -16,6 +16,8 @@ export const getPostThumbNail = (category: string) => {
       return "/DataStructure.png";
     case "HTML-CSS":
       return "/HTMLCSS.png";
+    case "NetWork":
+      return "/NetWork.jpeg";
     case "학교공부":
       return "/schoolstudy.png";
     default:
