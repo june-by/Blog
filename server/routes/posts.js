@@ -9,8 +9,8 @@ router.get("/load/main/:page", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       order: [["createdAt", "DESC"]],
-      limit: 12,
-      offset: (req.params.page - 1) * 12,
+      limit: 16,
+      offset: (req.params.page - 1) * 16,
       attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
       include: [
         {
@@ -51,8 +51,8 @@ router.get("/load/:category/:page", async (req, res, next) => {
     const posts = await Post.findAll({
       where: { category: req.params.category },
       order: [["createdAt", "DESC"]],
-      limit: 12,
-      offset: (req.params.page - 1) * 12,
+      limit: 16,
+      offset: (req.params.page - 1) * 16,
       attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
       include: [
         {
