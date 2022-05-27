@@ -15,7 +15,7 @@
   }
 
   @include desktop {
-    width: 100%;
+    width: 77%;
   }
 
   blockquote {
@@ -38,18 +38,18 @@
   display: none;
 
   @include desktop {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 19vw;
-    margin-left: 3vw;
+    width: 20%;
+    margin-left: 3%;
     display: flex;
     flex-direction: column;
     font-weight: 600;
+    height: auto;
     div::-webkit-scrollbar {
       display: none;
     }
     &_second {
+      position: sticky;
+      top: 30vh;
       max-height: 50vh;
       overflow: auto;
       border-left: 1px solid #c8c8c8;
@@ -57,7 +57,6 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-
       div {
         width: fit-content;
         cursor: pointer;
