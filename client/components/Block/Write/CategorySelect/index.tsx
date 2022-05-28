@@ -2,12 +2,13 @@ import React from "react";
 import { Category } from "../../../../utils/category";
 
 interface Props {
+  categoryInfo: string;
   onChangeCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const CategorySelectInWrite = ({ onChangeCategory }: Props) => {
+const CategorySelectInWrite = ({ categoryInfo, onChangeCategory }: Props) => {
   return (
-    <select onChange={onChangeCategory}>
+    <select value={categoryInfo} onChange={onChangeCategory}>
       <>
         {Category?.map((category) => {
           return (
