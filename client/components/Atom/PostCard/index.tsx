@@ -23,7 +23,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   return (
     <div className={styles.PostCard} onClick={gotoPage(`/post/${post.id}`)}>
       <div className={styles.PostCard_imgWrapper}>
-        <img src={post.thumbNailUrl ? post.thumbNailUrl : getPostThumbNail(post.category)} alt="category" />
+        <img src={post.thumbNailUrl && post.thumbNailUrl !== "null" ? post.thumbNailUrl : getPostThumbNail(post.category)} alt="category" />
       </div>
       <div className={styles.PostCard_titleBox}>
         <div className={styles.PostCard_titleBox_title}>

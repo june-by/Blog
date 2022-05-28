@@ -31,7 +31,7 @@ export interface AddPostParams {
   category: string;
   content: string;
   tagArr: Array<string | null>;
-  thumbNailUrl: string;
+  thumbNailUrl: string | null;
 }
 
 export interface TagType {

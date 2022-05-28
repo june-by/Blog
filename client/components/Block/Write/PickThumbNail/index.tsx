@@ -3,8 +3,8 @@ import { customAxios } from "../../../../utils/CustomAxios";
 import styles from "./styles.module.scss";
 
 interface Props {
-  thumbNailUrl: string;
-  setThumbNailUrl: React.Dispatch<React.SetStateAction<string>>;
+  thumbNailUrl: string | null;
+  setThumbNailUrl: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
