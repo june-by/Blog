@@ -61,6 +61,7 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
     document.body.appendChild(input);
+    input.style.display = "none";
     input.click();
     input.onchange = async () => {
       const file = input.files;

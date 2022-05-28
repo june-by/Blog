@@ -32,6 +32,7 @@ const useGetTopicArr = (setTopicArr: React.Dispatch<React.SetStateAction<never[]
     }
 
     tagArr.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+    tagArr.shift();
     setTopicArr(tagArr as never);
   }, []);
 };

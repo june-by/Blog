@@ -17,7 +17,7 @@ const Write = () => {
   const [categoryInfo, setCategoryInfo] = useState(Category[0]);
   const [content, setContent] = useState<string>("");
   const [tagArr, setTagArr] = useState<Array<string>>([]);
-  const [thumbNailUrl, setThumbNailUrl] = useState<string>("");
+  const [thumbNailUrl, setThumbNailUrl] = useState<string | null>(null);
 
   const AddPostMutation = useAddPost();
   const EditPostMutation = useEditPost();
@@ -39,7 +39,7 @@ const Write = () => {
     else EditPostMutation.mutate(reqData);
   }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, thumbNailUrl, query.mode]);
 
-  useCheckAdmin();
+  //useCheckAdmin();
   useSetEditData({ titleRef: titleRef, setCategoryInfo: setCategoryInfo, setContent: setContent, setTagArr: setTagArr, setThumbNailUrl: setThumbNailUrl });
 
   return (

@@ -7,7 +7,7 @@ interface Props {
   setCategoryInfo: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<string>>;
   setTagArr: React.Dispatch<React.SetStateAction<string[]>>;
-  setThumbNailUrl: React.Dispatch<React.SetStateAction<string>>;
+  setThumbNailUrl: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr, setThumbNailUrl }: Props) => {
