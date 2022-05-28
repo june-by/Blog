@@ -49,7 +49,7 @@ const Write = () => {
         <button onClick={submitPost}>등록</button>
       </div>
       <div className={styles.etcArea}>
-        <CategorySelectInWrite onChangeCategory={onChangeCategory} />
+        <CategorySelectInWrite categoryInfo={categoryInfo} onChangeCategory={onChangeCategory} />
         <Tag tagArr={tagArr} setTagArr={setTagArr} />
       </div>
       <PostEditor content={content} setContent={setContent} />
