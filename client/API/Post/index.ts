@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { AddPostParams } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
+import { POST_PER_PAGE } from "../../utils/variable";
 
 export const getMainPostsAPI = async (page: number) => {
   const { data } = await customAxios.get(`/posts/load/main/${page}`);
@@ -11,8 +12,8 @@ export const getPostsNumAPI = async (category: string) => {
   if (category === undefined) return;
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
   const { length } = data;
-  if (length % 16 === 0) return length / 16;
-  else return Math.floor(length / 16) + 1;
+  if (length % POST_PER_PAGE === 0) return length / POST_PER_PAGE;
+  else return Math.floor(length / POST_PER_PAGE) + 1;
 };
 
 export const getOnePostAPI = async (id: number) => {

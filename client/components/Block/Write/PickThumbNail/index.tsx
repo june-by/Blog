@@ -20,7 +20,6 @@ const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
         const formData = new FormData();
         formData.append("img", file[0]);
         const res = await customAxios.post("/uploads", formData);
-        console.log(res);
         setThumbNailUrl(res.data.url);
       }
     };

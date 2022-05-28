@@ -69,7 +69,6 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
         const formData = new FormData();
         formData.append("img", file[0]);
         const res = await customAxios.post("/uploads", formData);
-        console.log(res);
         const img_url = res.data.url;
         const editor = QuillRef.current.getEditor();
         const range = editor.getSelection();
