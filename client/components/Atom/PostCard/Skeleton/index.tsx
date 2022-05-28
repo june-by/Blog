@@ -1,12 +1,21 @@
 import React from "react";
-import Loading from "../../../../utils/Loading";
 import styles from "../styles.module.scss";
 
-const PostCardSkeleton = ({ loading }: { loading: boolean }) => {
+const PostCardSkeleton = () => {
   return (
     <div className={styles.PostCard}>
-      <div className={styles.PostCard_imgWrapper}>{Loading(loading, 25)}</div>
-      <div className={styles.PostCard_titleBox}>{Loading(loading, 15)}</div>
+      <div className={styles.PostCard_imgWrapper}>
+        <div className={styles.SkeletonImg}></div>
+      </div>
+      <div className={styles.PostCard_titleBox}>
+        <div className={styles.SkeletonTitle}></div>
+        <div className={styles.SkeletonTag}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div className={styles.SkletonDate}></div>
+      </div>
     </div>
   );
 };
