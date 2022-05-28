@@ -4,11 +4,10 @@ import { useLogin } from "../../../Hooks/User";
 import Modal from "../../../utils/Modal";
 import styles from "./styles.module.scss";
 interface Props {
-  open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginModal = ({ open, setOpen }: Props) => {
+const LoginModal = ({ setOpen }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -33,7 +32,7 @@ const LoginModal = ({ open, setOpen }: Props) => {
 
   return (
     <div>
-      <Modal open={open} setOpen={setOpen}>
+      <Modal setOpen={setOpen}>
         <>
           <div className={styles.LoginTitle}>
             <span>로그인</span>

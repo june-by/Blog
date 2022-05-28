@@ -5,11 +5,10 @@ import Modal from "../../../utils/Modal";
 import styles from "./styles.module.scss";
 
 interface Props {
-  open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchModal = ({ open, setOpen }: Props) => {
+const SearchModal = ({ setOpen }: Props) => {
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
   const closeModal = useCallback(() => {
@@ -31,7 +30,7 @@ const SearchModal = ({ open, setOpen }: Props) => {
 
   return (
     <div>
-      <Modal open={open} setOpen={setOpen}>
+      <Modal setOpen={setOpen}>
         <>
           <div className={styles.LoginTitle}>
             <span>게시글 찾기</span>

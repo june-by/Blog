@@ -5,11 +5,10 @@ import Modal from "../../../utils/Modal";
 import styles from "./styles.module.scss";
 
 interface Props {
-  open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SignUpModal = ({ open, setOpen }: Props) => {
+const SignUpModal = ({ setOpen }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
@@ -40,7 +39,7 @@ const SignUpModal = ({ open, setOpen }: Props) => {
 
   return (
     <div>
-      <Modal open={open} setOpen={setOpen}>
+      <Modal setOpen={setOpen}>
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>

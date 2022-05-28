@@ -37,7 +37,6 @@ const PostContent = ({ content }: { content: string }) => {
         <div className={styles.TopicWrapper_second} ref={topicRef}>
           {topicArr?.length !== 0 &&
             topicArr.map((topic: any, idx: number) => {
-              console.log(topic.tagName);
               return (
                 <div key={idx + 100} style={makeTopicStyle(topic.tagName)} onClick={gotoTopic(topic)}>
                   {topic?.innerText}
