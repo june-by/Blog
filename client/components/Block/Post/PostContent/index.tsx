@@ -4,6 +4,7 @@ import Script from "next/script";
 import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
 import useGetTopicArr from "../../../../Hooks/useGetTopicArr";
+import { makeTopicStyle } from "../../../../utils/makeTopicStyles";
 const PostContent = ({ content }: { content: string }) => {
   const topicRef = useRef<HTMLDivElement>(null);
 
@@ -36,8 +37,9 @@ const PostContent = ({ content }: { content: string }) => {
         <div className={styles.TopicWrapper_second} ref={topicRef}>
           {topicArr?.length !== 0 &&
             topicArr.map((topic: any, idx: number) => {
+              console.log(topic.tagName);
               return (
-                <div key={idx + 100} onClick={gotoTopic(topic)}>
+                <div key={idx + 100} style={makeTopicStyle(topic.tagName)} onClick={gotoTopic(topic)}>
                   {topic?.innerText}
                 </div>
               );
