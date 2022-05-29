@@ -1,25 +1,25 @@
 export const getPostThumbNail = (category: string) => {
   switch (category) {
     case "JavaScript":
-      return "/JavaScript.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/javascript.png";
     case "React":
-      return "/React.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/React.png";
     case "Web":
-      return "/Web.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Web.png";
     case "TypeScript":
-      return "/TypeScript.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/TypeScript.png";
     case "NodeJs":
-      return "/NodeJs.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/nodejs.png";
     case "OperatingSystem":
-      return "/OS.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/OS.png";
     case "DataStructure":
-      return "/DataStructure.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/DataStructure.png";
     case "HTML-CSS":
-      return "/HTMLCSS.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/HTMLCSS.png";
     case "NetWork":
-      return "/NetWork.jpeg";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/NetWork.jpeg";
     case "학교공부":
-      return "/schoolstudy.png";
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/schoolstudy.png";
     default:
       return "";
   }
