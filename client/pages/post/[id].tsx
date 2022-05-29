@@ -8,13 +8,13 @@ import PostContent from "../../components/Block/Post/PostContent";
 import PostTop from "../../components/Block/Post/PostTop";
 import { PostType } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
+import { getOgImage } from "../../utils/getOgImage";
 import { getPostThumbNail } from "../../utils/getPostThumnail";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";
 
 const Post = ({ Post }: { Post: PostType }) => {
   const router = useRouter();
-
   return (
     <>
       <Head>
@@ -23,7 +23,7 @@ const Post = ({ Post }: { Post: PostType }) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta property="og:image" content={Post?.thumbNailUrl === "" ? getPostThumbNail(String(Post?.category)) : String(Post?.thumbNailUrl)} />
+        <meta property="og:image" content={getOgImage(Post.thumbNailUrl, Post.category)} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <div className={styles.Post}>
