@@ -141,18 +141,13 @@ export const useGetPostNum = (Category: string) => {
 //페이지의 query에 따라 다른 요청을 보내고 그 결과 데이터를 페이지에 넣어줌.
 const useGetPosts = ({ pageNum }: Props): ReturnTypes => {
   const { query } = useRouter();
-  if (query.category) {
-    const { data: CategoryPost, isLoading: categoryLoading } = useGetCategoryPosts(String(query.category), pageNum);
-    return [CategoryPost, categoryLoading];
-  } else if (query.search) {
-    const { data: SearchPosts, isLoading: searchLoading } = useGetSearchPosts(String(query.search));
-    return [SearchPosts, searchLoading];
-  } else if (query.tag) {
-    const { data: TagPost, isLoading: tagLoading } = useGetTagPosts(String(query.tag));
-    return [TagPost, tagLoading];
-  } else {
-    return [[DummyPosts], true];
-  }
+  const { data: CategoryPost, isLoading: categoryLoading } = useGetCategoryPosts(query.category, pageNum);
+  const { data: SearchPosts, isLoading: searchLoading } = useGetSearchPosts(query.search);
+  const { data: TagPost, isLoading: tagLoading } = useGetTagPosts(query.tag);
+  if (query.category) return [CategoryPost, categoryLoading];
+  else if (query.search) return [SearchPosts, searchLoading];
+  else if (query.tag) return [TagPost, tagLoading];
+  else return [[DummyPosts], true];
 };
      
 ```  
@@ -286,8 +281,32 @@ const gotoTopic = useCallback(
 
 ###  👨‍💻 게시글 SEO
 
-* 다른 페이지의 경우 SSR을 사용하지 않았지만, 게시글 페이지의 경우에는 NextJs의 getServerSideProps와 React Query의 prefetchQuery를 이용해 SSR방식을 구현했습니다.
-* 추가로 동적으로 meta tag를 생성할 수 있도록 만들었습니다.
+* 다른 페이지의 경우 SSR을 사용하지 않았지만, 게시글 페이지의 경우에는 NextJs의 getServerSideProps를 이용해 동적으로 meta tag를 생성할 수 있도록 만들었습니다.
+```javascript
+const Post = ({ Post }: { Post: PostType }) => {
+  const router = useRouter();
+  return (
+    <>
+      <Head>
+        <meta charSet="utf-8"></meta>
+        <title>{Post?.title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content={Post?.content.substring(0, 100)} />
+        <meta property="og:title" content={Post?.title} />
+        <meta property="og:image" content={getOgImage(Post.thumbNailUrl, Post.category)} />
+        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
+      </Head>
+      <div className={styles.Post}>
+        <PostTop Post={Post} />
+        <PostContent content={Post.content} />
+        <CommentForm />
+        <CommentList Comments={Post.Comments} />
+        <ScrollBtn />
+      </div>
+    </>
+  );
+};
+```
      
-이외 내용 추후 추가
+이외 내용 추후 추가 (페이지 이동 로딩 처리 등)
 
