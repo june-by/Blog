@@ -8,8 +8,8 @@ export const getMainPostsAPI = async (page: number) => {
   return data;
 };
 
-export const getPostsNumAPI = async (category: string) => {
-  if (category === undefined) return;
+export const getPostsNumAPI = async (category: string | string[] | undefined) => {
+  if (typeof category !== "string") return;
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
   const { length } = data;
   if (length % POST_PER_PAGE === 0) return length / POST_PER_PAGE;
@@ -22,17 +22,20 @@ export const getOnePostAPI = async (id: number) => {
   return data;
 };
 
-export const getCategoryPostAPI = async (category: string, pageNum: number) => {
+export const getCategoryPostAPI = async (category: string | string[] | undefined, pageNum: number) => {
+  if (typeof category !== "string") return undefined;
   const { data } = await customAxios.get(`/posts/load/${category}/${pageNum}`);
   return data;
 };
 
-export const getSearchPostAPI = async (search: string) => {
+export const getSearchPostAPI = async (search: string | string[] | undefined) => {
+  if (typeof search !== "string") return undefined;
   const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}`);
   return data;
 };
 
-export const getTagPostAPI = async (tag: string) => {
+export const getTagPostAPI = async (tag: string | string[] | undefined) => {
+  if (typeof tag !== "string") return undefined;
   const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}`);
   return data;
 };

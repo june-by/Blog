@@ -17,7 +17,7 @@ const Posts = ({ posts, isLoading }: { posts: Array<PostsType> | undefined; isLo
           </>
         ) : (
           <>
-            {Array.from({ length: 12 }, () => 0).map((_, idx) => {
+            {Array.from({ length: 8 }, () => 0).map((_, idx) => {
               return <PostCardSkeleton key={idx} />;
             })}
           </>
