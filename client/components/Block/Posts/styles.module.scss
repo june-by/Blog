@@ -8,6 +8,9 @@
   margin-bottom: 50px;
   width: 100%;
   max-height: 80vh;
+  @include tablet_landscape {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   @include tablet {
     grid-template-columns: 1fr 1fr;
     max-height: none;
