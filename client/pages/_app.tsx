@@ -11,28 +11,29 @@ import ProgressBar from "../components/Atom/ProgressBar";
 import useSetProgressState from "../Hooks/useSetProgressState";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
-  const [loading, setLoading] = useState<boolean>(false);
-  useSetProgressState(setLoading);
-  return (
-    <>
-      {loading ? (
-        <>{Loading(loading)}</>
-      ) : (
-        <QueryClientProvider client={queryClient}>
-          <Header />
-          <Head>
-            <meta charSet="utf-8"></meta>
-            <title>ByJuun.com</title>
-            <link rel="shortcut icon" href="/favicon.ico" />
-          </Head>
-          <Component {...pageProps} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      )}
-      <ProgressBar />
-    </>
-  );
+	const [queryClient] = useState(() => new QueryClient());
+	const [loading, setLoading] = useState<boolean>(false);
+	const [nextUrl, setNextUrl] = useState<string>("");
+	useSetProgressState(setLoading, setNextUrl);
+	return (
+		<>
+			{loading ? (
+				<>{Loading(loading, nextUrl)}</>
+			) : (
+				<QueryClientProvider client={queryClient}>
+					<Header />
+					<Head>
+						<meta charSet="utf-8"></meta>
+						<title>ByJuun.com</title>
+						<link rel="shortcut icon" href="/favicon.ico" />
+					</Head>
+					<Component {...pageProps} />
+					<ReactQueryDevtools initialIsOpen={false} />
+				</QueryClientProvider>
+			)}
+			<ProgressBar />
+		</>
+	);
 }
 
 export default MyApp;
