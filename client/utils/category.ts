@@ -1,1 +1,14 @@
-export const Category = ["JavaScript", "React", "Web", "TypeScript", "NodeJs", "OperatingSystem", "NetWork", "DataStructure", "HTML-CSS", "학교공부", "회고"];
+export const Category = [
+  "JavaScript",
+  "React",
+  "Web",
+  "TypeScript",
+  "NodeJs",
+  "Algorithm",
+  "OperatingSystem",
+  "NetWork",
+  "DataStructure",
+  "HTML-CSS",
+  "학교공부",
+  "회고",
+];
