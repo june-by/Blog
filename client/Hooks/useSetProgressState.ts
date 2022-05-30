@@ -8,6 +8,7 @@ type SetNextUrl = React.Dispatch<React.SetStateAction<string>>
 const useSetProgressState = (setLoading: SetLoading, setNextUrl: SetNextUrl) => {
 	useEffect(() => {
 		const start = (nextUrl: string) => {
+			window.scrollTo({ top: 0 })
 			setNextUrl(nextUrl);
 			setLoading(true);
 		};
