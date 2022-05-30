@@ -1,0 +1,94 @@
+@import "../../../../../utils/utils.scss";
+
+.PostTopSkeleton {
+	margin-bottom: 50px;
+}
+
+.GoBackSkeleton {
+	height: 42px;
+	width: 91px;
+	background: #f2f2f2;
+	animation: skeleton 1.5s infinite ease-in-out;
+
+	@include mobile {
+		width: 84px;
+		height: 32px;
+		margin-bottom: 20px;
+	}
+}
+
+.TitleSkeleton {
+	height: 52px;
+	margin: 10px 0;
+	margin-bottom: 2.5rem;
+	width: 750px;
+	background: #f2f2f2;
+	animation: skeleton 1.5s infinite ease-in-out;
+
+	@include mobile {
+		display: none;
+	}
+
+	@include tablet {
+		width: 500px;
+	}
+}
+
+.TitleSkeletonMobile {
+	height: 40px;
+	width: 300px;
+	background: #f2f2f2;
+	animation: skeleton 1.5s infinite ease-in-out;
+	margin-bottom: 15px;
+
+	@include desktop {
+		display: none;
+	}
+
+	@include tablet {
+		display: none;
+	}
+
+	@include tablet_landscape {
+		display: none;
+	}
+}
+
+.TitleSecond {
+	width: 200px;
+}
+
+.DateSkeleton {
+	width: 117px;
+	height: 21px;
+	margin-bottom: 15px;
+	background: #f2f2f2;
+	animation: skeleton 1.5s infinite ease-in-out;
+}
+
+.TagSkeleton {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	div {
+		width: 58px;
+		height: 20px;
+		background: #f2f2f2;
+		animation: skeleton 1.5s infinite ease-in-out;
+	}
+}
+
+@keyframes skeleton {
+	0% {
+		background: rgba(165, 165, 165, 0.1);
+	}
+
+	50% {
+		background: rgba(165, 165, 165, 0.5);
+	}
+
+	100% {
+		background: rgba(165, 165, 165, 0.1);
+	}
+}

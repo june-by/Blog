@@ -1,0 +1,60 @@
+@import "../../../../../utils/utils.scss";
+
+.SkeletonWrapper {
+	display: flex;
+}
+
+.PostContentSkeleton {
+	width: 100%;
+	height: 70vh;
+	background: #f2f2f2;
+	animation: skeleton 1.5s infinite ease-in-out;
+
+	@include desktop {
+		width: 77%;
+	}
+}
+
+.TopicSkeleton {
+	@include mobile {
+		display: none;
+	}
+
+	@include tablet {
+		display: none;
+	}
+
+	@include tablet_landscape {
+		display: none;
+	}
+
+	width : 20%;
+	margin-left: 3%;
+	border-left: 1px solid #c8c8c8;
+	padding-left: 2vw;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	height : fit-content;
+
+	div {
+		width: 116px;
+		height: 30px;
+		background: #f2f2f2;
+		animation: skeleton 1.5s infinite ease-in-out;
+	}
+}
+
+@keyframes skeleton {
+	0% {
+		background: rgba(165, 165, 165, 0.1);
+	}
+
+	50% {
+		background: rgba(165, 165, 165, 0.5);
+	}
+
+	100% {
+		background: rgba(165, 165, 165, 0.1);
+	}
+}
