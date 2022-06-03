@@ -9,7 +9,6 @@ import PostTop from "../../components/Block/Post/PostTop";
 import { PostType } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
 import { getOgImage } from "../../utils/getOgImage";
-import { getPostThumbNail } from "../../utils/getPostThumnail";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";
 
