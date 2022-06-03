@@ -20,6 +20,8 @@ export const getPostThumbNail = (category: string) => {
       return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/NetWork.jpeg";
     case "학교공부":
       return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/schoolstudy.png";
+    case "Algorithm":
+      return "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/programmers.png";
     default:
       return "";
   }
