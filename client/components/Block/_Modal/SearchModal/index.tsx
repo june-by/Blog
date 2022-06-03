@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useRef } from "react";
-import Modal from "../../../utils/Modal";
+import Modal from "../../../../utils/Modal";
 import styles from "./styles.module.scss";
 
 interface Props {

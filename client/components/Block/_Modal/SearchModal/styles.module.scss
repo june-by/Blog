@@ -1,9 +1,9 @@
-@import "../../../utils/utils.scss";
-
+@import "../../../../utils/utils.scss";
 .LoginTitle {
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+
   button {
     cursor: pointer;
     border: none;
@@ -12,15 +12,31 @@
 }
 
 .Form {
+  display: flex;
+  gap: 5%;
+  margin-top: 25px;
   @include mobile {
-    display: flex;
     flex-direction: column;
   }
+
   input {
     @include CustomInput;
     margin-bottom: 10px;
+    width: 75%;
+    height: 100%;
+
+    @include mobile {
+      width: 100%;
+    }
   }
+
   button {
     @include CustomBtn;
+    width: 20%;
+    height: 100%;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 }

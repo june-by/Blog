@@ -5,19 +5,13 @@ import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
 import useGetTopicArr from "../../../../Hooks/useGetTopicArr";
 import { makeTopicStyle } from "../../../../utils/makeTopicStyles";
+import useAddClassName from "../../../../Hooks/useAddClassName";
 const PostContent = ({ content }: { content: string }) => {
   const topicRef = useRef<HTMLDivElement>(null);
 
   const [topicArr, setTopicArr] = useState([]);
   useEffect(() => {
     hljs.highlightAll();
-  }, []);
-
-  useEffect(() => {
-    const $preTags = document.getElementsByTagName("pre");
-    for (const tag of $preTags as any) {
-      tag.className += " hljs";
-    }
   }, []);
 
   const gotoTopic = useCallback(
@@ -27,6 +21,7 @@ const PostContent = ({ content }: { content: string }) => {
     []
   );
 
+  useAddClassName("pre", " hljs");
   useGetTopicArr(setTopicArr);
 
   return (

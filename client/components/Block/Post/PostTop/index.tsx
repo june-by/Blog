@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import useGotoPage from "../../../../Hooks/useGotoPage";
 import { useGetUserInfo } from "../../../../Hooks/User";
-import { PostType, TagType } from "../../../../Types/Post";
+import { PostType } from "../../../../Types/Post";
 import { dateForm } from "../../../../utils/dateForm";
 import GoBackBtn from "../../../Atom/GoBackBtn";
 import PostDelBtn from "../../../Atom/PostDelBtn";
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const PostTop = ({ Post }: Props) => {
-  const gotoPage = useGotoPage();
   const router = useRouter();
   const { title, createdAt, category, Tags, id } = Post;
   const { data: UserInfo } = useGetUserInfo();

@@ -9,7 +9,7 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
 } from "./../../API/Post/index";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
 import { AddPostParams, PostsType, PostType } from "../../Types/Post";
 import { useRouter } from "next/router";

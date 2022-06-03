@@ -1,85 +1,53 @@
 @import "../../../utils/utils.scss";
 
 .HeaderRoot {
-	position: fixed;
-	top: 0;
-	z-index: 100;
-	width: 100%;
-	padding: 0 15%;
-	height: 50px;
-	background: #5f5d61;
-	display: flex;
-	color: white;
-	align-items: center;
-	justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0 15%;
+  height: 50px;
+  background: #5f5d61;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
 
-	@include mobile {
-		padding: 0 5%;
-	}
+  @include mobile {
+    padding: 0 5%;
+  }
 
-	@include tablet {
-		padding: 0 10%;
-	}
+  @include tablet {
+    padding: 0 10%;
+  }
 
-	@include tablet_landscape {
-		padding: 0 10%;
-	}
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
 
-	&_title {
-		display: flex;
-		align-items: center;
-		gap: 10px;
+  &_mobileBtn {
+    display: none;
 
-		span {
-			font-size: 20px;
-			cursor: pointer;
-			margin-right: 10px;
-		}
+    @include mobile {
+      display: block;
+    }
 
-		img {
-			cursor: pointer;
-			width: 25px;
-			height: 25px;
-			border-radius: 100%;
-			margin-top: 5px;
-		}
+    &_btn {
+      @include mobile {
+        border: none;
+        background: none;
 
-		&_email {
-			overflow: hidden;
-			white-space: nowrap;
-			display: inline-block;
-			width: 0px;
-			transition: width 0.5s ease;
-
-			@include mobile {
-				font-size: 12px;
-			}
-		}
-	}
-
-	&_mobileBtn {
-		display: none;
-
-		@include mobile {
-			display: block;
-		}
-
-		&_btn {
-			@include mobile {
-				border: none;
-				background: none;
-
-				img {
-					width: 25px;
-					height: 25px;
-				}
-			}
-		}
-	}
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
 }
 
 .HeaderRightWrapper {
-	@include mobile {
-		display: none;
-	}
+  @include mobile {
+    display: none;
+  }
 }
