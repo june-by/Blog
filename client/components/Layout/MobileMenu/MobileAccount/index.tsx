@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
-import useOpenModal from "../../../Hooks/useOpenModal";
-import { useGetUserInfo, useLogOut } from "../../../Hooks/User";
-import LoginModal from "../../Block/LoginModal";
-import SearchModal from "../../Block/SearchModal";
-import SignUpModal from "../../Block/SignUpModal";
+import useOpenModal from "../../../../Hooks/useOpenModal";
+import { useGetUserInfo, useLogOut } from "../../../../Hooks/User";
+import LoginModal from "../../../Block/_Modal/LoginModal";
+import SearchModal from "../../../Block/_Modal/SearchModal";
+import SignUpModal from "../../../Block/_Modal/SignUpModal";
 
 const MobileAccount = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);

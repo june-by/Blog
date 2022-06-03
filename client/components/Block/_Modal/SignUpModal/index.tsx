@@ -1,41 +1,48 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { useLogin } from "../../../Hooks/User";
-import Modal from "../../../utils/Modal";
+import { useSignUp } from "../../../../Hooks/User";
+import Modal from "../../../../utils/Modal";
 import styles from "./styles.module.scss";
+
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginModal = ({ setOpen }: Props) => {
+const SignUpModal = ({ setOpen }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const passwordCheckRef = useRef<HTMLInputElement>(null);
+  const nicknameRef = useRef<HTMLInputElement>(null);
 
   const closeModal = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
 
-  const loginMutation = useLogin(closeModal);
+  const signUpMutation = useSignUp(closeModal);
 
   const submit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!emailRef.current || !passwordRef.current) return;
+      if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
+      if (passwordRef.current.value !== passwordCheckRef.current.value) return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
+
       const reqData = {
         email: emailRef.current.value,
         password: passwordRef.current.value,
+        nickname: nicknameRef.current.value,
       };
-      loginMutation.mutate(reqData);
+
+      signUpMutation.mutate(reqData);
     },
-    [loginMutation]
+    [signUpMutation]
   );
 
   return (
     <div>
       <Modal setOpen={setOpen}>
         <>
-          <div className={styles.LoginTitle}>
-            <span>로그인</span>
+          <div className={styles.SignUpTitle}>
+            <span>회원가입</span>
             <button onClick={closeModal}>
               <Image src="/close_btn.png" width={35} height={35} alt="닫기" />
             </button>
@@ -43,7 +50,9 @@ const LoginModal = ({ setOpen }: Props) => {
           <form onSubmit={submit} className={styles.Form}>
             <input ref={emailRef} placeholder="이메일 혹은 아이디" />
             <input ref={passwordRef} type="password" placeholder="비밀번호" />
-            <button>로그인</button>
+            <input ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
+            <input ref={nicknameRef} placeholder="닉네임" />
+            <button>회원가입</button>
           </form>
         </>
       </Modal>
@@ -51,4 +60,4 @@ const LoginModal = ({ setOpen }: Props) => {
   );
 };
 
-export default LoginModal;
+export default SignUpModal;
