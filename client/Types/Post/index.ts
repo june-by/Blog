@@ -38,3 +38,8 @@ export interface TagType {
   id: number;
   content: string;
 }
+
+export interface CategoryCount {
+  category: string;
+  count: number;
+}

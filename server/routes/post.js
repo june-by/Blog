@@ -4,7 +4,6 @@ const router = express.Router();
 const { Post, Comment, User, Tag } = require("../models");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
-const multipartyMiddelware = multiparty({ uploadDir: "./images" });
 router.post("/", async (req, res, next) => {
   try {
     const { title, category, content, tagArr, thumbNailUrl } = req.body;

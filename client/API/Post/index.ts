@@ -8,6 +8,11 @@ export const getMainPostsAPI = async (page: number) => {
   return data;
 };
 
+export const getAllCategoryLengthAPI = async () => {
+  const { data } = await customAxios.get("/posts/load/categoryLength");
+  return data;
+};
+
 export const getPostsNumAPI = async (category: string | string[] | undefined) => {
   if (typeof category !== "string") return;
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
