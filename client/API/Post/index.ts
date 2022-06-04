@@ -8,7 +8,7 @@ export const getMainPostsAPI = async (page: number) => {
   return data;
 };
 
-export const GetAllCategoryLengthAPI = async () => {
+export const getAllCategoryLengthAPI = async () => {
   const { data } = await customAxios.get("/posts/load/categoryLength");
   return data;
 };

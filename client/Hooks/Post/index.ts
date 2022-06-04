@@ -3,7 +3,7 @@ import {
   AddPostAPI,
   DeletePostAPI,
   EditPostAPI,
-  GetAllCategoryLengthAPI,
+  getAllCategoryLengthAPI,
   getCategoryPostAPI,
   getOnePostAPI,
   getPostsNumAPI,
@@ -12,7 +12,7 @@ import {
 } from "./../../API/Post/index";
 import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
-import { AddPostParams, PostsType, PostType } from "../../Types/Post";
+import { AddPostParams, CategoryCount, PostsType, PostType } from "../../Types/Post";
 import { useRouter } from "next/router";
 
 export const useGetMainPost = (pageNum: number) => {
@@ -25,7 +25,7 @@ export const useGetMainPost = (pageNum: number) => {
 };
 
 export const useGetAllCateogryLength = () => {
-  return useQuery(["AllCategoryLength"], () => GetAllCategoryLengthAPI(), {
+  return useQuery<Array<CategoryCount>>(["AllCategoryLength"], () => getAllCategoryLengthAPI(), {
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,

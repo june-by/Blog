@@ -4,11 +4,11 @@ import styles from "./styles.module.scss";
 import { Category } from "../../../utils/category";
 import { useRouter } from "next/router";
 import { useGetAllCateogryLength } from "../../../Hooks/Post";
+import CategoryChipSkeleton from "../../Atom/CategoryChip/Skeleton";
 
 const CategorySelect = () => {
   const router = useRouter();
-  const { data } = useGetAllCateogryLength();
-  console.log(data);
+  const { data, isLoading } = useGetAllCateogryLength();
 
   const onClickCategory = useCallback(
     (category: string) => {
@@ -22,9 +22,19 @@ const CategorySelect = () => {
 
   return (
     <div className={styles.CategorySelect}>
-      {Category.map((category, idx) => {
-        return <CategoryChip key={idx} category={category} onClickBtn={onClickCategory} />;
-      })}
+      {!isLoading ? (
+        <>
+          {Category.map((category, idx) => {
+            return <CategoryChip key={idx} category={category} onClickBtn={onClickCategory} length={data?.find((v) => v.category === category)?.count} />;
+          })}
+        </>
+      ) : (
+        <>
+          {Category.map((cateogry) => {
+            return <CategoryChipSkeleton key={cateogry} />;
+          })}
+        </>
+      )}
     </div>
   );
 };

@@ -5,7 +5,43 @@
   border-radius: 4px;
   cursor: pointer;
   border: none;
+  display: flex;
+  gap: 5px;
+  align-items: center;
   &:hover {
     background: #6185e5;
+  }
+}
+
+.CategoryLength {
+  margin-left: 5px;
+  color: #6185e5;
+  background: white;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 16%);
+  border: 0.5px solid #c8c8c8;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CategorySkeleton {
+  height: 40px;
+  width: 100px;
+  background: #f2f2f2;
+  animation: Skeleton 1.5s infinite ease-in-out;
+}
+
+@keyframes Skeleton {
+  0% {
+    background: rgba(165, 165, 165, 0.1);
+  }
+  50% {
+    background: rgba(165, 165, 165, 0.5);
+  }
+  100% {
+    background: rgba(165, 165, 165, 0.1);
   }
 }
