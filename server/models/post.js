@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "Post",
     {
       title: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.TEXT,
         allowNull: false, //필수
       },
       content: {

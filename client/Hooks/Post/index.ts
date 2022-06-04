@@ -3,6 +3,7 @@ import {
   AddPostAPI,
   DeletePostAPI,
   EditPostAPI,
+  GetAllCategoryLengthAPI,
   getCategoryPostAPI,
   getOnePostAPI,
   getPostsNumAPI,
@@ -16,6 +17,15 @@ import { useRouter } from "next/router";
 
 export const useGetMainPost = (pageNum: number) => {
   return useQuery<Array<PostsType>>(["MainPosts", pageNum], () => getMainPostsAPI(pageNum), {
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+};
+
+export const useGetAllCateogryLength = () => {
+  return useQuery(["AllCategoryLength"], () => GetAllCategoryLengthAPI(), {
     retry: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,

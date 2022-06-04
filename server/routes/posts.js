@@ -26,6 +26,19 @@ router.get("/load/main/:page", async (req, res, next) => {
   }
 });
 
+router.get("/load/categoryLength", async (req, res, next) => {
+  try {
+    const categoyCount = await Post.findAll({
+      attributes: ["category", [sequelize.fn("COUNT", sequelize.col("Post.category")), "count"]],
+      group: ["Post.category"],
+    });
+    res.status(200).json(categoyCount);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.get("/load/length/:category", async (req, res, next) => {
   try {
     let posts;
