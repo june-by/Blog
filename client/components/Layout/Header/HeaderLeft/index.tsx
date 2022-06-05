@@ -19,10 +19,10 @@ const HeaderLeft = () => {
     <div className={styles.HeaderLeft}>
       <span onClick={gotoPage("/")}>ByJuun.com</span>
       <div>
-        <img onClick={onClickGitHub} src="/github.png" alt="깃헙" />
+        <img className={styles.icon} onClick={onClickGitHub} src="/github.png" alt="깃헙" />
       </div>
       <div onClick={onClickEmail}>
-        <img src="/email.png" alt="mail" />
+        <img className={styles.icon} src="/email.png" alt="mail" />
       </div>
       <div ref={emailRef} className={styles.HeaderLeft_email}>
         neostgeart@gmail.com
