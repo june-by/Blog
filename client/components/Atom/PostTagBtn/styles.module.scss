@@ -1,0 +1,11 @@
+.PostTagButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  background: white;
+  padding: 0;
+
+  &:hover {
+    color: #0099fa;
+  }
+}

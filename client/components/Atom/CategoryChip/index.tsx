@@ -1,17 +1,27 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useCallback } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
   category: string;
-  onClickBtn: (category: string) => void;
-  length: number | undefined;
+  length?: number;
+  mode?: string;
 }
 
-const CategoryChip = ({ category, onClickBtn, length }: Props) => {
+const CategoryChip = ({ category, length, mode }: Props) => {
+  const { push } = useRouter();
+
+  const onClickBtn = useCallback((category: string) => {
+    push({
+      pathname: "/filter",
+      query: { category: category },
+    });
+  }, []);
+
   return (
     <button className={styles.CategoryChip} onClick={() => onClickBtn(category)}>
       <span>{category}</span>
-      <div className={styles.CategoryLength}>{length ? length : 0}</div>
+      {mode !== "post" && <div className={styles.CategoryLength}>{length ? length : 0}</div>}
     </button>
   );
 };
