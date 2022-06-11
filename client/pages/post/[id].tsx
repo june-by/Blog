@@ -16,7 +16,7 @@ import styles from "./styles.module.scss";
 
 const Post = () => {
   const router = useRouter();
-  const { data: Post, isLoading } = useGetOnePost(Number(router.query.id));
+  const { data: Post } = useGetOnePost(Number(router.query.id));
   return (
     <>
       <Head>

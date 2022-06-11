@@ -38,7 +38,7 @@ const PostTop = ({ Post }: Props) => {
           <span className={styles.AdditionalInfo_createdAt}>{dateForm(createdAt)}</span>
           <CategoryChip category={category} mode="post" />
         </div>
-        <div className={styles.AdditionalInfo_Tag}>{Tags.length !== 0 && Tags.map((tag) => <PostTagBtn tag={tag} />)}</div>
+        <div className={styles.AdditionalInfo_Tag}>{Tags.length !== 0 && Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}</div>
       </div>
     </div>
   );
