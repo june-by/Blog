@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "../styles/Editor.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import Head from "next/head";
@@ -11,29 +11,31 @@ import ProgressBar from "../components/Atom/ProgressBar";
 import useSetProgressState from "../Hooks/useSetProgressState";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	const [queryClient] = useState(() => new QueryClient());
-	const [loading, setLoading] = useState<boolean>(false);
-	const [nextUrl, setNextUrl] = useState<string>("");
-	useSetProgressState(setLoading, setNextUrl);
-	return (
-		<>
-			{loading ? (
-				<>{Loading(loading, nextUrl)}</>
-			) : (
-				<QueryClientProvider client={queryClient}>
-					<Header />
-					<Head>
-						<meta charSet="utf-8"></meta>
-						<title>ByJuun.com</title>
-						<link rel="shortcut icon" href="/favicon.ico" />
-					</Head>
-					<Component {...pageProps} />
-					<ReactQueryDevtools initialIsOpen={false} />
-				</QueryClientProvider>
-			)}
-			<ProgressBar />
-		</>
-	);
+  const [queryClient] = useState(() => new QueryClient());
+  const [loading, setLoading] = useState<boolean>(false);
+  const [nextUrl, setNextUrl] = useState<string>("");
+  useSetProgressState(setLoading, setNextUrl);
+  return (
+    <>
+      {loading ? (
+        <>{Loading(loading, nextUrl)}</>
+      ) : (
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Header />
+            <Head>
+              <meta charSet="utf-8"></meta>
+              <title>ByJuun.com</title>
+              <link rel="shortcut icon" href="/favicon.ico" />
+            </Head>
+            <Component {...pageProps} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Hydrate>
+        </QueryClientProvider>
+      )}
+      <ProgressBar />
+    </>
+  );
 }
 
 export default MyApp;

@@ -2,18 +2,21 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
+import { dehydrate, QueryClient } from "react-query";
+import { getOnePostAPI } from "../../API/Post";
 import CommentForm from "../../components/Block/Post/CommentForm";
 import CommentList from "../../components/Block/Post/CommentList";
 import PostContent from "../../components/Block/Post/PostContent";
 import PostTop from "../../components/Block/Post/PostTop";
+import { useGetOnePost } from "../../Hooks/Post";
 import { PostType } from "../../Types/Post";
-import { customAxios } from "../../utils/CustomAxios";
 import { getOgImage } from "../../utils/getOgImage";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";
 
-const Post = ({ Post }: { Post: PostType }) => {
+const Post = () => {
   const router = useRouter();
+  const { data: Post, isLoading } = useGetOnePost(Number(router.query.id));
   return (
     <>
       <Head>
@@ -22,14 +25,14 @@ const Post = ({ Post }: { Post: PostType }) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta property="og:image" content={getOgImage(Post.thumbNailUrl, Post.category)} />
+        <meta property="og:image" content={getOgImage(Post!.thumbNailUrl, Post!.category)} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <div className={styles.Post}>
-        <PostTop Post={Post} />
-        <PostContent content={Post.content} />
+        <PostTop Post={Post as PostType} />
+        <PostContent content={Post!.content} />
         <CommentForm />
-        <CommentList Comments={Post.Comments} />
+        <CommentList Comments={Post!.Comments} />
         <ScrollBtn />
       </div>
     </>
@@ -37,22 +40,13 @@ const Post = ({ Post }: { Post: PostType }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  try {
-    const res = await customAxios.get(`/post/load/${query.id}`);
-    return {
-      props: {
-        Post: res.data,
-      },
-    };
-  } catch (error) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-      props: {},
-    };
-  }
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["Post", Number(query.id)], () => getOnePostAPI(Number(query.id)));
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default Post;
