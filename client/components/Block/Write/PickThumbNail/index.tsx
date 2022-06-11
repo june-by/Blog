@@ -23,7 +23,7 @@ const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
         setThumbNailUrl(res.data.url);
       }
     };
-  }, []);
+  }, [setThumbNailUrl]);
   return (
     <div className={styles.PickThumbNail}>
       <button onClick={onClickSetThumbNail}>썸네일 설정</button>

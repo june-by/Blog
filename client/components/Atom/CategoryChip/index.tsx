@@ -11,12 +11,15 @@ interface Props {
 const CategoryChip = ({ category, length, mode }: Props) => {
   const { push } = useRouter();
 
-  const onClickBtn = useCallback((category: string) => {
-    push({
-      pathname: "/filter",
-      query: { category: category },
-    });
-  }, []);
+  const onClickBtn = useCallback(
+    (category: string) => {
+      push({
+        pathname: "/filter",
+        query: { category: category },
+      });
+    },
+    [push]
+  );
 
   return (
     <button className={styles.CategoryChip} onClick={() => onClickBtn(category)}>
