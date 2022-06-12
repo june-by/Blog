@@ -9,6 +9,7 @@ import Header from "../components/Layout/Header";
 import Loading from "../utils/Loading";
 import ProgressBar from "../components/Atom/ProgressBar";
 import useSetProgressState from "../Hooks/useSetProgressState";
+import { ThemeProvider } from "../utils/ThemeContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -22,13 +23,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       ) : (
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Header />
-            <Head>
-              <meta charSet="utf-8"></meta>
-              <title>ByJuun.com</title>
-              <link rel="shortcut icon" href="/favicon.ico" />
-            </Head>
-            <Component {...pageProps} />
+            <ThemeProvider>
+              <Header />
+              <Head>
+                <meta charSet="utf-8"></meta>
+                <title>ByJuun.com</title>
+                <link rel="shortcut icon" href="/favicon.ico" />
+              </Head>
+              <Component {...pageProps} />
+            </ThemeProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </Hydrate>
         </QueryClientProvider>

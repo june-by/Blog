@@ -1,12 +1,22 @@
 .PageBtn {
-	background: #E9ECF3;
-	padding: 0.3rem 0.8rem;
-	border: none;
-	cursor: pointer;
-	font-size: 15px;
-	height: 35px;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  height: 35px;
+}
 
-	&:hover {
-		background: #c5c5c7;
-	}
+.dark {
+  background: #1e1e1e;
+  color: white;
+  &:hover {
+    background: #615f63;
+  }
+}
+.ligth {
+  background: #e9ecf3;
+  color: black;
+  &:hover {
+    background: #c5c5c7;
+  }
 }

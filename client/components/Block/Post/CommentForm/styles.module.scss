@@ -13,12 +13,28 @@
     gap: 15px;
   }
   textarea {
-    @include CustomInput;
     resize: none;
     height: 100px;
   }
   button {
     @include CustomBtn;
     width: 20%;
+  }
+}
+
+.dark {
+  textarea {
+    @include CustomInput;
+    background: #1e1e1e;
+    color: white;
+  }
+  button {
+    color: #121212;
+  }
+}
+
+.light {
+  textarea {
+    @include CustomInput;
   }
 }

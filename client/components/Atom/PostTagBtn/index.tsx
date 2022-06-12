@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { TagType } from "../../../Types/Post";
+import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
 
   const onClickTag = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, tag: string) => {
@@ -18,7 +20,7 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   );
 
   return (
-    <button className={styles.PostTagButton} onClick={(e) => onClickTag(e, String(tag?.content))}>
+    <button className={`${styles.PostTagButton} ${styles[theme]}`} onClick={(e) => onClickTag(e, String(tag?.content))}>
       #{tag?.content}
     </button>
   );
