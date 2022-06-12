@@ -2,10 +2,20 @@
   border: none;
   background: none;
   cursor: pointer;
-  background: white;
+
   padding: 0;
 
   &:hover {
     color: #0099fa;
   }
+}
+
+.dark {
+  background: #1e1e1e;
+  color: white;
+}
+
+.light {
+  background: white;
+  color: black;
 }

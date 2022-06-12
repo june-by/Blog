@@ -1,5 +1,4 @@
 .CategoryChip {
-  background: #0099fa;
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
@@ -32,6 +31,22 @@
   width: 100px;
   background: #f2f2f2;
   animation: Skeleton 1.5s infinite ease-in-out;
+}
+
+.dark {
+  background: #3e4756;
+  .categoryLength {
+    background: #615f63;
+    border: 0.5px solid #615f63;
+  }
+}
+
+.light {
+  background: #0099fa;
+  .categoryLength {
+    background: white;
+    border: 0.5px solid #c8c8c8;
+  }
 }
 
 @keyframes Skeleton {

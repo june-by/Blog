@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -8,14 +9,15 @@ interface Props {
 }
 
 const PageBtn = ({ idx, currentPage, onClickPageBtn }: Props) => {
+  const { theme } = useContext(ThemeContext);
   return (
     <button
       style={{
-        background: currentPage === idx ? "#0099fa" : "",
+        background: currentPage === idx ? (theme === "light" ? "#0099fa" : "#3e4756") : "",
         color: currentPage === idx ? "white" : "",
       }}
       onClick={onClickPageBtn(idx)}
-      className={styles.PageBtn}
+      className={`${styles.PageBtn} ${styles[theme]}`}
     >
       {idx}
     </button>
