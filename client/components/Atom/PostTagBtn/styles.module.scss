@@ -1,21 +1,19 @@
 .PostTagButton {
-  border: none;
-  background: none;
-  cursor: pointer;
+	border: none;
+	background: none;
+	cursor: pointer;
 
-  padding: 0;
+	padding: 0;
 
-  &:hover {
-    color: #0099fa;
-  }
+	&:hover {
+		color: #0099fa;
+	}
 }
 
 .dark {
-  background: #2e2e2e;
-  color: white;
+	color: white;
 }
 
 .light {
-  background: white;
-  color: black;
+	color: black;
 }

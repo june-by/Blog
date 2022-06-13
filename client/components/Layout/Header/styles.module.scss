@@ -1,71 +1,73 @@
 @import "../../../utils/utils.scss";
 
 .HeaderRoot {
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  width: 100%;
-  padding: 0 15%;
-  height: 50px;
-  background: #5f5d61;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: space-between;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	padding: 0 15%;
+	height: 50px;
+	display: flex;
+	color: white;
+	align-items: center;
+	justify-content: space-between;
 
-  @include mobile {
-    padding: 0 5%;
-  }
+	@include mobile {
+		padding: 0 5%;
+	}
 
-  @include tablet {
-    padding: 0 10%;
-  }
+	@include tablet {
+		padding: 0 10%;
+	}
 
-  @include tablet_landscape {
-    padding: 0 10%;
-  }
+	@include tablet_landscape {
+		padding: 0 10%;
+	}
 
-  &_mobileBtn {
-    display: none;
+	&_mobileBtn {
+		display: none;
 
-    @include mobile {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+		@include mobile {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
 
-    &_btn {
-      @include mobile {
-        border: none;
-        background: none;
-        padding-bottom: 10px;
-        font-size: 20px;
-        img {
-          width: 25px;
-          height: 25px;
-        }
-      }
-    }
-  }
+		&_btn {
+			@include mobile {
+				border: none;
+				background: none;
+				padding-bottom: 10px;
+				font-size: 20px;
+
+				img {
+					width: 25px;
+					height: 25px;
+				}
+			}
+		}
+	}
 }
 
 .HeaderRightWrapper {
-  display: flex;
-  align-items: center;
-  @include mobile {
-    display: none;
-  }
+	display: flex;
+	align-items: center;
+
+	@include mobile {
+		display: none;
+	}
 }
 
 .dark {
-  background: #121212;
-  color: white;
-  button {
-    color: white;
-  }
+	background: #121212;
+	color: white;
+
+	button {
+		color: white;
+	}
 }
 
 .light {
-  background: #dedce0;
-  color: #615f63;
+	background: #dedce0;
+	color: #615f63;
 }
