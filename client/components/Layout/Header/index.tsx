@@ -11,36 +11,36 @@ import DarkModeBtn from "../../Atom/DarkModeBtn";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 const Header = () => {
-  const { theme } = useContext(ThemeContext);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [showMobileMenu, setShowMobileMenu, clickShowMobileMenu] = useToggle(false);
-  const [hide, setHide] = useState<boolean>(false);
+	const { theme } = useContext(ThemeContext);
+	const headerRef = useRef<HTMLDivElement>(null);
+	const [showMobileMenu, setShowMobileMenu, clickShowMobileMenu] = useToggle(false);
+	const [hide, setHide] = useState<boolean>(false);
 
-  useHideHeader(setHide);
+	useHideHeader(setHide);
 
-  useHeaderAnimation(headerRef, hide, setHide);
-
-  return (
-    <>
-      <div ref={headerRef} className={`${styles.HeaderRoot} ${styles[theme]}`}>
-        <div>
-          <HeaderLeft />
-        </div>
-        <div className={styles.HeaderRightWrapper}>
-          <DarkModeBtn />
-          <HeaderRight />
-        </div>
-        <div className={styles.HeaderRoot_mobileBtn}>
-          <DarkModeBtn />
-          <button className={styles.HeaderRoot_mobileBtn_btn} onClick={clickShowMobileMenu}>
-            ...
-            {/* {theme === "dark" ? "..." : <img src="/menu.png" alt="더보기" />} */}
-          </button>
-          <MobileMenu open={showMobileMenu} setOpen={setShowMobileMenu} />
-        </div>
-      </div>
-    </>
-  );
+	useHeaderAnimation(headerRef, hide, setHide);
+	return (
+		<>
+			<div ref={headerRef} className={`${styles.HeaderRoot} ${styles[theme]}`}>
+				<div>
+					<HeaderLeft />
+				</div>
+				<div className={styles.HeaderRightWrapper}>
+					<DarkModeBtn />
+					<HeaderRight />
+				</div>
+				<div className={styles.HeaderRoot_mobileBtn}>
+					<DarkModeBtn />
+					<button className={styles.HeaderRoot_mobileBtn_btn} onClick={clickShowMobileMenu}>
+						...
+						{/* {theme === "dark" ? "..." : <img src="/menu.png" alt="더보기" />} */}
+					</button>
+					<MobileMenu open={showMobileMenu} setOpen={setShowMobileMenu} />
+				</div>
+			</div>
+		</>
+	);
 };
 
-export default React.memo(Header);
+
+export default Header;

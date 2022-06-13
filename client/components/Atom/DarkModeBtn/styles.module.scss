@@ -1,58 +1,64 @@
 .DarkModeBtnWrapper {
-  position: relative;
-  &:hover {
-    button {
-      box-shadow: 0 0px 4px 4px #0099fa;
-    }
-  }
-  .DarkModeBtn {
-    background-color: #4d4d4d;
-    border-radius: 30px;
-    height: 24px;
-    transition: 0.2s;
-    width: 50px;
-    cursor: pointer;
-    .toggleTrackCheckY {
-      bottom: 0;
-      height: 10px;
-      margin: auto 0;
-      top: 0;
-      left: 7px;
-      position: absolute;
-      span {
-        align-items: center;
-        display: flex;
-        height: 10px;
-        justify-content: center;
-        width: 10px;
-      }
-    }
-    .toggleTrackCheckX {
-      bottom: 0;
-      height: 10px;
-      margin: auto 0;
-      top: 0;
-      right: 8px;
-      position: absolute;
-      span {
-        align-items: center;
-        display: flex;
-        height: 10px;
-        justify-content: center;
-        width: 10px;
-      }
-    }
-    .toggleTrackThumb {
-      background-color: #fafafa;
-      border: 1px solid #4d4d4d;
-      border-radius: 50%;
-      height: 22px;
-      left: 27px;
-      position: absolute;
-      top: 1px;
-      transition: 0.25s;
-      width: 22px;
-      cursor: pointer;
-    }
-  }
+	position: relative;
+
+	&:hover {
+		button {
+			box-shadow: 0 0px 4px 4px #0099fa;
+		}
+	}
+
+	.DarkModeBtn {
+		background-color: #4d4d4d;
+		border-radius: 30px;
+		height: 24px;
+		transition: 0.2s;
+		width: 50px;
+		cursor: pointer;
+
+		.toggleTrackCheckY {
+			bottom: 0;
+			height: 10px;
+			margin: auto 0;
+			top: 0;
+			left: 7px;
+			position: absolute;
+
+			span {
+				align-items: center;
+				display: flex;
+				height: 10px;
+				justify-content: center;
+				width: 10px;
+			}
+		}
+
+		.toggleTrackCheckX {
+			bottom: 0;
+			height: 10px;
+			margin: auto 0;
+			top: 0;
+			right: 8px;
+			position: absolute;
+
+			span {
+				align-items: center;
+				display: flex;
+				height: 10px;
+				justify-content: center;
+				width: 10px;
+			}
+		}
+
+		.toggleTrackThumb {
+			background-color: #fafafa;
+			border: 1px solid #4d4d4d;
+			border-radius: 50%;
+			height: 22px;
+			position: absolute;
+			top: 1px;
+			transition: 0.25s;
+			width: 22px;
+			cursor: pointer;
+		}
+	}
 }
