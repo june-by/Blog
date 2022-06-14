@@ -1,14 +1,15 @@
+import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import PageBtn from "../../Atom/PageBtn";
 import styles from "./styles.module.scss";
 
 interface Props {
   totalPage: number | undefined;
-  pageNum: number;
-  setPageNum: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Pagination = ({ totalPage, pageNum, setPageNum }: Props) => {
+const Pagination = ({ totalPage }: Props) => {
+  const { query, push } = useRouter();
+  const page = query.page ? Number(query.page) : 1;
   const [pageArr, setPageArr] = useState<Array<number | string>>([]);
 
   const onClickPageBtn = useCallback(
@@ -19,17 +20,17 @@ const Pagination = ({ totalPage, pageNum, setPageNum }: Props) => {
         behavior: "smooth",
       });
       if (idx === "이전") {
-        if (pageNum - 1 > 0) return setPageNum((prev) => prev - 1);
+        if (page - 1 > 0) return push(`/?page=${page - 1}`);
       } else if (idx === "다음") {
-        if (pageNum + 1 <= Number(totalPage)) return setPageNum((prev) => prev + 1);
-      } else setPageNum(idx);
+        if (page + 1 <= Number(totalPage)) return push(`/?page=${page + 1}`);
+      } else push(`/?page=${idx}`);
     },
-    [pageNum, totalPage, setPageNum]
+    [page, totalPage, push]
   );
 
   useEffect(() => {
-    setPageArr(makeArray(pageNum, Number(totalPage)));
-  }, [pageNum, totalPage]);
+    setPageArr(makeArray(page, Number(totalPage)));
+  }, [page, totalPage]);
 
   return (
     <div className={styles.Pagination}>
@@ -37,13 +38,13 @@ const Pagination = ({ totalPage, pageNum, setPageNum }: Props) => {
         {totalPage !== undefined && (
           <>
             <div className={styles.ArrowBtn}>
-              <PageBtn idx={"이전"} currentPage={pageNum} onClickPageBtn={onClickPageBtn} />
+              <PageBtn idx={"이전"} currentPage={page} onClickPageBtn={onClickPageBtn} />
             </div>
             {pageArr?.map((value, idx: number) => {
-              return <PageBtn key={idx + 100} idx={value} currentPage={pageNum} onClickPageBtn={onClickPageBtn} />;
+              return <PageBtn key={idx + 100} idx={value} currentPage={page} onClickPageBtn={onClickPageBtn} />;
             })}
             <div className={styles.ArrowBtn}>
-              <PageBtn idx={"다음"} currentPage={pageNum} onClickPageBtn={onClickPageBtn} />
+              <PageBtn idx={"다음"} currentPage={page} onClickPageBtn={onClickPageBtn} />
             </div>
           </>
         )}

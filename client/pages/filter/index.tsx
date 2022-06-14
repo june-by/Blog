@@ -9,6 +9,7 @@ import { useGetPostNum } from "../../Hooks/Post";
 import useGetPosts from "../../Hooks/useGetPosts";
 import useMakeMetaInfo from "../../Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
+import { PostsType } from "../../Types/Post";
 
 const Filter = () => {
   const { query } = useRouter();
@@ -32,7 +33,7 @@ const Filter = () => {
       </Head>
       <div className={styles.CategoryWrapper}>
         <CategorySelect />
-        <Posts posts={Post} isLoading={isLoading} />
+        <Posts posts={Post as PostsType[]} />
         <NoPost isPostExist={Post?.length !== 0 ? true : false} />
         {query.category && <Pagination totalPage={totalPageNum} pageNum={pageNum} setPageNum={setPageNum} />}
       </div>

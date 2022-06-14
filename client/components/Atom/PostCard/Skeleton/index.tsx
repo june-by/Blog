@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "../styles.module.scss";
 
-const PostCardSkeleton = () => {
+const PostCardSkeleton = ({ theme }: { theme: string }) => {
   return (
-    <div className={styles.PostCard}>
+    <div className={`${styles.PostCard} ${styles[theme]}`}>
       <div className={styles.PostCard_imgWrapper}>
         <div className={styles.SkeletonImg}></div>
       </div>

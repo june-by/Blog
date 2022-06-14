@@ -134,9 +134,6 @@
   border: 0.5px solid #2a2a2a;
 }
 
-.darktitleBox {
-}
-
 .light {
   background: white;
   color: black !important;
@@ -145,6 +142,23 @@
 
 .lighttitleBox {
   border-top: 1px solid #c8c8c8;
+}
+
+.SkeletonPostCard {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e2e2e2 0% 0% no-repeat padding-box;
+
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 16%);
+
+  height: 100%;
+  min-height: 225px;
+  margin-bottom: 25px;
 }
 
 .SkeletonImg {
