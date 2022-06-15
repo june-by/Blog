@@ -1,22 +1,27 @@
+@import "../../../utils/variables.scss";
+
 .PageBtn {
-  padding: 0.3rem 0.8rem;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-  height: 35px;
+	padding: 0.3rem 0.8rem;
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+	height: 35px;
 }
 
 .dark {
-  background: #1e1e1e;
-  color: white;
-  &:hover {
-    background: #615f63;
-  }
+	background: #{$PageBtn_Dark_Bg};
+	color: #{$PageBtn_Dark_Color};
+
+	&:hover {
+		background: #{$PageBtn_Dark_Hover_Bg};
+	}
 }
+
 .ligth {
-  background: #e9ecf3;
-  color: black;
-  &:hover {
-    background: #c5c5c7;
-  }
+	background: #{$PageBtn_Light_Bg};
+	color: #{$PageBtn_Light_Color};
+
+	&:hover {
+		background: #{$PageBtn_Light_Hover_Bg};
+	}
 }

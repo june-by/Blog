@@ -10,55 +10,52 @@ import Loading from "../utils/Loading";
 import ProgressBar from "../components/Atom/ProgressBar";
 import useSetProgressState from "../Hooks/useSetProgressState";
 import { ThemeProvider } from "../utils/ThemeContext";
-import Cookies from "js-cookie";
 import cookies from "next-cookies";
 import App from "next/app";
 
-
 interface CustomAppProps extends AppProps {
-	theme: string;
+  theme: string;
 }
 
 function MyApp({ Component, pageProps, theme }: CustomAppProps) {
-	const [queryClient] = useState(() => new QueryClient());
-	const [loading, setLoading] = useState<boolean>(false);
-	const [nextUrl, setNextUrl] = useState<string>("");
-	useSetProgressState(setLoading, setNextUrl);
-
-	return (
-		<>
-			{loading ? (
-				<>{Loading(loading, nextUrl)}</>
-			) : (
-				<QueryClientProvider client={queryClient}>
-					<Hydrate state={pageProps.dehydratedState}>
-						<ThemeProvider initialTheme={theme}>
-							<Header />
-							<Head>
-								<meta charSet="utf-8"></meta>
-								<title>ByJuun.com</title>
-								<link rel="shortcut icon" href="/favicon.ico" />
-							</Head>
-							<Component {...pageProps} theme={theme} />
-						</ThemeProvider>
-						<ReactQueryDevtools initialIsOpen={false} />
-					</Hydrate>
-				</QueryClientProvider>
-			)}
-			<ProgressBar />
-		</>
-	);
+  const [queryClient] = useState(() => new QueryClient());
+  const [loading, setLoading] = useState<boolean>(false);
+  const [nextUrl, setNextUrl] = useState<string>("");
+  useSetProgressState(setLoading, setNextUrl);
+  return (
+    <>
+      {loading ? (
+        <>{Loading(nextUrl, theme)}</>
+      ) : (
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ThemeProvider initialTheme={theme}>
+              <Header />
+              <Head>
+                <meta charSet="utf-8"></meta>
+                <title>ByJuun.com</title>
+                <link rel="shortcut icon" href="/favicon.ico" />
+              </Head>
+              <Component {...pageProps} theme={theme} />
+            </ThemeProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Hydrate>
+        </QueryClientProvider>
+      )}
+      <ProgressBar />
+    </>
+  );
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-	const { ctx } = appContext;
-	const allCookies = cookies(ctx);
-	const appProps = await App.getInitialProps(appContext);
-	const theme = allCookies["theme"] || "dark";
-	return {
-		...appProps,
-		theme: theme
-	};
+  const { ctx } = appContext;
+  const allCookies = cookies(ctx);
+  const appProps = await App.getInitialProps(appContext);
+  const theme = allCookies["theme"] || "dark";
+  return {
+    ...appProps,
+    theme: theme,
+  };
 };
 
 export default MyApp;
