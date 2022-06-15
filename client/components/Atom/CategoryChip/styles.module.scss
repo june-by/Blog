@@ -1,62 +1,69 @@
+@import "../../../utils/variables.scss";
+
 .CategoryChip {
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  &:hover {
-    background: #6185e5;
-  }
+	color: white;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: none;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+
+	&:hover {
+		background: #6185e5;
+	}
 }
 
 .CategoryLength {
-  margin-left: 5px;
-  color: #6185e5;
-  background: white;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 16%);
-  border: 0.5px solid #c8c8c8;
-  border-radius: 4px;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	margin-left: 5px;
+	color: #6185e5;
+	background: white;
+	box-shadow: 0 2px 4px rgb(0 0 0 / 16%);
+	border: 0.5px solid #c8c8c8;
+	border-radius: 4px;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .CategorySkeleton {
-  height: 40px;
-  width: 100px;
-  background: #f2f2f2;
-  animation: Skeleton 1.5s infinite ease-in-out;
+	height: 40px;
+	width: 100px;
+	background: #f2f2f2;
+	animation: Skeleton 1.5s infinite ease-in-out;
 }
 
 .dark {
-  background: #3e4756;
-  .categoryLength {
-    background: #615f63;
-    border: 0.5px solid #615f63;
-  }
+	background: #{$CategoryChip_Dark_Bg};
+
+	.categoryLength {
+		background: #615f63;
+		border: 0.5px solid #615f63;
+	}
 }
 
 .light {
-  background: #0099fa;
-  .categoryLength {
-    background: white;
-    border: 0.5px solid #c8c8c8;
-  }
+	background: #{$CategoryChip_Light_Bg};
+
+	.categoryLength {
+		background: white;
+		border: 0.5px solid #c8c8c8;
+	}
 }
 
 @keyframes Skeleton {
-  0% {
-    background: rgba(165, 165, 165, 0.1);
-  }
-  50% {
-    background: rgba(165, 165, 165, 0.5);
-  }
-  100% {
-    background: rgba(165, 165, 165, 0.1);
-  }
+	0% {
+		background: rgba(165, 165, 165, 0.1);
+	}
+
+	50% {
+		background: rgba(165, 165, 165, 0.5);
+	}
+
+	100% {
+		background: rgba(165, 165, 165, 0.1);
+	}
 }
