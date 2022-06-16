@@ -49,5 +49,8 @@
     display: flex;
     gap: 10px;
     flex-flow: wrap;
+    @include mobile {
+      display: none;
+    }
   }
 }
