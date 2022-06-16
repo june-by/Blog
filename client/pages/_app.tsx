@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
   useSetProgressState(setLoading, setNextUrl);
   return (
     <>
-      {loading ? (
+      {true ? (
         <>{Loading(nextUrl, theme)}</>
       ) : (
         <QueryClientProvider client={queryClient}>

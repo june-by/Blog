@@ -45,4 +45,9 @@
   @include tablet_landscape {
     padding: 0 10%;
   }
+  .CategoryChipWrapper {
+    display: flex;
+    gap: 10px;
+    flex-flow: wrap;
+  }
 }
