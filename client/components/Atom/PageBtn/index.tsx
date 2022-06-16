@@ -5,23 +5,24 @@ import styles from "./styles.module.scss";
 interface Props {
   idx: number | string;
   currentPage: number;
-  onClickPageBtn: (idx: any) => () => void;
+  onClickPageBtn: (idx: number | string) => () => void;
 }
 
 const PageBtn = ({ idx, currentPage, onClickPageBtn }: Props) => {
   const { theme } = useContext(ThemeContext);
   return (
-    <button
-      style={{
-        background: currentPage === idx ? (theme === "light" ? "#0099fa" : "#3e4756") : "",
-        color: currentPage === idx ? "white" : "",
-      }}
-      onClick={onClickPageBtn(idx)}
-      className={`${styles.PageBtn} ${styles[theme]}`}
-    >
+    <button style={getPageBtnStyle(currentPage, idx, theme)} onClick={onClickPageBtn(idx)} className={`${styles.PageBtn} ${styles[theme]}`}>
       {idx}
     </button>
   );
+};
+
+const getPageBtnStyle = (currentPage: number, idx: number | string, theme: any) => {
+  if (currentPage === idx) {
+    if (theme === "light") return { background: "#0099fa", color: "white" };
+    else return { background: "#3e4756" };
+  }
+  return {};
 };
 
 export default PageBtn;

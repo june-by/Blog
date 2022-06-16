@@ -26,7 +26,7 @@ const MobileMenu = ({ open, setOpen }: Props) => {
       setOpen(false);
       return router.push({
         pathname: "/filter",
-        query: { category: category },
+        query: { category: category, page: 1 },
       });
     },
     []
