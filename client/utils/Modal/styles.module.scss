@@ -1,4 +1,5 @@
 @import "../utils.scss";
+@import "../variables.scss";
 .Modal {
   z-index: 110;
   position: fixed;
@@ -25,11 +26,13 @@
   width: 80%;
   z-index: 2;
   padding: 30px 20px;
-  background-color: white;
   text-align: center;
   color: black;
   border-radius: 6px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+  img {
+    cursor: pointer;
+  }
   @include desktop {
     width: 30%;
   }
@@ -38,5 +41,33 @@
   }
   @include tablet_landscape {
     width: 40%;
+  }
+}
+
+.dark {
+  background: #2e2e2e;
+  color: white;
+  input {
+    background: #{$ModalInput_Dark_Bg} !important;
+    &:focus {
+      border: 1px solid #{$ModalBtn_Dark_Bg} !important;
+    }
+  }
+  button {
+    background: #{$ModalBtn_Dark_Bg} !important;
+  }
+}
+
+.light {
+  background: white;
+  input {
+    background: #{$ModalInput_Light_Bg} !important;
+
+    &:focus {
+      border: 1px solid #{$ModalBtn_Light_Bg} !important;
+    }
+  }
+  button {
+    background: #{$ModalBtn_Light_Bg} !important;
   }
 }

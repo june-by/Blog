@@ -1,4 +1,5 @@
-import React, { ReactChild, ReactChildren, useCallback } from "react";
+import React, { ReactChild, ReactChildren, useCallback, useContext } from "react";
+import { ThemeContext } from "../ThemeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const Modal = ({ children, setOpen }: Props) => {
+  const { theme } = useContext(ThemeContext);
   const closeModal = useCallback(() => {
     setOpen(false);
   }, []);
@@ -14,7 +16,7 @@ const Modal = ({ children, setOpen }: Props) => {
   return (
     <div className={styles.Modal}>
       <div className={styles.overlay} onClick={closeModal}></div>
-      <div className={styles.content}>{children}</div>
+      <div className={`${styles.content} ${styles[theme]}`}>{children}</div>
     </div>
   );
 };
