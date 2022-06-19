@@ -26,4 +26,4 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   );
 };
 
-export default PostTagBtn;
+export default React.memo(PostTagBtn);
