@@ -43,9 +43,7 @@ const SignUpModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
-            <button onClick={closeModal}>
-              <Image src="/close_btn.png" width={35} height={35} alt="닫기" />
-            </button>
+            <Image onClick={closeModal} src="/close_btn.png" width={35} height={35} alt="닫기" />
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input ref={emailRef} placeholder="이메일 혹은 아이디" />
