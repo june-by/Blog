@@ -49,6 +49,7 @@
   color: white;
   input {
     background: #{$ModalInput_Dark_Bg} !important;
+    color: white;
     &:focus {
       border: 1px solid #{$ModalBtn_Dark_Bg} !important;
     }
