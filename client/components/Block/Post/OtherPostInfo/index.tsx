@@ -17,7 +17,7 @@ const OtherPostInfo = () => {
   return (
     <div className={`${styles.OtherPostInfoWrapper} ${styles[String(theme)]}`}>
       <div className={styles.OtherCategory}>
-        <span>"{mainPost?.category}" 카테고리의 다른 게시글</span>
+        <span>{`"${mainPost?.category}" 카테고리의 다른 게시글`}</span>
       </div>
       <OtherPost Post={nextPost as OtherPostType} mode="next" />
       <OtherPost Post={prevPost as OtherPostType} mode="prev" />
