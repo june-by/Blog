@@ -12,8 +12,8 @@ interface Props {
 
 const useSetEditData = ({ titleRef, setCategoryInfo, setContent, setTagArr, setThumbNailUrl }: Props) => {
   const { query } = useRouter();
-  const { data: Post, isLoading } = useGetOnePost(Number(query.id));
-
+  const { data, isLoading } = useGetOnePost(Number(query.id));
+  const Post = data?.mainPost;
   useEffect(() => {
     if (Post && !isLoading && query.mode === "Edit") {
       titleRef!.current!.value = Post.title;

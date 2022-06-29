@@ -1,4 +1,10 @@
 export interface PostType {
+  mainPost: MainPost;
+  prevPost: OtherPostType;
+  nextPost: OtherPostType;
+}
+
+export interface MainPost {
   category: string;
   content: string;
   createdAt: Date;
@@ -7,6 +13,12 @@ export interface PostType {
   Comments: Array<null | CommentType>;
   Tags: Array<null | TagType>;
   thumbNailUrl: null | string;
+}
+
+export interface OtherPostType {
+  OtherId: number | null;
+  OtherCreatedAt: Date | null;
+  OtherTitle: string | null;
 }
 
 export interface PostsType {
