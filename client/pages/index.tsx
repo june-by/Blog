@@ -7,7 +7,7 @@ import CategorySelect from "../components/Block/CategorySelect";
 import Pagination from "../components/Block/Pagination";
 import Posts from "../components/Block/Posts";
 import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
-import { PostType } from "../Types/Post";
+import { PostsType, PostType } from "../Types/Post";
 import styles from "./styles.module.scss";
 
 const Home: NextPage = () => {
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       </Head>
       <div className={styles.HomeWrapper}>
         <CategorySelect />
-        <Posts posts={MainPosts as PostType[]} />
+        <Posts posts={MainPosts as PostsType[]} />
         <Pagination totalPage={totalPageNum} />
       </div>
     </>

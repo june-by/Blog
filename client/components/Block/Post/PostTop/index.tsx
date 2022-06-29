@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserInfo } from "../../../../Hooks/User";
-import { PostType } from "../../../../Types/Post";
+import { MainPost } from "../../../../Types/Post";
 import { dateForm } from "../../../../utils/dateForm";
 import CategoryChip from "../../../Atom/CategoryChip";
 import GoBackBtn from "../../../Atom/GoBackBtn";
@@ -10,7 +10,7 @@ import PostTagBtn from "../../../Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 
 interface Props {
-  Post: PostType;
+  Post: MainPost;
 }
 
 const PostTop = ({ Post }: Props) => {

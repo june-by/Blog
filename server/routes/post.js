@@ -1,7 +1,7 @@
 const express = require("express");
 const multiparty = require("connect-multiparty");
 const router = express.Router();
-const { Post, Comment, User, Tag } = require("../models");
+const { Post, Comment, User, Tag, sequelize, Sequelize } = require("../models");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
 router.post("/", async (req, res, next) => {
@@ -91,7 +91,24 @@ router.get("/load/:postId", async (req, res, next) => {
         },
       ],
     });
-    return res.status(201).json(fullPost);
+    const [prev, prevMeta] = await sequelize.query(
+      "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;",
+      {
+        replacements: [post.category, post.id],
+      }
+    );
+    const [next, nextMeta] = await sequelize.query(
+      "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;",
+      {
+        replacements: [post.category, post.id],
+      }
+    );
+    const returnObj = {
+      mainPost: fullPost,
+      prevPost: prev[0],
+      nextPost: next[0],
+    };
+    return res.status(201).json(returnObj);
   } catch (err) {
     console.error(err);
     next(err);

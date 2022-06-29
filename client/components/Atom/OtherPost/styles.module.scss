@@ -1,0 +1,17 @@
+.OtherPost {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    color: #6185e5;
+  }
+  .description {
+  }
+  .content {
+    width: 80%;
+  }
+}

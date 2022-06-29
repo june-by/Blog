@@ -24,6 +24,7 @@ export const getPostsNumAPI = async (category: string | string[] | undefined) =>
 export const getOnePostAPI = async (id: number) => {
   if (!id) return;
   const { data } = await customAxios.get(`/post/load/${id}`);
+  console.log(data);
   return data;
 };
 

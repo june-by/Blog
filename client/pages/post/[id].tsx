@@ -6,17 +6,19 @@ import { dehydrate, QueryClient } from "react-query";
 import { getOnePostAPI } from "../../API/Post";
 import CommentForm from "../../components/Block/Post/CommentForm";
 import CommentList from "../../components/Block/Post/CommentList";
+import OtherPostInfo from "../../components/Block/Post/OtherPostInfo";
 import PostContent from "../../components/Block/Post/PostContent";
 import PostTop from "../../components/Block/Post/PostTop";
 import { useGetOnePost } from "../../Hooks/Post";
-import { PostType } from "../../Types/Post";
+import { MainPost } from "../../Types/Post";
 import { getOgImage } from "../../utils/getOgImage";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";
 
 const Post = () => {
   const router = useRouter();
-  const { data: Post } = useGetOnePost(Number(router.query.id));
+  const { data } = useGetOnePost(Number(router.query.id));
+  const Post = data?.mainPost;
   return (
     <>
       <Head>
@@ -29,8 +31,9 @@ const Post = () => {
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <div className={styles.Post}>
-        <PostTop Post={Post as PostType} />
+        <PostTop Post={Post as MainPost} />
         <PostContent content={Post!.content} />
+        <OtherPostInfo />
         <CommentForm />
         <CommentList Comments={Post!.Comments} />
         <ScrollBtn />

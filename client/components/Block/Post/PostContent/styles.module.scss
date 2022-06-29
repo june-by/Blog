@@ -10,6 +10,10 @@
     width: 100%;
   }
 
+  @include tablet_landscape {
+    width: 100%;
+  }
+
   @include mobile {
     width: 100%;
   }
