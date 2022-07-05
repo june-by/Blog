@@ -12,6 +12,7 @@ import useSetProgressState from "../Hooks/useSetProgressState";
 import { ThemeProvider } from "../utils/ThemeContext";
 import cookies from "next-cookies";
 import App from "next/app";
+import useCheckVisitor from "../Hooks/useCheckVisitor";
 
 interface CustomAppProps extends AppProps {
   theme: string;
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [nextUrl, setNextUrl] = useState<string>("");
   useSetProgressState(setLoading, setNextUrl);
+  useCheckVisitor();
   return (
     <>
       {loading ? (

@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import useGotoPage from "../../../Hooks/useGotoPage";
 import { OtherPostType } from "../../../Types/Post";
-import { dateForm } from "../../../utils/dateForm";
 import styles from "./styles.module.scss";
 
 interface Props {

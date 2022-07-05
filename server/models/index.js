@@ -10,6 +10,7 @@ db.Image = require("./image")(sequelize, Sequelize);
 db.Post = require("./post")(sequelize, Sequelize);
 db.User = require("./user")(sequelize, Sequelize);
 db.Tag = require("./tag")(sequelize, Sequelize);
+db.Visitor = require("./visitor")(sequelize, Sequelize);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
