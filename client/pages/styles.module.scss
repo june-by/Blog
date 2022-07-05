@@ -1,10 +1,18 @@
 @import "../utils/utils.scss";
 
 .HomeWrapper {
-  margin-top: 65px;
-  padding: 0 15%;
-  margin-bottom: 100px;
+  @include desktop {
+    display: flex;
+  }
+}
 
+.HomeContentWrapper {
+  margin-top: 65px;
+  padding-left: 15%;
+  margin-bottom: 100px;
+  @include desktop {
+    width: 85%;
+  }
   @include mobile {
     padding: 0 5%;
   }

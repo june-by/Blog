@@ -1,7 +1,7 @@
 const express = require("express");
 const multiparty = require("connect-multiparty");
 const router = express.Router();
-const { Post, Comment, User, Tag, sequelize, Sequelize } = require("../models");
+const { Post, Comment, User, Tag, sequelize } = require("../models");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
 router.post("/", async (req, res, next) => {

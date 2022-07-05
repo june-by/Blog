@@ -12,6 +12,7 @@ const db = require("./models");
 const postRouter = require("./routes/post");
 const postsRouter = require("./routes/posts");
 const userRouter = require("./routes/user");
+const visitorRouter = require("./routes/visitor");
 const passportConfig = require("./passport");
 const AWS = require("aws-sdk");
 const multer = require("multer");
@@ -63,6 +64,7 @@ app.set("trust proxy", 1);
 app.use("/post", postRouter);
 app.use("/posts", postsRouter);
 app.use("/user", userRouter);
+app.use("/visitor", visitorRouter);
 
 app.get("/", (req, res) => {
   res.send("ㅎㅇ");

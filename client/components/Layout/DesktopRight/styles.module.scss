@@ -1,0 +1,12 @@
+@import "../../../utils/utils.scss";
+.DesktopRight {
+  display: none;
+  @include desktop {
+    display: flex;
+    padding: 0 25px;
+    padding-top: 65px;
+    width: 15%;
+    justify-content: center;
+    height: fit-content;
+  }
+}
