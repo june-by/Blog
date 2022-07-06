@@ -1,5 +1,6 @@
 const { Post, Tag } = require("../models");
 const sequelize = require("sequelize");
+const Op = sequelize.Op;
 
 const GetMainPagePosts = async (page) => {
   const posts = await Post.findAll({

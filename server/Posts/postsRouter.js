@@ -1,8 +1,5 @@
 const express = require("express");
-const { Post, Tag } = require("../models");
 const router = express.Router();
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
 const postsController = require("./postsController");
 
 router.get("/load/main/:page", async (req, res, next) => {
