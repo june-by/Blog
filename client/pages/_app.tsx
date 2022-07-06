@@ -22,8 +22,10 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const [loading, setLoading] = useState<boolean>(false);
   const [nextUrl, setNextUrl] = useState<string>("");
+
   useSetProgressState(setLoading, setNextUrl);
-  useCheckVisitor();
+  useCheckVisitor(queryClient);
+
   return (
     <>
       {loading ? (
