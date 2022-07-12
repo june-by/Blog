@@ -16,7 +16,7 @@ const PostsSkelton = ({ theme }: { theme: string }) => {
         </div>
         <div className={`${styles.PostsRoot} ${styles.Default}`}>
           {Array.from({ length: 12 }, () => 0).map((_, idx) => {
-            return <PostCardSkeleton theme={theme} key={idx} />;
+            return <PostCardSkeleton key={idx} />;
           })}
         </div>
       </div>
