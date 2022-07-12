@@ -1,20 +1,17 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient } from "react-query";
-import { getMainPostsAPI } from "../API/Post";
 import CategorySelect from "../components/Block/CategorySelect";
 import Pagination from "../components/Block/Pagination";
 import Posts from "../components/Block/Posts";
 import DesktopRight from "../components/Layout/DesktopRight";
 import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
-import { PostsType } from "../Types/Post";
 import styles from "./styles.module.scss";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
   const { data: totalPageNum } = useGetPostNum("main");
-  const { data: MainPosts } = useGetMainPost(Number(query.page) || 1);
+  const { data: MainPosts, isLoading } = useGetMainPost(Number(query.page) || 1);
   return (
     <>
       <Head>
@@ -27,24 +24,13 @@ const Home: NextPage = () => {
       <div className={styles.HomeWrapper}>
         <div className={styles.HomeContentWrapper}>
           <CategorySelect />
-          <Posts posts={MainPosts as PostsType[]} />
+          <Posts posts={MainPosts} isLoading={isLoading} />
           <Pagination totalPage={totalPageNum} />
         </div>
         <DesktopRight />
       </div>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryClient = new QueryClient();
-  const page = query.page ? Number(query.page) : 1;
-  await queryClient.prefetchQuery(["MainPosts", page], () => getMainPostsAPI(page));
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
 };
 
 export default Home;

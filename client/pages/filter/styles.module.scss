@@ -1,19 +1,27 @@
 @import "../../utils/utils.scss";
 
 .CategoryWrapper {
-	margin-top: 65px;
-	padding: 0 15%;
-	margin-bottom: 100px;
+  @include desktop {
+    display: flex;
+  }
+}
 
-	@include mobile {
-		padding: 0 5%;
-	}
+.CategoryContentWrapper {
+  margin-top: 65px;
+  padding-left: 15%;
+  margin-bottom: 100px;
+  @include desktop {
+    width: 85%;
+  }
+  @include mobile {
+    padding: 0 5%;
+  }
 
-	@include tablet {
-		padding: 0 10%;
-	}
+  @include tablet {
+    padding: 0 10%;
+  }
 
-	@include tablet_landscape {
-		padding: 0 10%;
-	}
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
 }

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../../utils/ThemeContext";
 import styles from "../styles.module.scss";
 
-const PostCardSkeleton = ({ theme }: { theme: string }) => {
+const PostCardSkeleton = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={`${styles.PostCard} ${styles[theme]}`}>
       <div className={styles.PostCard_imgWrapper}>

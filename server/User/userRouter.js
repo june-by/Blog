@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../models");
 const passport = require("passport");
 const userController = require("./userController");
 
@@ -46,7 +45,7 @@ router.post("/login", (req, res, next) => {
         console.error(loginErr);
         return next(loginErr);
       }
-      const userInfo = await userController.GetUserInfo();
+      const userInfo = await userController.GetUserInfo(user.id);
       return res.status(200).json(userInfo);
     });
   })(req, res, next);
