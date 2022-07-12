@@ -1,0 +1,36 @@
+@import "../../../../utils/utils.scss";
+.TopicWrapper {
+  display: none;
+
+  @include desktop {
+    width: 20%;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    height: auto;
+    div::-webkit-scrollbar {
+      display: none;
+    }
+    &_second {
+      position: sticky;
+      top: 30vh;
+      max-height: 50vh;
+      overflow: auto;
+      border-left: 1px solid #c8c8c8;
+      padding-left: 2vw;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      div {
+        width: fit-content;
+        cursor: pointer;
+        padding-bottom: 10px;
+
+        &:hover {
+          color: #6185e5;
+        }
+      }
+    }
+  }
+}

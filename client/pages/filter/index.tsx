@@ -10,46 +10,37 @@ import useGetPosts from "../../Hooks/useGetPosts";
 import useMakeMetaInfo from "../../Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
 import { PostsType } from "../../Types/Post";
-import { GetServerSideProps } from "next";
-import { dehydrate, QueryClient } from "react-query";
-import prefetchData from "../../utils/prefetchData";
+import DesktopRight from "../../components/Layout/DesktopRight";
 
 const Filter = () => {
-	const { query } = useRouter();
-	const { data: totalPageNum } = useGetPostNum(query.category);
-	const Post = useGetPosts();
-	const [title, description, ogDescription, url] = useMakeMetaInfo();
+  const { query } = useRouter();
+  const { data: totalPageNum } = useGetPostNum(query.category);
+  const [Post, isLoading] = useGetPosts();
+  const [title, description, ogDescription, url] = useMakeMetaInfo();
 
-	return (
-		<>
-			<Head>
-				<meta charSet="utf-8"></meta>
-				<title>{title}</title>
-				<link rel="shortcut icon" href="/favicon.ico" />
-				<meta name="description" content={String(description)} />
-				<meta property="og:title" content={String(description)} />
-				<meta property="og:description" content={String(ogDescription)} />
-				<meta property="og:image" content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"} />
-				<meta property="og:url" content={String(url)} />
-			</Head>
-			<div className={styles.CategoryWrapper}>
-				<CategorySelect />
-				<Posts posts={Post as PostsType[]} />
-				<NoPost isPostExist={Post?.length !== 0 ? true : false} />
-				{query.category && <Pagination totalPage={totalPageNum} />}
-			</div>
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <meta charSet="utf-8"></meta>
+        <title>{title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content={String(description)} />
+        <meta property="og:title" content={String(description)} />
+        <meta property="og:description" content={String(ogDescription)} />
+        <meta property="og:image" content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"} />
+        <meta property="og:url" content={String(url)} />
+      </Head>
+      <div className={styles.CategoryWrapper}>
+        <div className={styles.CategoryContentWrapper}>
+          <CategorySelect />
+          <Posts posts={Post as PostsType[]} isLoading={isLoading} />
+          <NoPost isPostExist={Post?.length !== 0 ? true : false} />
+          {query.category && <Pagination totalPage={totalPageNum} />}
+        </div>
+        <DesktopRight />
+      </div>
+    </>
+  );
 };
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const queryClient = new QueryClient();
-	prefetchData(queryClient, query);
-	return {
-		props: {
-			dehydratedState: dehydrate(queryClient),
-		}
-	}
-}
 
 export default Filter;
