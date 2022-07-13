@@ -4,10 +4,10 @@ import PostContentSkeleton from "../PostContent/Skeleton";
 import PostTopSkeleton from "../PostTop/Skeleton";
 import styles from "./styles.module.scss";
 
-const PostSkeleton = ({ theme }: { theme: string }) => {
+const PostSkeleton = () => {
   return (
     <>
-      <HeaderSkeleton theme={theme} />
+      <HeaderSkeleton />
       <div className={styles.PostSkeletonWrapper}>
         <PostTopSkeleton />
         <PostContentSkeleton />
