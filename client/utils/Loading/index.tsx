@@ -1,12 +1,9 @@
 import React from "react";
 import PostSkeleton from "../../components/Block/Post/Skeleton";
+import PostsSkelton from "../../components/Block/Posts/Skeleton";
 
-const Loading = (nextUrl: string, theme: string) => {
-  return (
-    <>
-      <PostSkeleton theme={theme} />
-    </>
-  );
+const Loading = (nextUrl: string) => {
+  return <>{IsPostPage(nextUrl) ? <PostSkeleton /> : <PostsSkelton />}</>;
 };
 
 const IsPostPage = (url: string) => {

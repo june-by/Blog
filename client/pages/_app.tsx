@@ -25,15 +25,14 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
 
   useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
-
   return (
     <>
-      {loading ? (
-        <>{Loading(nextUrl, theme)}</>
-      ) : (
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <ThemeProvider initialTheme={theme}>
+      <ThemeProvider initialTheme={theme}>
+        {loading ? (
+          <>{Loading(nextUrl)}</>
+        ) : (
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
               <Header />
               <Head>
                 <meta charSet="utf-8"></meta>
@@ -41,12 +40,12 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
                 <link rel="shortcut icon" href="/favicon.ico" />
               </Head>
               <Component {...pageProps} theme={theme} />
-            </ThemeProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Hydrate>
-        </QueryClientProvider>
-      )}
-      <ProgressBar />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Hydrate>
+          </QueryClientProvider>
+        )}
+        <ProgressBar />
+      </ThemeProvider>
     </>
   );
 }
@@ -58,7 +57,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const theme = allCookies["theme"] || "dark";
   return {
     ...appProps,
-    theme: theme,
+    theme,
   };
 };
 

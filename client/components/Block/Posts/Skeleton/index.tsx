@@ -4,10 +4,10 @@ import CategoryChipSkeleton from "../../../Atom/CategoryChip/Skeleton";
 import PostCardSkeleton from "../../../Atom/PostCard/Skeleton";
 import HeaderSkeleton from "../../../Layout/Header/Skeleton";
 import styles from "../styles.module.scss";
-const PostsSkelton = ({ theme }: { theme: string }) => {
+const PostsSkelton = () => {
   return (
     <>
-      <HeaderSkeleton theme={theme} />
+      <HeaderSkeleton />
       <div className={styles.SkeletonWrapper}>
         <div className={styles.CategoryChipWrapper}>
           {Category.map((v) => (

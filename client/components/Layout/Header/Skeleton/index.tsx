@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../../utils/ThemeContext";
 import HeaderLeft from "../HeaderLeft";
 import styles from "../styles.module.scss";
 
-const HeaderSkeleton = ({ theme }: { theme: string }) => {
+const HeaderSkeleton = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={`${styles.HeaderRoot} ${styles[theme]}`}>
       <HeaderLeft />
