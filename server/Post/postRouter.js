@@ -13,11 +13,11 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
+router.post("/:postId/comment", async (req, res, next) => {
   try {
     const { postId } = req.params;
     await postController.CheckPostExist(postId, res);
-    const comment = await postController.MakeComment(req.body.comment, postId, req.user.id);
+    const comment = await postController.MakeComment(req.body.comment, postId, 1);
     const fullComment = await postController.FindComment(comment.id);
     res.status(201).json(fullComment);
   } catch (error) {
