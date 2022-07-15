@@ -10,7 +10,8 @@ import useGetPosts from "../../Hooks/useGetPosts";
 import useMakeMetaInfo from "../../Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
 import { PostsType } from "../../Types/Post";
-import AdditionalInfoSection from "../../components/Block/AdditionalInfoSection";
+import AdditionalInfoSectionRight from "../../components/Block/AdditionalInfoSectionRight";
+import AdditionalInfoSectionLeft from "../../components/Block/AdditionalInfoSectionLeft";
 
 const Filter = () => {
   const { query } = useRouter();
@@ -31,13 +32,14 @@ const Filter = () => {
         <meta property="og:url" content={String(url)} />
       </Head>
       <div className={styles.CategoryWrapper}>
+        <AdditionalInfoSectionLeft />
         <div className={styles.CategoryContentWrapper}>
           <CategorySelect />
           <Posts posts={Post as PostsType[]} isLoading={isLoading} />
           <NoPost isPostExist={Post?.length !== 0 ? true : false} />
           {query.category && <Pagination totalPage={totalPageNum} />}
         </div>
-        <AdditionalInfoSection />
+        <AdditionalInfoSectionRight />
       </div>
     </>
   );

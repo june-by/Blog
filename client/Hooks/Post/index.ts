@@ -8,10 +8,11 @@ import {
   getPostsNumAPI,
   getSearchPostAPI,
   getTagPostAPI,
+  GetTopViewsPostsAPI,
 } from "./../../API/Post/index";
 import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
-import { AddPostParams, CategoryCount, PostsType, PostType } from "../../Types/Post";
+import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "../../Types/Post";
 import { useRouter } from "next/router";
 
 export const useGetMainPost = (pageNum: number) => {
@@ -102,5 +103,13 @@ export const useDeletePost = () => {
       alert("게시글 삭제 성공");
       return window.location.replace("/");
     },
+  });
+};
+
+export const useGetTopViewsPosts = () => {
+  return useQuery<TopViewsPost[]>(["TopViewsPosts"], () => GetTopViewsPostsAPI(), {
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 };

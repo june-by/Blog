@@ -65,4 +65,14 @@ router.get("/tag/:keyword", async (req, res, next) => {
   }
 });
 
+router.get("/topViews", async (req, res, next) => {
+  try {
+    const posts = await postsController.GetTopViewsPosts();
+    return res.status(201).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = router;

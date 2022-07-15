@@ -1,0 +1,14 @@
+@import "../../../utils/utils.scss";
+.SectionLeft {
+  display: none;
+  @include desktop {
+    display: flex;
+    padding: 0 25px;
+    padding-top: 170px;
+    width: 15%;
+    gap: 25px;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+  }
+}

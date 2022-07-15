@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 import CategorySelect from "../components/Block/CategorySelect";
 import Pagination from "../components/Block/Pagination";
 import Posts from "../components/Block/Posts";
-import AdditionalInfoSection from "../components/Block/AdditionalInfoSection";
-import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
+import AdditionalInfoSectionRight from "../components/Block/AdditionalInfoSectionRight";
+import { useGetPostNum, useGetMainPost, useGetTopViewsPosts } from "../Hooks/Post";
 import styles from "./styles.module.scss";
+import AdditionalInfoSectionLeft from "../components/Block/AdditionalInfoSectionLeft";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
@@ -22,12 +23,13 @@ const Home: NextPage = () => {
         <meta property="og:url" content="https://byjuun.com" />
       </Head>
       <div className={styles.HomeWrapper}>
+        <AdditionalInfoSectionLeft />
         <div className={styles.HomeContentWrapper}>
           <CategorySelect />
           <Posts posts={MainPosts} isLoading={isLoading} />
           <Pagination totalPage={totalPageNum} />
         </div>
-        <AdditionalInfoSection />
+        <AdditionalInfoSectionRight />
       </div>
     </>
   );

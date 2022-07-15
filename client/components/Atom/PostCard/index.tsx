@@ -11,7 +11,6 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const gotoPage = useGotoPage();
 
   const { theme } = useContext(ThemeContext);
-  console.log(post);
 
   return (
     <div className={`${styles.PostCard} ${styles[theme]}`} onClick={gotoPage(`/post/${post.id}`)}>
