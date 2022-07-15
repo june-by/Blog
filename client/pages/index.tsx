@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import CategorySelect from "../components/Block/CategorySelect";
 import Pagination from "../components/Block/Pagination";
 import Posts from "../components/Block/Posts";
-import DesktopRight from "../components/Layout/DesktopRight";
+import AdditionalInfoSection from "../components/Block/AdditionalInfoSection";
+import { useGetRecentComment } from "../Hooks/Comment";
 import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
 import styles from "./styles.module.scss";
 
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
           <Posts posts={MainPosts} isLoading={isLoading} />
           <Pagination totalPage={totalPageNum} />
         </div>
-        <DesktopRight />
+        <AdditionalInfoSection />
       </div>
     </>
   );

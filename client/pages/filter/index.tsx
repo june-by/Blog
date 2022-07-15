@@ -10,7 +10,7 @@ import useGetPosts from "../../Hooks/useGetPosts";
 import useMakeMetaInfo from "../../Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
 import { PostsType } from "../../Types/Post";
-import DesktopRight from "../../components/Layout/DesktopRight";
+import AdditionalInfoSection from "../../components/Block/AdditionalInfoSection";
 
 const Filter = () => {
   const { query } = useRouter();
@@ -37,7 +37,7 @@ const Filter = () => {
           <NoPost isPostExist={Post?.length !== 0 ? true : false} />
           {query.category && <Pagination totalPage={totalPageNum} />}
         </div>
-        <DesktopRight />
+        <AdditionalInfoSection />
       </div>
     </>
   );
