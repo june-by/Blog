@@ -57,3 +57,8 @@ export interface CategoryCount {
   category: string;
   count: number;
 }
+
+export interface TopViewsPost {
+  id: number;
+  title: string;
+}

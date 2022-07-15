@@ -1,10 +1,10 @@
 @import "../../../utils/utils.scss";
-.DesktopRight {
+.SectionRight {
   display: none;
   @include desktop {
     display: flex;
     padding: 0 25px;
-    padding-top: 65px;
+    padding-top: 170px;
     width: 15%;
     gap: 25px;
     flex-direction: column;

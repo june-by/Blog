@@ -3,13 +3,13 @@ import RecentComment from "../RecentComment";
 import Visitor from "../Visitor";
 import styles from "./styles.module.scss";
 
-const AdditionalInfoSection = () => {
+const AdditionalInfoSectionRight = () => {
   return (
-    <div className={styles.DesktopRight}>
+    <div className={styles.SectionRight}>
       <Visitor />
       <RecentComment />
     </div>
   );
 };
 
-export default AdditionalInfoSection;
+export default AdditionalInfoSectionRight;

@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { AddPostParams } from "../../Types/Post";
 import { customAxios } from "../../utils/CustomAxios";
 import { POST_PER_PAGE } from "../../utils/variable";
@@ -62,5 +61,10 @@ export const DeletePostAPI = async (id: number) => {
 
 export const AddCommentAPI = async ({ postId, comment }: { postId: number; comment: string }) => {
   const { data } = await customAxios.post(`/post/${postId}/comment`, { comment: comment });
+  return data;
+};
+
+export const GetTopViewsPostsAPI = async () => {
+  const { data } = await customAxios.get("/posts/topViews");
   return data;
 };
