@@ -10,7 +10,7 @@
   .contents {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     .content {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -32,7 +32,7 @@
 .SkeletonWrapper {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
   .TopViewsSkeleton {
     width: 100%;
