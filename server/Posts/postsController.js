@@ -7,7 +7,7 @@ const GetMainPagePosts = async (page) => {
     order: [["createdAt", "DESC"]],
     limit: 16,
     offset: (page - 1) * 16,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
+    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
         model: Tag,
@@ -24,7 +24,7 @@ const GetCategoryPosts = async (category, page) => {
     order: [["createdAt", "DESC"]],
     limit: 16,
     offset: (page - 1) * 16,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl"],
+    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
         model: Tag,

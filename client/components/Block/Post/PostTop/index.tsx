@@ -39,6 +39,9 @@ const PostTop = ({ Post }: Props) => {
           <CategoryChip category={category} mode="post" />
         </div>
         <div className={styles.AdditionalInfo_Tag}>{Tags.length !== 0 && Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}</div>
+        <div className={styles.AdditionalInfo_Views}>
+          <span>조회수 : {Post.views + 1}</span>
+        </div>
       </div>
     </div>
   );

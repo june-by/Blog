@@ -16,7 +16,7 @@ export const useAddComment = (postId: number) => {
   const queryClient = useQueryClient();
   return useMutation(AddCommentAPI, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["RecentComment"]);
+      queryClient.refetchQueries(["RecentComment"]);
       queryClient.invalidateQueries(["Post", postId]);
       return alert("댓글 등록 성공");
     },
