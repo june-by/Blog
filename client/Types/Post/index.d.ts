@@ -13,6 +13,7 @@ export interface MainPost {
   Comments: Array<null | CommentType>;
   Tags: Array<null | TagType>;
   thumbNailUrl: null | string;
+  views: number;
 }
 
 export interface OtherPostType {
@@ -28,6 +29,7 @@ export interface PostsType {
   title: string;
   Tags: Array<null | TagType>;
   thumbNailUrl: string | null;
+  views: number;
 }
 
 export interface CommentType {

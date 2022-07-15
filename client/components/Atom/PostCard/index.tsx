@@ -11,6 +11,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const gotoPage = useGotoPage();
 
   const { theme } = useContext(ThemeContext);
+  console.log(post);
 
   return (
     <div className={`${styles.PostCard} ${styles[theme]}`} onClick={gotoPage(`/post/${post.id}`)}>
@@ -24,6 +25,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
         <div className={styles.PostCard_titleBox_tagBox}>{post.Tags.length !== 0 && post.Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}</div>
         <div className={styles.PostCard_titleBox_createdAt}>
           <span>{dateForm(post.createdAt)}</span>
+          <span>조회수 : {post.views}</span>
         </div>
       </div>
     </div>

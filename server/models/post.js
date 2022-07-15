@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: true, //필수
       },
+      views: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       charset: "utf8mb4",

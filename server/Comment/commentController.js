@@ -1,4 +1,4 @@
-const { Post, Comment, User, Tag, sequelize } = require("../models");
+const { Post, Comment } = require("../models");
 
 const GetRecentComment = async () => {
   const recentComment = await Comment.findAll({

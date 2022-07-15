@@ -6,6 +6,7 @@ const MakePost = async (body) => {
     category: category,
     content: content,
     thumbNailUrl: thumbNailUrl,
+    views: 0,
   });
   if (tagArr.length !== 0) {
     const result = await Promise.all(
@@ -51,10 +52,21 @@ const UpdatePost = async (body, postId) => {
   }
 };
 
+const AddViews = async (postId, views) => {
+  await Post.update(
+    {
+      views: views + 1,
+    },
+    {
+      where: { id: postId },
+    }
+  );
+};
+
 const GetPost = async (postId) => {
   const fullPost = await Post.findOne({
     where: { id: postId },
-    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl"],
+    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views"],
     include: [
       {
         model: Comment,
@@ -72,6 +84,7 @@ const GetPost = async (postId) => {
       },
     ],
   });
+  AddViews(postId, fullPost.views);
   return fullPost;
 };
 
