@@ -24,6 +24,7 @@ const DummyPosts = [
     title: "",
     Tags: [null],
     thumbNailUrl: null,
+    views: 1,
   },
 ];
 
