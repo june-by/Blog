@@ -1,5 +1,4 @@
 import {
-  AddCommentAPI,
   AddPostAPI,
   DeletePostAPI,
   EditPostAPI,
@@ -102,14 +101,6 @@ export const useDeletePost = () => {
     onSuccess: () => {
       alert("게시글 삭제 성공");
       return window.location.replace("/");
-    },
-  });
-};
-
-export const useAddComment = () => {
-  return useMutation(AddCommentAPI, {
-    onSuccess: () => {
-      return alert("댓글 등록 성공");
     },
   });
 };

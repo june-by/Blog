@@ -17,7 +17,10 @@ const Visitor = () => {
           </div>
         </div>
       ) : (
-        <></>
+        <div className={styles.SkeletonWrapper}>
+          <div className={styles.visitorSkeleton}></div>
+          <div className={styles.visitorSkeleton}></div>
+        </div>
       )}
     </div>
   );
