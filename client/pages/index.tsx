@@ -5,7 +5,7 @@ import CategorySelect from "../components/Block/CategorySelect";
 import Pagination from "../components/Block/Pagination";
 import Posts from "../components/Block/Posts";
 import AdditionalInfoSectionRight from "../components/Block/AdditionalInfoSectionRight";
-import { useGetPostNum, useGetMainPost, useGetTopViewsPosts } from "../Hooks/Post";
+import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
 import styles from "./styles.module.scss";
 import AdditionalInfoSectionLeft from "../components/Block/AdditionalInfoSectionLeft";
 
