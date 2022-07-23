@@ -10,7 +10,7 @@ import {
   getTagPostAPI,
   GetTopViewsPostsAPI,
 } from "./../../API/Post/index";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "../../Types/Post";
 import { useRouter } from "next/router";
