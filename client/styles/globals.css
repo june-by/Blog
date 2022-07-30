@@ -33,10 +33,20 @@ pre {
   background-color: #fafafa;
 }
 
+ul {
+  padding-left: 20px;
+}
+
 li {
   margin-bottom: 5px;
+  font-size: 16px;
+  padding: 5px 0;
 }
 
 .ql-editor {
   max-height: 65vh;
+}
+
+.ql-indent-1 {
+  margin-left: 25px;
 }
