@@ -14,6 +14,7 @@ const postsRouter = require("./Posts/postsRouter");
 const userRouter = require("./User/userRouter");
 const visitorRouter = require("./Visitor/visitorRouter");
 const commentRouter = require("./Comment/commentRouter");
+const tagRouter = require("./Tag/tagRouter");
 const passportConfig = require("./passport");
 const AWS = require("aws-sdk");
 const multer = require("multer");
@@ -67,6 +68,7 @@ app.use("/posts", postsRouter);
 app.use("/user", userRouter);
 app.use("/visitor", visitorRouter);
 app.use("/comment", commentRouter);
+app.use("/tag", tagRouter);
 
 AWS.config.update({
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
