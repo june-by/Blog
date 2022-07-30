@@ -1,13 +1,13 @@
 import React from "react";
 import RecentComment from "../RecentComment";
-import Visitor from "../Visitor";
+import RecentTags from "../RecentTags";
 import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionRight = () => {
   return (
     <div className={styles.SectionRight}>
-      <Visitor />
       <RecentComment />
+      <RecentTags />
     </div>
   );
 };
