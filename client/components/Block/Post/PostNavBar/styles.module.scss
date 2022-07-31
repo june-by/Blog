@@ -21,12 +21,14 @@
       padding-left: 2vw;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 7.5px;
       div {
         width: fit-content;
         cursor: pointer;
         padding-bottom: 10px;
-
+        font-size: 15px;
+        transition: all 0.125s ease;
+        opacity: 0.8;
         &:hover {
           color: #6185e5;
         }

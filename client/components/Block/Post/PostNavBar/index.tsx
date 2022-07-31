@@ -21,7 +21,7 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
         {topicArr?.length !== 0 &&
           topicArr.map((topic: any, idx: number) => {
             return (
-              <div key={idx + 100} style={makeTopicStyle(topic.tagName)} onClick={gotoTopic(topic)} id={String(idx)}>
+              <div className={styles.topic} key={idx + 100} style={makeTopicStyle(topic.tagName)} onClick={gotoTopic(topic)} id={String(idx)}>
                 {topic?.innerText}
               </div>
             );
