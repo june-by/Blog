@@ -1,6 +1,6 @@
 const { sequelize } = require("../models");
 const GetRecentTags = async () => {
-  const [tags, _] = await sequelize.query("select TagId from PostHashtag order by createdAt desc limit 10;");
+  const [tags, _] = await sequelize.query("select TagId from PostHashtag order by createdAt desc limit 15;");
   const contents = [];
   for (const v of tags) {
     const [result] = await sequelize.query("select content from Tags where id=?;", {
