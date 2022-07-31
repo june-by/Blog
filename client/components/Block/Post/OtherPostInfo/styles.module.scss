@@ -1,3 +1,5 @@
+@import "../../../../utils/utils.scss";
+
 .OtherPostInfoWrapper {
   padding: 20px;
   margin-top: 100px;
@@ -14,4 +16,7 @@
   font-size: 20px;
   font-weight: 600;
   padding: 15px 5px;
+  @include mobile {
+    font-size: 17.5px;
+  }
 }
