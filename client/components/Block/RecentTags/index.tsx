@@ -12,8 +12,8 @@ const RecentTags = () => {
       <h3>최근 태그</h3>
       {!isLoading ? (
         <div className={styles.tagsWrapper}>
-          {data?.map((tag) => (
-            <TagIcon key={tag} tag={tag} />
+          {data?.map((tag, idx) => (
+            <TagIcon key={tag + idx} tag={tag} />
           ))}
         </div>
       ) : (
