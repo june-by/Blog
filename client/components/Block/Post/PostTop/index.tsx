@@ -20,9 +20,7 @@ const PostTop = ({ Post }: Props) => {
   return (
     <div className={styles.PostTop}>
       <div className={styles.TopArea}>
-        <div>
-          <GoBackBtn />
-        </div>
+        <GoBackBtn />
         <div>
           {UserInfo?.nickname === "By_juun" && (
             <>
