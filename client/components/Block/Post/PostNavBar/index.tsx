@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import { makeTopicStyle } from "../../../../utils/makeTopicStyles";
-import useNavBarScrolling from "../../../../Hooks/useNavBarScrolling";
+import useNavBarScrolling from "./useNavBarScrolling";
 
 const PostNavBar = ({ topicArr }: { topicArr: any }) => {
   const topicPosition = useMemo(() => [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER], [topicArr]);

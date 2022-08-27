@@ -10,73 +10,31 @@ import {
   getTagPostAPI,
   GetTopViewsPostsAPI,
 } from "./../../API/Post/index";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "../../API/Post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "../../Types/Post";
 import { useRouter } from "next/router";
+import { QUERY_KEY } from "../../utils/queryKey";
+import { CACHE_OPTION } from "../../utils/cacheOption";
 
-export const useGetMainPost = (pageNum: number) => {
-  return useQuery<Array<PostsType>>(["MainPosts", pageNum], () => getMainPostsAPI(pageNum), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetMainPost = (pageNum: number) => useQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN, pageNum], () => getMainPostsAPI(pageNum), CACHE_OPTION.ALL);
+export const useGetOnePost = (id: number) => useQuery<PostType>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), CACHE_OPTION.ALL);
+export const useGetTopViewsPosts = () => useQuery<TopViewsPost[]>([QUERY_KEY.POST.TOPVIEWS], () => GetTopViewsPostsAPI(), CACHE_OPTION.WITHOUT_FETCH_ON_MOUNT);
 
-export const useGetAllCateogryLength = () => {
-  return useQuery<Array<CategoryCount>>(["AllCategoryLength"], () => getAllCategoryLengthAPI(), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetAllCateogryLength = () =>
+  useQuery<Array<CategoryCount>>([QUERY_KEY.POST.CATEGORY_LENGTH], () => getAllCategoryLengthAPI(), CACHE_OPTION.ALL);
 
-export const useGetOnePost = (id: number) => {
-  return useQuery<PostType>(["Post", id], () => getOnePostAPI(id), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetPostNum = (category: string | string[] | undefined) =>
+  useQuery([QUERY_KEY.POST.NUM_OF_POSTS, category], () => getPostsNumAPI(category), CACHE_OPTION.ALL);
 
-export const useGetPostNum = (category: string | string[] | undefined) => {
-  return useQuery(["PostNum", category], () => getPostsNumAPI(category), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetCategoryPosts = (category: string | string[] | undefined, pageNum: number) =>
+  useQuery<Array<PostsType>>([QUERY_KEY.POST.CATEGORY, category, pageNum], () => getCategoryPostAPI(category, pageNum), CACHE_OPTION.ALL);
 
-export const useGetCategoryPosts = (category: string | string[] | undefined, pageNum: number) => {
-  return useQuery<Array<PostsType>>(["CategoryPost", category, pageNum], () => getCategoryPostAPI(category, pageNum), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetSearchPosts = (search: string | string[] | undefined) =>
+  useQuery<Array<PostsType>>([QUERY_KEY.POST.SEARCH, search], () => getSearchPostAPI(search), CACHE_OPTION.ALL);
 
-export const useGetSearchPosts = (search: string | string[] | undefined) => {
-  return useQuery<Array<PostsType>>(["SearchPost", search], () => getSearchPostAPI(search), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
-
-export const useGetTagPosts = (tag: string | string[] | undefined) => {
-  return useQuery<Array<PostsType>>(["TagPost", tag], () => getTagPostAPI(tag), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+export const useGetTagPosts = (tag: string | string[] | undefined) =>
+  useQuery<Array<PostsType>>([QUERY_KEY.POST.TAG, tag], () => getTagPostAPI(tag), CACHE_OPTION.ALL);
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
@@ -103,13 +61,5 @@ export const useDeletePost = () => {
       alert("게시글 삭제 성공");
       return window.location.replace("/");
     },
-  });
-};
-
-export const useGetTopViewsPosts = () => {
-  return useQuery<TopViewsPost[]>(["TopViewsPosts"], () => GetTopViewsPostsAPI(), {
-    retry: false,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
   });
 };

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
+import useChangeColor from "./useChangeColor";
 
 interface Props {
   category: string;
@@ -10,25 +11,21 @@ interface Props {
 }
 
 const CategoryChip = ({ category, length, mode }: Props) => {
-  const router = useRouter();
+  const { push } = useRouter();
   const btnRef = useRef<HTMLButtonElement>(null);
   const { theme } = useContext(ThemeContext);
 
   const onClickBtn = useCallback(
     (category: string) => {
-      router.push({
+      push({
         pathname: "/filter",
         query: { category: category, page: 1 },
       });
     },
-    [router]
+    [push]
   );
 
-  useEffect(() => {
-    if (router.query?.category) {
-      if (router.query.category === category && btnRef.current) btnRef.current.style.background = "#6185e5";
-    }
-  }, [router.asPath]);
+  useChangeColor({ category, btnRef });
 
   return (
     <button ref={btnRef} className={`${styles.CategoryChip} ${styles[theme]}`} onClick={() => onClickBtn(category)}>

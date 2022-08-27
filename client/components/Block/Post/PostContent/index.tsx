@@ -3,10 +3,10 @@ import hljs from "highlight.js";
 import Script from "next/script";
 import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
-import useGetTopicArr from "../../../../Hooks/useGetTopicArr";
-
-import useAddClassName from "../../../../Hooks/useAddClassName";
+import useGetTopics from "./useGetTopics";
+import useAddClassName from "./useAddClassName";
 import PostNavBar from "../PostNavBar";
+
 const PostContent = ({ content }: { content: string }) => {
   const [topicArr, setTopicArr] = useState([]);
   useEffect(() => {
@@ -14,7 +14,7 @@ const PostContent = ({ content }: { content: string }) => {
   }, []);
 
   useAddClassName("pre", " hljs");
-  useGetTopicArr(setTopicArr);
+  useGetTopics(setTopicArr);
 
   return (
     <div className={styles.PostContent}>

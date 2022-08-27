@@ -16,7 +16,7 @@ import AdditionalInfoSectionLeft from "../../components/Block/AdditionalInfoSect
 const Filter = () => {
   const { query } = useRouter();
   const { data: totalPageNum } = useGetPostNum(query.category);
-  const [Post, isLoading] = useGetPosts();
+  const [Post, isLoading] = useGetPosts(query);
   const [title, description, ogDescription, url] = useMakeMetaInfo();
 
   return (
