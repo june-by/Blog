@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import useInitializeTagContent from "../../../../Hooks/useInitializeTagContent";
+import useInitializeTagContent from "./useInitializeTagContent";
 import TagChip from "../../../Atom/TagChip";
 import styles from "./styles.module.scss";
 

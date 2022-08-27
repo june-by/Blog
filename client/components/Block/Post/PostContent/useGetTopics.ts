@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useGetTopicArr = (setTopicArr: React.Dispatch<React.SetStateAction<never[]>>) => {
+const useGetTopics = (setTopicArr: React.Dispatch<React.SetStateAction<never[]>>) => {
   useEffect(() => {
     const $h1Tags = document.getElementsByTagName("h1");
     const $h2Tags = document.getElementsByTagName("h2");
@@ -37,4 +37,4 @@ const useGetTopicArr = (setTopicArr: React.Dispatch<React.SetStateAction<never[]
   }, []);
 };
 
-export default useGetTopicArr;
+export default useGetTopics;

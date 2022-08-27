@@ -1,19 +1,21 @@
-import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import { PostsType } from "../Types/Post";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "./Post";
 
 type ReturnTypes = [PostsType[] | undefined, boolean];
 
-const useGetPosts = (): ReturnTypes => {
-  const { query } = useRouter();
+const useGetPosts = (query: ParsedUrlQuery): ReturnTypes => {
   const page = Number(query.page);
-  const { data: CategoryPost, isLoading: CategoryLoading } = useGetCategoryPosts(query.category, page);
-  const { data: SearchPosts, isLoading: SearchLoading } = useGetSearchPosts(query.search);
-  const { data: TagPost, isLoading: TagLoading } = useGetTagPosts(query.tag);
-  if (query.category) return [CategoryPost, CategoryLoading];
-  else if (query.search) return [SearchPosts, SearchLoading];
-  else if (query.tag) return [TagPost, TagLoading];
-  else return [DummyPosts, false];
+  if (query.category) {
+    const { data: CategoryPost, isLoading: CategoryLoading } = useGetCategoryPosts(query.category, page);
+    return [CategoryPost, CategoryLoading];
+  } else if (query.search) {
+    const { data: SearchPosts, isLoading: SearchLoading } = useGetSearchPosts(query.search);
+    return [SearchPosts, SearchLoading];
+  } else if (query.tag) {
+    const { data: TagPost, isLoading: TagLoading } = useGetTagPosts(query.tag);
+    return [TagPost, TagLoading];
+  } else return [DummyPosts, false];
 };
 
 const DummyPosts = [

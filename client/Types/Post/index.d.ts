@@ -4,16 +4,9 @@ export interface PostType {
   nextPost: OtherPostType;
 }
 
-export interface MainPost {
-  category: string;
+export interface MainPost extends PostsType {
   content: string;
-  createdAt: Date;
-  id: number;
-  title: string;
   Comments: Array<null | CommentType>;
-  Tags: Array<null | TagType>;
-  thumbNailUrl: null | string;
-  views: number;
 }
 
 export interface OtherPostType {
