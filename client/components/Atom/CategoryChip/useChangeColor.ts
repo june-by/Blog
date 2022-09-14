@@ -1,4 +1,4 @@
-import router from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 interface Params {
@@ -7,6 +7,7 @@ interface Params {
 }
 
 const useChangeColor = ({ category, btnRef }: Params) => {
+  const router = useRouter();
   useEffect(() => {
     if (router.query?.category) {
       if (router.query.category === category && btnRef.current) btnRef.current.style.background = "#6185e5";
