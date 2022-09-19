@@ -8,7 +8,7 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
 
   const gotoTopic = useCallback(
     (topic: any) => () => {
-      topic.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      topic.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
     },
     []
   );
