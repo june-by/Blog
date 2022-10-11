@@ -13,7 +13,7 @@ import { ThemeContext } from "../../../utils/ThemeContext";
 const Header = () => {
   const { theme } = useContext(ThemeContext);
   const headerRef = useRef<HTMLDivElement>(null);
-  const [showMobileMenu, setShowMobileMenu, clickShowMobileMenu] = useToggle(false);
+  const [showMobileMenu, , clickShowMobileMenu] = useToggle(false);
   const [hide, setHide] = useState<boolean>(false);
 
   useHideHeader(setHide);
@@ -33,9 +33,8 @@ const Header = () => {
           <DarkModeBtn />
           <button className={styles.HeaderRoot_mobileBtn_btn} onClick={clickShowMobileMenu}>
             ...
-            {/* {theme === "dark" ? "..." : <img src="/menu.png" alt="더보기" />} */}
           </button>
-          <MobileMenu open={showMobileMenu} setOpen={setShowMobileMenu} />
+          <MobileMenu open={showMobileMenu} onClose={clickShowMobileMenu} />
         </div>
       </div>
     </>
