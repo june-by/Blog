@@ -1,12 +1,29 @@
 @import "../../../utils/utils.scss";
 
 .CategorySelect {
-	display: flex;
-	gap: 10px;
-	align-items: center;
-	flex-flow: wrap;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-	@include mobile {
-		display: none;
-	}
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet_landscape {
+    width: 90vw;
+  }
+  @include tablet {
+    width: 95vw;
+  }
+  @include desktop {
+    flex-flow: wrap;
+    overflow-x: hidden;
+  }
 }
