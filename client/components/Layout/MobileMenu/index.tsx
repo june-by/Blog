@@ -7,15 +7,11 @@ import styles from "./styles.module.scss";
 
 interface Props {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
 }
 
-const MobileMenu = ({ open, setOpen }: Props) => {
+const MobileMenu = ({ open, onClose }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const onClose = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
 
   useWidthAnimation(menuRef, open);
 
