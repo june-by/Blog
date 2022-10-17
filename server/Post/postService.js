@@ -21,4 +21,12 @@ const addTags = async ({ post, result }) => {
   await post.addTags(result.map((v) => v[0]));
 };
 
-module.exports = { createPost, addTags, deletePost };
+const isPostExists = async ({ postId }) => {
+  const post = await Post.findOne({
+    //게시글 존재하는지 확인
+    where: { id: postId },
+  });
+  return post;
+};
+
+module.exports = { createPost, addTags, deletePost, isPostExists };

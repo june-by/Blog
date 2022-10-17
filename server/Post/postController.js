@@ -1,6 +1,7 @@
 const { Post, Comment, User, Tag, sequelize } = require("../models");
 const tagService = require("../Tag/tagService");
 const postService = require("./postService");
+const commentService = require("../Comment/commentService");
 
 const AddPost = async (req, res, next) => {
   try {
@@ -27,6 +28,18 @@ const deletePost = async (req, res, next) => {
     console.error(err);
     next(err);
   }
+};
+
+const addComment = async (req, res, next) => {
+  console.log(req.user);
+  const { postId } = req.params;
+  const { comment } = req.body;
+  const post = postService.isPostExists({ postId });
+  if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
+
+  const newComment = await commentService.addComment({ postId, comment, userId: 1 });
+  const fullComment = await commentService.getComment(newComment.id);
+  return res.status(201).json(fullComment);
 };
 
 const UpdatePost = async (body, postId) => {
@@ -122,36 +135,13 @@ const CheckPostExist = async (postId, res) => {
   return post;
 };
 
-const MakeComment = async (comment, postId, userId) => {
-  const newComment = await Comment.create({
-    content: comment,
-    PostId: parseInt(postId, 10),
-    UserId: userId,
-  });
-  return newComment;
-};
-
-const FindComment = async (id) => {
-  const fullComment = await Comment.findOne({
-    where: { id: id },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "nickname"],
-      },
-    ],
-  });
-  return fullComment;
-};
-
 module.exports = {
   GetPost,
   GetPrevPostInfo,
   GetNextPostInfo,
   CheckPostExist,
-  MakeComment,
   UpdatePost,
-  FindComment,
   AddPost,
   deletePost,
+  addComment,
 };

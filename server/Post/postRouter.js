@@ -5,18 +5,7 @@ const postController = require("./postController");
 
 router.post("/", isLoggedIn, postController.AddPost);
 
-router.post("/:postId/comment", async (req, res, next) => {
-  try {
-    const { postId } = req.params;
-    await postController.CheckPostExist(postId, res);
-    const comment = await postController.MakeComment(req.body.comment, postId, 1);
-    const fullComment = await postController.FindComment(comment.id);
-    res.status(201).json(fullComment);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+router.post("/:postId/comment", isLoggedIn, postController.addComment);
 
 router.get("/load/:postId", async (req, res, next) => {
   try {
