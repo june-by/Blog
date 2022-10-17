@@ -31,13 +31,13 @@ const deletePost = async (req, res, next) => {
 };
 
 const addComment = async (req, res, next) => {
-  console.log(req.user);
+  console.log("req.user.id : ", req.user.id);
   const { postId } = req.params;
   const { comment } = req.body;
   const post = postService.isPostExists({ postId });
   if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
 
-  const newComment = await commentService.addComment({ postId, comment, userId: 1 });
+  const newComment = await commentService.addComment({ postId, comment, userId: req.user.id });
   const fullComment = await commentService.getComment(newComment.id);
   return res.status(201).json(fullComment);
 };
