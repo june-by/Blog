@@ -28,14 +28,6 @@ router.get("/load/:postId", async (req, res, next) => {
 
 router.delete("/:postId", isLoggedIn, postController.deletePost);
 
-router.patch("/:postId", isLoggedIn, async (req, res, next) => {
-  try {
-    await postController.UpdatePost(req.body, req.params.postId);
-    res.json({ message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다" });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.patch("/:postId", isLoggedIn, postController.updatePost);
 
 module.exports = router;

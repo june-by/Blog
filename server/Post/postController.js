@@ -31,52 +31,33 @@ const deletePost = async (req, res, next) => {
 };
 
 const addComment = async (req, res, next) => {
-  console.log("req.user.id : ", req.user.id);
   const { postId } = req.params;
   const { comment } = req.body;
-  const post = postService.isPostExists({ postId });
-  if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
-
-  const newComment = await commentService.addComment({ postId, comment, userId: req.user.id });
-  const fullComment = await commentService.getComment(newComment.id);
-  return res.status(201).json(fullComment);
-};
-
-const UpdatePost = async (body, postId) => {
-  const { title, category, content, tagArr, thumbNailUrl } = body;
-  await Post.update(
-    {
-      title: title,
-      category: category,
-      content: content,
-      thumbNailUrl: thumbNailUrl,
-    },
-    {
-      where: { id: postId },
-    }
-  );
-  const post = await Post.findOne({ where: { id: postId } });
-  if (tagArr.length !== 0) {
-    const result = await Promise.all(
-      tagArr.map((tag) =>
-        Tag.findOrCreate({
-          where: { content: tag.toLowerCase() },
-        })
-      )
-    );
-    await post.setTags(result.map((v) => v[0]));
+  try {
+    const post = postService.isPostExists({ postId });
+    if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
+    const newComment = await commentService.addComment({ postId, comment, userId: req.user.id });
+    const fullComment = await commentService.getComment(newComment.id);
+    return res.status(201).json(fullComment);
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 };
 
-const AddViews = async (postId, views) => {
-  await Post.update(
-    {
-      views: views + 1,
-    },
-    {
-      where: { id: postId },
-    }
-  );
+const updatePost = async (req, res, next) => {
+  const { title, category, content, tagArr, thumbNailUrl } = req.body;
+  const { postId } = req.params;
+  try {
+    await postService.updatePost({ title, category, content, thumbNailUrl, postId });
+    const post = await postService.getPost({ postId });
+    const result = await tagService.createTags({ tagArr });
+    await postService.updateTags({ post, result });
+    return res.json({ message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const GetPost = async (postId) => {
@@ -100,7 +81,8 @@ const GetPost = async (postId) => {
       },
     ],
   });
-  AddViews(postId, fullPost.views);
+  const { views } = fullPost;
+  await postService.addViewCount({ postId, views });
   return fullPost;
 };
 
@@ -140,7 +122,7 @@ module.exports = {
   GetPrevPostInfo,
   GetNextPostInfo,
   CheckPostExist,
-  UpdatePost,
+  updatePost,
   AddPost,
   deletePost,
   addComment,
