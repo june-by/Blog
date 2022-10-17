@@ -18,10 +18,15 @@ const AddPost = async (req, res, next) => {
   }
 };
 
-const DeletePost = async (postId) => {
-  await Post.destroy({
-    where: { id: postId },
-  });
+const deletePost = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+    await postService.deletePost({ postId });
+    res.json({ PostId: parseInt(postId) });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const UpdatePost = async (body, postId) => {
@@ -141,12 +146,12 @@ const FindComment = async (id) => {
 
 module.exports = {
   GetPost,
-  DeletePost,
-  UpdatePost,
   GetPrevPostInfo,
   GetNextPostInfo,
   CheckPostExist,
   MakeComment,
+  UpdatePost,
   FindComment,
   AddPost,
+  deletePost,
 };

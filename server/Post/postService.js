@@ -11,8 +11,14 @@ const createPost = async ({ title, category, content, thumbNailUrl }) => {
   return post;
 };
 
+const deletePost = async ({ postId }) => {
+  await Post.destroy({
+    where: { id: postId },
+  });
+};
+
 const addTags = async ({ post, result }) => {
   await post.addTags(result.map((v) => v[0]));
 };
 
-module.exports = { createPost, addTags };
+module.exports = { createPost, addTags, deletePost };

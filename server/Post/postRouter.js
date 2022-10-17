@@ -3,7 +3,7 @@ const router = express.Router();
 const { isLoggedIn } = require("../middleWare");
 const postController = require("./postController");
 
-router.post("/", postController.AddPost);
+router.post("/", isLoggedIn, postController.AddPost);
 
 router.post("/:postId/comment", async (req, res, next) => {
   try {
@@ -37,15 +37,7 @@ router.get("/load/:postId", async (req, res, next) => {
   }
 });
 
-router.delete("/:postId", isLoggedIn, async (req, res, next) => {
-  try {
-    await postController.DeletePost(req.params.postId);
-    res.json({ PostId: parseInt(req.params.postId) });
-  } catch (error) {
-    console.error(err);
-    next(err);
-  }
-});
+router.delete("/:postId", isLoggedIn, postController.deletePost);
 
 router.patch("/:postId", isLoggedIn, async (req, res, next) => {
   try {
