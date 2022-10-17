@@ -1,22 +1,20 @@
 const { Post, Comment, User, Tag, sequelize } = require("../models");
-const MakePost = async (body) => {
-  const { title, category, content, tagArr, thumbNailUrl } = body;
-  const post = await Post.create({
-    title: title,
-    category: category,
-    content: content,
-    thumbNailUrl: thumbNailUrl,
-    views: 0,
-  });
-  if (tagArr.length !== 0) {
-    const result = await Promise.all(
-      tagArr.map((tag) =>
-        Tag.findOrCreate({
-          where: { content: tag.toLowerCase() },
-        })
-      )
-    );
-    await post.addTags(result.map((v) => v[0]));
+const tagService = require("../Tag/tagService");
+const postService = require("./postService");
+
+const AddPost = async (req, res, next) => {
+  try {
+    const { title, category, content, tagArr, thumbNailUrl } = req.body;
+    const post = await postService.createPost({ title, category, content, thumbNailUrl });
+
+    if (tagArr.length !== 0) {
+      const result = await tagService.createTags({ tagArr });
+      await postService.addTags({ post, result });
+    }
+    res.send("OK");
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 };
 
@@ -143,7 +141,6 @@ const FindComment = async (id) => {
 
 module.exports = {
   GetPost,
-  MakePost,
   DeletePost,
   UpdatePost,
   GetPrevPostInfo,
@@ -151,4 +148,5 @@ module.exports = {
   CheckPostExist,
   MakeComment,
   FindComment,
+  AddPost,
 };

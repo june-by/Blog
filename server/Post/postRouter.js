@@ -3,15 +3,7 @@ const router = express.Router();
 const { isLoggedIn } = require("../middleWare");
 const postController = require("./postController");
 
-router.post("/", async (req, res, next) => {
-  try {
-    await postController.MakePost(req.body);
-    res.send("OK");
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.post("/", postController.AddPost);
 
 router.post("/:postId/comment", async (req, res, next) => {
   try {
