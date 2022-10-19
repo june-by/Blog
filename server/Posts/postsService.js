@@ -1,4 +1,6 @@
 const { Post, Tag } = require("../models");
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 
 const getMainPosts = async ({ page }) => {
   const posts = await Post.findAll({
@@ -32,4 +34,12 @@ const getCategoryPosts = async ({ category, page }) => {
   });
   return posts;
 };
-module.exports = { getMainPosts, getCategoryPosts };
+
+const getCategoryLength = async () => {
+  const categoryCount = await Post.findAll({
+    attributes: ["category", [sequelize.fn("COUNT", sequelize.col("Post.category")), "count"]],
+    group: ["Post.category"],
+  });
+  return categoryCount;
+};
+module.exports = { getMainPosts, getCategoryPosts, getCategoryLength };

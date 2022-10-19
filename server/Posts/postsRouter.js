@@ -4,15 +4,7 @@ const postsController = require("./postsController");
 
 router.get("/load/main/:page", postsController.getMainPosts);
 
-router.get("/load/categoryLength", async (req, res, next) => {
-  try {
-    const categoryCount = await postsController.GetCategoryLength();
-    res.status(200).json(categoryCount);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.get("/load/categoryLength", postsController.getCategoryLength);
 
 router.get("/load/length/:category", async (req, res, next) => {
   try {

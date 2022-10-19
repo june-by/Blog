@@ -25,12 +25,14 @@ const getCategoryPosts = async (req, res, next) => {
   }
 };
 
-const GetCategoryLength = async () => {
-  const categoryCount = await Post.findAll({
-    attributes: ["category", [sequelize.fn("COUNT", sequelize.col("Post.category")), "count"]],
-    group: ["Post.category"],
-  });
-  return categoryCount;
+const getCategoryLength = async (req, res, next) => {
+  try {
+    const categoryCount = await postsService.getCategoryLength();
+    res.status(200).json(categoryCount);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const GetPostsBySearchKeyword = async (keyword) => {
@@ -99,7 +101,7 @@ module.exports = {
   getMainPosts,
   getCategoryPosts,
   GetPostsLength,
-  GetCategoryLength,
+  getCategoryLength,
   GetPostsBySearchKeyword,
   GetPostsByTag,
   GetTopViewsPosts,
