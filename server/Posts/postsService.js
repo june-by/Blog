@@ -56,6 +56,23 @@ const getPostsBySearchKeyWord = async ({ keyword }) => {
   return posts;
 };
 
+const getPostsByTag = async ({ keyword }) => {
+  const posts = await Post.findAll({
+    attributes: {
+      exclude: ["content", "updatedAt"],
+    },
+    include: [
+      {
+        model: Tag,
+        where: { content: keyword },
+        attributes: ["id", "content"],
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+  });
+  return posts;
+};
+
 const getCategoryPostsCount = async () => {
   const categoryCount = await Post.findAll({
     attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
@@ -71,4 +88,4 @@ const getPostsCount = async ({ category }) => {
   return data[0].count;
 };
 
-module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getCategoryPostsCount, getPostsCount };
+module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getCategoryPostsCount, getPostsCount };

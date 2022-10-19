@@ -12,16 +12,7 @@ router.get("/load/:category/:page", postsController.getCategoryPosts);
 
 router.get("/search/:keyword", postsController.getPostsBySearchKeyWord);
 
-router.get("/tag/:keyword", async (req, res, next) => {
-  try {
-    const { keyword } = req.params;
-    const posts = await postsController.GetPostsByTag(keyword);
-    res.status(200).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.get("/tag/:keyword", postsController.getPostsByTag);
 
 router.get("/topViews", async (req, res, next) => {
   try {

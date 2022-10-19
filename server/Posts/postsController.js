@@ -46,21 +46,15 @@ const getPostsBySearchKeyWord = async (req, res, next) => {
   }
 };
 
-const GetPostsByTag = async (keyword) => {
-  const posts = await Post.findAll({
-    attributes: {
-      exclude: ["content", "updatedAt"],
-    },
-    include: [
-      {
-        model: Tag,
-        where: { content: keyword },
-        attributes: ["id", "content"],
-      },
-    ],
-    order: [["createdAt", "DESC"]],
-  });
-  return posts;
+const getPostsByTag = async (req, res, next) => {
+  const { keyword } = req.params;
+  try {
+    const posts = await postsService.getPostsByTag({ keyword });
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const getPostsLength = async (req, res, next) => {
@@ -89,6 +83,6 @@ module.exports = {
   getPostsLength,
   getCategoryPostsCount,
   getPostsBySearchKeyWord,
-  GetPostsByTag,
+  getPostsByTag,
   GetTopViewsPosts,
 };
