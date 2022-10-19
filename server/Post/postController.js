@@ -66,7 +66,7 @@ const getPost = async (req, res, next) => {
     const mainPost = await postService.getFullPost({ postId });
     if (!mainPost) return res.status(403).send("존재하지 않는 게시글입니다");
     const prevPost = await postService.getPrevPost(mainPost.category, postId);
-    const nextPost = await postService.getPrevPost(mainPost.category, postId);
+    const nextPost = await postService.getNextPost(mainPost.category, postId);
     res.status(201).json({ mainPost, prevPost, nextPost });
     postService.addViewCount({ postId, views: mainPost.views });
   } catch (err) {

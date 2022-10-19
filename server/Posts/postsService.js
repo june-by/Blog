@@ -1,6 +1,6 @@
-const { Post, Tag } = require("../models");
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
+const { Post, Tag, sequelize } = require("../models");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const getMainPosts = async ({ page }) => {
   const posts = await Post.findAll({
@@ -35,11 +35,40 @@ const getCategoryPosts = async ({ category, page }) => {
   return posts;
 };
 
-const getCategoryLength = async () => {
+const getPostsBySearchKeyWord = async ({ keyword }) => {
+  const posts = await Post.findAll({
+    where: {
+      title: {
+        [Op.like]: "%" + decodeURIComponent(keyword) + "%",
+      },
+    },
+    attributes: {
+      exclude: ["content", "updatedAt"],
+    },
+    include: [
+      {
+        model: Tag,
+        attributes: ["id", "content"],
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+  });
+  return posts;
+};
+
+const getCategoryPostsCount = async () => {
   const categoryCount = await Post.findAll({
-    attributes: ["category", [sequelize.fn("COUNT", sequelize.col("Post.category")), "count"]],
+    attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
     group: ["Post.category"],
   });
   return categoryCount;
 };
-module.exports = { getMainPosts, getCategoryPosts, getCategoryLength };
+
+const getPostsCount = async ({ category }) => {
+  const where = category === "main" ? "" : `where category="${category}"`;
+  const query = `select count(*) as count from Posts ${where}`;
+  const [data, _] = await sequelize.query(query);
+  return data[0].count;
+};
+
+module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getCategoryPostsCount, getPostsCount };

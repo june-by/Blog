@@ -25,9 +25,9 @@ const getCategoryPosts = async (req, res, next) => {
   }
 };
 
-const getCategoryLength = async (req, res, next) => {
+const getCategoryPostsCount = async (req, res, next) => {
   try {
-    const categoryCount = await postsService.getCategoryLength();
+    const categoryCount = await postsService.getCategoryPostsCount();
     res.status(200).json(categoryCount);
   } catch (err) {
     console.error(err);
@@ -35,25 +35,15 @@ const getCategoryLength = async (req, res, next) => {
   }
 };
 
-const GetPostsBySearchKeyword = async (keyword) => {
-  const posts = await Post.findAll({
-    where: {
-      title: {
-        [Op.like]: "%" + decodeURIComponent(keyword) + "%",
-      },
-    },
-    attributes: {
-      exclude: ["content", "updatedAt"],
-    },
-    include: [
-      {
-        model: Tag,
-        attributes: ["id", "content"],
-      },
-    ],
-    order: [["createdAt", "DESC"]],
-  });
-  return posts;
+const getPostsBySearchKeyWord = async (req, res, next) => {
+  const { keyword } = req.params;
+  try {
+    const posts = await postsService.getPostsBySearchKeyWord({ keyword });
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const GetPostsByTag = async (keyword) => {
@@ -73,19 +63,15 @@ const GetPostsByTag = async (keyword) => {
   return posts;
 };
 
-const GetPostsLength = async (category) => {
-  let posts;
-  if (category !== "main") {
-    posts = await Post.findAll({
-      where: { category: category },
-      attributes: ["id"],
-    });
-  } else {
-    posts = await Post.findAll({
-      attributes: ["id"],
-    });
+const getPostsLength = async (req, res, next) => {
+  const { category } = req.params;
+  try {
+    const length = await postsService.getPostsCount({ category });
+    res.status(200).json({ length });
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
-  return posts;
 };
 
 const GetTopViewsPosts = async () => {
@@ -100,9 +86,9 @@ const GetTopViewsPosts = async () => {
 module.exports = {
   getMainPosts,
   getCategoryPosts,
-  GetPostsLength,
-  getCategoryLength,
-  GetPostsBySearchKeyword,
+  getPostsLength,
+  getCategoryPostsCount,
+  getPostsBySearchKeyWord,
   GetPostsByTag,
   GetTopViewsPosts,
 };
