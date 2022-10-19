@@ -21,4 +21,18 @@ const getComment = async (commentId) => {
   return fullComment;
 };
 
-module.exports = { addComment, getComment };
+const getRecentComments = async () => {
+  const recentComment = await Comment.findAll({
+    order: [["createdAt", "DESC"]],
+    limit: 10,
+    attributes: ["id", "content"],
+    include: [
+      {
+        model: Post,
+        attributes: ["id"],
+      },
+    ],
+  });
+  return recentComment;
+};
+module.exports = { addComment, getComment, getRecentComments };

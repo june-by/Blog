@@ -1,20 +1,15 @@
-const { Post, Comment } = require("../models");
+const commentService = require("./commentService");
 
-const GetRecentComment = async () => {
-  const recentComment = await Comment.findAll({
-    order: [["createdAt", "DESC"]],
-    limit: 10,
-    attributes: ["id", "content"],
-    include: [
-      {
-        model: Post,
-        attributes: ["id"],
-      },
-    ],
-  });
-  return recentComment;
+const getRecentComment = async (req, res, next) => {
+  try {
+    const recentComment = await commentService.getRecentComments();
+    return res.status(201).json(recentComment);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 module.exports = {
-  GetRecentComment,
+  getRecentComment,
 };
