@@ -5,6 +5,30 @@ const getPost = async ({ postId }) => {
   return post;
 };
 
+const getFullPost = async ({ postId }) => {
+  const fullPost = await Post.findOne({
+    where: { id: postId },
+    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views"],
+    include: [
+      {
+        model: Comment,
+        attributes: ["content", "createdAt"],
+        include: [
+          {
+            model: User,
+            attributes: ["nickname"],
+          },
+        ],
+      },
+      {
+        model: Tag,
+        attributes: ["id", "content"],
+      },
+    ],
+  });
+  return fullPost;
+};
+
 const createPost = async ({ title, category, content, thumbNailUrl }) => {
   const post = await Post.create({
     title: title,
@@ -63,4 +87,22 @@ const addViewCount = async ({ postId, views }) => {
   );
 };
 
-module.exports = { getPost, createPost, updatePost, addTags, updateTags, deletePost, addViewCount, isPostExists };
+const getPrevPost = async (category, id) => {
+  const query =
+    "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
+  const [prev, _] = await sequelize.query(query, {
+    replacements: [category, id],
+  });
+  return prev[0];
+};
+
+const getNextPost = async (category, id) => {
+  const query =
+    "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
+  const [next, _] = await sequelize.query(query, {
+    replacements: [category, id],
+  });
+  return next[0];
+};
+
+module.exports = { getPost, getFullPost, getPrevPost, getNextPost, createPost, updatePost, addTags, updateTags, deletePost, addViewCount, isPostExists };

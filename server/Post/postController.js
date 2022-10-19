@@ -60,68 +60,23 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-const GetPost = async (postId) => {
-  const fullPost = await Post.findOne({
-    where: { id: postId },
-    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views"],
-    include: [
-      {
-        model: Comment,
-        attributes: ["content", "createdAt"],
-        include: [
-          {
-            model: User,
-            attributes: ["nickname"],
-          },
-        ],
-      },
-      {
-        model: Tag,
-        attributes: ["id", "content"],
-      },
-    ],
-  });
-  const { views } = fullPost;
-  await postService.addViewCount({ postId, views });
-  return fullPost;
-};
-
-const GetPrevPostInfo = async (category, id) => {
-  const [prev, _] = await sequelize.query(
-    "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;",
-    {
-      replacements: [category, id],
-    }
-  );
-  return prev[0];
-};
-
-const GetNextPostInfo = async (category, id) => {
-  const [next, _] = await sequelize.query(
-    "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;",
-    {
-      replacements: [category, id],
-    }
-  );
-  return next[0];
-};
-
-const CheckPostExist = async (postId, res) => {
-  const post = await Post.findOne({
-    //게시글 존재하는지 확인
-    where: { id: postId },
-  });
-  if (!post) {
-    return res.status(403).send("존재하지 않는 게시글입니다");
+const getPost = async (req, res, next) => {
+  const { postId } = req.params;
+  try {
+    const mainPost = await postService.getFullPost({ postId });
+    if (!mainPost) return res.status(403).send("존재하지 않는 게시글입니다");
+    const prevPost = await postService.getPrevPost(mainPost.category, postId);
+    const nextPost = await postService.getPrevPost(mainPost.category, postId);
+    res.status(201).json({ mainPost, prevPost, nextPost });
+    postService.addViewCount({ postId, views: mainPost.views });
+  } catch (err) {
+    console.log(err);
+    next(err);
   }
-  return post;
 };
 
 module.exports = {
-  GetPost,
-  GetPrevPostInfo,
-  GetNextPostInfo,
-  CheckPostExist,
+  getPost,
   updatePost,
   AddPost,
   deletePost,
