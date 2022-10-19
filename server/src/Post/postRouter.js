@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require("../middleWare");
+const { isLoggedIn } = require("../../middleWare");
 const postController = require("./postController");
 
 router.post("/", isLoggedIn, postController.AddPost);

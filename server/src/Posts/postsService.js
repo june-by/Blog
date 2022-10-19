@@ -1,4 +1,4 @@
-const { Post, Tag, sequelize } = require("../models");
+const { Post, Tag, sequelize } = require("../../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 

@@ -1,4 +1,4 @@
-const { sequelize } = require("../models");
+const { sequelize } = require("../../models");
 const tagService = require("./tagService");
 
 const getRecentTags = async (req, res, next) => {

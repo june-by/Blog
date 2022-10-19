@@ -1,4 +1,4 @@
-const { Post, Comment, User, Tag, sequelize } = require("../models");
+const { Post, Comment, User, Tag, sequelize } = require("../../models");
 
 const createTags = async ({ tagArr }) => {
   const result = await Promise.all(

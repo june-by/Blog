@@ -1,4 +1,4 @@
-const { Post, Comment, User, Tag, sequelize } = require("../models");
+const { Post, Comment, User, Tag, sequelize } = require("../../models");
 
 const getPost = async ({ postId }) => {
   const post = await Post.findOne({ where: { id: postId } });

@@ -1,4 +1,4 @@
-const { User, Comment, sequelize, Post } = require("../models");
+const { User, Comment, sequelize, Post } = require("../../models");
 const addComment = async ({ comment, postId, userId }) => {
   const newComment = await Comment.create({
     content: comment,

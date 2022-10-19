@@ -1,4 +1,4 @@
-const { Post, Comment, User, Tag, sequelize } = require("../models");
+const { Post, Comment, User, Tag, sequelize } = require("../../models");
 const tagService = require("../Tag/tagService");
 const postService = require("./postService");
 const commentService = require("../Comment/commentService");
