@@ -1,5 +1,17 @@
-const { sequelize } = require("../models");
-const GetRecentTags = async () => {
+const { Post, Comment, User, Tag, sequelize } = require("../../models");
+
+const createTags = async ({ tagArr }) => {
+  const result = await Promise.all(
+    tagArr.map((tag) =>
+      Tag.findOrCreate({
+        where: { content: tag.toLowerCase() },
+      })
+    )
+  );
+  return result;
+};
+
+const getRecentTags = async () => {
   const [tags, _] = await sequelize.query("select TagId from PostHashtag order by createdAt desc limit 15;");
   const contents = [];
   for (const v of tags) {
@@ -10,6 +22,8 @@ const GetRecentTags = async () => {
   }
   return contents;
 };
+
 module.exports = {
-  GetRecentTags,
+  createTags,
+  getRecentTags,
 };

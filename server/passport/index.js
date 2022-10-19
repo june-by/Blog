@@ -1,9 +1,7 @@
 const passport = require("passport");
 const local = require("./local");
 const { User } = require("../models");
-const kakao = require("./kakao");
-const facebook = require("./facebook");
-const google = require("./google");
+
 module.exports = () => {
   passport.serializeUser((user, done) => {
     done(null, user.id); //서버에는 userid만 들고 있는다
@@ -18,7 +16,4 @@ module.exports = () => {
     }
   });
   local();
-  kakao();
-  facebook();
-  google();
 };

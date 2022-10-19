@@ -1,8 +1,8 @@
-const { Post, Tag } = require("../models");
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
+const { Post, Tag, sequelize } = require("../../models");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
-const GetMainPagePosts = async (page) => {
+const getMainPosts = async ({ page }) => {
   const posts = await Post.findAll({
     order: [["createdAt", "DESC"]],
     limit: 16,
@@ -18,7 +18,7 @@ const GetMainPagePosts = async (page) => {
   return posts;
 };
 
-const GetCategoryPosts = async (category, page) => {
+const getCategoryPosts = async ({ category, page }) => {
   const posts = await Post.findAll({
     where: { category: category },
     order: [["createdAt", "DESC"]],
@@ -35,15 +35,7 @@ const GetCategoryPosts = async (category, page) => {
   return posts;
 };
 
-const GetCategoryLength = async () => {
-  const categoryCount = await Post.findAll({
-    attributes: ["category", [sequelize.fn("COUNT", sequelize.col("Post.category")), "count"]],
-    group: ["Post.category"],
-  });
-  return categoryCount;
-};
-
-const GetPostsBySearchKeyword = async (keyword) => {
+const getPostsBySearchKeyWord = async ({ keyword }) => {
   const posts = await Post.findAll({
     where: {
       title: {
@@ -64,7 +56,7 @@ const GetPostsBySearchKeyword = async (keyword) => {
   return posts;
 };
 
-const GetPostsByTag = async (keyword) => {
+const getPostsByTag = async ({ keyword }) => {
   const posts = await Post.findAll({
     attributes: {
       exclude: ["content", "updatedAt"],
@@ -81,22 +73,22 @@ const GetPostsByTag = async (keyword) => {
   return posts;
 };
 
-const GetPostsLength = async (category) => {
-  let posts;
-  if (category !== "main") {
-    posts = await Post.findAll({
-      where: { category: category },
-      attributes: ["id"],
-    });
-  } else {
-    posts = await Post.findAll({
-      attributes: ["id"],
-    });
-  }
-  return posts;
+const getCategoryPostsCount = async () => {
+  const categoryCount = await Post.findAll({
+    attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
+    group: ["Post.category"],
+  });
+  return categoryCount;
 };
 
-const GetTopViewsPosts = async () => {
+const getPostsCount = async ({ category }) => {
+  const where = category === "main" ? "" : `where category="${category}"`;
+  const query = `select count(*) as count from Posts ${where}`;
+  const [data, _] = await sequelize.query(query);
+  return data[0].count;
+};
+
+const getTopViewsPosts = async () => {
   const posts = await Post.findAll({
     order: [["views", "DESC"]],
     limit: 10,
@@ -105,12 +97,4 @@ const GetTopViewsPosts = async () => {
   return posts;
 };
 
-module.exports = {
-  GetMainPagePosts,
-  GetCategoryPosts,
-  GetPostsLength,
-  GetCategoryLength,
-  GetPostsBySearchKeyword,
-  GetPostsByTag,
-  GetTopViewsPosts,
-};
+module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getTopViewsPosts, getCategoryPostsCount, getPostsCount };

@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: space-between;
   transition: height 0.2s ease;
+  overflow: hidden;
   @include mobile {
     padding: 0 5%;
   }
