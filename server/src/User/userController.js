@@ -47,8 +47,8 @@ const login = async (req, res, next) => {
         console.error(loginErr);
         return next(loginErr);
       }
-      const user = await userService.getUser({ id: user.id });
-      return res.status(200).json(user);
+      const userInfo = await userService.getUser({ id: user.id });
+      return res.status(200).json(userInfo);
     });
   })(req, res, next);
 };
