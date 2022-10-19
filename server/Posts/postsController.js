@@ -68,13 +68,14 @@ const getPostsLength = async (req, res, next) => {
   }
 };
 
-const GetTopViewsPosts = async () => {
-  const posts = await Post.findAll({
-    order: [["views", "DESC"]],
-    limit: 10,
-    attributes: ["id", "title"],
-  });
-  return posts;
+const getTopViewsPosts = async (req, res, next) => {
+  try {
+    const posts = await postsService.getTopViewsPosts();
+    return res.status(201).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 module.exports = {
@@ -84,5 +85,5 @@ module.exports = {
   getCategoryPostsCount,
   getPostsBySearchKeyWord,
   getPostsByTag,
-  GetTopViewsPosts,
+  getTopViewsPosts,
 };

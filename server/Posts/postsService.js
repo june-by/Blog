@@ -88,4 +88,13 @@ const getPostsCount = async ({ category }) => {
   return data[0].count;
 };
 
-module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getCategoryPostsCount, getPostsCount };
+const getTopViewsPosts = async () => {
+  const posts = await Post.findAll({
+    order: [["views", "DESC"]],
+    limit: 10,
+    attributes: ["id", "title"],
+  });
+  return posts;
+};
+
+module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getTopViewsPosts, getCategoryPostsCount, getPostsCount };

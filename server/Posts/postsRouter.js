@@ -14,14 +14,6 @@ router.get("/search/:keyword", postsController.getPostsBySearchKeyWord);
 
 router.get("/tag/:keyword", postsController.getPostsByTag);
 
-router.get("/topViews", async (req, res, next) => {
-  try {
-    const posts = await postsController.GetTopViewsPosts();
-    return res.status(201).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.get("/topViews", postsController.getTopViewsPosts);
 
 module.exports = router;
