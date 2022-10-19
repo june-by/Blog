@@ -1,38 +1,28 @@
 const { Post, Tag } = require("../models");
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
+const postsService = require("./postsService");
 
-const GetMainPagePosts = async (page) => {
-  const posts = await Post.findAll({
-    order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (page - 1) * 16,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
-    include: [
-      {
-        model: Tag,
-        attributes: ["id", "content"],
-      },
-    ],
-  });
-  return posts;
+const getMainPosts = async (req, res, next) => {
+  const { page } = req.params;
+  try {
+    const posts = await postsService.getMainPosts({ page });
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
-const GetCategoryPosts = async (category, page) => {
-  const posts = await Post.findAll({
-    where: { category: category },
-    order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (page - 1) * 16,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
-    include: [
-      {
-        model: Tag,
-        attributes: ["id", "content"],
-      },
-    ],
-  });
-  return posts;
+const getCategoryPosts = async (req, res, next) => {
+  const { page, category } = req.params;
+  try {
+    const posts = await postsService.getCategoryPosts({ page, category });
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const GetCategoryLength = async () => {
@@ -106,8 +96,8 @@ const GetTopViewsPosts = async () => {
 };
 
 module.exports = {
-  GetMainPagePosts,
-  GetCategoryPosts,
+  getMainPosts,
+  getCategoryPosts,
   GetPostsLength,
   GetCategoryLength,
   GetPostsBySearchKeyword,

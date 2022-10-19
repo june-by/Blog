@@ -2,15 +2,7 @@ const express = require("express");
 const router = express.Router();
 const postsController = require("./postsController");
 
-router.get("/load/main/:page", async (req, res, next) => {
-  try {
-    const posts = await postsController.GetMainPagePosts(req.params.page);
-    res.status(200).json(posts);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+router.get("/load/main/:page", postsController.getMainPosts);
 
 router.get("/load/categoryLength", async (req, res, next) => {
   try {
@@ -32,16 +24,7 @@ router.get("/load/length/:category", async (req, res, next) => {
   }
 });
 
-router.get("/load/:category/:page", async (req, res, next) => {
-  try {
-    const { category, page } = req.params;
-    const posts = await postsController.GetCategoryPosts(category, page);
-    res.status(200).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+router.get("/load/:category/:page", postsController.getCategoryPosts);
 
 router.get("/search/:keyword", async (req, res, next) => {
   try {
