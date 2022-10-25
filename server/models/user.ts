@@ -1,5 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+import { Sequelize } from "sequelize";
+import { ModelType } from "./types";
+
+export default (sequelize: Sequelize, DataTypes: any) => {
+  const User: ModelType = sequelize.define(
     "User",
     {
       email: {

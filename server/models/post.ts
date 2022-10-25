@@ -1,5 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
-  const Post = sequelize.define(
+import { Sequelize } from "sequelize";
+import { ModelType } from "./types";
+
+export default (sequelize: Sequelize, DataTypes: any) => {
+  const Post: ModelType = sequelize.define(
     "Post",
     {
       title: {

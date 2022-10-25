@@ -30,7 +30,7 @@ export default function () {
     .then(() => {
       console.log("db연결 성공");
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(err);
     });
 

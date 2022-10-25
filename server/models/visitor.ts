@@ -1,4 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+import { Sequelize } from "sequelize";
+export default (sequelize: Sequelize, DataTypes: any) => {
   return sequelize.define(
     "Visitor",
     {

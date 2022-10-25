@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
+import postsController from "./postsController";
 const router = express.Router();
-const postsController = require("./postsController");
 
 router.get("/load/main/:page", postsController.getMainPosts);
 
@@ -16,4 +16,4 @@ router.get("/tag/:keyword", postsController.getPostsByTag);
 
 router.get("/topViews", postsController.getTopViewsPosts);
 
-module.exports = router;
+export default router;
