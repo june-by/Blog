@@ -1,27 +1,28 @@
-const express = require("express");
-const morgan = require("morgan");
-const session = require("express-session");
-const cors = require("cors");
-const passport = require("passport");
-const hpp = require("hpp");
-const helmet = require("helmet");
-const cookieParser = require("cookie-parser");
-const path = require("path");
-const dotenv = require("dotenv");
-const db = require("../models");
-const postRouter = require("../src/Post/postRouter");
-const postsRouter = require("../src/Posts/postsRouter");
-const userRouter = require("../src/User/userRouter");
-const visitorRouter = require("../src/Visitor/visitorRouter");
-const commentRouter = require("../src/Comment/commentRouter");
-const tagRouter = require("../src/Tag/tagRouter");
-const passportConfig = require("../passport");
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
+import express from "express";
+import morgan from "morgan";
+import session from "express-session";
+import cors from "cors";
+import passport from "passport";
+import hpp from "hpp";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import path from "path";
+import dotenv from "dotenv";
+import db from "../models";
+import postRouter from "../src/Post/postRouter";
+import postsRouter from "../src/Posts/postsRouter";
+import userRouter from "../src/User/userRouter";
+import visitorRouter from "../src/Visitor/visitorRouter";
+import commentRouter from "../src/Comment/commentRouter";
+import tagRouter from "../src/Tag/tagRouter";
+import passportConfig from "../passport";
+import AWS from "aws-sdk";
+import { S3Client } from "@aws-sdk/client-s3";
+import multer from "multer";
+import multerS3 from "multer-s3";
 dotenv.config();
 
-module.exports = () => {
+export default function () {
   const app = express();
 
   db.sequelize
@@ -52,12 +53,12 @@ module.exports = () => {
     session({
       resave: false,
       saveUninitialized: false,
-      secret: process.env.COOKIE_SECRET,
+      secret: process.env.COOKIE_SECRET as string,
       proxy: true,
       cookie: {
         httpOnly: true, //cookie는 javascript로 조작할 수 없도록.
         secure: true,
-        domain: process.env.NODE_ENV === "production" && ".byjuun.com",
+        domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : "*",
       },
     })
   );
@@ -72,15 +73,15 @@ module.exports = () => {
   app.use("/comment", commentRouter);
   app.use("/tag", tagRouter);
 
-  AWS.config.update({
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    region: "ap-northeast-2",
-  });
-
   const upload = multer({
     storage: multerS3({
-      s3: new AWS.S3(),
+      s3: new S3Client({
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
+        },
+        region: "ap-northeast-2",
+      }),
       bucket: "byjuun.com",
       key(req, file, cb) {
         cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
@@ -92,11 +93,11 @@ module.exports = () => {
   app.post("/uploads", upload.single("img"), (req, res) => {
     res.status(200).json({
       uploaded: true,
-      url: req.file.location,
+      url: (req.file as Express.MulterS3.File).location,
     });
   });
 
   app.listen(3065, () => {
     console.log("서버 실행 중");
   });
-};
+}

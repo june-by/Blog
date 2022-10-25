@@ -1,4 +1,4 @@
-const express = require("../config/express");
+import express from "../config/express";
 
 function bootStrap() {
   express();
