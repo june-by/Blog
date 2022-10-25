@@ -87,7 +87,7 @@ const addViewCount = async ({ postId, views }) => {
   );
 };
 
-const getPrevPost = async (category, id) => {
+const getPrevPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
   const [prev, _] = await sequelize.query(query, {
@@ -96,7 +96,7 @@ const getPrevPost = async (category, id) => {
   return prev[0];
 };
 
-const getNextPost = async (category, id) => {
+const getNextPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
   const [next, _] = await sequelize.query(query, {
@@ -104,5 +104,5 @@ const getNextPost = async (category, id) => {
   });
   return next[0];
 };
-
-module.exports = { getPost, getFullPost, getPrevPost, getNextPost, createPost, updatePost, addTags, updateTags, deletePost, addViewCount, isPostExists };
+const postService = { getPost, getFullPost, getPrevPost, getNextPost, createPost, updatePost, addTags, updateTags, deletePost, addViewCount, isPostExists };
+export default postService;

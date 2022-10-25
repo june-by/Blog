@@ -1,5 +1,6 @@
-const { Post, Tag, sequelize } = require("../../models");
-const Sequelize = require("sequelize");
+import model from "../../models";
+import Sequelize from "sequelize";
+const { Post, Tag, sequelize } = model;
 const Op = Sequelize.Op;
 
 const getMainPosts = async ({ page }) => {
@@ -97,4 +98,4 @@ const getTopViewsPosts = async () => {
   return posts;
 };
 
-module.exports = { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getTopViewsPosts, getCategoryPostsCount, getPostsCount };
+export default { getMainPosts, getCategoryPosts, getPostsBySearchKeyWord, getPostsByTag, getTopViewsPosts, getCategoryPostsCount, getPostsCount };

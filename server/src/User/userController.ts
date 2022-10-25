@@ -1,9 +1,8 @@
-const { User } = require("../../models");
-const bcrypt = require("bcrypt");
-const userService = require("./userService");
-const passport = require("passport");
+import userService from "./userService";
+import passport from "passport";
+import { NextFunction, Request, Response } from "express";
 
-const getUser = async (req, res, next) => {
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) return res.status(200).json(null);
   const { id } = req.user;
   try {
@@ -15,7 +14,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
-const addUser = async (req, res, next) => {
+const addUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, nickname, password } = req.body;
     const isEmailExists = await userService.checkEmailValidation({ email });
@@ -33,7 +32,7 @@ const addUser = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const login = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       console.error(err);
@@ -53,10 +52,10 @@ const login = async (req, res, next) => {
   })(req, res, next);
 };
 
-const logout = async (req, res, next) => {
+const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    req.logout();
-    req.session.destroy();
+    req.logout(() => {});
+    req.session.destroy(() => {});
     return res.send("ok");
   } catch (err) {
     console.error(err);
@@ -64,4 +63,4 @@ const logout = async (req, res, next) => {
   }
 };
 
-module.exports = { getUser, addUser, logout, login };
+export default { getUser, addUser, logout, login };

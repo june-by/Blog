@@ -1,7 +1,8 @@
-const { getVisitorDateInfo } = require("./utils");
-const visitorService = require("./visitorService");
+import { getVisitorDateInfo } from "./utils";
+import visitorService from "./visitorService";
+import { NextFunction, Request, Response } from "express";
 
-const getVisitor = async (req, res, next) => {
+const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const dateInfo = getVisitorDateInfo();
     const totalVisitor = await visitorService.getTotalVisitor();
@@ -13,18 +14,18 @@ const getVisitor = async (req, res, next) => {
   }
 };
 
-const addVisitor = async (req, res, next) => {
+const addVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const dateInfo = getVisitorDateInfo();
     await visitorService.addVisitor({ dateInfo });
-    await getVisitor();
+    //await getVisitor();
   } catch (err) {
     console.error(err);
     next(err);
   }
 };
 
-module.exports = {
+export default {
   getVisitor,
   addVisitor,
 };

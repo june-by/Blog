@@ -1,5 +1,7 @@
-const { User, Comment, sequelize, Post } = require("../../models");
-const addComment = async ({ comment, postId, userId }) => {
+import model from "../../models";
+const { User, Comment, Post } = model;
+
+const addComment = async ({ comment, postId, userId }: { comment: string; postId: string; userId: string }) => {
   const newComment = await Comment.create({
     content: comment,
     PostId: parseInt(postId, 10),
@@ -8,7 +10,7 @@ const addComment = async ({ comment, postId, userId }) => {
   return newComment;
 };
 
-const getComment = async (commentId) => {
+const getComment = async (commentId: number) => {
   const fullComment = await Comment.findOne({
     where: { id: commentId },
     include: [
@@ -35,4 +37,6 @@ const getRecentComments = async () => {
   });
   return recentComment;
 };
-module.exports = { addComment, getComment, getRecentComments };
+
+const commentService = { addComment, getComment, getRecentComments };
+export default commentService;

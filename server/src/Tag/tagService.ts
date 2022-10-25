@@ -1,4 +1,5 @@
-const { Post, Comment, User, Tag, sequelize } = require("../../models");
+import model from "../../models";
+const { Post, Comment, User, Tag, sequelize } = model;
 
 const createTags = async ({ tagArr }) => {
   const result = await Promise.all(
@@ -13,7 +14,7 @@ const createTags = async ({ tagArr }) => {
 
 const getRecentTags = async () => {
   const [tags, _] = await sequelize.query("select TagId from PostHashtag order by createdAt desc limit 15;");
-  const contents = [];
+  const contents: string[] = [];
   for (const v of tags) {
     const [result] = await sequelize.query("select content from Tags where id=?;", {
       replacements: [v.TagId],
@@ -23,7 +24,7 @@ const getRecentTags = async () => {
   return contents;
 };
 
-module.exports = {
+export default {
   createTags,
   getRecentTags,
 };

@@ -1,9 +1,9 @@
-const { Post, Comment, User, Tag, sequelize } = require("../../models");
-const tagService = require("../Tag/tagService");
-const postService = require("./postService");
-const commentService = require("../Comment/commentService");
+import tagService from "../Tag/tagService";
+import postService from "./postService";
+import commentService from "../Comment/commentService";
+import { NextFunction, Request, Response } from "express";
 
-const AddPost = async (req, res, next) => {
+const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { title, category, content, tagArr, thumbNailUrl } = req.body;
     const post = await postService.createPost({ title, category, content, thumbNailUrl });
@@ -19,7 +19,7 @@ const AddPost = async (req, res, next) => {
   }
 };
 
-const deletePost = async (req, res, next) => {
+const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { postId } = req.params;
     await postService.deletePost({ postId });
@@ -30,13 +30,13 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-const addComment = async (req, res, next) => {
+const addComment = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
   const { comment } = req.body;
   try {
     const post = postService.isPostExists({ postId });
     if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
-    const newComment = await commentService.addComment({ postId, comment, userId: req.user.id });
+    const newComment = await commentService.addComment({ postId, comment, userId: req.user?.id as string });
     const fullComment = await commentService.getComment(newComment.id);
     return res.status(201).json(fullComment);
   } catch (err) {
@@ -45,7 +45,7 @@ const addComment = async (req, res, next) => {
   }
 };
 
-const updatePost = async (req, res, next) => {
+const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   const { title, category, content, tagArr, thumbNailUrl } = req.body;
   const { postId } = req.params;
   try {
@@ -60,7 +60,7 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-const getPost = async (req, res, next) => {
+const getPost = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
   try {
     const mainPost = await postService.getFullPost({ postId });
@@ -75,10 +75,12 @@ const getPost = async (req, res, next) => {
   }
 };
 
-module.exports = {
+const postController = {
   getPost,
   updatePost,
   AddPost,
   deletePost,
   addComment,
 };
+
+export default postController;

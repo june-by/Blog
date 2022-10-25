@@ -1,5 +1,5 @@
-const { Visitor } = require("../../models");
-
+import model from "../../models";
+const { Visitor } = model;
 const getTotalVisitor = async () => {
   const totalVisitor = await Visitor.count({});
   return totalVisitor;
@@ -18,4 +18,4 @@ const addVisitor = async ({ dateInfo }) => {
   });
 };
 
-module.exports = { getTotalVisitor, getTodayVisitor, addVisitor };
+export default { getTotalVisitor, getTodayVisitor, addVisitor };

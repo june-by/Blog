@@ -1,5 +1,6 @@
-const { User } = require("../../models");
-const bcrypt = require("bcrypt");
+import model from "../../models";
+import bcrypt from "bcrypt";
+const { User } = model;
 
 const getUser = async ({ id }) => {
   const user = await User.findOne({
@@ -44,7 +45,7 @@ const checkNicknameValidation = async ({ nickname }) => {
   return user ? true : false;
 };
 
-module.exports = {
+export default {
   getUser,
   addUser,
   checkEmailValidation,
