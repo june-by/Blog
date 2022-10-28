@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index",
-    "start": "NODE_ENV=production pm2 start src/index.js",
-    "test": "NODE_ENV=production npx pm2 start ts-node -- --project tsconfig.json src/index.ts --watch"
+    "start": "NODE_ENV=production npx pm2 start ts-node -- --project tsconfig.json src/index.ts --watch"
   },
   "author": "By-juun",
   "license": "MIT",
