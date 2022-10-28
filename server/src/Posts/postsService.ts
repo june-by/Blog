@@ -3,11 +3,11 @@ import Sequelize from "sequelize";
 const { Post, Tag, sequelize } = model;
 const Op = Sequelize.Op;
 
-const getMainPosts = async ({ page }) => {
+const getMainPosts = async ({ page }: { page: string }) => {
   const posts = await Post.findAll({
     order: [["createdAt", "DESC"]],
     limit: 16,
-    offset: (page - 1) * 16,
+    offset: (Number(page) - 1) * 16,
     attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
@@ -19,12 +19,12 @@ const getMainPosts = async ({ page }) => {
   return posts;
 };
 
-const getCategoryPosts = async ({ category, page }) => {
+const getCategoryPosts = async ({ category, page }: { page: string; category: string }) => {
   const posts = await Post.findAll({
     where: { category: category },
     order: [["createdAt", "DESC"]],
     limit: 16,
-    offset: (page - 1) * 16,
+    offset: (Number(page) - 1) * 16,
     attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
@@ -36,7 +36,7 @@ const getCategoryPosts = async ({ category, page }) => {
   return posts;
 };
 
-const getPostsBySearchKeyWord = async ({ keyword }) => {
+const getPostsBySearchKeyWord = async ({ keyword }: { keyword: string }) => {
   const posts = await Post.findAll({
     where: {
       title: {
@@ -57,7 +57,7 @@ const getPostsBySearchKeyWord = async ({ keyword }) => {
   return posts;
 };
 
-const getPostsByTag = async ({ keyword }) => {
+const getPostsByTag = async ({ keyword }: { keyword: string }) => {
   const posts = await Post.findAll({
     attributes: {
       exclude: ["content", "updatedAt"],
@@ -82,7 +82,7 @@ const getCategoryPostsCount = async () => {
   return categoryCount;
 };
 
-const getPostsCount = async ({ category }) => {
+const getPostsCount = async ({ category }: { category: string }) => {
   const where = category === "main" ? "" : `where category="${category}"`;
   const query = `select count(*) as count from Posts ${where}`;
   const [data, _] = await sequelize.query(query);

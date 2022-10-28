@@ -5,14 +5,14 @@ const getTotalVisitor = async () => {
   return totalVisitor;
 };
 
-const getTodayVisitor = async ({ dateInfo }) => {
+const getTodayVisitor = async ({ dateInfo }: { dateInfo: string }) => {
   const todayVisitor = await Visitor.count({
     where: { date: dateInfo },
   });
   return todayVisitor;
 };
 
-const addVisitor = async ({ dateInfo }) => {
+const addVisitor = async ({ dateInfo }: { dateInfo: string }) => {
   await Visitor.create({
     date: dateInfo,
   });

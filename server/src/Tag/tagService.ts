@@ -1,7 +1,7 @@
 import model from "../../models";
 const { Post, Comment, User, Tag, sequelize } = model;
 
-const createTags = async ({ tagArr }) => {
+const createTags = async ({ tagArr }: { tagArr: string[] }) => {
   const result = await Promise.all(
     tagArr.map((tag) =>
       Tag.findOrCreate({

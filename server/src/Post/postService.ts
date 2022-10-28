@@ -1,11 +1,15 @@
-const { Post, Comment, User, Tag, sequelize } = require("../../models");
+import model from "../../models";
+const { Post, Comment, User, Tag, sequelize } = model;
 
-const getPost = async ({ postId }) => {
+interface PostId {
+  postId: string;
+}
+const getPost = async ({ postId }: PostId) => {
   const post = await Post.findOne({ where: { id: postId } });
   return post;
 };
 
-const getFullPost = async ({ postId }) => {
+const getFullPost = async ({ postId }: PostId) => {
   const fullPost = await Post.findOne({
     where: { id: postId },
     attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views"],
@@ -29,7 +33,14 @@ const getFullPost = async ({ postId }) => {
   return fullPost;
 };
 
-const createPost = async ({ title, category, content, thumbNailUrl }) => {
+interface CreatePostParams {
+  title: string;
+  category: string;
+  content: string;
+  thumbNailUrl: string;
+}
+
+const createPost = async ({ title, category, content, thumbNailUrl }: CreatePostParams) => {
   const post = await Post.create({
     title: title,
     category: category,
@@ -40,7 +51,11 @@ const createPost = async ({ title, category, content, thumbNailUrl }) => {
   return post;
 };
 
-const updatePost = async ({ title, category, content, thumbNailUrl, postId }) => {
+interface UpdatePostParams extends CreatePostParams {
+  postId: string;
+}
+
+const updatePost = async ({ title, category, content, thumbNailUrl, postId }: UpdatePostParams) => {
   await Post.update(
     {
       title: title,
@@ -54,21 +69,21 @@ const updatePost = async ({ title, category, content, thumbNailUrl, postId }) =>
   );
 };
 
-const deletePost = async ({ postId }) => {
+const deletePost = async ({ postId }: PostId) => {
   await Post.destroy({
     where: { id: postId },
   });
 };
 
-const addTags = async ({ post, result }) => {
+const addTags = async ({ post, result }: { post: any; result: any[] }) => {
   await post.addTags(result.map((v) => v[0]));
 };
 
-const updateTags = async ({ post, result }) => {
+const updateTags = async ({ post, result }: { post: any; result: any[] }) => {
   await post.setTags(result.map((v) => v[0]));
 };
 
-const isPostExists = async ({ postId }) => {
+const isPostExists = async ({ postId }: PostId) => {
   const post = await Post.findOne({
     //게시글 존재하는지 확인
     where: { id: postId },
@@ -76,7 +91,7 @@ const isPostExists = async ({ postId }) => {
   return post;
 };
 
-const addViewCount = async ({ postId, views }) => {
+const addViewCount = async ({ postId, views }: { postId: string; views: number }) => {
   await Post.update(
     {
       views: views + 1,

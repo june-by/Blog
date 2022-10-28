@@ -11,7 +11,7 @@ export default () => {
         usernameField: "email",
         passwordField: "password",
       },
-      async (email, password, done) => {
+      async (email: string, password: string, done: Function) => {
         try {
           const user = await User.findOne({
             where: { email },
