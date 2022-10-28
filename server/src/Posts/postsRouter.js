@@ -1,19 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const postsController = require("./postsController");
-
-router.get("/load/main/:page", postsController.getMainPosts);
-
-router.get("/load/categoryLength", postsController.getCategoryPostsCount);
-
-router.get("/load/length/:category", postsController.getPostsLength);
-
-router.get("/load/:category/:page", postsController.getCategoryPosts);
-
-router.get("/search/:keyword", postsController.getPostsBySearchKeyWord);
-
-router.get("/tag/:keyword", postsController.getPostsByTag);
-
-router.get("/topViews", postsController.getTopViewsPosts);
-
-module.exports = router;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var postsController_1 = __importDefault(require("./postsController"));
+var router = express_1.default.Router();
+router.get("/load/main/:page", postsController_1.default.getMainPosts);
+router.get("/load/categoryLength", postsController_1.default.getCategoryPostsCount);
+router.get("/load/length/:category", postsController_1.default.getPostsLength);
+router.get("/load/:category/:page", postsController_1.default.getCategoryPosts);
+router.get("/search/:keyword", postsController_1.default.getPostsBySearchKeyWord);
+router.get("/tag/:keyword", postsController_1.default.getPostsByTag);
+router.get("/topViews", postsController_1.default.getTopViewsPosts);
+exports.default = router;
