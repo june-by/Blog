@@ -8,3 +8,12 @@ p {
   margin-inline-start: 0px !important;
   margin-inline-end: 0px !important;
 }
+
+code {
+  background: rgba(135, 131, 120, 0.15);
+  color: #eb5757;
+  border-radius: 3px;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+  font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+}

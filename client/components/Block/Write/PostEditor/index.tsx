@@ -32,6 +32,9 @@ const QuillNoSSRWrapper = dynamic(
 const formats = [
   "header",
   "font",
+  "color",
+  "background",
+  "code",
   "size",
   "code-block",
   "bold",
@@ -86,7 +89,8 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
         container: [
           [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
           [{ size: [] }],
-          ["code-block", "bold", "italic", "underline", "strike", "blockquote"],
+          [{ color: [] }, { background: [] }],
+          ["bold", "italic", "underline", "strike", "code", "blockquote", "color", "background", "code-block"],
           [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
           ["link", "image", "video"],
           ["clean"],

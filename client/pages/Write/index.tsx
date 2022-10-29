@@ -31,16 +31,16 @@ const Write = () => {
     const reqData = {
       title: titleRef.current.value,
       category: categoryInfo,
-      content: content,
-      tagArr: tagArr,
-      thumbNailUrl: thumbNailUrl,
+      content,
+      tagArr,
+      thumbNailUrl,
     };
     if (query.mode === "Write") AddPostMutation.mutate(reqData);
     else EditPostMutation.mutate(reqData);
   }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, thumbNailUrl, query.mode]);
 
   //useCheckAdmin();
-  useSetEditData({ titleRef: titleRef, setCategoryInfo: setCategoryInfo, setContent: setContent, setTagArr: setTagArr, setThumbNailUrl: setThumbNailUrl });
+  useSetEditData({ titleRef, setCategoryInfo, setContent, setTagArr, setThumbNailUrl });
 
   return (
     <div className={styles.Write}>
