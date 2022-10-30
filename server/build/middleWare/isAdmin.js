@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAdmin = void 0;
 var isAdmin = function (req, res, next) {
     var id = req.user.id;
+    console.log("id : ", id);
+    console.log("typeof id : ", typeof id);
     if (id === "1") {
         next();
     }

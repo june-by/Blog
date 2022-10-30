@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.user as { id: string };
+  console.log("id : ", id);
+  console.log("typeof id : ", typeof id);
   if (id === "1") {
     next();
   } else {
