@@ -1,7 +1,7 @@
 import { Request } from "express";
 export {};
 interface myUser {
-  id: string;
+  id: number;
 }
 declare global {
   namespace Express {
