@@ -3,7 +3,7 @@ import local from "./local";
 import model from "../models";
 
 type User = {
-  id: string;
+  id: number;
 };
 
 export default () => {

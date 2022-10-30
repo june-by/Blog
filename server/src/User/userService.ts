@@ -2,7 +2,7 @@ import model from "../../models";
 import bcrypt from "bcrypt";
 const { User } = model;
 
-const getUser = async ({ id }: { id: string }) => {
+const getUser = async ({ id }: { id: number }) => {
   const user = await User.findOne({
     where: { id: id },
   });

@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) return res.status(200).json(null);
-  const { id } = req.user as { id: string };
+  const { id } = req.user as { id: number };
   try {
     const user = await userService.getUser({ id });
     return res.status(200).json(user);

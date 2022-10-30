@@ -33,7 +33,7 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
 const addComment = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
   const { comment } = req.body;
-  const { id } = req.user as { id: string };
+  const { id } = req.user as { id: number };
   try {
     const post = postService.isPostExists({ postId });
     if (!post) return res.status(403).send("존재하지 않는 게시글입니다");

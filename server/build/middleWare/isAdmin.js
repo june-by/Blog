@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAdmin = void 0;
 var isAdmin = function (req, res, next) {
     var id = req.user.id;
-    if (id === "1") {
+    if (String(id) === process.env.ADMIN_ID) {
         next();
     }
     else {
