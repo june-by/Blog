@@ -19,8 +19,8 @@
 
   &:hover {
     transition-duration: 500ms;
-    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-    transform: scale(1) translateY(-7px);
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 8%) 0px 12px 20px 0px;
   }
 
   &_imgWrapper {
