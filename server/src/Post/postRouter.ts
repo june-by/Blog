@@ -1,16 +1,17 @@
 import express from "express";
-import { isLoggedIn } from "../../middleWare";
+import { isAdmin } from "../../middleWare/isAdmin";
+import { isLoggedIn } from "../../middleWare/isLoggedIn";
 import postController from "./postController";
 const router = express.Router();
 
-router.post("/", isLoggedIn, postController.AddPost);
+router.post("/", isAdmin, postController.AddPost);
 
 router.post("/:postId/comment", isLoggedIn, postController.addComment);
 
 router.get("/load/:postId", postController.getPost);
 
-router.delete("/:postId", isLoggedIn, postController.deletePost);
+router.delete("/:postId", isAdmin, postController.deletePost);
 
-router.patch("/:postId", isLoggedIn, postController.updatePost);
+router.patch("/:postId", isAdmin, postController.updatePost);
 
 export default router;
