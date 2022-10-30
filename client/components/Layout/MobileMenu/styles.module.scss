@@ -5,7 +5,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   cursor: pointer;
   top: 0;
   left: 0;
@@ -19,7 +19,7 @@
   width: 0px;
   height: 100vh;
   background: #5f5d61;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: -2px;
   transition: width 0.2s ease;
