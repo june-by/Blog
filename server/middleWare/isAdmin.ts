@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.user as { id: number };
+  //const { id } = req.user as { id: number };
   console.log(req.user);
   next();
   // if (String(id) === process.env.ADMIN_ID) {
