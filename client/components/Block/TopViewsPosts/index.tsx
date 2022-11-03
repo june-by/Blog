@@ -21,7 +21,7 @@ const TopViewsPosts = () => {
           <h3 className={styles.title}>조회수 Top10</h3>
           <div className={styles.contents}>
             {data?.map((post, idx) => (
-              <div className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
+              <div data-testid={`${idx}post`} className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
                 {idx + 1}. {post.title}
               </div>
             ))}

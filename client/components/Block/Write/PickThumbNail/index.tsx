@@ -7,11 +7,18 @@ interface Props {
   setThumbNailUrl: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+export const thumbnailInputAttribute = [
+  { attr: "data-testid", value: "thumbnailInput" },
+  { attr: "type", value: "file" },
+  { attr: "accept", value: "image/*" },
+];
+
 const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
   const onClickSetThumbNail = useCallback(() => {
     const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
+    thumbnailInputAttribute.forEach(({ attr, value }) => {
+      input.setAttribute(attr, value);
+    });
     document.body.appendChild(input);
     input.click();
     input.onchange = async () => {

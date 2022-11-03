@@ -24,7 +24,7 @@ const Tag = ({ tagArr, setTagArr }: Props) => {
 
   return (
     <div className={styles.Tag}>
-      <form onSubmit={onSubmitTag}>
+      <form data-testid="tagSubmitForm" onSubmit={onSubmitTag}>
         <input ref={tagRef} placeholder="Tag" />
       </form>
       <div className={styles.TagArrWrapper}>
