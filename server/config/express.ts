@@ -73,22 +73,28 @@ export default function () {
   app.use("/comment", commentRouter);
   app.use("/tag", tagRouter);
 
+  AWS.config.update({
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    region: "ap-northeast-2",
+  });
+
+  //   const s3Config = new S3Client({
+  //     region: "ap-northeast-2",
+  //     credentials:{
+  //       accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+  //     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
+  //    }
+  //  })
   const upload = multer({
     storage: multerS3({
-      s3: new S3Client({
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
-        },
-        region: "ap-northeast-2",
-      }),
+      s3: new AWS.S3(),
       bucket: "byjuun.com",
       key(req, file, cb) {
         cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
       },
     }),
   });
-
   app.use("/", express.static(path.join(__dirname, "uploads")));
   app.post("/uploads", upload.single("img"), (req, res) => {
     res.status(200).json({
