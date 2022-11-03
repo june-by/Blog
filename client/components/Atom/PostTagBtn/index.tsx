@@ -20,7 +20,7 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   );
 
   return (
-    <button className={`${styles.PostTagButton} ${styles[theme]}`} onClick={(e) => onClickTag(e, String(tag?.content))}>
+    <button data-testid="postTagBtn" className={`${styles.PostTagButton} ${styles[theme]}`} onClick={(e) => onClickTag(e, String(tag?.content))}>
       #{tag?.content}
     </button>
   );

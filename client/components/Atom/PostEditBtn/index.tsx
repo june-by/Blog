@@ -11,7 +11,7 @@ const PostEditBtn = ({ id }: { id: number }) => {
     });
   }, [router, id]);
   return (
-    <button className={styles.EditBtn} onClick={gotoEdit}>
+    <button data-testid="postEditBtn" className={styles.EditBtn} onClick={gotoEdit}>
       글 수정하기
     </button>
   );
