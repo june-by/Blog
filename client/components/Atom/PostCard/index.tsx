@@ -13,7 +13,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className={`${styles.PostCard} ${styles[theme]}`} onClick={gotoPage(`/post/${post.id}`)}>
+    <div data-testid="postCard" className={`${styles.PostCard} ${styles[theme]}`} onClick={gotoPage(`/post/${post.id}`)}>
       <div className={styles.PostCard_imgWrapper}>
         <img src={post.thumbNailUrl && post.thumbNailUrl !== "null" ? post.thumbNailUrl : getPostThumbNail(post.category)} alt="category" />
       </div>

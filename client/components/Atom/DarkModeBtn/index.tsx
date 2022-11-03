@@ -9,8 +9,9 @@ const DarkModeBtn = () => {
   const { theme } = useContext(ThemeContext);
   const [mode, , onChange] = useToggle(theme === "dark" ? false : true);
   useDarkMode(mode, toggleThumbRef);
+
   return (
-    <div className={styles.DarkModeBtnWrapper} onClick={onChange}>
+    <div data-testid="DarkModeBtnWrapper" className={styles.DarkModeBtnWrapper} onClick={onChange}>
       <div className={styles.DarkModeBtn}>
         <div className={styles.toggleTrackCheckY}>
           <span>🌜</span>
@@ -18,9 +19,8 @@ const DarkModeBtn = () => {
         <div className={styles.toggleTrackCheckX}>
           <span>🌞</span>
         </div>
-        <button ref={toggleThumbRef} style={{ left: mode === false ? "27px" : "1px" }} className={styles.toggleTrackThumb}></button>
+        <button data-testid="toggleBtn" ref={toggleThumbRef} style={{ left: mode === false ? "27px" : "1px" }} className={styles.toggleTrackThumb}></button>
       </div>
-      {/* <input type="checkBox" /> */}
     </div>
   );
 };

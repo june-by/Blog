@@ -13,7 +13,7 @@ const PostDelBtn = () => {
   }, [deleteMutation, router.query.id]);
 
   return (
-    <button className={styles.DeleteBtn} onClick={deletePost}>
+    <button data-testid="postDelBtn" className={styles.DeleteBtn} onClick={deletePost}>
       글 삭제하기
     </button>
   );

@@ -7,6 +7,7 @@ import ReactQuill from "react-quill";
 import { customAxios } from "../../../../utils/CustomAxios";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
+import { containerConfig, formats } from "./config";
 
 interface Props {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -28,27 +29,6 @@ const QuillNoSSRWrapper = dynamic(
   },
   { ssr: false }
 );
-
-const formats = [
-  "header",
-  "font",
-  "color",
-  "background",
-  "code",
-  "size",
-  "code-block",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
 
 const PostEditor = ({ content, setContent }: { content: string; setContent: React.Dispatch<React.SetStateAction<string>> }) => {
   const QuillRef = useRef<ReactQuill>(null);
@@ -86,15 +66,7 @@ const PostEditor = ({ content, setContent }: { content: string; setContent: Reac
         highlight: (text: string) => hljs.highlightAuto(text).value,
       },
       toolbar: {
-        container: [
-          [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
-          [{ size: [] }],
-          [{ color: [] }, { background: [] }],
-          ["bold", "italic", "underline", "strike", "code", "blockquote", "color", "background", "code-block"],
-          [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-          ["link", "image", "video"],
-          ["clean"],
-        ],
+        container: containerConfig,
         handlers: { image: imageHandler },
         clipboard: {
           // toggle to add extra line breaks when pasting HTML:

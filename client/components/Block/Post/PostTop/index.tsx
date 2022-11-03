@@ -22,7 +22,7 @@ const PostTop = ({ Post }: Props) => {
       <div className={styles.TopArea}>
         <GoBackBtn />
         <div>
-          {UserInfo?.nickname === "By_juun" && (
+          {UserInfo?.nickname == "By_juun" && (
             <>
               <PostDelBtn />
               <PostEditBtn id={id} />
