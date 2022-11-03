@@ -7,7 +7,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Header from "../components/layout/Header";
 import Loading from "../utils/Loading";
-import ProgressBar from "../components/atom/ProgressBar";
+import ProgressBar from "../components/Atom/ProgressBar";
 import useSetProgressState from "../Hooks/useSetProgressState";
 import { ThemeProvider } from "../utils/ThemeContext";
 import cookies from "next-cookies";

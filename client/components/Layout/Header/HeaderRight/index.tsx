@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useOpenModal from "../../../../Hooks/useOpenModal";
 import { useGetUserInfo, useLogOut } from "../../../../Hooks/User";
-import LoginModal from "../../../block/_Modal/LoginModal";
-import SearchModal from "../../../block/_Modal/SearchModal";
-import SignUpModal from "../../../block/_Modal/SignUpModal";
+import LoginModal from "../../../Block/_Modal/LoginModal";
+import SearchModal from "../../../Block/_Modal/SearchModal";
+import SignUpModal from "../../../Block/_Modal/SignUpModal";
 import styles from "./styles.module.scss";
 
 const HeaderRight = () => {

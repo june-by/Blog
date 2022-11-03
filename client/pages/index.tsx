@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import CategorySelect from "../components/block/CategorySelect";
-import Pagination from "../components/block/Pagination";
-import Posts from "../components/block/Posts";
-import AdditionalInfoSectionRight from "../components/block/AdditionalInfoSectionRight";
+import CategorySelect from "../components/Block/CategorySelect";
+import Pagination from "../components/Block/Pagination";
+import Posts from "../components/Block/Posts";
+import AdditionalInfoSectionRight from "../components/Block/AdditionalInfoSectionRight";
 import { useGetPostNum, useGetMainPost } from "../Hooks/Post";
 import styles from "./styles.module.scss";
-import AdditionalInfoSectionLeft from "../components/block/AdditionalInfoSectionLeft";
+import AdditionalInfoSectionLeft from "../components/Block/AdditionalInfoSectionLeft";
 
 const Home: NextPage = () => {
   const { query } = useRouter();

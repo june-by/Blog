@@ -1,6 +1,6 @@
 import React from "react";
 import { CommentType } from "../../../../Types/Post";
-import CommentCard from "../../../atom/CommentCard";
+import CommentCard from "../../../Atom/CommentCard";
 import styles from "./styles.module.scss";
 
 const CommentList = ({ Comments }: { Comments: Array<CommentType | null> }) => {

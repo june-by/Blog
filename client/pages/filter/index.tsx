@@ -1,17 +1,17 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import NoPost from "../../components/block/NoPost";
-import CategorySelect from "../../components/block/CategorySelect";
-import Pagination from "../../components/block/Pagination";
-import Posts from "../../components/block/Posts";
+import NoPost from "../../components/Block/NoPost";
+import CategorySelect from "../../components/Block/CategorySelect";
+import Pagination from "../../components/Block/Pagination";
+import Posts from "../../components/Block/Posts";
 import { useGetPostNum } from "../../Hooks/Post";
 import useGetPosts from "../../Hooks/useGetPosts";
 import useMakeMetaInfo from "../../Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
 import { PostsType } from "../../Types/Post";
-import AdditionalInfoSectionRight from "../../components/block/AdditionalInfoSectionRight";
-import AdditionalInfoSectionLeft from "../../components/block/AdditionalInfoSectionLeft";
+import AdditionalInfoSectionRight from "../../components/Block/AdditionalInfoSectionRight";
+import AdditionalInfoSectionLeft from "../../components/Block/AdditionalInfoSectionLeft";
 
 const Filter = () => {
   const { query } = useRouter();

@@ -7,7 +7,7 @@ import useHideHeader from "./useHideHeader";
 import useHeaderAnimation from "./useHeaderAnimation";
 import HeaderLeft from "./HeaderLeft";
 import useToggle from "../../../Hooks/useToggle";
-import DarkModeBtn from "../../atom/DarkModeBtn";
+import DarkModeBtn from "../../Atom/DarkModeBtn";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 const Header = () => {

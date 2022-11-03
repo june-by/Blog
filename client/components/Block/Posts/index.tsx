@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { PostsType } from "../../../Types/Post";
-import PostCard from "../../atom/PostCard";
-import PostCardSkeleton from "../../atom/PostCard/Skeleton";
+import PostCard from "../../Atom/PostCard";
+import PostCardSkeleton from "../../Atom/PostCard/Skeleton";
 import styles from "./styles.module.scss";
 interface Props {
   posts: Array<PostsType> | undefined;

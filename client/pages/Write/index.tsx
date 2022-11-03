@@ -1,15 +1,15 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Category } from "../../utils/category";
 import styles from "./styles.module.scss";
-import CategorySelectInWrite from "../../components/block/Write/CategorySelect";
-import Tag from "../../components/block/Write/Tag";
+import CategorySelectInWrite from "../../components/Block/Write/CategorySelect";
+import Tag from "../../components/Block/Write/Tag";
 import useCheckAdmin from "../../Hooks/useCheckAdmin";
 import { useAddPost, useEditPost } from "../../Hooks/Post";
-const PostEditor = dynamic(() => import("../../components/block/Write/PostEditor"), { ssr: false });
+const PostEditor = dynamic(() => import("../../components/Block/Write/PostEditor"), { ssr: false });
 import dynamic from "next/dynamic";
 import useSetEditData from "../../Hooks/useSetEditData";
 import { useRouter } from "next/router";
-import PickThumbNail from "../../components/block/Write/PickThumbNail";
+import PickThumbNail from "../../components/Block/Write/PickThumbNail";
 
 const Write = () => {
   const { query } = useRouter();
