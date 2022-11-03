@@ -11,7 +11,7 @@ const GoBackBtn = () => {
     router.back();
   }, [router]);
   return (
-    <button onClick={goBack} className={`${styles.goBackBtn} ${styles[theme]}`}>
+    <button data-testid="goBackBtn" onClick={goBack} className={`${styles.goBackBtn} ${styles[theme]}`}>
       <Image src="/back_icon.png" alt="뒤로가기" width={20} height={17} />
       <span>뒤로가기</span>
     </button>

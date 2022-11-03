@@ -11,13 +11,18 @@ interface Props {
 const PageBtn = ({ idx, currentPage, onClickPageBtn }: Props) => {
   const { theme } = useContext(ThemeContext);
   return (
-    <button style={getPageBtnStyle(currentPage, idx, theme)} onClick={onClickPageBtn(idx)} className={`${styles.PageBtn} ${styles[theme]}`}>
+    <button
+      data-testid="pageBtn"
+      style={getPageBtnStyle(currentPage, idx, theme)}
+      onClick={onClickPageBtn(idx)}
+      className={`${styles.PageBtn} ${styles[theme]}`}
+    >
       {idx}
     </button>
   );
 };
 
-const getPageBtnStyle = (currentPage: number, idx: number | string, theme: any) => {
+export const getPageBtnStyle = (currentPage: number, idx: number | string, theme: any) => {
   if (currentPage === idx) {
     if (theme === "light") return { background: "#0099fa", color: "white" };
     else return { background: "#3e4756" };

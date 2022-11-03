@@ -9,18 +9,20 @@ interface Props {
 
 const TagIcon = ({ tag }: Props) => {
   const { theme } = useContext(ThemeContext);
-  const { push } = useRouter();
+  const router = useRouter();
+
   const onClickTag = useCallback(
     (tag: string) => () => {
-      return push({
+      return router.push({
         pathname: "/filter",
         query: { tag: tag },
       });
     },
-    [push]
+    [router]
   );
+
   return (
-    <div className={`${styles.TagIcon} ${styles[String(theme)]}`} onClick={onClickTag(tag)}>
+    <div data-testid="tagIcon" onClick={onClickTag(tag)} className={`${styles.TagIcon} ${styles[String(theme)]}`}>
       {tag}
     </div>
   );

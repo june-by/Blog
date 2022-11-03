@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { useLogin } from "../../../../Hooks/User";
+import { useLogin } from "../../../../hooks/User";
 import Modal from "../../../../utils/Modal";
 import styles from "./styles.module.scss";
 interface Props {
@@ -42,8 +42,8 @@ const LoginModal = ({ setOpen }: Props) => {
             <Image onClick={closeModal} src="/close_btn.png" width={35} height={35} alt="닫기" />
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input ref={emailRef} placeholder="이메일 혹은 아이디" />
-            <input ref={passwordRef} type="password" placeholder="비밀번호" />
+            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
             <button>로그인</button>
           </form>
         </>

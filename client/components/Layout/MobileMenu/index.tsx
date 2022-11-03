@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import useWidthAnimation from "../../../Hooks/useWidthAnimation";
+import useWidthAnimation from "../../../hooks/useWidthAnimation";
 import MobileAccount from "./MobileAccount";
 import MobileCategoryList from "./MobileCategoryList";
 import styles from "./styles.module.scss";

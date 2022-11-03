@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
-import useGotoPage from "../../../../Hooks/useGotoPage";
-import useToggle from "../../../../Hooks/useToggle";
-import useWidthAnimation from "../../../../Hooks/useWidthAnimation";
+import useGotoPage from "../../../../hooks/useGotoPage";
+import useToggle from "../../../../hooks/useToggle";
+import useWidthAnimation from "../../../../hooks/useWidthAnimation";
 import styles from "./styles.module.scss";
 
 const HeaderLeft = () => {

@@ -21,7 +21,7 @@ var visitorRouter_1 = __importDefault(require("../src/Visitor/visitorRouter"));
 var commentRouter_1 = __importDefault(require("../src/Comment/commentRouter"));
 var tagRouter_1 = __importDefault(require("../src/Tag/tagRouter"));
 var passport_2 = __importDefault(require("../passport"));
-var client_s3_1 = require("@aws-sdk/client-s3");
+var aws_sdk_1 = __importDefault(require("aws-sdk"));
 var multer_1 = __importDefault(require("multer"));
 var multer_s3_1 = __importDefault(require("multer-s3"));
 dotenv_1.default.config();
@@ -68,15 +68,14 @@ function default_1() {
     app.use("/visitor", visitorRouter_1.default);
     app.use("/comment", commentRouter_1.default);
     app.use("/tag", tagRouter_1.default);
+    aws_sdk_1.default.config.update({
+        accessKeyId: process.env.S3_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+        region: process.env.S3_REGION,
+    });
     var upload = (0, multer_1.default)({
         storage: (0, multer_s3_1.default)({
-            s3: new client_s3_1.S3Client({
-                credentials: {
-                    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-                },
-                region: "ap-northeast-2",
-            }),
+            s3: new aws_sdk_1.default.S3(),
             bucket: "byjuun.com",
             key: function (req, file, cb) {
                 cb(null, "original/".concat(Date.now(), "_").concat(path_1.default.basename(file.originalname)));

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import useInitializeTagContent from "./useInitializeTagContent";
-import TagChip from "../../../Atom/TagChip";
+import TagChip from "../../../atom/TagChip";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -24,7 +24,7 @@ const Tag = ({ tagArr, setTagArr }: Props) => {
 
   return (
     <div className={styles.Tag}>
-      <form onSubmit={onSubmitTag}>
+      <form data-testid="tagSubmitForm" onSubmit={onSubmitTag}>
         <input ref={tagRef} placeholder="Tag" />
       </form>
       <div className={styles.TagArrWrapper}>

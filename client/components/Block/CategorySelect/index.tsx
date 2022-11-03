@@ -1,9 +1,9 @@
 import React from "react";
-import CategoryChip from "../../Atom/CategoryChip";
+import CategoryChip from "../../atom/CategoryChip";
 import styles from "./styles.module.scss";
 import { Category } from "../../../utils/category";
-import { useGetAllCateogryLength } from "../../../Hooks/Post";
-import CategoryChipSkeleton from "../../Atom/CategoryChip/Skeleton";
+import { useGetAllCateogryLength } from "../../../hooks/Post";
+import CategoryChipSkeleton from "../../atom/CategoryChip/Skeleton";
 
 const CategorySelect = () => {
   const { data, isLoading } = useGetAllCateogryLength();

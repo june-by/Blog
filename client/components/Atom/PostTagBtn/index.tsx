@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
-import { TagType } from "../../../Types/Post";
+import { TagType } from "../../../types/Post";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
@@ -20,7 +20,7 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   );
 
   return (
-    <button className={`${styles.PostTagButton} ${styles[theme]}`} onClick={(e) => onClickTag(e, String(tag?.content))}>
+    <button data-testid="postTagBtn" className={`${styles.PostTagButton} ${styles[theme]}`} onClick={(e) => onClickTag(e, String(tag?.content))}>
       #{tag?.content}
     </button>
   );

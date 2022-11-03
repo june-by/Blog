@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import { OtherPostType } from "../../../Types/Post";
+import { OtherPostType } from "../../../types/Post";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -15,7 +15,7 @@ const OtherPost = ({ Post, mode }: Props) => {
     return push(`/post/${Post.OtherId}`);
   }, []);
   return (
-    <div className={styles.OtherPost} onClick={gotoPost}>
+    <div data-testid="OtherPost" className={styles.OtherPost} onClick={gotoPost}>
       <div className={styles.description}>
         <span>{`${mode === "next" ? "다음" : "이전"}게시글`}</span>
       </div>

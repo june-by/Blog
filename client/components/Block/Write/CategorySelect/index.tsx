@@ -8,7 +8,7 @@ interface Props {
 
 const CategorySelectInWrite = ({ categoryInfo, onChangeCategory }: Props) => {
   return (
-    <select value={categoryInfo} onChange={onChangeCategory}>
+    <select data-testid="categorySelectInWrite" value={categoryInfo} onChange={onChangeCategory}>
       <>
         {Category?.map((category) => {
           return (

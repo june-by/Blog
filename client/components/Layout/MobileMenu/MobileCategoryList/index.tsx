@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllCateogryLength } from "../../../../Hooks/Post";
+import { useGetAllCateogryLength } from "../../../../hooks/Post";
 import { Category } from "../../../../utils/category";
 import CategoryRow from "./CategoryRow";
 
