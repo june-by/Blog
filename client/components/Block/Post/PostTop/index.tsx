@@ -1,12 +1,12 @@
 import React from "react";
-import { useGetUserInfo } from "../../../../hooks/User";
-import { MainPost } from "../../../../types/Post";
+import { useGetUserInfo } from "../../../../Hooks/User";
+import { MainPost } from "../../../../Types/Post";
 import { dateForm } from "../../../../utils/dateForm";
-import CategoryChip from "../../../atom/CategoryChip";
-import GoBackBtn from "../../../atom/GoBackBtn";
-import PostDelBtn from "../../../atom/PostDelBtn";
-import PostEditBtn from "../../../atom/PostEditBtn";
-import PostTagBtn from "../../../atom/PostTagBtn";
+import CategoryChip from "../../../Atom/CategoryChip";
+import GoBackBtn from "../../../Atom/GoBackBtn";
+import PostDelBtn from "../../../Atom/PostDelBtn";
+import PostEditBtn from "../../../Atom/PostEditBtn";
+import PostTagBtn from "../../../Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 
 interface Props {

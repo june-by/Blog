@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { useSignUp } from "../../../../hooks/User";
+import { useSignUp } from "../../../../Hooks/User";
 import Modal from "../../../../utils/Modal";
 import styles from "./styles.module.scss";
 

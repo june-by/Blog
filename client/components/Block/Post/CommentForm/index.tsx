@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useRef } from "react";
-import { useAddComment } from "../../../../hooks/Comment";
-import { useGetUserInfo } from "../../../../hooks/User";
+import { useAddComment } from "../../../../Hooks/Comment";
+import { useGetUserInfo } from "../../../../Hooks/User";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
