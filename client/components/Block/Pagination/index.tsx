@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
-import PageBtn from "../../Atom/PageBtn";
+import PageBtn from "../../atom/PageBtn";
 import styles from "./styles.module.scss";
 
 interface Props {

@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from "querystring";
-import { PostsType } from "../Types/Post";
+import { PostsType } from "../types/Post";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "./Post";
 
 type ReturnTypes = [PostsType[] | undefined, boolean];

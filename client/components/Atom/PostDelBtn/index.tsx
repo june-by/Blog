@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import { useDeletePost } from "../../../Hooks/Post";
+import { useDeletePost } from "../../../hooks/Post";
 import styles from "./styles.module.scss";
 
 const PostDelBtn = () => {

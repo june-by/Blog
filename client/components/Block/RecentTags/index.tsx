@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { useGetRecentTags } from "../../../Hooks/Tag";
+import { useGetRecentTags } from "../../../hooks/Tag";
 import { ThemeContext } from "../../../utils/ThemeContext";
-import TagIcon from "../../Atom/TagIcon";
+import TagIcon from "../../atom/TagIcon";
 import styles from "./styles.module.scss";
 
 const RecentTags = () => {

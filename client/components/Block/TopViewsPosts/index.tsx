@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
-import { useGetTopViewsPosts } from "../../../Hooks/Post";
+import { useGetTopViewsPosts } from "../../../hooks/Post";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
