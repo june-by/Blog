@@ -71,15 +71,8 @@ function default_1() {
     aws_sdk_1.default.config.update({
         accessKeyId: process.env.S3_ACCESS_KEY_ID,
         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-        region: "ap-northeast-2",
+        region: process.env.S3_REGION,
     });
-    //   const s3Config = new S3Client({
-    //     region: "ap-northeast-2",
-    //     credentials:{
-    //       accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
-    //     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
-    //    }
-    //  })
     var upload = (0, multer_1.default)({
         storage: (0, multer_s3_1.default)({
             s3: new aws_sdk_1.default.S3(),
