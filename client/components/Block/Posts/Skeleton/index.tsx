@@ -2,7 +2,7 @@ import React from "react";
 import { Category } from "../../../../utils/category";
 import CategoryChipSkeleton from "../../../Atom/CategoryChip/Skeleton";
 import PostCardSkeleton from "../../../Atom/PostCard/Skeleton";
-import HeaderSkeleton from "../../../layout/Header/Skeleton";
+import HeaderSkeleton from "../../../Layout/Header/Skeleton";
 import styles from "../styles.module.scss";
 const PostsSkelton = () => {
   return (
