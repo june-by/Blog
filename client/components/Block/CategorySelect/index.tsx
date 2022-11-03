@@ -2,7 +2,7 @@ import React from "react";
 import CategoryChip from "../../atom/CategoryChip";
 import styles from "./styles.module.scss";
 import { Category } from "../../../utils/category";
-import { useGetAllCateogryLength } from "../../../hooks/Post";
+import { useGetAllCateogryLength } from "../../../Hooks/Post";
 import CategoryChipSkeleton from "../../atom/CategoryChip/Skeleton";
 
 const CategorySelect = () => {

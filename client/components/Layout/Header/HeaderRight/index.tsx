@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import useOpenModal from "../../../../hooks/useOpenModal";
-import { useGetUserInfo, useLogOut } from "../../../../hooks/User";
+import useOpenModal from "../../../../Hooks/useOpenModal";
+import { useGetUserInfo, useLogOut } from "../../../../Hooks/User";
 import LoginModal from "../../../block/_Modal/LoginModal";
 import SearchModal from "../../../block/_Modal/SearchModal";
 import SignUpModal from "../../../block/_Modal/SignUpModal";

@@ -9,7 +9,7 @@ import CommentList from "../../components/block/Post/CommentList";
 import OtherPostInfo from "../../components/block/Post/OtherPostInfo";
 import PostContent from "../../components/block/Post/PostContent";
 import PostTop from "../../components/block/Post/PostTop";
-import { useGetOnePost } from "../../hooks/Post";
+import { useGetOnePost } from "../../Hooks/Post";
 import { MainPost } from "../../Types/Post";
 import { getOgImage } from "../../utils/getOgImage";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";

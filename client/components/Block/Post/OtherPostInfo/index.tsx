@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
-import { useGetOnePost } from "../../../../hooks/Post";
+import { useGetOnePost } from "../../../../Hooks/Post";
 import { OtherPostType } from "../../../../Types/Post";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import OtherPost from "../../../atom/OtherPost";

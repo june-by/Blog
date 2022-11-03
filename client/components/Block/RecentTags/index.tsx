@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useGetRecentTags } from "../../../hooks/Tag";
+import { useGetRecentTags } from "../../../Hooks/Tag";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import TagIcon from "../../atom/TagIcon";
 import styles from "./styles.module.scss";

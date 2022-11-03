@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import useGotoPage from "../../../hooks/useGotoPage";
+import useGotoPage from "../../../Hooks/useGotoPage";
 import { PostsType } from "../../../Types/Post";
 import { dateForm } from "../../../utils/dateForm";
 import { getPostThumbNail } from "../../../utils/getPostThumnail";

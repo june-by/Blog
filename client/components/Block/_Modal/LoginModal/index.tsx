@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { useLogin } from "../../../../hooks/User";
+import { useLogin } from "../../../../Hooks/User";
 import Modal from "../../../../utils/Modal";
 import styles from "./styles.module.scss";
 interface Props {

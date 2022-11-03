@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useGetVisitor } from "../../../hooks/Visitor";
+import { useGetVisitor } from "../../../Hooks/Visitor";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 const Visitor = () => {

@@ -8,11 +8,11 @@ import Head from "next/head";
 import Header from "../components/layout/Header";
 import Loading from "../utils/Loading";
 import ProgressBar from "../components/atom/ProgressBar";
-import useSetProgressState from "../hooks/useSetProgressState";
+import useSetProgressState from "../Hooks/useSetProgressState";
 import { ThemeProvider } from "../utils/ThemeContext";
 import cookies from "next-cookies";
 import App from "next/app";
-import useCheckVisitor from "../hooks/useCheckVisitor";
+import useCheckVisitor from "../Hooks/useCheckVisitor";
 
 interface CustomAppProps extends AppProps {
   theme: string;

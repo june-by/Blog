@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import useDarkMode from "./useDarkMode";
-import useToggle from "../../../hooks/useToggle";
+import useToggle from "../../../Hooks/useToggle";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import styles from "./styles.module.scss";
 
