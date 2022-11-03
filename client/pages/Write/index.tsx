@@ -39,7 +39,7 @@ const Write = () => {
     else EditPostMutation.mutate(reqData);
   }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, thumbNailUrl, query.mode]);
 
-  //useCheckAdmin();
+  useCheckAdmin();
   useSetEditData({ titleRef, setCategoryInfo, setContent, setTagArr, setThumbNailUrl });
 
   return (
