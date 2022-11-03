@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionRight = () => {
   return (
-    <div className={styles.SectionRight}>
+    <div data-testid="additionalInfoSectionRight" className={styles.SectionRight}>
       <RecentComment />
       <RecentTags />
     </div>

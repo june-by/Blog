@@ -1,31 +1,27 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
+import { QueryClient } from "react-query";
 import TagIcon from "..";
 import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { renderWithContext } from "../../../../utils/test/renderWithContext";
 
 describe("<TagIcon />", () => {
+  const router = createMockRouter();
+  const queryClient = new QueryClient();
+
   const props = {
     tag: "testTag",
   };
 
   it("rendering test", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter()}>
-        <TagIcon tag={props.tag} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <TagIcon tag={props.tag} />);
+
     expect(screen.getByText(props.tag)).toBeInTheDocument();
   });
 
   it("click test", () => {
-    const router = createMockRouter();
-
-    render(
-      <RouterContext.Provider value={router}>
-        <TagIcon tag={props.tag} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <TagIcon tag={props.tag} />);
 
     const testIcon = screen.getByTestId("tagIcon");
     expect(testIcon).toBeInTheDocument();

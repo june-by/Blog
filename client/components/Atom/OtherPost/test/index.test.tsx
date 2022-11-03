@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { RouterContext } from "next/dist/shared/lib/router-context";
+import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
+import { QueryClient } from "react-query";
 import OtherPost from "..";
 import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { renderWithContext } from "../../../../utils/test/renderWithContext";
 
 describe("<OtherPost />", () => {
   const defaultProps = {
@@ -13,23 +14,19 @@ describe("<OtherPost />", () => {
       OtherTitle: "testPost",
     },
   };
+
+  const router = createMockRouter();
+  const queryClient = new QueryClient();
+
   it("rendering test", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter()}>
-        <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />);
     expect(screen.getByText("다음게시글")).toBeInTheDocument();
     expect(screen.getByText(defaultProps.Post.OtherTitle)).toBeInTheDocument();
   });
 
   it("click and gotoPost function test", () => {
-    const router = createMockRouter();
-    render(
-      <RouterContext.Provider value={router}>
-        <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />);
+
     const otherPost = screen.getByTestId("OtherPost");
     fireEvent.click(otherPost);
     expect(router.push).toHaveBeenCalledWith(`/post/${defaultProps.Post.OtherId}`);
@@ -45,11 +42,8 @@ describe("<OtherPost />", () => {
         OtherTitle: "testPost",
       },
     };
-    render(
-      <RouterContext.Provider value={router}>
-        <OtherPost Post={props.Post} mode={props.mode} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={props.Post} mode={props.mode} />);
+
     expect(screen.getByText("이전게시글")).toBeInTheDocument();
     expect(screen.getByText("이전게시글이 없습니다 :(")).toBeInTheDocument();
     const otherPost = screen.getByTestId("OtherPost");

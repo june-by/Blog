@@ -1,10 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
+import { QueryClient } from "react-query";
 import PostCard from "..";
 import { dateForm } from "../../../../utils/dateForm";
 import { getPostThumbNail } from "../../../../utils/getPostThumnail";
 import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { renderWithContext } from "../../../../utils/test/renderWithContext";
 
 describe("<PostCard />", () => {
   const defaultProps = {
@@ -19,13 +21,11 @@ describe("<PostCard />", () => {
     thumbNailUrl: null,
     views: 10,
   };
-
+  const router = createMockRouter();
+  const queryClient = new QueryClient();
   it("rendering test", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter()}>
-        <PostCard post={defaultProps} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
+
     expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
     expect(screen.getByText(dateForm(defaultProps.createdAt))).toBeInTheDocument();
     expect(screen.getByText(`조회수 : ${defaultProps.views}`)).toBeInTheDocument();
@@ -33,21 +33,13 @@ describe("<PostCard />", () => {
   });
 
   it("rendering test (feat, thumbNail src", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter()}>
-        <PostCard post={{ ...defaultProps, thumbNailUrl: "/test.png" }} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <PostCard post={{ ...defaultProps, thumbNailUrl: "/test.png" }} />);
+
     expect(screen.getByAltText("category")).toHaveAttribute("src", "/test.png");
   });
 
   it("click test", () => {
-    const router = createMockRouter();
-    render(
-      <RouterContext.Provider value={router}>
-        <PostCard post={defaultProps} />
-      </RouterContext.Provider>
-    );
+    renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
 
     const postCard = screen.getByTestId("postCard");
     fireEvent.click(postCard);
