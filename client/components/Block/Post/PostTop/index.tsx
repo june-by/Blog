@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserInfo } from "../../../../hooks/User";
-import { MainPost } from "../../../../types/Post";
+import { MainPost } from "../../../../Types/Post";
 import { dateForm } from "../../../../utils/dateForm";
 import CategoryChip from "../../../atom/CategoryChip";
 import GoBackBtn from "../../../atom/GoBackBtn";

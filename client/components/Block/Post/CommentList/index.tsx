@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentType } from "../../../../types/Post";
+import { CommentType } from "../../../../Types/Post";
 import CommentCard from "../../../atom/CommentCard";
 import styles from "./styles.module.scss";
 

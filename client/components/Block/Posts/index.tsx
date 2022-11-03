@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { PostsType } from "../../../types/Post";
+import { PostsType } from "../../../Types/Post";
 import PostCard from "../../atom/PostCard";
 import PostCardSkeleton from "../../atom/PostCard/Skeleton";
 import styles from "./styles.module.scss";

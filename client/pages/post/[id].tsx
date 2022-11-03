@@ -10,7 +10,7 @@ import OtherPostInfo from "../../components/block/Post/OtherPostInfo";
 import PostContent from "../../components/block/Post/PostContent";
 import PostTop from "../../components/block/Post/PostTop";
 import { useGetOnePost } from "../../hooks/Post";
-import { MainPost } from "../../types/Post";
+import { MainPost } from "../../Types/Post";
 import { getOgImage } from "../../utils/getOgImage";
 import { ScrollBtn } from "../../utils/scrollBtn/scrollBtn";
 import styles from "./styles.module.scss";

@@ -9,7 +9,7 @@ import { useGetPostNum } from "../../hooks/Post";
 import useGetPosts from "../../hooks/useGetPosts";
 import useMakeMetaInfo from "../../hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
-import { PostsType } from "../../types/Post";
+import { PostsType } from "../../Types/Post";
 import AdditionalInfoSectionRight from "../../components/block/AdditionalInfoSectionRight";
 import AdditionalInfoSectionLeft from "../../components/block/AdditionalInfoSectionLeft";
 

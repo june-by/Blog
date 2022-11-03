@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import { OtherPostType } from "../../../types/Post";
+import { OtherPostType } from "../../../Types/Post";
 import styles from "./styles.module.scss";
 
 interface Props {
