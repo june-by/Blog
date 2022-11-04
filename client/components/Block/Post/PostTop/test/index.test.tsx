@@ -30,12 +30,12 @@ describe("<PostTop />", () => {
     Post.Tags.forEach((tag) => {
       expect(screen.getByText(`#${tag.content}`)).toBeInTheDocument();
     });
-    expect(screen.findByText(`조회수 : ${Post.views + 1}`));
-    // await waitFor(() => {
-    //   expect(screen.queryByText("글 삭제하기")).not.toBeInTheDocument();
-    // });
-    // await waitFor(() => {
-    //   expect(screen.queryByText("글 수정하기")).not.toBeInTheDocument();
-    // });
+    expect(screen.getByText(`조회수 : ${Post.views + 1}`));
+    await waitFor(() => {
+      expect(screen.queryByText("글 삭제하기")).not.toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.queryByText("글 수정하기")).not.toBeInTheDocument();
+    });
   });
 });
