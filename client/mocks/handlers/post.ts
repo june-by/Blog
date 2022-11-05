@@ -1,9 +1,6 @@
 import { rest } from "msw";
+import { Category } from "../../utils/category";
 import { ServerURL } from "../../utils/ServerURL";
-
-export const postComment = rest.post(`${ServerURL}/post/:postId/comment`, (req, res, ctx) => {
-  return res(ctx.status(200), ctx.text("성공"));
-});
 
 export const getCategoryPosts = rest.get(`${ServerURL}/posts/load/:category/:pageNum`, (req, res, ctx) => {
   return res(
@@ -38,7 +35,11 @@ export const getOnePost = rest.get(`${ServerURL}/post/load/:postId`, (req, res, 
         category: "testCategory",
         content: "testContent",
         thumbNailUrl: "/test.png",
-        Tags: [{ content: "tag1" }, { content: "tag2" }, { content: "tag3" }],
+        Tags: [
+          { content: "tag1", id: 10 },
+          { content: "tag2", id: 20 },
+          { content: "tag3", id: 30 },
+        ],
       },
       prevPost: {
         OtherId: 2,
@@ -69,6 +70,20 @@ export const getTopViewsPosts = rest.get(`${ServerURL}/posts/topViews`, (req, re
     ctx.json(
       Array.from({ length: 10 }, (_, idx) => {
         return { id: idx, title: `testTopViewPost${idx}` };
+      })
+    )
+  );
+});
+
+export const getAllCategoryLength = rest.get(`${ServerURL}/posts/load/categoryLength`, (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json(
+      Category.map((category, idx) => {
+        return {
+          category,
+          count: idx + 1,
+        };
       })
     )
   );

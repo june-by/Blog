@@ -21,7 +21,7 @@ const Post = () => {
   const Post = data?.mainPost;
 
   if (isLoading) return <></>;
-  console.log(data);
+
   return (
     <>
       <Head>

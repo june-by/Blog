@@ -11,8 +11,11 @@ describe("<CategorySelect />", () => {
   const queryClient = new QueryClient();
   it("rendering test", async () => {
     renderWithContext(router, queryClient, <CategorySelect />);
+    let idx = 1;
     for (const category of Category) {
       expect(await screen.findByText(category)).toBeInTheDocument();
+      expect(await screen.findByText(idx)).toBeInTheDocument();
+      idx++;
     }
   });
 });

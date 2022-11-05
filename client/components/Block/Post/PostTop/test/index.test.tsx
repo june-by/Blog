@@ -15,7 +15,7 @@ describe("<PostTop />", () => {
       return { User: { nickname: `testUser${idx}` }, content: `testComment${idx}`, createdAt: new Date() };
     }),
     Tags: Array.from({ length: 5 }, (_, idx) => {
-      return { id: idx, content: `testTag${idx}` };
+      return { id: idx + 100, content: `testTag${idx}` };
     }),
     category: "testCategory",
     createdAt: new Date(),
