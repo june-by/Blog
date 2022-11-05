@@ -1,6 +1,5 @@
 import { getRecentCommentAPI } from "..";
 
-export {};
 describe("CommentAPI", () => {
   it("getRecentCommentAPI", async () => {
     expect(await getRecentCommentAPI()).toStrictEqual(

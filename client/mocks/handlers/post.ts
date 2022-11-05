@@ -9,7 +9,7 @@ export const getCategoryPosts = rest.get(`${ServerURL}/posts/load/:category/:pag
       Array.from({ length: 16 }, (_, idx) => {
         return {
           categroy: "testCategory",
-          createdAt: new Date(),
+          createdAt: "2022-05-25T12:19:28.000Z",
           id: idx,
           title: `testTitle${idx}`,
           thumbNailUrl: "/test.png",
@@ -44,12 +44,12 @@ export const getOnePost = rest.get(`${ServerURL}/post/load/:postId`, (req, res, 
       prevPost: {
         OtherId: 2,
         OtherTitle: "prevTestPost",
-        OtherCreatedAt: new Date(),
+        OtherCreatedAt: "2022-05-25T12:19:30.000Z",
       },
       nextPost: {
         OtherId: 3,
         OtherTitle: "nextTestPost",
-        OtherCreatedAt: new Date(),
+        OtherCreatedAt: "2022-05-25T12:19:32.000Z",
       },
     })
   );
