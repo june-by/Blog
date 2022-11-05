@@ -9,7 +9,7 @@ const useGetTopics = (setTopicArr: React.Dispatch<React.SetStateAction<never[]>>
 
     if ($h1Tags.length !== 0) {
       for (const tag of $h1Tags as any) {
-        if (tag.innerText.length !== 1) {
+        if (tag?.innerText?.length !== 1) {
           tagArr.push(tag);
         }
       }
@@ -17,7 +17,7 @@ const useGetTopics = (setTopicArr: React.Dispatch<React.SetStateAction<never[]>>
 
     if ($h2Tags.length !== 0) {
       for (const tag of $h2Tags as any) {
-        if (tag.innerText.length !== 1) {
+        if (tag?.innerText?.length !== 1) {
           tagArr.push(tag);
         }
       }
@@ -25,7 +25,7 @@ const useGetTopics = (setTopicArr: React.Dispatch<React.SetStateAction<never[]>>
 
     if ($h3Tags.length !== 0) {
       for (const tag of $h3Tags as any) {
-        if (tag.innerText.length !== 1) {
+        if (tag?.innerText?.length !== 1) {
           tagArr.push(tag);
         }
       }

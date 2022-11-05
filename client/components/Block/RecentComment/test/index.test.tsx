@@ -12,6 +12,8 @@ describe("<RecentComment />", () => {
     renderWithContext(router, queryClient, <RecentComment />);
 
     expect(await screen.findByText(`최근 댓글`)).toBeInTheDocument();
-    //TODO: Comment Length test
+    for (let idx = 0; idx < 10; idx++) {
+      expect(await screen.findByText(`testComment${idx}`)).toBeInTheDocument();
+    }
   });
 });

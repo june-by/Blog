@@ -27,8 +27,9 @@ const CommentForm = () => {
 
   return (
     <div className={`${styles.CommentForm} ${styles[theme]}`}>
-      <form onSubmit={submitComment}>
+      <form onSubmit={submitComment} data-testid="commentForm">
         <textarea
+          data-testid="commentTextarea"
           className={`${styles[theme]}`}
           ref={CommentRef}
           disabled={UserInfo === null && true}
