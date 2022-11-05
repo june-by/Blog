@@ -17,8 +17,11 @@ import styles from "./styles.module.scss";
 
 const Post = () => {
   const router = useRouter();
-  const { data } = useGetOnePost(Number(router.query.id));
+  const { data, isLoading } = useGetOnePost(Number(router.query.id));
   const Post = data?.mainPost;
+
+  if (isLoading) return <></>;
+  console.log(data);
   return (
     <>
       <Head>
@@ -27,7 +30,7 @@ const Post = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta property="og:image" content={getOgImage(Post!.thumbNailUrl, Post!.category)} />
+        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <div className={styles.Post}>

@@ -1,4 +1,4 @@
-import { getOnePost, postComment } from "./post";
+import { getCategoryPosts, getOnePost, getPostsNum, getTopViewsPosts, postComment } from "./post";
 import { getUserInfo } from "./user";
 
-export const handlers = [getUserInfo, postComment, getOnePost];
+export const handlers = [getUserInfo, getCategoryPosts, postComment, getOnePost, getPostsNum, getTopViewsPosts];
