@@ -1,5 +1,5 @@
 import React from "react";
-import { Category } from "../../../../utils/category";
+import { Category } from "../../../../utils/variable";
 
 interface Props {
   categoryInfo: string;

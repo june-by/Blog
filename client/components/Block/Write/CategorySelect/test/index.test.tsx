@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import CategorySelectInWrite from "..";
-import { Category } from "../../../../../utils/category";
+import { Category } from "../../../../../utils/variable";
 
 describe("<CategorySelectInWrite/>", () => {
   const props = {

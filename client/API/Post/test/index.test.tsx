@@ -1,31 +1,10 @@
 import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, GetTopViewsPostsAPI } from "..";
-import { Category } from "../../../utils/category";
+import { DummyPost } from "../../../utils/dummy";
+import { Category } from "../../../utils/variable";
 
 describe("postAPI", () => {
   it("getOnePostAPI", async () => {
-    expect(await getOnePostAPI(1)).toStrictEqual({
-      mainPost: {
-        title: "testPost",
-        category: "testCategory",
-        content: "testContent",
-        thumbNailUrl: "/test.png",
-        Tags: [
-          { content: "tag1", id: 10 },
-          { content: "tag2", id: 20 },
-          { content: "tag3", id: 30 },
-        ],
-      },
-      prevPost: {
-        OtherId: 2,
-        OtherTitle: "prevTestPost",
-        OtherCreatedAt: "2022-05-25T12:19:30.000Z",
-      },
-      nextPost: {
-        OtherId: 3,
-        OtherTitle: "nextTestPost",
-        OtherCreatedAt: "2022-05-25T12:19:32.000Z",
-      },
-    });
+    expect(await getOnePostAPI(1)).toStrictEqual({ ...DummyPost, mainPost: { ...DummyPost.mainPost, createdAt: "2022-11-13T06:26:45.837Z" } });
   });
 
   it("getCategoryPostAPI", async () => {
