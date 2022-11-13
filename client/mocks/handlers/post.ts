@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { Category } from "../../utils/category";
+import { Category } from "../../utils/variable";
 import { ServerURL } from "../../utils/ServerURL";
 
 export const getCategoryPosts = rest.get(`${ServerURL}/posts/load/:category/:pageNum`, (req, res, ctx) => {

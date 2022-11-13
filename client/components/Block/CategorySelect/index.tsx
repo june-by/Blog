@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryChip from "../../Atom/CategoryChip";
 import styles from "./styles.module.scss";
-import { Category } from "../../../utils/category";
+import { Category } from "../../../utils/variable";
 import { useGetAllCateogryLength } from "../../../Hooks/Post";
 import CategoryChipSkeleton from "../../Atom/CategoryChip/Skeleton";
 

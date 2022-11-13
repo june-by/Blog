@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import useGotoPage from "../../../Hooks/useGotoPage";
 import { PostsType } from "../../../Types/Post";
 import { dateForm } from "../../../utils/dateForm";
-import { getPostThumbNail } from "../../../utils/getPostThumnail";
+import { getThumbNail } from "../../../utils/getThumbnail";
 import { ThemeContext } from "../../../utils/ThemeContext";
 import PostTagBtn from "../PostTagBtn";
 import styles from "./styles.module.scss";
@@ -15,7 +15,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   return (
     <div data-testid="postCard" className={`${styles.PostCard} ${styles[theme]}`} onClick={gotoPage(`/post/${post.id}`)}>
       <div className={styles.PostCard_imgWrapper}>
-        <img src={post.thumbNailUrl && post.thumbNailUrl !== "null" ? post.thumbNailUrl : getPostThumbNail(post.category)} alt="category" />
+        <img src={post.thumbNailUrl && post.thumbNailUrl !== "null" ? post.thumbNailUrl : getThumbNail(post.category)} alt="category" />
       </div>
       <div className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}>
         <div className={styles.PostCard_titleBox_title}>

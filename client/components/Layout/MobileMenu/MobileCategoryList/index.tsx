@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetAllCateogryLength } from "../../../../Hooks/Post";
-import { Category } from "../../../../utils/category";
+import { Category } from "../../../../utils/variable";
 import CategoryRow from "./CategoryRow";
 
 const MobileCategoryList = () => {

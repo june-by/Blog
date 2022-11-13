@@ -1,7 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import styles from "./styles.module.scss";
-import { makeTopicStyle } from "../../../../utils/makeTopicStyles";
 import useNavBarScrolling from "./useNavBarScrolling";
+
+interface TopicStyleInterface {
+  [key: string]: { marginLeft: string };
+}
+
+const TopicStyle: TopicStyleInterface = {
+  H1: { marginLeft: "0" },
+  H2: { marginLeft: "25px" },
+  H3: { marginLeft: "25px" },
+};
+
+const getTopicStyle = (tagName: string) => TopicStyle[tagName];
 
 const PostNavBar = ({ topicArr }: { topicArr: any }) => {
   const topicPosition = useMemo(() => [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER], [topicArr]);
@@ -21,7 +32,7 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
         {topicArr?.length !== 0 &&
           topicArr.map((topic: any, idx: number) => {
             return (
-              <div className={styles.topic} key={idx + 100} style={makeTopicStyle(topic.tagName)} onClick={gotoTopic(topic)} id={String(idx)}>
+              <div className={styles.topic} key={idx + 100} style={getTopicStyle(topic.tagName)} onClick={gotoTopic(topic)} id={String(idx)}>
                 {topic?.innerText}
               </div>
             );
