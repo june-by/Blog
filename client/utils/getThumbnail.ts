@@ -1,19 +1,26 @@
-interface KeyIndex {
-  [key: string]: string;
+interface thumbNailType {
+  [key: string]: { jpg: string; webp: string };
 }
 
-const ThumbNail: KeyIndex = {
-  JavaScript: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/javascript.png",
-  React: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/React.png",
-  Web: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Web.png",
-  TypeScript: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/TypeScript.png",
-  NodeJs: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/nodejs.png",
-  OperatingSystem: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/OS.png",
-  DataStructure: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/DataStructure.png",
-  "HTML-CSS": "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/HTMLCSS.png",
-  NetWork: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/NetWork.jpeg",
-  학교공부: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/schoolstudy.png",
-  Algorithm: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/programmers.png",
+const thumbNail: thumbNailType = {
+  JavaScript: {
+    webp: `javascript.webp`,
+    jpg: `javascript.jpg`,
+  },
+  React: { webp: `React.webp`, jpg: `React.jpg` },
+  Web: { webp: `Web.webp`, jpg: `Web.jpg` },
+  TypeScript: {
+    webp: `TypeScript.webp`,
+    jpg: `TypeScript.jpg`,
+  },
+  "HTML-CSS": { webp: "HTMLCSS.webp", jpg: "HTMLCSS.jpg" },
+  NodeJs: { webp: `nodejs.webp`, jpg: `nodejs.jpg` },
+  OperatingSystem: { webp: "OS.webp", jpg: "OS.jpg" },
+  DataStructure: { webp: "DataStructure.webp", jpg: "DataStructure.jpg" },
+  NetWork: { webp: "NetWork.webp", jpg: "NetWork.jpg" },
+  학교공부: { webp: "schoolstudy.webp", jpg: "schoolstudy.jpg" },
+  Algorithm: { webp: "programmers.webp", jpg: "programmers.jpg" },
 };
 
-export const getThumbNail = (category: string) => ThumbNail[category];
+export const getThumbNail = (category: string): { jpg: string; webp: string } =>
+  thumbNail[category];

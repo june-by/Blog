@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { PostsType } from "../../../Types/Post";
-import PostCard from "../../Atom/PostCard";
-import PostCardSkeleton from "../../Atom/PostCard/Skeleton";
+import PostCard from "../PostCard";
+import PostCardSkeleton from "../PostCard/Skeleton";
 import styles from "./styles.module.scss";
 interface Props {
   posts: Array<PostsType> | undefined;
@@ -11,7 +11,13 @@ interface Props {
 const Posts = ({ posts, isLoading }: Props) => {
   const { query } = useRouter();
   return (
-    <div className={query.search || query.tag ? `${styles.PostsRoot} ${styles.TagAndSearch}` : `${styles.PostsRoot} ${styles.Default}`}>
+    <div
+      className={
+        query.search || query.tag
+          ? `${styles.PostsRoot} ${styles.TagAndSearch}`
+          : `${styles.PostsRoot} ${styles.Default}`
+      }
+    >
       <>
         {!isLoading ? (
           <>
