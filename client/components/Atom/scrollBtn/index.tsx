@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./scrollBtn.module.scss";
 
-export function ScrollBtn() {
+const ScrollBtn = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const checkScroll = () => {
@@ -29,9 +29,15 @@ export function ScrollBtn() {
   }, []);
 
   return (
-    <button className={styles.up_btn} style={isVisible ? { display: "inline" } : { display: "none" }} onClick={scrollToTop}>
+    <button
+      className={styles.up_btn}
+      style={isVisible ? { display: "inline" } : { display: "none" }}
+      onClick={scrollToTop}
+    >
       <img src="/top.png" />
       <div>TOP</div>
     </button>
   );
-}
+};
+
+export default React.memo(ScrollBtn);

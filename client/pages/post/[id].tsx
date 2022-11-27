@@ -12,7 +12,7 @@ import PostTop from "components/Block/Post/PostTop";
 import { useGetOnePost } from "Hooks/Post";
 import { MainPost } from "Types/Post";
 import { getOgImage } from "utils/getOgImage";
-import { ScrollBtn } from "utils/scrollBtn/scrollBtn";
+import ScrollBtn from "components/Atom/scrollBtn";
 import styles from "./styles.module.scss";
 
 const Post = () => {

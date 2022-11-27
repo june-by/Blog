@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Category } from "utils/category";
 import styles from "./styles.module.scss";
 import CategorySelectInWrite from "components/Block/Write/CategorySelect";
 import Tag from "components/Block/Write/Tag";
@@ -12,6 +11,7 @@ import dynamic from "next/dynamic";
 import useSetEditData from "Hooks/useSetEditData";
 import { useRouter } from "next/router";
 import PickThumbNail from "components/Block/Write/PickThumbNail";
+import { Category } from "utils/variable";
 
 const Write = () => {
   const { query } = useRouter();
