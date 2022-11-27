@@ -1,10 +1,22 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, getPostsNumAPI, GetTopViewsPostsAPI } from "..";
-import { DummyPost } from "../../../utils/dummy";
-import { Category } from "../../../utils/variable";
+import {
+  getAllCategoryLengthAPI,
+  getCategoryPostAPI,
+  getOnePostAPI,
+  getPostsNumAPI,
+  GetTopViewsPostsAPI,
+} from "..";
+import { DummyPost } from "utils/dummy";
+import { Category } from "utils/variable";
 
 describe("postAPI", () => {
   it("getOnePostAPI", async () => {
-    expect(await getOnePostAPI(1)).toStrictEqual({ ...DummyPost, mainPost: { ...DummyPost.mainPost, createdAt: "2022-11-13T06:26:45.837Z" } });
+    expect(await getOnePostAPI(1)).toStrictEqual({
+      ...DummyPost,
+      mainPost: {
+        ...DummyPost.mainPost,
+        createdAt: "2022-11-13T06:26:45.837Z",
+      },
+    });
   });
 
   it("getCategoryPostAPI", async () => {

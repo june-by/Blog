@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../../../../utils/ThemeContext";
-import HeaderLeft from "../HeaderLeft";
+import { ThemeContext } from "utils/ThemeContext";
+import HeaderLeft from "components/Layout/Header/HeaderLeft";
 import styles from "../styles.module.scss";
 
 const HeaderSkeleton = () => {

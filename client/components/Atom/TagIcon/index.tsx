@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
-import { ThemeContext } from "../../../utils/ThemeContext";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -22,7 +22,11 @@ const TagIcon = ({ tag }: Props) => {
   );
 
   return (
-    <div data-testid="tagIcon" onClick={onClickTag(tag)} className={`${styles.TagIcon} ${styles[String(theme)]}`}>
+    <div
+      data-testid="tagIcon"
+      onClick={onClickTag(tag)}
+      className={`${styles.TagIcon} ${styles[String(theme)]}`}
+    >
       {tag}
     </div>
   );

@@ -1,4 +1,4 @@
-import model from "../../models";
+import model from "models";
 const { Visitor } = model;
 const getTotalVisitor = async () => {
   const totalVisitor = await Visitor.count({});

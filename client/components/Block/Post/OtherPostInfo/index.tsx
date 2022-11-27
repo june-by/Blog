@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useContext, useMemo } from "react";
-import { useGetOnePost } from "../../../../Hooks/Post";
-import { OtherPostType } from "../../../../Types/Post";
-import { ThemeContext } from "../../../../utils/ThemeContext";
-import OtherPost from "../../../Atom/OtherPost";
+import { useGetOnePost } from "Hooks/Post";
+import { OtherPostType } from "Types/Post";
+import { ThemeContext } from "utils/ThemeContext";
+import OtherPost from "components/Atom/OtherPost";
 import styles from "./styles.module.scss";
 
 const OtherPostInfo = () => {

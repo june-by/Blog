@@ -1,6 +1,6 @@
 import { rest } from "msw";
-import { DummyUser } from "../../utils/dummy";
-import { ServerURL } from "../../utils/ServerURL";
+import { DummyUser } from "utils/dummy";
+import { ServerURL } from "utils/ServerURL";
 
 export const getUserInfo = rest.get(`${ServerURL}/user`, (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(DummyUser));

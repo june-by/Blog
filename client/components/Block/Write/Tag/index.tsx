@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import useInitializeTagContent from "./useInitializeTagContent";
-import TagChip from "../../../Atom/TagChip";
+import TagChip from "components/Atom/TagChip";
 import styles from "./styles.module.scss";
 
 interface Props {

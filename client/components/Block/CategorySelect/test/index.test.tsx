@@ -2,9 +2,9 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import CategorySelect from "..";
-import { Category } from "../../../../utils/variable";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { Category } from "utils/variable";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<CategorySelect />", () => {
   const router = createMockRouter();

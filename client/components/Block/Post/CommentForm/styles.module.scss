@@ -1,44 +1,44 @@
-@import "../../../../utils/utils.scss";
+@import "utils/utils.scss";
 
 .CommentForm {
-	width: 100%;
-	margin-top: 50px;
-	padding-top: 25px;
-	padding-bottom: 25px;
-	border-top: 0.5px solid #c8c8c8;
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-top: 0.5px solid #c8c8c8;
 
-	form {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 15px;
-	}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+  }
 
-	textarea {
-		resize: none;
-		height: 100px;
-	}
+  textarea {
+    resize: none;
+    height: 100px;
+  }
 
-	button {
-		@include CustomBtn;
-		width: 20%;
-	}
+  button {
+    @include CustomBtn;
+    width: 20%;
+  }
 }
 
 .dark {
-	textarea {
-		@include CustomInput;
-		background: #1e1e1e;
-		color: white;
-	}
+  textarea {
+    @include CustomInput;
+    background: #1e1e1e;
+    color: white;
+  }
 
-	button {
-		background: #3e4756;
-	}
+  button {
+    background: #3e4756;
+  }
 }
 
 .light {
-	textarea {
-		@include CustomInput;
-	}
+  textarea {
+    @include CustomInput;
+  }
 }

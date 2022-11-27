@@ -3,11 +3,11 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
 import { QueryClient } from "react-query";
 import PostCard from "..";
-import { dateForm } from "../../../../utils/dateForm";
-import { DummyPost } from "../../../../utils/dummy";
-import { getThumbNail } from "../../../../utils/getThumbnail";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { dateForm } from "utils/dateForm";
+import { DummyPost } from "utils/dummy";
+import { getThumbNail } from "utils/getThumbnail";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<PostCard />", () => {
   const defaultProps = DummyPost.mainPost;

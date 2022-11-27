@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import useDarkMode from "./useDarkMode";
-import useToggle from "../../../Hooks/useToggle";
-import { ThemeContext } from "../../../utils/ThemeContext";
+import useToggle from "Hooks/useToggle";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 const DarkModeBtn = () => {
@@ -11,7 +11,11 @@ const DarkModeBtn = () => {
   useDarkMode(mode, toggleThumbRef);
 
   return (
-    <div data-testid="DarkModeBtnWrapper" className={styles.DarkModeBtnWrapper} onClick={onChange}>
+    <div
+      data-testid="DarkModeBtnWrapper"
+      className={styles.DarkModeBtnWrapper}
+      onClick={onChange}
+    >
       <div className={styles.DarkModeBtn}>
         <div className={styles.toggleTrackCheckY}>
           <span>🌜</span>
@@ -19,7 +23,12 @@ const DarkModeBtn = () => {
         <div className={styles.toggleTrackCheckX}>
           <span>🌞</span>
         </div>
-        <button data-testid="toggleBtn" ref={toggleThumbRef} style={{ left: mode === false ? "27px" : "1px" }} className={styles.toggleTrackThumb}></button>
+        <button
+          data-testid="toggleBtn"
+          ref={toggleThumbRef}
+          style={{ left: mode === false ? "27px" : "1px" }}
+          className={styles.toggleTrackThumb}
+        ></button>
       </div>
     </div>
   );

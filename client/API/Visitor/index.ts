@@ -1,4 +1,4 @@
-import { customAxios } from "../../utils/CustomAxios";
+import { customAxios } from "utils/CustomAxios";
 
 export const getVisitorAPI = async () => {
   const { data } = await customAxios.get("/visitor");

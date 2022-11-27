@@ -1,5 +1,11 @@
-import React, { ReactChild, ReactChildren, useCallback, useContext } from "react";
-import { ThemeContext } from "../ThemeContext";
+import React, {
+  ReactChild,
+  ReactChildren,
+  useCallback,
+  useContext,
+} from "react";
+import { ThemeContext } from "utils/ThemeContext";
+
 import styles from "./styles.module.scss";
 
 interface Props {

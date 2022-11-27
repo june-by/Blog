@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
-import { useLogin } from "../../../../Hooks/User";
-import Modal from "../../../../utils/Modal";
+import { useLogin } from "Hooks/User";
+import Modal from "utils/Modal";
 import styles from "./styles.module.scss";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,8 +21,10 @@ const LoginModal = ({ setOpen }: Props) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!emailRef.current || !passwordRef.current) return;
-      if (emailRef.current.value === "") return alert("* 아이디를 입력해주세요.");
-      if (passwordRef.current.value === "") return alert("* 비밀번호를 입력해주세요.");
+      if (emailRef.current.value === "")
+        return alert("* 아이디를 입력해주세요.");
+      if (passwordRef.current.value === "")
+        return alert("* 비밀번호를 입력해주세요.");
 
       const reqData = {
         email: emailRef.current.value,
@@ -39,11 +41,26 @@ const LoginModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.LoginTitle}>
             <span>로그인</span>
-            <Image onClick={closeModal} src="/close_btn.png" width={35} height={35} alt="닫기" />
+            <Image
+              onClick={closeModal}
+              src="/close_btn.png"
+              width={35}
+              height={35}
+              alt="닫기"
+            />
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
-            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
+            <input
+              data-testid="emailInput"
+              ref={emailRef}
+              placeholder="이메일 혹은 아이디"
+            />
+            <input
+              data-testid="passwordInput"
+              ref={passwordRef}
+              type="password"
+              placeholder="비밀번호"
+            />
             <button>로그인</button>
           </form>
         </>

@@ -1,8 +1,8 @@
 import React from "react";
-import { Category } from "../../../../utils/variable";
-import CategoryChipSkeleton from "../../../Atom/CategoryChip/Skeleton";
-import PostCardSkeleton from "../../PostCard/Skeleton";
-import HeaderSkeleton from "../../../Layout/Header/Skeleton";
+import { Category } from "utils/variable";
+import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
+import PostCardSkeleton from "components/Block/PostCard/Skeleton";
+import HeaderSkeleton from "components/Layout/Header/Skeleton";
 import styles from "../styles.module.scss";
 const PostsSkelton = () => {
   return (

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
-import { useGetRecentComment } from "../../../Hooks/Comment";
-import { ThemeContext } from "../../../utils/ThemeContext";
+import { useGetRecentComment } from "Hooks/Comment";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 const RecentComment = () => {
@@ -23,7 +23,11 @@ const RecentComment = () => {
           {data && data.length > 0 ? (
             <div className={styles.comments}>
               {data.map((comment) => (
-                <div key={comment.id} className={styles.comment} onClick={gotoPost(comment.Post.id)}>
+                <div
+                  key={comment.id}
+                  className={styles.comment}
+                  onClick={gotoPost(comment.Post.id)}
+                >
                   {comment.content}
                 </div>
               ))}

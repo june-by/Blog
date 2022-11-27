@@ -3,8 +3,8 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import SearchModal from "..";
-import { createMockRouter } from "../../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../../utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<LoginModal />", () => {
   const props = {
@@ -13,7 +13,11 @@ describe("<LoginModal />", () => {
   const router = createMockRouter();
   const queryClient = new QueryClient();
   it("rendering test", () => {
-    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <SearchModal setOpen={props.setOpen} />
+    );
 
     expect(screen.getByText("게시글 찾기")).toBeInTheDocument();
     expect(screen.getByTestId("searchInput")).toBeInTheDocument();
@@ -22,7 +26,11 @@ describe("<LoginModal />", () => {
   });
 
   it("modalClose test", () => {
-    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <SearchModal setOpen={props.setOpen} />
+    );
 
     const closeBtn = screen.getByAltText("닫기");
     fireEvent.click(closeBtn);
@@ -30,7 +38,11 @@ describe("<LoginModal />", () => {
   });
 
   it("submit test", () => {
-    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <SearchModal setOpen={props.setOpen} />
+    );
 
     const searchKeyword = "test";
     const searchInput = screen.getByTestId("searchInput");

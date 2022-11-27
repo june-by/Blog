@@ -2,8 +2,8 @@ import { screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import PostTop from "..";
-import { createMockRouter } from "../../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../../utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<PostTop />", () => {
   const router = createMockRouter();
@@ -12,7 +12,11 @@ describe("<PostTop />", () => {
     id: 1,
     content: "testContent",
     Comments: Array.from({ length: 5 }, (_, idx) => {
-      return { User: { nickname: `testUser${idx}` }, content: `testComment${idx}`, createdAt: new Date() };
+      return {
+        User: { nickname: `testUser${idx}` },
+        content: `testComment${idx}`,
+        createdAt: new Date(),
+      };
     }),
     Tags: Array.from({ length: 5 }, (_, idx) => {
       return { id: idx + 100, content: `testTag${idx}` };

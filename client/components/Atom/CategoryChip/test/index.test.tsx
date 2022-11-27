@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import CategoryChip from "..";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { createMockRouter } from "utils/test/createMockRouter";
 import { QueryClient } from "react-query";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<CategoryChip />", () => {
   const router = createMockRouter();
@@ -14,7 +14,11 @@ describe("<CategoryChip />", () => {
       category: "테스트카테고리",
       length: 11,
     };
-    renderWithContext(router, queryClient, <CategoryChip category={props.category} length={props.length} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <CategoryChip category={props.category} length={props.length} />
+    );
 
     expect(screen.getByText(props.category)).toBeInTheDocument();
     expect(screen.getByText(props.length)).toBeInTheDocument();
@@ -24,7 +28,11 @@ describe("<CategoryChip />", () => {
     const props = {
       category: "테스트카테고리",
     };
-    renderWithContext(router, queryClient, <CategoryChip category={props.category} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <CategoryChip category={props.category} />
+    );
     expect(screen.getByText(props.category)).toBeInTheDocument();
     expect(screen.getByText(0)).toBeInTheDocument();
   });
@@ -35,7 +43,15 @@ describe("<CategoryChip />", () => {
       length: 10,
       mode: "post",
     };
-    renderWithContext(router, queryClient, <CategoryChip category={props.category} mode={props.mode} length={props.length} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <CategoryChip
+        category={props.category}
+        mode={props.mode}
+        length={props.length}
+      />
+    );
 
     expect(screen.getByText(props.category)).toBeInTheDocument();
     expect(screen.queryByText(props.length)).not.toBeInTheDocument();
@@ -46,11 +62,18 @@ describe("<CategoryChip />", () => {
       category: "testCategory",
       length: 10,
     };
-    renderWithContext(router, queryClient, <CategoryChip category={props.category} length={props.length} />);
+    renderWithContext(
+      router,
+      queryClient,
+      <CategoryChip category={props.category} length={props.length} />
+    );
 
     const categroyChipBtn = screen.getByRole("button");
     expect(categroyChipBtn).toBeInTheDocument();
     fireEvent.click(categroyChipBtn);
-    expect(router.push).toHaveBeenCalledWith({ pathname: "/filter", query: { category: props.category, page: 1 } });
+    expect(router.push).toHaveBeenCalledWith({
+      pathname: "/filter",
+      query: { category: props.category, page: 1 },
+    });
   });
 });

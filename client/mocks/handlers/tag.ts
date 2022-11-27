@@ -1,13 +1,16 @@
 import { rest } from "msw";
-import { ServerURL } from "../../utils/ServerURL";
+import { ServerURL } from "utils/ServerURL";
 
-export const getRecentTag = rest.get(`${ServerURL}/tag/recent`, (req, res, ctx) => {
-  return res(
-    ctx.status(200),
-    ctx.json(
-      Array.from({ length: 15 }, (_, idx) => {
-        return `testRecentTag${idx}`;
-      })
-    )
-  );
-});
+export const getRecentTag = rest.get(
+  `${ServerURL}/tag/recent`,
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(
+        Array.from({ length: 15 }, (_, idx) => {
+          return `testRecentTag${idx}`;
+        })
+      )
+    );
+  }
+);

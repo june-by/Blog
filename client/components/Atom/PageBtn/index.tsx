@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../../../utils/ThemeContext";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -22,7 +22,11 @@ const PageBtn = ({ idx, currentPage, onClickPageBtn }: Props) => {
   );
 };
 
-export const getPageBtnStyle = (currentPage: number, idx: number | string, theme: any) => {
+export const getPageBtnStyle = (
+  currentPage: number,
+  idx: number | string,
+  theme: any
+) => {
   if (currentPage === idx) {
     if (theme === "light") return { background: "#0099fa", color: "white" };
     else return { background: "#3e4756" };

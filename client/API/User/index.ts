@@ -1,4 +1,4 @@
-import { customAxios } from "./../../utils/CustomAxios";
+import { customAxios } from "utils/CustomAxios";
 
 interface LoginDataType {
   email: string;

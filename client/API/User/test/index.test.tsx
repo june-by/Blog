@@ -1,5 +1,5 @@
 import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "..";
-import { DummyUser } from "../../../utils/dummy";
+import { DummyUser } from "utils/dummy";
 
 const dummyPwd = "test";
 describe("UserAPI", () => {
@@ -8,7 +8,9 @@ describe("UserAPI", () => {
   });
 
   it("loginAPI", async () => {
-    expect(await LoginAPI({ email: DummyUser.email, password: dummyPwd })).toStrictEqual("success");
+    expect(
+      await LoginAPI({ email: DummyUser.email, password: dummyPwd })
+    ).toStrictEqual("success");
   });
 
   it("logoutAPI", async () => {
@@ -16,6 +18,12 @@ describe("UserAPI", () => {
   });
 
   it("signupAPI", async () => {
-    expect(await SignUpAPI({ email: DummyUser.email, password: dummyPwd, nickname: DummyUser.nickname })).toStrictEqual("success");
+    expect(
+      await SignUpAPI({
+        email: DummyUser.email,
+        password: dummyPwd,
+        nickname: DummyUser.nickname,
+      })
+    ).toStrictEqual("success");
   });
 });
