@@ -23,17 +23,6 @@ describe("<PostCard />", () => {
     expect(
       screen.getByText(`조회수 : ${defaultProps.views}`)
     ).toBeInTheDocument();
-    // expect(screen.getByAltText("category")).toHaveAttribute("src", getThumbNail(defaultProps.category));
-  });
-
-  it("rendering test (feat, thumbNail src", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <PostCard post={{ ...defaultProps, thumbNailUrl: "/test.png" }} />
-    );
-
-    expect(screen.getByAltText("category")).toHaveAttribute("src", "/test.png");
   });
 
   it("click test", () => {

@@ -1,19 +1,22 @@
-import React, { useContext, useMemo } from "react";
-import useGotoPage from "../../../Hooks/useGotoPage";
-import { PostsType } from "../../../Types/Post";
-import { dateForm } from "../../../utils/dateForm";
-import { getThumbNail } from "../../../utils/getThumbnail";
-import { ThemeContext } from "../../../utils/ThemeContext";
-import { S3_PREFIX } from "../../../utils/variable";
-import PostTagBtn from "../../Atom/PostTagBtn";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
+import useGotoPage from "Hooks/useGotoPage";
+import { useImageLazyLoading } from "Hooks/useImageLazyLoading";
+import { PostsType } from "Types/Post";
+import { dateForm } from "utils/dateForm";
+import { getThumbNail } from "utils/getThumbnail";
+import { ThemeContext } from "utils/ThemeContext";
+import { S3_PREFIX } from "utils/variable";
+import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const gotoPage = useGotoPage();
-
+  const thumbNailRef = useRef<HTMLImageElement | null>(null);
   const { theme } = useContext(ThemeContext);
   const defaultThumbNail = useMemo(() => getThumbNail(post.category), [post]);
-  console.log(defaultThumbNail, post.category);
+
+  useImageLazyLoading(thumbNailRef);
+
   return (
     <div
       data-testid="postCard"
@@ -26,21 +29,16 @@ const PostCard = ({ post }: { post: PostsType }) => {
         ) : (
           <picture>
             <source
-              srcSet={S3_PREFIX + defaultThumbNail.webp}
+              data-srcset={S3_PREFIX + defaultThumbNail.webp}
               type="image/webp"
             />
-            <img src={S3_PREFIX + defaultThumbNail.jpg} alt="category" />
+            <img
+              ref={thumbNailRef}
+              data-src={S3_PREFIX + defaultThumbNail.jpg}
+              alt="category"
+            />
           </picture>
         )}
-
-        {/* <img
-          src={
-            post.thumbNailUrl && post.thumbNailUrl !== "null"
-              ? post.thumbNailUrl
-              : thumbNailgetThumbNail(post.category)
-          }
-          alt="category"
-        /> */}
       </div>
       <div
         className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}
