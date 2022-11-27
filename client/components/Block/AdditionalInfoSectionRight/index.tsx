@@ -1,11 +1,14 @@
 import React from "react";
-import RecentComment from "../RecentComment";
-import RecentTags from "../RecentTags";
+import RecentComment from "components/Block/RecentComment";
+import RecentTags from "components/Block/RecentTags";
 import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionRight = () => {
   return (
-    <div data-testid="additionalInfoSectionRight" className={styles.SectionRight}>
+    <div
+      data-testid="additionalInfoSectionRight"
+      className={styles.SectionRight}
+    >
       <RecentComment />
       <RecentTags />
     </div>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { QueryClient } from "react-query";
-import { postVisitorAPI } from "../API/Visitor";
+import { postVisitorAPI } from "API/Visitor";
 
 interface DateInfo {
   year: number;
@@ -29,7 +29,8 @@ const useCheckVisitor = (queryClient: QueryClient) => {
     //localStorage에 값이 있음 -> 방문한 적이 있음
     if (visitToday) {
       const dateInfo: DateInfo = JSON.parse(visitToday);
-      if (nowMonth > dateInfo.month || nowYear > dateInfo.year) AddVisitor(queryClient, date);
+      if (nowMonth > dateInfo.month || nowYear > dateInfo.year)
+        AddVisitor(queryClient, date);
       else {
         if (nowDate > dateInfo.date) AddVisitor(queryClient, date);
       }

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
-import useGotoPage from "../../../../Hooks/useGotoPage";
-import useToggle from "../../../../Hooks/useToggle";
-import useWidthAnimation from "../../../../Hooks/useWidthAnimation";
+import useGotoPage from "Hooks/useGotoPage";
+import useToggle from "Hooks/useToggle";
+import useWidthAnimation from "Hooks/useWidthAnimation";
 import styles from "./styles.module.scss";
 
 const HeaderLeft = () => {
@@ -19,7 +19,12 @@ const HeaderLeft = () => {
     <div className={styles.HeaderLeft}>
       <span onClick={gotoPage("/")}>ByJuun.com</span>
       <div>
-        <img className={styles.icon} onClick={onClickGitHub} src="/github.png" alt="깃헙" />
+        <img
+          className={styles.icon}
+          onClick={onClickGitHub}
+          src="/github.png"
+          alt="깃헙"
+        />
       </div>
       <div onClick={onClickEmail}>
         <img className={styles.icon} src="/email.png" alt="mail" />

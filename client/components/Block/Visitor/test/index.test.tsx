@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import Visitor from "..";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<Visitor />", () => {
   const router = createMockRouter();

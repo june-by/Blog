@@ -3,8 +3,8 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import PostDelBtn from "..";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<PostDelBtn />", () => {
   const router = createMockRouter();

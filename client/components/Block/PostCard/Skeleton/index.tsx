@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../../../../utils/ThemeContext";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "../styles.module.scss";
 
 const PostCardSkeleton = () => {

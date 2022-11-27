@@ -5,13 +5,18 @@ import imageModel from "./image";
 import userModel from "./user";
 import tagModel from "./tag";
 import visitorModel from "./visitor";
-import { dbConfig } from "../config/config";
+import { dbConfig } from "config/config";
 
 const env = process.env.NODE_ENV || "development";
 const config = dbConfig[env];
 // : { Comment: any; Image: any; Post: any; User: any; Tag: any; Visitor: any; sequelize: any; Sequelize: any }
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
 interface DB {
   [key: string]: any;
 }

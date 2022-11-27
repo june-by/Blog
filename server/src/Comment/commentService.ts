@@ -1,7 +1,15 @@
-import model from "../../models";
+import model from "models";
 const { User, Comment, Post } = model;
 
-const addComment = async ({ comment, postId, userId }: { comment: string; postId: string; userId: number }) => {
+const addComment = async ({
+  comment,
+  postId,
+  userId,
+}: {
+  comment: string;
+  postId: string;
+  userId: number;
+}) => {
   const newComment = await Comment.create({
     content: comment,
     PostId: parseInt(postId, 10),

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import { useDeletePost } from "../../../Hooks/Post";
+import { useDeletePost } from "Hooks/Post";
 import styles from "./styles.module.scss";
 
 const PostDelBtn = () => {
@@ -13,7 +13,11 @@ const PostDelBtn = () => {
   }, [deleteMutation, router.query.id]);
 
   return (
-    <button data-testid="postDelBtn" className={styles.DeleteBtn} onClick={deletePost}>
+    <button
+      data-testid="postDelBtn"
+      className={styles.DeleteBtn}
+      onClick={deletePost}
+    >
       글 삭제하기
     </button>
   );

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useEffect, useRef } from "react";
-import { ThemeContext } from "../../../utils/ThemeContext";
+import { ThemeContext } from "utils/ThemeContext";
 import styles from "./styles.module.scss";
 import useChangeColor from "./useChangeColor";
 
@@ -28,9 +28,15 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   useChangeColor({ category, btnRef });
 
   return (
-    <button ref={btnRef} className={`${styles.CategoryChip} ${styles[theme]}`} onClick={() => onClickBtn(category)}>
+    <button
+      ref={btnRef}
+      className={`${styles.CategoryChip} ${styles[theme]}`}
+      onClick={() => onClickBtn(category)}
+    >
       <span>{category}</span>
-      {mode !== "post" && <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>}
+      {mode !== "post" && (
+        <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>
+      )}
     </button>
   );
 };

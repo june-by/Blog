@@ -1,6 +1,7 @@
 import React from "react";
-import TopViewsPosts from "../TopViewsPosts";
-import Visitor from "../Visitor";
+
+import Visitor from "components/Block/Visitor";
+import TopViewsPosts from "components/Block/TopViewsPosts";
 import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionLeft = () => {

@@ -1,6 +1,6 @@
 import passport from "passport";
 import local from "./local";
-import model from "../models";
+import model from "models";
 
 type User = {
   id: number;

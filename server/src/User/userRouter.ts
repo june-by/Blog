@@ -1,6 +1,6 @@
 import express from "express";
-import { isLoggedIn } from "../../middleWare/isLoggedIn";
-import { isNotLoggedIn } from "../../middleWare/isNotLoggedIn";
+import { isLoggedIn } from "middleWare/isLoggedIn";
+import { isNotLoggedIn } from "middleWare/isNotLoggedIn";
 import userController from "./userController";
 
 const router = express.Router();

@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import useOpenModal from "../../../../Hooks/useOpenModal";
-import { useGetUserInfo, useLogOut } from "../../../../Hooks/User";
-import LoginModal from "../../../Block/_Modal/LoginModal";
-import SearchModal from "../../../Block/_Modal/SearchModal";
-import SignUpModal from "../../../Block/_Modal/SignUpModal";
+import useOpenModal from "Hooks/useOpenModal";
+import { useGetUserInfo, useLogOut } from "Hooks/User";
+import LoginModal from "components/Block/_Modal/LoginModal";
+import SearchModal from "components/Block/_Modal/SearchModal";
+import SignUpModal from "components/Block/_Modal/SignUpModal";
 import styles from "./styles.module.scss";
 
 const HeaderRight = () => {
@@ -13,7 +13,11 @@ const HeaderRight = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
-  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(setOpenLogin, setOpenSignUp, setOpenSearch);
+  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(
+    setOpenLogin,
+    setOpenSignUp,
+    setOpenSearch
+  );
 
   const LogoutMutation = useLogOut();
 
@@ -31,7 +35,9 @@ const HeaderRight = () => {
   return (
     <>
       <div className={styles.HeaderRight}>
-        {UserInfo?.nickname === "By_juun" && <span onClick={gotoWrite}>글 작성</span>}
+        {UserInfo?.nickname === "By_juun" && (
+          <span onClick={gotoWrite}>글 작성</span>
+        )}
         <span onClick={onClickSearch}>검색</span>
         {UserInfo === null ? (
           <>

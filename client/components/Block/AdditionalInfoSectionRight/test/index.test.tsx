@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import AdditionalInfoSectionRight from "..";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { createMockRouter } from "utils/test/createMockRouter";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<AdditionalInfoSectionRight/>", () => {
   const queryClient = new QueryClient();
@@ -19,6 +19,8 @@ describe("<AdditionalInfoSectionRight/>", () => {
     //     </QueryClientProvider>
     //   </RouterContext.Provider>
     // );
-    expect(screen.getByTestId("additionalInfoSectionRight")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("additionalInfoSectionRight")
+    ).toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useRef } from "react";
-import Modal from "../../../../utils/Modal";
+import Modal from "utils/Modal";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -34,10 +34,20 @@ const SearchModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.LoginTitle}>
             <span>게시글 찾기</span>
-            <Image onClick={closeModal} src="/close_btn.png" width={35} height={35} alt="닫기" />
+            <Image
+              onClick={closeModal}
+              src="/close_btn.png"
+              width={35}
+              height={35}
+              alt="닫기"
+            />
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
+            <input
+              data-testid="searchInput"
+              ref={searchRef}
+              placeholder="특정 키워드를 입력해주세요"
+            />
             <button>검색</button>
           </form>
         </>

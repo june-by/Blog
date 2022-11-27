@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
 import useGetTopics from "./useGetTopics";
 import useAddClassName from "./useAddClassName";
-import PostNavBar from "../PostNavBar";
+import PostNavBar from "components/Block/Post/PostNavBar";
 
 const PostContent = ({ content }: { content: string }) => {
   const [topicArr, setTopicArr] = useState([]);
@@ -19,7 +19,10 @@ const PostContent = ({ content }: { content: string }) => {
   return (
     <div className={styles.PostContent}>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
-      <div className={`Code ${styles.Content}`} dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div
+        className={`Code ${styles.Content}`}
+        dangerouslySetInnerHTML={{ __html: content }}
+      ></div>
       <PostNavBar topicArr={topicArr} />
     </div>
   );

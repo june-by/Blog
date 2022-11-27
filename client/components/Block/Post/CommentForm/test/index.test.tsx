@@ -2,8 +2,8 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import CommentForm from "..";
-import { createMockRouter } from "../../../../../utils/test/createMockRouter";
-import { renderWithContext } from "../../../../../utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<CommentForm />", () => {
   const router = createMockRouter();
@@ -11,7 +11,10 @@ describe("<CommentForm />", () => {
 
   it("rendering test", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
-    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute("placeholder", "댓글을 작성해주세요");
+    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute(
+      "placeholder",
+      "댓글을 작성해주세요"
+    );
     expect(await screen.findByText("등록")).toBeInTheDocument();
   });
 

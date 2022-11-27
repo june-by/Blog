@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { customAxios } from "../../../../utils/CustomAxios";
+import { customAxios } from "utils/CustomAxios";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -34,7 +34,9 @@ const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
   return (
     <div className={styles.PickThumbNail}>
       <button onClick={onClickSetThumbNail}>썸네일 설정</button>
-      {thumbNailUrl && thumbNailUrl !== "null" && <img src={thumbNailUrl} alt="썸네일" />}
+      {thumbNailUrl && thumbNailUrl !== "null" && (
+        <img src={thumbNailUrl} alt="썸네일" />
+      )}
     </div>
   );
 };

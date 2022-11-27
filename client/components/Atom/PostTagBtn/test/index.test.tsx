@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import PostTagBtn from "..";
 import React from "react";
-import { createMockRouter } from "../../../../utils/test/createMockRouter";
+import { createMockRouter } from "utils/test/createMockRouter";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import { QueryClient } from "react-query";
-import { renderWithContext } from "../../../../utils/test/renderWithContext";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<PostTagBtn />", () => {
   const router = createMockRouter();

@@ -1,6 +1,6 @@
-import { customAxios } from "../../utils/CustomAxios";
-import { POST_PER_PAGE } from "../../utils/variable";
-import { AddPostParams } from "../../Types/Post";
+import { customAxios } from "utils/CustomAxios";
+import { POST_PER_PAGE } from "utils/variable";
+import { AddPostParams } from "Types/Post";
 
 export const getMainPostsAPI = async (page: number) => {
   const { data } = await customAxios.get(`/posts/load/main/${page}`);
@@ -12,7 +12,9 @@ export const getAllCategoryLengthAPI = async () => {
   return data;
 };
 
-export const getPostsNumAPI = async (category: string | string[] | undefined) => {
+export const getPostsNumAPI = async (
+  category: string | string[] | undefined
+) => {
   if (typeof category !== "string") return;
   const { data } = await customAxios.get(`/posts/load/length/${category}`);
   const { length } = data;
@@ -26,21 +28,30 @@ export const getOnePostAPI = async (id: number) => {
   return data;
 };
 
-export const getCategoryPostAPI = async (category: string | string[] | undefined, pageNum: number) => {
+export const getCategoryPostAPI = async (
+  category: string | string[] | undefined,
+  pageNum: number
+) => {
   if (typeof category !== "string") return undefined;
   const { data } = await customAxios.get(`/posts/load/${category}/${pageNum}`);
   return data;
 };
 
-export const getSearchPostAPI = async (search: string | string[] | undefined) => {
+export const getSearchPostAPI = async (
+  search: string | string[] | undefined
+) => {
   if (typeof search !== "string") return undefined;
-  const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}`);
+  const { data } = await customAxios.get(
+    `/posts/search/${encodeURIComponent(search)}`
+  );
   return data;
 };
 
 export const getTagPostAPI = async (tag: string | string[] | undefined) => {
   if (typeof tag !== "string") return undefined;
-  const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}`);
+  const { data } = await customAxios.get(
+    `/posts/tag/${encodeURIComponent(tag)}`
+  );
   return data;
 };
 
@@ -59,8 +70,16 @@ export const DeletePostAPI = async (id: number) => {
   return data;
 };
 
-export const AddCommentAPI = async ({ postId, comment }: { postId: number; comment: string }) => {
-  const { data } = await customAxios.post(`/post/${postId}/comment`, { comment: comment });
+export const AddCommentAPI = async ({
+  postId,
+  comment,
+}: {
+  postId: number;
+  comment: string;
+}) => {
+  const { data } = await customAxios.post(`/post/${postId}/comment`, {
+    comment: comment,
+  });
   return data;
 };
 
