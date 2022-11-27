@@ -4,7 +4,7 @@ import { QueryClient } from "react-query";
 import Pagination from "..";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
-import { makeArray, makeNextPath } from "utils";
+import { makeArray, makeNextPath } from "../utils";
 
 describe("<Pagination />", () => {
   const totalPage = 10;

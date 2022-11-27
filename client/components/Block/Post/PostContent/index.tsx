@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
 import useGetTopics from "./useGetTopics";
 import useAddClassName from "./useAddClassName";
-import PostNavBar from "PostNavBar";
+import PostNavBar from "components/Block/Post/PostNavBar";
 
 const PostContent = ({ content }: { content: string }) => {
   const [topicArr, setTopicArr] = useState([]);

@@ -2,8 +2,8 @@ import { screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import Filter from "pages/filter";
-import { createMockRouter } from "test/createMockRouter";
-import { renderWithContext } from "test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<Filter />", () => {
   const router = createMockRouter({
