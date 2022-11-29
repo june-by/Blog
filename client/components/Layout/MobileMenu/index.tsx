@@ -4,6 +4,7 @@ import useWidthAnimation from "Hooks/useWidthAnimation";
 import MobileAccount from "./MobileAccount";
 import MobileCategoryList from "./MobileCategoryList";
 import styles from "./styles.module.scss";
+import MenuBackIcon from "components/Icon/menuBack";
 
 interface Props {
   open: boolean;
@@ -21,7 +22,7 @@ const MobileMenu = ({ open, onClose }: Props) => {
       <div ref={menuRef} className={styles.MobileMenu}>
         <div className={styles.CloseArea}>
           <button onClick={onClose}>
-            <Image src="/goBack.png" width={10} height={13} alt="더보기" />
+            <MenuBackIcon />
           </button>
         </div>
         <div className={styles.MenuArea}>

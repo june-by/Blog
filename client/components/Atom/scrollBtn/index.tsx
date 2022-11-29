@@ -1,3 +1,4 @@
+import TopIcon from "components/Icon/top";
 import React, { useState, useEffect } from "react";
 import styles from "./scrollBtn.module.scss";
 
@@ -34,7 +35,7 @@ const ScrollBtn = () => {
       style={isVisible ? { display: "inline" } : { display: "none" }}
       onClick={scrollToTop}
     >
-      <img src="/top.png" />
+      <TopIcon />
       <div>TOP</div>
     </button>
   );

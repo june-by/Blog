@@ -31,7 +31,7 @@
     justify-content: center;
     min-height: 180px;
     height: 60%;
-
+    overflow: hidden;
     @include tablet_landscape {
       height: 55%;
     }
@@ -46,7 +46,6 @@
       object-fit: fill;
       backface-visibility: hidden;
       image-rendering: -webkit-optimize-contrast;
-
       //min-height: 150px;
       @include mobile {
         min-height: 180px;

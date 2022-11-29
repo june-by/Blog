@@ -22,7 +22,6 @@ describe("<LoginModal />", () => {
     expect(screen.getByText("게시글 찾기")).toBeInTheDocument();
     expect(screen.getByTestId("searchInput")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "검색" })).toBeInTheDocument();
-    expect(screen.getByAltText("닫기")).toBeInTheDocument();
   });
 
   it("modalClose test", () => {
@@ -32,7 +31,7 @@ describe("<LoginModal />", () => {
       <SearchModal setOpen={props.setOpen} />
     );
 
-    const closeBtn = screen.getByAltText("닫기");
+    const closeBtn = screen.getByTestId("searchCloseBtn");
     fireEvent.click(closeBtn);
     expect(props.setOpen).toBeCalled();
   });

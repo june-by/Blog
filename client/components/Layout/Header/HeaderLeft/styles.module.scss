@@ -10,6 +10,19 @@
     margin-right: 10px;
   }
 
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    margin-left: -6px;
+    margin-right: -6px;
+    margin-top: 5px;
+    &:hover {
+      animation-name: shake;
+      animation-duration: 0.6s;
+    }
+  }
+
   img {
     cursor: pointer;
     width: 25px;
@@ -32,10 +45,6 @@
 }
 
 .icon {
-  &:hover {
-    animation-name: shake;
-    animation-duration: 0.6s;
-  }
 }
 
 @keyframes shake {
