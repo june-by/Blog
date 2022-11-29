@@ -9,6 +9,7 @@ import HeaderLeft from "./HeaderLeft";
 import useToggle from "Hooks/useToggle";
 import DarkModeBtn from "components/Atom/DarkModeBtn";
 import { ThemeContext } from "utils/ThemeContext";
+import MenuIcon from "components/Icon/menu";
 
 const Header = () => {
   const { theme } = useContext(ThemeContext);
@@ -35,7 +36,7 @@ const Header = () => {
             className={styles.HeaderRoot_mobileBtn_btn}
             onClick={clickShowMobileMenu}
           >
-            ...
+            <MenuIcon fill={theme === "light" ? "black" : "#F8F8F8"} />
           </button>
           <MobileMenu open={showMobileMenu} onClose={clickShowMobileMenu} />
         </div>

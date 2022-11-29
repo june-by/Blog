@@ -1,14 +1,17 @@
 import Image from "next/image";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { useSignUp } from "Hooks/User";
 import Modal from "utils/Modal";
 import styles from "./styles.module.scss";
+import CloseIcon from "components/Icon/close";
+import { ThemeContext } from "utils/ThemeContext";
 
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignUpModal = ({ setOpen }: Props) => {
+  const { theme } = useContext(ThemeContext);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
@@ -50,13 +53,9 @@ const SignUpModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
-            <Image
-              onClick={closeModal}
-              src="/close_btn.png"
-              width={35}
-              height={35}
-              alt="닫기"
-            />
+            <button onClick={closeModal}>
+              <CloseIcon fill={theme === "light" ? "black" : "white"} />
+            </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input

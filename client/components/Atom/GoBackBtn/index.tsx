@@ -1,3 +1,4 @@
+import BackIcon from "components/Icon/back";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
@@ -16,7 +17,7 @@ const GoBackBtn = () => {
       onClick={goBack}
       className={`${styles.goBackBtn} ${styles[theme]}`}
     >
-      <Image src="/back_icon.png" alt="뒤로가기" width={20} height={17} />
+      <BackIcon fill={theme === "light" ? "black" : "white"} />
       <span>뒤로가기</span>
     </button>
   );
