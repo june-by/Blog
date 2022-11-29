@@ -12,9 +12,9 @@ const MenuBackIcon = () => {
       <path
         d="M3 3L13 13L3 23"
         stroke="#F8F8F8"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

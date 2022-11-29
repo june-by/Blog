@@ -9,7 +9,7 @@ const GoogleIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_542_10)">
+      <g clipPath="url(#clip0_542_10)">
         <path
           d="M5.68184 24.8771V12.0649L2.68623 8.42983L0 6.4126V22.6161C0 23.8671 0.76416 24.8771 1.70459 24.8771H5.68184V24.8771Z"
           fill="#4285F4"
