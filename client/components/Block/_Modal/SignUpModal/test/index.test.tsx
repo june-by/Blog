@@ -27,7 +27,7 @@ describe("<LoginModal />", () => {
     expect(
       screen.getByRole("button", { name: "회원가입" })
     ).toBeInTheDocument();
-    expect(screen.getByAltText("닫기")).toBeInTheDocument();
+    expect(screen.getByTestId("signUpCloseBtn")).toBeInTheDocument();
   });
 
   it("modalClose test", () => {
@@ -37,7 +37,7 @@ describe("<LoginModal />", () => {
       <SignUpModal setOpen={props.setOpen} />
     );
 
-    const closeBtn = screen.getByAltText("닫기");
+    const closeBtn = screen.getByTestId("signUpCloseBtn");
     fireEvent.click(closeBtn);
     expect(props.setOpen).toBeCalled();
   });

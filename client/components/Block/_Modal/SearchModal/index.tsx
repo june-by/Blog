@@ -38,7 +38,7 @@ const SearchModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.LoginTitle}>
             <span>게시글 찾기</span>
-            <button onClick={closeModal}>
+            <button onClick={closeModal} data-testid="searchCloseBtn">
               <CloseIcon fill={theme === "light" ? "black" : "white"} />
             </button>
           </div>

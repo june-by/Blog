@@ -44,7 +44,7 @@ const LoginModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.LoginTitle}>
             <span>로그인</span>
-            <button onClick={closeModal}>
+            <button onClick={closeModal} data-testid="closebtn">
               <CloseIcon fill={theme === "light" ? "black" : "white"} />
             </button>
           </div>

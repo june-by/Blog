@@ -13,7 +13,6 @@ describe("<GoBackBtn />", () => {
   it("rendering test", () => {
     renderWithContext(router, queryClient, <GoBackBtn />);
     expect(screen.getByText("뒤로가기")).toBeInTheDocument();
-    expect(screen.getByAltText("뒤로가기")).toBeInTheDocument();
   });
 
   it("click event test", () => {

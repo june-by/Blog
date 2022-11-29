@@ -53,7 +53,7 @@ const SignUpModal = ({ setOpen }: Props) => {
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
-            <button onClick={closeModal}>
+            <button onClick={closeModal} data-testid="signUpCloseBtn">
               <CloseIcon fill={theme === "light" ? "black" : "white"} />
             </button>
           </div>
