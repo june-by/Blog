@@ -2,6 +2,10 @@ import TopIcon from "components/Icon/top";
 import React, { useState, useEffect } from "react";
 import styles from "./scrollBtn.module.scss";
 
+interface IProps {
+  right: string;
+}
+
 const ScrollBtn = () => {
   const [isVisible, setIsVisible] = useState(false);
 

@@ -9,16 +9,12 @@ const CategorySelect = () => {
   const { data, isLoading } = useGetAllCateogryLength();
 
   return (
-    <div className={styles.CategorySelect}>
+    <nav className={styles.CategorySelect}>
       {!isLoading ? (
         <>
           {Category.map((category, idx) => {
             return (
-              <CategoryChip
-                key={idx}
-                category={category}
-                length={data?.find((v) => v.category === category)?.count}
-              />
+              <CategoryChip key={idx} category={category} length={data?.find((v) => v.category === category)?.count} />
             );
           })}
         </>
@@ -29,7 +25,7 @@ const CategorySelect = () => {
           })}
         </>
       )}
-    </div>
+    </nav>
   );
 };
 

@@ -22,13 +22,9 @@ const TagIcon = ({ tag }: Props) => {
   );
 
   return (
-    <div
-      data-testid="tagIcon"
-      onClick={onClickTag(tag)}
-      className={`${styles.TagIcon} ${styles[String(theme)]}`}
-    >
+    <li data-testid="tagIcon" onClick={onClickTag(tag)} className={`${styles.TagIcon} ${styles[String(theme)]}`}>
       {tag}
-    </div>
+    </li>
   );
 };
 

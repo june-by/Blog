@@ -18,7 +18,7 @@ const PostTop = ({ Post }: Props) => {
   const { data: UserInfo } = useGetUserInfo();
 
   return (
-    <div className={styles.PostTop}>
+    <header className={styles.PostTop}>
       <div className={styles.TopArea}>
         <GoBackBtn />
         <div>
@@ -33,20 +33,17 @@ const PostTop = ({ Post }: Props) => {
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>
-          <span className={styles.AdditionalInfo_createdAt}>
-            {dateForm(createdAt)}
-          </span>
+          <span className={styles.AdditionalInfo_createdAt}>{dateForm(createdAt)}</span>
           <CategoryChip category={category} mode="post" />
         </div>
-        <div className={styles.AdditionalInfo_Tag}>
-          {Tags.length !== 0 &&
-            Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
-        </div>
+        <ul className={styles.AdditionalInfo_Tag}>
+          {Tags.length !== 0 && Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
+        </ul>
         <div className={styles.AdditionalInfo_Views}>
           <span>조회수 : {Post.views + 1}</span>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

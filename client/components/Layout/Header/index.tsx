@@ -22,7 +22,7 @@ const Header = () => {
   useHeaderAnimation({ headerRef, hide, setHide });
   return (
     <>
-      <div ref={headerRef} className={`${styles.HeaderRoot} ${styles[theme]}`}>
+      <header ref={headerRef} className={`${styles.HeaderRoot} ${styles[theme]}`}>
         <div>
           <HeaderLeft />
         </div>
@@ -32,15 +32,12 @@ const Header = () => {
         </div>
         <div className={styles.HeaderRoot_mobileBtn}>
           <DarkModeBtn />
-          <button
-            className={styles.HeaderRoot_mobileBtn_btn}
-            onClick={clickShowMobileMenu}
-          >
+          <button className={styles.HeaderRoot_mobileBtn_btn} onClick={clickShowMobileMenu}>
             <MenuIcon fill={theme === "light" ? "black" : "#F8F8F8"} />
           </button>
           <MobileMenu open={showMobileMenu} onClose={clickShowMobileMenu} />
         </div>
-      </div>
+      </header>
     </>
   );
 };

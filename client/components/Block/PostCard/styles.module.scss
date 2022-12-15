@@ -24,6 +24,7 @@
   }
 
   &_imgWrapper {
+    margin: 0;
     width: 100%;
     border-radius: 4px;
     display: flex;
@@ -75,6 +76,7 @@
     }
 
     &_title {
+      margin: 0;
       font-size: 18px;
       font-weight: 600;
       height: 25px;
@@ -103,7 +105,8 @@
       gap: 5px;
       font-size: 12px;
       flex-flow: wrap;
-
+      padding: 0;
+      margin: 0;
       @include tablet_landscape {
         font-size: 10px;
         gap: 3px;

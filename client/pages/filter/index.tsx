@@ -30,13 +30,11 @@ const Filter = () => {
         <meta property="og:description" content={String(ogDescription)} />
         <meta
           property="og:image"
-          content={
-            "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
-          }
+          content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
         />
         <meta property="og:url" content={String(url)} />
       </Head>
-      <div className={styles.CategoryWrapper}>
+      <main className={styles.CategoryWrapper}>
         <AdditionalInfoSectionLeft />
         <div className={styles.CategoryContentWrapper}>
           <CategorySelect />
@@ -45,7 +43,7 @@ const Filter = () => {
           {query.category && <Pagination totalPage={totalPageNum} />}
         </div>
         <AdditionalInfoSectionRight />
-      </div>
+      </main>
     </>
   );
 };

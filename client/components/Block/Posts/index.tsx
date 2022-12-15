@@ -11,7 +11,7 @@ interface Props {
 const Posts = ({ posts, isLoading }: Props) => {
   const { query } = useRouter();
   return (
-    <div
+    <section
       className={
         query.search || query.tag
           ? `${styles.PostsRoot} ${styles.TagAndSearch}`
@@ -33,7 +33,7 @@ const Posts = ({ posts, isLoading }: Props) => {
           </>
         )}
       </>
-    </div>
+    </section>
   );
 };
 

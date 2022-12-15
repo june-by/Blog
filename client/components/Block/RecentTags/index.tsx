@@ -8,21 +8,21 @@ const RecentTags = () => {
   const { theme } = useContext(ThemeContext);
   const { data, isLoading } = useGetRecentTags();
   return (
-    <div className={`${styles.RecentTags} ${styles[String(theme)]}`}>
+    <section className={`${styles.RecentTags} ${styles[String(theme)]}`}>
       <h3>최근 태그</h3>
       {!isLoading ? (
-        <div className={styles.tagsWrapper}>
+        <ul className={styles.tagsWrapper}>
           {data?.map((tag, idx) => (
             <TagIcon key={tag + idx} tag={tag} />
           ))}
-        </div>
+        </ul>
       ) : (
         <div className={styles.SkeletonWrapper}>
           <div className={styles.visitorSkeleton}></div>
           <div className={styles.visitorSkeleton}></div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
