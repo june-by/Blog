@@ -6,10 +6,10 @@ import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionLeft = () => {
   return (
-    <div data-testid="additionalInfoSectionLeft" className={styles.SectionLeft}>
+    <aside data-testid="additionalInfoSectionLeft" className={styles.SectionLeft}>
       <Visitor />
       <TopViewsPosts />
-    </div>
+    </aside>
   );
 };
 

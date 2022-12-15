@@ -19,7 +19,7 @@ const MobileMenu = ({ open, onClose }: Props) => {
   return (
     <div className={styles.MobileMenuWrapper}>
       {open && <div className={styles.MobileOverLay} onClick={onClose}></div>}
-      <div ref={menuRef} className={styles.MobileMenu}>
+      <nav ref={menuRef} className={styles.MobileMenu}>
         <div className={styles.CloseArea}>
           <button onClick={onClose}>
             <MenuBackIcon />
@@ -29,7 +29,7 @@ const MobileMenu = ({ open, onClose }: Props) => {
           <MobileAccount />
           <MobileCategoryList />
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

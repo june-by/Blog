@@ -5,13 +5,10 @@ import styles from "./styles.module.scss";
 
 const AdditionalInfoSectionRight = () => {
   return (
-    <div
-      data-testid="additionalInfoSectionRight"
-      className={styles.SectionRight}
-    >
+    <aside data-testid="additionalInfoSectionRight" className={styles.SectionRight}>
       <RecentComment />
       <RecentTags />
-    </div>
+    </aside>
   );
 };
 

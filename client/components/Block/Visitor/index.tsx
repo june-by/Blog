@@ -6,23 +6,23 @@ const Visitor = () => {
   const { data, isLoading } = useGetVisitor();
   const { theme } = useContext(ThemeContext);
   return (
-    <div className={`${styles.Visitor} ${styles[String(theme)]}`}>
+    <section className={`${styles.Visitor} ${styles[String(theme)]}`}>
       {!isLoading ? (
-        <div className={styles.info}>
-          <div data-testid="totalVisitor">
+        <article className={styles.info}>
+          <span data-testid="totalVisitor">
             총 방문 : <strong>{data!.totalVisitor}</strong>명
-          </div>
-          <div data-testid="todayVisitor">
+          </span>
+          <span data-testid="todayVisitor">
             오늘 방문 : <strong>{data!.todayVisitor}</strong>명
-          </div>
-        </div>
+          </span>
+        </article>
       ) : (
         <div className={styles.SkeletonWrapper}>
           <div className={styles.visitorSkeleton}></div>
           <div className={styles.visitorSkeleton}></div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

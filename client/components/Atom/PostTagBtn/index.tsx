@@ -9,7 +9,7 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   const { theme } = useContext(ThemeContext);
 
   const onClickTag = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, tag: string) => {
+    (e: React.MouseEvent<HTMLLIElement, MouseEvent>, tag: string) => {
       e.stopPropagation();
       return router.push({
         pathname: "/filter",
@@ -20,13 +20,13 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
   );
 
   return (
-    <button
+    <li
       data-testid="postTagBtn"
       className={`${styles.PostTagButton} ${styles[theme]}`}
       onClick={(e) => onClickTag(e, String(tag?.content))}
     >
       #{tag?.content}
-    </button>
+    </li>
   );
 };
 

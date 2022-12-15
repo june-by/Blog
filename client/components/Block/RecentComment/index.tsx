@@ -16,22 +16,18 @@ const RecentComment = () => {
   );
 
   return (
-    <div className={`${styles.RecentComment} ${styles[String(theme)]}`}>
+    <section className={`${styles.RecentComment} ${styles[String(theme)]}`}>
       <h3>최근 댓글</h3>
       {!isLoading ? (
         <>
           {data && data.length > 0 ? (
-            <div className={styles.comments}>
+            <ul className={styles.comments}>
               {data.map((comment) => (
-                <div
-                  key={comment.id}
-                  className={styles.comment}
-                  onClick={gotoPost(comment.Post.id)}
-                >
+                <li key={comment.id} className={styles.comment} onClick={gotoPost(comment.Post.id)}>
                   {comment.content}
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           ) : (
             <div className={styles.NoComments}>{"댓글이 없어요 :("}</div>
           )}
@@ -43,7 +39,7 @@ const RecentComment = () => {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

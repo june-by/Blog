@@ -15,22 +15,17 @@ const TopViewsPosts = () => {
     []
   );
   return (
-    <div className={`${styles.TopViewsPosts} ${styles[String(theme)]}`}>
+    <section className={`${styles.TopViewsPosts} ${styles[String(theme)]}`}>
       {!isLoading ? (
         <>
           <h3 className={styles.title}>조회수 Top10</h3>
-          <div className={styles.contents}>
+          <ul className={styles.contents}>
             {data?.map((post, idx) => (
-              <div
-                data-testid={`${idx}post`}
-                className={styles.content}
-                key={post.title}
-                onClick={gotoPost(post.id)}
-              >
+              <li data-testid={`${idx}post`} className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
                 {idx + 1}. {post.title}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </>
       ) : (
         <div className={styles.SkeletonWrapper}>
@@ -39,7 +34,7 @@ const TopViewsPosts = () => {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

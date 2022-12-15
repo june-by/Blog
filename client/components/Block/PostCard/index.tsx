@@ -18,44 +18,32 @@ const PostCard = ({ post }: { post: PostsType }) => {
   useImageLazyLoading(thumbNailRef);
 
   return (
-    <div
+    <section
       data-testid="postCard"
       className={`${styles.PostCard} ${styles[theme]}`}
       onClick={gotoPage(`/post/${post.id}`)}
     >
-      <div className={styles.PostCard_imgWrapper}>
+      <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
           <img src={post.thumbNailUrl} />
         ) : (
           <picture>
-            <source
-              data-srcset={S3_PREFIX + defaultThumbNail.webp}
-              type="image/webp"
-            />
-            <img
-              ref={thumbNailRef}
-              data-src={S3_PREFIX + defaultThumbNail.jpg}
-              alt="category"
-            />
+            <source data-srcset={S3_PREFIX + defaultThumbNail.webp} type="image/webp" />
+            <img ref={thumbNailRef} data-src={S3_PREFIX + defaultThumbNail.jpg} alt="category" />
           </picture>
         )}
-      </div>
-      <div
-        className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}
-      >
-        <div className={styles.PostCard_titleBox_title}>
-          <span>{post.title}</span>
-        </div>
-        <div className={styles.PostCard_titleBox_tagBox}>
-          {post.Tags.length !== 0 &&
-            post.Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
-        </div>
+      </figure>
+      <article className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}>
+        <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
+        <ul className={styles.PostCard_titleBox_tagBox}>
+          {post.Tags.length !== 0 && post.Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
+        </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
-          <span>{dateForm(post.createdAt)}</span>
+          <time>{dateForm(post.createdAt)}</time>
           <span>조회수 : {post.views}</span>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 

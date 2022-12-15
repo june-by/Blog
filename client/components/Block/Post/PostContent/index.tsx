@@ -17,14 +17,11 @@ const PostContent = ({ content }: { content: string }) => {
   useGetTopics(setTopicArr);
 
   return (
-    <div className={styles.PostContent}>
+    <section className={styles.PostContent}>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
-      <div
-        className={`Code ${styles.Content}`}
-        dangerouslySetInnerHTML={{ __html: content }}
-      ></div>
+      <article className={`Code ${styles.Content}`} dangerouslySetInnerHTML={{ __html: content }} />
       <PostNavBar topicArr={topicArr} />
-    </div>
+    </section>
   );
 };
 

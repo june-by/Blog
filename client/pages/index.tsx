@@ -12,9 +12,7 @@ import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLef
 const Home: NextPage = () => {
   const { query } = useRouter();
   const { data: totalPageNum } = useGetPostNum("main");
-  const { data: MainPosts, isLoading } = useGetMainPost(
-    Number(query.page) || 1
-  );
+  const { data: MainPosts, isLoading } = useGetMainPost(Number(query.page) || 1);
   return (
     <>
       <Head>
@@ -29,21 +27,19 @@ const Home: NextPage = () => {
         />
         <meta
           property="og:image"
-          content={
-            "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
-          }
+          content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
         />
         <meta property="og:url" content="https://byjuun.com" />
       </Head>
-      <div className={styles.HomeWrapper}>
+      <main className={styles.HomeWrapper}>
         <AdditionalInfoSectionLeft />
-        <div className={styles.HomeContentWrapper}>
+        <section className={styles.HomeContentWrapper}>
           <CategorySelect />
           <Posts posts={MainPosts} isLoading={isLoading} />
           <Pagination totalPage={totalPageNum} />
-        </div>
+        </section>
         <AdditionalInfoSectionRight />
-      </div>
+      </main>
     </>
   );
 };

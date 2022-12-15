@@ -30,32 +30,24 @@ const Post = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta
-          property="og:image"
-          content={getOgImage(Post?.thumbNailUrl, String(Post?.category))}
-        />
-        <meta
-          property="og:url"
-          content={`https://byjuun.com/post/${router.query.id}`}
-        />
+        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
+        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
-      <div className={styles.Post}>
+      <main className={styles.Post}>
         <PostTop Post={Post as MainPost} />
         <PostContent content={Post!.content} />
         <OtherPostInfo />
         <CommentForm />
         <CommentList Comments={Post!.Comments} />
         <ScrollBtn />
-      </div>
+      </main>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["Post", Number(query.id)], () =>
-    getOnePostAPI(Number(query.id))
-  );
+  await queryClient.prefetchQuery(["Post", Number(query.id)], () => getOnePostAPI(Number(query.id)));
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
