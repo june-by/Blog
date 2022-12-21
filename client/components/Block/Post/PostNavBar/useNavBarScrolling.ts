@@ -1,23 +1,25 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const useNavBarScrolling = (topicPosition: any) => {
-  const consoleLogScoll = () => {
+  const styleChange = useCallback(() => {
     for (let i = 0; i < topicPosition.length - 1; i++) {
       const scroll = window.scrollY;
+      const idx = String(i);
+      const targetElement = document.getElementById(idx);
       if (scroll >= topicPosition[i] && scroll < topicPosition[i + 1]) {
-        document.getElementById(String(i))!.style.transform = "scale(1.1)";
-        document.getElementById(String(i))!.style.opacity = "1";
+        targetElement!.style.transform = "scale(1.1)";
+        targetElement!.style.opacity = "1";
       } else {
-        document.getElementById(String(i))!.style.transform = "scale(1)";
-        document.getElementById(String(i))!.style.opacity = "0.8";
+        targetElement!.style.transform = "scale(1)";
+        targetElement!.style.opacity = "0.8";
       }
     }
-  };
+  }, [topicPosition]);
 
   useEffect(() => {
-    window.addEventListener("scroll", consoleLogScoll);
+    window.addEventListener("scroll", styleChange);
     return () => {
-      window.removeEventListener("scroll", consoleLogScoll);
+      window.removeEventListener("scroll", styleChange);
     };
   }, [topicPosition]);
 };
