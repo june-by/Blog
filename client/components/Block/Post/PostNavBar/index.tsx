@@ -30,7 +30,7 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
   useNavBarScrolling(topicPosition);
 
   return (
-    <section className={styles.TopicWrapper}>
+    <aside className={styles.TopicWrapper}>
       <div className={styles.TopicWrapper_second}>
         {topicArr?.length !== 0 &&
           topicArr.map((topic: any, idx: number) => {
@@ -47,7 +47,7 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
             );
           })}
       </div>
-    </section>
+    </aside>
   );
 };
 
