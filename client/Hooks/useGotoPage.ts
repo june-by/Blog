@@ -7,7 +7,7 @@ const useGotoPage = () => {
     (url: string) => () => {
       push(url);
     },
-    []
+    [push]
   );
 };
 

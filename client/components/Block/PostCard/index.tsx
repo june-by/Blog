@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef } from "react";
 import useGotoPage from "Hooks/useGotoPage";
-import { useImageLazyLoading } from "Hooks/useImageLazyLoading";
 import { PostsType } from "Types/Post";
 import { dateForm } from "utils/dateForm";
 import { getThumbNail } from "utils/getThumbnail";
@@ -8,14 +7,12 @@ import { ThemeContext } from "utils/ThemeContext";
 import { S3_PREFIX } from "utils/variable";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
+import Image from "next/image";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const gotoPage = useGotoPage();
-  const thumbNailRef = useRef<HTMLImageElement | null>(null);
   const { theme } = useContext(ThemeContext);
   const defaultThumbNail = useMemo(() => getThumbNail(post.category), [post]);
-
-  useImageLazyLoading(thumbNailRef);
 
   return (
     <section
@@ -25,11 +22,11 @@ const PostCard = ({ post }: { post: PostsType }) => {
     >
       <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
-          <img src={post.thumbNailUrl} />
+          <Image src={post.thumbNailUrl} layout="fill" alt="category" />
         ) : (
           <picture>
             <source data-srcset={S3_PREFIX + defaultThumbNail.webp} type="image/webp" />
-            <img ref={thumbNailRef} data-src={S3_PREFIX + defaultThumbNail.jpg} alt="category" />
+            <Image layout="fill" src={S3_PREFIX + defaultThumbNail.jpg} alt="category" />
           </picture>
         )}
       </figure>
