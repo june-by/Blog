@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   const { query } = useRouter();
   const { data: totalPageNum } = useGetPostNum("main");
   const { data: MainPosts, isLoading } = useGetMainPost(Number(query.page) || 1);
+
   return (
     <>
       <Head>

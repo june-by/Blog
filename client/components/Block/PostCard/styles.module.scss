@@ -25,13 +25,13 @@
 
   &_imgWrapper {
     margin: 0;
+    position: relative;
     width: 100%;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 180px;
-    height: 60%;
     overflow: hidden;
     @include tablet_landscape {
       height: 55%;
@@ -41,19 +41,19 @@
       width: 100%;
       height: 100%;
     }
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      backface-visibility: hidden;
-      image-rendering: -webkit-optimize-contrast;
-      //min-height: 150px;
-      @include mobile {
-        min-height: 180px;
-      }
+    // img {
+    //   width: 100%;
+    //   height: 100%;
+    //   object-fit: fill;
+    //   backface-visibility: hidden;
+    //   image-rendering: -webkit-optimize-contrast;
+    //   //min-height: 150px;
+    //   @include mobile {
+    //     min-height: 180px;
+    //   }
 
-      //transition: transform 0.5s ease-in-out;
-    }
+    //   //transition: transform 0.5s ease-in-out;
+    // }
   }
 
   &_titleBox {
