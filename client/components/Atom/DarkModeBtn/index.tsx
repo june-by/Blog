@@ -11,11 +11,7 @@ const DarkModeBtn = () => {
   useDarkMode(mode, toggleThumbRef);
 
   return (
-    <div
-      data-testid="DarkModeBtnWrapper"
-      className={styles.DarkModeBtnWrapper}
-      onClick={onChange}
-    >
+    <div data-testid="DarkModeBtnWrapper" className={styles.DarkModeBtnWrapper} onClick={onChange}>
       <div className={styles.DarkModeBtn}>
         <div className={styles.toggleTrackCheckY}>
           <span>🌜</span>
@@ -25,6 +21,7 @@ const DarkModeBtn = () => {
         </div>
         <button
           data-testid="toggleBtn"
+          aria-label="toggleDarkModeButton"
           ref={toggleThumbRef}
           style={{ left: mode === false ? "27px" : "1px" }}
           className={styles.toggleTrackThumb}

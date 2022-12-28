@@ -25,7 +25,7 @@ const useHideHeader = (setHide: React.Dispatch<React.SetStateAction<boolean>>) =
     const hide = pageYOffset !== 0 && deltaY >= 0;
     setHide(hide);
     setPageY(pageYOffset);
-  }, [pageY]);
+  }, [pageY, setHide]);
 
   const throttleScroll = throttle(handleScroll, 100);
 
@@ -34,7 +34,7 @@ const useHideHeader = (setHide: React.Dispatch<React.SetStateAction<boolean>>) =
       documentRef.current.addEventListener("scroll", throttleScroll);
       return () => documentRef?.current?.removeEventListener("scroll", throttleScroll);
     }
-  }, [pageY, router.route]);
+  }, [pageY, router.route, throttleScroll]);
 };
 
 export default useHideHeader;
