@@ -22,10 +22,10 @@ const HeaderLeft = () => {
   return (
     <div className={styles.HeaderLeft}>
       <span onClick={gotoPage("/")}>ByJuun.com</span>
-      <button onClick={onClickGitHub}>
+      <button aria-label="gotoGithubButton" onClick={onClickGitHub}>
         <GithubIcon fill={theme === "light" ? "#0099fa" : "#6185e5"} />
       </button>
-      <button onClick={onClickEmail}>
+      <button aria-label="toggleEmailButton" onClick={onClickEmail}>
         <GoogleIcon />
       </button>
       <div ref={emailRef} className={styles.HeaderLeft_email}>
