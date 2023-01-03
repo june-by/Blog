@@ -22,11 +22,17 @@ const PostCard = ({ post }: { post: PostsType }) => {
     >
       <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
-          <Image src={post.thumbNailUrl} layout="fill" alt="category" />
+          <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
         ) : (
           <picture>
             <source data-srcset={S3_PREFIX + defaultThumbNail.webp} type="image/webp" />
-            <Image layout="fill" src={S3_PREFIX + defaultThumbNail.jpg} alt="category" />
+            <Image
+              layout="fill"
+              src={S3_PREFIX + defaultThumbNail.jpg}
+              alt="category"
+              placeholder="blur"
+              blurDataURL={blurDataURL}
+            />
           </picture>
         )}
       </figure>
@@ -45,3 +51,6 @@ const PostCard = ({ post }: { post: PostsType }) => {
 };
 
 export default PostCard;
+
+const blurDataURL =
+  "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg==";
