@@ -1,3 +1,4 @@
+import useGotoPage from "Hooks/useGotoPage";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import styles from "./styles.module.scss";
@@ -8,20 +9,10 @@ interface Props {
 }
 
 const CategoryRow = ({ category, length }: Props) => {
-  const { push } = useRouter();
-
-  const onClickMenu = useCallback(
-    (category: string) => () => {
-      push({
-        pathname: "/filter",
-        query: { category: category, page: 1 },
-      });
-    },
-    [push]
-  );
+  const gotoPage = useGotoPage();
 
   return (
-    <div key={category} onClick={onClickMenu(category)} className={styles.CategoryItem}>
+    <div key={category} onClick={gotoPage(`/category/${category}`)} className={styles.CategoryItem}>
       <div className={styles.text}>{category}</div>
       <div className={styles.count}>{length}</div>
     </div>

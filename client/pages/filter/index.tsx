@@ -5,7 +5,6 @@ import NoPost from "components/Block/NoPost";
 import CategorySelect from "components/Block/CategorySelect";
 import Posts from "components/Block/Posts";
 import useGetPosts from "Hooks/useGetPosts";
-import useMakeMetaInfo from "Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
 import { PostsType } from "Types/post";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
@@ -14,7 +13,7 @@ import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLef
 const Filter = () => {
   const { query } = useRouter();
   const [Post, isLoading] = useGetPosts(query);
-  const [title, description, ogDescription, url] = useMakeMetaInfo();
+  const [title, description, ogDescription, url] = makeMetaData(query);
 
   return (
     <>
@@ -44,3 +43,20 @@ const Filter = () => {
 };
 
 export default Filter;
+
+function makeMetaData(query: { search?: string; tag?: string }) {
+  if (query.search)
+    return [
+      query.search,
+      `${query.search}검색 결과 페이지`,
+      `${query.search}검색 결과 목록입니다`,
+      `https://byjuun.com/filter?search=${query.search}`,
+    ];
+  else
+    return [
+      query.tag,
+      `${query.tag} 태깅 페이지`,
+      `${query.tag}로 태깅된 목록입니다`,
+      `https://byjuun.com/filter?tag=${query.tag}`,
+    ];
+}
