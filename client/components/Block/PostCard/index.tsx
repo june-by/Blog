@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
-import useGotoPage from "Hooks/useGotoPage";
+import React, { useContext, useMemo } from "react";
 import { PostsType } from "Types/Post";
 import { dateForm } from "utils/dateForm";
 import { getThumbNail } from "utils/getThumbnail";
@@ -8,18 +7,22 @@ import { S3_PREFIX } from "utils/variable";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const PostCard = ({ post }: { post: PostsType }) => {
-  const gotoPage = useGotoPage();
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const defaultThumbNail = useMemo(() => getThumbNail(post.category), [post]);
 
+  const onClickPostCard = () => {
+    const { scrollY } = window;
+    const { pathname } = router;
+    sessionStorage.setItem("scrollPos", JSON.stringify({ scrollY, pathname }));
+    router.push(`/post/${post.id}`);
+  };
+
   return (
-    <section
-      data-testid="postCard"
-      className={`${styles.PostCard} ${styles[theme]}`}
-      onClick={gotoPage(`/post/${post.id}`)}
-    >
+    <section data-testid="postCard" className={`${styles.PostCard} ${styles[theme]}`} onClick={onClickPostCard}>
       <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
           <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
