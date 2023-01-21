@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 const DarkModeBtn = () => {

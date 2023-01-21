@@ -5,7 +5,7 @@ module.exports = {
     "^Hooks/(.*)$": "<rootDir>/Hooks/$1",
     "^components/(.*)$": "<rootDir>/components/$1",
     "^mocks/(.*)$": "<rootDir>/mocks/$1",
-    "^API/(.*)$": "<rootDir>/API/$1",
+    "^services/(.*)$": "<rootDir>/services/$1",
     "^pages/(.*)$": "<rootDir>/pages/$1",
     "^Types/(.*)$": "<rootDir>/Types/$1",
     "^styles/(.*)$": "<rootDir>/styles/$1",

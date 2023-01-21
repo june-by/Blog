@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getVisitorAPI } from "API/Visitor";
+import { getVisitorAPI } from "services/Visitor";
 import { VisitorAPIType } from "Types/Visitor";
 import QUERY_KEY from "constants/queryKey";
 

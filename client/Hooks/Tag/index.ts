@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getRecentTagsAPI } from "API/Tag";
+import { getRecentTagsAPI } from "services/Tag";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 

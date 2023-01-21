@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useCallback, useContext, useRef } from "react";
 import { useLogin } from "Hooks/User";
-import Modal from "utils/Modal";
+import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -24,10 +24,8 @@ const LoginModal = ({ setOpen }: Props) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!emailRef.current || !passwordRef.current) return;
-      if (emailRef.current.value === "")
-        return alert("* 아이디를 입력해주세요.");
-      if (passwordRef.current.value === "")
-        return alert("* 비밀번호를 입력해주세요.");
+      if (emailRef.current.value === "") return alert("* 아이디를 입력해주세요.");
+      if (passwordRef.current.value === "") return alert("* 비밀번호를 입력해주세요.");
 
       const reqData = {
         email: emailRef.current.value,
@@ -49,17 +47,8 @@ const LoginModal = ({ setOpen }: Props) => {
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input
-              data-testid="emailInput"
-              ref={emailRef}
-              placeholder="이메일 혹은 아이디"
-            />
-            <input
-              data-testid="passwordInput"
-              ref={passwordRef}
-              type="password"
-              placeholder="비밀번호"
-            />
+            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
             <button>로그인</button>
           </form>
         </>

@@ -5,7 +5,7 @@ import useWidthAnimation from "Hooks/useWidthAnimation";
 import styles from "./styles.module.scss";
 import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 
 const HeaderLeft = () => {
   const emailRef = useRef<HTMLDivElement>(null);

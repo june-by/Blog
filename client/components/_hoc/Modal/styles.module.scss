@@ -1,5 +1,6 @@
-@import "../utils.scss";
-@import "../variables.scss";
+@import "utils/utils.scss";
+@import "utils/variables.scss";
+
 .Modal {
   z-index: 110;
   position: fixed;

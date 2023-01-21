@@ -2,8 +2,8 @@ import CloseIcon from "components/Icon/close";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useRef } from "react";
-import Modal from "utils/Modal";
-import { ThemeContext } from "utils/ThemeContext";
+import Modal from "components/_hoc/Modal";
+import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -43,11 +43,7 @@ const SearchModal = ({ setOpen }: Props) => {
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input
-              data-testid="searchInput"
-              ref={searchRef}
-              placeholder="특정 키워드를 입력해주세요"
-            />
+            <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
             <button>검색</button>
           </form>
         </>

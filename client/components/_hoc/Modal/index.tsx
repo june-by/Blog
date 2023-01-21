@@ -1,10 +1,5 @@
-import React, {
-  ReactChild,
-  ReactChildren,
-  useCallback,
-  useContext,
-} from "react";
-import { ThemeContext } from "utils/ThemeContext";
+import React, { ReactChild, ReactChildren, useCallback, useContext } from "react";
+import { ThemeContext } from "components/_hoc/themeContext";
 
 import styles from "./styles.module.scss";
 

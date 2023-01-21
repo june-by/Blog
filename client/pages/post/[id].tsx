@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { dehydrate, QueryClient } from "react-query";
-import { getOnePostAPI } from "API/Post";
+import { getOnePostAPI } from "services/Post";
 import CommentForm from "components/Block/Post/CommentForm";
 import CommentList from "components/Block/Post/CommentList";
 import OtherPostInfo from "components/Block/Post/OtherPostInfo";

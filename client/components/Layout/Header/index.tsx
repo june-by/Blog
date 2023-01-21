@@ -8,7 +8,7 @@ import useHeaderAnimation from "./useHeaderAnimation";
 import HeaderLeft from "./HeaderLeft";
 import useToggle from "Hooks/useToggle";
 import DarkModeBtn from "components/Atom/DarkModeBtn";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 import MenuIcon from "components/Icon/menu";
 
 const Header = () => {

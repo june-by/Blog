@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { PostsType } from "Types/Post";
 import dateForm from "utils/dateForm";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 import Image from "next/image";
