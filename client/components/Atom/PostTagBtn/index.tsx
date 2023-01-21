@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useContext } from "react";
-import { TagType } from "Types/Post";
+import { TagType } from "Types/post";
 import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 

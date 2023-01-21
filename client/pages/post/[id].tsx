@@ -10,7 +10,7 @@ import OtherPostInfo from "components/Block/Post/OtherPostInfo";
 import PostContent from "components/Block/Post/PostContent";
 import PostTop from "components/Block/Post/PostTop";
 import { useGetOnePost } from "Hooks/Post";
-import { MainPost } from "Types/Post";
+import { MainPost } from "Types/post";
 import ScrollBtn from "components/Atom/scrollBtn";
 import styles from "./styles.module.scss";
 import S3_PREFIX from "constants/s3Prefix";

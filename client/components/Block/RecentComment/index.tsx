@@ -1,19 +1,13 @@
-import { useRouter } from "next/router";
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { useGetRecentComment } from "Hooks/Comment";
 import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
+import useGotoPage from "Hooks/useGotoPage";
 
 const RecentComment = () => {
   const { data, isLoading } = useGetRecentComment();
   const { theme } = useContext(ThemeContext);
-  const { push } = useRouter();
-  const gotoPost = useCallback(
-    (id: number) => () => {
-      push(`/post/${id}`);
-    },
-    []
-  );
+  const gotoPage = useGotoPage();
 
   return (
     <section className={`${styles.RecentComment} ${styles[String(theme)]}`}>
@@ -23,7 +17,7 @@ const RecentComment = () => {
           {data && data.length > 0 ? (
             <ul className={styles.comments}>
               {data.map((comment) => (
-                <li key={comment.id} className={styles.comment} onClick={gotoPost(comment.Post.id)}>
+                <li key={comment.id} className={styles.comment} onClick={gotoPage(`/post/${comment.Post.id}`)}>
                   {comment.content}
                 </li>
               ))}
@@ -35,7 +29,7 @@ const RecentComment = () => {
       ) : (
         <div className={styles.SkeletonWrapper}>
           {[1, 2, 3, 4, 5].map((v) => (
-            <div key={v + 1000} className={styles.commentSkeleton}></div>
+            <div key={`commentSkeleton${v}`} className={styles.commentSkeleton}></div>
           ))}
         </div>
       )}

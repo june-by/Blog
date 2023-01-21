@@ -14,7 +14,11 @@ const CategorySelect = () => {
         <>
           {Category.map((category, idx) => {
             return (
-              <CategoryChip key={idx} category={category} length={data?.find((v) => v.category === category)?.count} />
+              <CategoryChip
+                key={category}
+                category={category}
+                length={data?.find((v) => v.category === category)?.count}
+              />
             );
           })}
         </>

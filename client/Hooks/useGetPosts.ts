@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ParsedUrlQuery } from "querystring";
-import { PostsType } from "Types/Post";
+import { PostsType } from "Types/post";
 import { useGetSearchPosts, useGetTagPosts } from "./Post";
 
 type ReturnTypes = [PostsType[] | undefined, boolean];

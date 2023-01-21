@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
-import { PostsType } from "Types/Post";
+import { PostsType } from "Types/post";
 import CategorySelect from "components/Block/CategorySelect";
 import PostCard from "components/Block/PostCard";
 import NoPost from "components/Block/NoPost";

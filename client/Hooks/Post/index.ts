@@ -11,7 +11,7 @@ import {
 } from "services/Post";
 import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "services/Post";
-import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/Post";
+import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/post";
 import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";

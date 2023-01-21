@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PostsType } from "Types/Post";
+import { PostsType } from "Types/post";
 import dateForm from "utils/dateForm";
 import { ThemeContext } from "components/_hoc/themeContext";
 import PostTagBtn from "components/Atom/PostTagBtn";
@@ -41,7 +41,8 @@ const PostCard = ({ post }: { post: PostsType }) => {
       <article className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}>
         <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
         <ul className={styles.PostCard_titleBox_tagBox}>
-          {post.Tags.length !== 0 && post.Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
+          {post.Tags.length !== 0 &&
+            post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
         </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
           <time>{dateForm(post.createdAt)}</time>

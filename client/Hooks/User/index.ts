@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/User";
-import { UserType } from "Types/User";
+import { UserType } from "Types/user";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 

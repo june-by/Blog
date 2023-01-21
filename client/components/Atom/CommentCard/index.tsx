@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CommentType } from "Types/Post";
+import { CommentType } from "Types/post";
 import dateForm from "utils/dateForm";
 import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";

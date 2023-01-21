@@ -13,7 +13,7 @@ const RecentTags = () => {
       {!isLoading ? (
         <ul className={styles.tagsWrapper}>
           {data?.map((tag, idx) => (
-            <TagIcon key={tag + idx} tag={tag} />
+            <TagIcon key={`#${tag}`} tag={tag} />
           ))}
         </ul>
       ) : (
