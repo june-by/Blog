@@ -15,7 +15,7 @@ import userRouter from "src/User/userRouter";
 import visitorRouter from "src/Visitor/visitorRouter";
 import commentRouter from "src/Comment/commentRouter";
 import tagRouter from "src/Tag/tagRouter";
-import passportConfig from "passport";
+import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import { S3Client } from "@aws-sdk/client-s3";
 import multer from "multer";

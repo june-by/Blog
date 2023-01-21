@@ -1,11 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import NoPost from "components/Block/NoPost";
 import CategorySelect from "components/Block/CategorySelect";
-import Pagination from "components/Block/Pagination";
 import Posts from "components/Block/Posts";
-import { useGetPostNum } from "Hooks/Post";
 import useGetPosts from "Hooks/useGetPosts";
 import useMakeMetaInfo from "Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
@@ -15,7 +13,6 @@ import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLef
 
 const Filter = () => {
   const { query } = useRouter();
-  const { data: totalPageNum } = useGetPostNum(query.category);
   const [Post, isLoading] = useGetPosts(query);
   const [title, description, ogDescription, url] = useMakeMetaInfo();
 
@@ -38,9 +35,7 @@ const Filter = () => {
         <AdditionalInfoSectionLeft />
         <div className={styles.CategoryContentWrapper}>
           <CategorySelect />
-          <Posts posts={Post as PostsType[]} isLoading={isLoading} />
-          <NoPost isPostExist={Post?.length !== 0 ? true : false} />
-          {query.category && <Pagination totalPage={totalPageNum} />}
+          {Post?.length !== 0 ? <Posts posts={Post as PostsType[]} isLoading={isLoading} /> : <NoPost />}
         </div>
         <AdditionalInfoSectionRight />
       </main>

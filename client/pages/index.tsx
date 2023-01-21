@@ -1,18 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import CategorySelect from "components/Block/CategorySelect";
-import Pagination from "components/Block/Pagination";
 import Posts from "components/Block/Posts";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
-import { useGetPostNum, useGetMainPost } from "Hooks/Post";
+import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
+import { PostsType } from "Types/Post";
+import PostCard from "components/Block/PostCard";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import PostCardSkeleton from "components/Block/PostCard/Skeleton";
+import { POSTS_PER_PAGE } from "utils/variable";
 
 const Home: NextPage = () => {
-  const { query } = useRouter();
-  const { data: totalPageNum } = useGetPostNum("main");
-  const { data: MainPosts, isLoading } = useGetMainPost(Number(query.page) || 1);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetMainPost();
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage]);
 
   return (
     <>
@@ -36,8 +43,24 @@ const Home: NextPage = () => {
         <AdditionalInfoSectionLeft />
         <section className={styles.HomeContentWrapper}>
           <CategorySelect />
-          <Posts posts={MainPosts} isLoading={isLoading} />
-          <Pagination totalPage={totalPageNum} />
+          <section className={styles.PostsRoot}>
+            {data?.pages.map((page) => (
+              <>
+                {page.map((post: PostsType) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </>
+            ))}
+            {isFetchingNextPage || isLoading ? (
+              <>
+                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                })}
+              </>
+            ) : (
+              <div ref={ref}></div>
+            )}
+          </section>
         </section>
         <AdditionalInfoSectionRight />
       </main>

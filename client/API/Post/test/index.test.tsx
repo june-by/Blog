@@ -1,10 +1,4 @@
-import {
-  getAllCategoryLengthAPI,
-  getCategoryPostAPI,
-  getOnePostAPI,
-  getPostsNumAPI,
-  GetTopViewsPostsAPI,
-} from "..";
+import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from "..";
 import { DummyPost } from "utils/dummy";
 import { Category } from "utils/variable";
 
@@ -38,10 +32,6 @@ describe("postAPI", () => {
         };
       })
     );
-  });
-
-  it("getPostsNumAPI", async () => {
-    expect(await getPostsNumAPI("testCategory")).toStrictEqual(1);
   });
 
   it("getTopViewsPosts", async () => {
