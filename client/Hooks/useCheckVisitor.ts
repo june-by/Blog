@@ -8,36 +8,44 @@ interface DateInfo {
   date: number;
 }
 
-const AddVisitor = async (queryClient: QueryClient, date: DateInfo) => {
-  localStorage.setItem("visitToday", JSON.stringify(date));
-  //api콜
-  const data = await postVisitorAPI();
-  queryClient.setQueryData(["visitor"], data);
-};
-
 const useCheckVisitor = (queryClient: QueryClient) => {
   useEffect(() => {
     const visitToday = localStorage.getItem("visitToday");
-    const nowYear = new Date().getFullYear();
-    const nowMonth = new Date().getMonth();
-    const nowDate = new Date().getDate();
-    const date = {
-      year: nowYear,
-      month: nowMonth,
-      date: nowDate,
-    };
+    const { date } = getCurrentTimeInfo();
     //localStorage에 값이 있음 -> 방문한 적이 있음
+
     if (visitToday) {
       const dateInfo: DateInfo = JSON.parse(visitToday);
-      if (nowMonth > dateInfo.month || nowYear > dateInfo.year)
-        AddVisitor(queryClient, date);
-      else {
-        if (nowDate > dateInfo.date) AddVisitor(queryClient, date);
-      }
-    } else {
-      AddVisitor(queryClient, date);
+      if (!isVisitMoreThanOneDay(dateInfo)) return;
     }
+
+    AddVisitor(queryClient, date);
   }, []);
 };
 
 export default useCheckVisitor;
+
+async function AddVisitor(queryClient: QueryClient, date: DateInfo) {
+  localStorage.setItem("visitToday", JSON.stringify(date));
+  //api콜
+  const data = await postVisitorAPI();
+  queryClient.setQueryData(["visitor"], data);
+}
+
+function getCurrentTimeInfo() {
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
+  const currentMonth = currentTime.getMonth();
+  const currentDate = currentTime.getDate();
+  const date = { year: currentYear, month: currentMonth, date: currentDate };
+  return { date, currentYear, currentMonth, currentDate };
+}
+
+function isVisitMoreThanOneDay(dateInfo: DateInfo) {
+  const { currentYear, currentMonth, currentDate } = getCurrentTimeInfo();
+
+  if (currentMonth > dateInfo.month || currentYear > dateInfo.year) return true;
+  if (currentDate > dateInfo.date) return true;
+
+  return false;
+}
