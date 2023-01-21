@@ -14,7 +14,7 @@ const MobileCategoryList = () => {
             <CategoryRow
               category={category}
               length={data?.find((v) => v.category === category)?.count || 0}
-              key={category}
+              key={`mobileCategory${category}`}
             />
           ))}
         </>

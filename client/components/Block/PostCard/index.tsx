@@ -27,10 +27,10 @@ const PostCard = ({ post }: { post: PostsType }) => {
           <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
         ) : (
           <picture>
-            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category].webp} type="image/webp" />
+            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
             <Image
               layout="fill"
-              src={S3_PREFIX + THUMBNAIL[post.category].jpg}
+              src={S3_PREFIX + THUMBNAIL[post.category]?.jpg}
               alt="category"
               placeholder="blur"
               blurDataURL={blurDataURL}
