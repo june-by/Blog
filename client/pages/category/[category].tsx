@@ -23,8 +23,6 @@ const Category = () => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage]);
 
-  console.log(data?.pages);
-
   return (
     <>
       <Head>

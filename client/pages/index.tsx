@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import CategorySelect from "components/Block/CategorySelect";
-import Posts from "components/Block/Posts";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
@@ -12,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
 import { POSTS_PER_PAGE } from "utils/variable";
+import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 
 const Home: NextPage = () => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetMainPost();
@@ -20,6 +20,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage]);
+
+  useRestoreSrollPos(isLoading);
 
   return (
     <>
