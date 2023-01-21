@@ -14,11 +14,7 @@ describe("<CategoryChip />", () => {
       category: "테스트카테고리",
       length: 11,
     };
-    renderWithContext(
-      router,
-      queryClient,
-      <CategoryChip category={props.category} length={props.length} />
-    );
+    renderWithContext(router, queryClient, <CategoryChip category={props.category} length={props.length} />);
 
     expect(screen.getByText(props.category)).toBeInTheDocument();
     expect(screen.getByText(props.length)).toBeInTheDocument();
@@ -28,11 +24,7 @@ describe("<CategoryChip />", () => {
     const props = {
       category: "테스트카테고리",
     };
-    renderWithContext(
-      router,
-      queryClient,
-      <CategoryChip category={props.category} />
-    );
+    renderWithContext(router, queryClient, <CategoryChip category={props.category} />);
     expect(screen.getByText(props.category)).toBeInTheDocument();
     expect(screen.getByText(0)).toBeInTheDocument();
   });
@@ -46,11 +38,7 @@ describe("<CategoryChip />", () => {
     renderWithContext(
       router,
       queryClient,
-      <CategoryChip
-        category={props.category}
-        mode={props.mode}
-        length={props.length}
-      />
+      <CategoryChip category={props.category} mode={props.mode} length={props.length} />
     );
 
     expect(screen.getByText(props.category)).toBeInTheDocument();
@@ -62,18 +50,13 @@ describe("<CategoryChip />", () => {
       category: "testCategory",
       length: 10,
     };
-    renderWithContext(
-      router,
-      queryClient,
-      <CategoryChip category={props.category} length={props.length} />
-    );
+    renderWithContext(router, queryClient, <CategoryChip category={props.category} length={props.length} />);
 
     const categroyChipBtn = screen.getByRole("button");
     expect(categroyChipBtn).toBeInTheDocument();
     fireEvent.click(categroyChipBtn);
     expect(router.push).toHaveBeenCalledWith({
-      pathname: "/filter",
-      query: { category: props.category, page: 1 },
+      pathname: `/category/${props.category}`,
     });
   });
 });

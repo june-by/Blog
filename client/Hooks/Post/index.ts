@@ -5,20 +5,23 @@ import {
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
   getOnePostAPI,
-  getPostsNumAPI,
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
 } from "API/Post/index";
-import { useMutation, useQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import { getMainPostsAPI } from "API/Post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/Post";
 import { useRouter } from "next/router";
 import { QUERY_KEY } from "utils/queryKey";
 import { CACHE_OPTION } from "utils/cacheOption";
+import { POSTS_PER_PAGE } from "utils/variable";
 
-export const useGetMainPost = (pageNum: number) =>
-  useQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN, pageNum], () => getMainPostsAPI(pageNum), CACHE_OPTION.ALL);
+export const useGetMainPost = () =>
+  useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useGetOnePost = (id: number) =>
   useQuery<PostType>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), CACHE_OPTION.ALL);
@@ -28,15 +31,14 @@ export const useGetTopViewsPosts = () =>
 
 export const useGetAllCateogryLength = () =>
   useQuery<Array<CategoryCount>>([QUERY_KEY.POST.CATEGORY_LENGTH], () => getAllCategoryLengthAPI(), CACHE_OPTION.ALL);
-
-export const useGetPostNum = (category: string | string[] | undefined) =>
-  useQuery([QUERY_KEY.POST.NUM_OF_POSTS, category], () => getPostsNumAPI(category), CACHE_OPTION.ALL);
-
-export const useGetCategoryPosts = (category: string | string[] | undefined, pageNum: number) =>
-  useQuery<Array<PostsType>>(
-    [QUERY_KEY.POST.CATEGORY, category, pageNum],
-    () => getCategoryPostAPI(category, pageNum),
-    CACHE_OPTION.ALL
+export const useGetCategoryPosts = (category: string | string[] | undefined) =>
+  useInfiniteQuery<Array<PostsType>>(
+    [QUERY_KEY.POST.CATEGORY, category],
+    ({ pageParam = 1 }) => getCategoryPostAPI(category, pageParam),
+    {
+      ...CACHE_OPTION.ALL,
+      getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+    }
   );
 
 export const useGetSearchPosts = (search: string | string[] | undefined) =>

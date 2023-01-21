@@ -18,8 +18,7 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   const onClickBtn = useCallback(
     (category: string) => {
       push({
-        pathname: "/filter",
-        query: { category: category, page: 1 },
+        pathname: `/category/${category}`,
       });
     },
     [push]
@@ -28,15 +27,9 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   useChangeColor({ category, btnRef });
 
   return (
-    <button
-      ref={btnRef}
-      className={`${styles.CategoryChip} ${styles[theme]}`}
-      onClick={() => onClickBtn(category)}
-    >
+    <button ref={btnRef} className={`${styles.CategoryChip} ${styles[theme]}`} onClick={() => onClickBtn(category)}>
       <span>{category}</span>
-      {mode !== "post" && (
-        <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>
-      )}
+      {mode !== "post" && <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>}
     </button>
   );
 };

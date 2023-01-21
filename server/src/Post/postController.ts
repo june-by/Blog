@@ -1,6 +1,6 @@
-import tagService from "Tag/tagService";
+import tagService from "src/Tag/tagService";
 import postService from "./postService";
-import commentService from "Comment/commentService";
+import commentService from "src/Comment/commentService";
 import { NextFunction, Request, Response } from "express";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
