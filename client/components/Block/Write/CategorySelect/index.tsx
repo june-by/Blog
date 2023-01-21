@@ -1,5 +1,5 @@
+import Category from "constants/category";
 import React from "react";
-import { Category } from "utils/variable";
 
 interface Props {
   categoryInfo: string;
@@ -8,11 +8,7 @@ interface Props {
 
 const CategorySelectInWrite = ({ categoryInfo, onChangeCategory }: Props) => {
   return (
-    <select
-      data-testid="categorySelectInWrite"
-      value={categoryInfo}
-      onChange={onChangeCategory}
-    >
+    <select data-testid="categorySelectInWrite" value={categoryInfo} onChange={onChangeCategory}>
       <>
         {Category?.map((category) => {
           return (

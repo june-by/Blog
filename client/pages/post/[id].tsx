@@ -11,9 +11,10 @@ import PostContent from "components/Block/Post/PostContent";
 import PostTop from "components/Block/Post/PostTop";
 import { useGetOnePost } from "Hooks/Post";
 import { MainPost } from "Types/Post";
-import { getOgImage } from "utils/getOgImage";
 import ScrollBtn from "components/Atom/scrollBtn";
 import styles from "./styles.module.scss";
+import S3_PREFIX from "constants/s3Prefix";
+import THUMBNAIL from "constants/thumbnail";
 
 const Post = () => {
   const router = useRouter();
@@ -56,3 +57,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 export default Post;
+
+function getOgImage(url: string | null | undefined, category: string) {
+  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category].jpg;
+  else return url;
+}

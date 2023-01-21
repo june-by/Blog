@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient } from "react-query";
 import Posts from "..";
-import { dateForm } from "utils/dateForm";
+import dateForm from "utils/dateForm";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
 
@@ -30,11 +30,7 @@ describe("<Posts />", () => {
   };
 
   it("rendering test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <Posts posts={props.posts} isLoading={props.isLoading} />
-    );
+    renderWithContext(router, queryClient, <Posts posts={props.posts} isLoading={props.isLoading} />);
     props.posts.forEach((post) => {
       expect(screen.getByText(post.title)).toBeInTheDocument();
       expect(screen.getAllByText(dateForm(post.createdAt))).toHaveLength(10);

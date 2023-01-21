@@ -9,6 +9,7 @@ module.exports = {
     "^pages/(.*)$": "<rootDir>/pages/$1",
     "^Types/(.*)$": "<rootDir>/Types/$1",
     "^styles/(.*)$": "<rootDir>/styles/$1",
+    "^constants/(.*)$": "<rootDir>/constants/$1",
   },
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],

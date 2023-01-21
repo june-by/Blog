@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import CommentList from "..";
-import { dateForm } from "utils/dateForm";
+import dateForm from "utils/dateForm";
 
 describe("<CommentList />", () => {
   const props = {
@@ -28,9 +28,7 @@ describe("<CommentList />", () => {
     render(<CommentList Comments={props.Comments} />);
     props.Comments.forEach((comment) => {
       expect(screen.getByText(comment.content)).toBeInTheDocument();
-      expect(
-        screen.getByText(`${comment.User.nickname}님`)
-      ).toBeInTheDocument();
+      expect(screen.getByText(`${comment.User.nickname}님`)).toBeInTheDocument();
     });
   });
 });

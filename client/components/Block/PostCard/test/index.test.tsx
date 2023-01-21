@@ -3,9 +3,8 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
 import { QueryClient } from "react-query";
 import PostCard from "..";
-import { dateForm } from "utils/dateForm";
-import { DummyPost } from "utils/dummy";
-import { getThumbNail } from "utils/getThumbnail";
+import dateForm from "utils/dateForm";
+import { DummyPost } from "constants/dummy";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
 
@@ -17,12 +16,8 @@ describe("<PostCard />", () => {
     renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
 
     expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
-    expect(
-      screen.getByText(dateForm(defaultProps.createdAt))
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(`조회수 : ${defaultProps.views}`)
-    ).toBeInTheDocument();
+    expect(screen.getByText(dateForm(defaultProps.createdAt))).toBeInTheDocument();
+    expect(screen.getByText(`조회수 : ${defaultProps.views}`)).toBeInTheDocument();
   });
 
   it("click test", () => {

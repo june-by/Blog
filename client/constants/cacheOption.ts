@@ -1,4 +1,4 @@
-export const CACHE_OPTION = {
+const CACHE_OPTION = {
   ALL: {
     retry: false,
     staleTime: Infinity,
@@ -11,3 +11,5 @@ export const CACHE_OPTION = {
     refetchOnWindowFocus: false,
   },
 };
+
+export default CACHE_OPTION;

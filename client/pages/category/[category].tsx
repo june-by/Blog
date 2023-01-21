@@ -7,12 +7,12 @@ import { useInView } from "react-intersection-observer";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
-import { POSTS_PER_PAGE } from "utils/variable";
 import { PostsType } from "Types/Post";
 import CategorySelect from "components/Block/CategorySelect";
 import PostCard from "components/Block/PostCard";
 import NoPost from "components/Block/NoPost";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
+import POSTS_PER_PAGE from "constants/postsPerPage";
 
 const Category = () => {
   const router = useRouter();

@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 import useSetEditData from "Hooks/useSetEditData";
 import { useRouter } from "next/router";
 import PickThumbNail from "components/Block/Write/PickThumbNail";
-import { Category } from "utils/variable";
+import Category from "constants/category";
 
 const Write = () => {
   const { query } = useRouter();
@@ -24,12 +24,9 @@ const Write = () => {
   const AddPostMutation = useAddPost();
   const EditPostMutation = useEditPost();
 
-  const onChangeCategory = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setCategoryInfo(e.target.value);
-    },
-    []
-  );
+  const onChangeCategory = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategoryInfo(e.target.value);
+  }, []);
 
   const submitPost = useCallback(() => {
     if (!titleRef.current) return;
@@ -42,15 +39,7 @@ const Write = () => {
     };
     if (query.mode === "Write") AddPostMutation.mutate(reqData);
     else EditPostMutation.mutate(reqData);
-  }, [
-    categoryInfo,
-    tagArr,
-    content,
-    AddPostMutation,
-    EditPostMutation,
-    thumbNailUrl,
-    query.mode,
-  ]);
+  }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, thumbNailUrl, query.mode]);
 
   useCheckAdmin();
   useSetEditData({
@@ -64,25 +53,15 @@ const Write = () => {
   return (
     <div className={styles.Write}>
       <div className={styles.titleArea}>
-        <input
-          className={styles.titleInput}
-          placeholder="제목"
-          ref={titleRef}
-        />
+        <input className={styles.titleInput} placeholder="제목" ref={titleRef} />
         <button onClick={submitPost}>등록</button>
       </div>
       <div className={styles.etcArea}>
-        <CategorySelectInWrite
-          categoryInfo={categoryInfo}
-          onChangeCategory={onChangeCategory}
-        />
+        <CategorySelectInWrite categoryInfo={categoryInfo} onChangeCategory={onChangeCategory} />
         <Tag tagArr={tagArr} setTagArr={setTagArr} />
       </div>
       <PostEditor content={content} setContent={setContent} />
-      <PickThumbNail
-        thumbNailUrl={thumbNailUrl}
-        setThumbNailUrl={setThumbNailUrl}
-      />
+      <PickThumbNail thumbNailUrl={thumbNailUrl} setThumbNailUrl={setThumbNailUrl} />
     </div>
   );
 };

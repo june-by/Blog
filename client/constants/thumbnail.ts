@@ -2,7 +2,7 @@ interface thumbNailType {
   [key: string]: { jpg: string; webp: string };
 }
 
-const thumbNail: thumbNailType = {
+const THUMBNAIL: thumbNailType = {
   JavaScript: {
     webp: `javascript.webp`,
     jpg: `javascript.jpg`,
@@ -22,5 +22,4 @@ const thumbNail: thumbNailType = {
   Algorithm: { webp: "programmers.webp", jpg: "programmers.jpg" },
 };
 
-export const getThumbNail = (category: string): { jpg: string; webp: string } =>
-  thumbNail[category];
+export default THUMBNAIL;

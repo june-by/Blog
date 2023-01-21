@@ -10,8 +10,8 @@ import PostCard from "components/Block/PostCard";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
-import { POSTS_PER_PAGE } from "utils/variable";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
+import POSTS_PER_PAGE from "constants/postsPerPage";
 
 const Home: NextPage = () => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetMainPost();
