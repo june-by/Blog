@@ -1,10 +1,7 @@
 import { useContext, useEffect } from "react";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 
-const useDarkMode = (
-  mode: boolean,
-  ref: React.RefObject<HTMLButtonElement>
-) => {
+const useDarkMode = (mode: boolean, ref: React.RefObject<HTMLButtonElement>) => {
   const { setTheme } = useContext(ThemeContext);
   useEffect(() => {
     if (!ref.current) return;

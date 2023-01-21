@@ -8,14 +8,14 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
-} from "API/Post/index";
+} from "services/Post";
 import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-import { getMainPostsAPI } from "API/Post";
-import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/Post";
+import { getMainPostsAPI } from "services/Post";
+import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/post";
 import { useRouter } from "next/router";
-import { QUERY_KEY } from "utils/queryKey";
-import { CACHE_OPTION } from "utils/cacheOption";
-import { POSTS_PER_PAGE } from "utils/variable";
+import QUERY_KEY from "constants/queryKey";
+import CACHE_OPTION from "constants/cacheOption";
+import POSTS_PER_PAGE from "constants/postsPerPage";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {

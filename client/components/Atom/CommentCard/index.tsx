@@ -1,16 +1,10 @@
 import React, { useContext } from "react";
-import { CommentType } from "Types/Post";
-import { dateForm } from "utils/dateForm";
-import { ThemeContext } from "utils/ThemeContext";
+import { CommentType } from "Types/post";
+import dateForm from "utils/dateForm";
+import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
-const CommentCard = ({
-  comment,
-  idx,
-}: {
-  comment: CommentType | null;
-  idx: number;
-}) => {
+const CommentCard = ({ comment, idx }: { comment: CommentType | null; idx: number }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <div

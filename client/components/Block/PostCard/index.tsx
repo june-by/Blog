@@ -1,18 +1,17 @@
-import React, { useContext, useMemo } from "react";
-import { PostsType } from "Types/Post";
-import { dateForm } from "utils/dateForm";
-import { getThumbNail } from "utils/getThumbnail";
-import { ThemeContext } from "utils/ThemeContext";
-import { S3_PREFIX } from "utils/variable";
+import React, { useContext } from "react";
+import { PostsType } from "Types/post";
+import dateForm from "utils/dateForm";
+import { ThemeContext } from "components/_hoc/themeContext";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import S3_PREFIX from "constants/s3Prefix";
+import THUMBNAIL from "constants/thumbnail";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
-  const defaultThumbNail = useMemo(() => getThumbNail(post.category), [post]);
 
   const onClickPostCard = () => {
     const { scrollY } = window;
@@ -28,10 +27,10 @@ const PostCard = ({ post }: { post: PostsType }) => {
           <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
         ) : (
           <picture>
-            <source data-srcset={S3_PREFIX + defaultThumbNail.webp} type="image/webp" />
+            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category].webp} type="image/webp" />
             <Image
               layout="fill"
-              src={S3_PREFIX + defaultThumbNail.jpg}
+              src={S3_PREFIX + THUMBNAIL[post.category].jpg}
               alt="category"
               placeholder="blur"
               blurDataURL={blurDataURL}
@@ -42,7 +41,8 @@ const PostCard = ({ post }: { post: PostsType }) => {
       <article className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}>
         <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
         <ul className={styles.PostCard_titleBox_tagBox}>
-          {post.Tags.length !== 0 && post.Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
+          {post.Tags.length !== 0 &&
+            post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
         </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
           <time>{dateForm(post.createdAt)}</time>

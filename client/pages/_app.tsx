@@ -9,7 +9,7 @@ import Header from "components/Layout/Header";
 import Loading from "utils/Loading";
 import ProgressBar from "components/Atom/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";
-import { ThemeProvider } from "utils/ThemeContext";
+import { ThemeProvider } from "components/_hoc/themeContext";
 import cookies from "next-cookies";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useCallback, useContext, useRef } from "react";
 import { useSignUp } from "Hooks/User";
-import Modal from "utils/Modal";
+import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,13 +26,7 @@ const SignUpModal = ({ setOpen }: Props) => {
   const submit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (
-        !emailRef.current ||
-        !passwordRef.current ||
-        !passwordCheckRef.current ||
-        !nicknameRef.current
-      )
-        return;
+      if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
       if (passwordRef.current.value !== passwordCheckRef.current.value)
         return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
 
@@ -58,28 +52,10 @@ const SignUpModal = ({ setOpen }: Props) => {
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input
-              data-testid="emailInput"
-              ref={emailRef}
-              placeholder="이메일 혹은 아이디"
-            />
-            <input
-              data-testid="passwordInput"
-              ref={passwordRef}
-              type="password"
-              placeholder="비밀번호"
-            />
-            <input
-              data-testid="passwordCheckInput"
-              ref={passwordCheckRef}
-              type="password"
-              placeholder="비밀번호확인"
-            />
-            <input
-              data-testid="nicknameInput"
-              ref={nicknameRef}
-              placeholder="닉네임"
-            />
+            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
+            <input data-testid="passwordCheckInput" ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
+            <input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
             <button>회원가입</button>
           </form>
         </>

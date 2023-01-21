@@ -7,7 +7,7 @@ import Posts from "components/Block/Posts";
 import useGetPosts from "Hooks/useGetPosts";
 import useMakeMetaInfo from "Hooks/useMakeMetaInfo";
 import styles from "./styles.module.scss";
-import { PostsType } from "Types/Post";
+import { PostsType } from "Types/post";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
 

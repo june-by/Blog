@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useGetVisitor } from "Hooks/Visitor";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 const Visitor = () => {
   const { data, isLoading } = useGetVisitor();

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useGetRecentTags } from "Hooks/Tag";
-import { ThemeContext } from "utils/ThemeContext";
+import { ThemeContext } from "components/_hoc/themeContext";
 import TagIcon from "components/Atom/TagIcon";
 import styles from "./styles.module.scss";
 
@@ -13,7 +13,7 @@ const RecentTags = () => {
       {!isLoading ? (
         <ul className={styles.tagsWrapper}>
           {data?.map((tag, idx) => (
-            <TagIcon key={tag + idx} tag={tag} />
+            <TagIcon key={`#${tag}`} tag={tag} />
           ))}
         </ul>
       ) : (

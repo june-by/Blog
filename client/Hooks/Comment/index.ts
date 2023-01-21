@@ -1,16 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getRecentCommentAPI } from "API/Comment";
-import { AddCommentAPI } from "API/Post";
-import { RecentComment } from "Types/Comment";
-import { CACHE_OPTION } from "utils/cacheOption";
-import { QUERY_KEY } from "utils/queryKey";
+import { getRecentCommentAPI } from "services/Comment";
+import { AddCommentAPI } from "services/Post";
+import { RecentComment } from "Types/comment";
+import CACHE_OPTION from "constants/cacheOption";
+import QUERY_KEY from "constants/queryKey";
 
 export const useGetRecentComment = () =>
-  useQuery<RecentComment[] | undefined>(
-    [QUERY_KEY.COMMNET.RECENT],
-    () => getRecentCommentAPI(),
-    CACHE_OPTION.ALL
-  );
+  useQuery<RecentComment[] | undefined>([QUERY_KEY.COMMNET.RECENT], () => getRecentCommentAPI(), CACHE_OPTION.ALL);
 
 export const useAddComment = (postId: number) => {
   const queryClient = useQueryClient();

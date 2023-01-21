@@ -1,9 +1,9 @@
 import React from "react";
-import { Category } from "utils/variable";
 import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
 import HeaderSkeleton from "components/Layout/Header/Skeleton";
 import styles from "../styles.module.scss";
+import Category from "constants/category";
 const PostsSkelton = () => {
   return (
     <>

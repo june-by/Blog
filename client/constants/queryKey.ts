@@ -1,4 +1,4 @@
-export const QUERY_KEY = {
+const QUERY_KEY = {
   POST: {
     ONE: "Post",
     MAIN: "MainPosts",
@@ -18,3 +18,5 @@ export const QUERY_KEY = {
   },
   VISITOR: "Visitor",
 };
+
+export default QUERY_KEY;

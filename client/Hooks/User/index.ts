@@ -1,15 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "API/User";
-import { UserType } from "Types/User";
-import { CACHE_OPTION } from "utils/cacheOption";
-import { QUERY_KEY } from "utils/queryKey";
+import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/User";
+import { UserType } from "Types/user";
+import CACHE_OPTION from "constants/cacheOption";
+import QUERY_KEY from "constants/queryKey";
 
 export const useGetUserInfo = () =>
-  useQuery<UserType | null>(
-    [QUERY_KEY.USER],
-    () => getUserInfoAPI(),
-    CACHE_OPTION.ALL
-  );
+  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), CACHE_OPTION.ALL);
 
 export const useSignUp = (onSuccess: () => void) => {
   return useMutation(SignUpAPI, {
