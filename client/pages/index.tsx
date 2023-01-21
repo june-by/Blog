@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage]);
 
-  useRestoreSrollPos(isLoading);
+  useRestoreSrollPos();
 
   return (
     <>

@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function useRestoreSrollPos(isLoading: boolean) {
+export default function useRestoreSrollPos() {
   const { pathname: currentPathname } = useRouter();
 
   useEffect(() => {
     if (!sessionStorage.getItem("scrollPos")) return;
-    if (isLoading) return;
     const { pathname, scrollY } = JSON.parse(sessionStorage.getItem("scrollPos") as string);
 
     sessionStorage.removeItem("scrollPos");
@@ -15,7 +14,7 @@ export default function useRestoreSrollPos(isLoading: boolean) {
     if (pathname === currentPathname) {
       setTimeout(() => {
         window.scrollTo(0, scrollY);
-      }, 2);
+      }, 0);
     }
-  }, [isLoading, currentPathname]);
+  }, [currentPathname]);
 }
