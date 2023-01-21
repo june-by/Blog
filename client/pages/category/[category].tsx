@@ -12,6 +12,7 @@ import { PostsType } from "Types/Post";
 import CategorySelect from "components/Block/CategorySelect";
 import PostCard from "components/Block/PostCard";
 import NoPost from "components/Block/NoPost";
+import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 
 const Category = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const Category = () => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage]);
 
+  useRestoreSrollPos();
   return (
     <>
       <Head>
