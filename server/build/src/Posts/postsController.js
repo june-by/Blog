@@ -40,8 +40,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var postsService_1 = __importDefault(require("./postsService"));
+var getAllPostsId = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var postsId, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, postsService_1.default.getAllPostsId()];
+            case 1:
+                postsId = _a.sent();
+                return [2 /*return*/, res.status(200).json(postsId)];
+            case 2:
+                err_1 = _a.sent();
+                console.error(err_1);
+                next(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var getMainPosts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var page, posts, err_1;
+    var page, posts, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -54,16 +73,16 @@ var getMainPosts = function (req, res, next) { return __awaiter(void 0, void 0, 
                 posts = _a.sent();
                 return [2 /*return*/, res.status(200).json(posts)];
             case 3:
-                err_1 = _a.sent();
-                console.error(err_1);
-                next(err_1);
+                err_2 = _a.sent();
+                console.error(err_2);
+                next(err_2);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var getCategoryPosts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, page, category, posts, err_2;
+    var _a, page, category, posts, err_3;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -76,16 +95,16 @@ var getCategoryPosts = function (req, res, next) { return __awaiter(void 0, void
                 posts = _b.sent();
                 return [2 /*return*/, res.status(200).json(posts)];
             case 3:
-                err_2 = _b.sent();
-                console.error(err_2);
-                next(err_2);
+                err_3 = _b.sent();
+                console.error(err_3);
+                next(err_3);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var getCategoryPostsCount = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var categoryCount, err_3;
+    var categoryCount, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -96,16 +115,16 @@ var getCategoryPostsCount = function (req, res, next) { return __awaiter(void 0,
                 res.status(200).json(categoryCount);
                 return [3 /*break*/, 3];
             case 2:
-                err_3 = _a.sent();
-                console.error(err_3);
-                next(err_3);
+                err_4 = _a.sent();
+                console.error(err_4);
+                next(err_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 var getPostsBySearchKeyWord = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var keyword, posts, err_4;
+    var keyword, posts, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -119,16 +138,16 @@ var getPostsBySearchKeyWord = function (req, res, next) { return __awaiter(void 
                 res.status(200).json(posts);
                 return [3 /*break*/, 4];
             case 3:
-                err_4 = _a.sent();
-                console.error(err_4);
-                next(err_4);
+                err_5 = _a.sent();
+                console.error(err_5);
+                next(err_5);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var getPostsByTag = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var keyword, posts, err_5;
+    var keyword, posts, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -142,16 +161,16 @@ var getPostsByTag = function (req, res, next) { return __awaiter(void 0, void 0,
                 res.status(200).json(posts);
                 return [3 /*break*/, 4];
             case 3:
-                err_5 = _a.sent();
-                console.error(err_5);
-                next(err_5);
+                err_6 = _a.sent();
+                console.error(err_6);
+                next(err_6);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var getPostsLength = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var category, length_1, err_6;
+    var category, length_1, err_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -165,16 +184,16 @@ var getPostsLength = function (req, res, next) { return __awaiter(void 0, void 0
                 res.status(200).json({ length: length_1 });
                 return [3 /*break*/, 4];
             case 3:
-                err_6 = _a.sent();
-                console.error(err_6);
-                next(err_6);
+                err_7 = _a.sent();
+                console.error(err_7);
+                next(err_7);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var getTopViewsPosts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts, err_7;
+    var posts, err_8;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -184,15 +203,16 @@ var getTopViewsPosts = function (req, res, next) { return __awaiter(void 0, void
                 posts = _a.sent();
                 return [2 /*return*/, res.status(201).json(posts)];
             case 2:
-                err_7 = _a.sent();
-                console.error(err_7);
-                next(err_7);
+                err_8 = _a.sent();
+                console.error(err_8);
+                next(err_8);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var postsController = {
+exports.default = {
+    getAllPostsId: getAllPostsId,
     getMainPosts: getMainPosts,
     getCategoryPosts: getCategoryPosts,
     getPostsLength: getPostsLength,
@@ -201,4 +221,3 @@ var postsController = {
     getPostsByTag: getPostsByTag,
     getTopViewsPosts: getTopViewsPosts,
 };
-exports.default = postsController;

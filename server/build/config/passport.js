@@ -39,48 +39,68 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var passport_1 = __importDefault(require("passport"));
+var passport_local_1 = require("passport-local");
 var models_1 = __importDefault(require("models"));
-var Visitor = models_1.default.Visitor;
-var getTotalVisitor = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var totalVisitor;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Visitor.count({})];
-            case 1:
-                totalVisitor = _a.sent();
-                return [2 /*return*/, totalVisitor];
-        }
+exports.default = (function () {
+    passport_1.default.serializeUser(function (user, done) {
+        done(null, user.id); //서버에는 userid만 들고 있는다
     });
-}); };
-var getTodayVisitor = function (_a) {
-    var dateInfo = _a.dateInfo;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var todayVisitor;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, Visitor.count({
-                        where: { date: dateInfo },
-                    })];
+    passport_1.default.deserializeUser(function (id, done) { return __awaiter(void 0, void 0, void 0, function () {
+        var user, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, models_1.default.User.findOne({ where: { id: id } })];
                 case 1:
-                    todayVisitor = _b.sent();
-                    return [2 /*return*/, todayVisitor];
+                    user = _a.sent();
+                    done(null, user); //req.user안에 넣어줌.
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
-    });
-};
-var addVisitor = function (_a) {
-    var dateInfo = _a.dateInfo;
-    return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, Visitor.create({
-                        date: dateInfo,
-                    })];
+    }); });
+    local();
+});
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var User = models_1.default.User;
+function local() {
+    var _this = this;
+    passport_1.default.use(new passport_local_1.Strategy({
+        usernameField: "email",
+        passwordField: "password",
+    }, function (email, password, done) { return __awaiter(_this, void 0, void 0, function () {
+        var user, result, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, User.findOne({
+                            where: { email: email },
+                        })];
                 case 1:
-                    _b.sent();
-                    return [2 /*return*/];
+                    user = _a.sent();
+                    if (!user) {
+                        return [2 /*return*/, done(null, false, { reason: "존재하지 않는 사용자입니다" })];
+                    }
+                    return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
+                case 2:
+                    result = _a.sent();
+                    if (result) {
+                        return [2 /*return*/, done(null, user)];
+                    }
+                    return [2 /*return*/, done(null, false, { reason: "비밀번호가 틀렸습니다" })];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error(error_2);
+                    return [2 /*return*/, done(error_2)];
+                case 4: return [2 /*return*/];
             }
         });
-    });
-};
-exports.default = { getTotalVisitor: getTotalVisitor, getTodayVisitor: getTodayVisitor, addVisitor: addVisitor };
+    }); }));
+}
