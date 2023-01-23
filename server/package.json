@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index",
-    "build": "tsc --outDir build",
+    "build": "tsc --outDir build && tsc-alias",
     "start": "NODE_ENV=production pm2 start build/src/index.js"
   },
   "author": "By-juun",
@@ -52,6 +52,7 @@
     "@types/passport": "^1.0.11",
     "@types/passport-local": "^1.0.34",
     "nodemon": "^2.0.12",
+    "tsc-alias": "^1.8.2",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.8.4"
   }

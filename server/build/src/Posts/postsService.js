@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var models_1 = __importDefault(require("models"));
+var models_1 = __importDefault(require("../../models"));
 var sequelize_1 = __importDefault(require("sequelize"));
 var Post = models_1.default.Post, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var Op = sequelize_1.default.Op;

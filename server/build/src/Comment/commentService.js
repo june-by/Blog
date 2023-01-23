@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var models_1 = __importDefault(require("models"));
+var models_1 = __importDefault(require("../../models"));
 var User = models_1.default.User, Comment = models_1.default.Comment, Post = models_1.default.Post;
 var addComment = function (_a) {
     var comment = _a.comment, postId = _a.postId, userId = _a.userId;

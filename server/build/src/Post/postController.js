@@ -39,9 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var tagService_1 = __importDefault(require("src/Tag/tagService"));
+var tagService_1 = __importDefault(require("../../src/Tag/tagService"));
 var postService_1 = __importDefault(require("./postService"));
-var commentService_1 = __importDefault(require("src/Comment/commentService"));
+var commentService_1 = __importDefault(require("../../src/Comment/commentService"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, title, category, content, tagArr, thumbNailUrl, post, result, err_1;
     return __generator(this, function (_b) {

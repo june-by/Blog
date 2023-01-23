@@ -39,9 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var passport_1 = __importDefault(require("passport"));
+var passport_1 = __importDefault(require("../passport"));
 var passport_local_1 = require("passport-local");
-var models_1 = __importDefault(require("models"));
+var models_1 = __importDefault(require("../models"));
 exports.default = (function () {
     passport_1.default.serializeUser(function (user, done) {
         done(null, user.id); //서버에는 userid만 들고 있는다

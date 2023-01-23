@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var isLoggedIn_1 = require("middleWare/isLoggedIn");
-var isNotLoggedIn_1 = require("middleWare/isNotLoggedIn");
+var isLoggedIn_1 = require("../../middleWare/isLoggedIn");
+var isNotLoggedIn_1 = require("../../middleWare/isNotLoggedIn");
 var userController_1 = __importDefault(require("./userController"));
 var router = express_1.default.Router();
 router.get("/", userController_1.default.getUser);

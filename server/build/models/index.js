@@ -10,7 +10,7 @@ var image_1 = __importDefault(require("./image"));
 var user_1 = __importDefault(require("./user"));
 var tag_1 = __importDefault(require("./tag"));
 var visitor_1 = __importDefault(require("./visitor"));
-var config_1 = require("config/config");
+var config_1 = require("../config/config");
 var env = process.env.NODE_ENV || "development";
 var config = config_1.dbConfig[env];
 // : { Comment: any; Image: any; Post: any; User: any; Tag: any; Visitor: any; sequelize: any; Sequelize: any }

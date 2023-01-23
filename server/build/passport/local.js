@@ -138,9 +138,9 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, "__esModule", { value: true });
-var passport_1 = __importDefault(require("passport"));
+var passport_1 = __importDefault(require("../passport"));
 var passport_local_1 = require("passport-local");
-var models_1 = __importDefault(require("models"));
+var models_1 = __importDefault(require("../models"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var User = models_1.default.User;
 exports.default = function () {
