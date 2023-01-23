@@ -1,6 +1,11 @@
 import { customAxios } from "utils/CustomAxios";
 import { AddPostParams } from "Types/post";
 
+export const getAllPostsId = async (): Promise<{ id: number }[]> => {
+  const { data } = await customAxios.get(`/posts/load/id`);
+  return data;
+};
+
 export const getMainPostsAPI = async (page: number) => {
   const { data } = await customAxios.get(`/posts/load/main/${page}`);
   return data;
