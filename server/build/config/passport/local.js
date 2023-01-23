@@ -39,65 +39,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var passport_1 = __importDefault(require("passport"));
+var passport_local_1 = require("passport-local");
 var models_1 = __importDefault(require("../../models"));
-var User = models_1.default.User, Comment = models_1.default.Comment, Post = models_1.default.Post;
-var addComment = function (_a) {
-    var comment = _a.comment, postId = _a.postId, userId = _a.userId;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var newComment;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, Comment.create({
-                        content: comment,
-                        PostId: parseInt(postId, 10),
-                        UserId: userId,
-                    })];
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var User = models_1.default.User;
+exports.default = (function () {
+    passport_1.default.use(new passport_local_1.Strategy({
+        usernameField: "email",
+        passwordField: "password",
+    }, function (email, password, done) { return __awaiter(void 0, void 0, void 0, function () {
+        var user, result, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, User.findOne({
+                            where: { email: email },
+                        })];
                 case 1:
-                    newComment = _b.sent();
-                    return [2 /*return*/, newComment];
+                    user = _a.sent();
+                    if (!user) {
+                        return [2 /*return*/, done(null, false, { reason: "존재하지 않는 사용자입니다" })];
+                    }
+                    return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
+                case 2:
+                    result = _a.sent();
+                    if (result) {
+                        return [2 /*return*/, done(null, user)];
+                    }
+                    return [2 /*return*/, done(null, false, { reason: "비밀번호가 틀렸습니다" })];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [2 /*return*/, done(error_1)];
+                case 4: return [2 /*return*/];
             }
         });
-    });
-};
-var getComment = function (commentId) { return __awaiter(void 0, void 0, void 0, function () {
-    var fullComment;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Comment.findOne({
-                    where: { id: commentId },
-                    include: [
-                        {
-                            model: User,
-                            attributes: ["id", "nickname"],
-                        },
-                    ],
-                })];
-            case 1:
-                fullComment = _a.sent();
-                return [2 /*return*/, fullComment];
-        }
-    });
-}); };
-var getRecentComments = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var recentComment;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Comment.findAll({
-                    order: [["createdAt", "DESC"]],
-                    limit: 10,
-                    attributes: ["id", "content"],
-                    include: [
-                        {
-                            model: Post,
-                            attributes: ["id"],
-                        },
-                    ],
-                })];
-            case 1:
-                recentComment = _a.sent();
-                return [2 /*return*/, recentComment];
-        }
-    });
-}); };
-var commentService = { addComment: addComment, getComment: getComment, getRecentComments: getRecentComments };
-exports.default = commentService;
+    }); }));
+});

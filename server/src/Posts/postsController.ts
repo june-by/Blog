@@ -2,6 +2,16 @@ import postController from "src/Post/postController";
 import { NextFunction, Request, Response } from "express";
 import postsService from "./postsService";
 
+const getAllPostsId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const postsId = await postsService.getAllPostsId();
+    return res.status(200).json(postsId);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
 const getMainPosts = async (req: Request, res: Response, next: NextFunction) => {
   const { page } = req.params;
   try {
@@ -77,7 +87,8 @@ const getTopViewsPosts = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-const postsController = {
+export default {
+  getAllPostsId,
   getMainPosts,
   getCategoryPosts,
   getPostsLength,
@@ -86,5 +97,3 @@ const postsController = {
   getPostsByTag,
   getTopViewsPosts,
 };
-
-export default postsController;

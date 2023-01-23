@@ -1,9 +1,9 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { dehydrate, QueryClient } from "react-query";
-import { getOnePostAPI } from "services/Post";
+import { getAllPostsId, getOnePostAPI } from "services/Post";
 import CommentForm from "components/Block/Post/CommentForm";
 import CommentList from "components/Block/Post/CommentList";
 import OtherPostInfo from "components/Block/Post/OtherPostInfo";
@@ -15,13 +15,15 @@ import ScrollBtn from "components/Atom/scrollBtn";
 import styles from "./styles.module.scss";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
+import QUERY_KEY from "constants/queryKey";
+import PostSkeleton from "components/Block/Post/Skeleton";
 
 const Post = () => {
   const router = useRouter();
   const { data, isLoading } = useGetOnePost(Number(router.query.id));
   const Post = data?.mainPost;
 
-  if (isLoading) return <></>;
+  if (isLoading || router.isFallback) return <PostSkeleton />;
 
   return (
     <>
@@ -46,13 +48,29 @@ const Post = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getStaticPaths = async () => {
+  const data = await getAllPostsId();
+  const paths = data.map(({ id }) => {
+    return { params: { id: String(id) } };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["Post", Number(query.id)], () => getOnePostAPI(Number(query.id)));
+
+  await queryClient.prefetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
+    getOnePostAPI(Number(context.params?.id))
+  );
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 60,
   };
 };
 

@@ -2,6 +2,8 @@ import express from "express";
 import postsController from "./postsController";
 const router = express.Router();
 
+router.get("/load/id", postsController.getAllPostsId);
+
 router.get("/load/main/:page", postsController.getMainPosts);
 
 router.get("/load/categoryLength", postsController.getCategoryPostsCount);

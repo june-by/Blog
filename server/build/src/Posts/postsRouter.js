@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var postsController_1 = __importDefault(require("./postsController"));
 var router = express_1.default.Router();
+router.get("/load/id", postsController_1.default.getAllPostsId);
 router.get("/load/main/:page", postsController_1.default.getMainPosts);
 router.get("/load/categoryLength", postsController_1.default.getCategoryPostsCount);
 router.get("/load/length/:category", postsController_1.default.getPostsLength);

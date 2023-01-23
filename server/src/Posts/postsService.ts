@@ -3,19 +3,19 @@ import Sequelize from "sequelize";
 const { Post, Tag, sequelize } = model;
 const Op = Sequelize.Op;
 
+const getAllPostsId = async () => {
+  const posts = await Post.findAll({
+    attributes: ["id"],
+  });
+  return posts;
+};
+
 const getMainPosts = async ({ page }: { page: string }) => {
   const posts = await Post.findAll({
     order: [["createdAt", "DESC"]],
     limit: 16,
     offset: (Number(page) - 1) * 16,
-    attributes: [
-      "id",
-      "title",
-      "category",
-      "createdAt",
-      "thumbNailUrl",
-      "views",
-    ],
+    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
         model: Tag,
@@ -26,26 +26,13 @@ const getMainPosts = async ({ page }: { page: string }) => {
   return posts;
 };
 
-const getCategoryPosts = async ({
-  category,
-  page,
-}: {
-  page: string;
-  category: string;
-}) => {
+const getCategoryPosts = async ({ category, page }: { page: string; category: string }) => {
   const posts = await Post.findAll({
     where: { category: category },
     order: [["createdAt", "DESC"]],
     limit: 16,
     offset: (Number(page) - 1) * 16,
-    attributes: [
-      "id",
-      "title",
-      "category",
-      "createdAt",
-      "thumbNailUrl",
-      "views",
-    ],
+    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
     include: [
       {
         model: Tag,
@@ -96,10 +83,7 @@ const getPostsByTag = async ({ keyword }: { keyword: string }) => {
 
 const getCategoryPostsCount = async () => {
   const categoryCount = await Post.findAll({
-    attributes: [
-      "category",
-      [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"],
-    ],
+    attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
     group: ["Post.category"],
   });
   return categoryCount;
@@ -122,6 +106,7 @@ const getTopViewsPosts = async () => {
 };
 
 export default {
+  getAllPostsId,
   getMainPosts,
   getCategoryPosts,
   getPostsBySearchKeyWord,
