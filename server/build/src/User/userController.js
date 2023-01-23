@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var userService_1 = __importDefault(require("./userService"));
-var passport_1 = __importDefault(require("../../passport"));
+var passport_1 = __importDefault(require("passport"));
 var getUser = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, user, err_1;
     return __generator(this, function (_a) {
