@@ -1,6 +1,10 @@
 import { customAxios } from "utils/CustomAxios";
 
 export const getRecentCommentAPI = async () => {
-  const { data } = await customAxios.get("/comment/recent");
-  return data;
+  try {
+    const { data } = await customAxios.get("/comment/recent");
+    return data;
+  } catch (err) {
+    throw new Error();
+  }
 };
