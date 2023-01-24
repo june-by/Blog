@@ -3,16 +3,16 @@ import { ParsedUrlQuery } from "querystring";
 import { PostsType } from "Types/post";
 import { useGetSearchPosts, useGetTagPosts } from "./Post";
 
-type ReturnTypes = [PostsType[] | undefined, boolean];
+type ReturnTypes = [PostsType[] | undefined, boolean, boolean, Function];
 
 const useGetPosts = (query: ParsedUrlQuery): ReturnTypes => {
   if (query.search) {
-    const { data: SearchPosts, isLoading: SearchLoading } = useGetSearchPosts(query.search);
-    return [SearchPosts, SearchLoading];
+    const { data: SearchPosts, isLoading: SearchLoading, isError, refetch } = useGetSearchPosts(query.search);
+    return [SearchPosts, SearchLoading, isError, refetch];
   } else if (query.tag) {
-    const { data: TagPost, isLoading: TagLoading } = useGetTagPosts(query.tag);
-    return [TagPost, TagLoading];
-  } else return [DummyPosts, false];
+    const { data: TagPost, isLoading: TagLoading, isError, refetch } = useGetTagPosts(query.tag);
+    return [TagPost, TagLoading, isError, refetch];
+  } else return [DummyPosts, false, false, () => {}];
 };
 
 const DummyPosts = [

@@ -6,19 +6,17 @@ import Category from "constants/category";
 const MobileCategoryList = () => {
   const { data, isLoading } = useGetAllCateogryLength();
 
+  if (isLoading) return <></>;
+
   return (
     <>
-      {!isLoading && (
-        <>
-          {Category.map((category) => (
-            <CategoryRow
-              category={category}
-              length={data?.find((v) => v.category === category)?.count || 0}
-              key={`mobileCategory${category}`}
-            />
-          ))}
-        </>
-      )}
+      {Category.map((category) => (
+        <CategoryRow
+          category={category}
+          length={data?.find((v) => v.category === category)?.count || null}
+          key={`mobileCategory${category}`}
+        />
+      ))}
     </>
   );
 };

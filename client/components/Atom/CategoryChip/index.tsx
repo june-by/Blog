@@ -6,7 +6,7 @@ import useChangeColor from "./useChangeColor";
 
 interface Props {
   category: string;
-  length?: number;
+  length?: number | null;
   mode?: string;
 }
 
@@ -29,7 +29,7 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   return (
     <button ref={btnRef} className={`${styles.CategoryChip} ${styles[theme]}`} onClick={() => onClickBtn(category)}>
       <span>{category}</span>
-      {mode !== "post" && <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>}
+      {mode !== "post" && length !== null && <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>}
     </button>
   );
 };

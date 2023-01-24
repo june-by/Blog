@@ -13,18 +13,21 @@ import PostCard from "components/Block/PostCard";
 import NoPost from "components/Block/NoPost";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import POSTS_PER_PAGE from "constants/postsPerPage";
+import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
 
 const Category = () => {
   const router = useRouter();
   const { category } = router.query;
   const { ref, inView } = useInView();
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetCategoryPosts(category);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch } =
+    useGetCategoryPosts(category);
 
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage]);
 
   useRestoreSrollPos();
+
   return (
     <>
       <Head>
@@ -43,28 +46,30 @@ const Category = () => {
         <AdditionalInfoSectionLeft />
         <section className={styles.HomeContentWrapper}>
           <CategorySelect />
-          {isPostExist(data?.pages[0]) ? (
-            <section className={styles.PostsRoot}>
-              {data?.pages.map((page) => (
-                <>
-                  {page.map((post: PostsType) => (
-                    <PostCard key={post.id} post={post} />
-                  ))}
-                </>
-              ))}
-              {isFetchingNextPage || isLoading ? (
-                <>
-                  {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                  })}
-                </>
-              ) : (
-                <div ref={ref}></div>
-              )}
-            </section>
-          ) : (
-            <NoPost />
-          )}
+          <QueryErrorBoundary isError={isError} refetch={refetch}>
+            {isPostExist(data?.pages[0]) ? (
+              <section className={styles.PostsRoot}>
+                {data?.pages.map((page) => (
+                  <>
+                    {page.map((post: PostsType) => (
+                      <PostCard key={post.id} post={post} />
+                    ))}
+                  </>
+                ))}
+                {isFetchingNextPage || isLoading ? (
+                  <>
+                    {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                      return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                    })}
+                  </>
+                ) : (
+                  <div ref={ref}></div>
+                )}
+              </section>
+            ) : (
+              <NoPost />
+            )}
+          </QueryErrorBoundary>
         </section>
         <AdditionalInfoSectionRight />
       </main>
