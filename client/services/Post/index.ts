@@ -7,8 +7,12 @@ export const getAllPostsId = async (): Promise<{ id: number }[]> => {
 };
 
 export const getMainPostsAPI = async (page: number) => {
-  const { data } = await customAxios.get(`/posts/load/main/${page}`);
-  return data;
+  try {
+    const { data } = await customAxios.get(`/posts/load/main/${page}`);
+    return data;
+  } catch (err) {
+    throw new Error();
+  }
 };
 
 export const getAllCategoryLengthAPI = async () => {

@@ -12,9 +12,10 @@ import { useEffect } from "react";
 import PostCardSkeleton from "components/Block/PostCard/Skeleton";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import POSTS_PER_PAGE from "constants/postsPerPage";
+import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
 
 const Home: NextPage = () => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetMainPost();
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch } = useGetMainPost();
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -45,24 +46,26 @@ const Home: NextPage = () => {
         <AdditionalInfoSectionLeft />
         <section className={styles.HomeContentWrapper}>
           <CategorySelect />
-          <section className={styles.PostsRoot}>
-            {data?.pages.map((page) => (
-              <>
-                {page.map((post: PostsType) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </>
-            ))}
-            {isFetchingNextPage || isLoading ? (
-              <>
-                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                })}
-              </>
-            ) : (
-              <div ref={ref}></div>
-            )}
-          </section>
+          <QueryErrorBoundary isError={isError} refetch={refetch}>
+            <section className={styles.PostsRoot}>
+              {data?.pages.map((page) => (
+                <>
+                  {page.map((post: PostsType) => (
+                    <PostCard key={post.id} post={post} />
+                  ))}
+                </>
+              ))}
+              {isFetchingNextPage || isLoading ? (
+                <>
+                  {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                  })}
+                </>
+              ) : (
+                <div ref={ref}></div>
+              )}
+            </section>
+          </QueryErrorBoundary>
         </section>
         <AdditionalInfoSectionRight />
       </main>
