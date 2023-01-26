@@ -9,39 +9,36 @@ import styles from "./styles.module.scss";
 import { PostsType } from "Types/post";
 import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
-import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
 
 const Filter = () => {
   const { query } = useRouter();
-  const [Post, isLoading, isError, refetch] = useGetPosts(query);
+  const [Post, isLoading] = useGetPosts(query);
   const [title, description, ogDescription, url] = makeMetaData(query);
 
   return (
-    <QueryErrorBoundary isError={isError} refetch={refetch}>
-      <>
-        <Head>
-          <meta charSet="utf-8"></meta>
-          <title>{title}</title>
-          <link rel="shortcut icon" href="/favicon.ico" />
-          <meta name="description" content={String(description)} />
-          <meta property="og:title" content={String(description)} />
-          <meta property="og:description" content={String(ogDescription)} />
-          <meta
-            property="og:image"
-            content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
-          />
-          <meta property="og:url" content={String(url)} />
-        </Head>
-        <main className={styles.CategoryWrapper}>
-          <AdditionalInfoSectionLeft />
-          <div className={styles.CategoryContentWrapper}>
-            <CategorySelect />
-            {Post?.length !== 0 ? <Posts posts={Post as PostsType[]} isLoading={isLoading} /> : <NoPost />}
-          </div>
-          <AdditionalInfoSectionRight />
-        </main>
-      </>
-    </QueryErrorBoundary>
+    <>
+      <Head>
+        <meta charSet="utf-8"></meta>
+        <title>{title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content={String(description)} />
+        <meta property="og:title" content={String(description)} />
+        <meta property="og:description" content={String(ogDescription)} />
+        <meta
+          property="og:image"
+          content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
+        />
+        <meta property="og:url" content={String(url)} />
+      </Head>
+      <main className={styles.CategoryWrapper}>
+        <AdditionalInfoSectionLeft />
+        <div className={styles.CategoryContentWrapper}>
+          <CategorySelect />
+          {Post?.length !== 0 ? <Posts posts={Post as PostsType[]} isLoading={isLoading} /> : <NoPost />}
+        </div>
+        <AdditionalInfoSectionRight />
+      </main>
+    </>
   );
 };
 

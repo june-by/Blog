@@ -17,7 +17,6 @@ import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
 import PostSkeleton from "components/Block/Post/Skeleton";
-import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
 
 const Post = () => {
   const router = useRouter();
@@ -34,27 +33,23 @@ const Post = () => {
 
   return (
     <>
-      <QueryErrorBoundary isError={isError} refetch={refetch}>
-        <>
-          <Head>
-            <meta charSet="utf-8"></meta>
-            <title>{Post?.title}</title>
-            <link rel="shortcut icon" href="/favicon.ico" />
-            <meta name="description" content={Post?.content.substring(0, 100)} />
-            <meta property="og:title" content={Post?.title} />
-            <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
-            <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
-          </Head>
-          <main className={styles.Post}>
-            <PostTop Post={Post as MainPost} />
-            <PostContent content={Post?.content || ""} />
-            <OtherPostInfo />
-            <CommentForm />
-            <CommentList Comments={Post?.Comments || [null]} />
-            <ScrollBtn />
-          </main>
-        </>
-      </QueryErrorBoundary>
+      <Head>
+        <meta charSet="utf-8"></meta>
+        <title>{Post?.title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content={Post?.content.substring(0, 100)} />
+        <meta property="og:title" content={Post?.title} />
+        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
+        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
+      </Head>
+      <main className={styles.Post}>
+        <PostTop Post={Post as MainPost} />
+        <PostContent content={Post?.content || ""} />
+        <OtherPostInfo />
+        <CommentForm />
+        <CommentList Comments={Post?.Comments || [null]} />
+        <ScrollBtn />
+      </main>
     </>
   );
 };

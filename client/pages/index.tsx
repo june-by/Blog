@@ -5,25 +5,11 @@ import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRi
 import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
 import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
-import { PostsType } from "Types/post";
-import PostCard from "components/Block/PostCard";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
-import PostCardSkeleton from "components/Block/PostCard/Skeleton";
-import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
-import POSTS_PER_PAGE from "constants/postsPerPage";
-import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
+import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
+import ErrorHelper from "components/Block/errorHelper";
+import InfinitePosts from "components/Block/infinitePosts";
 
 const Home: NextPage = () => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch } = useGetMainPost();
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage();
-  }, [inView, hasNextPage]);
-
-  useRestoreSrollPos();
-
   return (
     <>
       <Head>
@@ -46,26 +32,9 @@ const Home: NextPage = () => {
         <AdditionalInfoSectionLeft />
         <section className={styles.HomeContentWrapper}>
           <CategorySelect />
-          <QueryErrorBoundary isError={isError} refetch={refetch}>
-            <section className={styles.PostsRoot}>
-              {data?.pages.map((page) => (
-                <>
-                  {page.map((post: PostsType) => (
-                    <PostCard key={post.id} post={post} />
-                  ))}
-                </>
-              ))}
-              {isFetchingNextPage || isLoading ? (
-                <>
-                  {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                  })}
-                </>
-              ) : (
-                <div ref={ref}></div>
-              )}
-            </section>
-          </QueryErrorBoundary>
+          <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
+            <InfinitePosts query={useGetMainPost} />
+          </AsyncBoundary>
         </section>
         <AdditionalInfoSectionRight />
       </main>

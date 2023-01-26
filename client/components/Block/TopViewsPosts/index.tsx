@@ -3,11 +3,31 @@ import React, { useCallback, useContext } from "react";
 import { useGetTopViewsPosts } from "Hooks/Post";
 import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
-import QueryErrorBoundary from "components/_hoc/queryErrorBoundary";
+import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
+import ErrorHelper from "../errorHelper";
 
 const TopViewsPosts = () => {
-  const { data, isLoading, isError, refetch } = useGetTopViewsPosts();
   const { theme } = useContext(ThemeContext);
+
+  return (
+    <section className={`${styles.TopViewsPosts} ${styles[String(theme)]}`}>
+      <h3 className={styles.title}>조회수 Top10</h3>
+      <div className={styles.ListWrapper}>
+        <AsyncBoundary
+          suspenseFallback={<TopViewsPostsListSkeleton />}
+          errorFallback={(props) => <ErrorHelper {...props} />}
+        >
+          <TopViewsPostsList />
+        </AsyncBoundary>
+      </div>
+    </section>
+  );
+};
+
+export default TopViewsPosts;
+
+function TopViewsPostsList() {
+  const { data } = useGetTopViewsPosts();
   const { push } = useRouter();
   const gotoPost = useCallback(
     (id: number) => () => {
@@ -17,29 +37,24 @@ const TopViewsPosts = () => {
   );
 
   return (
-    <section className={`${styles.TopViewsPosts} ${styles[String(theme)]}`}>
-      {!isLoading ? (
-        <QueryErrorBoundary isError={isError} refetch={refetch}>
-          <>
-            <h3 className={styles.title}>조회수 Top10</h3>
-            <ul className={styles.contents}>
-              {data?.map((post, idx) => (
-                <li data-testid={`${idx}post`} className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
-                  {idx + 1}. {post.title}
-                </li>
-              ))}
-            </ul>
-          </>
-        </QueryErrorBoundary>
-      ) : (
-        <div className={styles.SkeletonWrapper}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((v) => (
-            <div key={v + 1020} className={styles.TopViewsSkeleton}></div>
-          ))}
-        </div>
-      )}
-    </section>
+    <ul className={styles.contents}>
+      {data?.map((post, idx) => (
+        <li data-testid={`${idx}post`} className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
+          {idx + 1}. {post.title}
+        </li>
+      ))}
+    </ul>
   );
-};
+}
 
-export default TopViewsPosts;
+function TopViewsPostsListSkeleton() {
+  return (
+    <>
+      <div className={styles.SkeletonWrapper}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((v) => (
+          <div key={v + 1020} className={styles.TopViewsSkeleton}></div>
+        ))}
+      </div>
+    </>
+  );
+}
