@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 
 interface Props {
   category: string;
-  length: number;
+  length: number | null;
 }
 
 const CategoryRow = ({ category, length }: Props) => {
@@ -18,7 +18,7 @@ const CategoryRow = ({ category, length }: Props) => {
       className={styles.CategoryItem}
     >
       <div className={styles.text}>{category}</div>
-      <div className={styles.count}>{length}</div>
+      {length !== null && <div className={styles.count}>{length}</div>}
     </div>
   );
 };

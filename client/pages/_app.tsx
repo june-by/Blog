@@ -13,25 +13,37 @@ import { ThemeProvider } from "components/_hoc/themeContext";
 import cookies from "next-cookies";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";
+import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
+import ErrorHelper from "components/Block/errorHelper";
 
 interface CustomAppProps extends AppProps {
   theme: string;
 }
 
 function MyApp({ Component, pageProps, theme }: CustomAppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            suspense: true,
+          },
+        },
+      })
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [nextUrl, setNextUrl] = useState<string>("");
 
   useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
+
   return (
-    <>
-      <ThemeProvider initialTheme={theme}>
-        {loading ? (
-          <>{Loading(nextUrl)}</>
-        ) : (
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AsyncBoundary suspenseFallback={Loading(nextUrl)} errorFallback={(props) => <ErrorHelper {...props} />}>
+        <ThemeProvider initialTheme={theme}>
+          {loading ? (
+            <>{Loading(nextUrl)}</>
+          ) : (
             <Hydrate state={pageProps.dehydratedState}>
               <Header />
               <Head>
@@ -42,11 +54,11 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
               <Component {...pageProps} theme={theme} />
               <ReactQueryDevtools initialIsOpen={false} />
             </Hydrate>
-          </QueryClientProvider>
-        )}
-        <ProgressBar />
-      </ThemeProvider>
-    </>
+          )}
+          <ProgressBar />
+        </ThemeProvider>
+      </AsyncBoundary>
+    </QueryClientProvider>
   );
 }
 

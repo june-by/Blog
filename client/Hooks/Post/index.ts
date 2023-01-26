@@ -31,6 +31,7 @@ export const useGetTopViewsPosts = () =>
 
 export const useGetAllCateogryLength = () =>
   useQuery<Array<CategoryCount>>([QUERY_KEY.POST.CATEGORY_LENGTH], () => getAllCategoryLengthAPI(), CACHE_OPTION.ALL);
+
 export const useGetCategoryPosts = (category: string | string[] | undefined) =>
   useInfiniteQuery<Array<PostsType>>(
     [QUERY_KEY.POST.CATEGORY, category],

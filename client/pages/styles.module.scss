@@ -1,6 +1,7 @@
 @import "utils/utils.scss";
 
 .HomeWrapper {
+  height: 100vh;
   @include desktop {
     display: flex;
   }
@@ -22,26 +23,5 @@
 
   @include tablet_landscape {
     padding: 0 10%;
-  }
-}
-
-.PostsRoot {
-  margin-top: 15px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 50px;
-  width: 100%;
-  @include tablet_landscape {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-  @include tablet {
-    grid-template-columns: 1fr 1fr;
-    max-height: none;
-  }
-  @include mobile {
-    display: block;
-    max-height: none;
   }
 }

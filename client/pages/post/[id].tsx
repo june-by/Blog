@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getOnePostAPI } from "services/Post";
 import CommentForm from "components/Block/Post/CommentForm";
@@ -20,8 +20,14 @@ import PostSkeleton from "components/Block/Post/Skeleton";
 
 const Post = () => {
   const router = useRouter();
-  const { data, isLoading } = useGetOnePost(Number(router.query.id));
+  const { data, isLoading, isError, refetch, error } = useGetOnePost(Number(router.query.id));
   const Post = data?.mainPost;
+
+  useEffect(() => {
+    if (!isError) return;
+    alert(error);
+    router.push("/");
+  }, [error, isError, router]);
 
   if (isLoading || router.isFallback) return <PostSkeleton />;
 
@@ -38,10 +44,10 @@ const Post = () => {
       </Head>
       <main className={styles.Post}>
         <PostTop Post={Post as MainPost} />
-        <PostContent content={Post!.content} />
+        <PostContent content={Post?.content || ""} />
         <OtherPostInfo />
         <CommentForm />
-        <CommentList Comments={Post!.Comments} />
+        <CommentList Comments={Post?.Comments || [null]} />
         <ScrollBtn />
       </main>
     </>
@@ -49,14 +55,21 @@ const Post = () => {
 };
 
 export const getStaticPaths = async () => {
-  const data = await getAllPostsId();
-  const paths = data.map(({ id }) => {
-    return { params: { id: String(id) } };
-  });
-  return {
-    paths,
-    fallback: true,
-  };
+  try {
+    const data = await getAllPostsId();
+    const paths = data.map(({ id }) => {
+      return { params: { id: String(id) } };
+    });
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (err) {
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
@@ -77,6 +90,6 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 export default Post;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category].jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }

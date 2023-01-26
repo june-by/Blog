@@ -8,27 +8,26 @@ import Category from "constants/category";
 const CategorySelect = () => {
   const { data, isLoading } = useGetAllCateogryLength();
 
+  if (isLoading)
+    return (
+      <>
+        {Category.map((cateogry) => {
+          return <CategoryChipSkeleton key={cateogry} />;
+        })}
+      </>
+    );
+
   return (
     <nav className={styles.CategorySelect}>
-      {!isLoading ? (
-        <>
-          {Category.map((category, idx) => {
-            return (
-              <CategoryChip
-                key={category}
-                category={category}
-                length={data?.find((v) => v.category === category)?.count}
-              />
-            );
-          })}
-        </>
-      ) : (
-        <>
-          {Category.map((cateogry) => {
-            return <CategoryChipSkeleton key={cateogry} />;
-          })}
-        </>
-      )}
+      {Category.map((category, idx) => {
+        return (
+          <CategoryChip
+            key={category}
+            category={category}
+            length={data?.find((v) => v.category === category)?.count || null}
+          />
+        );
+      })}
     </nav>
   );
 };

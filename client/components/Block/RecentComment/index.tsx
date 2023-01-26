@@ -3,11 +3,13 @@ import { useGetRecentComment } from "Hooks/Comment";
 import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 import useGotoPage from "Hooks/useGotoPage";
+import { RecentComment } from "Types/comment";
 
-const RecentComment = () => {
-  const { data, isLoading } = useGetRecentComment();
+const RecentComments = () => {
+  const { data, isLoading, isError } = useGetRecentComment();
   const { theme } = useContext(ThemeContext);
-  const gotoPage = useGotoPage();
+
+  if (isError) return <></>;
 
   return (
     <section className={`${styles.RecentComment} ${styles[String(theme)]}`}>
@@ -17,24 +19,43 @@ const RecentComment = () => {
           {data && data.length > 0 ? (
             <ul className={styles.comments}>
               {data.map((comment) => (
-                <li key={comment.id} className={styles.comment} onClick={gotoPage(`/post/${comment.Post.id}`)}>
-                  {comment.content}
-                </li>
+                <Comment comment={comment} key={comment.id} />
               ))}
             </ul>
           ) : (
-            <div className={styles.NoComments}>{"댓글이 없어요 :("}</div>
+            <NoComment />
           )}
         </>
       ) : (
         <div className={styles.SkeletonWrapper}>
-          {[1, 2, 3, 4, 5].map((v) => (
-            <div key={`commentSkeleton${v}`} className={styles.commentSkeleton}></div>
-          ))}
+          <CommentsSkeleton />
         </div>
       )}
     </section>
   );
 };
 
-export default RecentComment;
+function Comment({ comment }: { comment: RecentComment }) {
+  const gotoPage = useGotoPage();
+  return (
+    <li className={styles.comment} onClick={gotoPage(`/post/${comment.Post.id}`)}>
+      {comment.content}
+    </li>
+  );
+}
+
+function NoComment() {
+  return <div className={styles.NoComments}>{"댓글이 없어요 :("}</div>;
+}
+
+function CommentsSkeleton() {
+  return (
+    <>
+      {[1, 2, 3, 4, 5].map((v) => (
+        <div key={`commentSkeleton${v}`} className={styles.commentSkeleton}></div>
+      ))}
+    </>
+  );
+}
+
+export default RecentComments;
