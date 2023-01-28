@@ -9,18 +9,15 @@ import Header from "components/Layout/Header";
 import Loading from "utils/Loading";
 import ProgressBar from "components/Atom/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";
-import { ThemeProvider } from "components/_hoc/themeContext";
-import cookies from "next-cookies";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
+import { useRouter } from "next/router";
 
-interface CustomAppProps extends AppProps {
-  theme: string;
-}
+function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
 
-function MyApp({ Component, pageProps, theme }: CustomAppProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -32,44 +29,40 @@ function MyApp({ Component, pageProps, theme }: CustomAppProps) {
       })
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [nextUrl, setNextUrl] = useState<string>("");
+  const [nextUrl, setNextUrl] = useState<string | null>(null);
 
   useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
-
   return (
     <QueryClientProvider client={queryClient}>
-      <AsyncBoundary suspenseFallback={Loading(nextUrl)} errorFallback={(props) => <ErrorHelper {...props} />}>
-        <ThemeProvider initialTheme={theme}>
-          {loading ? (
-            <>{Loading(nextUrl)}</>
-          ) : (
-            <Hydrate state={pageProps.dehydratedState}>
-              <Header />
-              <Head>
-                <meta charSet="utf-8"></meta>
-                <title>ByJuun.com</title>
-                <link rel="shortcut icon" href="/favicon.ico" />
-              </Head>
-              <Component {...pageProps} theme={theme} />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </Hydrate>
-          )}
-          <ProgressBar />
-        </ThemeProvider>
+      <AsyncBoundary
+        suspenseFallback={Loading(nextUrl || router.pathname)}
+        errorFallback={(props) => <ErrorHelper {...props} />}
+      >
+        {loading ? (
+          <>{Loading(nextUrl || router.pathname)}</>
+        ) : (
+          <Hydrate state={pageProps.dehydratedState}>
+            <Header />
+            <Head>
+              <meta charSet="utf-8"></meta>
+              <title>ByJuun.com</title>
+              <link rel="shortcut icon" href="/favicon.ico" />
+            </Head>
+            <Component {...pageProps} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Hydrate>
+        )}
+        <ProgressBar />
       </AsyncBoundary>
     </QueryClientProvider>
   );
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-  const { ctx } = appContext;
-  const allCookies = cookies(ctx);
   const appProps = await App.getInitialProps(appContext);
-  const theme = allCookies["theme"] || "dark";
   return {
     ...appProps,
-    theme,
   };
 };
 

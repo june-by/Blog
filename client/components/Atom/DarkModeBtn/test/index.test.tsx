@@ -21,11 +21,11 @@ describe("<DarkModeBtn />", () => {
     render(<DarkModeBtn />);
     const toggleBtn = screen.getByTestId("toggleBtn");
     expect(toggleBtn).toBeInTheDocument();
-    expect(toggleBtn).toHaveStyle({ left: "27px" });
+    expect(toggleBtn).toHaveStyle({ left: "1px" });
 
     //mode change event fire
     const DarkModeBtnWrapper = screen.getByTestId("DarkModeBtnWrapper");
     fireEvent.click(DarkModeBtnWrapper);
-    expect(toggleBtn).toHaveStyle({ left: "1px" });
+    expect(toggleBtn).toHaveStyle({ left: "27px" });
   });
 });

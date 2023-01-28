@@ -24,6 +24,8 @@
 }
 
 .content {
+  background: var(--modal-background);
+  color: var(--text-color) !important;
   width: 80%;
   z-index: 2;
   padding: 30px 20px;
@@ -34,6 +36,16 @@
   img {
     cursor: pointer;
   }
+  input {
+    background: var(--input-background) !important;
+    color: var(--text-color);
+    &:focus {
+      border: 1px solid var(--input-background) !important;
+    }
+  }
+  button {
+    background: var(--button-background) !important;
+  }
   @include desktop {
     width: 30%;
   }
@@ -42,34 +54,5 @@
   }
   @include tablet_landscape {
     width: 40%;
-  }
-}
-
-.dark {
-  background: #2e2e2e;
-  color: white;
-  input {
-    background: #{$ModalInput_Dark_Bg} !important;
-    color: white;
-    &:focus {
-      border: 1px solid #{$ModalBtn_Dark_Bg} !important;
-    }
-  }
-  button {
-    background: #{$ModalBtn_Dark_Bg} !important;
-  }
-}
-
-.light {
-  background: white;
-  input {
-    background: #{$ModalInput_Light_Bg} !important;
-
-    &:focus {
-      border: 1px solid #{$ModalBtn_Light_Bg} !important;
-    }
-  }
-  button {
-    background: #{$ModalBtn_Light_Bg} !important;
   }
 }

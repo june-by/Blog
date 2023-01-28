@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useContext } from "react";
-import { ThemeContext } from "components/_hoc/themeContext";
+import React, { useCallback } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const TagIcon = ({ tag }: Props) => {
-  const { theme } = useContext(ThemeContext);
   const router = useRouter();
 
   const onClickTag = useCallback(
@@ -22,7 +20,7 @@ const TagIcon = ({ tag }: Props) => {
   );
 
   return (
-    <li data-testid="tagIcon" onClick={onClickTag(tag)} className={`${styles.TagIcon} ${styles[String(theme)]}`}>
+    <li data-testid="tagIcon" onClick={onClickTag(tag)} className={styles.TagIcon}>
       {tag}
     </li>
   );

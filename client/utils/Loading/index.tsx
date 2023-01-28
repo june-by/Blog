@@ -7,7 +7,7 @@ const Loading = (nextUrl: string) => {
 };
 
 const IsPostPage = (url: string) => {
-  return url.includes("/post/") ? true : false;
+  return url?.includes("/post/") ? true : false;
 };
 
 export default Loading;

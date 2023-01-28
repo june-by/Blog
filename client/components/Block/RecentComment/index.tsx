@@ -1,18 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useGetRecentComment } from "Hooks/Comment";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 import useGotoPage from "Hooks/useGotoPage";
 import { RecentComment } from "Types/comment";
 
 const RecentComments = () => {
   const { data, isLoading, isError } = useGetRecentComment();
-  const { theme } = useContext(ThemeContext);
 
   if (isError) return <></>;
 
   return (
-    <section className={`${styles.RecentComment} ${styles[String(theme)]}`}>
+    <section className={styles.RecentComment}>
       <h3>최근 댓글</h3>
       {!isLoading ? (
         <>

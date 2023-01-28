@@ -1,16 +1,15 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import useGotoPage from "Hooks/useGotoPage";
 import useToggle from "Hooks/useToggle";
 import useWidthAnimation from "Hooks/useWidthAnimation";
 import styles from "./styles.module.scss";
 import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
-import { ThemeContext } from "components/_hoc/themeContext";
 
 const HeaderLeft = () => {
   const emailRef = useRef<HTMLDivElement>(null);
   const [showEmail, _, onClickEmail] = useToggle(false);
-  const { theme } = useContext(ThemeContext);
+
   const gotoPage = useGotoPage();
 
   const onClickGitHub = useCallback(() => {
@@ -23,7 +22,7 @@ const HeaderLeft = () => {
     <div className={styles.HeaderLeft}>
       <span onClick={gotoPage("/")}>ByJuun.com</span>
       <button aria-label="gotoGithubButton" onClick={onClickGitHub}>
-        <GithubIcon fill={theme === "light" ? "#0099fa" : "#6185e5"} />
+        <GithubIcon />
       </button>
       <button aria-label="toggleEmailButton" onClick={onClickEmail}>
         <GoogleIcon />

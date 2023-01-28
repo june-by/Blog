@@ -17,28 +17,13 @@
   textarea {
     resize: none;
     height: 100px;
+    @include CustomInput;
+    background: var(--input-background);
+    color: var(--text-color);
   }
 
   button {
     @include CustomBtn;
     width: 20%;
-  }
-}
-
-.dark {
-  textarea {
-    @include CustomInput;
-    background: #1e1e1e;
-    color: white;
-  }
-
-  button {
-    background: #3e4756;
-  }
-}
-
-.light {
-  textarea {
-    @include CustomInput;
   }
 }

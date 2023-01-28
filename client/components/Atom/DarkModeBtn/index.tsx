@@ -1,13 +1,15 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
+
+const DARK_MODE = false;
+const LIGHT_MODE = true;
 
 const DarkModeBtn = () => {
   const toggleThumbRef = useRef<HTMLButtonElement>(null);
-  const { theme } = useContext(ThemeContext);
-  const [mode, , onChange] = useToggle(theme === "dark" ? false : true);
+
+  const [mode, , onChange] = useToggle(document.body.dataset.theme === "dark" ? DARK_MODE : LIGHT_MODE);
   useDarkMode(mode, toggleThumbRef);
 
   return (
@@ -23,7 +25,7 @@ const DarkModeBtn = () => {
           data-testid="toggleBtn"
           aria-label="toggleDarkModeButton"
           ref={toggleThumbRef}
-          style={{ left: mode === false ? "27px" : "1px" }}
+          style={{ left: mode === DARK_MODE ? "27px" : "1px" }}
           className={styles.toggleTrackThumb}
         ></button>
       </div>

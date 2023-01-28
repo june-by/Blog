@@ -8,25 +8,8 @@
   list-style-type: none;
   margin: 0;
   font-size: 11px;
+  background: var(--button-background);
   &:hover {
     background: #6185e5;
-  }
-}
-
-.dark {
-  background: #{$CategoryChip_Dark_Bg};
-
-  .categoryLength {
-    background: #615f63;
-    border: 0.5px solid #615f63;
-  }
-}
-
-.light {
-  background: #{$CategoryChip_Light_Bg};
-
-  .categoryLength {
-    background: white;
-    border: 0.5px solid #c8c8c8;
   }
 }

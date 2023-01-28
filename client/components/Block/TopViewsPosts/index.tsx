@@ -1,16 +1,13 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback } from "react";
 import { useGetTopViewsPosts } from "Hooks/Post";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "../errorHelper";
 
 const TopViewsPosts = () => {
-  const { theme } = useContext(ThemeContext);
-
   return (
-    <section className={`${styles.TopViewsPosts} ${styles[String(theme)]}`}>
+    <section className={styles.TopViewsPosts}>
       <h3 className={styles.title}>조회수 Top10</h3>
       <div className={styles.ListWrapper}>
         <AsyncBoundary
