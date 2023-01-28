@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useContext, useEffect, useRef } from "react";
-import { ThemeContext } from "components/_hoc/themeContext";
+import React, { useCallback, useRef } from "react";
 import styles from "./styles.module.scss";
 import useChangeColor from "./useChangeColor";
 
@@ -13,7 +12,6 @@ interface Props {
 const CategoryChip = ({ category, length, mode }: Props) => {
   const { push } = useRouter();
   const btnRef = useRef<HTMLButtonElement>(null);
-  const { theme } = useContext(ThemeContext);
 
   const onClickBtn = useCallback(
     (category: string) => {
@@ -27,9 +25,9 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   useChangeColor({ category, btnRef });
 
   return (
-    <button ref={btnRef} className={`${styles.CategoryChip} ${styles[theme]}`} onClick={() => onClickBtn(category)}>
+    <button ref={btnRef} className={styles.CategoryChip} onClick={() => onClickBtn(category)}>
       <span>{category}</span>
-      {mode !== "post" && length !== null && <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>}
+      {mode !== "post" && length !== null && <div className={styles.CategoryLength}>{length ? length : 0}</div>}
     </button>
   );
 };

@@ -1,10 +1,8 @@
-import Image from "next/image";
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useLogin } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import { ThemeContext } from "components/_hoc/themeContext";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -12,7 +10,6 @@ interface Props {
 const LoginModal = ({ setOpen }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const { theme } = useContext(ThemeContext);
 
   const closeModal = useCallback(() => {
     setOpen(false);
@@ -43,7 +40,7 @@ const LoginModal = ({ setOpen }: Props) => {
           <div className={styles.LoginTitle}>
             <span>로그인</span>
             <button onClick={closeModal} data-testid="closebtn">
-              <CloseIcon fill={theme === "light" ? "black" : "white"} />
+              <CloseIcon />
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>

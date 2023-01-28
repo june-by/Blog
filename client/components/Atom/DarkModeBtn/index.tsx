@@ -1,13 +1,12 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 const DarkModeBtn = () => {
   const toggleThumbRef = useRef<HTMLButtonElement>(null);
-  const { theme } = useContext(ThemeContext);
-  const [mode, , onChange] = useToggle(theme === "dark" ? false : true);
+
+  const [mode, , onChange] = useToggle(document.body.dataset.theme === "dark" ? false : true);
   useDarkMode(mode, toggleThumbRef);
 
   return (

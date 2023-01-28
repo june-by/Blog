@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useGetOnePost } from "Hooks/Post";
 import { OtherPostType } from "Types/post";
-import { ThemeContext } from "components/_hoc/themeContext";
 import OtherPost from "components/Atom/OtherPost";
 import styles from "./styles.module.scss";
 
 const OtherPostInfo = () => {
   const router = useRouter();
-  const { theme } = useContext(ThemeContext);
   const { data, isLoading } = useGetOnePost(Number(router.query.id));
   const mainPost = useMemo(() => data?.mainPost, [data]);
   const prevPost = useMemo(() => data?.prevPost, [data]);
@@ -23,7 +21,7 @@ const OtherPostInfo = () => {
   if (isLoading) return <></>;
 
   return (
-    <div className={`${styles.OtherPostInfoWrapper} ${styles[String(theme)]}`}>
+    <div className={styles.OtherPostInfoWrapper}>
       <div className={styles.OtherCategory}>
         <span>{`"${mainPost?.category}" 카테고리의 다른 게시글`}</span>
       </div>

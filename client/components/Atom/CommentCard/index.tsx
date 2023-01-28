@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { CommentType } from "Types/post";
 import dateForm from "utils/dateForm";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 const CommentCard = ({ comment, idx }: { comment: CommentType | null; idx: number }) => {
-  const { theme } = useContext(ThemeContext);
   return (
     <div
       className={styles.CommentCard}
@@ -16,7 +14,7 @@ const CommentCard = ({ comment, idx }: { comment: CommentType | null; idx: numbe
         <h4>{comment?.User.nickname}님</h4>
         <span>{dateForm(comment!.createdAt)}</span>
       </div>
-      <div className={`${styles.CommentContent} ${styles[String(theme)]}`}>
+      <div className={styles.CommentContent}>
         <span>{comment?.content}</span>
       </div>
     </div>

@@ -5,15 +5,8 @@
   list-style-type: none;
   padding: 0;
   font-size: 13px;
+  color: var(--text-color);
   &:hover {
     color: #0099fa;
   }
-}
-
-.dark {
-  color: white;
-}
-
-.light {
-  color: black;
 }

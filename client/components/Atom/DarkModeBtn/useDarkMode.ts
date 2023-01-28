@@ -1,24 +1,22 @@
-import { useContext, useEffect } from "react";
-import { ThemeContext } from "components/_hoc/themeContext";
+import { useEffect } from "react";
 
-const useDarkMode = (mode: boolean, ref: React.RefObject<HTMLButtonElement>) => {
-  const { setTheme } = useContext(ThemeContext);
+const LIGHT = false;
+const DARK_MODE_POS = "27px";
+const LIGHT_MODE_POST = "1px";
+
+function useDarkMode(mode: boolean, ref: React.RefObject<HTMLButtonElement>) {
   useEffect(() => {
     if (!ref.current) return;
-    if (mode === false) {
-      ref.current.style.left = "27px";
-      setTheme("dark");
+    if (mode === LIGHT) {
+      ref.current.style.left = DARK_MODE_POS;
+      document.body.dataset.theme = "dark";
       document.cookie = `theme=dark;`;
-      document.body.style.background = "#121212";
-      document.body.style.color = "white";
     } else {
-      ref.current.style.left = "1px";
-      setTheme("light");
+      ref.current.style.left = LIGHT_MODE_POST;
+      document.body.dataset.theme = "light";
       document.cookie = `theme=light;`;
-      document.body.style.background = "white";
-      document.body.style.color = "black";
     }
-  }, [mode]);
-};
+  }, [mode, ref]);
+}
 
 export default useDarkMode;

@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useGetRecentTags } from "Hooks/Tag";
-import { ThemeContext } from "components/_hoc/themeContext";
 import TagIcon from "components/Atom/TagIcon";
 import styles from "./styles.module.scss";
 
 const RecentTags = () => {
-  const { theme } = useContext(ThemeContext);
   const { data, isLoading } = useGetRecentTags();
   return (
-    <section className={`${styles.RecentTags} ${styles[String(theme)]}`}>
+    <section className={styles.RecentTags}>
       <h3>최근 태그</h3>
       {!isLoading ? (
         <ul className={styles.tagsWrapper}>

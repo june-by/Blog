@@ -1,9 +1,7 @@
 import CloseIcon from "components/Icon/close";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import Modal from "components/_hoc/Modal";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -13,7 +11,6 @@ interface Props {
 const SearchModal = ({ setOpen }: Props) => {
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
-  const { theme } = useContext(ThemeContext);
 
   const closeModal = useCallback(() => {
     setOpen(false);
@@ -39,7 +36,7 @@ const SearchModal = ({ setOpen }: Props) => {
           <div className={styles.LoginTitle}>
             <span>게시글 찾기</span>
             <button onClick={closeModal} data-testid="searchCloseBtn">
-              <CloseIcon fill={theme === "light" ? "black" : "white"} />
+              <CloseIcon />
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>

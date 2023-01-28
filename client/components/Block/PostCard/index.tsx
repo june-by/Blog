@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { PostsType } from "Types/post";
 import dateForm from "utils/dateForm";
-import { ThemeContext } from "components/_hoc/themeContext";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 import Image from "next/image";
@@ -11,7 +10,6 @@ import THUMBNAIL from "constants/thumbnail";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
-  const { theme } = useContext(ThemeContext);
 
   const onClickPostCard = () => {
     const { scrollY } = window;
@@ -21,7 +19,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   };
 
   return (
-    <section data-testid="postCard" className={`${styles.PostCard} ${styles[theme]}`} onClick={onClickPostCard}>
+    <section data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
       <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
           <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
@@ -38,7 +36,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
           </picture>
         )}
       </figure>
-      <article className={`${styles.PostCard_titleBox} ${styles[`${theme}titleBox`]}`}>
+      <article className={styles.PostCard_titleBox}>
         <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
         <ul className={styles.PostCard_titleBox_tagBox}>
           {post.Tags.length !== 0 &&

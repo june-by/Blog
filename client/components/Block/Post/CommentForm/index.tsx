@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useAddComment } from "Hooks/Comment";
 import { useGetUserInfo } from "Hooks/User";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 
 const CommentForm = () => {
-  const { theme } = useContext(ThemeContext);
   const { query } = useRouter();
   const AddCommentMutation = useAddComment(Number(query.id));
   const CommentRef = useRef<HTMLTextAreaElement>(null);
@@ -29,11 +27,10 @@ const CommentForm = () => {
   );
 
   return (
-    <div className={`${styles.CommentForm} ${styles[theme]}`}>
+    <div className={styles.CommentForm}>
       <form onSubmit={submitComment} data-testid="commentForm">
         <textarea
           data-testid="commentTextarea"
-          className={`${styles[theme]}`}
           ref={CommentRef}
           disabled={UserInfo === null && true}
           placeholder={UserInfo === null ? "로그인 후 댓글을 작성할 수 있습니다" : "댓글을 작성해주세요"}

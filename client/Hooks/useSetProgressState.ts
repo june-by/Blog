@@ -2,7 +2,7 @@ import { Router } from "next/router";
 import React, { useEffect } from "react";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
-type SetNextUrl = React.Dispatch<React.SetStateAction<string>>;
+type SetNextUrl = React.Dispatch<React.SetStateAction<string | null>>;
 
 const useSetProgressState = (setLoading: SetLoading, setNextUrl: SetNextUrl) => {
   useEffect(() => {

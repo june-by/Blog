@@ -46,7 +46,7 @@ $desktop: 1024px;
 @mixin CustomBtn {
   width: 100%;
   border: none;
-  background: #0099fa;
+  background: var(--button-background);
   color: white;
   padding: 13px 0;
   border-radius: 4px;

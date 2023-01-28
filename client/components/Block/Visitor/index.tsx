@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useGetVisitor } from "Hooks/Visitor";
-import { ThemeContext } from "components/_hoc/themeContext";
 import styles from "./styles.module.scss";
 const Visitor = () => {
   const { data, isLoading } = useGetVisitor();
-  const { theme } = useContext(ThemeContext);
   return (
-    <section className={`${styles.Visitor} ${styles[String(theme)]}`}>
+    <section className={styles.Visitor}>
       {!isLoading ? (
         <article className={styles.info}>
           <span data-testid="totalVisitor">
