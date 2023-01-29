@@ -15,14 +15,13 @@ const TopicStyle: TopicStyleInterface = {
 const getTopicStyle = (tagName: string) => TopicStyle[tagName];
 
 const PostNavBar = ({ topicArr }: { topicArr: any }) => {
-  const topicPosition = useMemo(
-    () => [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER],
-    [topicArr]
-  );
+  const topicPosition = useMemo(() => {
+    return [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER];
+  }, [topicArr]);
 
   const gotoTopic = useCallback(
-    (topic: any) => () => {
-      topic.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    (topic: HTMLElement) => () => {
+      topic.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     },
     []
   );
