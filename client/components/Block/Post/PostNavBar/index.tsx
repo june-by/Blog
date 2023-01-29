@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import styles from "./styles.module.scss";
 import useNavBarScrolling from "./useNavBarScrolling";
 
@@ -14,10 +14,8 @@ const TopicStyle: TopicStyleInterface = {
 
 const getTopicStyle = (tagName: string) => TopicStyle[tagName];
 
-const PostNavBar = ({ topicArr }: { topicArr: any }) => {
-  const topicPosition = useMemo(() => {
-    return [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER];
-  }, [topicArr]);
+const PostNavBar = ({ topicArr }: { topicArr: HTMLElement[] }) => {
+  const topicPosition = [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER];
 
   const gotoTopic = useCallback(
     (topic: HTMLElement) => () => {
@@ -25,29 +23,32 @@ const PostNavBar = ({ topicArr }: { topicArr: any }) => {
     },
     []
   );
-
   useNavBarScrolling(topicPosition);
 
   return (
     <aside className={styles.TopicWrapper}>
       <div className={styles.TopicWrapper_second}>
         {topicArr?.length !== 0 &&
-          topicArr.map((topic: any, idx: number) => {
-            return (
-              <nav
-                className={styles.topic}
-                key={idx + 100}
-                style={getTopicStyle(topic.tagName)}
-                onClick={gotoTopic(topic)}
-                id={String(idx)}
-              >
-                {topic?.innerText}
-              </nav>
-            );
-          })}
+          topicArr.map((topic: HTMLElement) => (
+            <Topic topic={topic} onClick={gotoTopic} style={getTopicStyle(topic.tagName)} key={topic.innerText} />
+          ))}
       </div>
     </aside>
   );
 };
+
+interface TopicProps {
+  onClick: (topic: HTMLElement) => () => void;
+  style: { marginLeft: string };
+  topic: HTMLElement;
+}
+
+function Topic({ onClick, style, topic }: TopicProps) {
+  return (
+    <nav className={styles.topic} style={style} onClick={onClick(topic)}>
+      {topic?.innerText}
+    </nav>
+  );
+}
 
 export default PostNavBar;
