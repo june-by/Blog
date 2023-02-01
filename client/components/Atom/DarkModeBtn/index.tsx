@@ -5,6 +5,8 @@ import styles from "./styles.module.scss";
 
 const DARK_MODE = false;
 const LIGHT_MODE = true;
+const DARK_MODE_POS = "27px";
+const LIGHT_MODE_POS = "1px";
 
 const DarkModeBtn = () => {
   const toggleThumbRef = useRef<HTMLButtonElement>(null);
@@ -25,7 +27,7 @@ const DarkModeBtn = () => {
           data-testid="toggleBtn"
           aria-label="toggleDarkModeButton"
           ref={toggleThumbRef}
-          style={{ left: mode === DARK_MODE ? "27px" : "1px" }}
+          style={{ left: mode === DARK_MODE ? DARK_MODE_POS : LIGHT_MODE_POS }}
           className={styles.toggleTrackThumb}
         ></button>
       </div>

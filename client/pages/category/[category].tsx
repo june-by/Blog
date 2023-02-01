@@ -10,6 +10,7 @@ import CategorySelect from "components/Block/CategorySelect";
 import InfinitePosts from "components/Block/infinitePosts";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
+import ScrollBtn from "components/Atom/scrollBtn";
 
 const Category = () => {
   const router = useRouter();
@@ -39,12 +40,9 @@ const Category = () => {
         </section>
         <AdditionalInfoSectionRight />
       </main>
+      <ScrollBtn />
     </>
   );
 };
 
 export default Category;
-
-function isPostExist(data: PostsType[] | undefined) {
-  return data?.length !== 0 ? true : false;
-}

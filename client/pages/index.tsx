@@ -8,6 +8,7 @@ import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLef
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
 import InfinitePosts from "components/Block/infinitePosts";
+import ScrollBtn from "components/Atom/scrollBtn";
 
 const Home: NextPage = () => {
   return (
@@ -38,6 +39,7 @@ const Home: NextPage = () => {
         </section>
         <AdditionalInfoSectionRight />
       </main>
+      <ScrollBtn />
     </>
   );
 };

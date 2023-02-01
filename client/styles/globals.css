@@ -10,9 +10,9 @@ body {
 }
 
 body[data-theme="dark"] {
-  background: black;
+  background: #121212;
   color: white;
-  --header-background: #121212;
+  --header-background: #1e1e1e;
   --header-color: white;
   --menu-icon-color: white;
   --input-background: #1e1e1e;
@@ -22,7 +22,7 @@ body[data-theme="dark"] {
   --button-background: #3e4756;
   --modal-background: #2e2e2e;
   --box-shadow-color: white;
-  --post-card-background: #2e2e2e;
+  --post-card-background: #1e1e1e;
   --post-card-border: #2a2a2a;
 }
 

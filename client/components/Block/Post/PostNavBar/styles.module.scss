@@ -1,4 +1,13 @@
 @import "utils/utils.scss";
+.focus {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.nonFocus {
+  transform: scale(0.8);
+  opacity: 1;
+}
+
 .TopicWrapper {
   display: none;
 

@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from "react";
 import { useAddComment } from "Hooks/Comment";
 import { useGetUserInfo } from "Hooks/User";
 import styles from "./styles.module.scss";
+import MESSAGE from "constants/message";
 
 const CommentForm = () => {
   const { query } = useRouter();
@@ -11,12 +12,14 @@ const CommentForm = () => {
 
   const { data: UserInfo } = useGetUserInfo();
 
+  const isLogin = UserInfo === null ? false : true;
+
   const submitComment = useCallback(
     (e) => {
       e.preventDefault();
       if (!CommentRef.current) return;
-      if (UserInfo === null) return alert("* 로그인 후 댓글을 작성할 수 있습니다");
-      if (CommentRef.current.value === "") return alert("* 내용을 작성해주세요");
+      if (UserInfo === null) return alert(MESSAGE.LOGIN_NEEDED);
+      if (CommentRef.current.value === "") return alert(MESSAGE.COMMENT_CONTENT_NEEDED);
       AddCommentMutation.mutate({
         postId: Number(query.id),
         comment: CommentRef.current.value,
@@ -32,10 +35,10 @@ const CommentForm = () => {
         <textarea
           data-testid="commentTextarea"
           ref={CommentRef}
-          disabled={UserInfo === null && true}
-          placeholder={UserInfo === null ? "로그인 후 댓글을 작성할 수 있습니다" : "댓글을 작성해주세요"}
+          disabled={!isLogin}
+          placeholder={isLogin ? MESSAGE.COMMENT_PLEASE : MESSAGE.LOGIN_NEEDED}
         />
-        <button disabled={UserInfo === null && true}>등록</button>
+        <button disabled={!isLogin}>등록</button>
       </form>
     </div>
   );

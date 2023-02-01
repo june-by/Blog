@@ -6,6 +6,7 @@ const useNavBarScrolling = (topicPosition: any) => {
       const scroll = window.scrollY;
       const idx = String(i);
       const targetElement = document.getElementById(idx);
+      if (!targetElement) return;
       if (scroll >= topicPosition[i] && scroll < topicPosition[i + 1]) {
         targetElement!.style.transform = "scale(1.1)";
         targetElement!.style.opacity = "1";
@@ -21,7 +22,7 @@ const useNavBarScrolling = (topicPosition: any) => {
     return () => {
       window.removeEventListener("scroll", styleChange);
     };
-  }, [topicPosition]);
+  }, [styleChange, topicPosition]);
 };
 
 export default useNavBarScrolling;
