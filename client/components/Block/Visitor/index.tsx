@@ -18,10 +18,10 @@ function VisitorInfo() {
   return (
     <article className={styles.info}>
       <span data-testid="totalVisitor">
-        총 방문 : <strong>{data!.totalVisitor}</strong>명
+        총 방문 : <strong>{data?.totalVisitor || 0}</strong>명
       </span>
       <span data-testid="todayVisitor">
-        오늘 방문 : <strong>{data!.todayVisitor}</strong>명
+        오늘 방문 : <strong>{data?.todayVisitor || 0}</strong>명
       </span>
     </article>
   );

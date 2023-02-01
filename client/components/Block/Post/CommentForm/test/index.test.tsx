@@ -4,6 +4,7 @@ import { QueryClient } from "react-query";
 import CommentForm from "..";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
+import MESSAGE from "constants/message";
 
 describe("<CommentForm />", () => {
   const router = createMockRouter();
@@ -11,14 +12,11 @@ describe("<CommentForm />", () => {
 
   it("rendering test", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
-    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute(
-      "placeholder",
-      "댓글을 작성해주세요"
-    );
+    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute("placeholder", MESSAGE.COMMENT_PLEASE);
     expect(await screen.findByText("등록")).toBeInTheDocument();
   });
 
-  it("submit with comment test", async () => {
+  it("댓글 등록 성공", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
     const alertMock = jest.spyOn(window, "alert").mockImplementation();
 
@@ -30,17 +28,17 @@ describe("<CommentForm />", () => {
     fireEvent.submit(commentForm);
 
     await waitFor(() => {
-      expect(alertMock).toBeCalledWith("댓글 등록 성공");
+      expect(alertMock).toBeCalledWith(MESSAGE.COMMENT_REGIST_SUCESS);
     });
   });
 
-  it("submit with no comment test", async () => {
+  it("댓글을 달지 않고 제출 버튼을 클릭", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
     const commentForm = await screen.findByTestId("commentForm");
     const alertMock = jest.spyOn(window, "alert").mockImplementation();
 
     //댓글을 달지 않고, submit
     fireEvent.submit(commentForm);
-    expect(alertMock).toBeCalledWith("* 내용을 작성해주세요");
+    expect(alertMock).toBeCalledWith(MESSAGE.COMMENT_CONTENT_NEEDED);
   });
 });
