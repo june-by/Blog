@@ -22,14 +22,6 @@
     width: 77%;
   }
 
-  a {
-    color: #0099fa;
-    font-weight: 600;
-
-    &:hover {
-      color: #6185e5;
-    }
-  }
   img {
     backface-visibility: hidden;
     image-rendering: -webkit-optimize-contrast;
@@ -39,5 +31,12 @@
   }
   h2 {
     font-size: 1.17em !important;
+  }
+  a {
+    color: #eb5757;
+    &:hover {
+      border-bottom: 1px solid #eb5757;
+      //color: #f6aca6;
+    }
   }
 }
