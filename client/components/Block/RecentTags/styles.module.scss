@@ -4,7 +4,20 @@
   border-radius: 4px;
   border: 0.5px solid #c8c8c8;
   box-shadow: 0px 1px 7px var(--box-shadow-color);
-
+  .ListWrapper {
+    position: relative;
+    min-height: 200px;
+    h2 {
+      font-size: 15px !important;
+    }
+    span {
+      font-size: 12px !important;
+    }
+    button {
+      font-size: 12px !important;
+      padding: 5px 10px;
+    }
+  }
   h3 {
     margin-top: 0;
     text-align: center;

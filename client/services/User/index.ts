@@ -1,3 +1,4 @@
+import MESSAGE from "constants/message";
 import { customAxios } from "utils/CustomAxios";
 
 interface LoginDataType {
@@ -12,8 +13,13 @@ interface SignUpDataType {
 }
 
 export const LoginAPI = async (LoginData: LoginDataType) => {
-  const { data } = await customAxios.post(`/user/login`, LoginData);
-  return data;
+  try {
+    const { data } = await customAxios.post(`/user/login`, LoginData);
+    return data;
+  } catch (err) {
+    alert(MESSAGE.NETWORK_ERROR);
+    throw Error();
+  }
 };
 
 export const LogOutAPI = async () => {
@@ -27,6 +33,10 @@ export const SignUpAPI = async (SignUpData: SignUpDataType) => {
 };
 
 export const getUserInfoAPI = async () => {
-  const { data } = await customAxios.get("/user");
-  return data;
+  try {
+    const { data } = await customAxios.get("/user");
+    return data;
+  } catch (err) {
+    return null;
+  }
 };
