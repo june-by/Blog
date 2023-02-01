@@ -23,13 +23,23 @@ export const LoginAPI = async (LoginData: LoginDataType) => {
 };
 
 export const LogOutAPI = async () => {
-  const { data } = await customAxios.get("/user/logout");
-  return data;
+  try {
+    const { data } = await customAxios.get("/user/logout");
+    return data;
+  } catch (err) {
+    alert(MESSAGE.NETWORK_ERROR);
+    throw Error();
+  }
 };
 
 export const SignUpAPI = async (SignUpData: SignUpDataType) => {
-  const { data } = await customAxios.post(`/user/signup`, SignUpData);
-  return data;
+  try {
+    const { data } = await customAxios.post(`/user/signup`, SignUpData);
+    return data;
+  } catch (err) {
+    alert(MESSAGE.NETWORK_ERROR);
+    throw Error();
+  }
 };
 
 export const getUserInfoAPI = async () => {

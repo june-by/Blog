@@ -1,11 +1,17 @@
 import { customAxios } from "utils/CustomAxios";
 
 export const getVisitorAPI = async () => {
-  const { data } = await customAxios.get("/visitor");
-  return data;
+  try {
+    const { data } = await customAxios.get("/visitor");
+    return data;
+  } catch (err) {
+    throw Error();
+  }
 };
 
 export const postVisitorAPI = async () => {
-  const { data } = await customAxios.post("/visitor");
-  return data;
+  try {
+    const { data } = await customAxios.post("/visitor");
+    return data;
+  } catch (err) {}
 };

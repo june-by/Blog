@@ -3,6 +3,7 @@ import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/User";
 import { UserType } from "Types/user";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
+import MESSAGE from "constants/message";
 
 export const useGetUserInfo = () =>
   useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), CACHE_OPTION.ALL);
@@ -10,7 +11,7 @@ export const useGetUserInfo = () =>
 export const useSignUp = (onSuccess: () => void) => {
   return useMutation(SignUpAPI, {
     onSuccess: () => {
-      alert("* 회원가입에 성공했습니다");
+      alert(MESSAGE.SIGHUP_SUCCESS);
       return onSuccess();
     },
     onError: (error: any) => {
@@ -23,7 +24,7 @@ export const useLogin = (onSuccess: () => void) => {
   const queryClient = useQueryClient();
   return useMutation(LoginAPI, {
     onSuccess: () => {
-      alert("* 로그인 성공");
+      alert(MESSAGE.LOGIN_SUCCESS);
       onSuccess();
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
@@ -37,7 +38,7 @@ export const useLogOut = () => {
   const queryClient = useQueryClient();
   return useMutation(LogOutAPI, {
     onSuccess: () => {
-      alert("* 로그아웃되었습니다");
+      alert(MESSAGE.LOGOUT_SUCCESS);
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
   });

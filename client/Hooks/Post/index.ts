@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
+import MESSAGE from "constants/message";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {
@@ -51,7 +52,7 @@ export const useGetTagPosts = (tag: string | string[] | undefined) =>
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
     onSuccess: () => {
-      alert("게시글 등록 성공");
+      alert(MESSAGE.POST_REGIST_SUCCESS);
       return window.location.replace("/");
     },
   });
@@ -61,7 +62,7 @@ export const useEditPost = () => {
   const { query } = useRouter();
   return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
     onSuccess: () => {
-      alert("게시글 수정 성공");
+      alert(MESSAGE.POST_EDIT_SUCCESS);
       return window.location.replace(`/post/${query.id}`);
     },
   });
@@ -70,7 +71,7 @@ export const useEditPost = () => {
 export const useDeletePost = () => {
   return useMutation(DeletePostAPI, {
     onSuccess: () => {
-      alert("게시글 삭제 성공");
+      alert(MESSAGE.POST_DELETE_SUCCESS);
       return window.location.replace("/");
     },
   });
