@@ -8,6 +8,7 @@ import PostDelBtn from "components/Atom/PostDelBtn";
 import PostEditBtn from "components/Atom/PostEditBtn";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
+import IsAdmin from "utils/isAdmin";
 
 interface Props {
   Post: MainPost;
@@ -22,7 +23,7 @@ const PostTop = ({ Post }: Props) => {
       <div className={styles.TopArea}>
         <GoBackBtn />
         <div>
-          {UserInfo?.nickname == "By_juun" && (
+          {IsAdmin(UserInfo) && (
             <>
               <PostDelBtn />
               <PostEditBtn id={id} />
