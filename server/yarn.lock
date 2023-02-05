@@ -1153,6 +1153,14 @@
     "@types/passport" "*"
     "@types/passport-oauth2" "*"
 
+"@types/passport-kakao@^1.0.0":
+  "integrity" "sha512-wxBJdc4ThRTPrCN3JvnwnV+6PJJjso2WjcWuAgIghZtLmK8F/qfgAIKtWKeDoRYTPbZ0MSsjuCQhlXmDqrNicA=="
+  "resolved" "https://registry.npmjs.org/@types/passport-kakao/-/passport-kakao-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "@types/express" "*"
+    "@types/passport" "*"
+
 "@types/passport-local@^1.0.34":
   "integrity" "sha512-PSc07UdYx+jhadySxxIYWuv6sAnY5e+gesn/5lkPKfBeGuIYn9OPR+AAEDq73VRUh6NBTpvE/iPE62rzZUslog=="
   "resolved" "https://registry.npmjs.org/@types/passport-local/-/passport-local-1.0.34.tgz"

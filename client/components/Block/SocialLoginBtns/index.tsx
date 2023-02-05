@@ -9,7 +9,7 @@ const SocialLoginBtns = () => {
     window.location.href = `${ServerURL}/user/githublogin`;
   };
   const kakaoLogin = () => {
-    alert("카카오 로그인은 현재 준비중입니다.");
+    window.location.href = `${ServerURL}/user/kakaologin`;
   };
   return (
     <div className={styles.SocialLoginBtns}>

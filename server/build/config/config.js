@@ -9,21 +9,21 @@ dotenv_1.default.config();
 exports.dbConfig = {
     development: {
         username: "root",
-        password: "bj@980613",
+        password: process.env.DB_PASSWORD,
         database: "Byjuun.com",
         host: "127.0.0.1",
         dialect: "mysql",
     },
     test: {
         username: "root",
-        password: "bj@980613",
+        password: process.env.DB_PASSWORD,
         database: "database_test",
         host: "127.0.0.1",
         dialect: "mysql",
     },
     production: {
         username: "root",
-        password: "bj@980613",
+        password: process.env.DB_PASSWORD,
         database: "Byjuun.com",
         host: "127.0.0.1",
         dialect: "mysql",
