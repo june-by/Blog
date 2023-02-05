@@ -3,6 +3,8 @@ import { useLogin } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
+
+import SocialLoginBtns from "components/Block/SocialLoginBtns";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -48,6 +50,7 @@ const LoginModal = ({ setOpen }: Props) => {
             <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
             <button>로그인</button>
           </form>
+          <SocialLoginBtns />
         </>
       </Modal>
     </div>

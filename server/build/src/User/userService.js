@@ -67,22 +67,31 @@ var getUser = function (_a) {
     });
 };
 var addUser = function (_a) {
-    var email = _a.email, nickname = _a.nickname, password = _a.password;
+    var email = _a.email, nickname = _a.nickname, password = _a.password, provider = _a.provider;
     return __awaiter(void 0, void 0, void 0, function () {
-        var hashedPassword;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, bcrypt_1.default.hash(password, 10)];
+        var hashedPassword, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    if (!password) return [3 /*break*/, 2];
+                    return [4 /*yield*/, bcrypt_1.default.hash(password, 10)];
                 case 1:
-                    hashedPassword = _b.sent();
+                    _b = _c.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    _b = "";
+                    _c.label = 3;
+                case 3:
+                    hashedPassword = _b;
                     return [4 /*yield*/, User.create({
                             //await 안넣어주면, 비동기이기 때문에, 뒤에 res.json()이 먼저실행될수도있음.
-                            email: email,
+                            email: email || "",
                             nickname: nickname,
-                            password: hashedPassword,
+                            password: hashedPassword || "",
+                            provider: provider || "local",
                         })];
-                case 2:
-                    _b.sent();
+                case 4:
+                    _c.sent();
                     return [2 /*return*/];
             }
         });

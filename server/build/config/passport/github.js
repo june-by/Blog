@@ -40,32 +40,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var passport_1 = __importDefault(require("passport"));
-var local_1 = __importDefault(require("./local"));
+var passport_github_1 = __importDefault(require("passport-github"));
 var models_1 = __importDefault(require("../../models"));
-var github_1 = __importDefault(require("./github"));
+var userService_1 = __importDefault(require("../../src/User/userService"));
+var User = models_1.default.User;
 exports.default = (function () {
-    passport_1.default.serializeUser(function (user, done) {
-        done(null, user.id); //서버에는 userid만 들고 있는다
-    });
-    passport_1.default.deserializeUser(function (id, done) { return __awaiter(void 0, void 0, void 0, function () {
-        var user, error_1;
+    passport_1.default.use(new passport_github_1.default.Strategy({
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRETS,
+        callbackURL: process.env.NODE_ENV === "production"
+            ? "https://api.byjuun.com/user/github/callback"
+            : "http://localhost:3065/user/github/callback",
+    }, function (accessToken, refreshToken, profile, done) { return __awaiter(void 0, void 0, void 0, function () {
+        var name_1, user, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, models_1.default.User.findOne({ where: { id: id } })];
+                    _a.trys.push([0, 5, , 6]);
+                    name_1 = profile._json.name;
+                    return [4 /*yield*/, User.findOne({
+                            where: { nickname: name_1 },
+                        })];
                 case 1:
                     user = _a.sent();
-                    done(null, user); //req.user안에 넣어줌.
-                    return [3 /*break*/, 3];
+                    console.log("user : ", user);
+                    if (!!user) return [3 /*break*/, 4];
+                    return [4 /*yield*/, userService_1.default.addUser({ nickname: name_1, provider: "github" })];
                 case 2:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    _a.sent();
+                    return [4 /*yield*/, User.findOne({
+                            where: { nickname: name_1 },
+                        })];
+                case 3:
+                    user = _a.sent();
+                    _a.label = 4;
+                case 4: return [2 /*return*/, done(null, user)];
+                case 5:
+                    err_1 = _a.sent();
+                    return [2 /*return*/, done(err_1)];
+                case 6: return [2 /*return*/];
             }
         });
-    }); });
-    (0, local_1.default)();
-    (0, github_1.default)();
+    }); }));
 });

@@ -18,6 +18,10 @@ export default (sequelize: Sequelize, DataTypes: any) => {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
+      provider: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+      },
     },
     {
       charset: "utf8",
