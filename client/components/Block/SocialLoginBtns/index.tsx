@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 
 const SocialLoginBtns = () => {
   const githubLogin = async () => {
-    window.location.href = `${ServerURL}user/githublogin`;
+    window.location.href = `${ServerURL}/user/githublogin`;
   };
   const kakaoLogin = () => {
     alert("카카오 로그인은 현재 준비중입니다.");
