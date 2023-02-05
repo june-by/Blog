@@ -1,6 +1,7 @@
 import { useGetUserInfo } from "Hooks/User";
 import { useRouter } from "next/router";
 import React, { ComponentType, useEffect, useState } from "react";
+import IsAdmin from "utils/isAdmin";
 
 function withAdminValidation<P extends object>(Component: ComponentType<P>) {
   return function WihLoadingComponent({ ...props }) {
@@ -10,7 +11,7 @@ function withAdminValidation<P extends object>(Component: ComponentType<P>) {
 
     useEffect(() => {
       if (isLoading) return;
-      if (UserInfo?.nickname !== "By_juun") push("/");
+      if (!IsAdmin(UserInfo)) push("/");
       else setLoading(false);
     }, [UserInfo?.nickname, isLoading, push]);
 

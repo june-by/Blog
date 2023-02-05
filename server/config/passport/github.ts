@@ -19,13 +19,12 @@ export default () => {
         try {
           const { name } = profile._json as { name: string };
           let user = await User.findOne({
-            where: { nickname: name },
+            where: { nickname: name, provider: "github" },
           });
-          console.log("user : ", user);
           if (!user) {
             await userService.addUser({ nickname: name, provider: "github" });
             user = await User.findOne({
-              where: { nickname: name },
+              where: { nickname: name, provider: "github" },
             });
           }
           return done(null, user);

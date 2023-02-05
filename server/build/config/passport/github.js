@@ -59,17 +59,16 @@ exports.default = (function () {
                     _a.trys.push([0, 5, , 6]);
                     name_1 = profile._json.name;
                     return [4 /*yield*/, User.findOne({
-                            where: { nickname: name_1 },
+                            where: { nickname: name_1, provider: "github" },
                         })];
                 case 1:
                     user = _a.sent();
-                    console.log("user : ", user);
                     if (!!user) return [3 /*break*/, 4];
                     return [4 /*yield*/, userService_1.default.addUser({ nickname: name_1, provider: "github" })];
                 case 2:
                     _a.sent();
                     return [4 /*yield*/, User.findOne({
-                            where: { nickname: name_1 },
+                            where: { nickname: name_1, provider: "github" },
                         })];
                 case 3:
                     user = _a.sent();
