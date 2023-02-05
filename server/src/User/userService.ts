@@ -14,12 +14,11 @@ interface User {
   nickname: string;
   provider: string;
   email: string;
-  password: string;
 }
 
-const getUser = async (params: getUserParams): Promise<User> => {
+const getUser = async ({ id }: { id: number }): Promise<User> => {
   const user = await User.findOne({
-    where: params,
+    where: { id: id },
   });
   const fullUserWithoutPassword = await User.findOne({
     where: { id: user.id },

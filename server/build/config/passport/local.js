@@ -43,7 +43,6 @@ var passport_1 = __importDefault(require("passport"));
 var passport_local_1 = require("passport-local");
 var models_1 = __importDefault(require("../../models"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
-var userService_1 = __importDefault(require("../../src/User/userService"));
 var User = models_1.default.User;
 exports.default = (function () {
     passport_1.default.use(new passport_local_1.Strategy({
@@ -55,7 +54,9 @@ exports.default = (function () {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, userService_1.default.getUser({ email: email, provider: "local" })];
+                    return [4 /*yield*/, User.findOne({
+                            where: { email: email },
+                        })];
                 case 1:
                     user = _a.sent();
                     if (!user) {

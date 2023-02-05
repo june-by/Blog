@@ -17,13 +17,18 @@ export default () => {
       async (accessToken, refreshToken, profile, done: Function) => {
         try {
           const { username } = profile as { username: string };
-          let user = await userService.getUser({ nickname: username, provider: "kakao" });
+          console.log("username : ", username);
+          let user = await User.findOne({
+            where: { nickname: username, provider: "kakao" },
+          });
+          console.log("beforeCreateUser : ", user);
 
           if (!user) {
             await userService.addUser({ nickname: username, provider: "kakao" });
-            user = await userService.getUser({ nickname: username, provider: "kakao" });
+            user = await User.findOne({
+              where: { nickname: username, provider: "kakao" },
+            });
           }
-
           return done(null, user);
         } catch (err) {
           console.log("err : ", err);

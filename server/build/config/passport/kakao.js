@@ -57,14 +57,20 @@ exports.default = (function () {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
                     username = profile.username;
-                    return [4 /*yield*/, userService_1.default.getUser({ nickname: username, provider: "kakao" })];
+                    console.log("username : ", username);
+                    return [4 /*yield*/, User.findOne({
+                            where: { nickname: username, provider: "kakao" },
+                        })];
                 case 1:
                     user = _a.sent();
+                    console.log("beforeCreateUser : ", user);
                     if (!!user) return [3 /*break*/, 4];
                     return [4 /*yield*/, userService_1.default.addUser({ nickname: username, provider: "kakao" })];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, userService_1.default.getUser({ nickname: username, provider: "kakao" })];
+                    return [4 /*yield*/, User.findOne({
+                            where: { nickname: username, provider: "kakao" },
+                        })];
                 case 3:
                     user = _a.sent();
                     _a.label = 4;

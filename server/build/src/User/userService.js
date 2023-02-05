@@ -42,27 +42,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var User = models_1.default.User;
-var getUser = function (params) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, fullUserWithoutPassword;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, User.findOne({
-                    where: params,
-                })];
-            case 1:
-                user = _a.sent();
-                return [4 /*yield*/, User.findOne({
-                        where: { id: user.id },
-                        attributes: {
-                            exclude: ["password"],
-                        },
+var getUser = function (_a) {
+    var id = _a.id;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var user, fullUserWithoutPassword;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, User.findOne({
+                        where: { id: id },
                     })];
-            case 2:
-                fullUserWithoutPassword = _a.sent();
-                return [2 /*return*/, fullUserWithoutPassword];
-        }
+                case 1:
+                    user = _b.sent();
+                    return [4 /*yield*/, User.findOne({
+                            where: { id: user.id },
+                            attributes: {
+                                exclude: ["password"],
+                            },
+                        })];
+                case 2:
+                    fullUserWithoutPassword = _b.sent();
+                    return [2 /*return*/, fullUserWithoutPassword];
+            }
+        });
     });
-}); };
+};
 var addUser = function (_a) {
     var email = _a.email, nickname = _a.nickname, password = _a.password, provider = _a.provider;
     return __awaiter(void 0, void 0, void 0, function () {

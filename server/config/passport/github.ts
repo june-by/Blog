@@ -18,10 +18,14 @@ export default () => {
       async (accessToken, refreshToken, profile, done: Function) => {
         try {
           const { name } = profile._json as { name: string };
-          let user = await userService.getUser({ nickname: name, provider: "github" });
+          let user = await User.findOne({
+            where: { nickname: name, provider: "github" },
+          });
           if (!user) {
             await userService.addUser({ nickname: name, provider: "github" });
-            user = await userService.getUser({ nickname: name, provider: "github" });
+            user = await User.findOne({
+              where: { nickname: name, provider: "github" },
+            });
           }
           return done(null, user);
         } catch (err) {
