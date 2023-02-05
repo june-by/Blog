@@ -10,7 +10,6 @@ const Category = [
   "DataStructure",
   "HTML-CSS",
   "Git",
-  "학교공부",
   "회고",
 ];
 

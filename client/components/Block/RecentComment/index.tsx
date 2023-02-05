@@ -43,7 +43,7 @@ function Comment({ comment }: { comment: RecentComment }) {
 }
 
 function NoComment() {
-  return <div className={styles.NoComments}>{"댓글이 없어요 :("}</div>;
+  return <div className={styles.NoComments}>{"최근 작성된 댓글이 없어요 :("}</div>;
 }
 
 function CommentsSkeleton() {
