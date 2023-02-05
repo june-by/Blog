@@ -2,6 +2,7 @@ import passport from "passport";
 import local from "./local";
 import model from "models";
 import github from "./github";
+import kakao from "./kakao";
 
 type User = {
   id: number;
@@ -22,4 +23,5 @@ export default () => {
   });
   local();
   github();
+  kakao();
 };

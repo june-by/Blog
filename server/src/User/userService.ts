@@ -2,9 +2,24 @@ import model from "models";
 import bcrypt from "bcrypt";
 const { User } = model;
 
-const getUser = async ({ id }: { id: number }) => {
+interface getUserParams {
+  id?: number;
+  nickname?: string;
+  provider?: string;
+  email?: string;
+}
+
+interface User {
+  id: number;
+  nickname: string;
+  provider: string;
+  email: string;
+  password: string;
+}
+
+const getUser = async (params: getUserParams): Promise<User> => {
   const user = await User.findOne({
-    where: { id: id },
+    where: params,
   });
   const fullUserWithoutPassword = await User.findOne({
     where: { id: user.id },
@@ -29,7 +44,7 @@ const addUser = async ({
   const hashedPassword = password ? await bcrypt.hash(password, 10) : "";
   await User.create({
     //await 안넣어주면, 비동기이기 때문에, 뒤에 res.json()이 먼저실행될수도있음.
-    email: email || "",
+    email: email || `${nickname}@kakao`,
     nickname: nickname,
     password: hashedPassword || "",
     provider: provider || "local",

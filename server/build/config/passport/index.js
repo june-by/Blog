@@ -43,6 +43,7 @@ var passport_1 = __importDefault(require("passport"));
 var local_1 = __importDefault(require("./local"));
 var models_1 = __importDefault(require("../../models"));
 var github_1 = __importDefault(require("./github"));
+var kakao_1 = __importDefault(require("./kakao"));
 exports.default = (function () {
     passport_1.default.serializeUser(function (user, done) {
         done(null, user.id); //서버에는 userid만 들고 있는다
@@ -68,4 +69,5 @@ exports.default = (function () {
     }); });
     (0, local_1.default)();
     (0, github_1.default)();
+    (0, kakao_1.default)();
 });

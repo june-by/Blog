@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import model from "models";
 import bcrypt from "bcrypt";
+import userService from "src/User/userService";
 const { User } = model;
 
 export default () => {
@@ -13,9 +14,7 @@ export default () => {
       },
       async (email: string, password: string, done: Function) => {
         try {
-          const user = await User.findOne({
-            where: { email },
-          });
+          const user = await userService.getUser({ email, provider: "local" });
           if (!user) {
             return done(null, false, { reason: "존재하지 않는 사용자입니다" });
           }

@@ -40,39 +40,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var passport_1 = __importDefault(require("passport"));
-var passport_local_1 = require("passport-local");
+var passport_kakao_1 = require("passport-kakao");
 var models_1 = __importDefault(require("../../models"));
-var bcrypt_1 = __importDefault(require("bcrypt"));
 var userService_1 = __importDefault(require("../../src/User/userService"));
 var User = models_1.default.User;
 exports.default = (function () {
-    passport_1.default.use(new passport_local_1.Strategy({
-        usernameField: "email",
-        passwordField: "password",
-    }, function (email, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-        var user, result, error_1;
+    passport_1.default.use(new passport_kakao_1.Strategy({
+        clientID: process.env.KAKAO_CLIENT_ID,
+        callbackURL: process.env.NODE_ENV === "production"
+            ? "https://api.byjuun.com/user/kakao/callback"
+            : "http://localhost:3065/user/kakao/callback",
+    }, function (accessToken, refreshToken, profile, done) { return __awaiter(void 0, void 0, void 0, function () {
+        var username, user, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, userService_1.default.getUser({ email: email, provider: "local" })];
+                    _a.trys.push([0, 5, , 6]);
+                    username = profile.username;
+                    return [4 /*yield*/, userService_1.default.getUser({ nickname: username, provider: "kakao" })];
                 case 1:
                     user = _a.sent();
-                    if (!user) {
-                        return [2 /*return*/, done(null, false, { reason: "존재하지 않는 사용자입니다" })];
-                    }
-                    return [4 /*yield*/, bcrypt_1.default.compare(password, user.password)];
+                    if (!!user) return [3 /*break*/, 4];
+                    return [4 /*yield*/, userService_1.default.addUser({ nickname: username, provider: "kakao" })];
                 case 2:
-                    result = _a.sent();
-                    if (result) {
-                        return [2 /*return*/, done(null, user)];
-                    }
-                    return [2 /*return*/, done(null, false, { reason: "비밀번호가 틀렸습니다" })];
+                    _a.sent();
+                    return [4 /*yield*/, userService_1.default.getUser({ nickname: username, provider: "kakao" })];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, done(error_1)];
-                case 4: return [2 /*return*/];
+                    user = _a.sent();
+                    _a.label = 4;
+                case 4: return [2 /*return*/, done(null, user)];
+                case 5:
+                    err_1 = _a.sent();
+                    console.log("err : ", err_1);
+                    return [2 /*return*/, done(err_1)];
+                case 6: return [2 /*return*/];
             }
         });
     }); }));
