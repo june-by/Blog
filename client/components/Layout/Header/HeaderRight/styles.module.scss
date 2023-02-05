@@ -5,19 +5,20 @@
   gap: 5px;
   height: 50px;
   align-items: center;
+  margin-left: 20px;
   @include mobile {
     flex-direction: column;
   }
+
   span {
     display: flex;
     padding: 0 15px;
-    border-radius: 4px;
     align-items: center;
     cursor: pointer;
-    height: 40px;
+    height: 50px;
     &:hover {
-      background: #7d7b7f;
-      color: white;
+      color: var(--header-hover-color);
+      border-bottom: 1.5px solid var(--header-hover-color);
     }
   }
 }

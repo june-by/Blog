@@ -18,7 +18,6 @@ const THUMBNAIL: thumbNailType = {
   OperatingSystem: { webp: "OS.webp", jpg: "OS.jpg" },
   DataStructure: { webp: "DataStructure.webp", jpg: "DataStructure.jpg" },
   NetWork: { webp: "NetWork.webp", jpg: "NetWork.jpg" },
-  학교공부: { webp: "schoolstudy.webp", jpg: "schoolstudy.jpg" },
   Algorithm: { webp: "programmers.webp", jpg: "programmers.jpg" },
 };
 
