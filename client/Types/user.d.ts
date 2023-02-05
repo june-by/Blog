@@ -3,4 +3,5 @@ export interface UserType {
   email: string;
   id: number;
   nickname: string;
+  provider: string;
 }

@@ -6,6 +6,7 @@ import LoginModal from "components/Block/_Modal/LoginModal";
 import SearchModal from "components/Block/_Modal/SearchModal";
 import SignUpModal from "components/Block/_Modal/SignUpModal";
 import styles from "./styles.module.scss";
+import IsAdmin from "utils/isAdmin";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -13,11 +14,7 @@ const HeaderRight = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
-  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(
-    setOpenLogin,
-    setOpenSignUp,
-    setOpenSearch
-  );
+  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(setOpenLogin, setOpenSignUp, setOpenSearch);
 
   const LogoutMutation = useLogOut();
 
@@ -35,9 +32,7 @@ const HeaderRight = () => {
   return (
     <>
       <div className={styles.HeaderRight}>
-        {UserInfo?.nickname === "By_juun" && (
-          <span onClick={gotoWrite}>글 작성</span>
-        )}
+        {IsAdmin(UserInfo) && <span onClick={gotoWrite}>글 작성</span>}
         <span onClick={onClickSearch}>검색</span>
         {UserInfo === null ? (
           <>
