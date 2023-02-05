@@ -19,17 +19,20 @@ const addUser = async ({
   email,
   nickname,
   password,
+  provider,
 }: {
-  email: string;
+  email?: string;
   nickname: string;
-  password: string;
+  password?: string;
+  provider?: string;
 }) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = password ? await bcrypt.hash(password, 10) : "";
   await User.create({
     //await 안넣어주면, 비동기이기 때문에, 뒤에 res.json()이 먼저실행될수도있음.
-    email: email,
+    email: email || "",
     nickname: nickname,
-    password: hashedPassword,
+    password: hashedPassword || "",
+    provider: provider || "local",
   });
 };
 

@@ -1,0 +1,40 @@
+.SocialLoginBtns {
+  display: flex;
+  flex-direction: column;
+  h4 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #868e96;
+    font-size: 15px;
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .githubLoginBtn {
+    background: rgb(39, 46, 51);
+    svg {
+      path {
+        fill: white !important;
+      }
+    }
+  }
+  .kakaoLoginBtn {
+    background: #f9e000;
+  }
+}

@@ -43,9 +43,6 @@
       border: 1px solid var(--input-background) !important;
     }
   }
-  button {
-    background: var(--button-background) !important;
-  }
   @include desktop {
     width: 30%;
   }

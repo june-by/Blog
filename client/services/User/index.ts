@@ -50,3 +50,13 @@ export const getUserInfoAPI = async () => {
     return null;
   }
 };
+
+export const submitGithubCode = async (code: string) => {
+  try {
+    console.log("submitCode");
+    const { data } = await customAxios.post(`/user/githubAuth?code=${code}`);
+    return data;
+  } catch (err) {
+    throw Error();
+  }
+};

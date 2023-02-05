@@ -1,6 +1,7 @@
 import passport from "passport";
 import local from "./local";
 import model from "models";
+import github from "./github";
 
 type User = {
   id: number;
@@ -20,4 +21,5 @@ export default () => {
     }
   });
   local();
+  github();
 };

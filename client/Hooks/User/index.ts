@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/User";
+import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI, submitGithubCode } from "services/User";
 import { UserType } from "Types/user";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
@@ -39,6 +39,17 @@ export const useLogOut = () => {
   return useMutation(LogOutAPI, {
     onSuccess: () => {
       alert(MESSAGE.LOGOUT_SUCCESS);
+      return queryClient.invalidateQueries([QUERY_KEY.USER]);
+    },
+  });
+};
+
+export const useGithubLogin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(submitGithubCode, {
+    onSuccess: () => {
+      alert("깃허브 로그인 성공");
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
   });
