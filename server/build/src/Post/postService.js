@@ -89,7 +89,7 @@ var getFullPost = function (_a) {
     });
 };
 var createPost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
     return __awaiter(void 0, void 0, void 0, function () {
         var post;
         return __generator(this, function (_b) {
@@ -100,6 +100,7 @@ var createPost = function (_a) {
                         content: content,
                         thumbNailUrl: thumbNailUrl,
                         views: 0,
+                        isPublic: isPublic || 0,
                     })];
                 case 1:
                     post = _b.sent();
@@ -109,7 +110,7 @@ var createPost = function (_a) {
     });
 };
 var updatePost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -118,6 +119,7 @@ var updatePost = function (_a) {
                         category: category,
                         content: content,
                         thumbNailUrl: thumbNailUrl,
+                        isPublic: isPublic || 0,
                     }, {
                         where: { id: postId },
                     })];

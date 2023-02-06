@@ -43,17 +43,18 @@ var tagService_1 = __importDefault(require("../../src/Tag/tagService"));
 var postService_1 = __importDefault(require("./postService"));
 var commentService_1 = __importDefault(require("../../src/Comment/commentService"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, post, result, err_1;
+    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, post, result, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 5, , 6]);
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl;
+                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
                 return [4 /*yield*/, postService_1.default.createPost({
                         title: title,
                         category: category,
                         content: content,
                         thumbNailUrl: thumbNailUrl,
+                        isPublic: isPublic,
                     })];
             case 1:
                 post = _b.sent();
@@ -133,11 +134,11 @@ var addComment = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, postId, post, result, err_4;
+    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, postId, post, result, err_4;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl;
+                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
                 postId = req.params.postId;
                 _b.label = 1;
             case 1:
@@ -148,6 +149,7 @@ var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
                         content: content,
                         thumbNailUrl: thumbNailUrl,
                         postId: postId,
+                        isPublic: isPublic,
                     })];
             case 2:
                 _b.sent();
