@@ -36,6 +36,19 @@
     height: 49px;
     width: 10%;
   }
+  .isPublicCheckBox {
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    span {
+      font-size: 20px;
+    }
+    input {
+      cursor: pointer;
+    }
+  }
 }
 
 .titleInput {

@@ -17,9 +17,13 @@ import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
 import PostSkeleton from "components/Block/Post/Skeleton";
+import { useGetUserInfo } from "Hooks/User";
+import IsAdmin from "utils/isAdmin";
+import MESSAGE from "constants/message";
 
 const Post = () => {
   const router = useRouter();
+  const { data: userInfo, isLoading: userInfoLoadLoading } = useGetUserInfo();
   const { data, isLoading, isError, refetch, error } = useGetOnePost(Number(router.query.id));
   const Post = data?.mainPost;
 
@@ -28,6 +32,14 @@ const Post = () => {
     alert(error);
     router.push("/");
   }, [error, isError, router]);
+
+  useEffect(() => {
+    if (userInfoLoadLoading) return;
+    if (!IsAdmin(userInfo) && Post?.isPublic === 0) {
+      alert(MESSAGE.NOT_READY_POST);
+      router.replace("/");
+    }
+  }, [Post?.isPublic, router, userInfo, userInfoLoadLoading]);
 
   if (isLoading || router.isFallback) return <PostSkeleton />;
 

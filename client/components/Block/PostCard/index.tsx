@@ -7,11 +7,16 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
+import MESSAGE from "constants/message";
+import { useGetUserInfo } from "Hooks/User";
+import IsAdmin from "utils/isAdmin";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
+  const { data: UserInfo } = useGetUserInfo();
 
   const onClickPostCard = () => {
+    if (post.isPublic === 0 && !IsAdmin(UserInfo)) return alert(MESSAGE.NOT_READY_POST);
     const { scrollY } = window;
     const { pathname } = router;
     sessionStorage.setItem("scrollPos", JSON.stringify({ scrollY, pathname }));
@@ -39,8 +44,14 @@ const PostCard = ({ post }: { post: PostsType }) => {
       <article className={styles.PostCard_titleBox}>
         <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
         <ul className={styles.PostCard_titleBox_tagBox}>
-          {post.Tags.length !== 0 &&
-            post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
+          {post.isPublic === 1 ? (
+            <>
+              {post.Tags.length !== 0 &&
+                post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
+            </>
+          ) : (
+            <span className={styles.prepare}>준비중</span>
+          )}
         </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
           <time>{dateForm(post.createdAt)}</time>
