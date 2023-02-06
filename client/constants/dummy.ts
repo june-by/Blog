@@ -14,6 +14,7 @@ export const DummyPost = {
     thumbNailUrl: "/test.png",
     views: 10,
     createdAt: new Date("2022-11-13T06:26:45.837Z"),
+    isPublic: 1,
     Tags: [
       { content: "tag1", id: 10 },
       { content: "tag2", id: 20 },
