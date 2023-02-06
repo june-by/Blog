@@ -55,7 +55,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
         </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
           <time>{dateForm(post.createdAt)}</time>
-          <span>조회수 : {post.views}</span>
+          <span>조회수 : {post.isPublic ? post.views : 0}</span>
         </div>
       </article>
     </section>
