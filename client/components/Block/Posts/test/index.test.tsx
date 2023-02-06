@@ -19,6 +19,7 @@ describe("<Posts />", () => {
         createdAt: new Date(),
         thumbNailUrl: "/test.png",
         views: 10,
+        isPublic: 1,
         Tags: Array.from({ length: 5 }, (_, idx) => {
           return {
             id: idx,
