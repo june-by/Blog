@@ -5,12 +5,13 @@ import { NextFunction, Request, Response } from "express";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { title, category, content, tagArr, thumbNailUrl } = req.body;
+    const { title, category, content, tagArr, thumbNailUrl, isPublic } = req.body;
     const post = await postService.createPost({
       title,
       category,
       content,
       thumbNailUrl,
+      isPublic,
     });
 
     if (tagArr.length !== 0) {
@@ -56,7 +57,7 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
-  const { title, category, content, tagArr, thumbNailUrl } = req.body;
+  const { title, category, content, tagArr, thumbNailUrl, isPublic } = req.body;
   const { postId } = req.params;
   try {
     await postService.updatePost({
@@ -65,6 +66,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
       content,
       thumbNailUrl,
       postId,
+      isPublic,
     });
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });

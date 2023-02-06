@@ -66,7 +66,7 @@ var getMainPosts = function (_a) {
                         order: [["createdAt", "DESC"]],
                         limit: 16,
                         offset: (Number(page) - 1) * 16,
-                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
+                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
                         include: [
                             {
                                 model: Tag,
@@ -92,7 +92,7 @@ var getCategoryPosts = function (_a) {
                         order: [["createdAt", "DESC"]],
                         limit: 16,
                         offset: (Number(page) - 1) * 16,
-                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views"],
+                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
                         include: [
                             {
                                 model: Tag,

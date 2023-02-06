@@ -22,6 +22,10 @@ exports.default = (function (sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        isPublic: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     }, {
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci", //한글 + 이모티콘

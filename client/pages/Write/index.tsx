@@ -20,15 +20,20 @@ const Write = () => {
   const [content, setContent] = useState<string>("");
   const [tagArr, setTagArr] = useState<Array<string>>([]);
   const [thumbNailUrl, setThumbNailUrl] = useState<string | null>(null);
+  const [isPublic, setIsPublic] = useState<number>(0);
 
   const AddPostMutation = useAddPost();
   const EditPostMutation = useEditPost();
 
-  const onChangeCategory = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategoryInfo(e.target.value);
-  }, []);
+  const onChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsPublic(Number(e.target.checked));
+  };
 
-  const submitPost = useCallback(() => {
+  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategoryInfo(e.target.value);
+  };
+
+  const submitPost = () => {
     if (!titleRef.current) return;
     const reqData = {
       title: titleRef.current.value,
@@ -36,10 +41,11 @@ const Write = () => {
       content,
       tagArr,
       thumbNailUrl,
+      isPublic,
     };
     if (query.mode === "Write") AddPostMutation.mutate(reqData);
     else EditPostMutation.mutate(reqData);
-  }, [categoryInfo, tagArr, content, AddPostMutation, EditPostMutation, thumbNailUrl, query.mode]);
+  };
 
   useSetEditData({
     titleRef,
@@ -47,12 +53,17 @@ const Write = () => {
     setContent,
     setTagArr,
     setThumbNailUrl,
+    setIsPublic,
   });
 
   return (
     <div className={styles.Write}>
       <div className={styles.titleArea}>
         <input className={styles.titleInput} placeholder="제목" ref={titleRef} />
+        <div className={styles.isPublicCheckBox}>
+          <span>공개</span>
+          <input onChange={onChangeIsPublic} type="checkbox" checked={Boolean(isPublic)} />
+        </div>
         <button onClick={submitPost}>등록</button>
       </div>
       <div className={styles.etcArea}>
@@ -64,5 +75,7 @@ const Write = () => {
     </div>
   );
 };
+
+// export default Write;
 
 export default withAdminValidation(Write);

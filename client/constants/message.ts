@@ -11,6 +11,7 @@ const MESSAGE = {
   COMMENT_CONTENT_NEEDED: "* 내용을 작성해주세요",
   COMMENT_PLEASE: "* 댓글을 작성해주세요",
   NETWORK_ERROR: "네트워크 에러가 발생했습니다.\n잠시 후 다시 시도 해주세요.",
+  NOT_READY_POST: "준비중인 게시글입니다.",
 };
 
 export default MESSAGE;

@@ -100,12 +100,11 @@
         gap: 3px;
       }
 
-      span {
-        margin-right: 3px;
-
-        &:hover {
-          color: #0099fa;
-        }
+      .prepare {
+        border: 1px solid var(--header-hover-color);
+        color: var(--header-hover-color);
+        border-radius: 4px;
+        padding: 0 10px;
       }
     }
 

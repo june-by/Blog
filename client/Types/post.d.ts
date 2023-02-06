@@ -23,6 +23,7 @@ export interface PostsType {
   Tags: Array<null | TagType>;
   thumbNailUrl: string | null;
   views: number;
+  isPublic: number;
 }
 
 export interface CommentType {
@@ -39,6 +40,7 @@ export interface AddPostParams {
   content: string;
   tagArr: Array<string | null>;
   thumbNailUrl: string | null;
+  isPublic: number;
 }
 
 export interface TagType {

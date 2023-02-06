@@ -24,6 +24,7 @@ const DummyPosts = [
     Tags: [null],
     thumbNailUrl: null,
     views: 1,
+    isPublic: 1,
   },
 ];
 

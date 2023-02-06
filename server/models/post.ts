@@ -25,6 +25,10 @@ export default (sequelize: Sequelize, DataTypes: any) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      isPublic: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       charset: "utf8mb4",
