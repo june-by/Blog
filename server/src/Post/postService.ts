@@ -12,15 +12,7 @@ const getPost = async ({ postId }: PostId) => {
 const getFullPost = async ({ postId }: PostId) => {
   const fullPost = await Post.findOne({
     where: { id: postId },
-    attributes: [
-      "category",
-      "content",
-      "createdAt",
-      "id",
-      "title",
-      "thumbNailUrl",
-      "views",
-    ],
+    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views", "isPublic"],
     include: [
       {
         model: Comment,
@@ -48,12 +40,7 @@ interface CreatePostParams {
   thumbNailUrl: string;
 }
 
-const createPost = async ({
-  title,
-  category,
-  content,
-  thumbNailUrl,
-}: CreatePostParams) => {
+const createPost = async ({ title, category, content, thumbNailUrl }: CreatePostParams) => {
   const post = await Post.create({
     title: title,
     category: category,
@@ -68,13 +55,7 @@ interface UpdatePostParams extends CreatePostParams {
   postId: string;
 }
 
-const updatePost = async ({
-  title,
-  category,
-  content,
-  thumbNailUrl,
-  postId,
-}: UpdatePostParams) => {
+const updatePost = async ({ title, category, content, thumbNailUrl, postId }: UpdatePostParams) => {
   await Post.update(
     {
       title: title,
@@ -110,13 +91,7 @@ const isPostExists = async ({ postId }: PostId) => {
   return post;
 };
 
-const addViewCount = async ({
-  postId,
-  views,
-}: {
-  postId: string;
-  views: number;
-}) => {
+const addViewCount = async ({ postId, views }: { postId: string; views: number }) => {
   await Post.update(
     {
       views: views + 1,

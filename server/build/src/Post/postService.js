@@ -63,15 +63,7 @@ var getFullPost = function (_a) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findOne({
                         where: { id: postId },
-                        attributes: [
-                            "category",
-                            "content",
-                            "createdAt",
-                            "id",
-                            "title",
-                            "thumbNailUrl",
-                            "views",
-                        ],
+                        attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views", "isPublic"],
                         include: [
                             {
                                 model: Comment,
