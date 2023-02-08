@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useGetTopics = () => {
-  const [topicArr, setTopicArr] = useState<HTMLElement[]>([]);
+  const [tableOfContents, setTableOfContents] = useState<HTMLElement[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -11,12 +11,12 @@ const useGetTopics = () => {
       );
       tagArr.shift();
       tagArr.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
-      setTopicArr(tagArr as HTMLElement[]);
+      setTableOfContents(tagArr as HTMLElement[]);
       setLoading(false);
     }, 10);
   }, []);
 
-  return { topicArr, loading };
+  return { tableOfContents, loading };
 };
 
 export default useGetTopics;

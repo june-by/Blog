@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import PostNavBar from "..";
+import TableOfContents from "..";
 
-describe("<PostNavBar />", () => {
+describe("<TableOfContents />", () => {
   const getBoundingClientRect = () => {
     return { top: 1 };
   };
@@ -11,7 +11,7 @@ describe("<PostNavBar />", () => {
   });
 
   it("rendering test", () => {
-    render(<PostNavBar topicArr={topicArr} />);
+    render(<TableOfContents topicArr={topicArr as HTMLElement[]} />);
     topicArr.forEach((topic) => {
       expect(screen.getByText(topic.innerText)).toBeInTheDocument();
     });

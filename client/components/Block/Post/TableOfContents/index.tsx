@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import styles from "./styles.module.scss";
 import useNavBarScrolling from "./useNavBarScrolling";
+import useTableOfContents from "./useTableOfContents";
 
 interface TopicStyleInterface {
   [key: string]: { marginLeft: string };
@@ -14,23 +15,28 @@ const TopicStyle: TopicStyleInterface = {
 
 const getTopicStyle = (tagName: string) => TopicStyle[tagName];
 
-const PostNavBar = ({ topicArr }: { topicArr: HTMLElement[] }) => {
-  const topicPosition = [...topicArr.map((v: any) => v.getBoundingClientRect().top), Number.MAX_SAFE_INTEGER];
-
+const TableOfContents = ({ tableOfContents }: { tableOfContents: HTMLElement[] }) => {
   const gotoTopic = useCallback(
     (topic: HTMLElement) => () => {
       topic.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     },
     []
   );
-  useNavBarScrolling(topicPosition);
+
+  useTableOfContents(tableOfContents);
 
   return (
     <aside className={styles.TopicWrapper}>
       <div className={styles.TopicWrapper_second}>
-        {topicArr?.length !== 0 &&
-          topicArr.map((topic: HTMLElement) => (
-            <Topic topic={topic} onClick={gotoTopic} style={getTopicStyle(topic.tagName)} key={topic.innerText} />
+        {tableOfContents?.length !== 0 &&
+          tableOfContents.map((topic: HTMLElement, idx: number) => (
+            <Contents
+              idx={idx}
+              topic={topic}
+              onClick={gotoTopic}
+              style={getTopicStyle(topic.tagName)}
+              key={topic.innerText}
+            />
           ))}
       </div>
     </aside>
@@ -41,14 +47,15 @@ interface TopicProps {
   onClick: (topic: HTMLElement) => () => void;
   style: { marginLeft: string };
   topic: HTMLElement;
+  idx: number;
 }
 
-function Topic({ onClick, style, topic }: TopicProps) {
+function Contents({ onClick, style, topic, idx }: TopicProps) {
   return (
-    <nav className={styles.topic} style={style} onClick={onClick(topic)}>
+    <nav id={String(idx)} className={styles.topic} style={style} onClick={onClick(topic)}>
       {topic?.innerText}
     </nav>
   );
 }
 
-export default PostNavBar;
+export default TableOfContents;
