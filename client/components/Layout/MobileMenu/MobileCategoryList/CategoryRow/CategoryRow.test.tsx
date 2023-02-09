@@ -21,6 +21,9 @@ describe("<CategoryRow />", () => {
   it("버튼을 클릭하면, 올바른 페이지로 이 동해야 한다.", () => {
     renderWithContext(router, queryClient, <CategoryRow {...props} />);
     fireEvent.click(screen.getByTestId("CategoryRow"));
-    expect(router.push).toBeCalledWith(`/category/${props.category}`);
+    expect(router.push).toBeCalledWith({
+      pathname: "/filter",
+      query: { category: props.category },
+    });
   });
 });

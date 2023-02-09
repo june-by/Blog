@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { RouterContext } from "next/dist/shared/lib/router-context";
 import React from "react";
 import { QueryClient } from "react-query";
 import PostCard from "..";

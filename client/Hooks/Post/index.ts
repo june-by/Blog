@@ -44,10 +44,20 @@ export const useGetCategoryPosts = (category: string | string[] | undefined) =>
   );
 
 export const useGetSearchPosts = (search: string | string[] | undefined) =>
-  useQuery<Array<PostsType>>([QUERY_KEY.POST.SEARCH, search], () => getSearchPostAPI(search), CACHE_OPTION.ALL);
+  useInfiniteQuery<Array<PostsType>>(
+    [QUERY_KEY.POST.SEARCH, search],
+    ({ pageParam = 1 }) => getSearchPostAPI(search, pageParam),
+    {
+      ...CACHE_OPTION.ALL,
+      getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+    }
+  );
 
 export const useGetTagPosts = (tag: string | string[] | undefined) =>
-  useQuery<Array<PostsType>>([QUERY_KEY.POST.TAG, tag], () => getTagPostAPI(tag), CACHE_OPTION.ALL);
+  useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.TAG, tag], ({ pageParam = 1 }) => getTagPostAPI(tag, pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {

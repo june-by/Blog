@@ -1,12 +1,12 @@
+import NoPost from "components/Block/ListPageContainer/Posts/NoPost";
+import PostCard from "components/Block/ListPageContainer/Posts/PostCard";
+import PostCardSkeleton from "components/Block/ListPageContainer/Posts/PostCard/Skeleton";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
-import NoPost from "../NoPost";
-import PostCard from "../PostCard";
-import PostCardSkeleton from "../PostCard/Skeleton";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
 }
 
-const InfinitePosts = ({ params, query }: Props) => {
+const Posts = ({ params, query }: Props) => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch } = query(params);
   const { ref, inView } = useInView();
 
@@ -52,7 +52,7 @@ const InfinitePosts = ({ params, query }: Props) => {
   );
 };
 
-export default InfinitePosts;
+export default Posts;
 
 function isPostExist(data: PostsType[] | undefined) {
   return data?.length !== 0 ? true : false;

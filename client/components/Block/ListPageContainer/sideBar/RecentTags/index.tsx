@@ -3,7 +3,7 @@ import { useGetRecentTags } from "Hooks/Tag";
 import TagIcon from "components/Atom/TagIcon";
 import styles from "./styles.module.scss";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
-import ErrorHelper from "../errorHelper";
+import ErrorHelper from "../../../errorHelper";
 
 const RecentTags = () => {
   return (

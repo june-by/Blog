@@ -16,7 +16,8 @@ const CategoryChip = ({ category, length, mode }: Props) => {
   const onClickBtn = useCallback(
     (category: string) => {
       push({
-        pathname: `/category/${category}`,
+        pathname: `/filter`,
+        query: { category: category },
       });
     },
     [push]

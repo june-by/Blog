@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { useGetTopViewsPosts } from "Hooks/Post";
 import styles from "./styles.module.scss";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
-import ErrorHelper from "../errorHelper";
+import ErrorHelper from "../../../errorHelper";
 
 const TopViewsPosts = () => {
   return (

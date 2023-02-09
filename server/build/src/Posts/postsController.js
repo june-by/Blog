@@ -124,21 +124,21 @@ var getCategoryPostsCount = function (req, res, next) { return __awaiter(void 0,
     });
 }); };
 var getPostsBySearchKeyWord = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var keyword, posts, err_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, page, keyword, posts, err_5;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                keyword = req.params.keyword;
-                _a.label = 1;
+                _a = req.params, page = _a.page, keyword = _a.keyword;
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, postsService_1.default.getPostsBySearchKeyWord({ keyword: keyword })];
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, postsService_1.default.getPostsBySearchKeyWord({ page: page, keyword: keyword })];
             case 2:
-                posts = _a.sent();
+                posts = _b.sent();
                 res.status(200).json(posts);
                 return [3 /*break*/, 4];
             case 3:
-                err_5 = _a.sent();
+                err_5 = _b.sent();
                 console.error(err_5);
                 next(err_5);
                 return [3 /*break*/, 4];
@@ -147,21 +147,21 @@ var getPostsBySearchKeyWord = function (req, res, next) { return __awaiter(void 
     });
 }); };
 var getPostsByTag = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var keyword, posts, err_6;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, page, keyword, posts, err_6;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                keyword = req.params.keyword;
-                _a.label = 1;
+                _a = req.params, page = _a.page, keyword = _a.keyword;
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, postsService_1.default.getPostsByTag({ keyword: keyword })];
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, postsService_1.default.getPostsByTag({ page: page, keyword: keyword })];
             case 2:
-                posts = _a.sent();
+                posts = _b.sent();
                 res.status(200).json(posts);
                 return [3 /*break*/, 4];
             case 3:
-                err_6 = _a.sent();
+                err_6 = _b.sent();
                 console.error(err_6);
                 next(err_6);
                 return [3 /*break*/, 4];

@@ -1,18 +1,16 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import NoPost from "components/Block/NoPost";
-import CategorySelect from "components/Block/CategorySelect";
-import Posts from "components/Block/Posts";
-import useGetPosts from "Hooks/useGetPosts";
-import styles from "./styles.module.scss";
-import { PostsType } from "Types/post";
-import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
-import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
+import styles from "../styles.module.scss";
+import ListPageContainer from "components/Block/ListPageContainer";
+import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
+import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 
 const Filter = () => {
   const { query } = useRouter();
-  const [Post, isLoading] = useGetPosts(query);
   const [title, description, ogDescription, url] = makeMetaData(query);
 
   return (
@@ -30,21 +28,35 @@ const Filter = () => {
         />
         <meta property="og:url" content={String(url)} />
       </Head>
-      <main className={styles.CategoryWrapper}>
-        <AdditionalInfoSectionLeft />
-        <div className={styles.CategoryContentWrapper}>
-          <CategorySelect />
-          {Post?.length !== 0 ? <Posts posts={Post as PostsType[]} isLoading={isLoading} /> : <NoPost />}
-        </div>
-        <AdditionalInfoSectionRight />
-      </main>
+      <ListPageContainer>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <Visitor />
+              <TopViewsPosts />
+            </>
+          }
+        />
+        <section className={styles.HomeContentWrapper}>
+          <ListPageContainer.CategoryList />
+          <ListPageContainer.Posts query={getQuery(query)} params={getParams(query)} />
+        </section>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <RecentComments />
+              <RecentTags />
+            </>
+          }
+        />
+      </ListPageContainer>
     </>
   );
 };
 
 export default Filter;
 
-function makeMetaData(query: { search?: string; tag?: string }) {
+function makeMetaData(query: { search?: string; tag?: string; category?: string }) {
   if (query.search)
     return [
       query.search,
@@ -52,11 +64,30 @@ function makeMetaData(query: { search?: string; tag?: string }) {
       `${query.search}검색 결과 목록입니다`,
       `https://byjuun.com/filter?search=${query.search}`,
     ];
-  else
+  else if (query.tag)
     return [
       query.tag,
       `${query.tag} 태깅 페이지`,
       `${query.tag}로 태깅된 목록입니다`,
       `https://byjuun.com/filter?tag=${query.tag}`,
     ];
+  else
+    return [
+      query.category,
+      `${query.category} 페이지`,
+      `${query.category} 페이지 목록입니다`,
+      `https://byjuun.com/filter?category=${query.category}`,
+    ];
+}
+
+function getQuery(query: { search?: string; tag?: string; category?: string }) {
+  if (query.search) return useGetSearchPosts;
+  else if (query.tag) return useGetTagPosts;
+  else return useGetCategoryPosts;
+}
+
+function getParams(query: { search?: string; tag?: string; category?: string }) {
+  if (query.search) return query.search;
+  else if (query.tag) return query.tag;
+  else return query.category;
 }

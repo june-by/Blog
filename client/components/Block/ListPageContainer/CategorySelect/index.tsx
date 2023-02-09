@@ -5,7 +5,7 @@ import { useGetAllCateogryLength } from "Hooks/Post";
 import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
 import Category from "constants/category";
 
-const CategorySelect = () => {
+const CategoryList = () => {
   const { data, isLoading } = useGetAllCateogryLength();
 
   if (isLoading)
@@ -32,4 +32,4 @@ const CategorySelect = () => {
   );
 };
 
-export default CategorySelect;
+export default CategoryList;
