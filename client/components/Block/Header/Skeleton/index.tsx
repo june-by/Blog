@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderLeft from "components/Layout/Header/HeaderLeft";
+import HeaderLeft from "components/Block/Header/HeaderLeft";
 import styles from "../styles.module.scss";
 
 const HeaderSkeleton = () => {
