@@ -2,7 +2,7 @@ import React from "react";
 import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
 import PostCardSkeleton from "components/Block/ListPageContainer/Posts/PostCard/Skeleton";
 import HeaderSkeleton from "components/Layout/Header/Skeleton";
-import styles from "../styles.module.scss";
+import styles from "./styles.module.scss";
 import Category from "constants/category";
 const PostsSkelton = () => {
   return (
@@ -15,7 +15,7 @@ const PostsSkelton = () => {
           ))}
         </div>
         <div className={`${styles.PostsRoot} ${styles.Default}`}>
-          {Array.from({ length: 12 }, () => 0).map((_, idx) => {
+          {Array.from({ length: 16 }, () => 0).map((_, idx) => {
             return <PostCardSkeleton key={idx} />;
           })}
         </div>
