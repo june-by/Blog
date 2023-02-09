@@ -45,9 +45,9 @@ const getCategoryPostsCount = async (req: Request, res: Response, next: NextFunc
 };
 
 const getPostsBySearchKeyWord = async (req: Request, res: Response, next: NextFunction) => {
-  const { keyword } = req.params;
+  const { page, keyword } = req.params;
   try {
-    const posts = await postsService.getPostsBySearchKeyWord({ keyword });
+    const posts = await postsService.getPostsBySearchKeyWord({ page, keyword });
     res.status(200).json(posts);
   } catch (err) {
     console.error(err);
@@ -56,9 +56,9 @@ const getPostsBySearchKeyWord = async (req: Request, res: Response, next: NextFu
 };
 
 const getPostsByTag = async (req: Request, res: Response, next: NextFunction) => {
-  const { keyword } = req.params;
+  const { page, keyword } = req.params;
   try {
-    const posts = await postsService.getPostsByTag({ keyword });
+    const posts = await postsService.getPostsByTag({ page, keyword });
     res.status(200).json(posts);
   } catch (err) {
     console.error(err);

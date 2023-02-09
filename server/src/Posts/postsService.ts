@@ -43,13 +43,16 @@ const getCategoryPosts = async ({ category, page }: { page: string; category: st
   return posts;
 };
 
-const getPostsBySearchKeyWord = async ({ keyword }: { keyword: string }) => {
+const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keyword: string }) => {
   const posts = await Post.findAll({
     where: {
       title: {
         [Op.like]: "%" + decodeURIComponent(keyword) + "%",
       },
     },
+    order: [["createdAt", "DESC"]],
+    limit: 16,
+    offset: (Number(page) - 1) * 16,
     attributes: {
       exclude: ["content", "updatedAt"],
     },
@@ -59,16 +62,18 @@ const getPostsBySearchKeyWord = async ({ keyword }: { keyword: string }) => {
         attributes: ["id", "content"],
       },
     ],
-    order: [["createdAt", "DESC"]],
   });
   return posts;
 };
 
-const getPostsByTag = async ({ keyword }: { keyword: string }) => {
+const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string }) => {
   const posts = await Post.findAll({
     attributes: {
       exclude: ["content", "updatedAt"],
     },
+    order: [["createdAt", "DESC"]],
+    limit: 16,
+    offset: (Number(page) - 1) * 16,
     include: [
       {
         model: Tag,
@@ -76,7 +81,6 @@ const getPostsByTag = async ({ keyword }: { keyword: string }) => {
         attributes: ["id", "content"],
       },
     ],
-    order: [["createdAt", "DESC"]],
   });
   return posts;
 };

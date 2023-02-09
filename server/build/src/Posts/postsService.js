@@ -108,7 +108,7 @@ var getCategoryPosts = function (_a) {
     });
 };
 var getPostsBySearchKeyWord = function (_a) {
-    var keyword = _a.keyword;
+    var page = _a.page, keyword = _a.keyword;
     return __awaiter(void 0, void 0, void 0, function () {
         var posts;
         var _b;
@@ -120,6 +120,9 @@ var getPostsBySearchKeyWord = function (_a) {
                                 _b[Op.like] = "%" + decodeURIComponent(keyword) + "%",
                                 _b),
                         },
+                        order: [["createdAt", "DESC"]],
+                        limit: 16,
+                        offset: (Number(page) - 1) * 16,
                         attributes: {
                             exclude: ["content", "updatedAt"],
                         },
@@ -129,7 +132,6 @@ var getPostsBySearchKeyWord = function (_a) {
                                 attributes: ["id", "content"],
                             },
                         ],
-                        order: [["createdAt", "DESC"]],
                     })];
                 case 1:
                     posts = _c.sent();
@@ -139,7 +141,7 @@ var getPostsBySearchKeyWord = function (_a) {
     });
 };
 var getPostsByTag = function (_a) {
-    var keyword = _a.keyword;
+    var page = _a.page, keyword = _a.keyword;
     return __awaiter(void 0, void 0, void 0, function () {
         var posts;
         return __generator(this, function (_b) {
@@ -148,6 +150,9 @@ var getPostsByTag = function (_a) {
                         attributes: {
                             exclude: ["content", "updatedAt"],
                         },
+                        order: [["createdAt", "DESC"]],
+                        limit: 16,
+                        offset: (Number(page) - 1) * 16,
                         include: [
                             {
                                 model: Tag,
@@ -155,7 +160,6 @@ var getPostsByTag = function (_a) {
                                 attributes: ["id", "content"],
                             },
                         ],
-                        order: [["createdAt", "DESC"]],
                     })];
                 case 1:
                     posts = _b.sent();
