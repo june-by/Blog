@@ -1,12 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import NoPost from "components/Block/ListPageContainer/Posts/NoPost";
-import Posts from "components/Block/Posts";
-import useGetPosts from "Hooks/useGetPosts";
 import styles from "../styles.module.scss";
-
-import { PostsType } from "Types/post";
 import ListPageContainer from "components/Block/ListPageContainer";
 import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
 import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
