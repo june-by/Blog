@@ -10,6 +10,13 @@
     background: none !important;
   }
 }
+.description {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: left;
+  margin-bottom: 12px;
+  color: #868e96;
+}
 
 .Form {
   @include mobile {

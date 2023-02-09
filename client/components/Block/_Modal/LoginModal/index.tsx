@@ -7,9 +7,10 @@ import CloseIcon from "components/Icon/close";
 import SocialLoginBtns from "components/Block/SocialLoginBtns";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openSignUp: () => void;
 }
 
-const LoginModal = ({ setOpen }: Props) => {
+const LoginModal = ({ setOpen, openSignUp }: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -35,6 +36,10 @@ const LoginModal = ({ setOpen }: Props) => {
     [loginMutation]
   );
 
+  const openSignUpModal = useCallback(() => {
+    openSignUp();
+  }, []);
+
   return (
     <div>
       <Modal setOpen={setOpen}>
@@ -50,6 +55,9 @@ const LoginModal = ({ setOpen }: Props) => {
             <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
             <button>로그인</button>
           </form>
+          <button onClick={openSignUpModal} className={styles.signUpButton}>
+            회원가입
+          </button>
           <SocialLoginBtns />
         </>
       </Modal>

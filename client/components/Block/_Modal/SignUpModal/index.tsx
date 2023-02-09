@@ -23,17 +23,18 @@ const SignUpModal = ({ setOpen }: Props) => {
   const submit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
-      if (passwordRef.current.value !== passwordCheckRef.current.value)
-        return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
+      return alert("현재 자체 회원가입을 막아놓았습니다.\n소셜 계정으로 회원가입해주세요.");
+      // if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
+      // if (passwordRef.current.value !== passwordCheckRef.current.value)
+      //   return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
 
-      const reqData = {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-        nickname: nicknameRef.current.value,
-      };
+      // const reqData = {
+      //   email: emailRef.current.value,
+      //   password: passwordRef.current.value,
+      //   nickname: nicknameRef.current.value,
+      // };
 
-      signUpMutation.mutate(reqData);
+      // signUpMutation.mutate(reqData);
     },
     [signUpMutation]
   );
@@ -47,6 +48,11 @@ const SignUpModal = ({ setOpen }: Props) => {
             <button onClick={closeModal} data-testid="signUpCloseBtn">
               <CloseIcon />
             </button>
+          </div>
+          <div className={styles.description}>
+            현재 자체 회원가입을 막아놓았습니다.
+            <br />
+            소셜 계정으로 회원가입해주세요.
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
