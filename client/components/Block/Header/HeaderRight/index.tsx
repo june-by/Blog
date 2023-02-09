@@ -46,7 +46,7 @@ const HeaderRight = () => {
           </>
         )}
       </div>
-      {openLogin && <LoginModal setOpen={setOpenLogin} />}
+      {openLogin && <LoginModal setOpen={setOpenLogin} openSignUp={onClickSignUp} />}
       {openSignUp && <SignUpModal setOpen={setOpenSignUp} />}
       {openSearch && <SearchModal setOpen={setOpenSearch} />}
     </>

@@ -13,11 +13,7 @@ const MobileAccount = () => {
   const { data: UserInfo, isLoading } = useGetUserInfo();
   const LogoutMutation = useLogOut();
 
-  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(
-    setOpenLogin,
-    setOpenSignUp,
-    setOpenSearch
-  );
+  const [onClickLogin, onClickSignUp, onClickSearch] = useOpenModal(setOpenLogin, setOpenSignUp, setOpenSearch);
 
   const onClickMenu = useCallback(
     (menu: string) => () => {
@@ -53,7 +49,7 @@ const MobileAccount = () => {
           })}
         </>
       )}
-      {openLogin && <LoginModal setOpen={setOpenLogin} />}
+      {openLogin && <LoginModal setOpen={setOpenLogin} openSignUp={onClickSignUp} />}
       {openSignUp && <SignUpModal setOpen={setOpenSignUp} />}
       {openSearch && <SearchModal setOpen={setOpenSearch} />}
     </>

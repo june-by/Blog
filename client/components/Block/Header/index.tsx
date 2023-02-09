@@ -4,14 +4,11 @@ import HeaderRight from "./HeaderRight";
 import useHideHeader from "./useHideHeader";
 import useHeaderAnimation from "./useHeaderAnimation";
 import HeaderLeft from "./HeaderLeft";
-import useToggle from "Hooks/useToggle";
 import DarkModeBtn from "components/Atom/DarkModeBtn";
-import MenuIcon from "components/Icon/menu";
 import MobileMenuContainer from "components/Block/mobileMenu";
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
-  const [showMobileMenu, , clickShowMobileMenu] = useToggle(false);
   const [hide, setHide] = useState<boolean>(false);
 
   useHideHeader(setHide);
