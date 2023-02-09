@@ -5,10 +5,10 @@ import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
 import useGetTopics from "./useGetTopics";
 import useAddClassName from "./useAddClassName";
-import PostNavBar from "components/Block/Post/PostNavBar";
+import TableOfContents from "components/Block/Post/TableOfContents";
 
 const PostContent = ({ content }: { content: string }) => {
-  const { topicArr, loading } = useGetTopics();
+  const { tableOfContents, loading } = useGetTopics();
   useEffect(() => {
     hljs.highlightAll();
   }, []);
@@ -19,7 +19,7 @@ const PostContent = ({ content }: { content: string }) => {
     <section className={styles.PostContent}>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
       <article className={`Code ${styles.Content}`} dangerouslySetInnerHTML={{ __html: content }} />
-      {!loading && <PostNavBar topicArr={topicArr} />}
+      {!loading && <TableOfContents tableOfContents={tableOfContents} />}
     </section>
   );
 };
