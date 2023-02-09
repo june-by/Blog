@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback } from "react";
 import styles from "./styles.module.scss";
-import useNavBarScrolling from "./useNavBarScrolling";
 import useTableOfContents from "./useTableOfContents";
 
 interface TopicStyleInterface {
@@ -17,25 +16,26 @@ const getTopicStyle = (tagName: string) => TopicStyle[tagName];
 
 const TableOfContents = ({ tableOfContents }: { tableOfContents: HTMLElement[] }) => {
   const gotoTopic = useCallback(
-    (topic: HTMLElement) => () => {
-      topic.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    (toc: HTMLElement) => () => {
+      toc.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     },
     []
   );
 
-  useTableOfContents(tableOfContents);
+  const activeId = useTableOfContents(tableOfContents);
 
   return (
     <aside className={styles.TopicWrapper}>
       <div className={styles.TopicWrapper_second}>
         {tableOfContents?.length !== 0 &&
-          tableOfContents.map((topic: HTMLElement, idx: number) => (
-            <Contents
+          tableOfContents.map((tocContent: HTMLElement, idx: number) => (
+            <Toc
               idx={idx}
-              topic={topic}
+              tocElement={tocContent}
               onClick={gotoTopic}
-              style={getTopicStyle(topic.tagName)}
-              key={topic.innerText}
+              style={getTopicStyle(tocContent.tagName)}
+              key={tocContent.innerText}
+              isActive={idx === activeId}
             />
           ))}
       </div>
@@ -43,17 +43,23 @@ const TableOfContents = ({ tableOfContents }: { tableOfContents: HTMLElement[] }
   );
 };
 
-interface TopicProps {
+interface TocProps {
   onClick: (topic: HTMLElement) => () => void;
   style: { marginLeft: string };
-  topic: HTMLElement;
+  tocElement: HTMLElement;
   idx: number;
+  isActive: boolean;
 }
 
-function Contents({ onClick, style, topic, idx }: TopicProps) {
+function Toc({ onClick, style, tocElement, idx, isActive }: TocProps) {
   return (
-    <nav id={String(idx)} className={styles.topic} style={style} onClick={onClick(topic)}>
-      {topic?.innerText}
+    <nav
+      id={String(idx)}
+      className={isActive ? `${styles.activeToc}` : `${styles.inActiveToc}`}
+      style={style}
+      onClick={onClick(tocElement)}
+    >
+      {tocElement?.innerText}
     </nav>
   );
 }

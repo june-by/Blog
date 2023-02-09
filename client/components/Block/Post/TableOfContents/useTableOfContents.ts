@@ -1,57 +1,87 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-export default function useTableOfContents(contents: HTMLElement[]) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const intersectingListRef = useRef<boolean[]>([]);
-  const intersectingList = intersectingListRef.current;
+export default function useTableOfContents(toc: HTMLElement[]) {
+  const [activeId, setActiveId] = useState<null | number>(null);
+  const [headingTops, setHeadingTops] = useState<
+    | null
+    | {
+        id: number;
+        top: number;
+      }[]
+  >(null);
+
+  const updateTocPositions = useCallback(() => {
+    if (!toc) return;
+    const scrollTop = getScrollTop();
+    const headingTops = toc.map((el, id) => {
+      if (!el) {
+        return {
+          id,
+          top: 0,
+        };
+      }
+      const top = el.getBoundingClientRect().top + scrollTop;
+      return {
+        id,
+        top,
+      };
+    });
+    setHeadingTops(headingTops);
+  }, [toc]);
 
   useEffect(() => {
-    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserverInit) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        const idx = Number((target as HTMLElement).dataset.id || 0);
-        intersectingList[idx] = isIntersecting;
-      });
-
-      const currentIdx = intersectingList.findIndex((item) => item);
-      console.log("currentIdx : ", currentIdx);
-
-      if (currentIdx !== -1) {
-        let activeIdx = currentIdx - 1;
-        if (currentIdx === 0) activeIdx = 0;
-        setActiveIdx(activeIdx);
+    updateTocPositions();
+    let prevScrollHeight = document.body.scrollHeight;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    function checkScrollHeight() {
+      const scrollHeight = document.body.scrollHeight;
+      if (prevScrollHeight !== scrollHeight) {
+        updateTocPositions();
       }
-
-      //   if (currentIdx === -1) activeIdx = intersectingList.length - 1;
-    };
-
-    const observer = new IntersectionObserver(observerCallback, { threshold: 1 });
-
-    contents.forEach((content, idx) => {
-      content.setAttribute("data-id", idx.toString());
-      intersectingList.push(false);
-      observer.observe(content);
-    });
-
+      prevScrollHeight = scrollHeight;
+      timeoutId = setTimeout(checkScrollHeight, 250);
+    }
+    timeoutId = setTimeout(checkScrollHeight, 250);
     return () => {
-      observer.disconnect();
-      intersectingList.length = 0;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
-  }, []);
+  }, [updateTocPositions]);
+
+  const onScroll = useCallback(() => {
+    const scrollTop = getScrollTop();
+    if (!headingTops) return;
+    const currentHeading = [...headingTops].reverse().find((headingTop) => {
+      return scrollTop >= headingTop.top - 4;
+    });
+    if (!currentHeading) {
+      setActiveId(null);
+      return;
+    }
+
+    setActiveId(currentHeading.id);
+  }, [headingTops]);
 
   useEffect(() => {
-    contents.forEach((contentElement, idx) => {
-      console.log(contentElement, idx);
-      const targetElement = document.getElementById(String(idx));
-      if (idx === activeIdx) {
-        targetElement!.style.transform = "scale(1.1)";
-        targetElement!.style.opacity = "1";
-      } else {
-        targetElement!.style.transform = "scale(1)";
-        targetElement!.style.opacity = "0.8";
-      }
-    });
-    // if (targetElement) {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [onScroll]);
 
-    // }
-  }, [activeIdx]);
+  // For post SSR
+  useEffect(() => {
+    onScroll();
+  }, [onScroll]);
+
+  return activeId;
+}
+
+function getScrollTop() {
+  if (!document.body) return 0;
+  const scrollTop = document.documentElement
+    ? document.documentElement.scrollTop || document.body.scrollTop
+    : document.body.scrollTop;
+  return scrollTop;
 }
