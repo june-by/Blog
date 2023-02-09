@@ -17,7 +17,7 @@ const CategoryChip = ({ category, length, mode }: Props) => {
     (category: string) => {
       push({
         pathname: `/filter`,
-        query: `category=${category}`,
+        query: { category: category },
       });
     },
     [push]
