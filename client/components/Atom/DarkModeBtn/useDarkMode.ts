@@ -12,19 +12,19 @@ function useDarkMode(mode: boolean, ref: React.RefObject<HTMLButtonElement>) {
 
 function changeMode(mode: boolean, ref: React.RefObject<HTMLButtonElement>) {
   if (!ref.current) return;
-  const { cookie, theme, left } = MODE_VALUE[changeModeBoolToStr(mode)];
+  const { theme, left } = MODE_VALUE[changeModeBoolToStr(mode)];
   ref.current.style.left = left;
   document.body.dataset.theme = theme;
-  document.cookie = cookie;
+  document.cookie = `theme=${theme}; path=/`;
 }
 
 interface MODE_VALUE_TYPE {
-  [key: string]: { cookie: string; theme: string; left: string };
+  [key: string]: { theme: string; left: string };
 }
 
 const MODE_VALUE: MODE_VALUE_TYPE = {
-  LIGHT: { cookie: "theme=light;", theme: "light", left: LIGHT_MODE_POS },
-  DARK: { cookie: "theme=dark;", theme: "dark", left: DARK_MODE_POS },
+  LIGHT: { theme: "light", left: LIGHT_MODE_POS },
+  DARK: { theme: "dark", left: DARK_MODE_POS },
 };
 
 function changeModeBoolToStr(mode: boolean) {
