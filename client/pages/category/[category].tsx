@@ -3,14 +3,14 @@ import { useGetCategoryPosts } from "Hooks/Post";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "../styles.module.scss";
-import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
-import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
-import { PostsType } from "Types/post";
-import CategorySelect from "components/Block/CategorySelect";
-import InfinitePosts from "components/Block/infinitePosts";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
 import ScrollBtn from "components/Atom/scrollBtn";
+import ListPageContainer from "components/Block/ListPageContainer";
+import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
 
 const Category = () => {
   const router = useRouter();
@@ -30,16 +30,30 @@ const Category = () => {
         />
         <meta property="og:url" content={`https://byjuun.com/category/${category}`} />
       </Head>
-      <main className={styles.HomeWrapper}>
-        <AdditionalInfoSectionLeft />
+      <ListPageContainer>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <Visitor />
+              <TopViewsPosts />
+            </>
+          }
+        />
         <section className={styles.HomeContentWrapper}>
-          <CategorySelect />
+          <ListPageContainer.CategoryList />
           <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
-            <InfinitePosts query={useGetCategoryPosts} params={category} />
+            <ListPageContainer.Posts query={useGetCategoryPosts} params={category} />
           </AsyncBoundary>
         </section>
-        <AdditionalInfoSectionRight />
-      </main>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <RecentComments />
+              <RecentTags />
+            </>
+          }
+        />
+      </ListPageContainer>
       <ScrollBtn />
     </>
   );

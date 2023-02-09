@@ -1,14 +1,17 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import NoPost from "components/Block/NoPost";
-import CategorySelect from "components/Block/CategorySelect";
+import NoPost from "components/Block/ListPageContainer/Posts/NoPost";
 import Posts from "components/Block/Posts";
 import useGetPosts from "Hooks/useGetPosts";
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
+
 import { PostsType } from "Types/post";
-import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
-import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
+import ListPageContainer from "components/Block/ListPageContainer";
+import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
 
 const Filter = () => {
   const { query } = useRouter();
@@ -30,14 +33,28 @@ const Filter = () => {
         />
         <meta property="og:url" content={String(url)} />
       </Head>
-      <main className={styles.CategoryWrapper}>
-        <AdditionalInfoSectionLeft />
-        <div className={styles.CategoryContentWrapper}>
-          <CategorySelect />
+      <ListPageContainer>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <Visitor />
+              <TopViewsPosts />
+            </>
+          }
+        />
+        <section className={styles.HomeContentWrapper}>
+          <ListPageContainer.CategoryList />
           {Post?.length !== 0 ? <Posts posts={Post as PostsType[]} isLoading={isLoading} /> : <NoPost />}
-        </div>
-        <AdditionalInfoSectionRight />
-      </main>
+        </section>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <RecentComments />
+              <RecentTags />
+            </>
+          }
+        />
+      </ListPageContainer>
     </>
   );
 };

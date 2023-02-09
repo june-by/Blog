@@ -1,14 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import CategorySelect from "components/Block/CategorySelect";
-import AdditionalInfoSectionRight from "components/Block/AdditionalInfoSectionRight";
 import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
-import AdditionalInfoSectionLeft from "components/Block/AdditionalInfoSectionLeft";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
-import InfinitePosts from "components/Block/infinitePosts";
 import ScrollBtn from "components/Atom/scrollBtn";
+import ListPageContainer from "components/Block/ListPageContainer";
+import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
 
 const Home: NextPage = () => {
   return (
@@ -29,16 +30,30 @@ const Home: NextPage = () => {
         />
         <meta property="og:url" content="https://byjuun.com" />
       </Head>
-      <main className={styles.HomeWrapper}>
-        <AdditionalInfoSectionLeft />
+      <ListPageContainer>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <Visitor />
+              <TopViewsPosts />
+            </>
+          }
+        />
         <section className={styles.HomeContentWrapper}>
-          <CategorySelect />
+          <ListPageContainer.CategoryList />
           <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
-            <InfinitePosts query={useGetMainPost} />
+            <ListPageContainer.Posts query={useGetMainPost} />
           </AsyncBoundary>
         </section>
-        <AdditionalInfoSectionRight />
-      </main>
+        <ListPageContainer.SideBar
+          renderItems={
+            <>
+              <RecentComments />
+              <RecentTags />
+            </>
+          }
+        />
+      </ListPageContainer>
       <ScrollBtn />
     </>
   );
