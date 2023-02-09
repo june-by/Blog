@@ -18,7 +18,7 @@ const CommentForm = () => {
     (e) => {
       e.preventDefault();
       if (!CommentRef.current) return;
-      if (UserInfo === null) return alert(MESSAGE.LOGIN_NEEDED);
+      if (!isLogin) return alert(MESSAGE.LOGIN_NEEDED);
       if (CommentRef.current.value === "") return alert(MESSAGE.COMMENT_CONTENT_NEEDED);
       AddCommentMutation.mutate({
         postId: Number(query.id),
@@ -26,7 +26,7 @@ const CommentForm = () => {
       });
       CommentRef.current.value = "";
     },
-    [AddCommentMutation, UserInfo, query.id]
+    [AddCommentMutation, isLogin, query.id]
   );
 
   return (
@@ -38,7 +38,7 @@ const CommentForm = () => {
           disabled={!isLogin}
           placeholder={isLogin ? MESSAGE.COMMENT_PLEASE : MESSAGE.LOGIN_NEEDED}
         />
-        <button disabled={!isLogin}>등록</button>
+        <button>등록</button>
       </form>
     </div>
   );
