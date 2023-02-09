@@ -9,6 +9,7 @@ import TableOfContents from "components/Block/Post/TableOfContents";
 
 const PostContent = ({ content }: { content: string }) => {
   const { tableOfContents, loading } = useGetTopics();
+
   useEffect(() => {
     hljs.highlightAll();
   }, []);
