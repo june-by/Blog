@@ -1,0 +1,11 @@
+@import "utils/utils.scss";
+
+.toggleButton {
+  @include mobile {
+    border: none;
+    background: none;
+    padding-bottom: 10px;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+}

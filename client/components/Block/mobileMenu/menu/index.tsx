@@ -1,27 +1,23 @@
-import Image from "next/image";
-import React, { useCallback, useRef } from "react";
+import MenuBackIcon from "components/Icon/menuBack";
 import useWidthAnimation from "Hooks/useWidthAnimation";
+import React, { useContext, useRef } from "react";
+import { MobileMenuContext } from "..";
 import MobileAccount from "./MobileAccount";
 import MobileCategoryList from "./MobileCategoryList";
 import styles from "./styles.module.scss";
-import MenuBackIcon from "components/Icon/menuBack";
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-}
-
-const MobileMenu = ({ open, onClose }: Props) => {
+const Menu = () => {
+  const { showMobileMenu, toggleShowMobileMenu } = useContext(MobileMenuContext);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useWidthAnimation(menuRef, open);
+  useWidthAnimation(menuRef, showMobileMenu);
 
   return (
     <div className={styles.MobileMenuWrapper}>
-      {open && <div className={styles.MobileOverLay} onClick={onClose}></div>}
+      {showMobileMenu && <div className={styles.MobileOverLay} onClick={toggleShowMobileMenu}></div>}
       <nav ref={menuRef} className={styles.MobileMenu}>
         <div className={styles.CloseArea}>
-          <button onClick={onClose}>
+          <button onClick={toggleShowMobileMenu}>
             <MenuBackIcon />
           </button>
         </div>
@@ -34,4 +30,4 @@ const MobileMenu = ({ open, onClose }: Props) => {
   );
 };
 
-export default MobileMenu;
+export default Menu;

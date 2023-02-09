@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import MobileMenu from "components/Layout/MobileMenu";
 import HeaderRight from "./HeaderRight";
 import useHideHeader from "./useHideHeader";
 import useHeaderAnimation from "./useHeaderAnimation";
@@ -8,6 +7,7 @@ import HeaderLeft from "./HeaderLeft";
 import useToggle from "Hooks/useToggle";
 import DarkModeBtn from "components/Atom/DarkModeBtn";
 import MenuIcon from "components/Icon/menu";
+import MobileMenuContainer from "components/Block/mobileMenu";
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -29,10 +29,12 @@ const Header = () => {
         </div>
         <div className={styles.HeaderRoot_mobileBtn}>
           <DarkModeBtn />
-          <button className={styles.HeaderRoot_mobileBtn_btn} onClick={clickShowMobileMenu}>
-            <MenuIcon />
-          </button>
-          <MobileMenu open={showMobileMenu} onClose={clickShowMobileMenu} />
+          <MobileMenuContainer>
+            <>
+              <MobileMenuContainer.ToggleButton />
+              <MobileMenuContainer.Menu />
+            </>
+          </MobileMenuContainer>
         </div>
       </header>
     </>
