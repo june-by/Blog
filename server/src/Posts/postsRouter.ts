@@ -12,9 +12,9 @@ router.get("/load/length/:category", postsController.getPostsLength);
 
 router.get("/load/:category/:page", postsController.getCategoryPosts);
 
-router.get("/search/:keyword", postsController.getPostsBySearchKeyWord);
+router.get("/search/:keyword/:page", postsController.getPostsBySearchKeyWord);
 
-router.get("/tag/:keyword", postsController.getPostsByTag);
+router.get("/tag/:keyword/:page", postsController.getPostsByTag);
 
 router.get("/topViews", postsController.getTopViewsPosts);
 

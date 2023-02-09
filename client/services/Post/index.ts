@@ -48,20 +48,20 @@ export const getCategoryPostAPI = async (category: string | string[] | undefined
   }
 };
 
-export const getSearchPostAPI = async (search: string | string[] | undefined) => {
+export const getSearchPostAPI = async (search: string | string[] | undefined, pageNum: number) => {
   if (typeof search !== "string") return undefined;
   try {
-    const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}`);
+    const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}/${pageNum}`);
     return data;
   } catch (err) {
     throw new Error();
   }
 };
 
-export const getTagPostAPI = async (tag: string | string[] | undefined) => {
+export const getTagPostAPI = async (tag: string | string[] | undefined, pageNum: number) => {
   if (typeof tag !== "string") return undefined;
   try {
-    const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}`);
+    const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}/${pageNum}`);
     return data;
   } catch (err) {
     throw new Error();
