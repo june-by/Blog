@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentType } from "Types/post";
+import { CommentType } from "Types/comment";
 import dateForm from "utils/dateForm";
 import styles from "./styles.module.scss";
 
