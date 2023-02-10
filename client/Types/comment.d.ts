@@ -5,3 +5,11 @@ export interface RecentComment {
     id: number;
   };
 }
+
+export interface CommentType {
+  User: {
+    nickname: string;
+  };
+  content: string;
+  createdAt: Date;
+}

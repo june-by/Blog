@@ -14,7 +14,6 @@ import useCheckVisitor from "Hooks/useCheckVisitor";
 import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "components/Block/errorHelper";
 import { useRouter } from "next/router";
-import extractFromCookie from "utils/extractFromCookie";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -63,8 +62,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const theme = extractFromCookie(appContext.ctx.req?.headers.cookie, "theme");
-  console.log("theme : ", theme);
   return {
     ...appProps,
   };

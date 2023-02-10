@@ -83,6 +83,15 @@ export const DeletePostAPI = async (id: number) => {
   return data;
 };
 
+export const getCommentAPI = async (postId: number) => {
+  try {
+    const { data } = await customAxios.get(`/post/load/comment/${postId}`);
+    return data;
+  } catch (err) {
+    throw new Error();
+  }
+};
+
 export const AddCommentAPI = async ({ postId, comment }: { postId: number; comment: string }) => {
   try {
     const { data } = await customAxios.post(`/post/${postId}/comment`, {

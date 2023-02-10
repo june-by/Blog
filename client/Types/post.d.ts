@@ -6,7 +6,6 @@ export interface PostType {
 
 export interface MainPost extends PostsType {
   content: string;
-  Comments: Array<null | CommentType>;
 }
 
 export interface OtherPostType {
@@ -24,14 +23,6 @@ export interface PostsType {
   thumbNailUrl: string | null;
   views: number;
   isPublic: number;
-}
-
-export interface CommentType {
-  User: {
-    nickname: string;
-  };
-  content: string;
-  createdAt: Date;
 }
 
 export interface AddPostParams {
