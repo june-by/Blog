@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import extractFromCookie from "utils/extractFromCookie";
 
 let theme = "light";
 
@@ -23,12 +24,3 @@ class MyDocument extends Document {
 }
 
 export default MyDocument;
-
-function extractFromCookie(cookie: string | undefined, key: string) {
-  if (!cookie) return null;
-  const cookieArray = cookie.split(";");
-  const keyValue = cookieArray.find((item) => item.trim().startsWith(key));
-  if (!keyValue) return null;
-  const value = keyValue.split("=")[1];
-  return value;
-}

@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
 import styles from "./styles.module.scss";
+import extractFromCookie from "utils/extractFromCookie";
 
 const DARK_MODE = false;
 const LIGHT_MODE = true;
@@ -10,8 +11,7 @@ const LIGHT_MODE_POS = "1px";
 
 const DarkModeBtn = () => {
   const toggleThumbRef = useRef<HTMLButtonElement>(null);
-
-  const [mode, , onChange] = useToggle(document.body.dataset.theme === "dark" ? DARK_MODE : LIGHT_MODE);
+  const [mode, , onChange] = useToggle(extractFromCookie(document.cookie, "theme") === "dark" ? DARK_MODE : LIGHT_MODE);
   useDarkMode(mode, toggleThumbRef);
 
   return (
