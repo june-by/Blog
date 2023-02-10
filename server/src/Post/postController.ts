@@ -95,12 +95,24 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getPostComments = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId } = req.params;
+  try {
+    const comments = await postService.getPostComments({ postId });
+    res.status(201).json({ comments });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
 const postController = {
   getPost,
   updatePost,
   AddPost,
   deletePost,
   addComment,
+  getPostComments,
 };
 
 export default postController;
