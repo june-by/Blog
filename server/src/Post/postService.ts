@@ -33,6 +33,20 @@ const getFullPost = async ({ postId }: PostId) => {
   return fullPost;
 };
 
+const getPostComments = async ({ postId }: PostId) => {
+  const comments = await Comment.findAll({
+    where: { PostId: postId },
+    attributes: ["content", "createdAt"],
+    include: [
+      {
+        model: User,
+        attributes: ["nickname"],
+      },
+    ],
+  });
+  return comments;
+};
+
 interface CreatePostParams {
   title: string;
   category: string;
@@ -134,5 +148,6 @@ const postService = {
   deletePost,
   addViewCount,
   isPostExists,
+  getPostComments,
 };
 export default postService;

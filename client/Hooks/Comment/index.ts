@@ -14,7 +14,7 @@ export const useAddComment = (postId: number) => {
   return useMutation(AddCommentAPI, {
     onSuccess: () => {
       queryClient.refetchQueries([QUERY_KEY.COMMNET.RECENT]);
-      queryClient.invalidateQueries([QUERY_KEY.POST.ONE, postId]);
+      queryClient.invalidateQueries([QUERY_KEY.COMMNET.ONE, postId]);
       return alert(MESSAGE.COMMENT_REGIST_SUCESS);
     },
     onError: () => alert(MESSAGE.COMMENT_REGIST_SUCESS),

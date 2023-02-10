@@ -4,6 +4,7 @@ import {
   EditPostAPI,
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
+  getCommentAPI,
   getOnePostAPI,
   getSearchPostAPI,
   getTagPostAPI,
@@ -17,6 +18,7 @@ import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import MESSAGE from "constants/message";
+import { CommentType } from "Types/comment";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {
@@ -58,6 +60,9 @@ export const useGetTagPosts = (tag: string | string[] | undefined) =>
     ...CACHE_OPTION.ALL,
     getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
   });
+
+export const useGetPostComments = (id: number) =>
+  useQuery<{ comments: CommentType[] }>([QUERY_KEY.COMMNET.ONE, id], () => getCommentAPI(id), CACHE_OPTION.ALL);
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {

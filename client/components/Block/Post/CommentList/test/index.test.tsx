@@ -1,34 +1,23 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import CommentList from "..";
 import dateForm from "utils/dateForm";
+import { renderWithContext } from "utils/test/renderWithContext";
+import { createMockRouter } from "utils/test/createMockRouter";
+import { QueryClient } from "react-query";
+import { DummyCommentsList } from "constants/dummy";
 
 describe("<CommentList />", () => {
-  const props = {
-    Comments: [
-      {
-        User: { nickname: "test1" },
-        content: "testContent1",
-        createdAt: new Date(),
-      },
-      {
-        User: { nickname: "test2" },
-        content: "testContent2",
-        createdAt: new Date(),
-      },
-      {
-        User: { nickname: "test3" },
-        content: "testContent3",
-        createdAt: new Date(),
-      },
-    ],
-  };
+  const router = createMockRouter({ query: { id: "1" } });
+  const queryClient = new QueryClient();
 
   it("rendering test", () => {
-    render(<CommentList Comments={props.Comments} />);
-    props.Comments.forEach((comment) => {
-      expect(screen.getByText(comment.content)).toBeInTheDocument();
-      expect(screen.getByText(`${comment.User.nickname}님`)).toBeInTheDocument();
+    renderWithContext(router, queryClient, <CommentList />);
+    waitFor(() => {
+      DummyCommentsList.comments.forEach((comment) => {
+        expect(screen.getByText(comment.content)).toBeInTheDocument();
+        expect(screen.getByText(`${comment.User.nickname}님`)).toBeInTheDocument();
+      });
     });
   });
 });

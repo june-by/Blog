@@ -1,3 +1,5 @@
+import { CommentType } from "Types/comment";
+
 export const DummyUser = {
   createdAt: "2022-05-25T12:19:28.000Z",
   email: "test@test.com",
@@ -31,4 +33,24 @@ export const DummyPost = {
     OtherTitle: "nextTestPost",
     OtherCreatedAt: "2022-05-25T12:19:32.000Z",
   },
+};
+
+export const DummyCommentsList: { [key: string]: CommentType[] } = {
+  comments: [
+    {
+      User: { nickname: "test1" },
+      content: "testContent1",
+      createdAt: new Date(),
+    },
+    {
+      User: { nickname: "test2" },
+      content: "testContent2",
+      createdAt: new Date(),
+    },
+    {
+      User: { nickname: "test3" },
+      content: "testContent3",
+      createdAt: new Date(),
+    },
+  ],
 };

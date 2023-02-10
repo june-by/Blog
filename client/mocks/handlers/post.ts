@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { ServerURL } from "constants/serverURL";
-import { DummyPost } from "constants/dummy";
+import { DummyCommentsList, DummyPost } from "constants/dummy";
 import Category from "constants/category";
 
 export const getCategoryPosts = rest.get(`${ServerURL}/posts/load/:category/:pageNum`, (req, res, ctx) => {
@@ -63,4 +63,8 @@ export const getAllCategoryLength = rest.get(`${ServerURL}/posts/load/categoryLe
       })
     )
   );
+});
+
+export const getPostComments = rest.get(`${ServerURL}/posts/load/comments/:postId`, (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(DummyCommentsList));
 });

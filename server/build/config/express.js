@@ -56,7 +56,8 @@ function default_1() {
         cookie: {
             httpOnly: true,
             secure: true,
-            domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : "*",
+            sameSite: "lax",
+            domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : "http://localhost:3000",
         },
     }));
     app.use(passport_1.default.initialize());

@@ -206,11 +206,35 @@ var getPost = function (req, res, next) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
+var getPostComments = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var postId, comments, err_6;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                postId = req.params.postId;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, postService_1.default.getPostComments({ postId: postId })];
+            case 2:
+                comments = _a.sent();
+                res.status(201).json({ comments: comments });
+                return [3 /*break*/, 4];
+            case 3:
+                err_6 = _a.sent();
+                console.log(err_6);
+                next(err_6);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
 var postController = {
     getPost: getPost,
     updatePost: updatePost,
     AddPost: AddPost,
     deletePost: deletePost,
     addComment: addComment,
+    getPostComments: getPostComments,
 };
 exports.default = postController;

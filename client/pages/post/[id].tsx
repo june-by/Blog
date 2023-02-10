@@ -20,11 +20,14 @@ import PostSkeleton from "components/Block/Post/Skeleton";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
+import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
+import ErrorHelper from "components/Block/errorHelper";
 
 const Post = () => {
   const router = useRouter();
   const { data: userInfo, isLoading: userInfoLoadLoading } = useGetUserInfo();
   const { data, isLoading, isError, refetch, error } = useGetOnePost(Number(router.query.id));
+
   const Post = data?.mainPost;
 
   useEffect(() => {
@@ -59,7 +62,9 @@ const Post = () => {
         <PostContent content={Post?.content || ""} />
         <OtherPostInfo />
         <CommentForm />
-        <CommentList Comments={Post?.Comments || [null]} />
+        <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
+          <CommentList />
+        </AsyncBoundary>
         <ScrollBtn />
       </main>
     </>

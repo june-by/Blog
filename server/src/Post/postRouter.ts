@@ -10,6 +10,8 @@ router.post("/:postId/comment", isLoggedIn, postController.addComment);
 
 router.get("/load/:postId", postController.getPost);
 
+router.get("/load/comment/:postId", postController.getPostComments);
+
 router.delete("/:postId", isAdmin, postController.deletePost);
 
 router.patch("/:postId", isAdmin, postController.updatePost);

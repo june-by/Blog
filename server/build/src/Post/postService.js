@@ -88,6 +88,29 @@ var getFullPost = function (_a) {
         });
     });
 };
+var getPostComments = function (_a) {
+    var postId = _a.postId;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var comments;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, Comment.findAll({
+                        where: { PostId: postId },
+                        attributes: ["content", "createdAt"],
+                        include: [
+                            {
+                                model: User,
+                                attributes: ["nickname"],
+                            },
+                        ],
+                    })];
+                case 1:
+                    comments = _b.sent();
+                    return [2 /*return*/, comments];
+            }
+        });
+    });
+};
 var createPost = function (_a) {
     var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -247,5 +270,6 @@ var postService = {
     deletePost: deletePost,
     addViewCount: addViewCount,
     isPostExists: isPostExists,
+    getPostComments: getPostComments,
 };
 exports.default = postService;

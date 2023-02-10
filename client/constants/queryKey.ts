@@ -11,6 +11,7 @@ const QUERY_KEY = {
   },
   USER: "User",
   COMMNET: {
+    ONE: "Comment",
     RECENT: "RecentComment",
   },
   TAG: {
