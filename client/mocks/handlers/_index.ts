@@ -1,5 +1,12 @@
 import { getRecentComment, postComment } from "./comment";
-import { getAllCategoryLength, getCategoryPosts, getOnePost, getPostsNum, getTopViewsPosts } from "./post";
+import {
+  getAllCategoryLength,
+  getCategoryPosts,
+  getOnePost,
+  getPostComments,
+  getPostsNum,
+  getTopViewsPosts,
+} from "./post";
 import { getRecentTag } from "./tag";
 import { getUserInfo, login, logout, signup } from "./user";
 import { getVisitor, postVisitor } from "./visitor";
@@ -18,5 +25,6 @@ export const handlers = [
   getTopViewsPosts,
   getRecentComment,
   getVisitor,
+  getPostComments,
   postVisitor,
 ];

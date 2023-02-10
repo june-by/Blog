@@ -8,15 +8,12 @@ import { renderWithContext } from "utils/test/renderWithContext";
 describe("<LoginModal />", () => {
   const props = {
     setOpen: jest.fn(),
+    openSignUp: jest.fn(),
   };
   const router = createMockRouter();
   const queryClient = new QueryClient();
   it("rendering test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <LoginModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <LoginModal {...props} />);
     expect(screen.getAllByText("로그인")).toHaveLength(2);
     expect(screen.getByTestId("emailInput")).toBeInTheDocument();
     expect(screen.getByTestId("passwordInput")).toBeInTheDocument();
@@ -25,11 +22,7 @@ describe("<LoginModal />", () => {
   });
 
   it("modalClose test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <LoginModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <LoginModal {...props} />);
     const closeBtn = screen.getByTestId("closebtn");
     fireEvent.click(closeBtn);
     expect(props.setOpen).toBeCalled();
@@ -37,10 +30,6 @@ describe("<LoginModal />", () => {
 
   it("submit test", () => {
     //TODO mutate test
-    renderWithContext(
-      router,
-      queryClient,
-      <LoginModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <LoginModal {...props} />);
   });
 });
