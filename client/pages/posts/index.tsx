@@ -8,6 +8,7 @@ import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPo
 import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
 import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
+import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 
 const Posts = () => {
   const { query } = useRouter();
@@ -54,7 +55,7 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default withPostsQueryValidation(Posts);
 
 interface PostsPageQueryType {
   search?: string;
