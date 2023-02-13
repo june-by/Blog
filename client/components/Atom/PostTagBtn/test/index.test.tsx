@@ -29,7 +29,7 @@ describe("<PostTagBtn />", () => {
 
     fireEvent.click(screen.getByTestId(`postTagBtn`));
     expect(router.push).toHaveBeenCalledWith({
-      pathname: "/filter",
+      pathname: "/posts",
       query: { tag: props.tag.content },
     });
   });

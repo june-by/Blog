@@ -56,7 +56,7 @@ describe("<CategoryChip />", () => {
     expect(categroyChipBtn).toBeInTheDocument();
     fireEvent.click(categroyChipBtn);
     expect(router.push).toHaveBeenCalledWith({
-      pathname: `/filter`,
+      pathname: `/posts`,
       query: { category: props.category },
     });
   });

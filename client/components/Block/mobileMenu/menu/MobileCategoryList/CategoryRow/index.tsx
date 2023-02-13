@@ -14,7 +14,7 @@ const CategoryRow = ({ category, length }: Props) => {
 
   const gotoCategoryPage = useCallback(() => {
     toggleShowMobileMenu();
-    push({ pathname: "/filter", query: { category: category } });
+    push({ pathname: "/posts", query: { category: category } });
   }, [category, push, toggleShowMobileMenu]);
 
   return (

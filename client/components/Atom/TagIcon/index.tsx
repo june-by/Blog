@@ -12,7 +12,7 @@ const TagIcon = ({ tag }: Props) => {
   const onClickTag = useCallback(
     (tag: string) => () => {
       return router.push({
-        pathname: "/filter",
+        pathname: "/posts",
         query: { tag: tag },
       });
     },
