@@ -29,7 +29,7 @@ describe("<TagIcon />", () => {
     fireEvent.click(testIcon);
     expect(router.push).toBeCalled();
     expect(router.push).toHaveBeenCalledWith({
-      pathname: "/filter",
+      pathname: "/posts",
       query: { tag: props.tag },
     });
   });

@@ -9,7 +9,7 @@ import RecentComments from "components/Block/ListPageContainer/sideBar/RecentCom
 import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 
-const Filter = () => {
+const Posts = () => {
   const { query } = useRouter();
   const [title, description, ogDescription, url] = makeMetaData(query);
 
@@ -54,39 +54,45 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default Posts;
 
-function makeMetaData(query: { search?: string; tag?: string; category?: string }) {
+interface PostsPageQueryType {
+  search?: string;
+  tag?: string;
+  category?: string;
+}
+
+function makeMetaData(query: PostsPageQueryType) {
   if (query.search)
     return [
       query.search,
       `${query.search}검색 결과 페이지`,
       `${query.search}검색 결과 목록입니다`,
-      `https://byjuun.com/filter?search=${query.search}`,
+      `https://byjuun.com/posts?search=${query.search}`,
     ];
   else if (query.tag)
     return [
       query.tag,
       `${query.tag} 태깅 페이지`,
       `${query.tag}로 태깅된 목록입니다`,
-      `https://byjuun.com/filter?tag=${query.tag}`,
+      `https://byjuun.com/posts?tag=${query.tag}`,
     ];
   else
     return [
       query.category,
       `${query.category} 페이지`,
       `${query.category} 페이지 목록입니다`,
-      `https://byjuun.com/filter?category=${query.category}`,
+      `https://byjuun.com/posts?category=${query.category}`,
     ];
 }
 
-function getQuery(query: { search?: string; tag?: string; category?: string }) {
+function getQuery(query: PostsPageQueryType) {
   if (query.search) return useGetSearchPosts;
   else if (query.tag) return useGetTagPosts;
   else return useGetCategoryPosts;
 }
 
-function getParams(query: { search?: string; tag?: string; category?: string }) {
+function getParams(query: PostsPageQueryType) {
   if (query.search) return query.search;
   else if (query.tag) return query.tag;
   else return query.category;

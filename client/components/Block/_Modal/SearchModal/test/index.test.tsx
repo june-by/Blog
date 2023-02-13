@@ -13,11 +13,7 @@ describe("<LoginModal />", () => {
   const router = createMockRouter();
   const queryClient = new QueryClient();
   it("rendering test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <SearchModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
 
     expect(screen.getByText("게시글 찾기")).toBeInTheDocument();
     expect(screen.getByTestId("searchInput")).toBeInTheDocument();
@@ -25,11 +21,7 @@ describe("<LoginModal />", () => {
   });
 
   it("modalClose test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <SearchModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
 
     const closeBtn = screen.getByTestId("searchCloseBtn");
     fireEvent.click(closeBtn);
@@ -37,11 +29,7 @@ describe("<LoginModal />", () => {
   });
 
   it("submit test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <SearchModal setOpen={props.setOpen} />
-    );
+    renderWithContext(router, queryClient, <SearchModal setOpen={props.setOpen} />);
 
     const searchKeyword = "test";
     const searchInput = screen.getByTestId("searchInput");
@@ -49,7 +37,7 @@ describe("<LoginModal />", () => {
     fireEvent.change(searchInput, { target: { value: searchKeyword } });
     fireEvent.click(searchBtn);
     expect(router.push).toBeCalledWith({
-      pathname: "/filter",
+      pathname: "/posts",
       query: { search: searchKeyword },
     });
   });

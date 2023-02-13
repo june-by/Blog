@@ -22,7 +22,7 @@ describe("<CategoryRow />", () => {
     renderWithContext(router, queryClient, <CategoryRow {...props} />);
     fireEvent.click(screen.getByTestId("CategoryRow"));
     expect(router.push).toBeCalledWith({
-      pathname: "/filter",
+      pathname: "/posts",
       query: { category: props.category },
     });
   });

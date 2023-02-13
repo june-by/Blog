@@ -10,7 +10,7 @@ const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
     (e: React.MouseEvent<HTMLLIElement, MouseEvent>, tag: string) => {
       e.stopPropagation();
       return router.push({
-        pathname: "/filter",
+        pathname: "/posts",
         query: { tag: tag },
       });
     },

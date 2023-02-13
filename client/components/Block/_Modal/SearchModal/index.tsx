@@ -22,7 +22,7 @@ const SearchModal = ({ setOpen }: Props) => {
       if (!searchRef.current) return;
       closeModal();
       return router.push({
-        pathname: "/filter",
+        pathname: "/posts",
         query: { search: searchRef.current.value },
       });
     },
