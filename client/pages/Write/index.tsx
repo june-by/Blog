@@ -76,6 +76,6 @@ const Write = () => {
   );
 };
 
-// export default Write;
+export default Write;
 
-export default withAdminValidation(Write);
+// export default withAdminValidation(Write);

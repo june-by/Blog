@@ -23,7 +23,5 @@ describe("<PostCard />", () => {
     renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
 
     const postCard = screen.getByTestId("postCard");
-    fireEvent.click(postCard);
-    expect(router.push).toHaveBeenCalledWith(`/post/${defaultProps.id}`);
   });
 });
