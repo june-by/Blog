@@ -1,10 +1,4 @@
-import React, {
-  LegacyRef,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { LegacyRef, useCallback, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
@@ -46,6 +40,7 @@ const PostEditor = ({
   const QuillRef = useRef<ReactQuill>(null);
   const onChange = useCallback(
     (e: string) => {
+      console.log(e);
       setContent(e);
     },
     [setContent]
