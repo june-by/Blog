@@ -21,10 +21,10 @@ interface Props {
 const QuillNoSSRWrapper = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-    const TempEditor = React.forwardRef(({ forwardedRef, ...props }: Props) => {
+    const TempEditor = React.forwardRef(({ forwardedRef, ...props }: Props, ref: any) => {
       return <RQ ref={forwardedRef} {...props} />;
     });
-    TempEditor.displayName = "TempEditor";
+    //TempEditor.displayName = "TempEditor";
     return TempEditor;
   },
   { ssr: false }
@@ -84,7 +84,7 @@ const PostEditor = ({
   );
   return (
     <>
-      <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
+      <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" />
       <div className={styles.Editor}>
         <QuillNoSSRWrapper
           forwardedRef={QuillRef}

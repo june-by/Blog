@@ -1,8 +1,3 @@
-import ReactQuill, { Quill } from "react-quill";
-import hljs from "highlight.js";
-
-const BlockEmbed = Quill.import("blots/block/embed");
-
 export const formats = [
   "header",
   "font",
