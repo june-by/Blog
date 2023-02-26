@@ -25,7 +25,7 @@ describe("<PostEditBtn />", () => {
     fireEvent.click(postEditBtn);
     expect(router.push).toHaveBeenCalledTimes(1);
     expect(router.push).toHaveBeenCalledWith({
-      pathname: "/write",
+      pathname: "/Write",
       query: { mode: "Edit", id: props.id },
     });
   });

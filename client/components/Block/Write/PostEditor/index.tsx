@@ -40,7 +40,6 @@ const PostEditor = ({
   const QuillRef = useRef<ReactQuill>(null);
   const onChange = useCallback(
     (e: string) => {
-      console.log(e);
       setContent(e);
     },
     [setContent]
