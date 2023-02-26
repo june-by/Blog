@@ -15,7 +15,7 @@ const CommentForm = () => {
   const isLogin = UserInfo === null ? false : true;
 
   const submitComment = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!CommentRef.current) return;
       if (!isLogin) return alert(MESSAGE.LOGIN_NEEDED);

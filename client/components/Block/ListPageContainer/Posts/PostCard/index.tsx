@@ -24,42 +24,40 @@ const PostCard = ({ post }: { post: PostsType }) => {
   };
 
   return (
-    <Link href={`/post/${post.id}`}>
-      <section data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
-        <figure className={styles.PostCard_imgWrapper}>
-          {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
-            <Image src={post.thumbNailUrl} layout="fill" alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+    <Link href={`/post/${post.id}`} data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
+      <figure className={styles.PostCard_imgWrapper}>
+        {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
+          <Image src={post.thumbNailUrl} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+        ) : (
+          <picture>
+            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
+            <Image
+              fill
+              src={S3_PREFIX + THUMBNAIL[post.category]?.jpg}
+              alt="category"
+              placeholder="blur"
+              blurDataURL={blurDataURL}
+            />
+          </picture>
+        )}
+      </figure>
+      <article className={styles.PostCard_titleBox}>
+        <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
+        <ul className={styles.PostCard_titleBox_tagBox}>
+          {post.isPublic === 1 ? (
+            <>
+              {post.Tags.length !== 0 &&
+                post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
+            </>
           ) : (
-            <picture>
-              <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
-              <Image
-                layout="fill"
-                src={S3_PREFIX + THUMBNAIL[post.category]?.jpg}
-                alt="category"
-                placeholder="blur"
-                blurDataURL={blurDataURL}
-              />
-            </picture>
+            <span className={styles.prepare}>준비중</span>
           )}
-        </figure>
-        <article className={styles.PostCard_titleBox}>
-          <h2 className={styles.PostCard_titleBox_title}>{post.title}</h2>
-          <ul className={styles.PostCard_titleBox_tagBox}>
-            {post.isPublic === 1 ? (
-              <>
-                {post.Tags.length !== 0 &&
-                  post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
-              </>
-            ) : (
-              <span className={styles.prepare}>준비중</span>
-            )}
-          </ul>
-          <div className={styles.PostCard_titleBox_createdAt}>
-            <time>{dateForm(post.createdAt)}</time>
-            <span>조회수 : {post.isPublic ? post.views : 0}</span>
-          </div>
-        </article>
-      </section>
+        </ul>
+        <div className={styles.PostCard_titleBox_createdAt}>
+          <time>{dateForm(post.createdAt)}</time>
+          <span>조회수 : {post.isPublic ? post.views : 0}</span>
+        </div>
+      </article>
     </Link>
   );
 };
