@@ -2,6 +2,8 @@ import tagService from "src/Tag/tagService";
 import postService from "./postService";
 import commentService from "src/Comment/commentService";
 import { NextFunction, Request, Response } from "express";
+import CLIENT_URL from "src/constants/clientUrl";
+import axios from "axios";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -71,6 +73,9 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, result });
+    await axios.post(`${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
+      id: postId,
+    });
     return res.json({
       message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
     });
