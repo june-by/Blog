@@ -6,7 +6,7 @@ const PostEditBtn = ({ id }: { id: number }) => {
   const router = useRouter();
   const gotoEdit = useCallback(() => {
     router.push({
-      pathname: "/write",
+      pathname: "/Write",
       query: { mode: "Edit", id: id },
     });
   }, [router, id]);
