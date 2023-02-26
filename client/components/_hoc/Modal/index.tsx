@@ -1,9 +1,9 @@
-import React, { ReactChild, ReactChildren, useCallback } from "react";
+import React, { ReactNode, useCallback } from "react";
 
 import styles from "./styles.module.scss";
 
 interface Props {
-  children: ReactChild | ReactChildren;
+  children: ReactNode;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

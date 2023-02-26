@@ -11,17 +11,18 @@ describe("<PostCard />", () => {
   const defaultProps = DummyPost.mainPost;
   const router = createMockRouter();
   const queryClient = new QueryClient();
-  it("rendering test", () => {
+  it("rendering test", async () => {
     renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
 
-    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
-    expect(screen.getByText(dateForm(defaultProps.createdAt))).toBeInTheDocument();
-    expect(screen.getByText(`조회수 : ${defaultProps.views}`)).toBeInTheDocument();
+    expect(await screen.findByText(defaultProps.title)).toBeInTheDocument();
+    expect(await screen.findByText(dateForm(defaultProps.createdAt))).toBeInTheDocument();
+    expect(await screen.findByText(`조회수 : ${defaultProps.views}`)).toBeInTheDocument();
   });
 
-  it("click test", () => {
+  it("click test", async () => {
     renderWithContext(router, queryClient, <PostCard post={defaultProps} />);
 
-    const postCard = screen.getByTestId("postCard");
+    const postCard = await screen.findByTestId("postCard");
+    expect(postCard).toHaveAttribute("href", `/post/${defaultProps.id}`);
   });
 });
