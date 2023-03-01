@@ -111,6 +111,17 @@ const getPostComments = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
+const getPostViewCount = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId } = req.params;
+  try {
+    const viewCount = await postService.getViewCount({ postId });
+    res.status(201).json(viewCount?.views || 0);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
 const postController = {
   getPost,
   updatePost,
@@ -118,6 +129,7 @@ const postController = {
   deletePost,
   addComment,
   getPostComments,
+  getPostViewCount,
 };
 
 export default postController;

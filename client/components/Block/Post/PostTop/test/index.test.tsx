@@ -26,6 +26,7 @@ describe("<PostTop />", () => {
     title: "testTitle",
     thumbNailUrl: "/test.png",
     views: 10,
+    isPublic: 1,
   };
   it("rendering test", async () => {
     renderWithContext(router, queryClient, <PostTop Post={Post} />);
@@ -34,7 +35,6 @@ describe("<PostTop />", () => {
     Post.Tags.forEach((tag) => {
       expect(screen.getByText(`#${tag.content}`)).toBeInTheDocument();
     });
-    expect(screen.getByText(`조회수 : ${Post.views + 1}`));
     await waitFor(() => {
       expect(screen.queryByText("글 삭제하기")).not.toBeInTheDocument();
     });
