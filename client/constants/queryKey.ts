@@ -8,6 +8,7 @@ const QUERY_KEY = {
     CATEGORY_LENGTH: "AllCategoryLength",
     TOPVIEWS: "TopViewsPosts",
     NUM_OF_POSTS: "PostNum",
+    VIEWCOUNT: "ViewCount",
   },
   USER: "User",
   COMMNET: {

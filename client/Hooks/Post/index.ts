@@ -6,6 +6,7 @@ import {
   getCategoryPostAPI,
   getCommentAPI,
   getOnePostAPI,
+  getPostViewCountAPI,
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
@@ -63,6 +64,9 @@ export const useGetTagPosts = (tag: string | string[] | undefined) =>
 
 export const useGetPostComments = (id: number) =>
   useQuery<{ comments: CommentType[] }>([QUERY_KEY.COMMNET.ONE, id], () => getCommentAPI(id), CACHE_OPTION.ALL);
+
+export const useGetPostViewCount = (id: number) =>
+  useQuery<{ viewCount: number }>([QUERY_KEY.POST.VIEWCOUNT, id], () => getPostViewCountAPI(id), CACHE_OPTION.ALL);
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {

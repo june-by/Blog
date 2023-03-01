@@ -9,14 +9,18 @@ import PostEditBtn from "components/Atom/PostEditBtn";
 import PostTagBtn from "components/Atom/PostTagBtn";
 import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
+import { useGetPostViewCount } from "Hooks/Post";
+import { useRouter } from "next/router";
 
 interface Props {
   Post: MainPost;
 }
 
 const PostTop = ({ Post }: Props) => {
+  const { query } = useRouter();
   const { title, createdAt, category, Tags, id } = Post;
   const { data: UserInfo } = useGetUserInfo();
+  const { data: viewCount } = useGetPostViewCount(Number(query.id));
 
   return (
     <header className={styles.PostTop}>
@@ -41,7 +45,7 @@ const PostTop = ({ Post }: Props) => {
           {Tags.length !== 0 && Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
         </ul>
         <div className={styles.AdditionalInfo_Views}>
-          <span>조회수 : {Post.views + 1}</span>
+          <span>조회수 : {Number(viewCount) + 1}</span>
         </div>
       </div>
     </header>
