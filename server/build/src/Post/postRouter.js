@@ -12,6 +12,7 @@ router.post("/", isAdmin_1.isAdmin, postController_1.default.AddPost);
 router.post("/:postId/comment", isLoggedIn_1.isLoggedIn, postController_1.default.addComment);
 router.get("/load/:postId", postController_1.default.getPost);
 router.get("/load/comment/:postId", postController_1.default.getPostComments);
+router.get("/load/viewCount/:postId", postController_1.default.getPostViewCount);
 router.delete("/:postId", isAdmin_1.isAdmin, postController_1.default.deletePost);
 router.patch("/:postId", isAdmin_1.isAdmin, postController_1.default.updatePost);
 exports.default = router;

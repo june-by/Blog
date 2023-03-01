@@ -228,6 +228,23 @@ var addViewCount = function (_a) {
         });
     });
 };
+var getViewCount = function (_a) {
+    var postId = _a.postId;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var viewCount;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, Post.findOne({
+                        where: { id: postId },
+                        attributes: ["views"],
+                    })];
+                case 1:
+                    viewCount = _b.sent();
+                    return [2 /*return*/, viewCount];
+            }
+        });
+    });
+};
 var getPrevPost = function (category, id) { return __awaiter(void 0, void 0, void 0, function () {
     var query, _a, prev, _;
     return __generator(this, function (_b) {
@@ -269,6 +286,7 @@ var postService = {
     updateTags: updateTags,
     deletePost: deletePost,
     addViewCount: addViewCount,
+    getViewCount: getViewCount,
     isPostExists: isPostExists,
     getPostComments: getPostComments,
 };

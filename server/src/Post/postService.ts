@@ -119,6 +119,14 @@ const addViewCount = async ({ postId, views }: { postId: string; views: number }
   );
 };
 
+const getViewCount = async ({ postId }: { postId: string }) => {
+  const viewCount = await Post.findOne({
+    where: { id: postId },
+    attributes: ["views"],
+  });
+  return viewCount;
+};
+
 const getPrevPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
@@ -147,6 +155,7 @@ const postService = {
   updateTags,
   deletePost,
   addViewCount,
+  getViewCount,
   isPostExists,
   getPostComments,
 };

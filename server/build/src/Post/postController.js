@@ -236,6 +236,33 @@ var getPostComments = function (req, res, next) { return __awaiter(void 0, void 
         }
     });
 }); };
+var getPostViewCount = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+                var postId, viewCount, err_7;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            postId = req.params.postId;
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, 3, , 4]);
+                            return [4 /*yield*/, postService_1.default.getViewCount({ postId: postId })];
+                        case 2:
+                            viewCount = _a.sent();
+                            res.status(201).json({ viewCount: viewCount });
+                            return [3 /*break*/, 4];
+                        case 3:
+                            err_7 = _a.sent();
+                            console.log(err_7);
+                            next(err_7);
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            }); }];
+    });
+}); };
 var postController = {
     getPost: getPost,
     updatePost: updatePost,
@@ -243,5 +270,6 @@ var postController = {
     deletePost: deletePost,
     addComment: addComment,
     getPostComments: getPostComments,
+    getPostViewCount: getPostViewCount,
 };
 exports.default = postController;
