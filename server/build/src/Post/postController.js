@@ -202,7 +202,6 @@ var getPost = function (req, res, next) { return __awaiter(void 0, void 0, void 
             case 4:
                 nextPost = _a.sent();
                 res.status(201).json({ mainPost: mainPost, prevPost: prevPost, nextPost: nextPost });
-                postService_1.default.addViewCount({ postId: postId, views: mainPost.views });
                 return [3 /*break*/, 6];
             case 5:
                 err_5 = _a.sent();
@@ -249,6 +248,7 @@ var getPostViewCount = function (req, res, next) { return __awaiter(void 0, void
             case 2:
                 viewCount = _a.sent();
                 res.status(201).json((viewCount === null || viewCount === void 0 ? void 0 : viewCount.views) || 0);
+                postService_1.default.addViewCount({ postId: postId, views: viewCount });
                 return [3 /*break*/, 4];
             case 3:
                 err_7 = _a.sent();
