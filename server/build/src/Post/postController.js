@@ -236,7 +236,7 @@ var getPostComments = function (req, res, next) { return __awaiter(void 0, void 
     });
 }); };
 var getPostViewCount = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, viewCount, err_7;
+    var postId, views, err_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -246,9 +246,9 @@ var getPostViewCount = function (req, res, next) { return __awaiter(void 0, void
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, postService_1.default.getViewCount({ postId: postId })];
             case 2:
-                viewCount = _a.sent();
-                res.status(201).json((viewCount === null || viewCount === void 0 ? void 0 : viewCount.views) || 0);
-                postService_1.default.addViewCount({ postId: postId, views: viewCount });
+                views = (_a.sent()).views;
+                res.status(201).json(views || 0);
+                postService_1.default.addViewCount({ postId: postId, views: views });
                 return [3 /*break*/, 4];
             case 3:
                 err_7 = _a.sent();
