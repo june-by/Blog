@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./styles.module.scss";
 
 interface Props<ErrorType extends Error = Error> {
-  error: ErrorType;
-  reset: (...args: unknown[]) => void;
+  error: any;
+  reset: any;
 }
 
 export default function ErrorHelper({ error, reset }: Props) {

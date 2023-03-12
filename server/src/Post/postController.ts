@@ -93,7 +93,6 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
     const prevPost = await postService.getPrevPost(mainPost.category, postId);
     const nextPost = await postService.getNextPost(mainPost.category, postId);
     res.status(201).json({ mainPost, prevPost, nextPost });
-    postService.addViewCount({ postId, views: mainPost.views });
   } catch (err) {
     console.log(err);
     next(err);
@@ -114,8 +113,9 @@ const getPostComments = async (req: Request, res: Response, next: NextFunction) 
 const getPostViewCount = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
   try {
-    const viewCount = await postService.getViewCount({ postId });
-    res.status(201).json(viewCount?.views || 0);
+    const { views } = await postService.getViewCount({ postId });
+    res.status(201).json(views || 0);
+    postService.addViewCount({ postId, views });
   } catch (err) {
     console.log(err);
     next(err);

@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import { useGetTopViewsPosts } from "Hooks/Post";
 import styles from "./styles.module.scss";
-import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 import ErrorHelper from "../../../errorHelper";
 
 const TopViewsPosts = () => {
@@ -10,12 +9,7 @@ const TopViewsPosts = () => {
     <section className={styles.TopViewsPosts}>
       <h3 className={styles.title}>조회수 Top10</h3>
       <div className={styles.ListWrapper}>
-        <AsyncBoundary
-          suspenseFallback={<TopViewsPostsListSkeleton />}
-          errorFallback={(props) => <ErrorHelper {...props} />}
-        >
-          <TopViewsPostsList />
-        </AsyncBoundary>
+        <TopViewsPostsList />
       </div>
     </section>
   );
@@ -24,7 +18,7 @@ const TopViewsPosts = () => {
 export default TopViewsPosts;
 
 function TopViewsPostsList() {
-  const { data } = useGetTopViewsPosts();
+  const { data, isLoading, isError, error, refetch } = useGetTopViewsPosts();
   const { push } = useRouter();
   const gotoPost = useCallback(
     (id: number) => () => {
@@ -32,6 +26,9 @@ function TopViewsPostsList() {
     },
     [push]
   );
+
+  if (isLoading) return <TopViewsPostsListSkeleton />;
+  if (isError) return <ErrorHelper reset={refetch} error={error} />;
 
   return (
     <ul className={styles.contents}>

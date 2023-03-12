@@ -119,7 +119,7 @@ const addViewCount = async ({ postId, views }: { postId: string; views: number }
   );
 };
 
-const getViewCount = async ({ postId }: { postId: string }) => {
+const getViewCount = async ({ postId }: { postId: string }): Promise<{ views: number }> => {
   const viewCount = await Post.findOne({
     where: { id: postId },
     attributes: ["views"],

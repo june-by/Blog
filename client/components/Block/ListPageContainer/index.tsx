@@ -3,7 +3,6 @@ import styles from "./styles.module.scss";
 import CategoryList from "./CategorySelect";
 import Posts from "./Posts";
 import SideBar from "./sideBar";
-
 interface Props {
   children: React.ReactNode;
 }

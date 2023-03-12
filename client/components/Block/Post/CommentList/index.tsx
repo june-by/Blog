@@ -6,7 +6,9 @@ import { useRouter } from "next/router";
 
 const CommentList = () => {
   const { query } = useRouter();
-  const { data } = useGetPostComments(Number(query.id));
+  const { data, isLoading: isFetchCommentsLoading } = useGetPostComments(Number(query.id));
+
+  if (isFetchCommentsLoading) return <></>;
 
   return (
     <div className={styles.CommentList}>
