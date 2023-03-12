@@ -24,7 +24,7 @@ function RecentTagList() {
   return (
     <ul className={styles.tagsWrapper}>
       {data?.map((tag, idx) => (
-        <TagIcon key={`#${tag}`} tag={tag} />
+        <TagIcon key={`#${tag}${idx}`} tag={tag} />
       ))}
     </ul>
   );

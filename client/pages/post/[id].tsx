@@ -25,14 +25,15 @@ import ErrorHelper from "components/Block/errorHelper";
 
 const Post = () => {
   const router = useRouter();
+
   const { data: userInfo, isLoading: userInfoLoadLoading } = useGetUserInfo();
-  const { data, isLoading, isError, refetch, error } = useGetOnePost(Number(router.query.id));
+  const { data, isError, error } = useGetOnePost(Number(router.query.id));
 
   const Post = data?.mainPost;
 
   useEffect(() => {
     if (!isError) return;
-    alert(error);
+    alert(`error : ${error}`);
     router.push("/");
   }, [error, isError, router]);
 
@@ -44,7 +45,7 @@ const Post = () => {
     }
   }, [Post?.isPublic, router, userInfo, userInfoLoadLoading]);
 
-  if (isLoading || router.isFallback) return <PostSkeleton />;
+  if (router.isFallback) return <PostSkeleton />;
 
   return (
     <>

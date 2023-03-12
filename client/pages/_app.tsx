@@ -21,11 +21,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
-        defaultOptions: {
-          queries: {
-            suspense: true,
-          },
-        },
+        // defaultOptions: {
+        //   queries: {
+        //     suspense: true,
+        //   },
+        // },
       })
   );
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,26 +36,23 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AsyncBoundary
-        suspenseFallback={Loading(nextUrl || router.pathname)}
-        errorFallback={(props) => <ErrorHelper {...props} />}
-      >
-        {loading ? (
-          <>{Loading(nextUrl || router.pathname)}</>
-        ) : (
-          <Hydrate state={pageProps.dehydratedState}>
+      {loading ? (
+        <>{Loading(nextUrl || router.pathname)}</>
+      ) : (
+        <Hydrate state={pageProps.dehydratedState}>
+          <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
             <Header />
-            <Head>
-              <meta charSet="utf-8"></meta>
-              <title>ByJuun.com</title>
-              <link rel="shortcut icon" href="/favicon.ico" />
-            </Head>
-            <Component {...pageProps} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Hydrate>
-        )}
-        <ProgressBar />
-      </AsyncBoundary>
+          </AsyncBoundary>
+          <Head>
+            <meta charSet="utf-8"></meta>
+            <title>ByJuun.com</title>
+            <link rel="shortcut icon" href="/favicon.ico" />
+          </Head>
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
+      )}
+      <ProgressBar />
     </QueryClientProvider>
   );
 }

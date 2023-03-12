@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetUserInfo } from "Hooks/User";
 import { MainPost } from "Types/post";
 import dateForm from "utils/dateForm";
@@ -11,6 +11,7 @@ import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
 import { useGetPostViewCount } from "Hooks/Post";
 import { useRouter } from "next/router";
+import MESSAGE from "constants/message";
 
 interface Props {
   Post: MainPost;

@@ -6,7 +6,7 @@ import QUERY_KEY from "constants/queryKey";
 import MESSAGE from "constants/message";
 
 export const useGetUserInfo = () =>
-  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), CACHE_OPTION.ALL);
+  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), { ...CACHE_OPTION.ALL, retry: false });
 
 export const useSignUp = (onSuccess: () => void) => {
   return useMutation(SignUpAPI, {
