@@ -3,6 +3,7 @@ import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
 import styles from "./styles.module.scss";
 import extractFromCookie from "utils/extractFromCookie";
+import SSRSafeSuspense from "components/_hoc/SSRSafeSuspense";
 
 const DARK_MODE = false;
 const LIGHT_MODE = true;
@@ -35,4 +36,12 @@ const DarkModeBtn = () => {
   );
 };
 
-export default DarkModeBtn;
+const DarkModeBtnSuspenseWrapper = () => {
+  return (
+    <SSRSafeSuspense>
+      <DarkModeBtn />
+    </SSRSafeSuspense>
+  );
+};
+
+export default DarkModeBtnSuspenseWrapper;

@@ -1,3 +1,4 @@
+import ErrorHelper from "components/Block/errorHelper";
 import NoPost from "components/Block/ListPageContainer/Posts/NoPost";
 import PostCard from "components/Block/ListPageContainer/Posts/PostCard";
 import PostCardSkeleton from "components/Block/ListPageContainer/Posts/PostCard/Skeleton";
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const Posts = ({ params, query }: Props) => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch } = query(params);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -23,6 +24,8 @@ const Posts = ({ params, query }: Props) => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   useRestoreSrollPos();
+
+  if (isError) return <ErrorHelper error={error} reset={refetch} />;
 
   return (
     <>

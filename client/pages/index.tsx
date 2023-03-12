@@ -2,8 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
-import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
-import ErrorHelper from "components/Block/errorHelper";
 import ScrollBtn from "components/Atom/scrollBtn";
 import ListPageContainer from "components/Block/ListPageContainer";
 import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
@@ -41,9 +39,7 @@ const Home: NextPage = () => {
         />
         <section className={styles.HomeContentWrapper}>
           <ListPageContainer.CategoryList />
-          <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
-            <ListPageContainer.Posts query={useGetMainPost} />
-          </AsyncBoundary>
+          <ListPageContainer.Posts query={useGetMainPost} />
         </section>
         <ListPageContainer.SideBar
           renderItems={

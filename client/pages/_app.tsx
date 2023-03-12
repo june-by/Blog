@@ -11,23 +11,12 @@ import ProgressBar from "components/Atom/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";
-import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
-import ErrorHelper from "components/Block/errorHelper";
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        // defaultOptions: {
-        //   queries: {
-        //     suspense: true,
-        //   },
-        // },
-      })
-  );
+  const [queryClient] = useState(() => new QueryClient());
   const [loading, setLoading] = useState<boolean>(false);
   const [nextUrl, setNextUrl] = useState<string | null>(null);
 
@@ -40,9 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <>{Loading(nextUrl || router.pathname)}</>
       ) : (
         <Hydrate state={pageProps.dehydratedState}>
-          <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
-            <Header />
-          </AsyncBoundary>
+          <Header />
           <Head>
             <meta charSet="utf-8"></meta>
             <title>ByJuun.com</title>

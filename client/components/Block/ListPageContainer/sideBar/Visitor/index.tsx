@@ -1,19 +1,19 @@
 import React from "react";
 import { useGetVisitor } from "Hooks/Visitor";
 import styles from "./styles.module.scss";
-import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
 const Visitor = () => {
   return (
-    <AsyncBoundary suspenseFallback={<VisitorSkeleton />} errorFallback={(props) => <></>}>
-      <section className={styles.Visitor}>
-        <VisitorInfo />
-      </section>
-    </AsyncBoundary>
+    <section className={styles.Visitor}>
+      <VisitorInfo />
+    </section>
   );
 };
 
 function VisitorInfo() {
-  const { data } = useGetVisitor();
+  const { data, isLoading, isError } = useGetVisitor();
+
+  if (isError) return <></>;
+  if (isLoading) return <VisitorSkeleton />;
 
   return (
     <article className={styles.info}>

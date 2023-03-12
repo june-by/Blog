@@ -6,6 +6,7 @@ import useHeaderAnimation from "./useHeaderAnimation";
 import HeaderLeft from "./HeaderLeft";
 import DarkModeBtn from "components/Atom/DarkModeBtn";
 import MobileMenuContainer from "components/Block/mobileMenu";
+import SSRSafeSuspense from "components/_hoc/SSRSafeSuspense";
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);

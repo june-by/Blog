@@ -9,7 +9,7 @@ import CommentList from "components/Block/Post/CommentList";
 import OtherPostInfo from "components/Block/Post/OtherPostInfo";
 import PostContent from "components/Block/Post/PostContent";
 import PostTop from "components/Block/Post/PostTop";
-import { useGetOnePost, useGetPostViewCount } from "Hooks/Post";
+import { useGetOnePost } from "Hooks/Post";
 import { MainPost } from "Types/post";
 import ScrollBtn from "components/Atom/scrollBtn";
 import styles from "./styles.module.scss";
@@ -20,8 +20,6 @@ import PostSkeleton from "components/Block/Post/Skeleton";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
-import AsyncBoundary from "components/_hoc/AsyncErrorBoundary";
-import ErrorHelper from "components/Block/errorHelper";
 
 const Post = () => {
   const router = useRouter();
@@ -63,9 +61,7 @@ const Post = () => {
         <PostContent content={Post?.content || ""} />
         <OtherPostInfo />
         <CommentForm />
-        <AsyncBoundary suspenseFallback={<></>} errorFallback={(props) => <ErrorHelper {...props} />}>
-          <CommentList />
-        </AsyncBoundary>
+        <CommentList />
         <ScrollBtn />
       </main>
     </>
