@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 const OtherPostInfo = () => {
   const router = useRouter();
-  const { data } = useGetOnePost(Number(router.query.id));
+  const { data, isLoading } = useGetOnePost(Number(router.query.id));
   const mainPost = useMemo(() => data?.mainPost, [data]);
   const prevPost = useMemo(() => data?.prevPost, [data]);
   const nextPost = useMemo(() => data?.nextPost, [data]);
@@ -18,6 +18,7 @@ const OtherPostInfo = () => {
     테스트 과정에서 isLoading에 대한 처리를 하지 않을 경우,
     에러가 발생하기 때문에, 이에 대한 조건문을 넣음
   */
+  if (isLoading) return <></>;
 
   return (
     <div className={styles.OtherPostInfoWrapper}>
