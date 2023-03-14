@@ -4,6 +4,9 @@ import { useEffect } from "react";
 export default function useHighLightCodeBlock(category: string) {
   useEffect(() => {
     handleCodeBlock(category);
+    hljs.configure({
+      ignoreUnescapedHTML: true,
+    });
     hljs.highlightAll();
   }, []);
 }
