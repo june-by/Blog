@@ -58,7 +58,7 @@ const Post = () => {
       </Head>
       <main className={styles.Post}>
         <PostTop Post={Post as MainPost} />
-        <PostContent content={Post?.content || ""} />
+        <PostContent content={Post?.content || ""} category={Post?.category || ""} />
         <OtherPostInfo />
         <CommentForm />
         <CommentList />
