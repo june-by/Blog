@@ -70,12 +70,12 @@ const Write = () => {
         <CategorySelectInWrite categoryInfo={categoryInfo} onChangeCategory={onChangeCategory} />
         <Tag tagArr={tagArr} setTagArr={setTagArr} />
       </div>
-      <PostEditor content={content} setContent={setContent} />
+      <PostEditor content={content} setContent={setContent} category={categoryInfo} />
       <PickThumbNail thumbNailUrl={thumbNailUrl} setThumbNailUrl={setThumbNailUrl} />
     </div>
   );
 };
 
-// export default Write;
+//export default Write;
 
 export default withAdminValidation(Write);

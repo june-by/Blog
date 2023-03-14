@@ -64,9 +64,12 @@ a {
 }
 
 pre {
-  padding: 1rem;
-  background: #fafafa;
   overflow: auto;
+}
+
+pre code {
+  background: #282c34 !important;
+  color: #abb2bf !important;
 }
 
 .ql-snow .ql-editor pre.ql-syntax {

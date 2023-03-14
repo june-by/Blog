@@ -33,9 +33,11 @@ const QuillNoSSRWrapper = dynamic(
 const PostEditor = ({
   content,
   setContent,
+  category,
 }: {
   content: string;
   setContent: React.Dispatch<React.SetStateAction<string>>;
+  category: string;
 }) => {
   const QuillRef = useRef<ReactQuill>(null);
   const onChange = useCallback(
@@ -69,7 +71,7 @@ const PostEditor = ({
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) => hljs.highlightAuto(text).value,
+        highlight: (text: string) => hljs.highlight(text, { language: CATEGORY_TO_LANGUAGE[category] || "" }).value,
       },
       toolbar: {
         container: containerConfig,
@@ -100,3 +102,9 @@ const PostEditor = ({
 };
 
 export default PostEditor;
+
+const CATEGORY_TO_LANGUAGE: { [key: string]: string } = {
+  TypeScript: "typescript",
+  JavaScript: "javascript",
+  React: "tsx",
+};
