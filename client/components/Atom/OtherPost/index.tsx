@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import { OtherPostType } from "Types/post";
@@ -10,12 +11,11 @@ interface Props {
 
 const OtherPost = ({ Post, mode }: Props) => {
   const { push } = useRouter();
-  const gotoPost = useCallback(() => {
-    if (!Post?.OtherId) return;
-    return push(`/post/${Post.OtherId}`);
+  const alertNoPost = useCallback(() => {
+    alert(`${mode === "next" ? "다음" : "이전"}게시글이 없습니다 :(`);
   }, []);
   return (
-    <div data-testid="OtherPost" className={styles.OtherPost} onClick={gotoPost}>
+    <div data-testid="OtherPost" className={styles.OtherPost}>
       <div className={styles.description}>
         <span>{`${mode === "next" ? "다음" : "이전"}게시글`}</span>
       </div>
@@ -23,10 +23,10 @@ const OtherPost = ({ Post, mode }: Props) => {
         <span>
           {Post.OtherId ? (
             <>
-              <span>{Post.OtherTitle}</span>
+              <Link href={`/post/${Post.OtherId}`}>{Post.OtherTitle}</Link>
             </>
           ) : (
-            `${`${mode === "next" ? "다음" : "이전"}게시글이 없습니다 :(`}`
+            <div onClick={alertNoPost}>{`${mode === "next" ? "다음" : "이전"}게시글이 없습니다 :(`}</div>
           )}
         </span>
       </div>
