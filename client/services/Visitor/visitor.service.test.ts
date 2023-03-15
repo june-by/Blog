@@ -1,4 +1,4 @@
-import { getVisitorAPI, postVisitorAPI } from "..";
+import { getVisitorAPI, postVisitorAPI } from ".";
 
 describe("VisitorAPI", () => {
   it("getVisitorAPI", async () => {

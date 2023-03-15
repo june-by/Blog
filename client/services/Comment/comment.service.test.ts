@@ -1,4 +1,4 @@
-import { getRecentCommentAPI } from "..";
+import { getRecentCommentAPI } from ".";
 
 describe("CommentAPI", () => {
   it("getRecentCommentAPI", async () => {

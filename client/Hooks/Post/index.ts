@@ -10,9 +10,9 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
-} from "services/Post";
+} from "services/post";
 import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-import { getMainPostsAPI } from "services/Post";
+import { getMainPostsAPI } from "services/post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/post";
 import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";

@@ -1,4 +1,4 @@
-import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "..";
+import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from ".";
 import { DummyUser } from "constants/dummy";
 
 const dummyPwd = "test";

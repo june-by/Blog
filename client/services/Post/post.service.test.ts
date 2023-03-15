@@ -1,4 +1,4 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from "..";
+import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from ".";
 import { DummyPost } from "constants/dummy";
 import { Category } from "constants/category";
 
