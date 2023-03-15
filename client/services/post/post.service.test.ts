@@ -1,6 +1,6 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from "..";
+import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from ".";
 import { DummyPost } from "constants/dummy";
-import Category from "constants/category";
+import { Category } from "constants/category";
 
 describe("postAPI", () => {
   it("getOnePostAPI", async () => {

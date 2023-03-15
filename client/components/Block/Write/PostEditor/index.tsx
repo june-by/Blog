@@ -8,6 +8,7 @@ import { customAxios } from "utils/CustomAxios";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import { containerConfig, formats } from "./config";
+import { CATEGORY_TO_HLJS_CLASS } from "constants/category";
 
 interface Props {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -71,7 +72,7 @@ const PostEditor = ({
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) => hljs.highlight(text, { language: CATEGORY_TO_LANGUAGE[category] || "" }).value,
+        highlight: (text: string) => hljs.highlight(text, { language: CATEGORY_TO_HLJS_CLASS[category] || "" }).value,
       },
       toolbar: {
         container: containerConfig,
@@ -102,9 +103,3 @@ const PostEditor = ({
 };
 
 export default PostEditor;
-
-const CATEGORY_TO_LANGUAGE: { [key: string]: string } = {
-  TypeScript: "typescript",
-  JavaScript: "javascript",
-  React: "tsx",
-};

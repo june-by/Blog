@@ -1,0 +1,16 @@
+export {
+  getAllPostsId,
+  getMainPostsAPI,
+  getAllCategoryLengthAPI,
+  getOnePostAPI,
+  getCategoryPostAPI,
+  getSearchPostAPI,
+  getTagPostAPI,
+  AddPostAPI,
+  EditPostAPI,
+  DeletePostAPI,
+  getCommentAPI,
+  getPostViewCountAPI,
+  AddCommentAPI,
+  GetTopViewsPostsAPI,
+} from "./post.service";

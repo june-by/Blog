@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import useSetEditData from "Hooks/useSetEditData";
 import { useRouter } from "next/router";
 import PickThumbNail from "components/Block/Write/PickThumbNail";
-import Category from "constants/category";
+import { Category } from "constants/category";
 import withAdminValidation from "components/_hoc/withAdminValidation";
 const PostEditor = dynamic(() => import("components/Block/Write/PostEditor"), {
   ssr: false,

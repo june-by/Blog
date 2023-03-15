@@ -10,9 +10,9 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
-} from "services/Post";
+} from "services/post";
 import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-import { getMainPostsAPI } from "services/Post";
+import { getMainPostsAPI } from "services/post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/post";
 import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";
@@ -70,7 +70,11 @@ export const useGetPostViewCount = (id: number) =>
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
+    onMutate: () => {
+      document.body.style.cursor = "wait";
+    },
     onSuccess: () => {
+      document.body.style.cursor = "default";
       alert(MESSAGE.POST_REGIST_SUCCESS);
       return window.location.replace("/");
     },
@@ -80,7 +84,11 @@ export const useAddPost = () => {
 export const useEditPost = () => {
   const { query } = useRouter();
   return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
+    onMutate: () => {
+      document.body.style.cursor = "wait";
+    },
     onSuccess: () => {
+      document.body.style.cursor = "default";
       alert(MESSAGE.POST_EDIT_SUCCESS);
       return window.location.replace(`/post/${query.id}`);
     },

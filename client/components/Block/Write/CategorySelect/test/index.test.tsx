@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import Category from "constants/category";
+import { Category } from "constants/category";
 import React from "react";
 import CategorySelectInWrite from "..";
 

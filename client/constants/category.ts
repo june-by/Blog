@@ -1,4 +1,4 @@
-const Category = [
+export const Category = [
   "JavaScript",
   "React",
   "Web",
@@ -13,4 +13,11 @@ const Category = [
   "회고",
 ];
 
-export default Category;
+export const CATEGORY_TO_HLJS_CLASS: { [key: string]: string } = {
+  TypeScript: "typescript",
+  JavaScript: "javascript",
+  React: "tsx",
+  Web: "javascript",
+  NodeJs: "javascript",
+  Algorithm: "javascript",
+};

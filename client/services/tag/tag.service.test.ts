@@ -1,4 +1,4 @@
-import { getRecentTagsAPI } from "..";
+import { getRecentTagsAPI } from ".";
 
 describe("TagAPI", () => {
   it("getRecentCommentAPI", async () => {

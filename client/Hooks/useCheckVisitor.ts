@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { QueryClient } from "react-query";
-import { postVisitorAPI } from "services/Visitor";
+import { postVisitorAPI } from "services/visitor";
 
 interface DateInfo {
   year: number;

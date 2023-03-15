@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { ServerURL } from "constants/serverURL";
 import { DummyCommentsList, DummyPost } from "constants/dummy";
-import Category from "constants/category";
+import { Category } from "constants/category";
 
 export const getCategoryPosts = rest.get(`${ServerURL}/posts/load/:category/:pageNum`, (req, res, ctx) => {
   return res(

@@ -3,7 +3,7 @@ import CategoryChip from "components/Atom/CategoryChip";
 import styles from "./styles.module.scss";
 import { useGetAllCateogryLength } from "Hooks/Post";
 import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
-import Category from "constants/category";
+import { Category } from "constants/category";
 
 const CategoryList = () => {
   const { data, isLoading } = useGetAllCateogryLength();
