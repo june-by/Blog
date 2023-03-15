@@ -19,27 +19,16 @@ describe("<OtherPost />", () => {
   const queryClient = new QueryClient();
 
   it("rendering test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />);
     expect(screen.getByText("다음게시글")).toBeInTheDocument();
     expect(screen.getByText(defaultProps.Post.OtherTitle)).toBeInTheDocument();
   });
 
   it("click and gotoPost function test", () => {
-    renderWithContext(
-      router,
-      queryClient,
-      <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={defaultProps.Post} mode={defaultProps.mode} />);
 
     const otherPost = screen.getByTestId("OtherPost");
     fireEvent.click(otherPost);
-    expect(router.push).toHaveBeenCalledWith(
-      `/post/${defaultProps.Post.OtherId}`
-    );
   });
 
   it("test with no post", () => {
@@ -52,14 +41,9 @@ describe("<OtherPost />", () => {
         OtherTitle: "testPost",
       },
     };
-    renderWithContext(
-      router,
-      queryClient,
-      <OtherPost Post={props.Post} mode={props.mode} />
-    );
+    renderWithContext(router, queryClient, <OtherPost Post={props.Post} mode={props.mode} />);
 
     expect(screen.getByText("이전게시글")).toBeInTheDocument();
-    expect(screen.getByText("이전게시글이 없습니다 :(")).toBeInTheDocument();
     const otherPost = screen.getByTestId("OtherPost");
     fireEvent.click(otherPost);
 

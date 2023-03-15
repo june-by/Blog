@@ -26,7 +26,7 @@ const OtherPost = ({ Post, mode }: Props) => {
               <Link href={`/post/${Post.OtherId}`}>{Post.OtherTitle}</Link>
             </>
           ) : (
-            <div onClick={alertNoPost}>`${`${mode === "next" ? "다음" : "이전"}게시글이 없습니다 :(`}`</div>
+            <div onClick={alertNoPost}>{`${mode === "next" ? "다음" : "이전"}게시글이 없습니다 :(`}</div>
           )}
         </span>
       </div>
