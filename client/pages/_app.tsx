@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       {loading ? (
-        <>{Loading(nextUrl || router.pathname)}</>
+        <Loading nextUrl={nextUrl || router.pathname} />
       ) : (
         <Hydrate state={pageProps.dehydratedState}>
           <Header />
