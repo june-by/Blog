@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getRecentCommentAPI } from "services/comment";
-import { AddCommentAPI } from "services/post";
+import { AddCommentAPI, getRecentCommentAPI } from "services/comment";
 import { RecentComment } from "Types/comment";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";

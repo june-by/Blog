@@ -9,8 +9,6 @@ export {
   AddPostAPI,
   EditPostAPI,
   DeletePostAPI,
-  getCommentAPI,
   getPostViewCountAPI,
-  AddCommentAPI,
   GetTopViewsPostsAPI,
 } from "./post.service";
