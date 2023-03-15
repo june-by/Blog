@@ -10,11 +10,11 @@ const CategoryList = () => {
 
   if (isLoading)
     return (
-      <>
+      <nav className={styles.CategorySelect}>
         {Category.map((cateogry) => {
           return <CategoryChipSkeleton key={cateogry} />;
         })}
-      </>
+      </nav>
     );
 
   return (
