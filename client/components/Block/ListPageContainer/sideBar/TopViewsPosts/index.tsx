@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { useGetTopViewsPosts } from "Hooks/Post";
 import styles from "./styles.module.scss";
 import ErrorHelper from "../../../errorHelper";
+import Link from "next/link";
 
 const TopViewsPosts = () => {
   return (
@@ -20,12 +21,6 @@ export default TopViewsPosts;
 function TopViewsPostsList() {
   const { data, isLoading, isError, error, refetch } = useGetTopViewsPosts();
   const { push } = useRouter();
-  const gotoPost = useCallback(
-    (id: number) => () => {
-      push(`/post/${id}`);
-    },
-    [push]
-  );
 
   if (isLoading) return <TopViewsPostsListSkeleton />;
   if (isError) return <ErrorHelper reset={refetch} error={error} />;
@@ -33,8 +28,10 @@ function TopViewsPostsList() {
   return (
     <ul className={styles.contents}>
       {data?.map((post, idx) => (
-        <li data-testid={`${idx}post`} className={styles.content} key={post.title} onClick={gotoPost(post.id)}>
-          {idx + 1}. {post.title}
+        <li data-testid={`${idx}post`} className={styles.content} key={post.title}>
+          <Link href={`/post/${post.id}`}>
+            {idx + 1}. {post.title}
+          </Link>
         </li>
       ))}
     </ul>
