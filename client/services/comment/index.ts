@@ -1,1 +1,1 @@
-export { getRecentCommentAPI } from "./comment.service";
+export { getRecentCommentAPI, AddCommentAPI, getCommentAPI } from "./comment.service";

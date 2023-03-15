@@ -1,4 +1,5 @@
 import MESSAGE from "constants/message";
+import { UserType } from "Types/user";
 import { customAxios } from "utils/CustomAxios";
 
 interface LoginDataType {
@@ -12,7 +13,7 @@ interface SignUpDataType {
   nickname: string;
 }
 
-export const LoginAPI = async (LoginData: LoginDataType) => {
+export const LoginAPI = async (LoginData: LoginDataType): Promise<"success"> => {
   try {
     const { data } = await customAxios.post(`/user/login`, LoginData);
     return data;
@@ -22,7 +23,7 @@ export const LoginAPI = async (LoginData: LoginDataType) => {
   }
 };
 
-export const LogOutAPI = async () => {
+export const LogOutAPI = async (): Promise<"success"> => {
   try {
     const { data } = await customAxios.get("/user/logout");
     return data;
@@ -32,7 +33,7 @@ export const LogOutAPI = async () => {
   }
 };
 
-export const SignUpAPI = async (SignUpData: SignUpDataType) => {
+export const SignUpAPI = async (SignUpData: SignUpDataType): Promise<"success"> => {
   try {
     const { data } = await customAxios.post(`/user/signup`, SignUpData);
     return data;
@@ -42,7 +43,7 @@ export const SignUpAPI = async (SignUpData: SignUpDataType) => {
   }
 };
 
-export const getUserInfoAPI = async () => {
+export const getUserInfoAPI = async (): Promise<UserType | null> => {
   try {
     const { data } = await customAxios.get("/user");
     return data;
@@ -51,11 +52,9 @@ export const getUserInfoAPI = async () => {
   }
 };
 
-export const submitGithubCode = async (code: string) => {
+export const submitGithubCode = async (code: string): Promise<void> => {
   try {
-    console.log("submitCode");
-    const { data } = await customAxios.post(`/user/githubAuth?code=${code}`);
-    return data;
+    await customAxios.post(`/user/githubAuth?code=${code}`);
   } catch (err) {
     throw Error();
   }

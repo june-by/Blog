@@ -4,7 +4,6 @@ import {
   EditPostAPI,
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
-  getCommentAPI,
   getOnePostAPI,
   getPostViewCountAPI,
   getSearchPostAPI,
@@ -20,6 +19,7 @@ import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import MESSAGE from "constants/message";
 import { CommentType } from "Types/comment";
+import { getCommentAPI } from "services/comment";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {
@@ -28,7 +28,7 @@ export const useGetMainPost = () =>
   });
 
 export const useGetOnePost = (id: number) =>
-  useQuery<PostType>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), CACHE_OPTION.ALL);
+  useQuery<PostType | null>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), CACHE_OPTION.ALL);
 
 export const useGetTopViewsPosts = () =>
   useQuery<TopViewsPost[]>([QUERY_KEY.POST.TOPVIEWS], () => GetTopViewsPostsAPI(), CACHE_OPTION.WITHOUT_FETCH_ON_MOUNT);
