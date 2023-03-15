@@ -70,7 +70,11 @@ export const useGetPostViewCount = (id: number) =>
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
+    onMutate: () => {
+      document.body.style.cursor = "wait";
+    },
     onSuccess: () => {
+      document.body.style.cursor = "default";
       alert(MESSAGE.POST_REGIST_SUCCESS);
       return window.location.replace("/");
     },
@@ -80,7 +84,11 @@ export const useAddPost = () => {
 export const useEditPost = () => {
   const { query } = useRouter();
   return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
+    onMutate: () => {
+      document.body.style.cursor = "wait";
+    },
     onSuccess: () => {
+      document.body.style.cursor = "default";
       alert(MESSAGE.POST_EDIT_SUCCESS);
       return window.location.replace(`/post/${query.id}`);
     },
