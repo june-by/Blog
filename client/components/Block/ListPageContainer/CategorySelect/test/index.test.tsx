@@ -4,7 +4,7 @@ import { QueryClient } from "react-query";
 import CategoryList from "..";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
-import Category from "constants/category";
+import { Category } from "constants/category";
 
 describe("<CategoryList />", () => {
   const router = createMockRouter();

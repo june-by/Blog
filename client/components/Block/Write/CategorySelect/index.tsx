@@ -1,4 +1,4 @@
-import Category from "constants/category";
+import { Category } from "constants/category";
 import React from "react";
 
 interface Props {

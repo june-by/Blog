@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetAllCateogryLength } from "Hooks/Post";
 import CategoryRow from "./CategoryRow";
-import Category from "constants/category";
+import { Category } from "constants/category";
 
 const MobileCategoryList = () => {
   const { data, isLoading } = useGetAllCateogryLength();
