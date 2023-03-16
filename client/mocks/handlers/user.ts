@@ -1,9 +1,9 @@
 import { rest } from "msw";
-import { DummyUser } from "constants/dummy";
 import { ServerURL } from "constants/serverURL";
+import DUMMY from "constants/dummy";
 
 export const getUserInfo = rest.get(`${ServerURL}/user`, (req, res, ctx) => {
-  return res(ctx.status(200), ctx.json(DummyUser));
+  return res(ctx.status(200), ctx.json(DUMMY.USER));
 });
 
 export const login = rest.post(`${ServerURL}/user/login`, (req, res, ctx) => {
