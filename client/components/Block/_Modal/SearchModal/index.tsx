@@ -40,7 +40,11 @@ const SearchModal = ({ setOpen }: Props) => {
             </button>
           </div>
           <form onSubmit={submit} className={styles.Form}>
-            <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
+            <input
+              data-testid="searchInput"
+              ref={searchRef}
+              placeholder="특정 키워드를 입력해주세요"
+            />
             <button>검색</button>
           </form>
         </>
