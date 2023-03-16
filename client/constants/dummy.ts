@@ -51,6 +51,7 @@ const DUMMY = {
       },
     ],
   },
+  POST_VIEW_COUNT: 10,
 };
 
 export default DUMMY;

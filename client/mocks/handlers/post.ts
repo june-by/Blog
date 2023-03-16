@@ -88,8 +88,8 @@ export const getPostComments = rest.get(
 );
 
 export const getPostViewCount = rest.get(
-  `${ServerURL}/posts/load/viewCount/:postId`,
+  `${ServerURL}/post/load/viewCount/:postId`,
   (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(DUMMY.COMMENTS_LIST));
+    return res(ctx.status(200), ctx.json(DUMMY.POST_VIEW_COUNT));
   }
 );
