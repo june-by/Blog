@@ -81,7 +81,7 @@ export const getAllCategoryLength = rest.get(
 );
 
 export const getPostComments = rest.get(
-  `${ServerURL}/posts/load/comments/:postId`,
+  `${ServerURL}/post/load/comment/:postId`,
   (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(DUMMY.COMMENTS_LIST));
   }
