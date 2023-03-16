@@ -20,7 +20,6 @@ export default TopViewsPosts;
 
 function TopViewsPostsList() {
   const { data, isLoading, isError, error, refetch } = useGetTopViewsPosts();
-  const { push } = useRouter();
 
   if (isLoading) return <TopViewsPostsListSkeleton />;
   if (isError) return <ErrorHelper reset={refetch} error={error} />;
@@ -28,7 +27,11 @@ function TopViewsPostsList() {
   return (
     <ul className={styles.contents}>
       {data?.map((post, idx) => (
-        <li data-testid={`${idx}post`} className={styles.content} key={post.title}>
+        <li
+          data-testid={`${idx}post`}
+          className={styles.content}
+          key={post.title}
+        >
           <Link href={`/post/${post.id}`}>
             {idx + 1}. {post.title}
           </Link>

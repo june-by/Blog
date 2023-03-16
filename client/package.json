@@ -8,7 +8,8 @@
     "start": "next start",
     "test": "jest",
     "lint": "next lint",
-    "prepare": "cd .. && husky install client/.husky"
+    "prepare": "cd .. && husky install client/.husky",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -23,6 +24,7 @@
     "react-quill": "^2.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.2.1",
