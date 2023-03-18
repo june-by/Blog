@@ -59,7 +59,7 @@ const Write = () => {
   return (
     <div className={styles.Write}>
       <div className={styles.titleArea}>
-        <input className={styles.titleInput} placeholder="제목" onChange={onChangeTitle} />
+        <input className={styles.titleInput} value={title} placeholder="제목" onChange={onChangeTitle} />
         <div className={styles.isPublicCheckBox}>
           <span>공개</span>
           <input onChange={onChangeIsPublic} type="checkbox" checked={Boolean(isPublic)} />
@@ -76,6 +76,6 @@ const Write = () => {
   );
 };
 
-export default Write;
+//export default Write;
 
-// export default withAdminValidation(Write);
+export default withAdminValidation(Write);
