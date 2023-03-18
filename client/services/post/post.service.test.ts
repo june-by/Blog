@@ -1,13 +1,18 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from ".";
-import { DummyPost } from "constants/dummy";
+import {
+  getAllCategoryLengthAPI,
+  getCategoryPostAPI,
+  getOnePostAPI,
+  GetTopViewsPostsAPI,
+} from ".";
+import DUMMY from "constants/dummy";
 import { Category } from "constants/category";
 
 describe("postAPI", () => {
   it("getOnePostAPI", async () => {
     expect(await getOnePostAPI(1)).toStrictEqual({
-      ...DummyPost,
+      ...DUMMY.POST,
       mainPost: {
-        ...DummyPost.mainPost,
+        ...DUMMY.POST.mainPost,
         createdAt: "2022-11-13T06:26:45.837Z",
       },
     });

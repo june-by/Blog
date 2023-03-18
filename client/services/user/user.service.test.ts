@@ -1,14 +1,16 @@
 import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from ".";
-import { DummyUser } from "constants/dummy";
+import DUMMY from "constants/dummy";
 
 const dummyPwd = "test";
 describe("UserAPI", () => {
   it("getUserInfoAPI", async () => {
-    expect(await getUserInfoAPI()).toStrictEqual(DummyUser);
+    expect(await getUserInfoAPI()).toStrictEqual(DUMMY.USER);
   });
 
   it("loginAPI", async () => {
-    expect(await LoginAPI({ email: DummyUser.email, password: dummyPwd })).toStrictEqual("success");
+    expect(
+      await LoginAPI({ email: DUMMY.USER.email, password: dummyPwd })
+    ).toStrictEqual("success");
   });
 
   it("logoutAPI", async () => {
@@ -18,9 +20,9 @@ describe("UserAPI", () => {
   it("signupAPI", async () => {
     expect(
       await SignUpAPI({
-        email: DummyUser.email,
+        email: DUMMY.USER.email,
         password: dummyPwd,
-        nickname: DummyUser.nickname,
+        nickname: DUMMY.USER.nickname,
       })
     ).toStrictEqual("success");
   });

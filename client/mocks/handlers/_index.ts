@@ -5,6 +5,7 @@ import {
   getOnePost,
   getPostComments,
   getPostsNum,
+  getPostViewCount,
   getTopViewsPosts,
 } from "./post";
 import { getRecentTag } from "./tag";
@@ -27,4 +28,5 @@ export const handlers = [
   getVisitor,
   getPostComments,
   postVisitor,
+  getPostViewCount,
 ];
