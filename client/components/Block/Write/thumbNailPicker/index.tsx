@@ -1,8 +1,10 @@
 import React, { useCallback } from "react";
 import { customAxios } from "utils/CustomAxios";
 import styles from "./styles.module.scss";
+import useSetDefaultThumbNail from "./useSetDefaultThumbNail";
 
 interface Props {
+  postTitle: string;
   thumbNailUrl: string | null;
   setThumbNailUrl: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -13,7 +15,7 @@ export const thumbnailInputAttribute = [
   { attr: "accept", value: "image/*" },
 ];
 
-const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
+const ThumbNailPicker = ({ postTitle, thumbNailUrl, setThumbNailUrl }: Props) => {
   const onClickSetThumbNail = useCallback(() => {
     const input = document.createElement("input");
     thumbnailInputAttribute.forEach(({ attr, value }) => {
@@ -31,14 +33,14 @@ const PickThumbNail = ({ thumbNailUrl, setThumbNailUrl }: Props) => {
       }
     };
   }, [setThumbNailUrl]);
+
+  useSetDefaultThumbNail(postTitle, thumbNailUrl, setThumbNailUrl);
   return (
     <div className={styles.PickThumbNail}>
       <button onClick={onClickSetThumbNail}>썸네일 설정</button>
-      {thumbNailUrl && thumbNailUrl !== "null" && (
-        <img src={thumbNailUrl} alt="썸네일" />
-      )}
+      {thumbNailUrl && thumbNailUrl !== "null" && <img src={thumbNailUrl} alt="썸네일" />}
     </div>
   );
 };
 
-export default PickThumbNail;
+export default ThumbNailPicker;
