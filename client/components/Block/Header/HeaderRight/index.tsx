@@ -9,6 +9,9 @@ import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
 import SearchIcon from "components/Icon/search";
 import AccountIcon from "components/Icon/account";
+import WriteIcon from "components/Icon/write";
+import LogoutIcon from "components/Icon/logout";
+import IconBtn from "components/Atom/IconBtn";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -34,19 +37,17 @@ const HeaderRight = () => {
   return (
     <>
       <div className={styles.HeaderRight}>
-        {IsAdmin(UserInfo) && <span onClick={gotoWrite}>글 작성</span>}
-        <span onClick={onClickSearch}>
-          <SearchIcon />
-        </span>
+        {IsAdmin(UserInfo) && <IconBtn onClick={gotoWrite} Icon={<WriteIcon />} />}
+        <IconBtn onClick={onClickSearch} Icon={<SearchIcon />} />
         {UserInfo ? (
           <>
-            <span>{UserInfo?.nickname}님</span>
-            <span onClick={LogOut}>로그아웃</span>
+            <span>
+              <strong>{UserInfo?.nickname}</strong>님
+            </span>
+            <IconBtn onClick={LogOut} Icon={<LogoutIcon />} />
           </>
         ) : (
-          <span onClick={onClickLogin}>
-            <AccountIcon />
-          </span>
+          <IconBtn onClick={onClickLogin} Icon={<AccountIcon />} />
         )}
       </div>
       {openLogin && <LoginModal setOpen={setOpenLogin} openSignUp={onClickSignUp} />}

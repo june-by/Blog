@@ -6,26 +6,23 @@ import extractFromCookie from "utils/extractFromCookie";
 import SSRSafeSuspense from "components/_hoc/SSRSafeSuspense";
 import Light from "components/Icon/light";
 import Dark from "components/Icon/dark";
+import IconBtn from "../IconBtn";
 
 const DARK_MODE = false;
 const LIGHT_MODE = true;
 
 const DarkModeBtn = () => {
-  const toggleThumbRef = useRef<HTMLButtonElement>(null);
   const [mode, , onChange] = useToggle(extractFromCookie(document.cookie, "theme") === "dark" ? DARK_MODE : LIGHT_MODE);
-  useDarkMode(mode, toggleThumbRef);
+  useDarkMode(mode);
 
   return (
-    <button
+    <IconBtn
       data-testid="toggleBtn"
       aria-label="toggleDarkModeButton"
-      ref={toggleThumbRef}
       className={styles.darkmodeBtn}
       onClick={onChange}
-    >
-      {mode === DARK_MODE && <Light />}
-      {mode === LIGHT_MODE && <Dark />}
-    </button>
+      Icon={mode === DARK_MODE ? <Light /> : <Dark />}
+    ></IconBtn>
   );
 };
 

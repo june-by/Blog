@@ -7,8 +7,12 @@
   @include mobile {
     flex-direction: column;
   }
-
-  span {
+  p {
+    margin: 0 5px;
+  }
+  button {
+    border: none;
+    background: none;
     display: flex;
     padding: 10px;
     align-items: center;
