@@ -13,7 +13,7 @@ function useDarkMode(mode: boolean, ref: React.RefObject<HTMLButtonElement>) {
 function changeMode(mode: boolean, ref: React.RefObject<HTMLButtonElement>) {
   if (!ref.current) return;
   const { theme, left } = MODE_VALUE[changeModeBoolToStr(mode)];
-  ref.current.style.left = left;
+  // ref.current.style.left = left;
   document.body.dataset.theme = theme;
   document.cookie = `theme=${theme}; path=/`;
 }
