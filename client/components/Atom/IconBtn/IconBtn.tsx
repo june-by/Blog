@@ -1,12 +1,16 @@
-import React from "react";
+import React, { forwardRef, HTMLAttributes } from "react";
+import styles from "./styles.module.scss";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   Icon: JSX.Element;
-  onClick: () => void;
 }
 
-const IconBtn = ({ Icon, onClick }: Props) => {
-  return <button onClick={onClick}>{Icon}</button>;
-};
+const IconBtn = forwardRef(({ Icon, ...props }: Props) => {
+  return (
+    <button className={styles.btn} {...props}>
+      {Icon}
+    </button>
+  );
+});
 
 export default React.memo(IconBtn);

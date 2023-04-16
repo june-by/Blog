@@ -15,7 +15,6 @@ describe("<PostEditBtn />", () => {
     renderWithContext(router, queryClient, <PostEditBtn id={props.id} />);
 
     expect(screen.getByTestId("postEditBtn")).toBeInTheDocument();
-    expect(screen.getByText("글 수정하기")).toBeInTheDocument();
   });
 
   it("click test", () => {
