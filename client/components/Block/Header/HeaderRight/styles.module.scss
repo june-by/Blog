@@ -7,7 +7,9 @@
   @include mobile {
     flex-direction: column;
   }
-
+  p {
+    margin: 0 5px;
+  }
   span {
     display: flex;
     padding: 10px;

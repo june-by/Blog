@@ -10,6 +10,7 @@ import IsAdmin from "utils/isAdmin";
 import SearchIcon from "components/Icon/search";
 import AccountIcon from "components/Icon/account";
 import WriteIcon from "components/Icon/write";
+import LogoutIcon from "components/Icon/logout";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -35,7 +36,7 @@ const HeaderRight = () => {
   return (
     <>
       <div className={styles.HeaderRight}>
-        {!IsAdmin(UserInfo) && (
+        {IsAdmin(UserInfo) && (
           <span onClick={gotoWrite}>
             <WriteIcon />
           </span>
@@ -45,8 +46,12 @@ const HeaderRight = () => {
         </span>
         {UserInfo ? (
           <>
-            <span>{UserInfo?.nickname}님</span>
-            <span onClick={LogOut}>로그아웃</span>
+            <p>
+              <strong>{UserInfo?.nickname}</strong>님
+            </p>
+            <span onClick={LogOut}>
+              <LogoutIcon />
+            </span>
           </>
         ) : (
           <span onClick={onClickLogin}>
