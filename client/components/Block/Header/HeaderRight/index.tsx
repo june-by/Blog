@@ -8,6 +8,7 @@ import SignUpModal from "components/Block/_Modal/SignUpModal";
 import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
 import SearchIcon from "components/Icon/search";
+import AccountIcon from "components/Icon/account";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -39,8 +40,11 @@ const HeaderRight = () => {
         </span>
         {UserInfo === null ? (
           <>
-            <span onClick={onClickLogin}>로그인</span>
-            <span onClick={onClickSignUp}>회원가입</span>
+            <span onClick={onClickLogin}>
+              <AccountIcon />
+            </span>
+            {/* <span onClick={onClickLogin}>로그인</span>
+            <span onClick={onClickSignUp}>회원가입</span> */}
           </>
         ) : (
           <>

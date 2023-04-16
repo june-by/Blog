@@ -2,7 +2,6 @@
 
 .HeaderRight {
   display: flex;
-  gap: 5px;
   height: 50px;
   align-items: center;
   margin-left: 10px;
@@ -15,10 +14,6 @@
     padding: 10px;
     align-items: center;
     cursor: pointer;
-    // &:hover {
-    //   color: var(--header-hover-color);
-    //   border-bottom: 1.5px solid var(--header-hover-color);
-    // }
     &:hover {
       background: var(--slight-layer);
       border-radius: 100%;
