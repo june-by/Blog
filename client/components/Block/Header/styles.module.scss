@@ -80,3 +80,69 @@
   height: 50px;
   background: none;
 }
+.HeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  h1 {
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    margin-left: -6px;
+    margin-right: -6px;
+    margin-top: 5px;
+    &:hover {
+      animation-name: shake;
+      animation-duration: 0.6s;
+    }
+  }
+
+  img {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    margin-top: 5px;
+  }
+
+  &_email {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    width: 0px;
+    transition: width 0.5s ease;
+
+    @include mobile {
+      font-size: 12px;
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-20deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  75% {
+    transform: rotate(-20deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
