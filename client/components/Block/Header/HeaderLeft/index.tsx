@@ -20,7 +20,7 @@ const HeaderLeft = () => {
 
   return (
     <div className={styles.HeaderLeft}>
-      <span onClick={gotoPage("/")}>ByJuun.com</span>
+      <h1 onClick={gotoPage("/")}>ByJuun.</h1>
       <button aria-label="gotoGithubButton" onClick={onClickGitHub}>
         <GithubIcon />
       </button>
