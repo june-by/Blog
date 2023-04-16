@@ -9,6 +9,7 @@ import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
 import SearchIcon from "components/Icon/search";
 import AccountIcon from "components/Icon/account";
+import WriteIcon from "components/Icon/write";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -34,7 +35,11 @@ const HeaderRight = () => {
   return (
     <>
       <div className={styles.HeaderRight}>
-        {IsAdmin(UserInfo) && <span onClick={gotoWrite}>글 작성</span>}
+        {!IsAdmin(UserInfo) && (
+          <span onClick={gotoWrite}>
+            <WriteIcon />
+          </span>
+        )}
         <span onClick={onClickSearch}>
           <SearchIcon />
         </span>
