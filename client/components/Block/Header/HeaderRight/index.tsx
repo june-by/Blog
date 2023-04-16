@@ -38,19 +38,15 @@ const HeaderRight = () => {
         <span onClick={onClickSearch}>
           <SearchIcon />
         </span>
-        {UserInfo === null ? (
-          <>
-            <span onClick={onClickLogin}>
-              <AccountIcon />
-            </span>
-            {/* <span onClick={onClickLogin}>로그인</span>
-            <span onClick={onClickSignUp}>회원가입</span> */}
-          </>
-        ) : (
+        {UserInfo ? (
           <>
             <span>{UserInfo?.nickname}님</span>
             <span onClick={LogOut}>로그아웃</span>
           </>
+        ) : (
+          <span onClick={onClickLogin}>
+            <AccountIcon />
+          </span>
         )}
       </div>
       {openLogin && <LoginModal setOpen={setOpenLogin} openSignUp={onClickSignUp} />}
