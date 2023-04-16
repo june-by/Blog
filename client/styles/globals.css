@@ -25,6 +25,7 @@ body[data-theme="dark"] {
   --box-shadow-color: white;
   --post-card-background: #1e1e1e;
   --post-card-border: #2a2a2a;
+  --slight-layer: rgba(255, 255, 255, 0.1);
 }
 
 body[data-theme="light"] {
@@ -43,6 +44,7 @@ body[data-theme="light"] {
   --box-shadow-color: #333d4b26;
   --post-card-background: white;
   --post-card-border: #c8c8c8;
+  --slight-layer: rgba(0, 0, 0, 0.05);
 }
 
 a {

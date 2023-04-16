@@ -7,6 +7,7 @@ import SearchModal from "components/Block/_Modal/SearchModal";
 import SignUpModal from "components/Block/_Modal/SignUpModal";
 import styles from "./styles.module.scss";
 import IsAdmin from "utils/isAdmin";
+import SearchIcon from "components/Icon/search";
 
 const HeaderRight = () => {
   const { data: UserInfo } = useGetUserInfo();
@@ -33,7 +34,9 @@ const HeaderRight = () => {
     <>
       <div className={styles.HeaderRight}>
         {IsAdmin(UserInfo) && <span onClick={gotoWrite}>글 작성</span>}
-        <span onClick={onClickSearch}>검색</span>
+        <span onClick={onClickSearch}>
+          <SearchIcon />
+        </span>
         {UserInfo === null ? (
           <>
             <span onClick={onClickLogin}>로그인</span>
