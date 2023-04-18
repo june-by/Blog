@@ -1,6 +1,6 @@
-import { MobileMenuContext } from "components/Block/mobileMenu";
+import { useMobileMenuContext } from "context/mobileMenuContext";
 import { useRouter } from "next/router";
-import React, { useCallback, useContext } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -9,13 +9,13 @@ interface Props {
 }
 
 const CategoryRow = ({ category, length }: Props) => {
-  const { toggleShowMobileMenu } = useContext(MobileMenuContext);
+  const { toggleShowMobileMenu } = useMobileMenuContext();
   const { push } = useRouter();
 
-  const gotoCategoryPage = useCallback(() => {
+  const gotoCategoryPage = () => {
     toggleShowMobileMenu();
-    push({ pathname: "/posts", query: { category: category } });
-  }, [category, push, toggleShowMobileMenu]);
+    push({ pathname: "/posts", query: { category } });
+  };
 
   return (
     <div data-testid="CategoryRow" key={category} onClick={gotoCategoryPage} className={styles.CategoryItem}>

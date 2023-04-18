@@ -5,7 +5,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import Head from "next/head";
-import Header from "components/Block/Header";
+import Header from "components/Header";
 import Loading from "utils/Loading";
 import ProgressBar from "components/Atom/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";

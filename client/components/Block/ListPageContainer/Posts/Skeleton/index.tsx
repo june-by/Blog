@@ -3,7 +3,7 @@ import CategoryChipSkeleton from "components/Atom/CategoryChip/Skeleton";
 import PostCardSkeleton from "components/Block/ListPageContainer/Posts/PostCard/Skeleton";
 import styles from "./styles.module.scss";
 import { Category } from "constants/category";
-import Header from "components/Block/Header";
+import Header from "components/Header";
 const PostsSkelton = () => {
   return (
     <>

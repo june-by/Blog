@@ -1,7 +1,7 @@
 import WriteIcon from "components/Icon/write";
 import { useRouter } from "next/router";
 import React from "react";
-import IconBtn from "../IconBtn";
+import IconButton from "../IconButton";
 
 const PostEditBtn = ({ id }: { id: number }) => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const PostEditBtn = ({ id }: { id: number }) => {
     });
   };
 
-  return <IconBtn data-testid="postEditBtn" Icon={<WriteIcon />} onClick={gotoEdit} />;
+  return <IconButton data-testid="postEditBtn" Icon={<WriteIcon />} onClick={gotoEdit} />;
 };
 
 export default React.memo(PostEditBtn);

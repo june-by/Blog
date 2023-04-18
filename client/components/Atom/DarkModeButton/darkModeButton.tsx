@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
 import styles from "./styles.module.scss";
@@ -6,7 +6,7 @@ import extractFromCookie from "utils/extractFromCookie";
 import SSRSafeSuspense from "components/_hoc/SSRSafeSuspense";
 import Light from "components/Icon/light";
 import Dark from "components/Icon/dark";
-import IconBtn from "../IconBtn";
+import IconButton from "../IconButton";
 
 const DARK_MODE = false;
 const LIGHT_MODE = true;
@@ -16,13 +16,13 @@ const DarkModeBtn = () => {
   useDarkMode(mode);
 
   return (
-    <IconBtn
+    <IconButton
       data-testid="toggleBtn"
       aria-label="toggleDarkModeButton"
       className={styles.darkmodeBtn}
       onClick={onChange}
       Icon={mode === DARK_MODE ? <Light /> : <Dark />}
-    ></IconBtn>
+    ></IconButton>
   );
 };
 

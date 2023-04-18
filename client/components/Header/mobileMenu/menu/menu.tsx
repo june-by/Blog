@@ -1,14 +1,14 @@
 import MenuBackIcon from "components/Icon/menuBack";
 import useWidthAnimation from "Hooks/useWidthAnimation";
-import React, { useContext, useRef } from "react";
-import { MobileMenuContext } from "..";
+import React, { useRef } from "react";
+import { useMobileMenuContext } from "context/mobileMenuContext";
 import MobileAccount from "./MobileAccount";
 import MobileCategoryList from "./MobileCategoryList";
 import styles from "./styles.module.scss";
 
 const Menu = () => {
-  const { showMobileMenu, toggleShowMobileMenu } = useContext(MobileMenuContext);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const { showMobileMenu, toggleShowMobileMenu } = useMobileMenuContext();
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useWidthAnimation(menuRef, showMobileMenu);
 

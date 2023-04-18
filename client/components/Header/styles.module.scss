@@ -149,3 +149,27 @@
     transform: rotate(0deg);
   }
 }
+
+.HeaderRight {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  @include mobile {
+    flex-direction: column;
+  }
+  p {
+    margin: 0 5px;
+  }
+  button {
+    border: none;
+    background: none;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background: var(--slight-layer);
+      border-radius: 100%;
+    }
+  }
+}

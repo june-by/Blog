@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import MenuIcon from "components/Icon/menu";
 import styles from "./styles.module.scss";
-import { MobileMenuContext } from "..";
+import { useMobileMenuContext } from "context/mobileMenuContext";
 
 const ToggleButton = () => {
-  const { toggleShowMobileMenu } = useContext(MobileMenuContext);
+  const { toggleShowMobileMenu } = useMobileMenuContext();
   return (
     <button className={styles.toggleButton} onClick={toggleShowMobileMenu}>
       <MenuIcon />

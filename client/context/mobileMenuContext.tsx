@@ -1,8 +1,5 @@
 import useToggle from "Hooks/useToggle";
-import React, { createContext } from "react";
-import Menu from "./menu";
-import ToggleButton from "./toggleButton";
-
+import React, { createContext, useContext } from "react";
 interface Props {
   children: JSX.Element;
 }
@@ -14,14 +11,15 @@ interface ContextProps {
 
 export const MobileMenuContext = createContext<ContextProps>({ showMobileMenu: false, toggleShowMobileMenu: () => {} });
 
-const MobileMenuContainer = ({ children }: Props) => {
+export const MobileMenuContainer = ({ children }: Props) => {
   const [showMobileMenu, _, toggleShowMobileMenu] = useToggle(false);
   return (
     <MobileMenuContext.Provider value={{ showMobileMenu, toggleShowMobileMenu }}>{children}</MobileMenuContext.Provider>
   );
 };
 
-MobileMenuContainer.ToggleButton = ToggleButton;
-MobileMenuContainer.Menu = Menu;
+export const useMobileMenuContext = () => {
+  return useContext(MobileMenuContext);
+};
 
 export default MobileMenuContainer;

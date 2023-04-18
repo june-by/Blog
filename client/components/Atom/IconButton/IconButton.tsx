@@ -5,7 +5,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   Icon: JSX.Element;
 }
 
-const IconBtn = forwardRef(({ Icon, ...props }: Props) => {
+const IconButton = forwardRef(({ Icon, ...props }: Props) => {
   return (
     <button className={styles.btn} {...props}>
       {Icon}
@@ -13,4 +13,4 @@ const IconBtn = forwardRef(({ Icon, ...props }: Props) => {
   );
 });
 
-export default React.memo(IconBtn);
+export default React.memo(IconButton);
