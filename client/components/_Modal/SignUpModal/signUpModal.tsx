@@ -3,7 +3,7 @@ import { useSignUp } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import SocialLoginBtns from "components/_Modal/common/socialLoginButtons";
+import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -52,7 +52,7 @@ const SignUpModal = ({ setOpen }: Props) => {
             <input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
             <button>회원가입</button>
           </form>
-          <SocialLoginBtns />
+          <SocialLoginButtons />
         </>
       </Modal>
     </div>

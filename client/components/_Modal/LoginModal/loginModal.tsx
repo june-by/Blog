@@ -1,9 +1,9 @@
-import React, { useCallback, useRef } from "react";
+import React, { useRef } from "react";
 import { useLogin } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import SocialLoginBtns from "components/_Modal/common/socialLoginButtons";
+import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
 
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,7 +51,7 @@ const LoginModal = ({ setOpen, openSignUp }: Props) => {
           <button onClick={openSignUp} className={styles.signUpButton}>
             회원가입
           </button>
-          <SocialLoginBtns />
+          <SocialLoginButtons />
         </>
       </Modal>
     </div>
