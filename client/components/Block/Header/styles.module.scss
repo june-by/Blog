@@ -102,6 +102,9 @@
       animation-name: shake;
       animation-duration: 0.6s;
     }
+    @include mobile {
+      display: none;
+    }
   }
 
   img {

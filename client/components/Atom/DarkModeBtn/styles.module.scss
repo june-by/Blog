@@ -1,3 +1,5 @@
+@import "utils/utils.scss";
+
 .darkmodeBtn {
   background: none;
   border: none;
@@ -7,6 +9,16 @@
   justify-content: center;
   width: 43px;
   height: 43px;
+  @include mobile {
+    &:hover {
+      background: none !important;
+      border-radius: none;
+    }
+    svg {
+      width: 35px;
+      height: 35px;
+    }
+  }
   &:hover {
     background: var(--slight-layer);
     border-radius: 100%;
