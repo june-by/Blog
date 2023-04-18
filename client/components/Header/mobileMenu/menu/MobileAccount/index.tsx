@@ -1,8 +1,8 @@
 import React from "react";
 import { useGetUserInfo, useLogOut } from "Hooks/User";
-import LoginModal from "components/Block/_Modal/LoginModal";
-import SearchModal from "components/Block/_Modal/SearchModal";
-import SignUpModal from "components/Block/_Modal/SignUpModal";
+import LoginModal from "components/_Modal/LoginModal";
+import SearchModal from "components/_Modal/SearchModal";
+import SignUpModal from "components/_Modal/SignUpModal";
 import { useHeaderContext } from "context/headerContext";
 
 const MobileAccount = () => {

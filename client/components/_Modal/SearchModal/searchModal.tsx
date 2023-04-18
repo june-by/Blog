@@ -1,6 +1,6 @@
 import CloseIcon from "components/Icon/close";
 import { useRouter } from "next/router";
-import React, { useCallback, useRef } from "react";
+import React, { useRef } from "react";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 
@@ -9,25 +9,22 @@ interface Props {
 }
 
 const SearchModal = ({ setOpen }: Props) => {
-  const router = useRouter();
-  const searchRef = useRef<HTMLInputElement>(null);
+  const { push } = useRouter();
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setOpen(false);
-  }, [setOpen]);
+  };
 
-  const submit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (!searchRef.current) return;
-      closeModal();
-      return router.push({
-        pathname: "/posts",
-        query: { search: searchRef.current.value },
-      });
-    },
-    [closeModal, router]
-  );
+  const submitSearchKeyword = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!searchRef.current) return;
+    closeModal();
+    return push({
+      pathname: "/posts",
+      query: { search: searchRef.current.value },
+    });
+  };
 
   return (
     <div>
@@ -39,12 +36,8 @@ const SearchModal = ({ setOpen }: Props) => {
               <CloseIcon />
             </button>
           </div>
-          <form onSubmit={submit} className={styles.Form}>
-            <input
-              data-testid="searchInput"
-              ref={searchRef}
-              placeholder="특정 키워드를 입력해주세요"
-            />
+          <form onSubmit={submitSearchKeyword} className={styles.Form}>
+            <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
             <button>검색</button>
           </form>
         </>

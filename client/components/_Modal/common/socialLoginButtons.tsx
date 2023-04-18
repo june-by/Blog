@@ -2,7 +2,7 @@ import GithubIcon from "components/Icon/github";
 import KaKaoIcon from "components/Icon/kakao";
 import { ServerURL } from "constants/serverURL";
 import React from "react";
-import styles from "./styles.module.scss";
+import styles from "./socialLoginButtons.module.scss";
 
 const SocialLoginBtns = () => {
   const githubLogin = async () => {

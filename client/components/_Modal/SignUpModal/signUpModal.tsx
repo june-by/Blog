@@ -1,9 +1,9 @@
-import React, { useCallback, useRef } from "react";
+import React, { useRef } from "react";
 import { useSignUp } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
-import SocialLoginBtns from "components/Block/SocialLoginBtns";
+import SocialLoginBtns from "components/_Modal/common/socialLoginButtons";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -14,30 +14,26 @@ const SignUpModal = ({ setOpen }: Props) => {
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setOpen(false);
-  }, [setOpen]);
+  };
 
-  const signUpMutation = useSignUp(closeModal);
+  const { mutate: signUpMutate } = useSignUp(closeModal);
 
-  const submit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      return alert("현재 자체 회원가입을 막아놓았습니다.\n소셜 계정으로 회원가입해주세요.");
-      // if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
-      // if (passwordRef.current.value !== passwordCheckRef.current.value)
-      //   return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
+    if (passwordRef.current.value !== passwordCheckRef.current.value)
+      return alert("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
 
-      // const reqData = {
-      //   email: emailRef.current.value,
-      //   password: passwordRef.current.value,
-      //   nickname: nicknameRef.current.value,
-      // };
+    const reqData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      nickname: nicknameRef.current.value,
+    };
 
-      // signUpMutation.mutate(reqData);
-    },
-    [signUpMutation]
-  );
+    signUpMutate(reqData);
+  };
 
   return (
     <div>
@@ -48,11 +44,6 @@ const SignUpModal = ({ setOpen }: Props) => {
             <button onClick={closeModal} data-testid="signUpCloseBtn">
               <CloseIcon />
             </button>
-          </div>
-          <div className={styles.description}>
-            현재 자체 회원가입을 막아놓았습니다.
-            <br />
-            소셜 계정으로 회원가입해주세요.
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
