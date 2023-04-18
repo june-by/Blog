@@ -2,11 +2,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "../styles.module.scss";
-import ListPageContainer from "components/Block/ListPageContainer";
-import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
-import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
-import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
-import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
+import ListPageContainer from "components/ListPageContainer";
+import Visitor from "components/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/ListPageContainer/sideBar/RecentTags";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 

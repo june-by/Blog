@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import CategorySelectInWrite from "components/Block/Write/CategorySelect";
-import Tag from "components/Block/Write/Tag";
+import CategorySelectInWrite from "components/Write/CategorySelect";
+import Tag from "components/Write/Tag";
 import { useAddPost, useEditPost } from "Hooks/Post";
 import dynamic from "next/dynamic";
 import useSetEditData from "Hooks/useSetEditData";
 import { useRouter } from "next/router";
-import ThumbNailPicker from "components/Block/Write/thumbNailPicker";
+import ThumbNailPicker from "components/Write/thumbNailPicker";
 import { Category } from "constants/category";
 import withAdminValidation from "components/_hoc/withAdminValidation";
 import useInput from "Hooks/useInput";
-const PostEditor = dynamic(() => import("components/Block/Write/PostEditor"), {
+const PostEditor = dynamic(() => import("components/Write/PostEditor"), {
   ssr: false,
 });
 

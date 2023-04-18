@@ -1,4 +1,4 @@
-import IconButton from "components/Atom/IconButton";
+import IconButton from "components/shared/IconButton";
 import AccountIcon from "components/Icon/account";
 import { useHeaderContext } from "context/headerContext";
 import React from "react";

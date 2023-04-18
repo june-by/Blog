@@ -7,7 +7,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Header from "components/Header";
 import Loading from "utils/Loading";
-import ProgressBar from "components/Atom/ProgressBar";
+import ProgressBar from "components/shared/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";

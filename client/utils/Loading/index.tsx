@@ -1,6 +1,6 @@
 import React from "react";
-import PostSkeleton from "components/Block/Post/Skeleton";
-import PostsSkelton from "components/Block/ListPageContainer/Posts/Skeleton";
+import PostSkeleton from "components/Post/Skeleton";
+import PostsSkelton from "components/ListPageContainer/Posts/Skeleton";
 
 const Loading = ({ nextUrl }: { nextUrl: string }) => <>{IsPostPage(nextUrl) ? <PostSkeleton /> : <PostsSkelton />}</>;
 

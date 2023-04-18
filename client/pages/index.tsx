@@ -2,12 +2,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useGetMainPost } from "Hooks/Post";
 import styles from "./styles.module.scss";
-import ScrollBtn from "components/Atom/scrollBtn";
-import ListPageContainer from "components/Block/ListPageContainer";
-import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
-import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
-import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
-import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
+import ScrollButton from "components/shared/scrollButton";
+import ListPageContainer from "components/ListPageContainer";
+import Visitor from "components/ListPageContainer/sideBar/Visitor";
+import TopViewsPosts from "components/ListPageContainer/sideBar/TopViewsPosts";
+import RecentComments from "components/ListPageContainer/sideBar/RecentComment";
+import RecentTags from "components/ListPageContainer/sideBar/RecentTags";
 
 const Home: NextPage = () => {
   return (
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
           }
         />
       </ListPageContainer>
-      <ScrollBtn />
+      <ScrollButton />
     </>
   );
 };

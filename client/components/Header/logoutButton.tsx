@@ -1,4 +1,4 @@
-import IconButton from "components/Atom/IconButton";
+import IconButton from "components/shared/IconButton";
 import LogoutIcon from "components/Icon/logout";
 import { useLogOut } from "Hooks/User";
 import React from "react";

@@ -1,4 +1,4 @@
-import IconButton from "components/Atom/IconButton";
+import IconButton from "components/shared/IconButton";
 import WriteIcon from "components/Icon/write";
 import { useGetUserInfo } from "Hooks/User";
 import { useRouter } from "next/router";
