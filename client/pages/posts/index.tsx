@@ -30,26 +30,10 @@ const Posts = () => {
         <meta property="og:url" content={url} />
       </Head>
       <ListPageContainer>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <Visitor />
-              <TopViewsPosts />
-            </>
-          }
-        />
         <section className={styles.HomeContentWrapper}>
           <ListPageContainer.CategoryList />
           <ListPageContainer.Posts query={getQuery(query)} params={getParams(query)} />
         </section>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <RecentComments />
-              <RecentTags />
-            </>
-          }
-        />
       </ListPageContainer>
     </>
   );

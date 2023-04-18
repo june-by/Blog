@@ -29,26 +29,10 @@ const Home: NextPage = () => {
         <meta property="og:url" content="https://byjuun.com" />
       </Head>
       <ListPageContainer>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <Visitor />
-              <TopViewsPosts />
-            </>
-          }
-        />
         <section className={styles.HomeContentWrapper}>
           <ListPageContainer.CategoryList />
           <ListPageContainer.Posts query={useGetMainPost} />
         </section>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <RecentComments />
-              <RecentTags />
-            </>
-          }
-        />
       </ListPageContainer>
       <ScrollButton />
     </>
