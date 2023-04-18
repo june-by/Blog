@@ -20,14 +20,14 @@ const Posts = () => {
         <meta charSet="utf-8"></meta>
         <title>{title}</title>
         <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content={String(description)} />
-        <meta property="og:title" content={String(description)} />
-        <meta property="og:description" content={String(ogDescription)} />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={description} />
+        <meta property="og:description" content={ogDescription} />
         <meta
           property="og:image"
           content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
         />
-        <meta property="og:url" content={String(url)} />
+        <meta property="og:url" content={url} />
       </Head>
       <ListPageContainer>
         <ListPageContainer.SideBar
