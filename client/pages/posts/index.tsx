@@ -12,7 +12,7 @@ import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 
 const Posts = () => {
   const { query } = useRouter();
-  const [title, description, ogDescription, url] = makeMetaData(query);
+  const { title, description, ogDescription, url } = createMetaData(query);
 
   return (
     <>
@@ -63,28 +63,28 @@ interface PostsPageQueryType {
   category?: string;
 }
 
-function makeMetaData(query: PostsPageQueryType) {
+function createMetaData(query: PostsPageQueryType) {
   if (query.search)
-    return [
-      query.search,
-      `${query.search}검색 결과 페이지`,
-      `${query.search}검색 결과 목록입니다`,
-      `https://byjuun.com/posts?search=${query.search}`,
-    ];
+    return {
+      title: query.search,
+      description: `${query.search}검색 결과 페이지`,
+      ogDescription: `${query.search}검색 결과 목록입니다`,
+      url: `https://byjuun.com/posts?search=${query.search}`,
+    };
   else if (query.tag)
-    return [
-      query.tag,
-      `${query.tag} 태깅 페이지`,
-      `${query.tag}로 태깅된 목록입니다`,
-      `https://byjuun.com/posts?tag=${query.tag}`,
-    ];
+    return {
+      title: query.tag,
+      description: `${query.tag} 태깅 페이지`,
+      ogDescription: `${query.tag}로 태깅된 목록입니다`,
+      url: `https://byjuun.com/posts?tag=${query.tag}`,
+    };
   else
-    return [
-      query.category,
-      `${query.category} 페이지`,
-      `${query.category} 페이지 목록입니다`,
-      `https://byjuun.com/posts?category=${query.category}`,
-    ];
+    return {
+      title: query.category,
+      description: `${query.category} 페이지`,
+      ogDescription: `${query.category} 페이지 목록입니다`,
+      url: `https://byjuun.com/posts?category=${query.category}`,
+    };
 }
 
 function getQuery(query: PostsPageQueryType) {
