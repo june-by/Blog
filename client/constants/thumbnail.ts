@@ -16,9 +16,7 @@ const THUMBNAIL: thumbNailType = {
   "HTML-CSS": { webp: "HTMLCSS.webp", jpg: "HTMLCSS.jpg" },
   NodeJs: { webp: `nodejs.webp`, jpg: `nodejs.jpg` },
   OperatingSystem: { webp: "OS.webp", jpg: "OS.jpg" },
-  DataStructure: { webp: "DataStructure.webp", jpg: "DataStructure.jpg" },
   NetWork: { webp: "NetWork.webp", jpg: "NetWork.jpg" },
-  Algorithm: { webp: "programmers.webp", jpg: "programmers.jpg" },
 };
 
 export default THUMBNAIL;
