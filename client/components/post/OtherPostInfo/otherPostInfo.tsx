@@ -10,7 +10,7 @@ const OtherPostInfo = () => {
   const { data, isLoading } = useGetOnePost(Number(router.query.id));
 
   const { mainPost, prevPost, nextPost } = data as PostType;
-
+  console.log("data : ", data);
   if (isLoading) return <></>;
 
   return (
