@@ -5,16 +5,17 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  padding: 0 15%;
   height: 50px;
-  display: flex;
   color: white;
-  align-items: center;
-  justify-content: space-between;
   transition: height 0.2s ease;
   overflow: hidden;
   background: var(--header-background);
   color: var(--header-color);
+
+  @include desktop {
+    display: flex;
+    justify-content: center;
+  }
 
   @include mobile {
     padding: 0 5%;
@@ -26,6 +27,17 @@
 
   @include tablet_landscape {
     padding: 0 10%;
+  }
+
+  .headerContentWrap {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    @include desktop {
+      width: 70%;
+      max-width: 1300px;
+    }
   }
 
   &_mobileBtn {

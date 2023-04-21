@@ -50,7 +50,7 @@ const HeaderWrap = () => {
   return (
     <>
       <header ref={headerRef} className={styles.headerStyleWrap}>
-        <div>
+        <div className={styles.headerContentWrap}>
           <div className={styles.HeaderLeft}>
             <h1 onClick={gotoPage("/")}>ByJuun.</h1>
             <IconButton
