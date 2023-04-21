@@ -1,12 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import styles from "../styles.module.scss";
-import ListPageContainer from "components/ListPageContainer";
-import Visitor from "components/ListPageContainer/sideBar/Visitor";
-import TopViewsPosts from "components/ListPageContainer/sideBar/TopViewsPosts";
-import RecentComments from "components/ListPageContainer/sideBar/RecentComment";
-import RecentTags from "components/ListPageContainer/sideBar/RecentTags";
+import PostsContent from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 
@@ -29,12 +24,7 @@ const Posts = () => {
         />
         <meta property="og:url" content={url} />
       </Head>
-      <ListPageContainer>
-        <section className={styles.HomeContentWrapper}>
-          <ListPageContainer.CategoryList />
-          <ListPageContainer.Posts query={getQuery(query)} params={getParams(query)} />
-        </section>
-      </ListPageContainer>
+      <PostsContent query={getQuery(query)} params={getParams(query)} />
     </>
   );
 };

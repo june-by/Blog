@@ -1,0 +1,28 @@
+@import "utils/utils.scss";
+
+.ListContainerWrapper {
+  min-height: 100vh;
+  height: fit-content;
+  @include desktop {
+    display: flex;
+  }
+}
+
+.mainContentsWrapper {
+  margin-top: 65px;
+  margin-bottom: 100px;
+  @include desktop {
+    width: 70%;
+  }
+  @include mobile {
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 5%;
+  }
+
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
+}

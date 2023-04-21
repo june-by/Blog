@@ -1,0 +1,28 @@
+@import "utils/utils.scss";
+.OtherPost {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 10px;
+  font-size: 15px;
+
+  @include mobile {
+    font-size: 13px;
+  }
+
+  .description {
+    min-width: fit-content;
+  }
+
+  .content {
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &:hover {
+      cursor: pointer;
+      color: #6185e5;
+    }
+  }
+}
