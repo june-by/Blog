@@ -1,32 +1,36 @@
-import MenuBackIcon from "components/Icon/menuBack";
-import useWidthAnimation from "Hooks/useWidthAnimation";
-import React, { useRef } from "react";
+import React from "react";
 import { useMobileMenuContext } from "context/mobileMenuContext";
-import MobileAccount from "./MobileAccount";
-import MobileCategoryList from "./MobileCategoryList";
 import styles from "./styles.module.scss";
+import CloseIcon from "components/Icon/close";
+import MobileMenuItem from "./menuItem";
+import { Category } from "constants/category";
+import { useGetUserInfo } from "Hooks/User";
+
+const NotLoggedInMenu = ["검색", "로그인", "회원가입"];
+const LoggedInMenu = ["검색", "로그아웃", ""];
 
 const Menu = () => {
+  const { data: userData } = useGetUserInfo();
   const { showMobileMenu, toggleShowMobileMenu } = useMobileMenuContext();
-  const menuRef = useRef<HTMLDivElement | null>(null);
 
-  useWidthAnimation(menuRef, showMobileMenu);
+  const isLoggedIn = !!userData;
+  const MobileMenu = isLoggedIn ? [...LoggedInMenu, ...Category] : [...NotLoggedInMenu, ...Category];
+
+  if (!showMobileMenu) return null;
 
   return (
-    <div className={styles.MobileMenuWrapper}>
-      {showMobileMenu && <div className={styles.MobileOverLay} onClick={toggleShowMobileMenu}></div>}
-      <nav ref={menuRef} className={styles.MobileMenu}>
-        <div className={styles.CloseArea}>
-          <button onClick={toggleShowMobileMenu}>
-            <MenuBackIcon />
-          </button>
-        </div>
-        <div className={styles.MenuArea}>
-          <MobileAccount />
-          <MobileCategoryList />
-        </div>
-      </nav>
-    </div>
+    <nav className={styles.MobileMenu}>
+      <div className={styles.closeArea}>
+        <button onClick={toggleShowMobileMenu}>
+          <CloseIcon />
+        </button>
+      </div>
+      <div className={styles.menuWrap}>
+        {MobileMenu.map((menu) => (
+          <MobileMenuItem menu={menu} key={menu} />
+        ))}
+      </div>
+    </nav>
   );
 };
 
