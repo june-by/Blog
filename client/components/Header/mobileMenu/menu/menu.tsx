@@ -20,11 +20,9 @@ const Menu = () => {
 
   return (
     <nav className={styles.MobileMenu}>
-      <div className={styles.closeArea}>
-        <button onClick={toggleShowMobileMenu}>
-          <CloseIcon />
-        </button>
-      </div>
+      <button onClick={toggleShowMobileMenu} className={styles.closeButton}>
+        <CloseIcon />
+      </button>
       <div className={styles.menuWrap}>
         {MobileMenu.map((menu) => (
           <MobileMenuItem menu={menu} key={menu} />
