@@ -23,7 +23,7 @@ import WriteButton from "./writeButton";
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
 const HeaderWrap = () => {
-  const { data: UserInfo } = useGetUserInfo();
+  const { data: userData } = useGetUserInfo();
   const headerRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLDivElement>(null);
   const [hide, setHide] = useState<boolean>(false);
@@ -51,7 +51,7 @@ const HeaderWrap = () => {
     <>
       <header ref={headerRef} className={styles.headerStyleWrap}>
         <div className={styles.headerContentWrap}>
-          <div className={styles.HeaderLeft}>
+          <div className={styles.headerLeftWrap}>
             <h1 onClick={gotoPage("/")}>ByJuun.</h1>
             <IconButton
               Icon={<GithubIcon />}
@@ -59,19 +59,19 @@ const HeaderWrap = () => {
               onClick={() => window.open("https://github.com/BY-juun")}
             />
             <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
-            <div ref={emailRef} className={styles.HeaderLeft_email}>
+            <div ref={emailRef} className={styles.headerLeftWrap_email}>
               {ADMIN_EMAIL}
             </div>
           </div>
-          <div className={styles.HeaderRightWrapper}>
+          <div className={styles.headerRightWrapWrapper}>
             <DarkModeButton />
-            <div className={styles.HeaderRight}>
+            <div className={styles.headerRightWrap}>
               <WriteButton />
               <SearchButton />
-              {UserInfo ? (
+              {!!userData ? (
                 <>
                   <span>
-                    <strong>{UserInfo?.nickname}</strong>님
+                    <strong>{userData.nickname}</strong>님
                   </span>
                   <LogoutButton />
                 </>

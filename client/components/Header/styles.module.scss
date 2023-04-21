@@ -60,12 +60,16 @@
   }
 }
 
-.HeaderRightWrapper {
+.headerRightWrapWrapper {
   display: flex;
   align-items: center;
 
   @include mobile {
     display: none;
+  }
+
+  span {
+    margin: 0 10px;
   }
 }
 
@@ -92,7 +96,7 @@
   height: 50px;
   background: none;
 }
-.HeaderLeft {
+.headerLeftWrap {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -162,7 +166,7 @@
   }
 }
 
-.HeaderRight {
+.headerRightWrap {
   display: flex;
   height: 50px;
   align-items: center;
