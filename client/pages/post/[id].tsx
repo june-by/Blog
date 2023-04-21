@@ -1,22 +1,22 @@
-import { GetServerSideProps, GetStaticProps, GetStaticPropsContext } from "next";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getOnePostAPI } from "services/post";
-import CommentForm from "components/Block/Post/CommentForm";
-import CommentList from "components/Block/Post/CommentList";
-import OtherPostInfo from "components/Block/Post/OtherPostInfo";
-import PostContent from "components/Block/Post/PostContent";
-import PostTop from "components/Block/Post/PostTop";
+import CommentForm from "components/post/CommentForm";
+import CommentList from "components/post/CommentList";
+import OtherPostInfo from "components/post/OtherPostInfo";
+import PostContent from "components/post/PostContent";
+import PostTop from "components/post/PostTop";
 import { useGetOnePost } from "Hooks/Post";
 import { MainPost } from "Types/post";
-import ScrollBtn from "components/Atom/scrollBtn";
+import ScrollButton from "components/shared/scrollButton";
 import styles from "./styles.module.scss";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
-import PostSkeleton from "components/Block/Post/Skeleton";
+import PostSkeleton from "components/post/Skeleton";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
@@ -62,7 +62,7 @@ const Post = () => {
         <OtherPostInfo />
         <CommentForm />
         <CommentList />
-        <ScrollBtn />
+        <ScrollButton />
       </main>
     </>
   );

@@ -1,9 +1,0 @@
-@import "utils/utils.scss";
-
-.ListContainerWrapper {
-  min-height: 100vh;
-  height: fit-content;
-  @include desktop {
-    display: flex;
-  }
-}

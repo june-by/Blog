@@ -1,13 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useGetMainPost } from "Hooks/Post";
-import styles from "./styles.module.scss";
-import ScrollBtn from "components/Atom/scrollBtn";
-import ListPageContainer from "components/Block/ListPageContainer";
-import Visitor from "components/Block/ListPageContainer/sideBar/Visitor";
-import TopViewsPosts from "components/Block/ListPageContainer/sideBar/TopViewsPosts";
-import RecentComments from "components/Block/ListPageContainer/sideBar/RecentComment";
-import RecentTags from "components/Block/ListPageContainer/sideBar/RecentTags";
+import ScrollButton from "components/shared/scrollButton";
+import PostsPageContainer from "components/posts";
 
 const Home: NextPage = () => {
   return (
@@ -28,29 +23,8 @@ const Home: NextPage = () => {
         />
         <meta property="og:url" content="https://byjuun.com" />
       </Head>
-      <ListPageContainer>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <Visitor />
-              <TopViewsPosts />
-            </>
-          }
-        />
-        <section className={styles.HomeContentWrapper}>
-          <ListPageContainer.CategoryList />
-          <ListPageContainer.Posts query={useGetMainPost} />
-        </section>
-        <ListPageContainer.SideBar
-          renderItems={
-            <>
-              <RecentComments />
-              <RecentTags />
-            </>
-          }
-        />
-      </ListPageContainer>
-      <ScrollBtn />
+      <PostsPageContainer query={useGetMainPost} />
+      <ScrollButton />
     </>
   );
 };
