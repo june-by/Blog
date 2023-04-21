@@ -3,6 +3,7 @@ export const Category = [
   "React",
   "Web",
   "TypeScript",
+  "Book",
   "NodeJs",
   "OperatingSystem",
   "NetWork",
