@@ -18,15 +18,6 @@ const RecentTags = () => {
 function RecentTagList() {
   const { data, isLoading, isError, error, refetch } = useGetRecentTags();
 
-  const { push } = useRouter();
-
-  const onClickTag = (tag: string) => () => {
-    return push({
-      pathname: "/posts",
-      query: { tag },
-    });
-  };
-
   if (isLoading) return <RecentTagSkeleton />;
 
   if (isError) return <ErrorHelper error={error} reset={refetch} />;
@@ -34,7 +25,7 @@ function RecentTagList() {
   return (
     <ul className={styles.tagsWrapper}>
       {data?.map((tag, idx) => (
-        <TagIcon tag={tag} />
+        <TagIcon tag={tag} key={`RecentTag-${tag}${idx}`} />
       ))}
     </ul>
   );
