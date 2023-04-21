@@ -135,12 +135,6 @@
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
-    width: 0px;
-    transition: width 0.5s ease;
-
-    @include mobile {
-      font-size: 12px;
-    }
   }
 }
 

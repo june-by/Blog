@@ -7,7 +7,6 @@ import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
 import useGotoPage from "Hooks/useGotoPage";
-import useWidthAnimation from "Hooks/useWidthAnimation";
 import { useHeaderContext } from "context/headerContext";
 import MobileMenu from "components/Header/mobileMenu";
 import { useGetUserInfo } from "Hooks/User";
@@ -25,9 +24,10 @@ const ADMIN_EMAIL = "neostgeart@gmail.com";
 const HeaderWrap = () => {
   const { data: userData } = useGetUserInfo();
   const headerRef = useRef<HTMLDivElement>(null);
-  const emailRef = useRef<HTMLDivElement>(null);
   const [hide, setHide] = useState<boolean>(false);
   const [showEmail, _, onClickEmail] = useToggle(false);
+
+  const isLoggedIn = !!userData;
 
   const {
     isLoginModalOpen,
@@ -40,8 +40,6 @@ const HeaderWrap = () => {
   } = useHeaderContext();
 
   const gotoPage = useGotoPage();
-
-  useWidthAnimation(emailRef, showEmail);
 
   useHideHeader(setHide);
 
@@ -59,16 +57,14 @@ const HeaderWrap = () => {
               onClick={() => window.open("https://github.com/BY-juun")}
             />
             <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
-            <div ref={emailRef} className={styles.headerLeftWrap_email}>
-              {ADMIN_EMAIL}
-            </div>
+            {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
           </div>
           <div className={styles.headerRightWrapWrapper}>
             <DarkModeButton />
             <div className={styles.headerRightWrap}>
               <WriteButton />
               <SearchButton />
-              {!!userData ? (
+              {isLoggedIn ? (
                 <>
                   <span>
                     <strong>{userData.nickname}</strong>님
