@@ -1,4 +1,3 @@
-import styles from "./styles.module.scss";
 import React from "react";
 import { Category } from "constants/category";
 import { AiOutlineSearch, AiOutlineLogin, AiOutlineUser, AiOutlineHtml5, AiOutlineLogout } from "react-icons/ai";

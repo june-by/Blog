@@ -15,27 +15,25 @@
   gap: 10px;
 }
 
-.closeArea {
-  margin-top: 25px;
-  margin-right: 50px;
+.closeButton {
+  margin-top: 20px;
+  margin-right: 30px;
   margin-bottom: 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  button {
-    border: none;
-    background: none;
-    path {
-      fill: white;
-    }
+
+  border: none;
+  background: none;
+  path {
+    fill: white;
   }
 }
 
 .menuWrap {
   width: 100%;
   gap: 15px;
-  padding: 0 5vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   button {
@@ -47,6 +45,12 @@
     align-items: center;
     gap: 5px;
     margin-bottom: 20px;
+    div {
+      background: #918f94;
+      border-radius: 4px;
+      padding: 7.5px;
+      margin-bottom: 2px;
+    }
     svg {
       width: 25px;
       height: 25px;
