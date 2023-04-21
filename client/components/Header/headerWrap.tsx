@@ -49,39 +49,41 @@ const HeaderWrap = () => {
 
   return (
     <>
-      <header ref={headerRef} className={styles.HeaderRoot}>
-        <div className={styles.HeaderLeft}>
-          <h1 onClick={gotoPage("/")}>ByJuun.</h1>
-          <IconButton
-            Icon={<GithubIcon />}
-            aria-label="gotoGithubButton"
-            onClick={() => window.open("https://github.com/BY-juun")}
-          />
-          <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
-          <div ref={emailRef} className={styles.HeaderLeft_email}>
-            {ADMIN_EMAIL}
+      <header ref={headerRef} className={styles.headerStyleWrap}>
+        <div>
+          <div className={styles.HeaderLeft}>
+            <h1 onClick={gotoPage("/")}>ByJuun.</h1>
+            <IconButton
+              Icon={<GithubIcon />}
+              aria-label="gotoGithubButton"
+              onClick={() => window.open("https://github.com/BY-juun")}
+            />
+            <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
+            <div ref={emailRef} className={styles.HeaderLeft_email}>
+              {ADMIN_EMAIL}
+            </div>
           </div>
-        </div>
-        <div className={styles.HeaderRightWrapper}>
-          <DarkModeButton />
-          <div className={styles.HeaderRight}>
-            <WriteButton />
-            <SearchButton />
-            {UserInfo ? (
-              <>
-                <span>
-                  <strong>{UserInfo?.nickname}</strong>님
-                </span>
-                <LogoutButton />
-              </>
-            ) : (
-              <AccountButton />
-            )}
+          <div className={styles.HeaderRightWrapper}>
+            <DarkModeButton />
+            <div className={styles.HeaderRight}>
+              <WriteButton />
+              <SearchButton />
+              {UserInfo ? (
+                <>
+                  <span>
+                    <strong>{UserInfo?.nickname}</strong>님
+                  </span>
+                  <LogoutButton />
+                </>
+              ) : (
+                <AccountButton />
+              )}
+            </div>
           </div>
-        </div>
-        <div className={styles.HeaderRoot_mobileBtn}>
-          <DarkModeButton />
-          <MobileMenu />
+          <div className={styles.headerStyleWrap_mobileBtn}>
+            <DarkModeButton />
+            <MobileMenu />
+          </div>
         </div>
       </header>
       {isLoginModalOpen && <LoginModal setOpen={setIsLoginModalOpen} openSignUp={openSignUp} />}
