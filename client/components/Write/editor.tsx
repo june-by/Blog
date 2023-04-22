@@ -1,14 +1,14 @@
-import React, { LegacyRef, useCallback, useMemo, useRef, useState } from "react";
+import React, { LegacyRef, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
-import styles from "./styles.module.scss";
+import styles from "./@styles.module.scss";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
 import ReactQuill from "react-quill";
 import { customAxios } from "utils/CustomAxios";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
-import { containerConfig, formats } from "./config";
 import { CATEGORY_TO_HLJS_CLASS } from "constants/category";
+import { useWriteContext } from "context/writeContext";
 
 interface Props {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -31,22 +31,13 @@ const QuillNoSSRWrapper = dynamic(
   { ssr: false }
 );
 
-const PostEditor = ({
-  content,
-  setContent,
-  category,
-}: {
-  content: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
-  category: string;
-}) => {
+const Editor = () => {
+  const {
+    writeSubmitData: { category, content },
+    onChangeEditorText: onChange,
+  } = useWriteContext();
+
   const QuillRef = useRef<ReactQuill>(null);
-  const onChange = useCallback(
-    (e: string) => {
-      setContent(e);
-    },
-    [setContent]
-  );
 
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -102,4 +93,35 @@ const PostEditor = ({
   );
 };
 
-export default PostEditor;
+export default Editor;
+
+const formats = [
+  "header",
+  "font",
+  "color",
+  "background",
+  "code",
+  "size",
+  "code-block",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+];
+
+const containerConfig = [
+  [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
+  [{ size: [] }],
+  [{ color: [] }, { background: [] }],
+  ["bold", "italic", "underline", "strike", "code", "blockquote", "color", "background", "code-block"],
+  [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+  ["link", "image", "video"],
+  ["clean"],
+];
