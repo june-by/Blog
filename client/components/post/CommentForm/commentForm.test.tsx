@@ -12,7 +12,7 @@ describe("<CommentForm />", () => {
 
   it("rendering test", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
-    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute("placeholder", MESSAGE.COMMENT_PLEASE);
+    expect(await screen.findByTestId("commentTextarea")).toHaveAttribute("placeholder", MESSAGE.LOGIN_NEEDED);
     expect(await screen.findByText("등록")).toBeInTheDocument();
   });
 
