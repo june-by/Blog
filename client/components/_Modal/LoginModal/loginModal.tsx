@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { useLogin } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
-import CloseIcon from "components/Icon/close";
 import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
 import { useHeaderContext } from "context/headerContext";
+import CloseButton from "../common/closeButton";
 
 const LoginModal = () => {
   const { closeLogin, openSignUp } = useHeaderContext();
@@ -32,9 +32,7 @@ const LoginModal = () => {
         <>
           <div className={styles.LoginTitle}>
             <span>로그인</span>
-            <button onClick={closeLogin} data-testid="closebtn">
-              <CloseIcon />
-            </button>
+            <CloseButton onClick={closeLogin} data-testid="closebtn" />
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
