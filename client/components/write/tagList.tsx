@@ -4,8 +4,8 @@ import styles from "./@styles.module.scss";
 
 const TagList = () => {
   const {
-    writeSubmitData: { tagArr },
-    deleteTag,
+    writeFormData: { tagArr },
+    removeTag,
   } = useWriteContext();
 
   return (
@@ -14,7 +14,7 @@ const TagList = () => {
         tagArr.map((tag) => (
           <div className={styles.TagChip} key={tag}>
             <span>{tag}</span>
-            <button onClick={deleteTag(tag)}>X</button>
+            <button onClick={() => removeTag(tag)}>X</button>
           </div>
         ))}
     </div>

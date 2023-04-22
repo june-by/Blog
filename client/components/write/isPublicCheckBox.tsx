@@ -4,13 +4,13 @@ import styles from "./@styles.module.scss";
 
 const IsPublicCheckBox = () => {
   const {
-    writeSubmitData: { isPublic },
-    onChangeCheckBox,
+    writeFormData: { isPublic },
+    onChangeIsPublic,
   } = useWriteContext();
   return (
     <div className={styles.isPublicCheckBox}>
       <span>공개</span>
-      <input name="isPublic" onChange={onChangeCheckBox} type="checkbox" checked={Boolean(isPublic)} />
+      <input onChange={onChangeIsPublic} type="checkbox" checked={Boolean(isPublic)} />
     </div>
   );
 };

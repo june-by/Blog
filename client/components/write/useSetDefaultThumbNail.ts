@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export default function useSetDefaultThumbNail() {
   const {
-    writeSubmitData: { thumbNailUrl, title },
+    writeFormData: { thumbNailUrl, title },
     setThumbNailUrl,
   } = useWriteContext();
 
