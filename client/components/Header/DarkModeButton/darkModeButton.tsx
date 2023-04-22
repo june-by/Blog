@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useDarkMode from "./useDarkMode";
 import useToggle from "Hooks/useToggle";
 import styles from "./darkModeButton.module.scss";

@@ -9,7 +9,7 @@ function useDarkMode(mode: boolean) {
 }
 
 function changeMode(mode: boolean) {
-  const theme = mode === LIGHT ? "light" : "dark";
+  const theme = mode === LIGHT ? "dark" : "light";
   document.body.dataset.theme = theme;
   document.cookie = `theme=${theme}; path=/`;
 }
