@@ -5,7 +5,7 @@ import styles from "./@styles.module.scss";
 
 const ThumbNailPicker = () => {
   const {
-    writeSubmitData: { thumbNailUrl },
+    writeFormData: { thumbNailUrl },
     setThumbNailUrl,
   } = useWriteContext();
 

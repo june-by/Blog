@@ -1,19 +1,19 @@
 import { Category } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
 import { useRouter } from "next/router";
-import { ChangeEvent, createContext, useContext, useEffect, useState } from "react";
+import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
 
-interface ContextProps {
-  writeSubmitData: WriteSubmitData;
-  onChangeTextData: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  onChangeCheckBox: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChangeEditorText: (e: string) => void;
-  setThumbNailUrl: (e: string) => void;
-  addTag: (tag: string) => void;
-  deleteTag: (tag: string) => () => void;
-}
+type Action =
+  | { type: "editTitle"; title: string }
+  | { type: "editCategory"; category: string }
+  | { type: "editContent"; content: string }
+  | { type: "addTag"; tag: string }
+  | { type: "removeTag"; tag: string }
+  | { type: "editThumbNailUrl"; thumbNailUrl: string }
+  | { type: "editIsPublic"; isPublic: Number }
+  | { type: "initializeWriteFormData"; initData: State };
 
-interface WriteSubmitData {
+interface State {
   title: string;
   category: string;
   content: string;
@@ -22,7 +22,18 @@ interface WriteSubmitData {
   isPublic: number;
 }
 
-const initialWriteSubmitData = {
+interface ContextProps {
+  writeFormData: State;
+  onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onChangeContent: (content: string) => void;
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
+  setThumbNailUrl: (thumbNailUrl: string) => void;
+  onChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const initialState = {
   title: "",
   category: Category[0],
   content: "",
@@ -31,84 +42,82 @@ const initialWriteSubmitData = {
   isPublic: 0,
 };
 
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "editTitle":
+      return { ...state, title: action.title };
+    case "editCategory":
+      return { ...state, category: action.category };
+    case "editContent":
+      return { ...state, content: action.content };
+    case "addTag":
+      return { ...state, tagArr: [...state.tagArr, action.tag] };
+    case "removeTag":
+      return { ...state, tagArr: state.tagArr.filter((tag) => tag !== action.tag) };
+    case "editThumbNailUrl":
+      return { ...state, thumbNailUrl: action.thumbNailUrl };
+    case "editIsPublic":
+      return { ...state, isPublic: Number(action.isPublic) };
+    case "initializeWriteFormData":
+      return action.initData;
+  }
+};
+
 export const WriteContext = createContext<ContextProps>({
-  writeSubmitData: initialWriteSubmitData,
-  onChangeTextData: () => {},
-  onChangeCheckBox: () => {},
-  onChangeEditorText: () => {},
-  setThumbNailUrl: () => {},
+  writeFormData: initialState,
+  onChangeTitle: () => {},
+  onChangeCategory: () => {},
+  onChangeContent: () => {},
   addTag: () => {},
-  deleteTag: () => () => {},
+  removeTag: () => {},
+  setThumbNailUrl: () => () => {},
+  onChangeIsPublic: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
-  const [writeSubmitData, setWriteSubmitData] = useState<WriteSubmitData>(initialWriteSubmitData);
+  const [writeFormData, dispatch] = useReducer(reducer, initialState);
 
-  const onChangeTextData = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        [e.target.name]: e.target.value,
-      };
-    });
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "editTitle", title: e.target.value });
   };
 
-  const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        [e.target.name]: Number(e.target.checked),
-      };
-    });
+  const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: "editCategory", category: e.target.value });
   };
 
-  const onChangeEditorText = (content: string) => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        content,
-      };
-    });
+  const onChangeContent = (content: string) => {
+    dispatch({ type: "editContent", content });
+  };
+
+  const addTag = (tag: string) => {
+    dispatch({ type: "addTag", tag });
+  };
+
+  const removeTag = (tag: string) => {
+    dispatch({ type: "removeTag", tag });
   };
 
   const setThumbNailUrl = (thumbNailUrl: string) => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        thumbNailUrl,
-      };
-    });
+    dispatch({ type: "editThumbNailUrl", thumbNailUrl });
   };
 
-  const addTag = (addedTag: string) => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        tagArr: [...prevData.tagArr, addedTag],
-      };
-    });
+  const onChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "editIsPublic", isPublic: Number(e.target.checked) });
   };
 
-  const deleteTag = (deletedTag: string) => () => {
-    setWriteSubmitData((prevData) => {
-      return {
-        ...prevData,
-        tagArr: prevData.tagArr.filter((tag) => tag !== deletedTag),
-      };
-    });
-  };
-  useSetEditData(setWriteSubmitData);
+  useInitializeWriteFormData(dispatch);
 
   return (
     <WriteContext.Provider
       value={{
-        writeSubmitData,
-        onChangeTextData,
-        onChangeCheckBox,
-        onChangeEditorText,
-        setThumbNailUrl,
+        writeFormData,
+        onChangeTitle,
+        onChangeCategory,
+        onChangeContent,
         addTag,
-        deleteTag,
+        removeTag,
+        setThumbNailUrl,
+        onChangeIsPublic,
       }}
     >
       {children}
@@ -120,7 +129,7 @@ export const useWriteContext = () => {
   return useContext(WriteContext);
 };
 
-function useSetEditData(setWriteSubmitData: React.Dispatch<React.SetStateAction<WriteSubmitData>>) {
+function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
   const { data, isLoading } = useGetOnePost(Number(query.id));
 
@@ -130,13 +139,14 @@ function useSetEditData(setWriteSubmitData: React.Dispatch<React.SetStateAction<
     if (query.mode !== "Edit") return;
     if (isLoading) return;
     if (!post) return;
-    setWriteSubmitData({
+    const initData = {
       title: post.title,
       category: post.category,
       content: post.content,
       tagArr: post.Tags.map((tag) => String(tag?.content)),
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
-    });
+    };
+    dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query]);
 }

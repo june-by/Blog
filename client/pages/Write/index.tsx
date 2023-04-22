@@ -10,5 +10,6 @@ const Write = () => {
     </WriteContainer>
   );
 };
+export default Write;
 
-export default withAdminValidation(Write);
+//export default withAdminValidation(Write);

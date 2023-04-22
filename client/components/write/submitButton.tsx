@@ -5,14 +5,14 @@ import React from "react";
 
 const SubmitButton = () => {
   const { query } = useRouter();
-  const { writeSubmitData } = useWriteContext();
+  const { writeFormData } = useWriteContext();
 
   const AddPostMutation = useAddPost();
   const EditPostMutation = useEditPost();
 
   const submitPost = () => {
-    if (query.mode === "Write") AddPostMutation.mutate(writeSubmitData);
-    else EditPostMutation.mutate(writeSubmitData);
+    if (query.mode === "Write") AddPostMutation.mutate(writeFormData);
+    else EditPostMutation.mutate(writeFormData);
   };
 
   return <button onClick={submitPost}>등록</button>;

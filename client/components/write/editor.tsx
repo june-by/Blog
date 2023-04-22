@@ -33,8 +33,8 @@ const QuillNoSSRWrapper = dynamic(
 
 const Editor = () => {
   const {
-    writeSubmitData: { category, content },
-    onChangeEditorText: onChange,
+    writeFormData: { category, content },
+    onChangeContent: onChange,
   } = useWriteContext();
 
   const QuillRef = useRef<ReactQuill>(null);
