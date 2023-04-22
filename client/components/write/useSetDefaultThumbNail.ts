@@ -1,10 +1,12 @@
+import { useWriteContext } from "context/writeContext";
 import { useEffect } from "react";
 
-export default function useSetDefaultThumbNail(
-  title: string,
-  thumbNailUrl: string | null,
-  setThumbNailUrl: React.Dispatch<React.SetStateAction<string | null>>
-) {
+export default function useSetDefaultThumbNail() {
+  const {
+    writeSubmitData: { thumbNailUrl, title },
+    setThumbNailUrl,
+  } = useWriteContext();
+
   useEffect(() => {
     if (thumbNailUrl) return;
     const targetDefaultThumbNail = findTargetThumbNail(title);

@@ -2,23 +2,18 @@ import React, { useRef } from "react";
 import { useSignUp } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
-import CloseIcon from "components/Icon/close";
-import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
-interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import SocialLoginButtons from "components/_Modal/shared/socialLoginButtons";
+import { useHeaderContext } from "context/headerContext";
+import CloseButton from "../shared/closeButton";
 
-const SignUpModal = ({ setOpen }: Props) => {
+const SignUpModal = () => {
+  const { closeSignUp } = useHeaderContext();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
-  const closeModal = () => {
-    setOpen(false);
-  };
-
-  const { mutate: signUpMutate } = useSignUp(closeModal);
+  const { mutate: signUpMutate } = useSignUp(closeSignUp);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,13 +32,11 @@ const SignUpModal = ({ setOpen }: Props) => {
 
   return (
     <div>
-      <Modal setOpen={setOpen}>
+      <Modal closeModal={closeSignUp}>
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
-            <button onClick={closeModal} data-testid="signUpCloseBtn">
-              <CloseIcon />
-            </button>
+            <CloseButton onClick={closeSignUp} data-testid="signUpCloseBtn" />
           </div>
           <form onSubmit={submit} className={styles.Form}>
             <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />

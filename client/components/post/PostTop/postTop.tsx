@@ -4,9 +4,7 @@ import dateForm from "utils/dateForm";
 import CategoryChip from "components/shared/categoryChip";
 import PostTagBtn from "components/shared/postTagButton";
 import styles from "./styles.module.scss";
-import PostAdminButtons from "../PostAdminButtons";
 import PostViewCount from "components/post/PostTop/PostViewCount";
-import GoBackButton from "components/post/PostTop/goBackButton";
 
 interface Props {
   Post: MainPost;
@@ -17,10 +15,6 @@ const PostTop = ({ Post }: Props) => {
 
   return (
     <header className={styles.PostTop}>
-      <div className={styles.TopArea}>
-        <GoBackButton />
-        <PostAdminButtons />
-      </div>
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>
