@@ -1,48 +1,86 @@
-import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 interface ContextProps {
   isLoginModalOpen: boolean;
   isSignUpModalOpen: boolean;
   isSearchModalOpen: boolean;
-  setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
-  setIsSearchModalOpen: Dispatch<SetStateAction<boolean>>;
-  setIsSignUpModalOpen: Dispatch<SetStateAction<boolean>>;
+  closeSearch: () => void;
+  closeLogin: () => void;
+  closeSignUp: () => void;
   openLogin: () => void;
   openSignUp: () => void;
   openSearch: () => void;
+}
+
+interface State {
+  isLoginModalOpen: boolean;
+  isSignUpModalOpen: boolean;
+  isSearchModalOpen: boolean;
+}
+interface Action {
+  type: "openSearch" | "openLogin" | "openSignUp" | "closeSearch" | "closeLogin" | "closeSignUp";
 }
 
 const HeaderContext = createContext<ContextProps>({
   isLoginModalOpen: false,
   isSignUpModalOpen: false,
   isSearchModalOpen: false,
-  setIsLoginModalOpen: () => {},
-  setIsSearchModalOpen: () => {},
-  setIsSignUpModalOpen: () => {},
+  closeSearch: () => {},
+  closeLogin: () => {},
+  closeSignUp: () => {},
   openSignUp: () => {},
   openLogin: () => {},
   openSearch: () => {},
 });
 
+const initialState = {
+  isLoginModalOpen: false,
+  isSearchModalOpen: false,
+  isSignUpModalOpen: false,
+};
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "openSearch":
+      return { isLoginModalOpen: false, isSearchModalOpen: true, isSignUpModalOpen: false };
+    case "openLogin":
+      return { isLoginModalOpen: true, isSearchModalOpen: false, isSignUpModalOpen: false };
+    case "openSignUp":
+      return { isLoginModalOpen: false, isSearchModalOpen: false, isSignUpModalOpen: true };
+    case "closeSearch":
+      return { ...state, isSearchModalOpen: false };
+    case "closeLogin":
+      return { ...state, isLoginModalOpen: false };
+    case "closeSignUp":
+      return { ...state, isSignUpModalOpen: false };
+  }
+};
+
 export const HeaderContainer = ({ children }: { children: JSX.Element }) => {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const [{ isLoginModalOpen, isSearchModalOpen, isSignUpModalOpen }, dispatch] = useReducer(reducer, initialState);
+
+  const openSearch = () => {
+    dispatch({ type: "openSearch" });
+  };
+
+  const closeSearch = () => {
+    dispatch({ type: "closeSearch" });
+  };
+
+  const openLogin = () => {
+    dispatch({ type: "openLogin" });
+  };
+
+  const closeLogin = () => {
+    dispatch({ type: "closeLogin" });
+  };
 
   const openSignUp = () => {
-    setIsLoginModalOpen(false);
-    setIsSignUpModalOpen(true);
-    setIsSearchModalOpen(false);
+    dispatch({ type: "openSignUp" });
   };
-  const openLogin = () => {
-    setIsLoginModalOpen(true);
-    setIsSignUpModalOpen(false);
-    setIsSearchModalOpen(false);
-  };
-  const openSearch = () => {
-    setIsLoginModalOpen(false);
-    setIsSignUpModalOpen(false);
-    setIsSearchModalOpen(true);
+
+  const closeSignUp = () => {
+    dispatch({ type: "closeSignUp" });
   };
 
   return (
@@ -51,9 +89,9 @@ export const HeaderContainer = ({ children }: { children: JSX.Element }) => {
         isLoginModalOpen,
         isSignUpModalOpen,
         isSearchModalOpen,
-        setIsLoginModalOpen,
-        setIsSignUpModalOpen,
-        setIsSearchModalOpen,
+        closeSearch,
+        closeLogin,
+        closeSignUp,
         openSignUp,
         openLogin,
         openSearch,

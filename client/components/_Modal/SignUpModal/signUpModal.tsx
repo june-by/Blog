@@ -4,21 +4,16 @@ import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
 import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
-interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { useHeaderContext } from "context/headerContext";
 
-const SignUpModal = ({ setOpen }: Props) => {
+const SignUpModal = () => {
+  const { closeSignUp } = useHeaderContext();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
-  const closeModal = () => {
-    setOpen(false);
-  };
-
-  const { mutate: signUpMutate } = useSignUp(closeModal);
+  const { mutate: signUpMutate } = useSignUp(closeSignUp);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,11 +32,11 @@ const SignUpModal = ({ setOpen }: Props) => {
 
   return (
     <div>
-      <Modal setOpen={setOpen}>
+      <Modal closeModal={closeSignUp}>
         <>
           <div className={styles.SignUpTitle}>
             <span>회원가입</span>
-            <button onClick={closeModal} data-testid="signUpCloseBtn">
+            <button onClick={closeSignUp} data-testid="signUpCloseBtn">
               <CloseIcon />
             </button>
           </div>

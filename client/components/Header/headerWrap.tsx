@@ -29,15 +29,8 @@ const HeaderWrap = () => {
 
   const isLoggedIn = !!userData;
 
-  const {
-    isLoginModalOpen,
-    isSignUpModalOpen,
-    isSearchModalOpen,
-    setIsLoginModalOpen,
-    setIsSearchModalOpen,
-    setIsSignUpModalOpen,
-    openSignUp,
-  } = useHeaderContext();
+  const { isLoginModalOpen, isSignUpModalOpen, isSearchModalOpen, closeSearch, closeLogin, closeSignUp, openSignUp } =
+    useHeaderContext();
 
   const gotoPage = useGotoPage();
 
@@ -82,9 +75,9 @@ const HeaderWrap = () => {
           </div>
         </div>
       </header>
-      {isLoginModalOpen && <LoginModal setOpen={setIsLoginModalOpen} openSignUp={openSignUp} />}
-      {isSignUpModalOpen && <SignUpModal setOpen={setIsSignUpModalOpen} />}
-      {isSearchModalOpen && <SearchModal setOpen={setIsSearchModalOpen} />}
+      {isLoginModalOpen && <LoginModal />}
+      {isSignUpModalOpen && <SignUpModal />}
+      {isSearchModalOpen && <SearchModal />}
     </>
   );
 };

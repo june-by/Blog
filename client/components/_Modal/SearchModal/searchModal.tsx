@@ -3,23 +3,17 @@ import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
+import { useHeaderContext } from "context/headerContext";
 
-interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SearchModal = ({ setOpen }: Props) => {
+const SearchModal = () => {
+  const { closeSearch } = useHeaderContext();
   const { push } = useRouter();
   const searchRef = useRef<HTMLInputElement | null>(null);
-
-  const closeModal = () => {
-    setOpen(false);
-  };
 
   const submitSearchKeyword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchRef.current) return;
-    closeModal();
+    closeSearch();
     return push({
       pathname: "/posts",
       query: { search: searchRef.current.value },
@@ -28,11 +22,11 @@ const SearchModal = ({ setOpen }: Props) => {
 
   return (
     <div>
-      <Modal setOpen={setOpen}>
+      <Modal closeModal={closeSearch}>
         <>
           <div className={styles.LoginTitle}>
             <span>게시글 찾기</span>
-            <button onClick={closeModal} data-testid="searchCloseBtn">
+            <button onClick={closeSearch} data-testid="searchCloseBtn">
               <CloseIcon />
             </button>
           </div>
