@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { useSignUp } from "Hooks/User";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
-import SocialLoginButtons from "components/_Modal/common/socialLoginButtons";
+import SocialLoginButtons from "components/_Modal/shared/socialLoginButtons";
 import { useHeaderContext } from "context/headerContext";
-import CloseButton from "../common/closeButton";
+import CloseButton from "../shared/closeButton";
 
 const SignUpModal = () => {
   const { closeSignUp } = useHeaderContext();

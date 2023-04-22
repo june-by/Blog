@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import { useHeaderContext } from "context/headerContext";
-import CloseButton from "../common/closeButton";
+import CloseButton from "../shared/closeButton";
 
 const SearchModal = () => {
   const { closeSearch } = useHeaderContext();
