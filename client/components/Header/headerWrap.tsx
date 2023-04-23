@@ -29,8 +29,7 @@ const HeaderWrap = () => {
 
   const isLoggedIn = !!userData;
 
-  const { isLoginModalOpen, isSignUpModalOpen, isSearchModalOpen, closeSearch, closeLogin, closeSignUp, openSignUp } =
-    useHeaderContext();
+  const { isLoginModalOpen, isSignUpModalOpen, isSearchModalOpen } = useHeaderContext();
 
   const gotoPage = useGotoPage();
 
