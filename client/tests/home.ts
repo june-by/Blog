@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import PAGE from "constants/page";
 
-export default class Home {
+export default class HomePOM {
   readonly page: Page;
 
   constructor(page: Page) {
