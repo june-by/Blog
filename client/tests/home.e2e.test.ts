@@ -12,70 +12,74 @@ test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
   await expect(Home.page).toHaveTitle("ByJuun.com");
 });
 
-test("각 카테고리 별 포스트 개수가 노출되어야 한다.", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
+test.describe("카테고리 - ", () => {
+  test("각 카테고리 별 포스트 개수가 노출되어야 한다.", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
 
-  for (const category of CATEGORY_LENGTH_MOCK_DATA) {
-    await expect(Home.page.getByRole("button", { name: `${category.category} ${category.count}` })).toBeVisible();
-  }
+    for (const category of CATEGORY_LENGTH_MOCK_DATA) {
+      await expect(Home.page.getByRole("button", { name: `${category.category} ${category.count}` })).toBeVisible();
+    }
+  });
+
+  test("카테고리 버튼을 클릭하면, 해당 페이지로 이동해야 한다.", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
+
+    await Home.page.getByRole("button", { name: "JavaScript" }).click();
+
+    await expect(Home.page).toHaveURL(`posts?category=JavaScript`);
+  });
 });
 
-test("카테고리 버튼을 클릭하면, 해당 페이지로 이동해야 한다.", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
+test.describe("사이드바 - ", () => {
+  test("방문객을 보여주는 사이드바가 있어야 한다.", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
 
-  await Home.page.getByRole("button", { name: "JavaScript" }).click();
+    const totalVisitor = Home.page.getByText(`총 방문 : ${VISITOR_MOCK_DATA.totalVisitor}명`);
+    const todayVisitor = Home.page.getByText(`오늘 방문 : ${VISITOR_MOCK_DATA.todayVisitor}명`);
 
-  await expect(Home.page).toHaveURL(`posts?category=JavaScript`);
-});
+    await expect(totalVisitor).toBeVisible();
+    await expect(todayVisitor).toBeVisible();
+  });
 
-test("방문객을 보여주는 사이드바가 있어야 한다.", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
+  test("조회수 Top10을 보여주는 사이드바가 있어야 한다.", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
 
-  const totalVisitor = Home.page.getByText(`총 방문 : ${VISITOR_MOCK_DATA.totalVisitor}명`);
-  const todayVisitor = Home.page.getByText(`오늘 방문 : ${VISITOR_MOCK_DATA.todayVisitor}명`);
+    const TopViewPostsBlock = page.getByText("조회수 Top10");
 
-  await expect(totalVisitor).toBeVisible();
-  await expect(todayVisitor).toBeVisible();
-});
+    await expect(TopViewPostsBlock).toBeVisible();
 
-test("조회수 Top10을 보여주는 사이드바가 있어야 한다.", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
+    for (let idx = 0; idx < 10; idx++) {
+      await expect(Home.page.getByText(`${idx + 1}. ${TOP_VIEWS_POST_MOCK_DATA[idx].title}`)).toBeVisible();
+    }
+  });
 
-  const TopViewPostsBlock = page.getByText("조회수 Top10");
+  test("최근 댓글을 보여주는 사이드바가 있어야 한다", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
 
-  await expect(TopViewPostsBlock).toBeVisible();
+    const recentCommentsBlock = Home.page.getByText("최근 댓글");
 
-  for (let idx = 0; idx < 10; idx++) {
-    await expect(Home.page.getByText(`${idx + 1}. ${TOP_VIEWS_POST_MOCK_DATA[idx].title}`)).toBeVisible();
-  }
-});
+    await expect(recentCommentsBlock).toBeVisible();
 
-test("최근 댓글을 보여주는 사이드바가 있어야 한다", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
+    for (const recentComment of RECENT_COMMENT_MOCK_DATA) {
+      await expect(Home.page.getByText(`${recentComment.content}`)).toBeVisible();
+    }
+  });
 
-  const recentCommentsBlock = Home.page.getByText("최근 댓글");
+  test("최근 태그를 보여주는 사이드바가 있어야 한다", async ({ page }) => {
+    const Home = new HomePOM(page);
+    await Home.goTo();
 
-  await expect(recentCommentsBlock).toBeVisible();
+    const recentTagBlock = Home.page.getByText("최근 태그");
 
-  for (const recentComment of RECENT_COMMENT_MOCK_DATA) {
-    await expect(Home.page.getByText(`${recentComment.content}`)).toBeVisible();
-  }
-});
+    await expect(recentTagBlock).toBeVisible();
 
-test("최근 태그를 보여주는 사이드바가 있어야 한다", async ({ page }) => {
-  const Home = new HomePOM(page);
-  await Home.goTo();
-
-  const recentTagBlock = Home.page.getByText("최근 태그");
-
-  await expect(recentTagBlock).toBeVisible();
-
-  for (const recentTag of RECENT_TAG_MOCK_DATA) {
-    await expect(Home.page.getByText(`${recentTag}`, { exact: true })).toBeVisible();
-  }
+    for (const recentTag of RECENT_TAG_MOCK_DATA) {
+      await expect(Home.page.getByText(`${recentTag}`, { exact: true })).toBeVisible();
+    }
+  });
 });
