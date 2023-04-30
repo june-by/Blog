@@ -1,3 +1,5 @@
+import { Category } from "constants/category";
+
 export const TOP_VIEWS_POST_MOCK_DATA = [
   { id: 65, title: "TypeScript에서 undefined, null 처리하기" },
   { id: 136, title: "스타트업 프론트엔드 개발자 1년 회고" },
@@ -10,3 +12,10 @@ export const TOP_VIEWS_POST_MOCK_DATA = [
   { id: 144, title: "선언적 비동기 핸들링" },
   { id: 142, title: "Factory를 활용해, UI 컴포넌트 재사용하기" },
 ];
+
+export const CATEGORY_LENGTH_MOCK_DATA = Category.map((category, idx) => {
+  return {
+    category,
+    count: idx + 1,
+  };
+});
