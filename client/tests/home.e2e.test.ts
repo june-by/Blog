@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import HomePOM from "./home";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
@@ -21,8 +22,8 @@ test("방문객을 보여주는 사이드바가 있어야 한다.", async ({ pag
   const Home = new HomePOM(page);
   await Home.goTo();
 
-  const totalVisitor = Home.page.getByText("총 방문");
-  const todayVisitor = Home.page.getByText("오늘 방문");
+  const totalVisitor = Home.page.getByText(`총 방문 : ${VISITOR_MOCK_DATA.totalVisitor}명`);
+  const todayVisitor = Home.page.getByText(`오늘 방문 : ${VISITOR_MOCK_DATA.todayVisitor}명`);
 
   await expect(totalVisitor).toBeVisible();
   await expect(todayVisitor).toBeVisible();
