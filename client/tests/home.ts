@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import PAGE from "constants/page";
 import { ServerURL } from "constants/serverURL";
+import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 
 export default class HomePOM {
@@ -29,6 +30,12 @@ export default class HomePOM {
           await route.fallback();
           return;
       }
+    });
+
+    await this.page.route(`${ServerURL}/posts/topViews`, async (route) => {
+      await route.fulfill({
+        json: TOP_VIEWS_POST_MOCK_DATA,
+      });
     });
   }
 }
