@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { RECENT_COMMENT_MOCK_DATA } from "mocks/data/comment";
-import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
+import { CATEGORY_LENGTH_MOCK_DATA, TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
 import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import HomePOM from "./home";
@@ -10,6 +10,15 @@ test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
   await Home.goTo();
 
   await expect(Home.page).toHaveTitle("ByJuun.com");
+});
+
+test("각 카테고리 별 포스트 개수가 노출되어야 한다.", async ({ page }) => {
+  const Home = new HomePOM(page);
+  await Home.goTo();
+
+  for (const category of CATEGORY_LENGTH_MOCK_DATA) {
+    await expect(Home.page.getByRole("button", { name: `${category.category} ${category.count}` })).toBeVisible();
+  }
 });
 
 test("카테고리 버튼을 클릭하면, 해당 페이지로 이동해야 한다.", async ({ page }) => {
