@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { RECENT_COMMENT_MOCK_DATA } from "mocks/data/comment";
 import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
 import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
@@ -51,6 +52,10 @@ test("최근 댓글을 보여주는 사이드바가 있어야 한다", async ({ 
   const recentCommentsBlock = Home.page.getByText("최근 댓글");
 
   await expect(recentCommentsBlock).toBeVisible();
+
+  for (const recentComment of RECENT_COMMENT_MOCK_DATA) {
+    await expect(Home.page.getByText(`${recentComment.content}`)).toBeVisible();
+  }
 });
 
 test("최근 태그를 보여주는 사이드바가 있어야 한다", async ({ page }) => {
