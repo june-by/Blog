@@ -2,6 +2,7 @@ import { Page } from "@playwright/test";
 import PAGE from "constants/page";
 import { ServerURL } from "constants/serverURL";
 import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
+import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 
 export default class HomePOM {
@@ -35,6 +36,12 @@ export default class HomePOM {
     await this.page.route(`${ServerURL}/posts/topViews`, async (route) => {
       await route.fulfill({
         json: TOP_VIEWS_POST_MOCK_DATA,
+      });
+    });
+
+    await this.page.route(`${ServerURL}/tag/recent`, async (route) => {
+      await route.fulfill({
+        json: RECENT_TAG_MOCK_DATA,
       });
     });
   }

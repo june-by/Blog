@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
+import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import HomePOM from "./home";
 
@@ -59,4 +60,8 @@ test("최근 태그를 보여주는 사이드바가 있어야 한다", async ({ 
   const recentTagBlock = Home.page.getByText("최근 태그");
 
   await expect(recentTagBlock).toBeVisible();
+
+  for (const recentTag of RECENT_TAG_MOCK_DATA) {
+    await expect(Home.page.getByText(`${recentTag}`, { exact: true })).toBeVisible();
+  }
 });
