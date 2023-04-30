@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd ./client && yarn test && yarn run test:e2e
+cd ./client && yarn test
