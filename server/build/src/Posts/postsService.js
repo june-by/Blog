@@ -43,6 +43,7 @@ var models_1 = __importDefault(require("../../models"));
 var sequelize_1 = __importDefault(require("sequelize"));
 var Post = models_1.default.Post, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var Op = sequelize_1.default.Op;
+var POSTS_PER_PAGE = 20;
 var getAllPostsId = function () { return __awaiter(void 0, void 0, void 0, function () {
     var posts;
     return __generator(this, function (_a) {
@@ -64,8 +65,8 @@ var getMainPosts = function (_a) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findAll({
                         order: [["createdAt", "DESC"]],
-                        limit: 16,
-                        offset: (Number(page) - 1) * 16,
+                        limit: POSTS_PER_PAGE,
+                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
                         include: [
                             {
@@ -90,8 +91,8 @@ var getCategoryPosts = function (_a) {
                 case 0: return [4 /*yield*/, Post.findAll({
                         where: { category: category },
                         order: [["createdAt", "DESC"]],
-                        limit: 16,
-                        offset: (Number(page) - 1) * 16,
+                        limit: POSTS_PER_PAGE,
+                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
                         include: [
                             {
@@ -121,8 +122,8 @@ var getPostsBySearchKeyWord = function (_a) {
                                 _b),
                         },
                         order: [["createdAt", "DESC"]],
-                        limit: 16,
-                        offset: (Number(page) - 1) * 16,
+                        limit: POSTS_PER_PAGE,
+                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         attributes: {
                             exclude: ["content", "updatedAt"],
                         },
@@ -151,8 +152,8 @@ var getPostsByTag = function (_a) {
                             exclude: ["content", "updatedAt"],
                         },
                         order: [["createdAt", "DESC"]],
-                        limit: 16,
-                        offset: (Number(page) - 1) * 16,
+                        limit: POSTS_PER_PAGE,
+                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         include: [
                             {
                                 model: Tag,

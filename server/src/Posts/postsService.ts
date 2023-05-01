@@ -3,6 +3,8 @@ import Sequelize from "sequelize";
 const { Post, Tag, sequelize } = model;
 const Op = Sequelize.Op;
 
+const POSTS_PER_PAGE = 20;
+
 const getAllPostsId = async () => {
   const posts = await Post.findAll({
     attributes: ["id"],
@@ -13,8 +15,8 @@ const getAllPostsId = async () => {
 const getMainPosts = async ({ page }: { page: string }) => {
   const posts = await Post.findAll({
     order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (Number(page) - 1) * 16,
+    limit: POSTS_PER_PAGE,
+    offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
     include: [
       {
@@ -30,8 +32,8 @@ const getCategoryPosts = async ({ category, page }: { page: string; category: st
   const posts = await Post.findAll({
     where: { category: category },
     order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (Number(page) - 1) * 16,
+    limit: POSTS_PER_PAGE,
+    offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
     include: [
       {
@@ -51,8 +53,8 @@ const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keywor
       },
     },
     order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (Number(page) - 1) * 16,
+    limit: POSTS_PER_PAGE,
+    offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
       exclude: ["content", "updatedAt"],
     },
@@ -72,8 +74,8 @@ const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string 
       exclude: ["content", "updatedAt"],
     },
     order: [["createdAt", "DESC"]],
-    limit: 16,
-    offset: (Number(page) - 1) * 16,
+    limit: POSTS_PER_PAGE,
+    offset: (Number(page) - 1) * POSTS_PER_PAGE,
     include: [
       {
         model: Tag,

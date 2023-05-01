@@ -33,6 +33,11 @@
     justify-content: center;
     min-height: 180px;
     overflow: hidden;
+    &::after {
+      content: "";
+      display: block;
+      padding-bottom: 75%;
+    }
     @include tablet_landscape {
       height: 55%;
     }
