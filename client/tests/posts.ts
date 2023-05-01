@@ -6,7 +6,7 @@ import { CATEGORY_LENGTH_MOCK_DATA, MAIN_POSTS_MOCK_DATA, TOP_VIEWS_POST_MOCK_DA
 import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 
-export default class HomePOM {
+export default class PostsPOM {
   readonly page: Page;
 
   constructor(page: Page) {
