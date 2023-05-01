@@ -6,6 +6,8 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
+    env:
+          working-directory: ./client
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -13,10 +15,6 @@ jobs:
         run : pwd
       - name : check current directory list
         run : ls
-      - name : goto client directroy
-        run : cd client
-      - name : check path
-        run : pwd
       - name: Install dependencies
         run: npm ci
       - name: Install playwright browsers
