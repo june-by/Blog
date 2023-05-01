@@ -1,6 +1,5 @@
 import { customAxios } from "utils/CustomAxios";
 import { AddPostParams, CategoryCount, PostsType, PostType } from "Types/post";
-import { CommentType } from "Types/comment";
 
 export const getAllPostsId = async (): Promise<{ id: number }[]> => {
   try {
@@ -11,9 +10,7 @@ export const getAllPostsId = async (): Promise<{ id: number }[]> => {
   }
 };
 
-export const getMainPostsAPI = async (
-  page: number
-): Promise<Array<PostsType>> => {
+export const getMainPostsAPI = async (page: number): Promise<Array<PostsType>> => {
   try {
     const { data } = await customAxios.get(`/posts/load/main/${page}`);
     return data;
@@ -22,9 +19,7 @@ export const getMainPostsAPI = async (
   }
 };
 
-export const getAllCategoryLengthAPI = async (): Promise<
-  Array<CategoryCount>
-> => {
+export const getAllCategoryLengthAPI = async (): Promise<Array<CategoryCount>> => {
   try {
     const { data } = await customAxios.get("/posts/load/categoryLength");
     return data;
@@ -49,9 +44,7 @@ export const getCategoryPostAPI = async (
 ): Promise<Array<PostsType>> => {
   if (typeof category !== "string") return [];
   try {
-    const { data } = await customAxios.get(
-      `/posts/load/${category}/${pageNum}`
-    );
+    const { data } = await customAxios.get(`/posts/load/${category}/${pageNum}`);
     return data;
   } catch (err) {
     throw new Error();
@@ -64,24 +57,17 @@ export const getSearchPostAPI = async (
 ): Promise<Array<PostsType>> => {
   if (typeof search !== "string") return [];
   try {
-    const { data } = await customAxios.get(
-      `/posts/search/${encodeURIComponent(search)}/${pageNum}`
-    );
+    const { data } = await customAxios.get(`/posts/search/${encodeURIComponent(search)}/${pageNum}`);
     return data;
   } catch (err) {
     throw new Error();
   }
 };
 
-export const getTagPostAPI = async (
-  tag: string | string[] | undefined,
-  pageNum: number
-): Promise<Array<PostsType>> => {
+export const getTagPostAPI = async (tag: string | string[] | undefined, pageNum: number): Promise<Array<PostsType>> => {
   if (typeof tag !== "string") return [];
   try {
-    const { data } = await customAxios.get(
-      `/posts/tag/${encodeURIComponent(tag)}/${pageNum}`
-    );
+    const { data } = await customAxios.get(`/posts/tag/${encodeURIComponent(tag)}/${pageNum}`);
     return data;
   } catch (err) {
     throw new Error();
@@ -92,10 +78,7 @@ export const AddPostAPI = async (reqData: AddPostParams): Promise<void> => {
   await customAxios.post("/post", reqData);
 };
 
-export const EditPostAPI = async (
-  reqData: AddPostParams,
-  id: number
-): Promise<void> => {
+export const EditPostAPI = async (reqData: AddPostParams, id: number): Promise<void> => {
   await customAxios.patch(`/post/${id}`, reqData);
 };
 
@@ -103,9 +86,7 @@ export const DeletePostAPI = async (id: number): Promise<void> => {
   await customAxios.delete(`/post/${id}`);
 };
 
-export const getPostViewCountAPI = async (
-  postId: number
-): Promise<{ viewCount: number }> => {
+export const getPostViewCountAPI = async (postId: number): Promise<{ viewCount: number }> => {
   try {
     const { data } = await customAxios.get(`/post/load/viewCount/${postId}`);
     return data;
