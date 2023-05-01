@@ -16,26 +16,26 @@ interface Props {
 const PostsPageContainer = (props: Props) => {
   return (
     <section className={styles.ListContainerWrapper}>
-      <SideBar
+      {/* <SideBar
         renderItems={
           <>
             <Visitor />
             <TopViewsPosts />
           </>
         }
-      />
+      /> */}
       <section className={styles.mainContentsWrapper}>
         <CategoryList />
         <PostList {...props} />
       </section>
-      <SideBar
+      {/* <SideBar
         renderItems={
           <>
             <RecentComments />
             <RecentTags />
           </>
         }
-      />
+      /> */}
     </section>
   );
 };
