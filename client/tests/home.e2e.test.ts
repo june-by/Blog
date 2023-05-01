@@ -83,3 +83,7 @@ test.describe("카테고리 - ", () => {
 //     }
 //   });
 // });
+
+test.describe("포스트 카드 - ", () => {
+  test("", async (page) => {});
+});
