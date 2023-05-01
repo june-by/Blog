@@ -9,8 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - name : check path
+        run : pwd
+      - name : goto client directroy
+        run : cd Blog/client
+      - name : check path
+        run : pwd
       - name: Install dependencies
-        run: cd client & npm ci
+        run: npm ci
       - name: Install playwright browsers
         run: npx playwright install --with-deps
       - name: Run tests
