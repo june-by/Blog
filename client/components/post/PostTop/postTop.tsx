@@ -2,7 +2,7 @@ import React from "react";
 import { MainPost } from "Types/post";
 import dateForm from "utils/dateForm";
 import CategoryChip from "components/shared/categoryChip";
-import PostTagBtn from "components/shared/postTagButton";
+import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
 import PostViewCount from "components/post/PostTop/PostViewCount";
 
@@ -22,7 +22,7 @@ const PostTop = ({ Post }: Props) => {
           <CategoryChip category={category} length={null} />
         </div>
         <ul className={styles.AdditionalInfo_Tag}>
-          {Tags.length !== 0 && Tags.map((tag) => <PostTagBtn key={tag?.id} tag={tag} />)}
+          {Tags.length !== 0 && Tags.map((tag) => <TagButton key={tag?.id} tag={tag} />)}
         </ul>
         <PostViewCount />
       </div>
