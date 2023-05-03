@@ -121,3 +121,16 @@ test.describe("게시글 카드 - ", () => {
     await expect(posts.page).toHaveURL(`/posts?tag=${mockTargetTagData.content}`);
   });
 });
+
+test.describe("헤더 - ", () => {
+  test("깃허브 버튼을 클릭하면, 본인 깃허브로 이동한다", async ({ page, context }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const gotoGithubButton = posts.page.getByRole("button", { name: "gotoGithubButton" });
+
+    const [githubPage] = await Promise.all([context.waitForEvent("page"), gotoGithubButton.click()]);
+
+    await expect(githubPage).toHaveURL("https://github.com/BY-juun");
+  });
+});
