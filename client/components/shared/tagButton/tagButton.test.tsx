@@ -20,16 +20,12 @@ describe("<TagButton />", () => {
     renderWithContext(router, queryClient, <TagButton tag={props.tag} />);
 
     expect(screen.getByText(`#${props.tag.content}`)).toBeInTheDocument();
-    expect(screen.getByTestId(`postTagBtn`)).toBeInTheDocument();
+    expect(screen.getByTestId(`tagButton`)).toBeInTheDocument();
   });
 
   it("click test", () => {
     renderWithContext(router, queryClient, <TagButton tag={props.tag} />);
 
-    fireEvent.click(screen.getByTestId(`tagButton`));
-    expect(router.push).toHaveBeenCalledWith({
-      pathname: "/posts",
-      query: { tag: props.tag.content },
-    });
+    expect(screen.getByTestId(`tagButton`)).toHaveAttribute("href", `/posts?tag=${props.tag.content}`);
   });
 });
