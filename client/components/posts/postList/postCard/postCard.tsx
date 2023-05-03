@@ -17,6 +17,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const { data: UserInfo } = useGetUserInfo();
 
   const onClickPostCard = () => {
+    console.log("실행되나?");
     if (post.isPublic === 0 && !IsAdmin(UserInfo)) return alert(MESSAGE.NOT_READY_POST);
     const { scrollY } = window;
     const { pathname } = router;

@@ -1,22 +1,14 @@
-import { useRouter } from "next/router";
+import Link from "next/link";
 import React from "react";
 import { TagType } from "Types/post";
 import styles from "./styles.module.scss";
 
 const PostTagBtn = ({ tag }: { tag: TagType | null }) => {
-  const router = useRouter();
-
-  const onClickTag = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, tag: string) => {
-    e.stopPropagation();
-    router.push({
-      pathname: "/posts",
-      query: { tag },
-    });
-  };
-
   return (
-    <li data-testid="postTagBtn" className={styles.PostTagButton} onClick={(e) => onClickTag(e, String(tag?.content))}>
-      #{tag?.content}
+    <li className={styles.PostTagButton}>
+      <Link href={`/posts?tag=${tag?.content}`} data-testid="postTagBtn">
+        #{tag?.content}
+      </Link>
     </li>
   );
 };
