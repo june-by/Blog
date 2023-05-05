@@ -9,7 +9,7 @@ const useGetTopics = () => {
         (acc: HTMLElement[], cur: string) => [...acc, ...getElementsByTagName(cur)],
         []
       );
-      tagArr.shift();
+      tagArr.splice(0, 2);
       tagArr.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
       setTableOfContents(tagArr as HTMLElement[]);
       setLoading(false);
