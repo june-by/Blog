@@ -4,6 +4,7 @@ import React from "react";
 import PostsContent from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
+import ScrollButton from "components/shared/scrollButton";
 
 const Posts = () => {
   const { query } = useRouter();
@@ -25,6 +26,7 @@ const Posts = () => {
         <meta property="og:url" content={url} />
       </Head>
       <PostsContent query={getQuery(query)} params={getParams(query)} />
+      <ScrollButton />
     </>
   );
 };
