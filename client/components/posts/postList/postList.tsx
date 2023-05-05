@@ -4,11 +4,11 @@ import PostCard from "components/posts/postList/postCard";
 import PostCardSkeleton from "components/posts/postList/postCard/Skeleton";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
-import React, { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
 import styles from "./styles.module.scss";
+import InfiniteScroll from "components/_hoc/infiniteScroll";
 
 interface Props {
   params?: any;
@@ -17,11 +17,6 @@ interface Props {
 
 const PostList = ({ params, query }: Props) => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
 
   useRestoreSrollPos();
 
@@ -31,22 +26,28 @@ const PostList = ({ params, query }: Props) => {
     <>
       {isPostExist(data?.pages[0]) ? (
         <section className={styles.PostsRoot}>
-          {data?.pages.map((page) => (
+          <InfiniteScroll
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isLoading={isFetchingNextPage || isLoading}
+            skeleton={
+              <>
+                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                })}
+              </>
+            }
+          >
             <>
-              {page.map((post: PostsType) => (
-                <PostCard key={post.title} post={post} />
+              {data?.pages.map((page) => (
+                <>
+                  {page.map((post: PostsType) => (
+                    <PostCard key={post.title} post={post} />
+                  ))}
+                </>
               ))}
             </>
-          ))}
-          {isFetchingNextPage || isLoading ? (
-            <>
-              {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-              })}
-            </>
-          ) : (
-            <div ref={ref}></div>
-          )}
+          </InfiniteScroll>
         </section>
       ) : (
         <NoPost />
