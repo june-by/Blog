@@ -5,7 +5,7 @@ import React from "react";
 
 const AccountButton = () => {
   const { openLogin } = useHeaderContext();
-  return <IconButton onClick={openLogin} Icon={<AccountIcon />} />;
+  return <IconButton onClick={openLogin} Icon={<AccountIcon />} aria-label="accountButton" />;
 };
 
 export default AccountButton;
