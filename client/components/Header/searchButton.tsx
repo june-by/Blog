@@ -5,7 +5,7 @@ import React from "react";
 
 const SearchButton = () => {
   const { openSearch } = useHeaderContext();
-  return <IconButton onClick={openSearch} Icon={<SearchIcon />} />;
+  return <IconButton onClick={openSearch} Icon={<SearchIcon />} aria-label="searchButton" />;
 };
 
 export default SearchButton;
