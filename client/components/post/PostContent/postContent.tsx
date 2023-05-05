@@ -9,10 +9,10 @@ import { usePostContext } from "context/postContext";
 
 const PostContent = () => {
   const {
-    Post: { category, content, title },
+    Post: { category, content, title: postTitle },
   } = usePostContext();
 
-  const { tableOfContents, loading } = useGetTopics();
+  const { tableOfContents, loading } = useGetTopics({ postTitle });
 
   useHighLightCodeBlock(category);
 

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
-const useGetTopics = () => {
+const BlogTitle = "ByJuun.";
+
+const useGetTopics = ({ postTitle }: { postTitle: string }) => {
   const [tableOfContents, setTableOfContents] = useState<HTMLElement[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      const tagArr = ["h1", "h2", "h3"].reduce(
-        (acc: HTMLElement[], cur: string) => [...acc, ...getElementsByTagName(cur)],
-        []
-      );
-      tagArr.splice(0, 2);
+      const tagArr = ["h1", "h2", "h3"]
+        .reduce((acc: HTMLElement[], cur: string) => [...acc, ...getElementsByTagName(cur)], [])
+        .filter((tag) => tag.textContent !== BlogTitle)
+        .filter((tag) => tag.textContent !== postTitle);
+
       tagArr.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
       setTableOfContents(tagArr as HTMLElement[]);
       setLoading(false);
