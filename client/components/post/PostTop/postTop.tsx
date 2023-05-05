@@ -1,17 +1,15 @@
 import React from "react";
-import { MainPost } from "Types/post";
 import dateForm from "utils/dateForm";
 import CategoryChip from "components/shared/categoryChip";
 import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
 import PostViewCount from "components/post/PostTop/PostViewCount";
+import { usePostContext } from "context/postContext";
 
-interface Props {
-  Post: MainPost;
-}
-
-const PostTop = ({ Post }: Props) => {
-  const { title, createdAt, category, Tags } = Post;
+const PostTop = () => {
+  const {
+    Post: { title, createdAt, category, Tags },
+  } = usePostContext();
 
   return (
     <header className={styles.PostTop}>

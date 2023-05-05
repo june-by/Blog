@@ -61,7 +61,7 @@ const Post = () => {
       <PostContainer Post={Post as MainPost}>
         <main className={styles.Post}>
           <PostHeader />
-          <PostTop Post={Post as MainPost} />
+          <PostTop />
           <PostContent />
           <OtherPostInfo />
           <CommentForm />
