@@ -8,7 +8,7 @@ interface Props {
 }
 
 interface ContextProps {
-  Post: MainPost | null;
+  Post: MainPost;
 }
 
 export const PostContext = createContext<ContextProps>({
