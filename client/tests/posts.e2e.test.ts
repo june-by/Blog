@@ -133,4 +133,15 @@ test.describe("헤더 - ", () => {
 
     await expect(githubPage).toHaveURL("https://github.com/BY-juun");
   });
+
+  test("이메일 버튼을 누르면, 본인 이메일이 노출된다", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const emailButton = posts.page.getByRole("button", { name: "toggleEmailButton" });
+
+    await emailButton.click();
+
+    await expect(posts.page.getByText("neostgeart@gmail.com")).toBeVisible();
+  });
 });
