@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 import useTableOfContents from "./useTableOfContents";
 
