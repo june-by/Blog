@@ -180,3 +180,24 @@ test.describe("헤더 - ", () => {
     await expect(posts.page.getByText(new RegExp(/(?=.*로그인)(?=.*소셜 계정으로 로그인).*/))).toBeVisible();
   });
 });
+
+test.describe("모달 - ", () => {
+  test("검색 모달에서 검색어 입력 후 확인 버튼을 누르면, 해당 검색어와 관련된 게시글 목록을 보여주는 페이지로 이동한다", async ({
+    page,
+  }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const searchButton = posts.page.getByRole("button", { name: "searchButton" });
+
+    await searchButton.click();
+
+    const searchInput = posts.page.getByTestId("searchInput");
+
+    await searchInput.fill("react");
+
+    await posts.page.getByRole("button", { name: "검색" }).click();
+
+    await expect(posts.page).toHaveURL("posts?search=react");
+  });
+});
