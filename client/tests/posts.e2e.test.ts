@@ -144,4 +144,17 @@ test.describe("헤더 - ", () => {
 
     await expect(posts.page.getByText("neostgeart@gmail.com")).toBeVisible();
   });
+
+  test("다크모드 토글 버튼을 누르면, 모드가 변경되어야 한다", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const darkModeTogglButton = posts.page.getByRole("button", { name: "toggleDarkModeButton" });
+
+    await expect(posts.page.locator("body")).toHaveAttribute("data-theme", "light");
+
+    await darkModeTogglButton.click();
+
+    await expect(posts.page.locator("body")).toHaveAttribute("data-theme", "dark");
+  });
 });
