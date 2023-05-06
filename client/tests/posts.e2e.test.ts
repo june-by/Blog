@@ -168,4 +168,15 @@ test.describe("헤더 - ", () => {
 
     await expect(posts.page.getByText("게시글 찾기")).toBeVisible();
   });
+
+  test("사용자 버튼을 누르면, 로그인 모달이 노출되어야 한다", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const accountButton = posts.page.getByRole("button", { name: "accountButton" });
+
+    await accountButton.click();
+
+    await expect(posts.page.getByText(new RegExp(/(?=.*로그인)(?=.*소셜 계정으로 로그인).*/))).toBeVisible();
+  });
 });
