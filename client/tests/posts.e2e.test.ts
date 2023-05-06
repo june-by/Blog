@@ -157,4 +157,15 @@ test.describe("헤더 - ", () => {
 
     await expect(posts.page.locator("body")).toHaveAttribute("data-theme", "dark");
   });
+
+  test("검색 버튼을 누르면, 검색 모달이 노출되어야 한다", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const searchButton = posts.page.getByRole("button", { name: "searchButton" });
+
+    await searchButton.click();
+
+    await expect(posts.page.getByText("게시글 찾기")).toBeVisible();
+  });
 });
