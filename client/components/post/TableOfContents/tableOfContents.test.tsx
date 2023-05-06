@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { MOCK_FN } from "utils/test/mockFn";
-import TableOfContents from ".";
+import TableOfContents from "./tableOfContent";
 
 describe("<TableOfContents />", () => {
   beforeEach(() => {
@@ -15,9 +15,7 @@ describe("<TableOfContents />", () => {
   });
 
   it("rendering test", () => {
-    render(
-      <TableOfContents tableOfContents={tableOfContents as HTMLElement[]} />
-    );
+    render(<TableOfContents tableOfContents={tableOfContents as HTMLElement[]} />);
     tableOfContents.forEach((topic) => {
       expect(screen.getByText(topic.innerText)).toBeInTheDocument();
     });
