@@ -72,6 +72,12 @@ export default class PostsPOM {
         json: USER_MOCK_DATA,
       });
     });
+
+    await this.page.route(`${ServerURL}/user`, async (route) => {
+      await route.fulfill({
+        json: USER_MOCK_DATA,
+      });
+    });
   }
 
   async openSearchModal() {
