@@ -162,9 +162,7 @@ test.describe("헤더 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const searchButton = posts.page.getByRole("button", { name: "searchButton" });
-
-    await searchButton.click();
+    await posts.openSearchModal();
 
     await expect(posts.page.getByText("게시글 찾기")).toBeVisible();
   });
@@ -188,9 +186,7 @@ test.describe("모달 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const searchButton = posts.page.getByRole("button", { name: "searchButton" });
-
-    await searchButton.click();
+    await posts.openSearchModal();
 
     const searchInput = posts.page.getByTestId("searchInput");
 

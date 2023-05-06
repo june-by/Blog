@@ -64,4 +64,8 @@ export default class PostsPOM {
       });
     });
   }
+
+  async openSearchModal() {
+    await this.page.getByRole("button", { name: "searchButton" }).click();
+  }
 }
