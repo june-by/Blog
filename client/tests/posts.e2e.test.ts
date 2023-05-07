@@ -205,12 +205,8 @@ test.describe("모달 - ", () => {
 
     await posts.openLoginModal();
 
-    const emailInput = posts.page.getByTestId("emailInput");
-
-    const passwordInput = posts.page.getByTestId("passwordInput");
-
-    await emailInput.fill("test@test.com");
-    await passwordInput.fill("*****");
+    await posts.page.getByTestId("emailInput").fill("test@test.com");
+    await posts.page.getByTestId("passwordInput").fill("*****");
 
     posts.page.on("dialog", (dialog) => {
       dialog.accept();
