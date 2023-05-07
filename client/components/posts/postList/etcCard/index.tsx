@@ -1,1 +1,1 @@
-export { default } from "./visitorCard";
+export { default } from "./etcCard";

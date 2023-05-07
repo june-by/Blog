@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../postCard.module.scss";
+import styles from "./styles.module.scss";
 
 const PostCardSkeleton = () => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { PostsType } from "Types/post";
 import dateForm from "utils/dateForm";
 import TagButton from "components/shared/tagButton";
-import styles from "../postCard.module.scss";
+import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import S3_PREFIX from "constants/s3Prefix";
