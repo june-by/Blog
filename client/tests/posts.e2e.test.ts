@@ -6,6 +6,7 @@ import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import PostsPOM from "./posts";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import { ServerURL } from "constants/serverURL";
+import MESSAGE from "constants/message";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
   const posts = new PostsPOM(page);
@@ -230,5 +231,27 @@ test.describe("모달 - ", () => {
     const signUpModal = posts.page.getByText(new RegExp(/(?=.*회원가입)(?=.*소셜 계정으로 로그인).*/));
 
     await expect(signUpModal).toBeVisible();
+  });
+
+  test("회원가입 모달에서 정보를 입력 후 회원가입 버튼을 클릭하면, 회원가입에 성공한다.", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    await posts.openLoginModal();
+
+    await posts.page.getByRole("button", { name: "회원가입" }).click();
+
+    await posts.page.getByTestId("emailInput").fill("test@test.com");
+    await posts.page.getByTestId("passwordInput").fill("*****");
+    await posts.page.getByTestId("passwordCheckInput").fill("*****");
+    await posts.page.getByTestId("nicknameInput").fill("testUser");
+
+    await posts.mockSignUPAPI();
+
+    posts.page.on("dialog", (dialog) => {
+      expect(dialog.message()).toEqual(MESSAGE.SIGHUP_SUCCESS);
+    });
+
+    await posts.page.getByRole("button", { name: "회원가입" }).click();
   });
 });

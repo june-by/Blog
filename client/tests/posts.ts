@@ -88,4 +88,10 @@ export default class PostsPOM {
       });
     });
   }
+
+  async mockSignUPAPI() {
+    await this.page.route(`${ServerURL}/user/signup`, async (route) => {
+      await route.fulfill({ body: "ok" });
+    });
+  }
 }
