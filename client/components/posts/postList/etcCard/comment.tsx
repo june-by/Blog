@@ -10,7 +10,7 @@ const CommentWrap = () => {
   if (!commentData) return null;
 
   return (
-    <>
+    <div className={styles.commentCard}>
       <h3>최근 댓글</h3>
       {commentData.length > 0 ? (
         <ul className={styles.comments}>
@@ -21,7 +21,7 @@ const CommentWrap = () => {
       ) : (
         <NoComment />
       )}
-    </>
+    </div>
   );
 };
 
