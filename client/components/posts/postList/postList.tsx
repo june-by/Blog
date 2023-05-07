@@ -1,7 +1,7 @@
 import ErrorHelper from "components/shared/errorHelper";
 import NoPost from "components/posts/postList/NoPost";
 import PostCard from "components/posts/postList/postCard";
-import PostCardSkeleton from "components/posts/postList/postCard/Skeleton";
+import PostCardSkeleton from "components/posts/postList/postCard/skeleton";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
@@ -9,6 +9,7 @@ import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
 import styles from "./styles.module.scss";
 import InfiniteScroll from "components/_hoc/infiniteScroll";
+import EtcCard from "./etcCard";
 
 interface Props {
   params?: any;
@@ -26,6 +27,7 @@ const PostList = ({ params, query }: Props) => {
     <>
       {isPostExist(data?.pages[0]) ? (
         <section className={styles.PostsRoot}>
+          <EtcCard />
           <InfiniteScroll
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
