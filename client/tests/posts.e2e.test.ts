@@ -222,4 +222,17 @@ test.describe("모달 - ", () => {
 
     await expect(posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)).toBeVisible();
   });
+
+  test("로그인 모달에서 회원가입 버튼을 클릭하면, 회원가입 모달이 노출되어야 한다.", async ({ page }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    await posts.openLoginModal();
+
+    await posts.page.getByRole("button", { name: "회원가입" }).click();
+
+    const signUpModal = posts.page.getByText(new RegExp(/(?=.*회원가입)(?=.*소셜 계정으로 로그인).*/));
+
+    await expect(signUpModal).toBeVisible();
+  });
 });
