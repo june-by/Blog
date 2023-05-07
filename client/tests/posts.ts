@@ -81,6 +81,11 @@ export default class PostsPOM {
     await this.page.getByRole("button", { name: "accountButton" }).click();
   }
 
+  async openSingUpModal() {
+    await this.openLoginModal();
+    await this.page.getByRole("button", { name: "회원가입" }).click();
+  }
+
   async mockGetUserAPI() {
     await this.page.route(`${ServerURL}/user`, async (route) => {
       await route.fulfill({
@@ -89,7 +94,7 @@ export default class PostsPOM {
     });
   }
 
-  async mockSignUPAPI() {
+  async mockSignUpAPI() {
     await this.page.route(`${ServerURL}/user/signup`, async (route) => {
       await route.fulfill({ body: "ok" });
     });

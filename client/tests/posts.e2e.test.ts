@@ -224,9 +224,7 @@ test.describe("모달 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    await posts.openLoginModal();
-
-    await posts.page.getByRole("button", { name: "회원가입" }).click();
+    await posts.openSingUpModal();
 
     const signUpModal = posts.page.getByText(new RegExp(/(?=.*회원가입)(?=.*소셜 계정으로 로그인).*/));
 
@@ -237,16 +235,14 @@ test.describe("모달 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    await posts.openLoginModal();
-
-    await posts.page.getByRole("button", { name: "회원가입" }).click();
+    await posts.openSingUpModal();
 
     await posts.page.getByTestId("emailInput").fill("test@test.com");
     await posts.page.getByTestId("passwordInput").fill("*****");
     await posts.page.getByTestId("passwordCheckInput").fill("*****");
     await posts.page.getByTestId("nicknameInput").fill("testUser");
 
-    await posts.mockSignUPAPI();
+    await posts.mockSignUpAPI();
 
     posts.page.on("dialog", (dialog) => {
       expect(dialog.message()).toEqual(MESSAGE.SIGHUP_SUCCESS);
