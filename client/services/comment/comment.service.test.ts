@@ -1,17 +1,8 @@
+import { RECENT_COMMENT_MOCK_DATA } from "mocks/data/comment";
 import { getRecentCommentAPI } from ".";
 
 describe("CommentAPI", () => {
   it("getRecentCommentAPI", async () => {
-    expect(await getRecentCommentAPI()).toStrictEqual(
-      Array.from({ length: 10 }, (_, idx) => {
-        return {
-          id: idx,
-          content: `testComment${idx}`,
-          Post: {
-            id: idx,
-          },
-        };
-      })
-    );
+    expect(await getRecentCommentAPI()).toStrictEqual(RECENT_COMMENT_MOCK_DATA);
   });
 });
