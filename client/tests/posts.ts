@@ -77,6 +77,10 @@ export default class PostsPOM {
     await this.page.getByRole("button", { name: "searchButton" }).click();
   }
 
+  async openLoginModal() {
+    await this.page.getByRole("button", { name: "accountButton" }).click();
+  }
+
   async mockGetUserAPI() {
     await this.page.route(`${ServerURL}/user`, async (route) => {
       await route.fulfill({

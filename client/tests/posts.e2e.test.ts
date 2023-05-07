@@ -173,9 +173,7 @@ test.describe("헤더 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const accountButton = posts.page.getByRole("button", { name: "accountButton" });
-
-    await accountButton.click();
+    await posts.openLoginModal();
 
     await expect(posts.page.getByText(new RegExp(/(?=.*로그인)(?=.*소셜 계정으로 로그인).*/))).toBeVisible();
   });
@@ -205,7 +203,7 @@ test.describe("모달 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    await posts.page.getByRole("button", { name: "accountButton" }).click();
+    await posts.openLoginModal();
 
     const emailInput = posts.page.getByTestId("emailInput");
 
