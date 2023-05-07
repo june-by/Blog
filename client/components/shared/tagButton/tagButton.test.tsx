@@ -1,11 +1,11 @@
 import { fireEvent, screen } from "@testing-library/react";
-import PostTagBtn from "./postTagButton";
+import TagButton from "./tagButton";
 import React from "react";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { QueryClient } from "react-query";
 import { renderWithContext } from "utils/test/renderWithContext";
 
-describe("<PostTagBtn />", () => {
+describe("<TagButton />", () => {
   const router = createMockRouter();
   const queryClient = new QueryClient();
 
@@ -17,19 +17,15 @@ describe("<PostTagBtn />", () => {
   };
 
   it("rendering test", () => {
-    renderWithContext(router, queryClient, <PostTagBtn tag={props.tag} />);
+    renderWithContext(router, queryClient, <TagButton tag={props.tag} />);
 
     expect(screen.getByText(`#${props.tag.content}`)).toBeInTheDocument();
-    expect(screen.getByTestId(`postTagBtn`)).toBeInTheDocument();
+    expect(screen.getByTestId(`tagButton`)).toBeInTheDocument();
   });
 
   it("click test", () => {
-    renderWithContext(router, queryClient, <PostTagBtn tag={props.tag} />);
+    renderWithContext(router, queryClient, <TagButton tag={props.tag} />);
 
-    fireEvent.click(screen.getByTestId(`postTagBtn`));
-    expect(router.push).toHaveBeenCalledWith({
-      pathname: "/posts",
-      query: { tag: props.tag.content },
-    });
+    expect(screen.getByTestId(`tagButton`)).toHaveAttribute("href", `/posts?tag=${props.tag.content}`);
   });
 });

@@ -1,0 +1,16 @@
+@import "utils/utils.scss";
+
+.Card {
+  @include Card;
+  align-items: flex-start;
+  padding: 20px;
+  span {
+    margin-bottom: 10px;
+  }
+}
+
+.NoComments {
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 15px;
+}

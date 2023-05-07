@@ -23,8 +23,8 @@
     }
     &_second {
       position: sticky;
-      top: 30vh;
-      max-height: 50vh;
+      top: 10vh;
+      max-height: 80vh;
       overflow: auto;
       border-left: 1px solid #c8c8c8;
       padding-left: 2vw;
@@ -35,7 +35,7 @@
         width: fit-content;
         cursor: pointer;
         padding-bottom: 10px;
-        font-size: 15px;
+        font-size: 0.875rem;
         transition: all 0.125s ease;
         opacity: 0.8;
         &:hover {

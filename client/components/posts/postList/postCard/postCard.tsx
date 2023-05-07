@@ -1,7 +1,7 @@
 import React from "react";
 import { PostsType } from "Types/post";
 import dateForm from "utils/dateForm";
-import PostTagBtn from "components/shared/postTagButton";
+import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -47,7 +47,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
           {post.isPublic ? (
             <>
               {post.Tags.length !== 0 &&
-                post.Tags.map((tag) => <PostTagBtn key={`${post.title}#${tag?.content}`} tag={tag} />)}
+                post.Tags.map((tag) => <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />)}
             </>
           ) : (
             <span className={styles.prepare}>준비중</span>

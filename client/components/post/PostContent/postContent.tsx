@@ -5,14 +5,14 @@ import "highlight.js/styles/atom-one-dark.css";
 import useGetTopics from "./useGetTopics";
 import TableOfContents from "components/post/TableOfContents";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
+import { usePostContext } from "context/postContext";
 
-interface Props {
-  content: string;
-  category: string;
-}
+const PostContent = () => {
+  const {
+    Post: { category, content, title: postTitle },
+  } = usePostContext();
 
-const PostContent = ({ content, category }: Props) => {
-  const { tableOfContents, loading } = useGetTopics();
+  const { tableOfContents, loading } = useGetTopics({ postTitle });
 
   useHighLightCodeBlock(category);
 

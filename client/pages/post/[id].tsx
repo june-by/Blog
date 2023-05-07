@@ -21,6 +21,7 @@ import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import PostHeader from "components/post/postHeader";
+import { PostContainer } from "context/postContext";
 
 const Post = () => {
   const router = useRouter();
@@ -57,15 +58,17 @@ const Post = () => {
         <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
-      <main className={styles.Post}>
-        <PostHeader />
-        <PostTop Post={Post as MainPost} />
-        <PostContent content={Post?.content || ""} category={Post?.category || ""} />
-        <OtherPostInfo />
-        <CommentForm />
-        <CommentList />
-        <ScrollButton />
-      </main>
+      <PostContainer Post={Post as MainPost}>
+        <main className={styles.Post}>
+          <PostHeader />
+          <PostTop />
+          <PostContent />
+          <OtherPostInfo />
+          <CommentForm />
+          <CommentList />
+          <ScrollButton />
+        </main>
+      </PostContainer>
     </>
   );
 };
