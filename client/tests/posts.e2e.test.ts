@@ -4,6 +4,8 @@ import { CATEGORY_LENGTH_MOCK_DATA, MAIN_POSTS_MOCK_DATA, TOP_VIEWS_POST_MOCK_DA
 import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import PostsPOM from "./posts";
+import { USER_MOCK_DATA } from "mocks/data/user";
+import { ServerURL } from "constants/serverURL";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
   const posts = new PostsPOM(page);
@@ -195,5 +197,31 @@ test.describe("모달 - ", () => {
     await posts.page.getByRole("button", { name: "검색" }).click();
 
     await expect(posts.page).toHaveURL("posts?search=react");
+  });
+
+  test("로그인 모달에서 아이디와 비밀번호를 입력 후, 로그인 버튼을 누르면 로그인이 되어 헤더에 사용자의 닉네임이 표시된다", async ({
+    page,
+  }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    await posts.page.getByRole("button", { name: "accountButton" }).click();
+
+    const emailInput = posts.page.getByTestId("emailInput");
+
+    const passwordInput = posts.page.getByTestId("passwordInput");
+
+    await emailInput.fill("test@test.com");
+    await passwordInput.fill("*****");
+
+    posts.page.on("dialog", (dialog) => {
+      dialog.accept();
+    });
+
+    await posts.mockGetUserAPI();
+
+    await posts.page.getByRole("button", { name: "로그인" }).click();
+
+    await expect(posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)).toBeVisible();
   });
 });

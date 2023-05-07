@@ -66,14 +66,7 @@ export default class PostsPOM {
     });
 
     await this.page.route(`${ServerURL}/user/login`, async (route) => {
-      if (route.request().method() !== "POST") return;
-
-      await route.fulfill({
-        json: USER_MOCK_DATA,
-      });
-    });
-
-    await this.page.route(`${ServerURL}/user`, async (route) => {
+      //if (route.request().method() !== "POST") return;
       await route.fulfill({
         json: USER_MOCK_DATA,
       });
@@ -82,5 +75,13 @@ export default class PostsPOM {
 
   async openSearchModal() {
     await this.page.getByRole("button", { name: "searchButton" }).click();
+  }
+
+  async mockGetUserAPI() {
+    await this.page.route(`${ServerURL}/user`, async (route) => {
+      await route.fulfill({
+        json: USER_MOCK_DATA,
+      });
+    });
   }
 }
