@@ -1,3 +1,4 @@
+import useSetDefaultThumbNail from "components/write/useSetDefaultThumbNail";
 import { Category } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
 import { useRouter } from "next/router";
@@ -59,7 +60,7 @@ const reducer = (state: State, action: Action): State => {
     case "editIsPublic":
       return { ...state, isPublic: Number(action.isPublic) };
     case "initializeWriteFormData":
-      return action.initData;
+      return { ...action.initData };
   }
 };
 
@@ -147,6 +148,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
     };
+    console.log(initData);
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query]);
 }
