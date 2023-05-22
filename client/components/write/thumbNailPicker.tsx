@@ -2,14 +2,14 @@ import { useWriteContext } from "context/writeContext";
 import React from "react";
 import { customAxios } from "utils/CustomAxios";
 import styles from "./@styles.module.scss";
+import useSetDefaultThumbNail from "./useSetDefaultThumbNail";
+import isNull from "utils/isNull";
 
 const ThumbNailPicker = () => {
   const {
     writeFormData: { thumbNailUrl },
     setThumbNailUrl,
   } = useWriteContext();
-
-  const isThumbNailExist = thumbNailUrl && thumbNailUrl !== "null";
 
   const onClickSetThumbNail = () => {
     const input = document.createElement("input");
@@ -29,10 +29,11 @@ const ThumbNailPicker = () => {
     };
   };
 
+  useSetDefaultThumbNail();
   return (
     <div className={styles.PickThumbNail}>
       <button onClick={onClickSetThumbNail}>썸네일 설정</button>
-      {isThumbNailExist && <img src={thumbNailUrl} alt="썸네일" />}
+      {!isNull(thumbNailUrl) && <img src={thumbNailUrl as string} alt="썸네일" />}
     </div>
   );
 };
