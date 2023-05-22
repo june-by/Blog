@@ -148,7 +148,6 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
     };
-    console.log(initData);
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query]);
 }
