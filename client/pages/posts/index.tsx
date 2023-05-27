@@ -5,6 +5,7 @@ import PostsContent from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 import ScrollButton from "components/shared/scrollButton";
+import { PostsPageQueryType } from "Types/page";
 
 const Posts = () => {
   const { query } = useRouter();
@@ -32,12 +33,6 @@ const Posts = () => {
 };
 
 export default withPostsQueryValidation(Posts);
-
-interface PostsPageQueryType {
-  search?: string;
-  tag?: string;
-  category?: string;
-}
 
 function createMetaData(query: PostsPageQueryType) {
   if (query.search)

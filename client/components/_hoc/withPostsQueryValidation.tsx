@@ -1,3 +1,4 @@
+import { PostsPageQueryType } from "Types/page";
 import MESSAGE from "constants/message";
 import { useRouter } from "next/router";
 import React, { ComponentType, useCallback, useEffect, useState } from "react";
@@ -5,9 +6,10 @@ import React, { ComponentType, useCallback, useEffect, useState } from "react";
 function withPostsQueryValidation<P extends object>(Component: ComponentType<P>) {
   return function WihLoadingComponent({ ...props }: P) {
     const [loading, setLoading] = useState(true);
-    const { query } = useRouter();
+    const router = useRouter();
+    const query = router.query as PostsPageQueryType;
 
-    const isQueryInValid = !(query?.search || query?.tag || query?.category);
+    const isQueryInValid = !(query.search || query.tag || query.category);
 
     const queryInvalidCallBack = useCallback(() => {
       alert(MESSAGE.INVALIDE_ACCESS);
