@@ -1,23 +1,27 @@
 import MESSAGE from "constants/message";
 import { useRouter } from "next/router";
-import React, { ComponentType, useEffect, useState } from "react";
+import React, { ComponentType, useCallback, useEffect, useState } from "react";
 
 function withPostsQueryValidation<P extends object>(Component: ComponentType<P>) {
-  return function WihLoadingComponent({ ...props }) {
-    const [loading, setLoading] = useState(false);
+  return function WihLoadingComponent({ ...props }: P) {
+    const [loading, setLoading] = useState(true);
     const { query } = useRouter();
 
+    const isQueryInValid = !(query?.search || query?.tag || query?.category);
+
+    const queryInvalidCallBack = useCallback(() => {
+      alert(MESSAGE.INVALIDE_ACCESS);
+      window.location.replace("/");
+    }, []);
+
     useEffect(() => {
-      if (!(query?.search || query?.tag || query?.category)) {
-        alert(MESSAGE.INVALIDE_ACCESS);
-        window.location.replace("/");
-        return;
-      } else setLoading(false);
-    }, [query]);
+      if (isQueryInValid) queryInvalidCallBack();
+      else setLoading(false);
+    }, [query, isQueryInValid]);
 
-    if (loading) return <></>;
+    if (loading) return null;
 
-    return <Component {...(props as P)} />;
+    return <Component {...props} />;
   };
 }
 export default withPostsQueryValidation;
