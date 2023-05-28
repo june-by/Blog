@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import PostsContent from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
-import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 import ScrollButton from "components/shared/scrollButton";
 import { PostsPageQueryType } from "Types/page";
 import { GetServerSideProps } from "next";
@@ -34,7 +33,6 @@ const Posts = () => {
   );
 };
 
-// export default withPostsQueryValidation(Posts);
 export default Posts;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
