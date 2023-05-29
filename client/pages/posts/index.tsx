@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import PostsContent from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
-import withPostsQueryValidation from "components/_hoc/withPostsQueryValidation";
 import ScrollButton from "components/shared/scrollButton";
+import { PostsPageQueryType } from "Types/page";
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
 const Posts = () => {
   const { query } = useRouter();
@@ -31,12 +33,40 @@ const Posts = () => {
   );
 };
 
-export default withPostsQueryValidation(Posts);
+export default Posts;
 
-interface PostsPageQueryType {
-  search?: string;
-  tag?: string;
-  category?: string;
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const isNumberOfKeyValid = verifyNumberOfKeys(Object.keys(query));
+  const isValueValid = verifyValue(query);
+
+  if (!isNumberOfKeyValid || !isValueValid) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+function verifyNumberOfKeys(keys: string[]) {
+  const verifiedKeys = ["category", "search", "tag"];
+  const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
+  return includedKeys.length === 1;
+}
+
+function verifyValue(query: ParsedUrlQuery) {
+  for (const value of Object.values(query)) {
+    if (!value) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function createMetaData(query: PostsPageQueryType) {
