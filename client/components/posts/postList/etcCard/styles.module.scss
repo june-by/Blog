@@ -1,21 +1,10 @@
 @import "utils/utils.scss";
 
 .Card {
-  // @include Card;
-  // align-items: flex-start;
-  // padding: 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 5%;
-  // @include tablet_landscape {
-  //   h3 {
-  //     font-size: 15px;
-  //   }
-  //   span {
-  //     font-size: 12px;
-  //   }
-  // }
 }
 
 .NoComments {
