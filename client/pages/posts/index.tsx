@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import PostsContent from "components/posts";
+import PostsPageContainer from "components/posts";
 import { useGetCategoryPosts, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
 import { PostsPageQueryType } from "Types/page";
@@ -27,7 +27,7 @@ const Posts = () => {
         />
         <meta property="og:url" content={url} />
       </Head>
-      <PostsContent query={getQuery(query)} params={getParams(query)} />
+      <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
       <ScrollButton />
     </>
   );
