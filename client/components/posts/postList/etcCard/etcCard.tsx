@@ -1,27 +1,23 @@
 import React from "react";
-import styles from "./styles.module.scss";
 import { useGetVisitor } from "Hooks/Visitor";
 import { useGetRecentComment } from "Hooks/Comment";
 import Comment from "./comment";
 import Visitor from "./visitor";
-
-const EtcCardWrapper = ({ children }: { children?: JSX.Element }) => {
-  return <div className={styles.Card}>{children}</div>;
-};
+import EtcCardLayout from "./layout";
 
 const EtcCard = () => {
   const { isLoading: isFetchingVisitorLoading } = useGetVisitor();
   const { isLoading: isFetchingCommentLoading } = useGetRecentComment();
 
-  if (isFetchingVisitorLoading || isFetchingCommentLoading) return <EtcCardWrapper />;
+  if (isFetchingVisitorLoading || isFetchingCommentLoading) return <EtcCardLayout />;
 
   return (
-    <EtcCardWrapper>
+    <EtcCardLayout>
       <>
         <Visitor />
         <Comment />
       </>
-    </EtcCardWrapper>
+    </EtcCardLayout>
   );
 };
 

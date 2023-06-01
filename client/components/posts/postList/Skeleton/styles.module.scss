@@ -1,9 +1,12 @@
 @import "utils/utils.scss";
 .SkeletonWrapper {
+  margin: 0 auto;
   margin-top: 65px;
-  padding: 0 15%;
   margin-bottom: 100px;
-
+  @include desktop {
+    width: 90%;
+    max-width: 1600px;
+  }
   @include mobile {
     padding: 0 5%;
   }

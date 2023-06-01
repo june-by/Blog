@@ -7,9 +7,9 @@ import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
-import styles from "./styles.module.scss";
 import InfiniteScroll from "components/_hoc/infiniteScroll";
 import EtcCard from "./etcCard";
+import PostsListLayout from "./layout";
 
 interface Props {
   params?: any;
@@ -26,31 +26,33 @@ const PostList = ({ params, query }: Props) => {
   return (
     <>
       {isPostExist(data?.pages[0]) ? (
-        <section className={styles.PostsRoot}>
-          <EtcCard />
-          <InfiniteScroll
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage || isLoading}
-            skeleton={
-              <>
-                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                })}
-              </>
-            }
-          >
-            <>
-              {data?.pages.map((page) => (
+        <PostsListLayout>
+          <>
+            <EtcCard />
+            <InfiniteScroll
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isLoading={isFetchingNextPage || isLoading}
+              skeleton={
                 <>
-                  {page.map((post: PostsType) => (
-                    <PostCard key={post.title} post={post} />
-                  ))}
+                  {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                  })}
                 </>
-              ))}
-            </>
-          </InfiniteScroll>
-        </section>
+              }
+            >
+              <>
+                {data?.pages.map((page) => (
+                  <>
+                    {page.map((post: PostsType) => (
+                      <PostCard key={post.title} post={post} />
+                    ))}
+                  </>
+                ))}
+              </>
+            </InfiniteScroll>
+          </>
+        </PostsListLayout>
       ) : (
         <NoPost />
       )}
