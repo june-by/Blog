@@ -16,8 +16,11 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
   const { data: UserInfo } = useGetUserInfo();
 
-  const onClickPostCard = () => {
-    if (post.isPublic === 0 && !IsAdmin(UserInfo)) return alert(MESSAGE.NOT_READY_POST);
+  const onClickPostCard = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (post.isPublic === 0 && !IsAdmin(UserInfo)) {
+      e.preventDefault();
+      return alert(MESSAGE.NOT_READY_POST);
+    }
     const { scrollY } = window;
     const { pathname } = router;
     sessionStorage.setItem("scrollPos", JSON.stringify({ scrollY, pathname }));
