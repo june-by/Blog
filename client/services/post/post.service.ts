@@ -1,5 +1,6 @@
 import { customAxios } from "utils/CustomAxios";
 import { AddPostParams, CategoryCount, PostsType, PostType } from "Types/post";
+import MESSAGE from "constants/message";
 
 export const getAllPostsId = async (): Promise<{ id: number }[]> => {
   try {
@@ -29,7 +30,8 @@ export const getAllCategoryLengthAPI = async (): Promise<Array<CategoryCount>> =
 };
 
 export const getOnePostAPI = async (id: number): Promise<PostType | null> => {
-  if (!id) return null;
+  if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
+  if (!id) throw new Error();
   try {
     const { data } = await customAxios.get(`/post/load/${id}`);
     return data;
