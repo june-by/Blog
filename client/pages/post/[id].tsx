@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getOnePostAPI } from "services/post";
 import CommentForm from "components/post/CommentForm";
@@ -26,20 +26,32 @@ import { PostContainer } from "context/postContext";
 const Post = () => {
   const router = useRouter();
 
-  const { data: userInfo, isLoading: userInfoLoadLoading } = useGetUserInfo();
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
+    useState(false);
+
+  const { data: userInfo } = useGetUserInfo();
   const { data } = useGetOnePost(Number(router.query.id));
 
   const Post = data?.mainPost;
 
   useEffect(() => {
-    if (userInfoLoadLoading) return;
-    if (!IsAdmin(userInfo) && Post?.isPublic === 0) {
+    if (Post?.isPublic) return;
+
+    if (IsAdmin(userInfo)) {
+      setAdminValidationForNotPublicPost(true);
+    } else {
       alert(MESSAGE.NOT_READY_POST);
       router.replace("/");
     }
-  }, [Post?.isPublic, router, userInfo, userInfoLoadLoading]);
+  }, [Post?.isPublic, userInfo]);
 
   if (router.isFallback) return <PostSkeleton />;
+
+  if (!Post?.isPublic) {
+    if (!adminValidationForNotPublicPost) {
+      return <PostSkeleton />;
+    }
+  }
 
   return (
     <>
