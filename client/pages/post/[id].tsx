@@ -27,15 +27,9 @@ const Post = () => {
   const router = useRouter();
 
   const { data: userInfo, isLoading: userInfoLoadLoading } = useGetUserInfo();
-  const { data, isError, error } = useGetOnePost(Number(router.query.id));
+  const { data } = useGetOnePost(Number(router.query.id));
 
   const Post = data?.mainPost;
-
-  useEffect(() => {
-    if (!isError) return;
-    alert(`error : ${error}`);
-    router.push("/");
-  }, [error, isError, router]);
 
   useEffect(() => {
     if (userInfoLoadLoading) return;
@@ -55,8 +49,14 @@ const Post = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
-        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
+        <meta
+          property="og:image"
+          content={getOgImage(Post?.thumbNailUrl, String(Post?.category))}
+        />
+        <meta
+          property="og:url"
+          content={`https://byjuun.com/post/${router.query.id}`}
+        />
       </Head>
       <PostContainer Post={Post as MainPost}>
         <main className={styles.Post}>
@@ -91,13 +91,14 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
-    getOnePostAPI(Number(context.params?.id))
+  await queryClient.fetchQuery(
+    [QUERY_KEY.POST.ONE, Number(context.params?.id)],
+    () => getOnePostAPI(Number(context.params?.id))
   );
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -108,6 +109,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 export default Post;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url)
+    return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }
