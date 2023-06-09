@@ -25,10 +25,10 @@ import { PostContainer } from "context/postContext";
 
 const Post = () => {
   const router = useRouter();
-
+  const postId = Number(router.query.id);
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserInfo();
-  const { data } = useGetOnePost(Number(router.query.id));
+  const { data } = useGetOnePost(postId);
 
   const Post = data?.mainPost;
 

@@ -10,7 +10,7 @@ import {
   getTagPostAPI,
   GetTopViewsPostsAPI,
 } from "services/post";
-import { useInfiniteQuery, useMutation, useQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery, UseQueryOptions } from "react-query";
 import { getMainPostsAPI } from "services/post";
 import { AddPostParams, CategoryCount, PostsType, PostType, TopViewsPost } from "Types/post";
 import { useRouter } from "next/router";
@@ -27,7 +27,7 @@ export const useGetMainPost = () =>
     getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
   });
 
-export const useGetOnePost = (id: number) => {
+export const useGetOnePost = (id: number, queryOptions?: UseQueryOptions<any>) => {
   const router = useRouter();
 
   return useQuery<PostType | null>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), {
@@ -36,6 +36,7 @@ export const useGetOnePost = (id: number) => {
       alert(err);
       router.replace("/");
     },
+    ...queryOptions,
   });
 };
 
