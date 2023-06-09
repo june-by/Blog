@@ -26,15 +26,14 @@ import { PostContainer } from "context/postContext";
 const Post = () => {
   const router = useRouter();
 
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
-    useState(false);
-
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserInfo();
   const { data } = useGetOnePost(Number(router.query.id));
 
   const Post = data?.mainPost;
 
   useEffect(() => {
+    if (!Post) return;
     if (Post?.isPublic) return;
 
     if (IsAdmin(userInfo)) {
@@ -43,7 +42,7 @@ const Post = () => {
       alert(MESSAGE.NOT_READY_POST);
       router.replace("/");
     }
-  }, [Post?.isPublic, userInfo]);
+  }, [Post, userInfo]);
 
   if (router.isFallback) return <PostSkeleton />;
 
@@ -61,14 +60,8 @@ const Post = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={Post?.content.substring(0, 100)} />
         <meta property="og:title" content={Post?.title} />
-        <meta
-          property="og:image"
-          content={getOgImage(Post?.thumbNailUrl, String(Post?.category))}
-        />
-        <meta
-          property="og:url"
-          content={`https://byjuun.com/post/${router.query.id}`}
-        />
+        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
+        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <PostContainer Post={Post as MainPost}>
         <main className={styles.Post}>
@@ -103,25 +96,26 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(
-    [QUERY_KEY.POST.ONE, Number(context.params?.id)],
-    () => getOnePostAPI(Number(context.params?.id))
-  );
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+  try {
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
+      getOnePostAPI(Number(context.params?.id))
+    );
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (err) {
+    console.log("getStaticProps catch called");
+    return { props: {} };
+  }
 };
 
 export default Post;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url)
-    return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }

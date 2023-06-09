@@ -36,7 +36,8 @@ export const getOnePostAPI = async (id: number): Promise<PostType | null> => {
     const { data } = await customAxios.get(`/post/load/${id}`);
     return data;
   } catch (err: any) {
-    throw new Error(err?.response?.data);
+    console.log("throw Error");
+    throw Error(err?.response?.data);
   }
 };
 

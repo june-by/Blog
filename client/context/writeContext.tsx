@@ -132,7 +132,8 @@ export const useWriteContext = () => {
 
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
-  const { data, isLoading } = useGetOnePost(Number(query.id));
+  const postId = Number(query.id);
+  const { data, isLoading } = useGetOnePost(postId);
 
   const post = data?.mainPost;
 
