@@ -74,9 +74,9 @@ const HeaderWrap = () => {
           </div>
         </div>
       </header>
-      {isLoginModalOpen && <LoginModal />}
-      {isSignUpModalOpen && <SignUpModal />}
-      {isSearchModalOpen && <SearchModal />}
+      <LoginModal />
+      <SignUpModal />
+      <SearchModal />
     </>
   );
 };
