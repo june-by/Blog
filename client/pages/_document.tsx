@@ -17,6 +17,7 @@ class MyDocument extends Document {
         <body data-theme={theme}>
           <Main />
           <NextScript />
+          <div id="portal" />
         </body>
       </Html>
     );
