@@ -6,7 +6,7 @@ import { useHeaderContext } from "context/headerContext";
 import CloseButton from "../shared/closeButton";
 
 const SearchModal = () => {
-  const { closeSearch } = useHeaderContext();
+  const { closeSearch, isSearchModalOpen } = useHeaderContext();
   const { push } = useRouter();
   const searchRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,7 +21,7 @@ const SearchModal = () => {
   };
 
   return (
-    <Modal closeModal={closeSearch}>
+    <Modal closeModal={closeSearch} isOpen={isSearchModalOpen}>
       <>
         <div className={styles.LoginTitle}>
           <span>게시글 찾기</span>

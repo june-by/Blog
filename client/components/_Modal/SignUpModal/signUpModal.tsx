@@ -7,7 +7,7 @@ import { useHeaderContext } from "context/headerContext";
 import CloseButton from "../shared/closeButton";
 
 const SignUpModal = () => {
-  const { closeSignUp } = useHeaderContext();
+  const { closeSignUp, isSignUpModalOpen } = useHeaderContext();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ const SignUpModal = () => {
   };
 
   return (
-    <Modal closeModal={closeSignUp}>
+    <Modal closeModal={closeSignUp} isOpen={isSignUpModalOpen}>
       <>
         <div className={styles.SignUpTitle}>
           <span>회원가입</span>

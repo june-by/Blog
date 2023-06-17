@@ -4,10 +4,11 @@ import styles from "./styles.module.scss";
 
 interface Props {
   children: ReactNode;
+  isOpen: boolean;
   closeModal: () => void;
 }
 
-const Modal = ({ children, closeModal }: Props) => {
+const Modal = ({ children, closeModal, isOpen }: Props) => {
   return (
     <div className={styles.Modal}>
       <div className={styles.overlay} onClick={closeModal}></div>

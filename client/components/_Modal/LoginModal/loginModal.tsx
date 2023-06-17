@@ -7,7 +7,7 @@ import { useHeaderContext } from "context/headerContext";
 import CloseButton from "../shared/closeButton";
 
 const LoginModal = () => {
-  const { closeLogin, openSignUp } = useHeaderContext();
+  const { closeLogin, openSignUp, isLoginModalOpen } = useHeaderContext();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -27,7 +27,7 @@ const LoginModal = () => {
   };
 
   return (
-    <Modal closeModal={closeLogin}>
+    <Modal closeModal={closeLogin} isOpen={isLoginModalOpen}>
       <>
         <div className={styles.LoginTitle}>
           <span>로그인</span>
