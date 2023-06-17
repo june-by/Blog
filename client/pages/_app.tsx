@@ -1,5 +1,6 @@
 import "styles/globals.css";
 import "styles/Editor.css";
+import "react-toastify/dist/ReactToastify.css";
 import type { AppContext, AppProps } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -12,6 +13,8 @@ import useSetProgressState from "Hooks/useSetProgressState";
 import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";
 import { useRouter } from "next/router";
+import { ThemeContainer } from "context/themeContext";
+import MyToastContainer from "components/shared/MyToastContainer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -25,21 +28,26 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {loading ? (
-        <Loading nextUrl={nextUrl || router.pathname} />
-      ) : (
-        <Hydrate state={pageProps.dehydratedState}>
-          <Header />
-          <Head>
-            <meta charSet="utf-8"></meta>
-            <title>ByJuun.com</title>
-            <link rel="shortcut icon" href="/favicon.ico" />
-          </Head>
-          <Component {...pageProps} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </Hydrate>
-      )}
-      <ProgressBar />
+      <ThemeContainer>
+        <>
+          {loading ? (
+            <Loading nextUrl={nextUrl || router.pathname} />
+          ) : (
+            <Hydrate state={pageProps.dehydratedState}>
+              <Header />
+              <Head>
+                <meta charSet="utf-8"></meta>
+                <title>ByJuun.com</title>
+                <link rel="shortcut icon" href="/favicon.ico" />
+              </Head>
+              <Component {...pageProps} />
+              <MyToastContainer />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Hydrate>
+          )}
+          <ProgressBar />
+        </>
+      </ThemeContainer>
     </QueryClientProvider>
   );
 }
