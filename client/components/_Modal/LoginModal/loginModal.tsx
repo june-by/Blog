@@ -27,25 +27,23 @@ const LoginModal = () => {
   };
 
   return (
-    <div>
-      <Modal closeModal={closeLogin}>
-        <>
-          <div className={styles.LoginTitle}>
-            <span>로그인</span>
-            <CloseButton onClick={closeLogin} data-testid="closebtn" />
-          </div>
-          <form onSubmit={submit} className={styles.Form}>
-            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
-            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
-            <button>로그인</button>
-          </form>
-          <button onClick={openSignUp} className={styles.signUpButton}>
-            회원가입
-          </button>
-          <SocialLoginButtons />
-        </>
-      </Modal>
-    </div>
+    <Modal closeModal={closeLogin}>
+      <>
+        <div className={styles.LoginTitle}>
+          <span>로그인</span>
+          <CloseButton onClick={closeLogin} data-testid="closebtn" />
+        </div>
+        <form onSubmit={submit} className={styles.Form}>
+          <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+          <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
+          <button>로그인</button>
+        </form>
+        <button onClick={openSignUp} className={styles.signUpButton}>
+          회원가입
+        </button>
+        <SocialLoginButtons />
+      </>
+    </Modal>
   );
 };
 

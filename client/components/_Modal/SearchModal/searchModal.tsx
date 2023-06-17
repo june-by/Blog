@@ -21,20 +21,18 @@ const SearchModal = () => {
   };
 
   return (
-    <div>
-      <Modal closeModal={closeSearch}>
-        <>
-          <div className={styles.LoginTitle}>
-            <span>게시글 찾기</span>
-            <CloseButton onClick={closeSearch} data-testid="searchCloseBtn" />
-          </div>
-          <form onSubmit={submitSearchKeyword} className={styles.Form}>
-            <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
-            <button>검색</button>
-          </form>
-        </>
-      </Modal>
-    </div>
+    <Modal closeModal={closeSearch}>
+      <>
+        <div className={styles.LoginTitle}>
+          <span>게시글 찾기</span>
+          <CloseButton onClick={closeSearch} data-testid="searchCloseBtn" />
+        </div>
+        <form onSubmit={submitSearchKeyword} className={styles.Form}>
+          <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
+          <button>검색</button>
+        </form>
+      </>
+    </Modal>
   );
 };
 

@@ -31,24 +31,22 @@ const SignUpModal = () => {
   };
 
   return (
-    <div>
-      <Modal closeModal={closeSignUp}>
-        <>
-          <div className={styles.SignUpTitle}>
-            <span>회원가입</span>
-            <CloseButton onClick={closeSignUp} data-testid="signUpCloseBtn" />
-          </div>
-          <form onSubmit={submit} className={styles.Form}>
-            <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
-            <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
-            <input data-testid="passwordCheckInput" ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
-            <input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
-            <button>회원가입</button>
-          </form>
-          <SocialLoginButtons />
-        </>
-      </Modal>
-    </div>
+    <Modal closeModal={closeSignUp}>
+      <>
+        <div className={styles.SignUpTitle}>
+          <span>회원가입</span>
+          <CloseButton onClick={closeSignUp} data-testid="signUpCloseBtn" />
+        </div>
+        <form onSubmit={submit} className={styles.Form}>
+          <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+          <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
+          <input data-testid="passwordCheckInput" ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
+          <input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
+          <button>회원가입</button>
+        </form>
+        <SocialLoginButtons />
+      </>
+    </Modal>
   );
 };
 
