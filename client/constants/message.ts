@@ -13,6 +13,8 @@ const MESSAGE = {
   NETWORK_ERROR: "네트워크 에러가 발생했습니다.\n잠시 후 다시 시도 해주세요.",
   NOT_READY_POST: "준비중인 게시글입니다.",
   INVALIDE_ACCESS: "비정상적인 접근입니다.",
+  NEED_EMAIL: "* 아이디를 입력해주세요.",
+  NEED_PASSWORD: "* 비밀번호를 입력해주세요.",
 };
 
 export default MESSAGE;

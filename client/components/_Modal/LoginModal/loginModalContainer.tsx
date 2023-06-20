@@ -4,6 +4,7 @@ import { useHeaderContext } from "context/headerContext";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import LoginForm from "./loginForm";
+import MESSAGE from "constants/message";
 
 const LoginModalContainer = () => {
   const { closeLogin, isLoginModalOpen } = useHeaderContext();
@@ -15,8 +16,8 @@ const LoginModalContainer = () => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailRef.current || !passwordRef.current) return;
-    if (emailRef.current.value === "") return toast.warn("* 아이디를 입력해주세요.");
-    if (passwordRef.current.value === "") return toast.warn("* 비밀번호를 입력해주세요.");
+    if (emailRef.current.value === "") return toast.warn(MESSAGE.NEED_EMAIL);
+    if (passwordRef.current.value === "") return toast.warn(MESSAGE.NEED_PASSWORD);
 
     const reqData = {
       email: emailRef.current.value,
