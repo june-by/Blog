@@ -18,8 +18,7 @@ export const LoginAPI = async (LoginData: LoginDataType): Promise<"success"> => 
     const { data } = await customAxios.post(`/user/login`, LoginData);
     return data;
   } catch (err) {
-    alert(MESSAGE.NETWORK_ERROR);
-    throw Error();
+    throw Error(MESSAGE.NETWORK_ERROR);
   }
 };
 
@@ -28,8 +27,7 @@ export const LogOutAPI = async (): Promise<"success"> => {
     const { data } = await customAxios.get("/user/logout");
     return data;
   } catch (err) {
-    alert(MESSAGE.NETWORK_ERROR);
-    throw Error();
+    throw Error(MESSAGE.NETWORK_ERROR);
   }
 };
 
@@ -38,8 +36,7 @@ export const SignUpAPI = async (SignUpData: SignUpDataType): Promise<"success"> 
     const { data } = await customAxios.post(`/user/signup`, SignUpData);
     return data;
   } catch (err) {
-    alert(MESSAGE.NETWORK_ERROR);
-    throw Error();
+    throw Error(MESSAGE.NETWORK_ERROR);
   }
 };
 

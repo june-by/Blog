@@ -5,6 +5,10 @@ import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 import MESSAGE from "constants/message";
 
+interface ErrorMessage {
+  messsage: string;
+}
+
 export const useGetUserInfo = () =>
   useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), { ...CACHE_OPTION.ALL, retry: false });
 
@@ -14,8 +18,8 @@ export const useSignUp = (onSuccess: () => void) => {
       alert(MESSAGE.SIGHUP_SUCCESS);
       return onSuccess();
     },
-    onError: (error: any) => {
-      alert(error?.response.data);
+    onError: (error: ErrorMessage) => {
+      alert(error.messsage);
     },
   });
 };
@@ -24,12 +28,14 @@ export const useLogin = ({ onSuccess }: { onSuccess: () => void }) => {
   const queryClient = useQueryClient();
   return useMutation(LoginAPI, {
     onSuccess: () => {
+      console.log("onSuccess Call");
+
       alert(MESSAGE.LOGIN_SUCCESS);
       onSuccess();
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
-    onError: (error: any) => {
-      alert(error?.response.data);
+    onError: (error: ErrorMessage) => {
+      alert(error.messsage);
     },
   });
 };
@@ -40,6 +46,9 @@ export const useLogOut = () => {
     onSuccess: () => {
       alert(MESSAGE.LOGOUT_SUCCESS);
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
+    },
+    onError: (error: ErrorMessage) => {
+      alert(error.messsage);
     },
   });
 };
