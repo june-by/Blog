@@ -16,6 +16,7 @@ export const Category = [
 export const CATEGORY_TO_HLJS_CLASS: { [key: string]: string } = {
   TypeScript: "typescript",
   JavaScript: "javascript",
+  TroubleShooting: "typescript",
   Book: "typescript",
   React: "tsx",
   Web: "javascript",
