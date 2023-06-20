@@ -20,7 +20,7 @@ const CommentForm = () => {
     if (!commentRef.current) return;
     if (!isLogin) return toast.error(MESSAGE.LOGIN_NEEDED);
     if (commentRef.current.value === "") return toast.error(MESSAGE.COMMENT_CONTENT_NEEDED);
-    console.log("value : ", commentRef.current.value);
+
     addCommentMutate({
       postId: Number(query.id),
       comment: commentRef.current.value,
