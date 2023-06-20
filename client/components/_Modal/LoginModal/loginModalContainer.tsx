@@ -10,7 +10,7 @@ const LoginModalContainer = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: loginMutate } = useLogin(closeLogin);
+  const { mutate: loginMutate } = useLogin({ onSuccess: closeLogin });
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

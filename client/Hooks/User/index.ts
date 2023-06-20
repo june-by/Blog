@@ -20,7 +20,7 @@ export const useSignUp = (onSuccess: () => void) => {
   });
 };
 
-export const useLogin = (onSuccess: () => void) => {
+export const useLogin = ({ onSuccess }: { onSuccess: () => void }) => {
   const queryClient = useQueryClient();
   return useMutation(LoginAPI, {
     onSuccess: () => {
