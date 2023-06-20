@@ -16,8 +16,8 @@ const LoginModalContainer = () => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailRef.current || !passwordRef.current) return;
-    if (emailRef.current.value === "") return toast.warn(MESSAGE.NEED_EMAIL);
-    if (passwordRef.current.value === "") return toast.warn(MESSAGE.NEED_PASSWORD);
+    if (emailRef.current.value === "") return toast.error(MESSAGE.NEED_EMAIL);
+    if (passwordRef.current.value === "") return toast.error(MESSAGE.NEED_PASSWORD);
 
     const reqData = {
       email: emailRef.current.value,
