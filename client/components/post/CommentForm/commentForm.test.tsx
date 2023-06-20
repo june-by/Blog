@@ -5,6 +5,8 @@ import CommentForm from "./commentForm";
 import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
 import MESSAGE from "constants/message";
+import { toast } from "react-toastify";
+import { mockingToast } from "utils/test/mockFn";
 
 describe("<CommentForm />", () => {
   const router = createMockRouter();
@@ -16,9 +18,23 @@ describe("<CommentForm />", () => {
     expect(await screen.findByText("등록")).toBeInTheDocument();
   });
 
+  it("댓글을 달지 않고 제출 버튼을 클릭", async () => {
+    renderWithContext(router, queryClient, <CommentForm />);
+    const commentForm = await screen.findByTestId("commentForm");
+
+    const toastErrorMock = mockingToast("error");
+
+    //댓글을 달지 않고, submit
+    fireEvent.submit(commentForm);
+
+    await waitFor(() => {
+      expect(toastErrorMock).toBeCalledWith(MESSAGE.COMMENT_CONTENT_NEEDED);
+    });
+  });
+
   it("댓글 등록 성공", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
-    const alertMock = jest.spyOn(window, "alert").mockImplementation();
+    const toastSuccessMock = mockingToast("success");
 
     const commentForm = await screen.findByTestId("commentForm");
     const commentTextArea = await screen.findByTestId("commentTextarea");
@@ -28,17 +44,7 @@ describe("<CommentForm />", () => {
     fireEvent.submit(commentForm);
 
     await waitFor(() => {
-      expect(alertMock).toBeCalledWith(MESSAGE.COMMENT_REGIST_SUCESS);
+      expect(toastSuccessMock).toBeCalledWith(MESSAGE.COMMENT_REGIST_SUCESS);
     });
-  });
-
-  it("댓글을 달지 않고 제출 버튼을 클릭", async () => {
-    renderWithContext(router, queryClient, <CommentForm />);
-    const commentForm = await screen.findByTestId("commentForm");
-    const alertMock = jest.spyOn(window, "alert").mockImplementation();
-
-    //댓글을 달지 않고, submit
-    fireEvent.submit(commentForm);
-    expect(alertMock).toBeCalledWith(MESSAGE.COMMENT_CONTENT_NEEDED);
   });
 });

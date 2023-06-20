@@ -12,6 +12,8 @@ body {
 body[data-theme="dark"] {
   background: #121212;
   color: white;
+  --background-color: #121212;
+
   --header-background: #1e1e1e;
   --header-color: white;
   --header-hover-color: #6185e5;
@@ -31,6 +33,7 @@ body[data-theme="dark"] {
 body[data-theme="light"] {
   background: white;
   color: black;
+  --background-color: white;
   --header-background: #dedce0;
   --header-color: #615f63;
   --header-hover-color: #0099fa;

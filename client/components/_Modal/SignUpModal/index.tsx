@@ -1,1 +1,1 @@
-export { default } from "./signUpModal";
+export { default } from "./signUpModalContainer";

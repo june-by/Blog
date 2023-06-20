@@ -18,6 +18,7 @@ import SearchButton from "./searchButton";
 import LogoutButton from "./logoutButton";
 import AccountButton from "./accountButton";
 import WriteButton from "./writeButton";
+import { toast } from "react-toastify";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
@@ -29,13 +30,15 @@ const HeaderWrap = () => {
 
   const isLoggedIn = !!userData;
 
-  const { isLoginModalOpen, isSignUpModalOpen, isSearchModalOpen } = useHeaderContext();
-
   const gotoPage = useGotoPage();
 
   useHideHeader(setHide);
 
   useHeaderAnimation({ headerRef, hide, setHide });
+
+  const test = () => {
+    toast.error("test");
+  };
 
   return (
     <>
@@ -74,9 +77,9 @@ const HeaderWrap = () => {
           </div>
         </div>
       </header>
-      {isLoginModalOpen && <LoginModal />}
-      {isSignUpModalOpen && <SignUpModal />}
-      {isSearchModalOpen && <SearchModal />}
+      <LoginModal />
+      <SignUpModal />
+      <SearchModal />
     </>
   );
 };

@@ -15,8 +15,10 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body data-theme={theme}>
+          <div id="toast-root" />
           <Main />
           <NextScript />
+          <div id="portal" />
         </body>
       </Html>
     );

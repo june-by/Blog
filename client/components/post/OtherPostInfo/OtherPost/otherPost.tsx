@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { OtherPostType } from "Types/post";
 import styles from "./styles.module.scss";
+import { toast } from "react-toastify";
 
 interface Props {
   Post: OtherPostType;
@@ -10,7 +11,7 @@ interface Props {
 
 const OtherPost = ({ Post, mode }: Props) => {
   const alertNoPost = () => {
-    alert(`${getTextByMode(mode)}게시글이 없습니다 :(`);
+    toast.warn(`${getTextByMode(mode)}게시글이 없습니다 :(`);
   };
 
   return (
