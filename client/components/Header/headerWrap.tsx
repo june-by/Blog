@@ -77,7 +77,7 @@ const HeaderWrap = () => {
           </div>
         </div>
       </header>
-      <LoginModal test={test} />
+      <LoginModal />
       <SignUpModal />
       <SearchModal />
     </>
