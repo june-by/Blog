@@ -1,1 +1,1 @@
-export { default } from "./loginModal";
+export { default } from "./loginModalContainer";

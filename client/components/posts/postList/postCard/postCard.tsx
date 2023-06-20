@@ -11,6 +11,7 @@ import MESSAGE from "constants/message";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const onClickPostCard = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (post.isPublic === 0 && !IsAdmin(UserInfo)) {
       e.preventDefault();
-      return alert(MESSAGE.NOT_READY_POST);
+      return toast.warn(MESSAGE.NOT_READY_POST);
     }
     const { scrollY } = window;
     const { pathname } = router;
