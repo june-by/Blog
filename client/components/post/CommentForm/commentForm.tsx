@@ -4,6 +4,7 @@ import { useAddComment } from "Hooks/Comment";
 import { useGetUserInfo } from "Hooks/User";
 import styles from "./styles.module.scss";
 import MESSAGE from "constants/message";
+import { toast } from "react-toastify";
 
 const CommentForm = () => {
   const { query } = useRouter();
@@ -17,8 +18,8 @@ const CommentForm = () => {
   const submitComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!commentRef.current) return;
-    if (!isLogin) return alert(MESSAGE.LOGIN_NEEDED);
-    if (commentRef.current.value === "") return alert(MESSAGE.COMMENT_CONTENT_NEEDED);
+    if (!isLogin) return toast.error(MESSAGE.LOGIN_NEEDED);
+    if (commentRef.current.value === "") return toast.error(MESSAGE.COMMENT_CONTENT_NEEDED);
     addCommentMutate({
       postId: Number(query.id),
       comment: commentRef.current.value,
