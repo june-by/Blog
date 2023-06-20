@@ -6,6 +6,7 @@ import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
+import { mockingToast } from "utils/test/mockFn";
 
 describe("<CommentForm />", () => {
   const router = createMockRouter();
@@ -21,7 +22,7 @@ describe("<CommentForm />", () => {
     renderWithContext(router, queryClient, <CommentForm />);
     const commentForm = await screen.findByTestId("commentForm");
 
-    const toastErrorMock = jest.spyOn(toast, "error").mockImplementation();
+    const toastErrorMock = mockingToast("error");
 
     //댓글을 달지 않고, submit
     fireEvent.submit(commentForm);
@@ -33,7 +34,7 @@ describe("<CommentForm />", () => {
 
   it("댓글 등록 성공", async () => {
     renderWithContext(router, queryClient, <CommentForm />);
-    const toastSuccessMock = jest.spyOn(toast, "success").mockImplementation();
+    const toastSuccessMock = mockingToast("success");
 
     const commentForm = await screen.findByTestId("commentForm");
     const commentTextArea = await screen.findByTestId("commentTextarea");
