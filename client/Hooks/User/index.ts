@@ -43,14 +43,3 @@ export const useLogOut = () => {
     },
   });
 };
-
-export const useGithubLogin = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(submitGithubCode, {
-    onSuccess: () => {
-      alert("깃허브 로그인 성공");
-      return queryClient.invalidateQueries([QUERY_KEY.USER]);
-    },
-  });
-};
