@@ -4,6 +4,7 @@ import { useHeaderContext } from "context/headerContext";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
+import MESSAGE from "constants/message";
 
 const SignUpModalContainer = () => {
   const { closeSignUp, isSignUpModalOpen } = useHeaderContext();
@@ -18,7 +19,7 @@ const SignUpModalContainer = () => {
     e.preventDefault();
     if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
     if (passwordRef.current.value !== passwordCheckRef.current.value)
-      return toast.error("* 비밀번호와 비밀번호확인이 일치하지 않습니다");
+      return toast.error(MESSAGE.PASSWORD_AND_CHECK_NOT_SAME);
 
     const reqData = {
       email: emailRef.current.value,
