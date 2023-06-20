@@ -11,7 +11,15 @@ const LoginModalContainer = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: loginMutate } = useLogin({ onSuccess: closeLogin });
+  const { mutate: loginMutate } = useLogin({
+    onSuccess: () => {
+      toast.success(MESSAGE.LOGIN_SUCCESS);
+      closeLogin();
+    },
+    onError: (error) => {
+      toast.error(error.messsage);
+    },
+  });
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

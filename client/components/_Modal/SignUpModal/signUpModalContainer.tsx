@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
 import MESSAGE from "constants/message";
+import { ErrorMessage } from "Types/shared";
 
 const SignUpModalContainer = () => {
   const { closeSignUp, isSignUpModalOpen } = useHeaderContext();
@@ -13,7 +14,15 @@ const SignUpModalContainer = () => {
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: signUpMutate } = useSignUp(closeSignUp);
+  const { mutate: signUpMutate } = useSignUp({
+    onSuccess: () => {
+      closeSignUp();
+      toast.success(MESSAGE.SIGHUP_SUCCESS);
+    },
+    onError: (error: ErrorMessage) => {
+      toast.error(error.messsage);
+    },
+  });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -4,39 +4,26 @@ import { UserType } from "Types/user";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 import MESSAGE from "constants/message";
-
-interface ErrorMessage {
-  messsage: string;
-}
+import { ErrorMessage, MutationParams } from "Types/shared";
 
 export const useGetUserInfo = () =>
   useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), { ...CACHE_OPTION.ALL, retry: false });
 
-export const useSignUp = (onSuccess: () => void) => {
+export const useSignUp = ({ onSuccess, onError }: MutationParams) => {
   return useMutation(SignUpAPI, {
-    onSuccess: () => {
-      alert(MESSAGE.SIGHUP_SUCCESS);
-      return onSuccess();
-    },
-    onError: (error: ErrorMessage) => {
-      alert(error.messsage);
-    },
+    onSuccess,
+    onError,
   });
 };
 
-export const useLogin = ({ onSuccess }: { onSuccess: () => void }) => {
+export const useLogin = ({ onSuccess, onError }: MutationParams) => {
   const queryClient = useQueryClient();
   return useMutation(LoginAPI, {
     onSuccess: () => {
-      console.log("onSuccess Call");
-
-      alert(MESSAGE.LOGIN_SUCCESS);
       onSuccess();
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
-    onError: (error: ErrorMessage) => {
-      alert(error.messsage);
-    },
+    onError,
   });
 };
 
