@@ -108,7 +108,6 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
       },
     };
   } catch (err) {
-    console.log("getStaticProps catch called");
     return { props: {} };
   }
 };
