@@ -1,11 +1,8 @@
 import WriteWrap from "components/write";
-import withAdminValidation from "components/_hoc/withAdminValidation";
 import { WriteContainer } from "context/writeContext";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { customAxios } from "utils/CustomAxios";
-import { getUserInfoAPI } from "services/user";
-import axios from "axios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
 
@@ -17,8 +14,6 @@ const Write = () => {
   );
 };
 export default Write;
-
-// export default withAdminValidation(Write);
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const Cookies = req?.headers?.cookie ?? "";
