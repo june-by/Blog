@@ -1,3 +1,5 @@
+import https from "https";
+import fs from "fs";
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
@@ -48,6 +50,7 @@ export default function () {
   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use(express.json({ limit: "50mb" }));
   app.use(cookieParser(process.env.COOKIE_SECRET));
+
   app.use(
     session({
       resave: false,
@@ -58,7 +61,7 @@ export default function () {
         httpOnly: true, //cookie는 javascript로 조작할 수 없도록.
         secure: true,
         sameSite: "lax",
-        domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : "http://localhost:3000",
+        domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : ".local.byjuun.com",
       },
     })
   );
@@ -99,4 +102,15 @@ export default function () {
   app.listen(3065, () => {
     console.log("서버 실행 중");
   });
+
+  if (process.env.NODE_ENV !== "production") {
+    const options = {
+      key: fs.readFileSync("./ssl/key.pem"),
+      cert: fs.readFileSync("./ssl/cert.pem"),
+    };
+
+    https.createServer(options, app).listen(8080, () => {
+      console.log(`HTTPS server started on port 8080`);
+    });
+  }
 }

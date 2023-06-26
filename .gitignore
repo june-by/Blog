@@ -5,3 +5,7 @@ images
 uploads
 ByJuun.com.pem
 .next
+# pem
+cert.pem
+key.pem
+ssl

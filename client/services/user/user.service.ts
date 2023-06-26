@@ -41,6 +41,7 @@ export const SignUpAPI = async (SignUpData: SignUpDataType): Promise<"success"> 
 };
 
 export const getUserInfoAPI = async (): Promise<UserType | null> => {
+  console.log("customAxios : ", customAxios.defaults.headers.options);
   try {
     const { data } = await customAxios.get("/user");
     return data;
