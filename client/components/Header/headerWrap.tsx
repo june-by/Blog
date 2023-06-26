@@ -36,10 +36,6 @@ const HeaderWrap = () => {
 
   useHeaderAnimation({ headerRef, hide, setHide });
 
-  const test = () => {
-    toast.error("test");
-  };
-
   return (
     <>
       <header ref={headerRef} className={styles.headerStyleWrap}>
