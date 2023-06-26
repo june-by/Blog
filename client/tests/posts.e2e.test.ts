@@ -1,11 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { RECENT_COMMENT_MOCK_DATA } from "mocks/data/comment";
-import { CATEGORY_LENGTH_MOCK_DATA, MAIN_POSTS_MOCK_DATA, TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
-import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
-import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
+import { CATEGORY_LENGTH_MOCK_DATA, MAIN_POSTS_MOCK_DATA } from "mocks/data/post";
 import PostsPOM from "./posts";
 import { USER_MOCK_DATA } from "mocks/data/user";
-import { ServerURL } from "constants/serverURL";
 import MESSAGE from "constants/message";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {

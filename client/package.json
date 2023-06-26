@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "ts-node server",
+    "dev": "NODE_ENV=https ts-node server",
+    "dev:test": "next dev",
     "build": "next build",
     "start": "next start",
     "test": "jest",
