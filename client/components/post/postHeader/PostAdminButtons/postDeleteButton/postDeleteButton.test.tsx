@@ -1,21 +1,17 @@
 import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { QueryClient } from "react-query";
 import PostDeleteButton from "./postDeleteButton";
-import { createMockRouter } from "utils/test/createMockRouter";
 import { renderWithContext } from "utils/test/renderWithContext";
 
 describe("<PostDelBtn />", () => {
-  const router = createMockRouter();
-  const queryClient = new QueryClient();
   it("rendering test", () => {
-    renderWithContext(router, queryClient, <PostDeleteButton />);
+    renderWithContext(<PostDeleteButton />);
 
     expect(screen.getByTestId("postDelBtn")).toBeInTheDocument();
     expect(screen.getByText("글 삭제하기")).toBeInTheDocument();
   });
-  it("click test", () => {
-    renderWithContext(router, queryClient, <PostDeleteButton />);
+  it("삭제 버튼을 눌렀을 때, confirm창이 나타나야 한다.", () => {
+    renderWithContext(<PostDeleteButton />);
 
     const postDelBtn = screen.getByTestId("postDelBtn");
     const confirmMock = jest.spyOn(window, "confirm").mockImplementation();
