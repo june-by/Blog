@@ -32,12 +32,7 @@ describe("<CategoryChip />", () => {
     };
     renderWithContext(<CategoryChip category={props.category} length={props.length} />, router);
 
-    const categroyChipBtn = screen.getByRole("button");
-    expect(categroyChipBtn).toBeInTheDocument();
-    fireEvent.click(categroyChipBtn);
-    expect(router.push).toHaveBeenCalledWith({
-      pathname: `/`,
-      query: { category: props.category },
-    });
+    const categroyChipBtn = screen.getByTestId("categoryChip");
+    expect(categroyChipBtn).toHaveAttribute("href", `/?category=${props.category}`);
   });
 });

@@ -18,6 +18,7 @@ const CategoryChip = ({ category, length }: Props) => {
   return (
     <Link
       className={styles.CategoryChip}
+      data-testid="categoryChip"
       href={`/?category=${category}`}
       style={{ background: isCurrentSelectedCategory ? "#6185e5" : "" }}
     >
