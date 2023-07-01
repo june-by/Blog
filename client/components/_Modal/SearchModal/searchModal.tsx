@@ -15,7 +15,7 @@ const SearchModal = () => {
     if (!searchRef.current) return;
     closeSearch();
     return push({
-      pathname: "/posts",
+      pathname: "/",
       query: { search: searchRef.current.value },
     });
   };

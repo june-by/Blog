@@ -14,7 +14,7 @@ const CategoryChip = ({ category, length }: Props) => {
 
   const onClickBtn = (category: string) => () => {
     push({
-      pathname: `/posts`,
+      pathname: `/`,
       query: { category },
     });
   };
