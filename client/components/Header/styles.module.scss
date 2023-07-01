@@ -39,37 +39,17 @@
       max-width: 1600px;
     }
   }
-
-  &_mobileBtn {
-    display: none;
-
-    @include mobile {
-      display: flex;
-      align-items: center;
-    }
-
-    &_btn {
-      @include mobile {
-        border: none;
-        background: none;
-        padding-bottom: 10px;
-        font-size: 20px;
-        margin-top: 10px;
-      }
-    }
-  }
 }
 
-.headerRightWrapWrapper {
+.headerRightWrap {
   display: flex;
   align-items: center;
 
-  @include mobile {
-    display: none;
-  }
-
   span {
     margin: 0 10px;
+    @include mobile {
+      display: none;
+    }
   }
 }
 
@@ -157,29 +137,5 @@
 
   100% {
     transform: rotate(0deg);
-  }
-}
-
-.headerRightWrap {
-  display: flex;
-  height: 50px;
-  align-items: center;
-  @include mobile {
-    flex-direction: column;
-  }
-  p {
-    margin: 0 5px;
-  }
-  button {
-    border: none;
-    background: none;
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    cursor: pointer;
-    &:hover {
-      background: var(--slight-layer);
-      border-radius: 100%;
-    }
   }
 }

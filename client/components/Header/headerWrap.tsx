@@ -7,8 +7,6 @@ import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
 import useGotoPage from "Hooks/useGotoPage";
-import { useHeaderContext } from "context/headerContext";
-import MobileMenu from "components/Header/mobileMenu";
 import { useGetUserInfo } from "Hooks/User";
 import LoginModal from "components/_Modal/LoginModal";
 import SignUpModal from "components/_Modal/SignUpModal";
@@ -50,26 +48,20 @@ const HeaderWrap = () => {
             <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
             {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
           </div>
-          <div className={styles.headerRightWrapWrapper}>
+          <div className={styles.headerRightWrap}>
             <DarkModeButton />
-            <div className={styles.headerRightWrap}>
-              <WriteButton />
-              <SearchButton />
-              {isLoggedIn ? (
-                <>
-                  <span>
-                    <strong>{userData.nickname}</strong>님
-                  </span>
-                  <LogoutButton />
-                </>
-              ) : (
-                <AccountButton />
-              )}
-            </div>
-          </div>
-          <div className={styles.headerStyleWrap_mobileBtn}>
-            <DarkModeButton />
-            <MobileMenu />
+            <WriteButton />
+            <SearchButton />
+            {isLoggedIn ? (
+              <>
+                <span>
+                  <strong>{userData.nickname}</strong>님
+                </span>
+                <LogoutButton />
+              </>
+            ) : (
+              <AccountButton />
+            )}
           </div>
         </div>
       </header>
