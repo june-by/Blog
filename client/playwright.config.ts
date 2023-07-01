@@ -1,5 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import { TEST_SERVER_URL } from "constants/serverURL";
+import { ServerURL } from "constants/serverURL";
 
 /**
  * Read environment variables from file.
@@ -37,7 +37,7 @@ export default defineConfig({
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: TEST_SERVER_URL,
+    baseURL: ServerURL,
     headless: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
