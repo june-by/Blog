@@ -14,7 +14,7 @@ import { useHeaderContext } from "context/headerContext";
 
 const MobileMenu = ["검색", "로그인", "회원가입", ...Category] as const;
 
-const MenuIcon: { [key: typeof MobileMenu[number]]: JSX.Element } = {
+const MenuIcon: { [key: (typeof MobileMenu)[number]]: JSX.Element } = {
   검색: <AiOutlineSearch />,
   로그인: <AiOutlineLogin />,
   회원가입: <AiOutlineUser />,
@@ -57,7 +57,7 @@ const MobileMenuItem = ({ menu }: Props) => {
 
   const gotoCategoryPage = (category: string) => {
     toggleShowMobileMenu();
-    push({ pathname: "/posts", query: { category } });
+    push({ pathname: "/", query: { category } });
   };
 
   const onClickMenuItem = () => {

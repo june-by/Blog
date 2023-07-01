@@ -26,6 +26,6 @@ describe("<TagButton />", () => {
   it("click test", () => {
     renderWithContext(router, queryClient, <TagButton tag={props.tag} />);
 
-    expect(screen.getByTestId(`tagButton`)).toHaveAttribute("href", `/posts?tag=${props.tag.content}`);
+    expect(screen.getByTestId(`tagButton`)).toHaveAttribute("href", `/?tag=${props.tag.content}`);
   });
 });

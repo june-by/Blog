@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 const TagButton = ({ tag }: { tag: TagType | null }) => {
   return (
     <li className={styles.TagButton}>
-      <Link href={`/posts?tag=${tag?.content}`} data-testid="tagButton">
+      <Link href={`/?tag=${tag?.content}`} data-testid="tagButton">
         #{tag?.content}
       </Link>
     </li>
