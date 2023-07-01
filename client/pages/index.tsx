@@ -1,10 +1,11 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useGetCategoryPosts, useGetMainPost, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
 import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
+import { ParsedUrlQuery } from "querystring";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
@@ -32,6 +33,43 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const isPageForEntirePost = Object.keys(query).length === 0;
+
+  if (isPageForEntirePost)
+    return {
+      props: {},
+    };
+
+  const isNumberOfKeyValid = verifyNumberOfKeys(Object.keys(query));
+  const isValueValid = verifyValue(query);
+
+  if (!isNumberOfKeyValid || !isValueValid) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+function verifyNumberOfKeys(keys: string[]) {
+  const verifiedKeys = ["category", "search", "tag"];
+  const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
+  return includedKeys.length === 1;
+}
+
+function verifyValue(query: ParsedUrlQuery) {
+  for (const value of Object.values(query)) {
+    if (!value) {
+      return false;
+    }
+  }
+  return true;
+}
 
 function getQuery(query: PostsPageQueryType) {
   if (query.search) return useGetSearchPosts;
