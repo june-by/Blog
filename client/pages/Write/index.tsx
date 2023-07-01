@@ -28,21 +28,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     });
 
     if (!IsAdmin(userInfo)) {
-      return redirectProps;
+      return {
+        notFound: true,
+      };
     }
 
     return {
       props: {},
     };
   } catch (err) {
-    return redirectProps;
+    return {
+      notFound: true,
+    };
   }
-};
-
-const redirectProps = {
-  redirect: {
-    permanent: false,
-    destination: "/",
-  },
-  props: {},
 };
