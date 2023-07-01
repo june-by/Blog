@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./darkModeButton.module.scss";
-import SSRSafeSuspense from "components/_hoc/SSRSafeSuspense";
 import Light from "components/Icon/light";
 import Dark from "components/Icon/dark";
 import IconButton from "../../shared/IconButton";
