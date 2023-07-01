@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import styles from "./styles.module.scss";
-import useChangeCurrentCategoryColor from "./useChangeCurrentCategoryColor";
+import Link from "next/link";
 
 interface Props {
   category: string;
@@ -9,23 +9,22 @@ interface Props {
 }
 
 const CategoryChip = ({ category, length }: Props) => {
-  const { push } = useRouter();
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const { push, query } = useRouter();
 
-  const onClickBtn = (category: string) => () => {
-    push({
-      pathname: `/`,
-      query: { category },
-    });
-  };
+  const currentCategory = query.category;
 
-  useChangeCurrentCategoryColor({ category, btnRef });
+  const isCurrentSelectedCategory = currentCategory === category;
 
   return (
-    <button ref={btnRef} className={styles.CategoryChip} onClick={onClickBtn(category)}>
+    <Link
+      className={styles.CategoryChip}
+      data-testid="categoryChip"
+      href={`/?category=${category}`}
+      style={{ background: isCurrentSelectedCategory ? "#6185e5" : "" }}
+    >
       <span>{category}</span>
       {length && <div className={styles.CategoryLength}>{length ? length : 0}</div>}
-    </button>
+    </Link>
   );
 };
 

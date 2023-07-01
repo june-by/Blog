@@ -12,12 +12,12 @@
   align-items: center;
   white-space: nowrap;
   background: var(--button-background);
+  font-size: 12px;
   &:hover {
     background: #6185e5;
   }
   @include mobile {
     padding: 5px 10px;
-    font-size: 12px;
   }
 }
 
@@ -37,7 +37,7 @@
 
 .CategorySkeleton {
   height: 40px;
-  width: 121px;
+  min-width: 121px;
   background: #f2f2f2;
   animation: Skeleton 1.5s infinite ease-in-out;
 }
