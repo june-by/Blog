@@ -12,7 +12,7 @@ describe("<CommentForm />", () => {
     expect(await screen.findByText("등록")).toBeInTheDocument();
   });
 
-  it("댓글을 달지 않고 제출 버튼을 클릭", async () => {
+  it("로그인 하지 않은 상태에서 제출 버튼을 누르면, 로그인을 해야 한다는 얼럿이 나타난다.", async () => {
     renderWithContext(<CommentForm />);
     const commentForm = await screen.findByTestId("commentForm");
 
@@ -22,7 +22,7 @@ describe("<CommentForm />", () => {
     fireEvent.submit(commentForm);
 
     await waitFor(() => {
-      expect(toastErrorMock).toBeCalledWith(MESSAGE.COMMENT_CONTENT_NEEDED);
+      expect(toastErrorMock).toBeCalledWith(MESSAGE.LOGIN_NEEDED);
     });
   });
 
