@@ -65,6 +65,9 @@
     &:hover {
       background: var(--slight-layer);
       border-radius: 100%;
+      @include mobile {
+        background: none;
+      }
     }
   }
 }
