@@ -23,12 +23,14 @@ body[data-theme="dark"] {
   --github-icon-color: #6185e5;
   --text-color: white;
   --button-background: #3e4756;
+  --button-hover-background: #6185e5;
   --modal-background: #121212;
   --box-shadow-color: white;
   --post-card-background: #1e1e1e;
   --post-card-border: #2a2a2a;
   --slight-layer: rgba(255, 255, 255, 0.1);
   --loginButton-text-color: white;
+  --slight-layer: rgba(255, 255, 255, 0.1);
 }
 
 body[data-theme="light"] {
@@ -44,12 +46,14 @@ body[data-theme="light"] {
   --text-color: black;
   --github-icon-color: #0099fa;
   --button-background: #0099fa;
+  --button-hover-background: #005cb4;
   --modal-background: white;
   --box-shadow-color: #333d4b26;
   --post-card-background: white;
   --post-card-border: #c8c8c8;
   --slight-layer: rgba(0, 0, 0, 0.05);
   --loginButton-text-color: #404040;
+  --slight-layer: rgba(0, 0, 0, 0.05);
 }
 
 a {

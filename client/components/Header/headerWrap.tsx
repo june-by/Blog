@@ -48,14 +48,16 @@ const HeaderWrap = () => {
             {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
           </div>
           <div className={styles.headerRightWrap}>
-            <DarkModeButton />
+            {isLoggedIn && (
+              <span>
+                <strong>{userData.nickname}</strong>님
+              </span>
+            )}
             <WriteButton />
+            <DarkModeButton />
             <SearchButton />
             {isLoggedIn ? (
               <>
-                <span>
-                  <strong>{userData.nickname}</strong>님
-                </span>
                 <LogoutButton />
               </>
             ) : (

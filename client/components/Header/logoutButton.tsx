@@ -1,12 +1,14 @@
-import IconButton from "components/shared/IconButton";
-import LogoutIcon from "components/Icon/logout";
 import { useLogOut } from "Hooks/User";
 import React from "react";
+import styles from "./styles.module.scss";
 
 const LogoutButton = () => {
   const { mutate: logoutMutate } = useLogOut();
-
-  return <IconButton onClick={() => logoutMutate()} Icon={<LogoutIcon />} />;
+  return (
+    <button type="button" onClick={() => logoutMutate()} className={styles.LoginButton}>
+      Log out
+    </button>
+  );
 };
 
 export default LogoutButton;
