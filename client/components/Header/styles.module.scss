@@ -42,6 +42,7 @@
 }
 
 .headerRightWrap {
+  height: 50px;
   display: flex;
   align-items: center;
 
@@ -50,6 +51,11 @@
     @include mobile {
       display: none;
     }
+  }
+  button {
+    border: none;
+    cursor: pointer;
+    background: none;
   }
 }
 
@@ -148,4 +154,17 @@
   border-radius: 4px;
   text-align: right;
   cursor: pointer;
+}
+
+.iconButton {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }

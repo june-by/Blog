@@ -16,7 +16,6 @@ import SearchButton from "./searchButton";
 import LogoutButton from "./logoutButton";
 import LoginButton from "./LoginButton";
 import WriteButton from "./writeButton";
-import { toast } from "react-toastify";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
