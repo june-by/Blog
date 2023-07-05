@@ -6,7 +6,7 @@ const LoginButton = () => {
   const { openLogin } = useHeaderContext();
   return (
     <button type="button" onClick={openLogin} className={styles.LoginButton}>
-      Sign in
+      로그인
     </button>
   );
 };
