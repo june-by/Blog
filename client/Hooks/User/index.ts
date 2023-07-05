@@ -27,11 +27,11 @@ export const useLogin = ({ onSuccess, onError }: MutationParams) => {
   });
 };
 
-export const useLogOut = () => {
+export const useLogOut = ({ onSuccess }: MutationParams) => {
   const queryClient = useQueryClient();
   return useMutation(LogOutAPI, {
     onSuccess: () => {
-      alert(MESSAGE.LOGOUT_SUCCESS);
+      onSuccess();
       return queryClient.invalidateQueries([QUERY_KEY.USER]);
     },
     onError: (error: ErrorMessage) => {

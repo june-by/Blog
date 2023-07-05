@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import useHideHeader from "./useHideHeader";
 import useHeaderAnimation from "./useHeaderAnimation";
-import DarkModeButton from "components/Header/DarkModeButton";
+import DarkModeButton from "./darkModeButton";
 import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
@@ -14,9 +14,8 @@ import SearchModal from "components/_Modal/SearchModal";
 import IconButton from "components/shared/IconButton";
 import SearchButton from "./searchButton";
 import LogoutButton from "./logoutButton";
-import AccountButton from "./accountButton";
+import LoginButton from "./LoginButton";
 import WriteButton from "./writeButton";
-import { toast } from "react-toastify";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
@@ -49,18 +48,20 @@ const HeaderWrap = () => {
             {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
           </div>
           <div className={styles.headerRightWrap}>
-            <DarkModeButton />
+            {isLoggedIn && (
+              <span>
+                <strong>{userData.nickname}</strong>님
+              </span>
+            )}
             <WriteButton />
+            <DarkModeButton />
             <SearchButton />
             {isLoggedIn ? (
               <>
-                <span>
-                  <strong>{userData.nickname}</strong>님
-                </span>
                 <LogoutButton />
               </>
             ) : (
-              <AccountButton />
+              <LoginButton />
             )}
           </div>
         </div>

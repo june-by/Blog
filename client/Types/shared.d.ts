@@ -6,7 +6,7 @@ export interface ErrorMessage {
 
 export interface MutationParams {
   onSuccess: () => void;
-  onError: (error: ErrorMessage) => void;
+  onError?: (error: ErrorMessage) => void;
 }
 
 declare module "axios" {

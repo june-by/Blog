@@ -41,37 +41,6 @@
   }
 }
 
-.headerRightWrap {
-  display: flex;
-  align-items: center;
-
-  span {
-    margin: 0 10px;
-    @include mobile {
-      display: none;
-    }
-  }
-  button {
-    width: 40px;
-    height: 40px;
-    @include mobile {
-      width: 35px;
-      height: 35px;
-      svg {
-        width: 23px;
-        height: 23px;
-      }
-    }
-    &:hover {
-      background: var(--slight-layer);
-      border-radius: 100%;
-      @include mobile {
-        background: none;
-      }
-    }
-  }
-}
-
 .dark {
   background: #121212;
   color: white;
@@ -156,5 +125,70 @@
 
   100% {
     transform: rotate(0deg);
+  }
+}
+
+.headerRightWrap {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  span {
+    margin: 0 10px;
+    @include mobile {
+      display: none;
+    }
+  }
+  button {
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.LoginButton {
+  border: none;
+  background: var(--button-background) !important;
+  color: white;
+
+  font-weight: 700;
+  border-radius: 4px;
+  text-align: right;
+  cursor: pointer;
+  padding: 10px 15px;
+  margin-left: 0.5rem;
+  &:hover {
+    background: var(--button-hover-background) !important;
+  }
+}
+
+.iconButton {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+
+  &:hover {
+    background: var(--slight-layer);
+  }
+}
+
+.writeButton {
+  border: none;
+  background: var(--button-background) !important;
+  color: white;
+  font-weight: 700;
+  border-radius: 4px;
+  text-align: right;
+  cursor: pointer;
+  padding: 10px 15px;
+  &:hover {
+    background: var(--button-hover-background) !important;
+  }
+  @include mobile {
+    display: none;
   }
 }

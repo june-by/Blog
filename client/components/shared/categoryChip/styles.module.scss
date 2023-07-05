@@ -14,7 +14,7 @@
   background: var(--button-background);
   font-size: 12px;
   &:hover {
-    background: #6185e5;
+    background: var(--button-hover-background);
   }
   @include mobile {
     padding: 5px 10px;
