@@ -51,25 +51,6 @@
       display: none;
     }
   }
-  button {
-    width: 40px;
-    height: 40px;
-    @include mobile {
-      width: 35px;
-      height: 35px;
-      svg {
-        width: 23px;
-        height: 23px;
-      }
-    }
-    &:hover {
-      background: var(--slight-layer);
-      border-radius: 100%;
-      @include mobile {
-        background: none;
-      }
-    }
-  }
 }
 
 .dark {
@@ -157,4 +138,14 @@
   100% {
     transform: rotate(0deg);
   }
+}
+
+.LoginButton {
+  border: none;
+  color: #404040;
+  background: none;
+  font-weight: 700;
+  border-radius: 4px;
+  text-align: right;
+  cursor: pointer;
 }

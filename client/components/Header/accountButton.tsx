@@ -1,11 +1,14 @@
-import IconButton from "components/shared/IconButton";
-import AccountIcon from "components/Icon/account";
 import { useHeaderContext } from "context/headerContext";
 import React from "react";
+import styles from "./styles.module.scss";
 
 const AccountButton = () => {
   const { openLogin } = useHeaderContext();
-  return <IconButton onClick={openLogin} Icon={<AccountIcon />} aria-label="accountButton" />;
+  return (
+    <button type="button" onClick={openLogin} className={styles.LoginButton}>
+      Sign in
+    </button>
+  );
 };
 
 export default AccountButton;
