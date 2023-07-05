@@ -142,7 +142,7 @@
 
 .LoginButton {
   border: none;
-  color: #404040;
+  color: var(--loginButton-text-color);
   background: none;
   font-weight: 700;
   border-radius: 4px;
