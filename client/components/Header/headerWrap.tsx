@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import useHideHeader from "./useHideHeader";
 import useHeaderAnimation from "./useHeaderAnimation";
-import DarkModeButton from "components/Header/DarkModeButton";
+import DarkModeButton from "./darkModeButton";
 import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
