@@ -14,7 +14,7 @@ import SearchModal from "components/_Modal/SearchModal";
 import IconButton from "components/shared/IconButton";
 import SearchButton from "./searchButton";
 import LogoutButton from "./logoutButton";
-import AccountButton from "./accountButton";
+import LoginButton from "./LoginButton";
 import WriteButton from "./writeButton";
 import { toast } from "react-toastify";
 
@@ -60,7 +60,7 @@ const HeaderWrap = () => {
                 <LogoutButton />
               </>
             ) : (
-              <AccountButton />
+              <LoginButton />
             )}
           </div>
         </div>
