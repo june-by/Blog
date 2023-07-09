@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import LoginForm from "./loginForm";
 import MESSAGE from "constants/message";
+import DefaultModal from "components/shared/DefaultModal";
 
 const LoginModalContainer = () => {
   const { closeLogin, isLoginModalOpen } = useHeaderContext();
@@ -35,9 +36,9 @@ const LoginModalContainer = () => {
   };
 
   return (
-    <Modal closeModal={closeLogin} isOpen={isLoginModalOpen}>
+    <DefaultModal closeModal={closeLogin} isOpen={isLoginModalOpen}>
       <LoginForm onSubmit={submit} emailRef={emailRef} passwordRef={passwordRef} />
-    </Modal>
+    </DefaultModal>
   );
 };
 

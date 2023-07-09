@@ -1,11 +1,11 @@
 import { useSignUp } from "Hooks/User";
-import Modal from "components/_hoc/Modal";
 import { useHeaderContext } from "context/headerContext";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
 import MESSAGE from "constants/message";
 import { ErrorMessage } from "Types/shared";
+import DefaultModal from "components/shared/DefaultModal";
 
 const SignUpModalContainer = () => {
   const { closeSignUp, isSignUpModalOpen } = useHeaderContext();
@@ -40,7 +40,7 @@ const SignUpModalContainer = () => {
   };
 
   return (
-    <Modal closeModal={closeSignUp} isOpen={isSignUpModalOpen}>
+    <DefaultModal closeModal={closeSignUp} isOpen={isSignUpModalOpen}>
       <SignUpForm
         onSubmit={onSubmit}
         emailRef={emailRef}
@@ -48,7 +48,7 @@ const SignUpModalContainer = () => {
         passwordCheckRef={passwordCheckRef}
         nicknameRef={nicknameRef}
       />
-    </Modal>
+    </DefaultModal>
   );
 };
 

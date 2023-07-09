@@ -4,6 +4,7 @@ import Modal from "components/_hoc/Modal";
 import styles from "./styles.module.scss";
 import { useHeaderContext } from "context/headerContext";
 import CloseButton from "../shared/closeButton";
+import DefaultModal from "components/shared/DefaultModal";
 
 const SearchModal = () => {
   const { closeSearch, isSearchModalOpen } = useHeaderContext();
@@ -21,18 +22,16 @@ const SearchModal = () => {
   };
 
   return (
-    <Modal closeModal={closeSearch} isOpen={isSearchModalOpen}>
-      <>
-        <div className={styles.LoginTitle}>
-          <span>게시글 찾기</span>
-          <CloseButton onClick={closeSearch} data-testid="searchCloseBtn" />
-        </div>
-        <form onSubmit={submitSearchKeyword} className={styles.Form}>
-          <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
-          <button>검색</button>
-        </form>
-      </>
-    </Modal>
+    <DefaultModal closeModal={closeSearch} isOpen={isSearchModalOpen}>
+      <div className={styles.LoginTitle}>
+        <span>게시글 찾기</span>
+        <CloseButton onClick={closeSearch} data-testid="searchCloseBtn" />
+      </div>
+      <form onSubmit={submitSearchKeyword} className={styles.Form}>
+        <input data-testid="searchInput" ref={searchRef} placeholder="특정 키워드를 입력해주세요" />
+        <button>검색</button>
+      </form>
+    </DefaultModal>
   );
 };
 
