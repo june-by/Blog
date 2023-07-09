@@ -1,8 +1,7 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { ReactNode } from "react";
 
 import styles from "./styles.module.scss";
-import useMouted from "Hooks/useMounted";
-import { createPortal } from "react-dom";
+import RootPortal from "../RootPortal";
 
 interface Props {
   children: ReactNode;
@@ -11,18 +10,13 @@ interface Props {
 }
 
 const Modal = ({ children, closeModal, isOpen }: Props) => {
-  const mounted = useMouted();
-
-  const portalElement = typeof window !== "undefined" && document.querySelector("#portal");
-
-  if (!mounted || !portalElement || !isOpen) return null;
-
-  return createPortal(
-    <div className={styles.Modal}>
-      <div className={styles.overlay} onClick={closeModal}></div>
-      <div className={styles.content}>{children}</div>
-    </div>,
-    portalElement
+  return (
+    <RootPortal isOpen={isOpen}>
+      <div className={styles.Modal}>
+        <div className={styles.overlay} onClick={closeModal}></div>
+        <div className={styles.content}>{children}</div>
+      </div>
+    </RootPortal>
   );
 };
 
