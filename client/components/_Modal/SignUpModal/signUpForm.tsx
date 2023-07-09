@@ -1,8 +1,6 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import CloseButton from "../shared/closeButton";
 import { useHeaderContext } from "context/headerContext";
-import SocialLoginButtons from "../shared/socialLoginButtons";
+import ModalView from "components/shared/ModalView";
 
 interface Props {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -12,24 +10,26 @@ interface Props {
   nicknameRef: React.RefObject<HTMLInputElement>;
 }
 
+const { Header, Title, CloseButton, Form, Input, SubmitButton, SocialLoginArea } = ModalView;
+
 const SignUpForm = ({ onSubmit, emailRef, passwordRef, passwordCheckRef, nicknameRef }: Props) => {
   const { closeSignUp } = useHeaderContext();
 
   return (
-    <div>
-      <div className={styles.SignUpTitle}>
-        <span>회원가입</span>
-        <CloseButton onClick={closeSignUp} data-testid="signUpCloseBtn" />
-      </div>
-      <form onSubmit={onSubmit} className={styles.Form}>
-        <input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
-        <input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
-        <input data-testid="passwordCheckInput" ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
-        <input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
-        <button>회원가입</button>
-      </form>
-      <SocialLoginButtons />
-    </div>
+    <ModalView>
+      <Header>
+        <Title title="회원가입" />
+        <CloseButton handleClose={closeSignUp} data-testid="signUpCloseBtn" />
+      </Header>
+      <Form handleSubmit={onSubmit}>
+        <Input data-testid="emailInput" ref={emailRef} placeholder="이메일 혹은 아이디" />
+        <Input data-testid="passwordInput" ref={passwordRef} type="password" placeholder="비밀번호" />
+        <Input data-testid="passwordCheckInput" ref={passwordCheckRef} type="password" placeholder="비밀번호확인" />
+        <Input data-testid="nicknameInput" ref={nicknameRef} placeholder="닉네임" />
+        <SubmitButton>회원가입</SubmitButton>
+      </Form>
+      <SocialLoginArea />
+    </ModalView>
   );
 };
 

@@ -1,4 +1,39 @@
-.SocialLoginBtns {
+@import "utils/utils.scss";
+
+.header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 25px;
+  margin: 0;
+}
+
+.closeButton {
+  cursor: pointer;
+  border: none;
+  background: none !important;
+}
+
+.form {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.input {
+  @include CustomInput;
+  margin-bottom: 10px;
+}
+
+.submitButton {
+  @include CustomBtn;
+}
+
+.socialLoginArea {
   display: flex;
   flex-direction: column;
   h4 {
