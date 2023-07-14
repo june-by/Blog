@@ -17,7 +17,7 @@ test.describe("카테고리 - ", () => {
     await posts.goTo();
 
     for (const category of CATEGORY_LENGTH_MOCK_DATA) {
-      await expect(posts.page.getByRole("button", { name: `${category.category} ${category.count}` })).toBeVisible();
+      await expect(posts.page.getByRole("link", { name: `${category.category} ${category.count}` })).toBeVisible();
     }
   });
 
@@ -25,9 +25,9 @@ test.describe("카테고리 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    await posts.page.getByRole("button", { name: "JavaScript" }).click();
+    await posts.page.getByRole("link", { name: "JavaScript 1" }).click();
 
-    await expect(posts.page).toHaveURL(`posts?category=JavaScript`);
+    await expect(posts.page).toHaveURL(`/?category=JavaScript`);
   });
 });
 
@@ -65,7 +65,7 @@ test.describe("게시글 카드 - ", () => {
 
     await targetTag.click();
 
-    await expect(posts.page).toHaveURL(`/posts?tag=${mockTargetTagData.content}`);
+    await expect(posts.page).toHaveURL(`/?tag=${mockTargetTagData.content}`);
   });
 });
 
@@ -139,7 +139,7 @@ test.describe("모달 - ", () => {
 
     await posts.page.getByRole("button", { name: "검색" }).click();
 
-    await expect(posts.page).toHaveURL("posts?search=react");
+    await expect(posts.page).toHaveURL("/?search=react");
   });
 
   test("로그인 모달에서 아이디와 비밀번호를 입력 후, 로그인 버튼을 누르면 로그인이 되어 헤더에 사용자의 닉네임이 표시된다", async ({
@@ -159,7 +159,7 @@ test.describe("모달 - ", () => {
 
     await posts.mockGetUserAPI();
 
-    await posts.page.getByRole("button", { name: "로그인" }).click();
+    await posts.page.locator("#portal").getByRole("button", { name: "로그인" }).click();
 
     await expect(posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)).toBeVisible();
   });

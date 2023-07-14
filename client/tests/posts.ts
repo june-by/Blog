@@ -78,7 +78,7 @@ export default class PostsPOM {
   }
 
   async openLoginModal() {
-    await this.page.getByRole("button", { name: "accountButton" }).click();
+    await this.page.getByRole("button", { name: "로그인" }).click();
   }
 
   async openSingUpModal() {
