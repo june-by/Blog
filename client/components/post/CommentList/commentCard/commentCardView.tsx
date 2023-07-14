@@ -4,7 +4,7 @@ import dateForm from "utils/dateForm";
 import styles from "./styles.module.scss";
 
 const CommentUserNickname = ({ nickname }: Pick<CommentType["User"], "nickname">) => {
-  return <h4>{nickname}</h4>;
+  return <h4>{nickname}님</h4>;
 };
 
 const CommentDate = ({ createdAt }: Pick<CommentType, "createdAt">) => {
