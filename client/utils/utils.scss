@@ -51,6 +51,7 @@ $desktop: 1024px;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
+    transition: background 0.25s ease;
     background: var(--button-hover-background);
   }
 }
