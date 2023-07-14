@@ -13,8 +13,6 @@ import SignUpModal from "components/_Modal/SignUpModal";
 import SearchModal from "components/_Modal/SearchModal";
 import IconButton from "components/shared/IconButton";
 import SearchButton from "./searchButton";
-import LogoutButton from "./logoutButton";
-import LoginButton from "./LoginButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
 
