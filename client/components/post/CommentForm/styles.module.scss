@@ -17,13 +17,13 @@
   textarea {
     resize: none;
     height: 100px;
-    @include CustomInput;
+    @include StyledInput;
     background: var(--input-background);
     color: var(--text-color);
   }
 
   button {
-    @include CustomBtn;
+    @include StyledButton;
     width: 20%;
   }
 }
