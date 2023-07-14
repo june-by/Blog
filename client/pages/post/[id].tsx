@@ -22,6 +22,7 @@ import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import PostHeader from "components/post/postHeader";
 import { PostContainer } from "context/postContext";
+import Header from "components/Header";
 
 const Post = () => {
   const router = useRouter();
@@ -63,6 +64,7 @@ const Post = () => {
         <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
+      <Header />
       <PostContainer Post={Post as MainPost}>
         <main className={styles.Post}>
           <PostHeader />

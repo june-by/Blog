@@ -6,6 +6,7 @@ import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
+import Header from "components/Header";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
         />
         <meta property="og:url" content={url} />
       </Head>
+      <Header />
       <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
       <ScrollButton />
     </>
@@ -35,14 +37,22 @@ const Home: NextPage = () => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const isPageForEntirePost = Object.keys(query).length === 0;
+  const queryKeys = Object.keys(query);
+  const isPageForEntirePost = queryKeys.length === 0;
 
-  if (isPageForEntirePost)
+  if (isPageForEntirePost) {
     return {
       props: {},
     };
+  }
 
-  const isNumberOfKeyValid = verifyNumberOfKeys(Object.keys(query));
+  if (!isVerifyNeeded(queryKeys)) {
+    return {
+      props: {},
+    };
+  }
+
+  const isNumberOfKeyValid = verifyNumberOfKeys(queryKeys);
   const isValueValid = verifyValue(query);
 
   if (!isNumberOfKeyValid || !isValueValid) {
@@ -56,11 +66,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-function verifyNumberOfKeys(keys: string[]) {
+function getVerifyNeededKeysLength(keys: string[]) {
   const verifiedKeys = ["category", "search", "tag"];
   const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
-  return includedKeys.length === 1;
+  return includedKeys.length;
 }
+
+const isVerifyNeeded = (keys: string[]) => (getVerifyNeededKeysLength(keys) === 0 ? false : true);
+
+const verifyNumberOfKeys = (keys: string[]) => getVerifyNeededKeysLength(keys) === 1;
 
 function verifyValue(query: ParsedUrlQuery) {
   for (const value of Object.values(query)) {
