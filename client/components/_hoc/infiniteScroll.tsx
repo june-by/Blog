@@ -5,7 +5,7 @@ import { FetchNextPageOptions, InfiniteQueryObserverResult } from "react-query";
 interface Props {
   children: ReactNode;
   fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<any, unknown>>;
-  hasNextPage: boolean | undefined;
+  hasNextPage?: boolean;
   isLoading: boolean;
   skeleton: ReactNode;
 }

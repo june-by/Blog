@@ -5,6 +5,7 @@ import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
 import PostViewCount from "components/post/PostTop/PostViewCount";
 import { usePostContext } from "context/postContext";
+import PostAdminButtons from "./PostAdminButtons/postAdminButtons";
 
 const PostTop = () => {
   const {
@@ -13,6 +14,7 @@ const PostTop = () => {
 
   return (
     <header className={styles.PostTop}>
+      <PostAdminButtons />
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>

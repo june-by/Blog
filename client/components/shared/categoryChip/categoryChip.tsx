@@ -1,15 +1,16 @@
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
+import { CategoryType } from "constants/category";
 
 interface Props {
-  category: string;
+  category: CategoryType;
   length?: number | null;
 }
 
 const CategoryChip = ({ category, length }: Props) => {
-  const { push, query } = useRouter();
+  const { query } = useRouter();
 
   const currentCategory = query.category;
 

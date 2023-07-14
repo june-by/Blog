@@ -1,6 +1,7 @@
 import useSetDefaultThumbNail from "components/write/useSetDefaultThumbNail";
 import { Category } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
+import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
 import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
 
@@ -132,7 +133,7 @@ export const useWriteContext = () => {
 
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
-  const postId = Number(query.id);
+  const postId = useQueryId();
   const { data, isLoading } = useGetOnePost(postId, { enabled: isNaN(postId) ? false : true });
 
   const post = data?.mainPost;

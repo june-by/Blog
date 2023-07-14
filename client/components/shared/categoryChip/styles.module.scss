@@ -2,20 +2,13 @@
 @import "utils/utils.scss";
 
 .CategoryChip {
-  color: white;
+  @include StyledButton;
   padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
   display: flex;
   gap: 5px;
   align-items: center;
   white-space: nowrap;
-  background: var(--button-background);
   font-size: 12px;
-  &:hover {
-    background: var(--button-hover-background);
-  }
   @include mobile {
     padding: 5px 10px;
   }

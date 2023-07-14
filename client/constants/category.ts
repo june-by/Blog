@@ -11,9 +11,11 @@ export const Category = [
   "HTML-CSS",
   "Git",
   "회고",
-];
+] as const;
 
-export const CATEGORY_TO_HLJS_CLASS: { [key: string]: string } = {
+export type CategoryType = (typeof Category)[number];
+
+export const CATEGORY_TO_HLJS_CLASS: Record<CategoryType, string> = {
   TypeScript: "typescript",
   JavaScript: "javascript",
   TroubleShooting: "typescript",
@@ -21,5 +23,9 @@ export const CATEGORY_TO_HLJS_CLASS: { [key: string]: string } = {
   React: "tsx",
   Web: "javascript",
   NodeJs: "javascript",
-  Algorithm: "javascript",
+  OperatingSystem: "",
+  NetWork: "",
+  "HTML-CSS": "",
+  Git: "",
+  회고: "",
 };

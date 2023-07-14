@@ -16,9 +16,8 @@
   transform: translate(-50%, -50%);
   button {
     @include StyledButton;
-    padding: 15px 0;
+    padding: 15px 25px;
     cursor: pointer;
-    width: 20%;
     min-width: 200px;
   }
 }

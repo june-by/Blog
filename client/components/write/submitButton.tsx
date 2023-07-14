@@ -1,16 +1,18 @@
 import { useWriteContext } from "context/writeContext";
 import { useAddPost, useEditPost } from "Hooks/Post";
+import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 
 const SubmitButton = () => {
   const { query } = useRouter();
+  const postId = useQueryId();
   const mode = query.mode as "Write" | "Edit";
   const { writeFormData } = useWriteContext();
 
   const AddPostMutation = useAddPost();
-  const EditPostMutation = useEditPost();
+  const EditPostMutation = useEditPost({ postId });
 
   const submitPost = () => {
     const mutation = mode === "Write" ? AddPostMutation : EditPostMutation;

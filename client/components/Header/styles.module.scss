@@ -168,17 +168,10 @@
 }
 
 .writeButton {
-  border: none;
-  background: var(--button-background) !important;
+  @include StyledButton;
   color: white;
   font-weight: 700;
-  border-radius: 4px;
-  text-align: right;
-  cursor: pointer;
   padding: 10px 15px;
-  &:hover {
-    background: var(--button-hover-background) !important;
-  }
   @include mobile {
     display: none;
   }

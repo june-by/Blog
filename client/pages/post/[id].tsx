@@ -20,7 +20,6 @@ import PostSkeleton from "components/post/Skeleton";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
-import PostHeader from "components/post/postHeader";
 import { PostContainer } from "context/postContext";
 import Header from "components/Header";
 
@@ -67,7 +66,6 @@ const Post = () => {
       <Header />
       <PostContainer Post={Post as MainPost}>
         <main className={styles.Post}>
-          <PostHeader />
           <PostTop />
           <PostContent />
           <OtherPostInfo />

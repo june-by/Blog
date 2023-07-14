@@ -1,3 +1,5 @@
+import { CategoryType } from "constants/category";
+
 export interface PostType {
   mainPost: MainPost;
   prevPost: OtherPostType;
@@ -15,11 +17,11 @@ export interface OtherPostType {
 }
 
 export interface PostsType {
-  category: string;
+  category: CategoryType;
   createdAt: Date;
   id: number;
   title: string;
-  Tags: Array<null | TagType>;
+  Tags: Array<TagType>;
   thumbNailUrl: string | null;
   views: number;
   isPublic: number;
@@ -34,10 +36,10 @@ export interface AddPostParams {
   isPublic: number;
 }
 
-export interface TagType {
+type TagType = {
   id: number;
   content: string;
-}
+} | null;
 
 export interface CategoryCount {
   category: string;

@@ -1,8 +1,8 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 import styles from "./styles.module.scss";
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
-  Icon: JSX.Element;
+  Icon: ReactNode;
 }
 
 const IconButton = ({ Icon, ...props }: Props) => {

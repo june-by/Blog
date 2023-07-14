@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { useAddComment } from "Hooks/Comment";
 import { useGetUserInfo } from "Hooks/User";
 import styles from "./styles.module.scss";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
+import useQueryId from "Hooks/useQueryId";
 
 const CommentForm = () => {
-  const { query } = useRouter();
-  const { mutate: addCommentMutate } = useAddComment(Number(query.id));
+  const postId = useQueryId();
+  const { mutate: addCommentMutate } = useAddComment(postId);
   const commentRef = useRef<HTMLTextAreaElement>(null);
 
   const { data: userData } = useGetUserInfo();
@@ -22,7 +22,7 @@ const CommentForm = () => {
     if (commentRef.current.value === "") return toast.error(MESSAGE.COMMENT_CONTENT_NEEDED);
 
     addCommentMutate({
-      postId: Number(query.id),
+      postId: postId,
       comment: commentRef.current.value,
     });
     commentRef.current.value = "";

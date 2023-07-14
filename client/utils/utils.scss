@@ -44,14 +44,14 @@ $desktop: 1024px;
 }
 
 @mixin StyledButton {
-  width: 100%;
+  width: fit-content;
   border: none;
   background: var(--button-background);
   color: white;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    background: #6185e5;
+    background: var(--button-hover-background);
   }
 }
 

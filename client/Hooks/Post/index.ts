@@ -46,31 +46,35 @@ export const useGetTopViewsPosts = () =>
 export const useGetAllCateogryLength = () =>
   useQuery<Array<CategoryCount>>([QUERY_KEY.POST.CATEGORY_LENGTH], () => getAllCategoryLengthAPI(), CACHE_OPTION.ALL);
 
-export const useGetCategoryPosts = (category: string | string[] | undefined) =>
+export const useGetCategoryPosts = (params: string) =>
   useInfiniteQuery<Array<PostsType>>(
-    [QUERY_KEY.POST.CATEGORY, category],
-    ({ pageParam = 1 }) => getCategoryPostAPI(category, pageParam),
+    [QUERY_KEY.POST.CATEGORY, params],
+    ({ pageParam = 1 }) => getCategoryPostAPI(params, pageParam),
     {
       ...CACHE_OPTION.ALL,
       getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
     }
   );
 
-export const useGetSearchPosts = (search: string | string[] | undefined) =>
+export const useGetSearchPosts = (params: string) =>
   useInfiniteQuery<Array<PostsType>>(
-    [QUERY_KEY.POST.SEARCH, search],
-    ({ pageParam = 1 }) => getSearchPostAPI(search, pageParam),
+    [QUERY_KEY.POST.SEARCH, params],
+    ({ pageParam = 1 }) => getSearchPostAPI(params, pageParam),
     {
       ...CACHE_OPTION.ALL,
       getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
     }
   );
 
-export const useGetTagPosts = (tag: string | string[] | undefined) =>
-  useInfiniteQuery<Array<PostsType>>([QUERY_KEY.POST.TAG, tag], ({ pageParam = 1 }) => getTagPostAPI(tag, pageParam), {
-    ...CACHE_OPTION.ALL,
-    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
-  });
+export const useGetTagPosts = (params: string) =>
+  useInfiniteQuery<Array<PostsType>>(
+    [QUERY_KEY.POST.TAG, params],
+    ({ pageParam = 1 }) => getTagPostAPI(params, pageParam),
+    {
+      ...CACHE_OPTION.ALL,
+      getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+    }
+  );
 
 export const useGetPostComments = (id: number) =>
   useQuery<{ comments: CommentType[] }>([QUERY_KEY.COMMNET.ONE, id], () => getCommentAPI(id), CACHE_OPTION.ALL);
@@ -91,11 +95,10 @@ export const useAddPost = () => {
   });
 };
 
-export const useEditPost = () => {
-  const { query } = useRouter();
-  return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, Number(query.id)), {
+export const useEditPost = ({ postId }: { postId: number }) => {
+  return useMutation((reqData: AddPostParams) => EditPostAPI(reqData, postId), {
     onSuccess: () => {
-      return window.location.replace(`/post/${query.id}`);
+      return window.location.replace(`/post/${postId}`);
     },
   });
 };

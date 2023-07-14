@@ -31,6 +31,7 @@
 
 .submitButton {
   @include StyledButton;
+  padding: 10px 0;
 }
 
 .socialLoginArea {

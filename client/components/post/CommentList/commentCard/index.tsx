@@ -1,1 +1,1 @@
-export { default } from "./commentCard";
+export { default } from "./commentCardWrap";

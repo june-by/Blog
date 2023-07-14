@@ -1,12 +1,12 @@
 import { useGetPostViewCount } from "Hooks/Post";
-import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
+import useQueryId from "Hooks/useQueryId";
 
 const PostViewCount = () => {
-  const { query } = useRouter();
+  const postId = useQueryId();
 
-  const { data: viewCount, isLoading: isFetchViewCountLoading } = useGetPostViewCount(Number(query.id));
+  const { data: viewCount, isLoading: isFetchViewCountLoading } = useGetPostViewCount(postId);
 
   return (
     <div className={styles.viewCountWrapper}>
