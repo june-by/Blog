@@ -24,6 +24,7 @@
 
   button {
     @include StyledButton;
+    padding: 10px 0;
     width: 20%;
   }
 }

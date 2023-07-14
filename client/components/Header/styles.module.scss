@@ -146,20 +146,11 @@
   }
 }
 
-.LoginButton {
-  border: none;
-  background: var(--button-background) !important;
-  color: white;
-
+.AuthButton {
+  @include StyledButton;
   font-weight: 700;
-  border-radius: 4px;
-  text-align: right;
-  cursor: pointer;
-  padding: 10px 15px;
+  padding: 10px;
   margin-left: 0.5rem;
-  &:hover {
-    background: var(--button-hover-background) !important;
-  }
 }
 
 .iconButton {
