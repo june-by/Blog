@@ -1,5 +1,5 @@
 import useSetDefaultThumbNail from "components/write/useSetDefaultThumbNail";
-import { Category } from "constants/category";
+import { Category, CategoryType } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
@@ -7,7 +7,7 @@ import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer
 
 type Action =
   | { type: "editTitle"; title: string }
-  | { type: "editCategory"; category: string }
+  | { type: "editCategory"; category: CategoryType }
   | { type: "editContent"; content: string }
   | { type: "addTag"; tag: string }
   | { type: "removeTag"; tag: string }
@@ -17,7 +17,7 @@ type Action =
 
 interface State {
   title: string;
-  category: string;
+  category: CategoryType;
   content: string;
   tagArr: string[];
   thumbNailUrl: null | string;
@@ -84,7 +84,8 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: "editCategory", category: e.target.value });
+    const targetCategory = e.target.value as CategoryType;
+    dispatch({ type: "editCategory", category: targetCategory });
   };
 
   const onChangeContent = (content: string) => {
