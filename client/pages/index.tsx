@@ -66,18 +66,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-function isVerifyNeeded(keys: string[]) {
+function getVerifyNeededKeysLength(keys: string[]) {
   const verifiedKeys = ["category", "search", "tag"];
   const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
-
-  return includedKeys.length === 0 ? false : true;
+  return includedKeys.length;
 }
 
-function verifyNumberOfKeys(keys: string[]) {
-  const verifiedKeys = ["category", "search", "tag"];
-  const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
-  return includedKeys.length === 1;
-}
+const isVerifyNeeded = (keys: string[]) => (getVerifyNeededKeysLength(keys) === 0 ? false : true);
+
+const verifyNumberOfKeys = (keys: string[]) => getVerifyNeededKeysLength(keys) === 1;
 
 function verifyValue(query: ParsedUrlQuery) {
   for (const value of Object.values(query)) {
