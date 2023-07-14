@@ -37,14 +37,22 @@ const Home: NextPage = () => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const isPageForEntirePost = Object.keys(query).length === 0;
+  const queryKeys = Object.keys(query);
+  const isPageForEntirePost = queryKeys.length === 0;
 
-  if (isPageForEntirePost)
+  if (isPageForEntirePost) {
     return {
       props: {},
     };
+  }
 
-  const isNumberOfKeyValid = verifyNumberOfKeys(Object.keys(query));
+  if (!isVerifyNeeded(queryKeys)) {
+    return {
+      props: {},
+    };
+  }
+
+  const isNumberOfKeyValid = verifyNumberOfKeys(queryKeys);
   const isValueValid = verifyValue(query);
 
   if (!isNumberOfKeyValid || !isValueValid) {
@@ -57,6 +65,13 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     props: {},
   };
 };
+
+function isVerifyNeeded(keys: string[]) {
+  const verifiedKeys = ["category", "search", "tag"];
+  const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
+
+  return includedKeys.length === 0 ? false : true;
+}
 
 function verifyNumberOfKeys(keys: string[]) {
   const verifiedKeys = ["category", "search", "tag"];
