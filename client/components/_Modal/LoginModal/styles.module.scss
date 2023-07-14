@@ -17,11 +17,11 @@
     flex-direction: column;
   }
   input {
-    @include CustomInput;
+    @include StyledInput;
     margin-bottom: 10px;
   }
   button {
-    @include CustomBtn;
+    @include StyledButton;
   }
 }
 

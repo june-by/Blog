@@ -4,15 +4,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getOnePostAPI } from "services/post";
-import CommentForm from "components/post/CommentForm";
-import CommentList from "components/post/CommentList";
-import OtherPostInfo from "components/post/OtherPostInfo";
-import PostContent from "components/post/PostContent";
-import PostTop from "components/post/PostTop";
 import { useGetOnePost } from "Hooks/Post";
 import { MainPost } from "Types/post";
 import ScrollButton from "components/shared/scrollButton";
-import styles from "./styles.module.scss";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
@@ -20,22 +14,21 @@ import PostSkeleton from "components/post/Skeleton";
 import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
-import PostHeader from "components/post/postHeader";
-import { PostContainer } from "context/postContext";
 import Header from "components/Header";
+import Post from "components/post";
 
-const Post = () => {
+const PostPage = () => {
   const router = useRouter();
   const postId = Number(router.query.id);
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserInfo();
   const { data } = useGetOnePost(postId);
 
-  const Post = data?.mainPost;
+  const PostData = data?.mainPost;
 
   useEffect(() => {
-    if (!Post) return;
-    if (Post?.isPublic) return;
+    if (!PostData) return;
+    if (PostData.isPublic) return;
 
     if (IsAdmin(userInfo)) {
       setAdminValidationForNotPublicPost(true);
@@ -47,35 +40,34 @@ const Post = () => {
 
   if (router.isFallback) return <PostSkeleton />;
 
-  if (!Post?.isPublic) {
+  if (!PostData?.isPublic) {
     if (!adminValidationForNotPublicPost) {
       return <PostSkeleton />;
     }
   }
 
+  if (!PostData) return null;
+
   return (
     <>
       <Head>
         <meta charSet="utf-8"></meta>
-        <title>{Post?.title}</title>
+        <title>{PostData.title}</title>
         <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content={Post?.content.substring(0, 100)} />
-        <meta property="og:title" content={Post?.title} />
-        <meta property="og:image" content={getOgImage(Post?.thumbNailUrl, String(Post?.category))} />
+        <meta name="description" content={PostData.content.substring(0, 100)} />
+        <meta property="og:title" content={PostData.title} />
+        <meta property="og:image" content={getOgImage(PostData.thumbNailUrl, String(PostData.category))} />
         <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <Header />
-      <PostContainer Post={Post as MainPost}>
-        <main className={styles.Post}>
-          <PostHeader />
-          <PostTop />
-          <PostContent />
-          <OtherPostInfo />
-          <CommentForm />
-          <CommentList />
-          <ScrollButton />
-        </main>
-      </PostContainer>
+      <Post Post={PostData}>
+        <Post.Header />
+        <Post.Content />
+        <Post.OtherPost />
+        <Post.CommentForm />
+        <Post.Comments />
+        <ScrollButton />
+      </Post>
     </>
   );
 };
@@ -114,7 +106,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   }
 };
 
-export default Post;
+export default PostPage;
 
 function getOgImage(url: string | null | undefined, category: string) {
   if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;

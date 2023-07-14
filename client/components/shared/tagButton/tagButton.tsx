@@ -3,7 +3,9 @@ import React from "react";
 import { TagType } from "Types/post";
 import styles from "./styles.module.scss";
 
-const TagButton = ({ tag }: { tag: TagType | null }) => {
+const TagButton = ({ tag }: { tag: TagType }) => {
+  if (!tag) return null;
+
   return (
     <li className={styles.TagButton}>
       <Link href={`/?tag=${tag?.content}`} data-testid="tagButton">

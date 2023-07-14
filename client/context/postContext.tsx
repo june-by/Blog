@@ -11,14 +11,16 @@ interface ContextProps {
   Post: MainPost;
 }
 
-export const PostContext = createContext<ContextProps>({
-  Post: DUMMY.POST.mainPost,
-});
+export const PostContext = createContext<ContextProps | null>(null);
 
 export const PostContainer = ({ children, Post }: Props) => {
   return <PostContext.Provider value={{ Post }}>{children}</PostContext.Provider>;
 };
 
 export const usePostContext = () => {
-  return useContext(PostContext);
+  const contextProps = useContext(PostContext);
+
+  if (!contextProps) throw Error("PostContext is used before initialization");
+
+  return useContext(PostContext) as ContextProps;
 };

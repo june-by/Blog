@@ -1,6 +1,6 @@
 import React from "react";
 import PostContentSkeleton from "components/post/PostContent/Skeleton";
-import PostTopSkeleton from "components/post/PostTop/Skeleton";
+import PostTopSkeleton from "components/post/PostHeader/Skeleton";
 import styles from "./styles.module.scss";
 
 const PostSkeleton = () => {

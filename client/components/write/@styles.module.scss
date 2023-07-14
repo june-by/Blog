@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: space-between;
   button {
-    @include CustomBtn;
+    @include StyledButton;
     height: 49px;
     width: 10%;
   }
@@ -52,7 +52,7 @@
 }
 
 .titleInput {
-  @include CustomInput;
+  @include StyledInput;
   font-size: 20px;
   width: 60%;
 }
@@ -97,7 +97,7 @@
   align-items: center;
   gap: 25px;
   button {
-    @include CustomBtn;
+    @include StyledButton;
     width: 15%;
   }
   img {
@@ -110,7 +110,7 @@
   display: flex;
   align-items: center;
   input {
-    @include CustomInput;
+    @include StyledInput;
     width: 250px;
   }
 }

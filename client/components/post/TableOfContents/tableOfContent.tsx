@@ -1,20 +1,12 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback } from "react";
 import styles from "./styles.module.scss";
 import useTableOfContents from "./useTableOfContents";
 
-interface TopicStyleInterface {
-  [key: string]: { marginLeft: string };
+interface Props {
+  tableOfContents: HTMLElement[];
 }
 
-const TopicStyle: TopicStyleInterface = {
-  H1: { marginLeft: "0" },
-  H2: { marginLeft: "25px" },
-  H3: { marginLeft: "25px" },
-};
-
-const getTopicStyle = (tagName: string) => TopicStyle[tagName];
-
-const TableOfContents = ({ tableOfContents }: { tableOfContents: HTMLElement[] }) => {
+const TableOfContents = ({ tableOfContents }: Props) => {
   const gotoTopic = useCallback(
     (toc: HTMLElement) => () => {
       toc.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
@@ -65,3 +57,15 @@ function Toc({ onClick, style, tocElement, idx, isActive }: TocProps) {
 }
 
 export default TableOfContents;
+
+interface TopicStyleInterface {
+  [key: string]: { marginLeft: string };
+}
+
+const TopicStyle: TopicStyleInterface = {
+  H1: { marginLeft: "0" },
+  H2: { marginLeft: "25px" },
+  H3: { marginLeft: "25px" },
+};
+
+const getTopicStyle = (tagName: string) => TopicStyle[tagName];

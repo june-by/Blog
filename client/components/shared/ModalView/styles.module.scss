@@ -25,12 +25,14 @@
 }
 
 .input {
-  @include CustomInput;
+  @include StyledInput;
   margin-bottom: 10px;
 }
 
 .submitButton {
-  @include CustomBtn;
+  @include StyledButton;
+  padding: 10px 0;
+  width: 100%;
 }
 
 .socialLoginArea {

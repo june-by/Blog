@@ -2,20 +2,21 @@ import React from "react";
 import CommentCard from "components/post/CommentList/commentCard";
 import styles from "./styles.module.scss";
 import { useGetPostComments } from "Hooks/Post";
-import { useRouter } from "next/router";
+import useQueryId from "Hooks/useQueryId";
 
 const CommentList = () => {
-  const { query } = useRouter();
-  const { data, isLoading: isFetchCommentsLoading } = useGetPostComments(Number(query.id));
+  const postId = useQueryId();
+  const { data, isLoading: isFetchCommentsLoading } = useGetPostComments(postId);
 
-  if (isFetchCommentsLoading) return <></>;
+  if (isFetchCommentsLoading) return null;
+
+  if (!data?.comments) return null;
 
   return (
     <div className={styles.CommentList}>
-      {data?.comments &&
-        data?.comments?.map((comment, idx) => {
-          return <CommentCard key={idx} comment={comment} idx={idx} />;
-        })}
+      {data.comments.map((comment, idx) => {
+        return <CommentCard key={idx} comment={comment} idx={idx} />;
+      })}
     </div>
   );
 };

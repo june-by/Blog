@@ -15,11 +15,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   button {
-    border: none;
-    border-radius: 2px;
-    font-size: 20px;
-    padding: 10px 40px;
-    background: #{$PageBtn_Light_Hover_Bg};
+    @include StyledButton;
+    padding: 15px 25px;
     cursor: pointer;
+    min-width: 200px;
   }
 }

@@ -1,22 +1,21 @@
 import PostEditButton from "./postEditButton";
 import { useGetUserInfo } from "Hooks/User";
-import { useRouter } from "next/router";
 import React from "react";
 import IsAdmin from "utils/isAdmin";
 import PostDeleteButton from "./postDeleteButton";
+import useQueryId from "Hooks/useQueryId";
+import styles from "./styles.module.scss";
 
 const PostAdminButtons = () => {
-  const { query } = useRouter();
+  const postId = useQueryId();
   const { data: UserInfo } = useGetUserInfo();
 
+  if (!IsAdmin(UserInfo)) return null;
+
   return (
-    <div>
-      {IsAdmin(UserInfo) && (
-        <>
-          <PostDeleteButton />
-          <PostEditButton id={Number(query.id)} />
-        </>
-      )}
+    <div className={styles.PostAdminButtons}>
+      <PostDeleteButton />
+      <PostEditButton id={postId} />
     </div>
   );
 };

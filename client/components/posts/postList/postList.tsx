@@ -27,31 +27,27 @@ const PostList = ({ params, query }: Props) => {
     <>
       {isPostExist(data?.pages[0]) ? (
         <PostsListLayout>
-          <>
-            <EtcCard />
-            <InfiniteScroll
-              fetchNextPage={fetchNextPage}
-              hasNextPage={hasNextPage}
-              isLoading={isFetchingNextPage || isLoading}
-              skeleton={
-                <>
-                  {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                  })}
-                </>
-              }
-            >
+          <EtcCard />
+          <InfiniteScroll
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isLoading={isFetchingNextPage || isLoading}
+            skeleton={
               <>
-                {data?.pages.map((page) => (
-                  <>
-                    {page.map((post: PostsType) => (
-                      <PostCard key={post.title} post={post} />
-                    ))}
-                  </>
+                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                })}
+              </>
+            }
+          >
+            {data?.pages.map((page) => (
+              <>
+                {page.map((post: PostsType) => (
+                  <PostCard key={post.title} post={post} />
                 ))}
               </>
-            </InfiniteScroll>
-          </>
+            ))}
+          </InfiniteScroll>
         </PostsListLayout>
       ) : (
         <NoPost />

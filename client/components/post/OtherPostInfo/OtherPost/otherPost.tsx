@@ -4,9 +4,10 @@ import { OtherPostType } from "Types/post";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 
+type Mode = "next" | "prev";
 interface Props {
   Post: OtherPostType;
-  mode: string;
+  mode: Mode;
 }
 
 const OtherPost = ({ Post, mode }: Props) => {
@@ -32,7 +33,7 @@ const OtherPost = ({ Post, mode }: Props) => {
   );
 };
 
-function getTextByMode(mode: string) {
+function getTextByMode(mode: Mode) {
   return mode === "next" ? "다음" : "이전";
 }
 

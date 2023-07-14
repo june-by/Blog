@@ -3,16 +3,18 @@ import dateForm from "utils/dateForm";
 import CategoryChip from "components/shared/categoryChip";
 import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
-import PostViewCount from "components/post/PostTop/PostViewCount";
+import PostViewCount from "components/post/PostHeader/PostViewCount";
 import { usePostContext } from "context/postContext";
+import PostAdminButtons from "./PostAdminButtons/postAdminButtons";
 
-const PostTop = () => {
+const PostHeader = () => {
   const {
     Post: { title, createdAt, category, Tags },
   } = usePostContext();
 
   return (
     <header className={styles.PostTop}>
+      <PostAdminButtons />
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>
@@ -28,4 +30,4 @@ const PostTop = () => {
   );
 };
 
-export default PostTop;
+export default PostHeader;

@@ -1,8 +1,8 @@
-import { CATEGORY_TO_HLJS_CLASS } from "constants/category";
+import { CATEGORY_TO_HLJS_CLASS, CategoryType } from "constants/category";
 import hljs from "highlight.js";
 import { useEffect } from "react";
 
-export default function useHighLightCodeBlock(category: string) {
+export default function useHighLightCodeBlock(category: CategoryType) {
   useEffect(() => {
     handleCodeBlock(category);
     hljs.configure({
@@ -12,7 +12,7 @@ export default function useHighLightCodeBlock(category: string) {
   }, []);
 }
 
-function handleCodeBlock(category: string) {
+function handleCodeBlock(category: CategoryType) {
   const $preList = document.getElementsByTagName("pre") as unknown as HTMLPreElement[];
   for (const $pre of $preList) {
     const $code = makeCodeNode($pre.innerHTML, category);
@@ -20,7 +20,7 @@ function handleCodeBlock(category: string) {
   }
 }
 
-function makeCodeNode(innerHTML: string, category: string) {
+function makeCodeNode(innerHTML: string, category: CategoryType) {
   const $code = document.createElement("code");
   $code.innerHTML = innerHTML;
 

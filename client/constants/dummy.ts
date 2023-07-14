@@ -1,3 +1,5 @@
+import { CategoryType } from "./category";
+
 const DUMMY = {
   USER: {
     createdAt: "2022-05-25T12:19:28.000Z",
@@ -9,7 +11,7 @@ const DUMMY = {
     mainPost: {
       id: 1,
       title: "testPost",
-      category: "testCategory",
+      category: "JavaScript" as CategoryType,
       content: "testContent",
       thumbNailUrl: "/test.png",
       views: 10,

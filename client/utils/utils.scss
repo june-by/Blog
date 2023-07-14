@@ -29,7 +29,7 @@ $desktop: 1024px;
   }
 }
 
-@mixin CustomInput {
+@mixin StyledInput {
   padding: 13px 20px;
   background: #f5f5f5;
   width: 100%;
@@ -43,17 +43,15 @@ $desktop: 1024px;
   }
 }
 
-@mixin CustomBtn {
-  width: 100%;
+@mixin StyledButton {
+  width: fit-content;
   border: none;
   background: var(--button-background);
   color: white;
-  padding: 13px 0;
   border-radius: 4px;
   cursor: pointer;
-
   &:hover {
-    background: #6185e5;
+    background: var(--button-hover-background);
   }
 }
 

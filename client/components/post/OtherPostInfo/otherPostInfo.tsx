@@ -9,13 +9,18 @@ const OtherPostInfo = () => {
   const router = useRouter();
   const { data, isLoading } = useGetOnePost(Number(router.query.id));
 
-  const { mainPost, prevPost, nextPost } = data as PostType;
-  if (isLoading) return <></>;
+  const {
+    mainPost: { category },
+    prevPost,
+    nextPost,
+  } = data as PostType;
+
+  if (isLoading) return null;
 
   return (
     <div className={styles.OtherPostInfoWrapper}>
       <div className={styles.OtherCategory}>
-        <span>{`"${mainPost?.category}" 카테고리의 다른 게시글`}</span>
+        <span>{`"${category}" 카테고리의 다른 게시글`}</span>
       </div>
       <OtherPost Post={nextPost} mode="next" />
       <OtherPost Post={prevPost} mode="prev" />
