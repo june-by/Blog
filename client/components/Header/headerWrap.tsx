@@ -16,6 +16,7 @@ import SearchButton from "./searchButton";
 import LogoutButton from "./logoutButton";
 import LoginButton from "./LoginButton";
 import WriteButton from "./writeButton";
+import AuthButton from "./AuthButton";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
@@ -56,13 +57,7 @@ const HeaderWrap = () => {
             <WriteButton />
             <DarkModeButton />
             <SearchButton />
-            {isLoggedIn ? (
-              <>
-                <LogoutButton />
-              </>
-            ) : (
-              <LoginButton />
-            )}
+            <AuthButton isLoggedIn={isLoggedIn} />
           </div>
         </div>
       </header>
