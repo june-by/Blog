@@ -41,15 +41,13 @@ const PostList = ({ params, query }: Props) => {
                 </>
               }
             >
-              <>
-                {data?.pages.map((page) => (
-                  <>
-                    {page.map((post: PostsType) => (
-                      <PostCard key={post.title} post={post} />
-                    ))}
-                  </>
-                ))}
-              </>
+              {data?.pages.map((page) => (
+                <>
+                  {page.map((post: PostsType) => (
+                    <PostCard key={post.title} post={post} />
+                  ))}
+                </>
+              ))}
             </InfiniteScroll>
           </>
         </PostsListLayout>
