@@ -4,12 +4,12 @@ import IconButton from "components/shared/IconButton";
 import SearchButton from "./searchButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
-import DarkModeButton from "./darkModeButton";
 import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
 import useGotoPage from "Hooks/useGotoPage";
 import { useGetUserInfo } from "Hooks/User";
+import ThemeToggleButton from "./ThemeToggleButton";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
@@ -41,7 +41,7 @@ const Header = () => {
             </span>
           )}
           <WriteButton />
-          <DarkModeButton />
+          <ThemeToggleButton />
           <SearchButton />
           <AuthButton isLoggedIn={isLoggedIn} />
         </div>
