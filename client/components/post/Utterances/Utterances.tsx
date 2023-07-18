@@ -1,5 +1,6 @@
 import { useThemeContext } from "context/themeContext";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import styles from "./styles.module.scss";
 
 const utterancesSelector = "iframe.utterances-frame";
 const LIGHT_THEME = "github-light";
@@ -42,7 +43,7 @@ const Utterances = () => {
 
   useEffect(() => {}, [themeMode]);
 
-  return <section ref={utterancWrapperRef} />;
+  return <section className={styles.Utterances} ref={utterancWrapperRef} />;
 };
 
 export default Utterances;
