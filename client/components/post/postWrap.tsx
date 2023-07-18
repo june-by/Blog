@@ -7,6 +7,7 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
+import Utterances from "./Utterances";
 
 interface PostWrapProps {
   children: ReactNode;
@@ -25,6 +26,7 @@ const PostWrap = Object.assign(
     OtherPost: OtherPostInfo,
     CommentForm: CommentForm,
     Comments: CommentList,
+    Utterances: Utterances,
   }
 );
 

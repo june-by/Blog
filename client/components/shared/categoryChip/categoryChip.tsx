@@ -18,13 +18,18 @@ const CategoryChip = ({ category, length }: Props) => {
 
   return (
     <Link
-      className={styles.CategoryChip}
+      className={
+        isCurrentSelectedCategory
+          ? `${styles.CategoryChip} ${styles.Selected}`
+          : `${styles.CategoryChip}`
+      }
       data-testid="categoryChip"
       href={`/?category=${category}`}
-      style={{ background: isCurrentSelectedCategory ? "#6185e5" : "" }}
     >
       <span>{category}</span>
-      {length && <div className={styles.CategoryLength}>{length ? length : 0}</div>}
+      {length && (
+        <div className={styles.CategoryLength}>{length ? length : 0}</div>
+      )}
     </Link>
   );
 };
