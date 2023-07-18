@@ -7,12 +7,6 @@
   gap: 5%;
 }
 
-.NoComments {
-  text-align: center;
-  margin-bottom: 0;
-  font-size: 15px;
-}
-
 .visitorCard {
   @include Card;
   cursor: default;
@@ -28,26 +22,4 @@
   @include mobile {
     margin-bottom: 20px;
   }
-}
-
-.commentCard {
-  @include Card;
-  cursor: default;
-
-  height: calc(95% - 115px);
-  padding: 10px;
-  min-height: 0;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 0;
-  @include mobile {
-    margin-bottom: 20px;
-  }
-  h3 {
-    margin: 5px 0;
-  }
-}
-
-.comment {
-  cursor: pointer;
 }

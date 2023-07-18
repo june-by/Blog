@@ -3,8 +3,6 @@ import styles from "./styles.module.scss";
 import PostTop from "./PostHeader";
 import PostContent from "./PostContent";
 import OtherPostInfo from "./OtherPostInfo";
-import CommentForm from "./CommentForm";
-import CommentList from "./CommentList";
 import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Utterances from "./Utterances";
@@ -24,8 +22,6 @@ const PostWrap = Object.assign(
     Header: PostTop,
     Content: PostContent,
     OtherPost: OtherPostInfo,
-    CommentForm: CommentForm,
-    Comments: CommentList,
     Utterances: Utterances,
   }
 );

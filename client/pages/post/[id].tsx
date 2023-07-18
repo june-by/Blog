@@ -71,8 +71,6 @@ const PostPage = () => {
         <Post.Content />
         <Post.OtherPost />
         <Post.Utterances />
-        {/* <Post.CommentForm />
-        <Post.Comments /> */}
         <ScrollButton />
       </Post>
     </>
