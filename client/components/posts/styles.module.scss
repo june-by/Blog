@@ -1,6 +1,7 @@
 @import "utils/utils.scss";
 
 .ListContainerWrapper {
+  margin-top: 65px;
   min-height: 100vh;
   height: fit-content;
   @include desktop {
