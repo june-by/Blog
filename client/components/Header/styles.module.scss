@@ -13,13 +13,13 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  height: 50px;
+  height: 60px;
   color: white;
-  transition: margin-top 0.2s ease;
+  transition: margin-top 0.5s ease;
   overflow: hidden;
   background: var(--header-background);
   color: var(--header-color);
-
+  border-bottom: 2px solid var(--header-border-bottom);
   @include desktop {
     display: flex;
     justify-content: center;
@@ -36,33 +36,19 @@
   @include tablet_landscape {
     padding: 0 10%;
   }
+}
 
-  .headerContentWrap {
-    display: flex;
+.headerContentWrap {
+  display: flex;
+  height: 100%;
 
-    align-items: center;
-    justify-content: space-between;
-    @include desktop {
-      width: 90%;
-      max-width: 1440px;
-    }
+  align-items: center;
+  justify-content: space-between;
+  @include desktop {
+    width: 90%;
+    max-width: 1440px;
   }
 }
-
-.dark {
-  background: #121212;
-  color: white;
-
-  button {
-    color: white;
-  }
-}
-
-.light {
-  background: #dedce0;
-  color: #615f63;
-}
-
 .SkeletonHeader {
   position: fixed;
   top: 0;

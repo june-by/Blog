@@ -15,7 +15,6 @@ const useScroll = ({ onScrollDown, onScrollUp }: Params) => {
     setYPos(window.scrollY);
 
     const direction = deltaY > 0 ? "DOWN" : "UP";
-    console.log(direction);
     switch (direction) {
       case "DOWN":
         onScrollDown();

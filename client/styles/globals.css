@@ -15,8 +15,9 @@ body[data-theme="dark"] {
   color: white;
   --background-color: #121212;
 
-  --header-background: #1e1e1e;
+  --header-background: #121212;
   --header-color: white;
+  --header-border-bottom: white;
   --header-hover-color: #6185e5;
   --menu-icon-color: white;
   --input-background: #1e1e1e;
@@ -38,7 +39,8 @@ body[data-theme="light"] {
   background: white;
   color: black;
   --background-color: white;
-  --header-background: #dedce0;
+  --header-background: white;
+  --header-border-bottom: #e5e5e5;
   --header-color: #615f63;
   --header-hover-color: #0099fa;
   --menu-icon-color: black;

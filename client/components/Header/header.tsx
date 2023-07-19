@@ -14,7 +14,7 @@ import useScroll from "Hooks/useScroll";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
-const HEADER_HEIGHT = "50px";
+const HEADER_HEIGHT = "65px";
 
 const Header = () => {
   const headerRef = useRef<HTMLHeadingElement | null>(null);
