@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import useScroll from "Hooks/useScroll";
+import TOCModal from "./TOCModal";
 
 const TOCButton = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,6 @@ const TOCButton = () => {
 
   const handleClickButton = () => {
     setOpenModal(true);
-    hideButton();
   };
 
   useScroll({ onScrollDown: hideButton, onScrollUp: showButton });
@@ -39,6 +39,7 @@ const TOCButton = () => {
       >
         TOC
       </button>
+      <TOCModal open={openModal} setOpen={setOpenModal} />
     </>
   );
 };

@@ -34,6 +34,7 @@ body[data-theme="dark"] {
   --loginButton-text-color: white;
   --slight-layer: rgba(255, 255, 255, 0.1);
   --toc-button-hover-background: #6e7788;
+  --toc-modal-border: #3e4756;
 }
 
 body[data-theme="light"] {
@@ -59,6 +60,7 @@ body[data-theme="light"] {
   --loginButton-text-color: #404040;
   --slight-layer: rgba(0, 0, 0, 0.05);
   --toc-button-hover-background: #00baff;
+  --toc-modal-border: #e5e5e5;
 }
 
 a {

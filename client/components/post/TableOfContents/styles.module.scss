@@ -17,7 +17,7 @@
     margin-left: 3%;
     flex-direction: column;
     padding-left: 20px;
-    gap: 7.5px;
+    gap: 20px;
     border-left: 1px solid #c8c8c8;
     height: fit-content;
     position: sticky;
@@ -31,7 +31,7 @@
 .Row {
   width: fit-content;
   cursor: pointer;
-  padding-bottom: 10px;
+
   font-size: 0.875rem;
   transition: all 0.125s ease;
   opacity: 0.8;
@@ -52,10 +52,13 @@
   opacity: 0.7;
 }
 
-.TOCButton {
+.TOCButtonWrap {
   @include desktop {
     display: none;
   }
+}
+
+.TOCButton {
   width: 50px;
   position: fixed;
   top: 62px;
@@ -72,7 +75,36 @@
 }
 
 .TOCModal {
-  @include desktop {
-    display: none;
+  width: fit-content;
+  max-width: 75vw;
+  transition: margin-right 0.5s ease;
+  position: fixed;
+  background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px 20px 20px 20px;
+  top: 62px;
+  right: -2px;
+  border: 2px solid var(--header-border-bottom);
+  border-radius: 4px;
+}
+
+.TOCModalCloseButton {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: var(--header-border-bottom);
+  padding: 5px;
+  svg {
+    width: 10px;
+    height: 10px;
+    path {
+      fill: black !important;
+    }
   }
 }

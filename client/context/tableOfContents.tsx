@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -23,6 +24,7 @@ export const TableofContentsContainer = ({
   children,
 }: ContainerProps) => {
   const activeId = useGetTOCActiveId(tableOfContents);
+
   return (
     <TableOfContentsContext.Provider value={{ tableOfContents, activeId }}>
       {children}

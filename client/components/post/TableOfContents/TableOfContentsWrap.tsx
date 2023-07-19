@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Table from "./Table";
-import TOCButton from "./TOCButton";
 import { TableofContentsContainer } from "context/tableOfContents";
+import TOCButton from "./TOCButton";
 
 interface Props {
   tableOfContents: HTMLElement[];
@@ -16,6 +16,9 @@ const TableOfContentsWrap = ({ tableOfContents }: Props) => {
       <aside className={styles.TableOfContentsWrap}>
         <Table />
       </aside>
+      <div className={styles.TOCButtonWrap}>
+        <TOCButton />
+      </div>
     </TableofContentsContainer>
   );
 };
