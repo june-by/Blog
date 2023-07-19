@@ -1,9 +1,7 @@
-import { getRecentComment, postComment } from "./comment";
 import {
   getAllCategoryLength,
   getCategoryPosts,
   getOnePost,
-  getPostComments,
   getPostsNum,
   getPostViewCount,
   getTopViewsPosts,
@@ -20,13 +18,10 @@ export const handlers = [
   signup,
   getRecentTag,
   getCategoryPosts,
-  postComment,
   getOnePost,
   getPostsNum,
   getTopViewsPosts,
-  getRecentComment,
   getVisitor,
-  getPostComments,
   postVisitor,
   getPostViewCount,
 ];

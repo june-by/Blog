@@ -34,25 +34,6 @@ const DUMMY = {
       OtherCreatedAt: "2022-05-25T12:19:32.000Z",
     },
   },
-  COMMENTS_LIST: {
-    comments: [
-      {
-        User: { nickname: "test1" },
-        content: "testContent1",
-        createdAt: new Date(),
-      },
-      {
-        User: { nickname: "test2" },
-        content: "testContent2",
-        createdAt: new Date(),
-      },
-      {
-        User: { nickname: "test3" },
-        content: "testContent3",
-        createdAt: new Date(),
-      },
-    ],
-  },
   POST_VIEW_COUNT: 10,
 };
 

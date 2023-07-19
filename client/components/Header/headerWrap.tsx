@@ -9,7 +9,7 @@ const HeaderWrap = () => {
   return (
     <>
       <Header />
-      <FloatingHeader />
+      {/* <FloatingHeader /> */}
       <LoginModal />
       <SignUpModal />
       <SearchModal />

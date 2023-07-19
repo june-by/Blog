@@ -1,6 +1,47 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
-export default function useTableOfContents(toc: HTMLElement[]) {
+interface ContextProps {
+  tableOfContents: HTMLElement[];
+  activeId: number | null;
+}
+
+interface ContainerProps extends Omit<ContextProps, "activeId"> {
+  children: ReactNode;
+}
+
+export const TableOfContentsContext = createContext<ContextProps | null>(null);
+
+export const TableofContentsContainer = ({
+  tableOfContents,
+  children,
+}: ContainerProps) => {
+  const activeId = useGetTOCActiveId(tableOfContents);
+
+  return (
+    <TableOfContentsContext.Provider value={{ tableOfContents, activeId }}>
+      {children}
+    </TableOfContentsContext.Provider>
+  );
+};
+
+export const useTableOfContentsContext = () => {
+  const contextProps = useContext(TableOfContentsContext);
+
+  if (!contextProps)
+    throw Error("TableOfContentsContext is used before initialization");
+
+  return useContext(TableOfContentsContext) as ContextProps;
+};
+
+const useGetTOCActiveId = (toc: HTMLElement[]) => {
   const [activeId, setActiveId] = useState<null | number>(null);
   const [headingTops, setHeadingTops] = useState<
     | null
@@ -76,7 +117,7 @@ export default function useTableOfContents(toc: HTMLElement[]) {
   }, [onScroll]);
 
   return activeId;
-}
+};
 
 function getScrollTop() {
   if (!document.body) return 0;

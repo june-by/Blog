@@ -11,10 +11,6 @@ const QUERY_KEY = {
     VIEWCOUNT: "ViewCount",
   },
   USER: "User",
-  COMMNET: {
-    ONE: "Comment",
-    RECENT: "RecentComment",
-  },
   TAG: {
     RECENT: "RecentTags",
   },
