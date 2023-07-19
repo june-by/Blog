@@ -8,44 +8,37 @@
   opacity: 1;
 }
 
-.TopicWrapper {
+.TableOfContentsWrap {
   display: none;
-
   @include desktop {
-    width: 20%;
-    margin-left: 3%;
     display: flex;
     flex-direction: column;
-    font-weight: 600;
-    height: auto;
+    width: 20%;
+    margin-left: 3%;
+    flex-direction: column;
+    gap: 7.5px;
+    border-left: 1px solid #c8c8c8;
+    height: fit-content;
+    position: sticky;
+    top: 10vh;
     div::-webkit-scrollbar {
       display: none;
-    }
-    &_second {
-      position: sticky;
-      top: 10vh;
-      max-height: 80vh;
-      overflow: auto;
-      border-left: 1px solid #c8c8c8;
-      padding-left: 2vw;
-      display: flex;
-      flex-direction: column;
-      gap: 7.5px;
-      nav {
-        width: fit-content;
-        cursor: pointer;
-        padding-bottom: 10px;
-        font-size: 0.875rem;
-        transition: all 0.125s ease;
-        opacity: 0.8;
-        &:hover {
-          color: #6185e5;
-        }
-      }
     }
   }
 }
 
+.Row {
+  width: fit-content;
+  cursor: pointer;
+  padding-bottom: 10px;
+  font-size: 0.875rem;
+  transition: all 0.125s ease;
+  opacity: 0.8;
+  font-weight: 700;
+  &:hover {
+    color: #6185e5;
+  }
+}
 .activeToc {
   transform: scale(1.1);
   opacity: 1;

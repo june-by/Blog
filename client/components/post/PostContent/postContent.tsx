@@ -19,7 +19,10 @@ const PostContent = () => {
   return (
     <section className={styles.PostContent}>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
-      <article className={`Code ${styles.Content}`} dangerouslySetInnerHTML={{ __html: content }} />
+      <article
+        className={`Code ${styles.Content}`}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
       {!loading && <TableOfContents tableOfContents={tableOfContents} />}
     </section>
   );
