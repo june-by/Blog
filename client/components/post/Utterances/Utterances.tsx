@@ -1,5 +1,5 @@
 import { useThemeContext } from "context/themeContext";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 
 const utterancesSelector = "iframe.utterances-frame";
@@ -16,32 +16,23 @@ const Utterances = () => {
     if (!utterancWrapperRef.current) return;
     if (!isThemeLoaded) return;
 
-    const createUtterancesEl = () => {
-      if (utterancWrapperRef.current?.firstChild) return;
-      const scriptElem = document.createElement("script");
-      scriptElem.src = `${src}/client.js`;
-      scriptElem.async = true;
-      scriptElem.setAttribute("repo", "BY-juun/Blog");
-      scriptElem.setAttribute("issue-term", "title");
-      scriptElem.setAttribute("theme", themeMode);
-      utterancWrapperRef.current?.appendChild(scriptElem);
+    if (utterancWrapperRef.current?.firstChild) return;
+    const scriptElem = document.createElement("script");
+    scriptElem.src = `${src}/client.js`;
+    scriptElem.async = true;
+    scriptElem.setAttribute("repo", "BY-juun/Blog");
+    scriptElem.setAttribute("issue-term", "title");
+    scriptElem.setAttribute("theme", themeMode);
+    utterancWrapperRef.current?.appendChild(scriptElem);
+
+    return () => {
+      if (!utterancWrapperRef.current) return;
+
+      if (utterancWrapperRef.current?.innerHTML) {
+        utterancWrapperRef.current.innerHTML = "";
+      }
     };
-
-    const postThemeMessage = () => {
-      const message = {
-        type: "set-theme",
-        theme: themeMode,
-      };
-      (utterancesEl as any).contentWindow.postMessage(message, src);
-    };
-
-    const utterancesEl =
-      utterancWrapperRef.current.querySelector(utterancesSelector);
-
-    utterancesEl ? postThemeMessage() : createUtterancesEl();
   }, [themeMode, isThemeLoaded]);
-
-  useEffect(() => {}, [themeMode]);
 
   return <section className={styles.Utterances} ref={utterancWrapperRef} />;
 };
