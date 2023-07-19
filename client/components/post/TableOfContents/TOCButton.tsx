@@ -1,8 +1,9 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import useScroll from "Hooks/useScroll";
 
 const TOCButton = () => {
+  const [openModal, setOpenModal] = useState(false);
   const TOCButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const hideButton = useCallback(() => {
@@ -16,14 +17,29 @@ const TOCButton = () => {
     if (!TOCButtonRef.current) {
       return;
     }
+    if (openModal) {
+      return;
+    }
     TOCButtonRef.current.style.marginRight = "0px";
-  }, []);
+  }, [openModal]);
+
+  const handleClickButton = () => {
+    setOpenModal(true);
+    hideButton();
+  };
 
   useScroll({ onScrollDown: hideButton, onScrollUp: showButton });
+
   return (
-    <button ref={TOCButtonRef} className={styles.TOCButton}>
-      TOC
-    </button>
+    <>
+      <button
+        ref={TOCButtonRef}
+        className={styles.TOCButton}
+        onClick={handleClickButton}
+      >
+        TOC
+      </button>
+    </>
   );
 };
 

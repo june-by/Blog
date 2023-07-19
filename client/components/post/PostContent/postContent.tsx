@@ -25,10 +25,7 @@ const PostContent = () => {
         dangerouslySetInnerHTML={{ __html: content }}
       />
       {isExtractComplete && (
-        <>
-          <TableOfContents tableOfContents={tableOfContents} />
-          <TOCButton />
-        </>
+        <TableOfContents tableOfContents={tableOfContents} />
       )}
     </section>
   );

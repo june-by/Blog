@@ -1,13 +1,10 @@
 import React, { useCallback } from "react";
-import useTableOfContents from "./useTableOfContents";
 import Row from "./Row";
+import { useTableOfContentsContext } from "context/tableOfContents";
 
-interface Props {
-  tableOfContents: HTMLElement[];
-}
-
-const Table = ({ tableOfContents }: Props) => {
-  const activeContentId = useTableOfContents(tableOfContents);
+const Table = () => {
+  const { tableOfContents, activeId: activeContentId } =
+    useTableOfContentsContext();
 
   const handleClickContent = useCallback(
     (toc: HTMLElement) => () => {

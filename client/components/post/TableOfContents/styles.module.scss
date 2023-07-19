@@ -70,3 +70,9 @@
   border-right: none;
   transition: margin-right 0.5s ease;
 }
+
+.TOCModal {
+  @include desktop {
+    display: none;
+  }
+}
