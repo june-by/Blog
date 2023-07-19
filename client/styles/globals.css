@@ -33,6 +33,7 @@ body[data-theme="dark"] {
   --slight-layer: rgba(255, 255, 255, 0.1);
   --loginButton-text-color: white;
   --slight-layer: rgba(255, 255, 255, 0.1);
+  --toc-button-hover-background: #6e7788;
 }
 
 body[data-theme="light"] {
@@ -57,6 +58,7 @@ body[data-theme="light"] {
   --slight-layer: rgba(0, 0, 0, 0.05);
   --loginButton-text-color: #404040;
   --slight-layer: rgba(0, 0, 0, 0.05);
+  --toc-button-hover-background: #00baff;
 }
 
 a {

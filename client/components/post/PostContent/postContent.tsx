@@ -2,17 +2,18 @@ import React from "react";
 import Script from "next/script";
 import styles from "./styles.module.scss";
 import "highlight.js/styles/atom-one-dark.css";
-import useGetTopics from "./useGetTopics";
 import TableOfContents from "components/post/TableOfContents";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
 import { usePostContext } from "context/postContext";
+import TOCButton from "../TableOfContents/TOCButton";
+import useExtractTOC from "./useExtractTOC";
 
 const PostContent = () => {
   const {
     Post: { category, content, title: postTitle },
   } = usePostContext();
 
-  const { tableOfContents, loading } = useGetTopics({ postTitle });
+  const { tableOfContents, isExtractComplete } = useExtractTOC({ postTitle });
 
   useHighLightCodeBlock(category);
 
@@ -23,7 +24,12 @@ const PostContent = () => {
         className={`Code ${styles.Content}`}
         dangerouslySetInnerHTML={{ __html: content }}
       />
-      {!loading && <TableOfContents tableOfContents={tableOfContents} />}
+      {isExtractComplete && (
+        <>
+          <TableOfContents tableOfContents={tableOfContents} />
+          <TOCButton />
+        </>
+      )}
     </section>
   );
 };
