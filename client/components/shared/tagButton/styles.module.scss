@@ -6,7 +6,18 @@
   padding: 0;
   font-size: 13px;
   color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  span {
+    transition: color 0.25s ease;
+  }
   &:hover {
-    color: var(--header-hover-color);
+    span {
+      color: var(--header-hover-color);
+    }
+  }
+  svg {
+    color: #005cb4;
   }
 }

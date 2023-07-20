@@ -2,16 +2,18 @@ import Link from "next/link";
 import React from "react";
 import { TagType } from "Types/post";
 import styles from "./styles.module.scss";
+import { AiFillTag } from "react-icons/ai";
 
 const TagButton = ({ tag }: { tag: TagType }) => {
   if (!tag) return null;
 
   return (
-    <li className={styles.TagButton}>
-      <Link href={`/?tag=${tag?.content}`} data-testid="tagButton">
-        #{tag?.content}
-      </Link>
-    </li>
+    <Link href={`/?tag=${tag?.content}`} data-testid="tagButton">
+      <li className={styles.TagButton}>
+        <AiFillTag />
+        <span>{tag?.content}</span>
+      </li>
+    </Link>
   );
 };
 

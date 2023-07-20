@@ -24,6 +24,7 @@ body[data-theme="dark"] {
   --icon-color: white;
   --github-icon-color: #6185e5;
   --text-color: white;
+  --colored-text: #6185e5;
   --button-background: #3e4756;
   --button-hover-background: #6185e5;
   --button-background-mono: #282c34;
@@ -46,6 +47,8 @@ body[data-theme="light"] {
   --header-background: white;
   --header-border-bottom: #e5e5e5;
   --header-color: #615f63;
+  --colored-text: #0099fa;
+
   --header-hover-color: #0099fa;
   --menu-icon-color: black;
   --input-background: #f5f5f5;
