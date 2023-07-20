@@ -2,10 +2,10 @@ import React, { ReactNode } from "react";
 import styles from "./styles.module.scss";
 import PostTop from "./PostHeader";
 import PostContent from "./PostContent";
-import OtherPostInfo from "./OtherPostInfo";
 import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Utterances from "./Utterances";
+import RoutePostButtons from "./RoutePostButtons";
 
 interface PostWrapProps {
   children: ReactNode;
@@ -21,7 +21,7 @@ const PostWrap = Object.assign(
   {
     Header: PostTop,
     Content: PostContent,
-    OtherPost: OtherPostInfo,
+    RoutePostButtons: RoutePostButtons,
     Utterances: Utterances,
   }
 );

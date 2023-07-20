@@ -5,7 +5,6 @@ import "highlight.js/styles/atom-one-dark.css";
 import TableOfContents from "components/post/TableOfContents";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
 import { usePostContext } from "context/postContext";
-import TOCButton from "../TableOfContents/TOCButton";
 import useExtractTOC from "./useExtractTOC";
 
 const PostContent = () => {

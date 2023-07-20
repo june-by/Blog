@@ -43,7 +43,7 @@ export const ThemeContainer = ({
   useEffect(() => {
     // NOTE: for synchronize cookie and theme state
     const cookieTheme = (extractFromCookie(document.cookie, "theme") ||
-      "light") as ThemeType;
+      "dark") as ThemeType;
     setTheme(cookieTheme);
     changeThemeOnDocument(cookieTheme);
     setIsThemeLoaded(true);

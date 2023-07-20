@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import { CategoryType } from "constants/category";
@@ -10,14 +10,24 @@ interface Props {
 }
 
 const CategoryChip = ({ category, length }: Props) => {
+  const categoryChipRef = useRef<HTMLAnchorElement | null>(null);
   const { query } = useRouter();
 
   const currentCategory = query.category;
 
   const isCurrentSelectedCategory = currentCategory === category;
 
+  useEffect(() => {
+    if (!isCurrentSelectedCategory) return;
+    categoryChipRef.current?.scrollIntoView({
+      block: "nearest",
+      inline: "center",
+    });
+  }, [isCurrentSelectedCategory]);
+
   return (
     <Link
+      ref={categoryChipRef}
       className={
         isCurrentSelectedCategory
           ? `${styles.CategoryChip} ${styles.Selected}`

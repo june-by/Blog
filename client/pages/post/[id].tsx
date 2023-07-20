@@ -69,7 +69,7 @@ const PostPage = () => {
       <Post Post={PostData}>
         <Post.Header />
         <Post.Content />
-        <Post.OtherPost />
+        <Post.RoutePostButtons />
         <Post.Utterances />
         <ScrollButton />
       </Post>
