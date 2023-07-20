@@ -1,4 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
 import extractFromCookie from "utils/extractFromCookie";
 
 let theme = "light";
@@ -6,7 +12,7 @@ let theme = "light";
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-    theme = extractFromCookie(ctx.req?.headers.cookie, "theme") || "light";
+    theme = extractFromCookie(ctx.req?.headers.cookie, "theme") || "dark";
     return initialProps;
   }
 
