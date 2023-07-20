@@ -12,12 +12,15 @@ import { useGetUserInfo } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { AiOutlineEye } from "react-icons/ai";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
   const { data: UserInfo } = useGetUserInfo();
 
-  const onClickPostCard = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onClickPostCard = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     if (post.isPublic === 0 && !IsAdmin(UserInfo)) {
       e.preventDefault();
       return toast.warn(MESSAGE.NOT_READY_POST);
@@ -28,13 +31,27 @@ const PostCard = ({ post }: { post: PostsType }) => {
   };
 
   return (
-    <Link href={`/post/${post.id}`} data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
+    <Link
+      href={`/post/${post.id}`}
+      data-testid="postCard"
+      className={styles.PostCard}
+      onClick={onClickPostCard}
+    >
       <figure className={styles.PostCard_imgWrapper}>
         {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
-          <Image src={post.thumbNailUrl} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+          <Image
+            src={post.thumbNailUrl}
+            fill
+            alt="category"
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+          />
         ) : (
           <picture>
-            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
+            <source
+              data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp}
+              type="image/webp"
+            />
             <Image
               fill
               src={S3_PREFIX + THUMBNAIL[post.category]?.jpg}
@@ -51,7 +68,9 @@ const PostCard = ({ post }: { post: PostsType }) => {
           {post.isPublic ? (
             <>
               {post.Tags.length !== 0 &&
-                post.Tags.map((tag) => <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />)}
+                post.Tags.map((tag) => (
+                  <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />
+                ))}
             </>
           ) : (
             <span className={styles.prepare}>준비중</span>
@@ -59,7 +78,10 @@ const PostCard = ({ post }: { post: PostsType }) => {
         </ul>
         <div className={styles.PostCard_titleBox_createdAt}>
           <time>{dateForm(post.createdAt)}</time>
-          <span>조회수 : {post.isPublic ? post.views : 0}</span>
+          <div>
+            <AiOutlineEye />
+            <span> {post.isPublic ? post.views : 0}</span>
+          </div>
         </div>
       </article>
     </Link>
