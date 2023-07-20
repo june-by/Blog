@@ -17,7 +17,16 @@ interface Props {
 }
 
 const PostList = ({ params, query }: Props) => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    isError,
+    refetch,
+    error,
+  } = query(params);
 
   useRestoreSrollPos();
 
@@ -27,16 +36,18 @@ const PostList = ({ params, query }: Props) => {
     <>
       {isPostExist(data?.pages[0]) ? (
         <PostsListLayout>
-          <EtcCard />
+          {/* <EtcCard /> */}
           <InfiniteScroll
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
             isLoading={isFetchingNextPage || isLoading}
             skeleton={
               <>
-                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                })}
+                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map(
+                  (_, idx) => {
+                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                  }
+                )}
               </>
             }
           >
