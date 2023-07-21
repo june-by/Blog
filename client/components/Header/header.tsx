@@ -11,6 +11,7 @@ import useGotoPage from "Hooks/useGotoPage";
 import { useGetUserInfo } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
 import useScroll from "Hooks/useScroll";
+import Image from "next/image";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 

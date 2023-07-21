@@ -15,6 +15,7 @@ import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import Header from "components/Header";
 import Post from "components/post";
+import ScrollIndicator from "components/post/ScrollIndicator";
 
 const PostPage = () => {
   const router = useRouter();
@@ -66,6 +67,7 @@ const PostPage = () => {
         />
       </Head>
       <Header />
+      <ScrollIndicator />
       <Post Post={PostData}>
         <Post.Header />
         <Post.Content />
