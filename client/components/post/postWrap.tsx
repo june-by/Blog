@@ -4,7 +4,7 @@ import PostTop from "./PostHeader";
 import PostContent from "./PostContent";
 import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
-import Utterances from "./Utterances";
+import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
 
 interface PostWrapProps {
@@ -22,7 +22,7 @@ const PostWrap = Object.assign(
     Header: PostTop,
     Content: PostContent,
     RoutePostButtons: RoutePostButtons,
-    Utterances: Utterances,
+    Comments: Comments,
   }
 );
 
