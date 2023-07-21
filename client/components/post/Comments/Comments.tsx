@@ -20,6 +20,8 @@ const Comments = () => {
     scriptElem.src = `${src}/client.js`;
     scriptElem.setAttribute("data-repo", "BY-juun/Blog");
     scriptElem.setAttribute("data-repo-id", "MDEwOlJlcG9zaXRvcnkzODc4MTYxNjA=");
+    scriptElem.setAttribute("data-category", "Comments");
+    scriptElem.setAttribute("data-category-id", "DIC_kwDOFx2a4M4CYB9c");
     scriptElem.setAttribute("data-mapping", "pathname");
     scriptElem.setAttribute("data-reactions-enabled", "1");
     scriptElem.setAttribute("data-emit-metadata", "0");
