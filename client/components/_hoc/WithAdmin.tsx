@@ -1,0 +1,27 @@
+import { useGetUserInfo } from "Hooks/User";
+import IsAdmin from "utils/isAdmin";
+import LoadingOrNot from "./LoadingOrNot";
+import SwitchCase from "./SwitchCase";
+
+interface Props {
+  children: JSX.Element;
+}
+
+const WithAdmin = ({ children }: Props) => {
+  const { data: userInfo, isLoading } = useGetUserInfo();
+  const isAdmin = IsAdmin(userInfo);
+
+  return (
+    <LoadingOrNot isLoading={isLoading}>
+      <SwitchCase
+        value={String(isAdmin)}
+        caseBy={{
+          true: children,
+          false: null,
+        }}
+      />
+    </LoadingOrNot>
+  );
+};
+
+export default WithAdmin;
