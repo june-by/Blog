@@ -7,7 +7,7 @@ interface Props {
   children: JSX.Element;
 }
 
-const WithAdmin = ({ children }: Props) => {
+const WithAdminValidation = ({ children }: Props) => {
   const { data: userInfo, isLoading } = useGetUserInfo();
   const isAdmin = IsAdmin(userInfo);
 
@@ -24,4 +24,4 @@ const WithAdmin = ({ children }: Props) => {
   );
 };
 
-export default WithAdmin;
+export default WithAdminValidation;
