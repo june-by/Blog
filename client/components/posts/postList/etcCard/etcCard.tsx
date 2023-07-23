@@ -2,15 +2,16 @@ import React from "react";
 import { useGetVisitor } from "Hooks/Visitor";
 import Visitor from "./visitor";
 import EtcCardLayout from "./layout";
+import LoadingOrNot from "components/_hoc/LoadingOrNot";
 
 const EtcCard = () => {
-  const { isLoading: isFetchingVisitorLoading } = useGetVisitor();
-
-  if (isFetchingVisitorLoading) return <EtcCardLayout />;
+  const { isLoading } = useGetVisitor();
 
   return (
     <EtcCardLayout>
-      <Visitor />
+      <LoadingOrNot isLoading={isLoading}>
+        <Visitor />
+      </LoadingOrNot>
     </EtcCardLayout>
   );
 };

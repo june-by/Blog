@@ -1,9 +1,15 @@
-import useSetDefaultThumbNail from "components/write/useSetDefaultThumbNail";
 import { Category, CategoryType } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
-import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  Dispatch,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 type Action =
   | { type: "editTitle"; title: string }
@@ -55,7 +61,10 @@ const reducer = (state: State, action: Action): State => {
     case "addTag":
       return { ...state, tagArr: [...state.tagArr, action.tag] };
     case "removeTag":
-      return { ...state, tagArr: state.tagArr.filter((tag) => tag !== action.tag) };
+      return {
+        ...state,
+        tagArr: state.tagArr.filter((tag) => tag !== action.tag),
+      };
     case "editThumbNailUrl":
       return { ...state, thumbNailUrl: action.thumbNailUrl };
     case "editIsPublic":
@@ -135,7 +144,9 @@ export const useWriteContext = () => {
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
   const postId = useQueryId();
-  const { data, isLoading } = useGetOnePost(postId, { enabled: isNaN(postId) ? false : true });
+  const { data, isLoading } = useGetOnePost(postId, {
+    enabled: isNaN(postId) ? false : true,
+  });
 
   const post = data?.mainPost;
 
