@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import SwitchCase from "./SwitchCase";
 
 interface Props {
   onLoading: JSX.Element;
@@ -7,8 +8,15 @@ interface Props {
 }
 
 const LoadingOrNot = ({ onLoading, isLoading, children }: Props) => {
-  if (isLoading) return onLoading;
-  return children;
+  return (
+    <SwitchCase
+      value={String(isLoading)}
+      caseBy={{
+        true: onLoading,
+        false: children,
+      }}
+    />
+  );
 };
 
 export default LoadingOrNot;

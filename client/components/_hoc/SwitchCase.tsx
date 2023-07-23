@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 interface Props<Case extends string> {
-  caseBy: Partial<Record<Case, ReactNode | null>>;
+  caseBy: Partial<Record<Case, JSX.Element | null>>;
   value: Case;
   defaultComponent?: JSX.Element | null;
 }
