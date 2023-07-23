@@ -7,6 +7,8 @@ interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+const MARGIN_RIGHT_FOR_HIDE = "-75vw";
+const MARGIN_RIGHT_FOR_SHOW = "0px";
 
 const TOCModal = ({ open, setOpen }: Props) => {
   const tocModalRef = useRef<HTMLDivElement | null>(null);
@@ -18,9 +20,9 @@ const TOCModal = ({ open, setOpen }: Props) => {
   useEffect(() => {
     if (!tocModalRef.current) return;
     if (open) {
-      tocModalRef.current.style.marginRight = "0px";
+      tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_SHOW;
     } else {
-      tocModalRef.current.style.marginRight = "-75vw";
+      tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_HIDE;
     }
   }, [open]);
 
