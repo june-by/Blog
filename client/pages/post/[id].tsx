@@ -20,8 +20,7 @@ import ScrollIndicator from "components/post/ScrollIndicator";
 const PostPage = () => {
   const router = useRouter();
   const postId = Number(router.query.id);
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
-    useState(false);
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserInfo();
   const { data } = useGetOnePost(postId);
 
@@ -39,11 +38,11 @@ const PostPage = () => {
     }
   }, [userInfo, PostData, router]);
 
-  if (router.isFallback) return <PostSkeleton />;
+  if (router.isFallback) return <Post.Skeleton />;
 
   if (!PostData?.isPublic) {
     if (!adminValidationForNotPublicPost) {
-      return <PostSkeleton />;
+      return <Post.Skeleton />;
     }
   }
 
@@ -57,14 +56,8 @@ const PostPage = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={PostData.content.substring(0, 100)} />
         <meta property="og:title" content={PostData.title} />
-        <meta
-          property="og:image"
-          content={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
-        />
-        <meta
-          property="og:url"
-          content={`https://byjuun.com/post/${router.query.id}`}
-        />
+        <meta property="og:image" content={getOgImage(PostData.thumbNailUrl, String(PostData.category))} />
+        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
       </Head>
       <Header />
       <ScrollIndicator />
@@ -97,14 +90,11 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient();
   try {
-    await queryClient.fetchQuery(
-      [QUERY_KEY.POST.ONE, Number(context.params?.id)],
-      () => getOnePostAPI(Number(context.params?.id))
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
+      getOnePostAPI(Number(context.params?.id))
     );
     return {
       props: {
@@ -119,7 +109,6 @@ export const getStaticProps: GetStaticProps = async (
 export default PostPage;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url)
-    return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }

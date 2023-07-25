@@ -6,6 +6,7 @@ import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
+import PostSkeleton from "./Skeleton";
 
 interface PostWrapProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ const PostWrap = Object.assign(
     Content: PostContent,
     RoutePostButtons: RoutePostButtons,
     Comments: Comments,
+    Skeleton: PostSkeleton,
   }
 );
 
