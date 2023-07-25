@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
-import { getAllPostsId, getOnePostAPI } from "services/post";
+import { getAllPostsId, getPostAPI } from "services/post";
 import { useGetPostQuery } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
 import S3_PREFIX from "constants/s3Prefix";
@@ -95,7 +95,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   const queryClient = new QueryClient();
   try {
     await queryClient.fetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
-      getOnePostAPI(Number(context.params?.id))
+      getPostAPI(Number(context.params?.id))
     );
     return {
       props: {

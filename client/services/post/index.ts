@@ -2,7 +2,7 @@ export {
   getAllPostsId,
   getMainPostsAPI,
   getAllCategoryLengthAPI,
-  getOnePostAPI,
+  getPostAPI,
   getCategoryPostAPI,
   getSearchPostAPI,
   getTagPostAPI,

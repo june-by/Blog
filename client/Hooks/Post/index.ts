@@ -4,7 +4,7 @@ import {
   EditPostAPI,
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
-  getOnePostAPI,
+  getPostAPI,
   getPostViewCountAPI,
   getSearchPostAPI,
   getTagPostAPI,
@@ -28,7 +28,7 @@ export const useGetMainPost = () =>
 export const useGetPostQuery = (id: number, queryOptions?: UseQueryOptions<any>) => {
   const router = useRouter();
 
-  return useQuery<PostType | null>([QUERY_KEY.POST.ONE, id], () => getOnePostAPI(id), {
+  return useQuery<PostType | null>([QUERY_KEY.POST.ONE, id], () => getPostAPI(id), {
     ...CACHE_OPTION.ALL,
     onError: (err) => {
       alert(err);

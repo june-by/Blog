@@ -29,7 +29,7 @@ export const getAllCategoryLengthAPI = async (): Promise<Array<CategoryCount>> =
   }
 };
 
-export const getOnePostAPI = async (id: number): Promise<PostType | null> => {
+export const getPostAPI = async (id: number): Promise<PostType | null> => {
   if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
   if (!id) throw new Error();
   try {
