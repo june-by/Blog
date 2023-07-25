@@ -67,7 +67,7 @@
   font-weight: 700;
   padding: 10px 0;
   color: white;
-  background: var(--button-background);
+  background: var(--bg-element5);
   border-radius: 4px;
   border: 2px solid var(--primary2);
   border-right: none;
@@ -90,7 +90,7 @@
   padding: 30px 20px 20px 20px;
   top: 62px;
   right: -2px;
-  border: 2px solid var(--header-border-bottom);
+  border: 2px solid var(--bg-element4);
   border-radius: 4px;
   margin-right: -75vw;
 }
@@ -103,7 +103,7 @@
   width: 32px;
   height: 32px;
   border-radius: 4px;
-  background: var(--header-border-bottom);
+  background: var(--bg-element4);
   padding: 5px;
   cursor: pointer;
   svg {
