@@ -10,8 +10,8 @@
   transition: margin-top 0.5s ease;
   overflow: hidden;
   background: var(--bg-element1);
-  color: var(--header-color);
-  border-bottom: 2px solid var(--header-border-bottom);
+  color: var(--bg-element2);
+  border-bottom: 2px solid var(--bg-element4);
   @include desktop {
     display: flex;
     justify-content: center;
