@@ -7,7 +7,7 @@ interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const MARGIN_RIGHT_FOR_HIDE = "-75vw";
+
 const MARGIN_RIGHT_FOR_SHOW = "0px";
 
 const TOCModal = ({ open, setOpen }: Props) => {
@@ -22,7 +22,10 @@ const TOCModal = ({ open, setOpen }: Props) => {
     if (open) {
       tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_SHOW;
     } else {
-      tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_HIDE;
+      const modalFitContentWidth = tocModalRef.current.offsetWidth;
+      const modalMaxWidth = (window.innerWidth / 4) * 3;
+
+      tocModalRef.current.style.marginRight = `-${Math.min(modalMaxWidth, modalFitContentWidth)}px`;
     }
   }, [open]);
 
