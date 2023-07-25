@@ -1,3 +1,4 @@
+import DEFAULT_THEME from "constants/defaultTheme";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import extractFromCookie from "utils/extractFromCookie";
 
@@ -32,7 +33,7 @@ export const ThemeContainer = ({ children }: { children: React.ReactElement }) =
 
   useEffect(() => {
     // NOTE: for synchronize cookie and theme state
-    const cookieTheme = (extractFromCookie(document.cookie, "theme") || "dark") as ThemeType;
+    const cookieTheme = (extractFromCookie(document.cookie, "theme") || DEFAULT_THEME) as ThemeType;
     setTheme(cookieTheme);
     changeThemeOnDocument(cookieTheme);
     setIsThemeLoaded(true);
