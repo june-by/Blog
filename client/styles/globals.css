@@ -13,16 +13,14 @@ body[data-theme="dark"] {
   background: #121212;
   color: white;
   --bg-element1: #121212;
+  --primary1: #6185e5;
 
   --header-color: white;
   --header-border-bottom: white;
-  --header-hover-color: #6185e5;
   --menu-icon-color: white;
   --input-background: #1e1e1e;
   --icon-color: white;
-  --github-icon-color: #6185e5;
   --text-color: white;
-  --colored-text: #6185e5;
   --button-background: #3e4756;
   --button-hover-background: #6e7788;
   --button-background-mono: #282c34;
@@ -41,17 +39,15 @@ body[data-theme="light"] {
   background: white;
   color: black;
   --bg-element1: white;
+  --primary1: #0099fa;
 
   --header-border-bottom: #e5e5e5;
   --header-color: #615f63;
-  --colored-text: #0099fa;
 
-  --header-hover-color: #0099fa;
   --menu-icon-color: black;
   --input-background: #f5f5f5;
   --icon-color: black;
   --text-color: black;
-  --github-icon-color: #0099fa;
   --button-background: #0099fa;
   --button-hover-background: #005cb4;
   --button-background-mono: #f8f8f8;
