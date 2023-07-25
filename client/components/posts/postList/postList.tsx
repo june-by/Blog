@@ -1,7 +1,6 @@
 import ErrorHelper from "components/shared/errorHelper";
 import NoPost from "components/posts/postList/NoPost";
 import PostCard from "components/posts/postList/postCard";
-import PostCardSkeleton from "components/posts/postList/postCard/skeleton";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
@@ -37,7 +36,7 @@ const PostList = ({ params, query }: Props) => {
             skeleton={
               <>
                 {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                  return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
                 })}
               </>
             }
