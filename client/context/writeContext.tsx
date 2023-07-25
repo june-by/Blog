@@ -31,7 +31,7 @@ interface ContextProps {
   addTag: (tag: string) => void;
   removeTag: (tag: string) => void;
   setThumbNailUrl: (thumbNailUrl: string) => void;
-  onChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const initialState = {
@@ -75,7 +75,7 @@ export const WriteContext = createContext<ContextProps>({
   addTag: () => {},
   removeTag: () => {},
   setThumbNailUrl: () => () => {},
-  onChangeIsPublic: () => {},
+  handleChangeIsPublic: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
@@ -106,7 +106,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
     dispatch({ type: "editThumbNailUrl", thumbNailUrl });
   };
 
-  const onChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "editIsPublic", isPublic: Number(e.target.checked) });
   };
 
@@ -122,7 +122,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
         addTag,
         removeTag,
         setThumbNailUrl,
-        onChangeIsPublic,
+        handleChangeIsPublic,
       }}
     >
       {children}
