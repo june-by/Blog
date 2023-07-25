@@ -2,14 +2,11 @@ import { useThemeContext } from "context/themeContext";
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 
-const LIGHT_THEME = "light";
-const DARK_THEME = "dark";
 const src = "https://giscus.app";
 
 const Comments = () => {
   const commentWrapperRef = useRef<HTMLScriptElement | null>(null);
   const { theme, isThemeLoaded } = useThemeContext();
-  const themeMode = theme === "dark" ? DARK_THEME : LIGHT_THEME;
 
   useEffect(() => {
     if (!commentWrapperRef.current) return;
@@ -38,10 +35,11 @@ const Comments = () => {
       if (!commentWrapperRef.current) return;
 
       if (commentWrapperRef.current?.innerHTML) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         commentWrapperRef.current.innerHTML = "";
       }
     };
-  }, [themeMode, isThemeLoaded]);
+  }, [isThemeLoaded, theme]);
 
   return <section className={styles.Utterances} ref={commentWrapperRef} />;
 };

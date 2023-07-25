@@ -9,11 +9,13 @@ export default function useHighLightCodeBlock(category: CategoryType) {
       ignoreUnescapedHTML: true,
     });
     hljs.highlightAll();
-  }, []);
+  }, [category]);
 }
 
 function handleCodeBlock(category: CategoryType) {
-  const $preList = document.getElementsByTagName("pre") as unknown as HTMLPreElement[];
+  const $preList = document.getElementsByTagName(
+    "pre"
+  ) as unknown as HTMLPreElement[];
   for (const $pre of $preList) {
     const $code = makeCodeNode($pre.innerHTML, category);
     replaceChildNode($pre, $code);

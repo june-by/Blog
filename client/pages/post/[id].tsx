@@ -37,7 +37,7 @@ const PostPage = () => {
       alert(MESSAGE.NOT_READY_POST);
       router.replace("/");
     }
-  }, [Post, userInfo]);
+  }, [userInfo, PostData, router]);
 
   if (router.isFallback) return <PostSkeleton />;
 
