@@ -3,6 +3,9 @@ import styles from "./styles.module.scss";
 import useScroll from "Hooks/useScroll";
 import TOCModal from "./TOCModal";
 
+const MARGIN_RIGHT_FOR_HIDE = "-50px";
+const MARGIN_RIGHT_FOR_SHOW = "0px";
+
 const TOCButton = () => {
   const [openModal, setOpenModal] = useState(false);
   const TOCButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -11,7 +14,7 @@ const TOCButton = () => {
     if (!TOCButtonRef.current) {
       return;
     }
-    TOCButtonRef.current.style.marginRight = "-50px";
+    TOCButtonRef.current.style.marginRight = MARGIN_RIGHT_FOR_HIDE;
   }, []);
 
   const showButton = useCallback(() => {
@@ -21,7 +24,7 @@ const TOCButton = () => {
     if (openModal) {
       return;
     }
-    TOCButtonRef.current.style.marginRight = "0px";
+    TOCButtonRef.current.style.marginRight = MARGIN_RIGHT_FOR_SHOW;
   }, [openModal]);
 
   const handleClickButton = () => {

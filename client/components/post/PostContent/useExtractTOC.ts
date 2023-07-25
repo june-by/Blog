@@ -24,7 +24,7 @@ const useExtractTOC = ({ postTitle }: { postTitle: string }) => {
       setTableOfContents(tagArr as HTMLElement[]);
       setIsExtractComplete(true);
     }, 10);
-  }, []);
+  }, [postTitle]);
 
   return { tableOfContents, isExtractComplete };
 };

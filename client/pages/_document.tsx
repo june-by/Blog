@@ -1,10 +1,5 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from "next/document";
+import DEFAULT_THEME from "constants/defaultTheme";
+import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
 import extractFromCookie from "utils/extractFromCookie";
 
 let theme = "light";
@@ -12,7 +7,7 @@ let theme = "light";
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-    theme = extractFromCookie(ctx.req?.headers.cookie, "theme") || "dark";
+    theme = extractFromCookie(ctx.req?.headers.cookie, "theme") || DEFAULT_THEME;
     return initialProps;
   }
 

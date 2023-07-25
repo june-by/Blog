@@ -1,11 +1,11 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getOnePostAPI, GetTopViewsPostsAPI } from ".";
+import { getAllCategoryLengthAPI, getCategoryPostAPI, getPostAPI, GetTopViewsPostsAPI } from ".";
 import DUMMY from "constants/dummy";
 import { Category } from "constants/category";
 import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
 
 describe("postAPI", () => {
-  it("getOnePostAPI", async () => {
-    expect(await getOnePostAPI(1)).toStrictEqual({
+  it("getPostAPI", async () => {
+    expect(await getPostAPI(1)).toStrictEqual({
       ...DUMMY.POST,
       mainPost: {
         ...DUMMY.POST.mainPost,

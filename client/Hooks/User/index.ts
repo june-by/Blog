@@ -6,7 +6,7 @@ import QUERY_KEY from "constants/queryKey";
 import MESSAGE from "constants/message";
 import { ErrorMessage, MutationParams } from "Types/shared";
 
-export const useGetUserInfo = () =>
+export const useGetUserQuery = () =>
   useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), { ...CACHE_OPTION.ALL, retry: false });
 
 export const useSignUp = ({ onSuccess, onError }: MutationParams) => {

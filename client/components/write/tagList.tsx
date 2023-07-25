@@ -8,15 +8,16 @@ const TagList = () => {
     removeTag,
   } = useWriteContext();
 
+  if (tagArr?.length === 0) return null;
+
   return (
     <div className={styles.tagListWrap}>
-      {tagArr?.length !== 0 &&
-        tagArr.map((tag) => (
-          <div className={styles.TagChip} key={tag}>
-            <span>{tag}</span>
-            <button onClick={() => removeTag(tag)}>X</button>
-          </div>
-        ))}
+      {tagArr.map((tag) => (
+        <div className={styles.TagChip} key={tag}>
+          <span>{tag}</span>
+          <button onClick={() => removeTag(tag)}>X</button>
+        </div>
+      ))}
     </div>
   );
 };

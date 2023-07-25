@@ -1,6 +1,5 @@
-import useSetDefaultThumbNail from "components/write/useSetDefaultThumbNail";
 import { Category, CategoryType } from "constants/category";
-import { useGetOnePost } from "Hooks/Post";
+import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
 import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
@@ -26,13 +25,13 @@ interface State {
 
 interface ContextProps {
   writeFormData: State;
-  onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onChangeContent: (content: string) => void;
+  handleChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeContent: (content: string) => void;
   addTag: (tag: string) => void;
   removeTag: (tag: string) => void;
   setThumbNailUrl: (thumbNailUrl: string) => void;
-  onChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const initialState = {
@@ -55,7 +54,10 @@ const reducer = (state: State, action: Action): State => {
     case "addTag":
       return { ...state, tagArr: [...state.tagArr, action.tag] };
     case "removeTag":
-      return { ...state, tagArr: state.tagArr.filter((tag) => tag !== action.tag) };
+      return {
+        ...state,
+        tagArr: state.tagArr.filter((tag) => tag !== action.tag),
+      };
     case "editThumbNailUrl":
       return { ...state, thumbNailUrl: action.thumbNailUrl };
     case "editIsPublic":
@@ -67,28 +69,28 @@ const reducer = (state: State, action: Action): State => {
 
 export const WriteContext = createContext<ContextProps>({
   writeFormData: initialState,
-  onChangeTitle: () => {},
-  onChangeCategory: () => {},
-  onChangeContent: () => {},
+  handleChangeTitle: () => {},
+  handleChangeCategory: () => {},
+  handleChangeContent: () => {},
   addTag: () => {},
   removeTag: () => {},
   setThumbNailUrl: () => () => {},
-  onChangeIsPublic: () => {},
+  handleChangeIsPublic: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   const [writeFormData, dispatch] = useReducer(reducer, initialState);
 
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "editTitle", title: e.target.value });
   };
 
-  const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     const targetCategory = e.target.value as CategoryType;
     dispatch({ type: "editCategory", category: targetCategory });
   };
 
-  const onChangeContent = (content: string) => {
+  const handleChangeContent = (content: string) => {
     dispatch({ type: "editContent", content });
   };
 
@@ -104,7 +106,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
     dispatch({ type: "editThumbNailUrl", thumbNailUrl });
   };
 
-  const onChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeIsPublic = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "editIsPublic", isPublic: Number(e.target.checked) });
   };
 
@@ -114,13 +116,13 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
     <WriteContext.Provider
       value={{
         writeFormData,
-        onChangeTitle,
-        onChangeCategory,
-        onChangeContent,
+        handleChangeTitle,
+        handleChangeCategory,
+        handleChangeContent,
         addTag,
         removeTag,
         setThumbNailUrl,
-        onChangeIsPublic,
+        handleChangeIsPublic,
       }}
     >
       {children}
@@ -135,7 +137,9 @@ export const useWriteContext = () => {
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
   const postId = useQueryId();
-  const { data, isLoading } = useGetOnePost(postId, { enabled: isNaN(postId) ? false : true });
+  const { data, isLoading } = useGetPostQuery(postId, {
+    enabled: isNaN(postId) ? false : true,
+  });
 
   const post = data?.mainPost;
 
@@ -152,5 +156,5 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       isPublic: post.isPublic,
     };
     dispatch({ type: "initializeWriteFormData", initData });
-  }, [post, isLoading, query]);
+  }, [post, isLoading, query, dispatch]);
 }

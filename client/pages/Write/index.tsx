@@ -1,5 +1,4 @@
-import WriteWrap from "components/write";
-import { WriteContainer } from "context/writeContext";
+import WriteForm from "components/write";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { customAxios } from "utils/CustomAxios";
@@ -11,9 +10,7 @@ const Write = () => {
   return (
     <>
       <Header />
-      <WriteContainer>
-        <WriteWrap />
-      </WriteContainer>
+      <WriteForm />
     </>
   );
 };

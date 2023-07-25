@@ -8,6 +8,8 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const MARGIN_RIGHT_FOR_SHOW = "0px";
+
 const TOCModal = ({ open, setOpen }: Props) => {
   const tocModalRef = useRef<HTMLDivElement | null>(null);
 
@@ -18,18 +20,18 @@ const TOCModal = ({ open, setOpen }: Props) => {
   useEffect(() => {
     if (!tocModalRef.current) return;
     if (open) {
-      tocModalRef.current.style.marginRight = "0px";
+      tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_SHOW;
     } else {
-      tocModalRef.current.style.marginRight = "-75vw";
+      const modalFitContentWidth = tocModalRef.current.offsetWidth;
+      const modalMaxWidth = (window.innerWidth / 4) * 3;
+
+      tocModalRef.current.style.marginRight = `-${Math.min(modalMaxWidth, modalFitContentWidth)}px`;
     }
   }, [open]);
 
   return (
     <div ref={tocModalRef} className={styles.TOCModal}>
-      <button
-        className={styles.TOCModalCloseButton}
-        onClick={handleClickCloseButton}
-      >
+      <button className={styles.TOCModalCloseButton} onClick={handleClickCloseButton}>
         <CloseIcon />
       </button>
 

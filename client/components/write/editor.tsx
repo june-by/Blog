@@ -34,7 +34,7 @@ const QuillNoSSRWrapper = dynamic(
 const Editor = () => {
   const {
     writeFormData: { category, content },
-    onChangeContent: onChange,
+    handleChangeContent: onChange,
   } = useWriteContext();
 
   const QuillRef = useRef<ReactQuill>(null);
@@ -63,7 +63,10 @@ const Editor = () => {
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) => hljs.highlight(text, { language: CATEGORY_TO_HLJS_CLASS[category] || "" }).value,
+        highlight: (text: string) =>
+          hljs.highlight(text, {
+            language: CATEGORY_TO_HLJS_CLASS[category] || "",
+          }).value,
       },
       toolbar: {
         container: containerConfig,
@@ -74,7 +77,7 @@ const Editor = () => {
         },
       },
     }),
-    []
+    [category]
   );
   return (
     <>

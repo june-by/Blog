@@ -24,8 +24,8 @@
 }
 
 .content {
-  background: var(--modal-background);
-  color: var(--text-color) !important;
+  background: var(--bg-element1);
+  color: var(---bg-element2) !important;
   width: 80%;
   z-index: 2;
   padding: 30px 20px;
@@ -38,7 +38,7 @@
   }
   input {
     background: var(--input-background) !important;
-    color: var(--text-color);
+    color: var(---bg-element2);
     &:focus {
       border: 1px solid var(--input-background) !important;
     }

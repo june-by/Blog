@@ -5,9 +5,9 @@ import styles from "./@styles.module.scss";
 const TitleInput = () => {
   const {
     writeFormData: { title },
-    onChangeTitle,
+    handleChangeTitle,
   } = useWriteContext();
-  return <input className={styles.titleInput} value={title} placeholder="제목" onChange={onChangeTitle} />;
+  return <input className={styles.titleInput} value={title} placeholder="제목" onChange={handleChangeTitle} />;
 };
 
 export default TitleInput;

@@ -5,71 +5,57 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
-    "Segoe UI Symbol";
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
+    sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 body[data-theme="dark"] {
   background: #121212;
   color: white;
-  --background-color: #121212;
+  --bg-element1: #121212;
+  --bg-element2: white;
 
-  --header-background: #121212;
+  --primary1: #6185e5;
+  --primary2: #6e7788;
+
   --header-color: white;
   --header-border-bottom: white;
-  --header-hover-color: #6185e5;
-  --menu-icon-color: white;
   --input-background: #1e1e1e;
-  --icon-color: white;
-  --github-icon-color: #6185e5;
-  --text-color: white;
-  --colored-text: #6185e5;
   --button-background: #3e4756;
-  --button-hover-background: #6e7788;
   --button-background-mono: #282c34;
   --button-background-mono-hover: #4d515a;
-  --modal-background: #121212;
   --box-shadow-color: white;
   --post-card-background: #1e1e1e;
   --post-card-border: #2a2a2a;
   --slight-layer: rgba(255, 255, 255, 0.1);
   --loginButton-text-color: white;
-  --toc-button-hover-background: #6e7788;
   --toc-modal-border: #3e4756;
-  --colored-button-backgrouind: #6185e5;
 }
 
 body[data-theme="light"] {
   background: white;
   color: black;
-  --background-color: white;
-  --header-background: white;
+  --bg-element1: white;
+  --bg-element2: black;
+  --primary1: #0099fa;
+  --primary2: #005cb4;
+
   --header-border-bottom: #e5e5e5;
   --header-color: #615f63;
-  --colored-text: #0099fa;
 
-  --header-hover-color: #0099fa;
-  --menu-icon-color: black;
   --input-background: #f5f5f5;
-  --icon-color: black;
-  --text-color: black;
-  --github-icon-color: #0099fa;
+
   --button-background: #0099fa;
-  --button-hover-background: #005cb4;
   --button-background-mono: #f8f8f8;
   --button-background-mono-hover: #e6e6e6;
 
-  --modal-background: white;
   --box-shadow-color: #333d4b26;
   --post-card-background: white;
   --post-card-border: #c8c8c8;
   --slight-layer: rgba(0, 0, 0, 0.05);
   --loginButton-text-color: #404040;
   --slight-layer: rgba(0, 0, 0, 0.05);
-  --toc-button-hover-background: #00baff;
   --toc-modal-border: #e5e5e5;
-  --colored-button-backgrouind: #0099fa;
 }
 
 a {

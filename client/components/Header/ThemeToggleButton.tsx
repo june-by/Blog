@@ -1,13 +1,12 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Light from "components/Icon/light";
 import Dark from "components/Icon/dark";
-import IconButton from "../shared/IconButton";
 import { useThemeContext } from "context/themeContext";
 import styles from "./styles.module.scss";
 import { animated, useTransition } from "react-spring";
 
 const ThemeToggleButton = () => {
-  const { theme, onChangeTheme } = useThemeContext();
+  const { theme, handleChangeTheme } = useThemeContext();
 
   const isDark = theme === "dark";
 
@@ -32,7 +31,7 @@ const ThemeToggleButton = () => {
     <button
       data-testid="toggleBtn"
       aria-label="toggleDarkModeButton"
-      onClick={onChangeTheme}
+      onClick={handleChangeTheme}
       className={styles.iconButton}
     >
       {transitions((style, item) => (
