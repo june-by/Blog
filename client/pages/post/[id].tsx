@@ -16,10 +16,11 @@ import MESSAGE from "constants/message";
 import Header from "components/Header";
 import Post from "components/post";
 import ScrollIndicator from "components/post/ScrollIndicator";
+import useQueryId from "Hooks/useQueryId";
 
 const PostPage = () => {
   const router = useRouter();
-  const postId = Number(router.query.id);
+  const postId = useQueryId();
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserQuery();
   const { data } = useGetPostQuery(postId);
