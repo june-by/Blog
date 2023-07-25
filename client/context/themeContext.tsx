@@ -5,13 +5,13 @@ type ThemeType = "light" | "dark";
 
 interface ContextProps {
   theme: ThemeType;
-  onChangeTheme: () => void;
+  handleChangeTheme: () => void;
   isThemeLoaded: boolean;
 }
 
 const ThemeContext = createContext<ContextProps>({
   theme: "light",
-  onChangeTheme: () => {},
+  handleChangeTheme: () => {},
   isThemeLoaded: false,
 });
 
@@ -24,7 +24,7 @@ export const ThemeContainer = ({ children }: { children: React.ReactElement }) =
     document.cookie = `theme=${nextTheme}; path=/`;
   }, []);
 
-  const onChangeTheme = useCallback(() => {
+  const handleChangeTheme = useCallback(() => {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     changeThemeOnDocument(nextTheme);
@@ -38,7 +38,7 @@ export const ThemeContainer = ({ children }: { children: React.ReactElement }) =
     setIsThemeLoaded(true);
   }, [changeThemeOnDocument]);
 
-  return <ThemeContext.Provider value={{ theme, onChangeTheme, isThemeLoaded }}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ theme, handleChangeTheme, isThemeLoaded }}>{children}</ThemeContext.Provider>;
 };
 
 export const useThemeContext = () => {

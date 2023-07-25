@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 import { animated, useTransition } from "react-spring";
 
 const ThemeToggleButton = () => {
-  const { theme, onChangeTheme } = useThemeContext();
+  const { theme, handleChangeTheme } = useThemeContext();
 
   const isDark = theme === "dark";
 
@@ -32,7 +32,7 @@ const ThemeToggleButton = () => {
     <button
       data-testid="toggleBtn"
       aria-label="toggleDarkModeButton"
-      onClick={onChangeTheme}
+      onClick={handleChangeTheme}
       className={styles.iconButton}
     >
       {transitions((style, item) => (
