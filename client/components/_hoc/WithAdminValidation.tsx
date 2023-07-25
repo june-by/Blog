@@ -1,4 +1,4 @@
-import { useGetUserInfo } from "Hooks/User";
+import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import LoadingOrNot from "./LoadingOrNot";
 import SwitchCase from "./SwitchCase";
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const WithAdminValidation = ({ children }: Props) => {
-  const { data: userInfo, isLoading } = useGetUserInfo();
+  const { data: userInfo, isLoading } = useGetUserQuery();
   const isAdmin = IsAdmin(userInfo);
 
   return (

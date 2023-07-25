@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import MESSAGE from "constants/message";
-import { useGetUserInfo } from "Hooks/User";
+import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ import isNull from "utils/isNull";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
-  const { data: UserInfo } = useGetUserInfo();
+  const { data: UserInfo } = useGetUserQuery();
 
   const onClickPostCard = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (post.isPublic === 0 && !IsAdmin(UserInfo)) {

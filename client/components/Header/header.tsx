@@ -8,7 +8,7 @@ import GoogleIcon from "components/Icon/google";
 import GithubIcon from "components/Icon/github";
 import useToggle from "Hooks/useToggle";
 import useGotoPage from "Hooks/useGotoPage";
-import { useGetUserInfo } from "Hooks/User";
+import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
 import useScroll from "Hooks/useScroll";
 import Image from "next/image";
@@ -20,7 +20,7 @@ const HEADER_HEIGHT = "65px";
 const Header = () => {
   const headerRef = useRef<HTMLHeadingElement | null>(null);
 
-  const { data: userData } = useGetUserInfo();
+  const { data: userData } = useGetUserQuery();
   const [showEmail, _, onClickEmail] = useToggle(false);
 
   const isLoggedIn = !!userData;
@@ -53,14 +53,8 @@ const Header = () => {
             aria-label="gotoGithubButton"
             onClick={() => window.open("https://github.com/BY-juun")}
           />
-          <IconButton
-            Icon={<GoogleIcon />}
-            aria-label="toggleEmailButton"
-            onClick={onClickEmail}
-          />
-          {showEmail && (
-            <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>
-          )}
+          <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
+          {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
         </div>
         <div className={styles.headerRightWrap}>
           {isLoggedIn && (

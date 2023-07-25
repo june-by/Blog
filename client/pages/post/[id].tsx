@@ -10,7 +10,7 @@ import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
 import PostSkeleton from "components/post/Skeleton";
-import { useGetUserInfo } from "Hooks/User";
+import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import Header from "components/Header";
@@ -21,7 +21,7 @@ const PostPage = () => {
   const router = useRouter();
   const postId = Number(router.query.id);
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
-  const { data: userInfo } = useGetUserInfo();
+  const { data: userInfo } = useGetUserQuery();
   const { data } = useGetPostQuery(postId);
 
   const PostData = data?.mainPost;
