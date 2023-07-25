@@ -14,6 +14,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { AiOutlineEye } from "react-icons/ai";
 import PostSkeleton from "components/post/Skeleton";
+import isNull from "utils/isNull";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
@@ -29,11 +30,13 @@ const PostCard = ({ post }: { post: PostsType }) => {
     sessionStorage.setItem("scrollPos", JSON.stringify({ scrollY, pathname }));
   };
 
+  const isThumbNailExist = !isNull(post.thumbNailUrl);
+
   return (
     <Link href={`/post/${post.id}`} data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
       <figure className={styles.PostCard_imgWrapper}>
-        {post.thumbNailUrl && post.thumbNailUrl !== "null" ? (
-          <Image src={post.thumbNailUrl} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+        {isThumbNailExist ? (
+          <Image src={post.thumbNailUrl as string} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
         ) : (
           <picture>
             <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
