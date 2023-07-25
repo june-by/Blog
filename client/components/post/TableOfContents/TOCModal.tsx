@@ -28,10 +28,7 @@ const TOCModal = ({ open, setOpen }: Props) => {
 
   return (
     <div ref={tocModalRef} className={styles.TOCModal}>
-      <button
-        className={styles.TOCModalCloseButton}
-        onClick={handleClickCloseButton}
-      >
+      <button className={styles.TOCModalCloseButton} onClick={handleClickCloseButton}>
         <CloseIcon />
       </button>
 
