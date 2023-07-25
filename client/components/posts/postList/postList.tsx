@@ -17,24 +17,17 @@ interface Props {
 }
 
 const PostList = ({ params, query }: Props) => {
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-    isError,
-    refetch,
-    error,
-  } = query(params);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
 
   useRestoreSrollPos();
 
   if (isError) return <ErrorHelper error={error} reset={refetch} />;
 
+  const isPostExist = data?.pages[0]?.length !== 0 ? true : false;
+
   return (
     <>
-      {isPostExist(data?.pages[0]) ? (
+      {isPostExist ? (
         <PostsListLayout>
           {/* <EtcCard /> */}
           <InfiniteScroll
@@ -43,11 +36,9 @@ const PostList = ({ params, query }: Props) => {
             isLoading={isFetchingNextPage || isLoading}
             skeleton={
               <>
-                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map(
-                  (_, idx) => {
-                    return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
-                  }
-                )}
+                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+                  return <PostCardSkeleton key={`postCardSkeleton${idx}`} />;
+                })}
               </>
             }
           >
@@ -68,7 +59,3 @@ const PostList = ({ params, query }: Props) => {
 };
 
 export default PostList;
-
-function isPostExist(data: PostsType[] | undefined) {
-  return data?.length !== 0 ? true : false;
-}
