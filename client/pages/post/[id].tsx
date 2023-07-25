@@ -9,7 +9,6 @@ import ScrollButton from "components/shared/scrollButton";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
-import PostSkeleton from "components/post/Skeleton";
 import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
