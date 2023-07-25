@@ -1,4 +1,5 @@
 import React from "react";
+import { WriteContainer } from "context/writeContext";
 import styles from "./@styles.module.scss";
 import dynamic from "next/dynamic";
 import ThumbNailPicker from "components/write/thumbNailPicker";
@@ -14,22 +15,24 @@ const Editor = dynamic(() => import("./editor"), {
 
 const WriteWrap = () => {
   return (
-    <div className={styles.Write}>
-      <div className={styles.titleArea}>
-        <TitleInput />
-        <IsPublicCheckBox />
-        <SubmitButton />
-      </div>
-      <div className={styles.etcArea}>
-        <CategorySelector />
-        <div className={styles.tagWrap}>
-          <TagForm />
-          <TagList />
+    <WriteContainer>
+      <div className={styles.Write}>
+        <div className={styles.titleArea}>
+          <TitleInput />
+          <IsPublicCheckBox />
+          <SubmitButton />
         </div>
+        <div className={styles.etcArea}>
+          <CategorySelector />
+          <div className={styles.tagWrap}>
+            <TagForm />
+            <TagList />
+          </div>
+        </div>
+        <Editor />
+        <ThumbNailPicker />
       </div>
-      <Editor />
-      <ThumbNailPicker />
-    </div>
+    </WriteContainer>
   );
 };
 
