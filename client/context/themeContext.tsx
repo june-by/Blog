@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import extractFromCookie from "utils/extractFromCookie";
 
 type ThemeType = "light" | "dark";
@@ -21,39 +15,30 @@ const ThemeContext = createContext<ContextProps>({
   isThemeLoaded: false,
 });
 
-export const ThemeContainer = ({
-  children,
-}: {
-  children: React.ReactElement;
-}) => {
+export const ThemeContainer = ({ children }: { children: React.ReactElement }) => {
   const [theme, setTheme] = useState<ThemeType>("light");
   const [isThemeLoaded, setIsThemeLoaded] = useState(false);
-
-  const onChangeTheme = useCallback(() => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    changeThemeOnDocument(nextTheme);
-  }, [theme]);
 
   const changeThemeOnDocument = useCallback((nextTheme: ThemeType) => {
     document.body.dataset.theme = nextTheme;
     document.cookie = `theme=${nextTheme}; path=/`;
   }, []);
 
+  const onChangeTheme = useCallback(() => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    changeThemeOnDocument(nextTheme);
+  }, [changeThemeOnDocument, theme]);
+
   useEffect(() => {
     // NOTE: for synchronize cookie and theme state
-    const cookieTheme = (extractFromCookie(document.cookie, "theme") ||
-      "dark") as ThemeType;
+    const cookieTheme = (extractFromCookie(document.cookie, "theme") || "dark") as ThemeType;
     setTheme(cookieTheme);
     changeThemeOnDocument(cookieTheme);
     setIsThemeLoaded(true);
-  }, []);
+  }, [changeThemeOnDocument]);
 
-  return (
-    <ThemeContext.Provider value={{ theme, onChangeTheme, isThemeLoaded }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, onChangeTheme, isThemeLoaded }}>{children}</ThemeContext.Provider>;
 };
 
 export const useThemeContext = () => {
