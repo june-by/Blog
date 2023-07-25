@@ -52,7 +52,7 @@ $desktop: 1024px;
   cursor: pointer;
   &:hover {
     transition: background 0.25s ease;
-    background: var(--button-hover-background);
+    background: var(--primary2);
   }
 }
 
@@ -63,7 +63,7 @@ $desktop: 1024px;
   flex-direction: column;
   align-items: center;
   background: var(--post-card-background) 0% 0% no-repeat padding-box;
-  color: var(--text-color);
+  color: var(---bg-element2);
   border: 0.5px solid var(--post-card-border);
   border-radius: 4px;
   overflow: hidden;
