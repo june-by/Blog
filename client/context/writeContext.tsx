@@ -1,5 +1,5 @@
 import { Category, CategoryType } from "constants/category";
-import { useGetOnePost } from "Hooks/Post";
+import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
 import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
@@ -137,7 +137,7 @@ export const useWriteContext = () => {
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
   const postId = useQueryId();
-  const { data, isLoading } = useGetOnePost(postId, {
+  const { data, isLoading } = useGetPostQuery(postId, {
     enabled: isNaN(postId) ? false : true,
   });
 

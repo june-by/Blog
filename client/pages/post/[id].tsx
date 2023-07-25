@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getOnePostAPI } from "services/post";
-import { useGetOnePost } from "Hooks/Post";
+import { useGetPostQuery } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
@@ -22,7 +22,7 @@ const PostPage = () => {
   const postId = Number(router.query.id);
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserInfo();
-  const { data } = useGetOnePost(postId);
+  const { data } = useGetPostQuery(postId);
 
   const PostData = data?.mainPost;
 
