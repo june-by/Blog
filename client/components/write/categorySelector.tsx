@@ -4,11 +4,11 @@ import React from "react";
 
 const CategorySelector = () => {
   const {
-    onChangeCategory,
+    handleChangeCategory,
     writeFormData: { category },
   } = useWriteContext();
   return (
-    <select name="category" onChange={onChangeCategory} value={category}>
+    <select name="category" onChange={handleChangeCategory} value={category}>
       <>
         {Category.map((category) => (
           <option key={category}>{category}</option>

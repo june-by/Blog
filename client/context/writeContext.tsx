@@ -2,14 +2,7 @@ import { Category, CategoryType } from "constants/category";
 import { useGetOnePost } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
-import {
-  ChangeEvent,
-  createContext,
-  Dispatch,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
 
 type Action =
   | { type: "editTitle"; title: string }
@@ -32,9 +25,9 @@ interface State {
 
 interface ContextProps {
   writeFormData: State;
-  onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onChangeContent: (content: string) => void;
+  handleChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeContent: (content: string) => void;
   addTag: (tag: string) => void;
   removeTag: (tag: string) => void;
   setThumbNailUrl: (thumbNailUrl: string) => void;
@@ -76,9 +69,9 @@ const reducer = (state: State, action: Action): State => {
 
 export const WriteContext = createContext<ContextProps>({
   writeFormData: initialState,
-  onChangeTitle: () => {},
-  onChangeCategory: () => {},
-  onChangeContent: () => {},
+  handleChangeTitle: () => {},
+  handleChangeCategory: () => {},
+  handleChangeContent: () => {},
   addTag: () => {},
   removeTag: () => {},
   setThumbNailUrl: () => () => {},
@@ -88,16 +81,16 @@ export const WriteContext = createContext<ContextProps>({
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   const [writeFormData, dispatch] = useReducer(reducer, initialState);
 
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "editTitle", title: e.target.value });
   };
 
-  const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     const targetCategory = e.target.value as CategoryType;
     dispatch({ type: "editCategory", category: targetCategory });
   };
 
-  const onChangeContent = (content: string) => {
+  const handleChangeContent = (content: string) => {
     dispatch({ type: "editContent", content });
   };
 
@@ -123,9 +116,9 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
     <WriteContext.Provider
       value={{
         writeFormData,
-        onChangeTitle,
-        onChangeCategory,
-        onChangeContent,
+        handleChangeTitle,
+        handleChangeCategory,
+        handleChangeContent,
         addTag,
         removeTag,
         setThumbNailUrl,
@@ -163,5 +156,5 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       isPublic: post.isPublic,
     };
     dispatch({ type: "initializeWriteFormData", initData });
-  }, [post, isLoading, query]);
+  }, [post, isLoading, query, dispatch]);
 }

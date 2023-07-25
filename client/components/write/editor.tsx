@@ -22,11 +22,9 @@ interface Props {
 const QuillNoSSRWrapper = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-    const TempEditor = React.forwardRef(
-      ({ forwardedRef, ...props }: Props, ref: any) => {
-        return <RQ ref={forwardedRef} {...props} />;
-      }
-    );
+    const TempEditor = React.forwardRef(({ forwardedRef, ...props }: Props, ref: any) => {
+      return <RQ ref={forwardedRef} {...props} />;
+    });
     //TempEditor.displayName = "TempEditor";
     return TempEditor;
   },
@@ -36,7 +34,7 @@ const QuillNoSSRWrapper = dynamic(
 const Editor = () => {
   const {
     writeFormData: { category, content },
-    onChangeContent: onChange,
+    handleChangeContent: onChange,
   } = useWriteContext();
 
   const QuillRef = useRef<ReactQuill>(null);
@@ -125,17 +123,7 @@ const containerConfig = [
   [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
   [{ size: [] }],
   [{ color: [] }, { background: [] }],
-  [
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "code",
-    "blockquote",
-    "color",
-    "background",
-    "code-block",
-  ],
+  ["bold", "italic", "underline", "strike", "code", "blockquote", "color", "background", "code-block"],
   [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
   ["link", "image", "video"],
   ["clean"],
