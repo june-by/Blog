@@ -31,9 +31,9 @@ const PostList = ({ params, query }: Props) => {
 
   if (isError) return <ErrorHelper error={error} reset={refetch} />;
 
-  const isPostExist = data?.pages[0]?.length !== 0 ? true : false;
+  const isPostsExist = data?.pages[0]?.length !== 0 ? true : false;
 
-  if (!isPostExist) return <NoPost />;
+  if (!isPostsExist) return <NoPost />;
 
   return (
     <PostsListLayout>
@@ -42,13 +42,7 @@ const PostList = ({ params, query }: Props) => {
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isLoading={isFetchingNextPage || isLoading}
-        skeleton={
-          <>
-            {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-              return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
-            })}
-          </>
-        }
+        skeleton={<PostCardSkeletonList />}
       >
         {data?.pages.map((page) => (
           <>
@@ -59,6 +53,16 @@ const PostList = ({ params, query }: Props) => {
         ))}
       </InfiniteScroll>
     </PostsListLayout>
+  );
+};
+
+const PostCardSkeletonList = () => {
+  return (
+    <>
+      {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+        return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
+      })}
+    </>
   );
 };
 
