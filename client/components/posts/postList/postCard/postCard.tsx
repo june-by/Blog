@@ -13,14 +13,16 @@ import IsAdmin from "utils/isAdmin";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { AiOutlineEye } from "react-icons/ai";
-import PostSkeleton from "components/post/Skeleton";
+import PostCardSkeleton from "./skeleton";
 import isNull from "utils/isNull";
 
 const PostCard = ({ post }: { post: PostsType }) => {
   const router = useRouter();
   const { data: UserInfo } = useGetUserQuery();
 
-  const onClickPostCard = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onClickPostCard = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     if (post.isPublic === 0 && !IsAdmin(UserInfo)) {
       e.preventDefault();
       return toast.warn(MESSAGE.NOT_READY_POST);
@@ -33,13 +35,27 @@ const PostCard = ({ post }: { post: PostsType }) => {
   const isThumbNailExist = !isNull(post.thumbNailUrl);
 
   return (
-    <Link href={`/post/${post.id}`} data-testid="postCard" className={styles.PostCard} onClick={onClickPostCard}>
+    <Link
+      href={`/post/${post.id}`}
+      data-testid="postCard"
+      className={styles.PostCard}
+      onClick={onClickPostCard}
+    >
       <figure className={styles.PostCard_imgWrapper}>
         {isThumbNailExist ? (
-          <Image src={post.thumbNailUrl as string} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+          <Image
+            src={post.thumbNailUrl as string}
+            fill
+            alt="category"
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+          />
         ) : (
           <picture>
-            <source data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp} type="image/webp" />
+            <source
+              data-srcset={S3_PREFIX + THUMBNAIL[post.category]?.webp}
+              type="image/webp"
+            />
             <Image
               fill
               src={S3_PREFIX + THUMBNAIL[post.category]?.jpg}
@@ -56,7 +72,9 @@ const PostCard = ({ post }: { post: PostsType }) => {
           {post.isPublic ? (
             <>
               {post.Tags.length !== 0 &&
-                post.Tags.map((tag) => <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />)}
+                post.Tags.map((tag) => (
+                  <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />
+                ))}
             </>
           ) : (
             <span className={styles.prepare}>준비중</span>
@@ -74,7 +92,7 @@ const PostCard = ({ post }: { post: PostsType }) => {
   );
 };
 
-PostCard.Skeleton = PostSkeleton;
+PostCard.Skeleton = PostCardSkeleton;
 
 export default PostCard;
 
