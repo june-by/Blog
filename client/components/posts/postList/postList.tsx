@@ -33,38 +33,32 @@ const PostList = ({ params, query }: Props) => {
 
   const isPostExist = data?.pages[0]?.length !== 0 ? true : false;
 
+  if (!isPostExist) return <NoPost />;
+
   return (
-    <>
-      {isPostExist ? (
-        <PostsListLayout>
-          {/* <EtcCard /> */}
-          <InfiniteScroll
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage || isLoading}
-            skeleton={
-              <>
-                {Array.from({ length: POSTS_PER_PAGE }, () => 0).map(
-                  (_, idx) => {
-                    return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
-                  }
-                )}
-              </>
-            }
-          >
-            {data?.pages.map((page) => (
-              <>
-                {page.map((post: PostsType) => (
-                  <PostCard key={post.title} post={post} />
-                ))}
-              </>
+    <PostsListLayout>
+      {/* <EtcCard /> */}
+      <InfiniteScroll
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isLoading={isFetchingNextPage || isLoading}
+        skeleton={
+          <>
+            {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+              return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
+            })}
+          </>
+        }
+      >
+        {data?.pages.map((page) => (
+          <>
+            {page.map((post: PostsType) => (
+              <PostCard key={post.title} post={post} />
             ))}
-          </InfiniteScroll>
-        </PostsListLayout>
-      ) : (
-        <NoPost />
-      )}
-    </>
+          </>
+        ))}
+      </InfiniteScroll>
+    </PostsListLayout>
   );
 };
 
