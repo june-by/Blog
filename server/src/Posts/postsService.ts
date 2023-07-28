@@ -17,7 +17,9 @@ const getMainPosts = async ({ page }: { page: string }) => {
     order: [["createdAt", "DESC"]],
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: ["content", "updatedAt"],
+    },
     include: [
       {
         model: Tag,
@@ -34,7 +36,9 @@ const getCategoryPosts = async ({ category, page }: { page: string; category: st
     order: [["createdAt", "DESC"]],
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: ["content", "updatedAt"],
+    },
     include: [
       {
         model: Tag,
