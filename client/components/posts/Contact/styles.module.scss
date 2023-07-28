@@ -1,11 +1,21 @@
 @import "utils/utils.scss";
 .Contact {
   width: 150px;
+  height: fit-content;
+
   h2 {
     width: 100%;
     text-align: left;
     font-size: 1.5rem;
     margin: 0px 0px 1.25rem;
+  }
+  @include desktop {
+    flex-direction: column;
+    position: sticky;
+    top: 75px;
+  }
+  @include mobile {
+    margin-top: 50px;
   }
 }
 
