@@ -14,16 +14,7 @@ interface Props {
 }
 
 const PostList = ({ params, query }: Props) => {
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-    isError,
-    refetch,
-    error,
-  } = query(params);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
 
   useRestoreSrollPos();
 
@@ -39,7 +30,7 @@ const PostList = ({ params, query }: Props) => {
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isLoading={isFetchingNextPage || isLoading}
-        skeleton={<></>}
+        skeleton={<PostCardSkeletonList />}
       >
         {data?.pages.map((page) => (
           <>
@@ -53,14 +44,14 @@ const PostList = ({ params, query }: Props) => {
   );
 };
 
-// const PostCardSkeletonList = () => {
-//   return (
-//     <>
-//       {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-//         return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
-//       })}
-//     </>
-//   );
-// };
+const PostCardSkeletonList = () => {
+  return (
+    <>
+      {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+        return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
+      })}
+    </>
+  );
+};
 
 export default PostList;

@@ -5,21 +5,13 @@ import LoadingOrNot from "./LoadingOrNot";
 
 interface Props {
   children: ReactNode;
-  fetchNextPage: (
-    options?: FetchNextPageOptions | undefined
-  ) => Promise<InfiniteQueryObserverResult<any, unknown>>;
+  fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<any, unknown>>;
   hasNextPage?: boolean;
   isLoading: boolean;
   skeleton: JSX.Element;
 }
 
-const InfiniteScroll = ({
-  children,
-  fetchNextPage,
-  hasNextPage,
-  isLoading,
-  skeleton,
-}: Props) => {
+const InfiniteScroll = ({ children, fetchNextPage, hasNextPage, isLoading, skeleton }: Props) => {
   const { ref, inView } = useInView({ rootMargin: "150px" });
 
   useEffect(() => {
