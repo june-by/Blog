@@ -40,6 +40,16 @@
     width: 90%;
     max-width: 1440px;
   }
+  h1 {
+    font-size: 1.75rem;
+    cursor: pointer;
+    margin-right: 10px;
+
+    &:hover {
+      transition: 250ms;
+      color: var(--primary1);
+    }
+  }
 }
 .SkeletonHeader {
   position: fixed;
@@ -49,39 +59,6 @@
   padding: 0 15%;
   height: 50px;
   background: none;
-}
-.headerLeftWrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  h1 {
-    font-size: 20px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    background: none;
-    margin-left: -6px;
-    margin-right: -6px;
-    margin-top: 5px;
-    &:hover {
-      animation-name: shake;
-      animation-duration: 0.6s;
-    }
-    @include mobile {
-      display: none;
-    }
-  }
-
-  &_email {
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-  }
 }
 
 @keyframes shake {

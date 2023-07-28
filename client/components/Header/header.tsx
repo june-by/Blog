@@ -1,17 +1,12 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import styles from "./styles.module.scss";
-import IconButton from "components/shared/IconButton";
 import SearchButton from "./searchButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
-import GoogleIcon from "components/Icon/google";
-import GithubIcon from "components/Icon/github";
-import useToggle from "Hooks/useToggle";
 import useGotoPage from "Hooks/useGotoPage";
 import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
 import useScroll from "Hooks/useScroll";
-import Image from "next/image";
 
 const ADMIN_EMAIL = "neostgeart@gmail.com";
 
@@ -21,7 +16,6 @@ const Header = () => {
   const headerRef = useRef<HTMLHeadingElement | null>(null);
 
   const { data: userData } = useGetUserQuery();
-  const [showEmail, _, onClickEmail] = useToggle(false);
 
   const isLoggedIn = !!userData;
 
@@ -46,16 +40,9 @@ const Header = () => {
   return (
     <header ref={headerRef} className={styles.headerStyleWrap}>
       <div className={styles.headerContentWrap}>
-        <div className={styles.headerLeftWrap}>
-          <h1 onClick={gotoPage("/")}>ByJuun.</h1>
-          <IconButton
-            Icon={<GithubIcon />}
-            aria-label="gotoGithubButton"
-            onClick={() => window.open("https://github.com/BY-juun")}
-          />
-          <IconButton Icon={<GoogleIcon />} aria-label="toggleEmailButton" onClick={onClickEmail} />
-          {showEmail && <div className={styles.headerLeftWrap_email}>{ADMIN_EMAIL}</div>}
-        </div>
+        {/* <div className={styles.headerLeftWrap}> */}
+        <h1 onClick={gotoPage("/")}>ByJuun.</h1>
+        {/* </div> */}
         <div className={styles.headerRightWrap}>
           {isLoggedIn && (
             <span>
