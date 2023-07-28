@@ -22,7 +22,6 @@
   }
   @include tablet_landscape {
     padding: 0 10%;
-    display: flex;
     gap: 2.5rem;
   }
   @include mobile {

@@ -25,6 +25,7 @@ export interface PostsType {
   thumbNailUrl: string | null;
   views: number;
   isPublic: number;
+  shortDescription: string;
 }
 
 export interface AddPostParams {

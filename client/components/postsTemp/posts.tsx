@@ -14,10 +14,8 @@ const PostsPageContainer = (props: Props) => {
     <section className={styles.ListContainerWrapper}>
       <section className={styles.mainContentsWrapper}>
         <CategoryList />
-        <div>Post 영역</div>
+        <PostList {...props} />
         <Contact />
-        {/* <CategoryList />
-        <PostList {...props} /> */}
       </section>
     </section>
   );
