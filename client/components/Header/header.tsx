@@ -40,9 +40,7 @@ const Header = () => {
   return (
     <header ref={headerRef} className={styles.headerStyleWrap}>
       <div className={styles.headerContentWrap}>
-        {/* <div className={styles.headerLeftWrap}> */}
         <h1 onClick={gotoPage("/")}>ByJuun.</h1>
-        {/* </div> */}
         <div className={styles.headerRightWrap}>
           {isLoggedIn && (
             <span>
