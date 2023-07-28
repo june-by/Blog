@@ -9,6 +9,13 @@
     transition-duration: 500ms;
     background: var(--bg-element4);
   }
+  @include mobile {
+    display: block;
+    padding: 0;
+    &:hover {
+      background: none;
+    }
+  }
 }
 
 .thumbnailImgWrapper {
@@ -26,6 +33,14 @@
     display: block;
     padding-bottom: 50%;
   }
+  @include mobile {
+    width: 100%;
+    &::after {
+      content: "";
+      display: block;
+      padding-bottom: 60%;
+    }
+  }
 }
 
 .articleWrap {
@@ -34,10 +49,17 @@
     font-size: 1.5rem;
     line-height: 2rem;
     margin: 0;
+    @include mobile {
+      font-size: 1.25rem;
+    }
   }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @include mobile {
+    width: 100%;
+    padding: 5px;
+  }
 }
 
 .tagListWrap {

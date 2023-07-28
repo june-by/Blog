@@ -15,7 +15,7 @@ interface Props {
 }
 
 const PostCard = ({ post }: Props) => {
-  const { thumbNailUrl, title, category } = post;
+  const { thumbNailUrl, title, category, shortDescription = "" } = post;
   const isThumbNailExist = !isNull(thumbNailUrl);
 
   return (
@@ -64,7 +64,7 @@ const PostCard = ({ post }: Props) => {
             )}
           </ul>
         </div>
-        <span className={styles.shortDescription}></span>
+        <span className={styles.shortDescription}>{shortDescription}</span>
         <div className={styles.bottom}>
           <time>{dateForm(post.createdAt)}</time>
           <div>
