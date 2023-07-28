@@ -26,6 +26,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+    span {
+      margin-top: 0.25rem;
+      height: 100%;
+    }
   }
   &_createAt {
     font-size: 17px;
@@ -44,5 +49,15 @@
         color: #6185e5;
       }
     }
+  }
+}
+
+.Category {
+  color: var(--primary1);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    color: var(--primary3);
   }
 }
