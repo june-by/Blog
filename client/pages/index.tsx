@@ -1,8 +1,13 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { useGetCategoryPosts, useGetMainPost, useGetSearchPosts, useGetTagPosts } from "Hooks/Post";
+import {
+  useGetCategoryPosts,
+  useGetMainPost,
+  useGetSearchPosts,
+  useGetTagPosts,
+} from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
-import PostsPageContainer from "components/posts";
+import PostsPageContainer from "components/postsTemp";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
@@ -10,7 +15,8 @@ import Header from "components/Header";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
-  const { title, description, ogDescription, url, ogTitle } = createMetaData(query);
+  const { title, description, ogDescription, url, ogTitle } =
+    createMetaData(query);
 
   return (
     <>
@@ -23,7 +29,9 @@ const Home: NextPage = () => {
         <meta property="og:description" content={ogDescription} />
         <meta
           property="og:image"
-          content={"https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"}
+          content={
+            "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
+          }
         />
         <meta property="og:url" content={url} />
       </Head>
@@ -72,9 +80,11 @@ function getVerifyNeededKeysLength(keys: string[]) {
   return includedKeys.length;
 }
 
-const isVerifyNeeded = (keys: string[]) => (getVerifyNeededKeysLength(keys) === 0 ? false : true);
+const isVerifyNeeded = (keys: string[]) =>
+  getVerifyNeededKeysLength(keys) === 0 ? false : true;
 
-const verifyNumberOfKeys = (keys: string[]) => getVerifyNeededKeysLength(keys) === 1;
+const verifyNumberOfKeys = (keys: string[]) =>
+  getVerifyNeededKeysLength(keys) === 1;
 
 function verifyValue(query: ParsedUrlQuery) {
   for (const value of Object.values(query)) {

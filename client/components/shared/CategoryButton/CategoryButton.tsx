@@ -33,7 +33,7 @@ const CategoryButton = ({ category, length }: Props) => {
           ? `${styles.CategoryButton} ${styles.Selected}`
           : `${styles.CategoryButton}`
       }
-      href={`/posts?category=${category}`}
+      href={`/?category=${category}`}
     >
       <span className={styles.content}>{category}</span>
       <span className={styles.length}>{length}</span>
