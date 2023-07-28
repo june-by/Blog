@@ -13,9 +13,16 @@
 .mainContentsWrapper {
   margin-top: 15px;
   margin-bottom: 100px;
+
   @include desktop {
     width: 90%;
     max-width: 1440px;
+    display: flex;
+    gap: 2.5rem;
+  }
+  @include tablet_landscape {
+    padding: 0 10%;
+    gap: 2.5rem;
   }
   @include mobile {
     padding: 0 5%;
@@ -23,9 +30,5 @@
 
   @include tablet {
     padding: 0 5%;
-  }
-
-  @include tablet_landscape {
-    padding: 0 10%;
   }
 }

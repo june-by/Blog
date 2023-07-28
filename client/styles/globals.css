@@ -5,8 +5,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
-    sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
 body[data-theme="dark"] {
@@ -22,6 +23,7 @@ body[data-theme="dark"] {
 
   --primary1: #6185e5;
   --primary2: #6e7788;
+  --primary3: #00449a;
 
   --slight-layer: rgba(255, 255, 255, 0.1);
 }
@@ -39,6 +41,7 @@ body[data-theme="light"] {
 
   --primary1: #0099fa;
   --primary2: #005cb4;
+  --primary3: #005cb4;
 
   --slight-layer: rgba(0, 0, 0, 0.05);
 }

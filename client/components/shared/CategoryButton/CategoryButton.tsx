@@ -1,16 +1,16 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
-import Link from "next/link";
 import { CategoryType } from "constants/category";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface Props {
   category: CategoryType;
   length?: number | null;
 }
 
-const CategoryChip = ({ category, length }: Props) => {
-  const categoryChipRef = useRef<HTMLAnchorElement | null>(null);
+const CategoryButton = ({ category, length }: Props) => {
+  const categoryButtonRef = useRef<HTMLAnchorElement | null>(null);
   const { query } = useRouter();
 
   const currentCategory = query.category;
@@ -19,7 +19,7 @@ const CategoryChip = ({ category, length }: Props) => {
 
   useEffect(() => {
     if (!isCurrentSelectedCategory) return;
-    categoryChipRef.current?.scrollIntoView({
+    categoryButtonRef.current?.scrollIntoView({
       block: "nearest",
       inline: "center",
     });
@@ -27,21 +27,18 @@ const CategoryChip = ({ category, length }: Props) => {
 
   return (
     <Link
-      ref={categoryChipRef}
+      ref={categoryButtonRef}
       className={
         isCurrentSelectedCategory
-          ? `${styles.CategoryChip} ${styles.Selected}`
-          : `${styles.CategoryChip}`
+          ? `${styles.CategoryButton} ${styles.Selected}`
+          : `${styles.CategoryButton}`
       }
-      data-testid="categoryChip"
       href={`/?category=${category}`}
     >
-      <span>{category}</span>
-      {length && (
-        <div className={styles.CategoryLength}>{length ? length : 0}</div>
-      )}
+      <span className={styles.content}>{category}</span>
+      <span className={styles.length}>{length}</span>
     </Link>
   );
 };
 
-export default React.memo(CategoryChip);
+export default CategoryButton;

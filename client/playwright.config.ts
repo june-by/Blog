@@ -1,5 +1,4 @@
 import { defineConfig, devices } from "@playwright/test";
-import { ServerURL } from "constants/serverURL";
 
 /**
  * Read environment variables from file.

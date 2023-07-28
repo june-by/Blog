@@ -13,7 +13,7 @@ import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
 import Header from "components/Header";
 
-const Home: NextPage = () => {
+const Posts: NextPage = () => {
   const { query } = useRouter();
   const { title, description, ogDescription, url, ogTitle } =
     createMetaData(query);
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Posts;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryKeys = Object.keys(query);

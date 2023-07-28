@@ -1,15 +1,13 @@
 import ErrorHelper from "components/shared/errorHelper";
-import NoPost from "components/posts/postList/NoPost";
-import PostCard from "components/posts/postList/postCard";
+import NoPost from "./NoPost";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
 import InfiniteScroll from "components/_hoc/infiniteScroll";
-import EtcCard from "./etcCard";
 import PostsListLayout from "./layout";
-
+import PostCard from "./PostCard";
 interface Props {
   params?: any;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
@@ -37,12 +35,11 @@ const PostList = ({ params, query }: Props) => {
 
   return (
     <PostsListLayout>
-      {/* <EtcCard /> */}
       <InfiniteScroll
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isLoading={isFetchingNextPage || isLoading}
-        skeleton={<PostCardSkeletonList />}
+        skeleton={<></>}
       >
         {data?.pages.map((page) => (
           <>
@@ -56,14 +53,14 @@ const PostList = ({ params, query }: Props) => {
   );
 };
 
-const PostCardSkeletonList = () => {
-  return (
-    <>
-      {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-        return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
-      })}
-    </>
-  );
-};
+// const PostCardSkeletonList = () => {
+//   return (
+//     <>
+//       {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
+//         return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
+//       })}
+//     </>
+//   );
+// };
 
 export default PostList;
