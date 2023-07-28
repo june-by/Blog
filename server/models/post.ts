@@ -13,6 +13,10 @@ export default (sequelize: Sequelize, DataTypes: any) => {
         type: DataTypes.TEXT("long"),
         allowNull: false,
       },
+      shortDescription: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+      },
       category: {
         type: DataTypes.STRING(30),
         allowNull: false, //필수

@@ -10,6 +10,10 @@ exports.default = (function (sequelize, DataTypes) {
             type: DataTypes.TEXT("long"),
             allowNull: false,
         },
+        shortDescription: {
+            type: DataTypes.STRING(200),
+            allowNull: true,
+        },
         category: {
             type: DataTypes.STRING(30),
             allowNull: false, //필수

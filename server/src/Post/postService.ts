@@ -12,7 +12,9 @@ const getPost = async ({ postId }: PostId) => {
 const getFullPost = async ({ postId }: PostId) => {
   const fullPost = await Post.findOne({
     where: { id: postId },
-    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: ["updatedAt"],
+    },
     include: [
       {
         model: Comment,
@@ -53,16 +55,18 @@ interface CreatePostParams {
   content: string;
   thumbNailUrl: string;
   isPublic: number;
+  shortDescription: string;
 }
 
-const createPost = async ({ title, category, content, thumbNailUrl, isPublic }: CreatePostParams) => {
+const createPost = async ({ title, category, content, thumbNailUrl, isPublic, shortDescription }: CreatePostParams) => {
   const post = await Post.create({
-    title: title,
-    category: category,
-    content: content,
-    thumbNailUrl: thumbNailUrl,
+    title,
+    category,
+    content,
+    thumbNailUrl,
     views: 0,
-    isPublic: isPublic || 0,
+    isPublic,
+    shortDescription,
   });
   return post;
 };
@@ -71,14 +75,23 @@ interface UpdatePostParams extends CreatePostParams {
   postId: string;
 }
 
-const updatePost = async ({ title, category, content, thumbNailUrl, postId, isPublic }: UpdatePostParams) => {
+const updatePost = async ({
+  title,
+  category,
+  content,
+  thumbNailUrl,
+  postId,
+  isPublic,
+  shortDescription,
+}: UpdatePostParams) => {
   await Post.update(
     {
-      title: title,
-      category: category,
-      content: content,
-      thumbNailUrl: thumbNailUrl,
+      title,
+      category,
+      content,
+      thumbNailUrl,
       isPublic: isPublic || 0,
+      shortDescription,
     },
     {
       where: { id: postId },

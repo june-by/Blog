@@ -5,6 +5,9 @@ const Op = Sequelize.Op;
 
 const POSTS_PER_PAGE = 20;
 
+const DEFAULT_ORDER = [["createdAt", "DESC"]];
+const DEFAULT_EXCLUDE_COLUMN = ["content", "updatedAt"];
+
 const getAllPostsId = async () => {
   const posts = await Post.findAll({
     attributes: ["id"],
@@ -14,10 +17,12 @@ const getAllPostsId = async () => {
 
 const getMainPosts = async ({ page }: { page: string }) => {
   const posts = await Post.findAll({
-    order: [["createdAt", "DESC"]],
+    order: DEFAULT_ORDER,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: DEFAULT_EXCLUDE_COLUMN,
+    },
     include: [
       {
         model: Tag,
@@ -31,10 +36,12 @@ const getMainPosts = async ({ page }: { page: string }) => {
 const getCategoryPosts = async ({ category, page }: { page: string; category: string }) => {
   const posts = await Post.findAll({
     where: { category: category },
-    order: [["createdAt", "DESC"]],
+    order: DEFAULT_ORDER,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
-    attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: DEFAULT_EXCLUDE_COLUMN,
+    },
     include: [
       {
         model: Tag,
@@ -52,11 +59,11 @@ const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keywor
         [Op.like]: "%" + decodeURIComponent(keyword) + "%",
       },
     },
-    order: [["createdAt", "DESC"]],
+    order: DEFAULT_ORDER,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
-      exclude: ["content", "updatedAt"],
+      exclude: DEFAULT_EXCLUDE_COLUMN,
     },
     include: [
       {
@@ -71,9 +78,9 @@ const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keywor
 const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string }) => {
   const posts = await Post.findAll({
     attributes: {
-      exclude: ["content", "updatedAt"],
+      exclude: DEFAULT_EXCLUDE_COLUMN,
     },
-    order: [["createdAt", "DESC"]],
+    order: DEFAULT_ORDER,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     include: [

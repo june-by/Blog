@@ -3,6 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var https_1 = __importDefault(require("https"));
+var fs_1 = __importDefault(require("fs"));
 var express_1 = __importDefault(require("express"));
 var morgan_1 = __importDefault(require("morgan"));
 var express_session_1 = __importDefault(require("express-session"));
@@ -57,7 +59,7 @@ function default_1() {
             httpOnly: true,
             secure: true,
             sameSite: "lax",
-            domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : "http://localhost:3000",
+            domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : ".local.byjuun.com",
         },
     }));
     app.use(passport_1.default.initialize());
@@ -93,5 +95,14 @@ function default_1() {
     app.listen(3065, function () {
         console.log("서버 실행 중");
     });
+    if (process.env.NODE_ENV !== "production") {
+        var options = {
+            key: fs_1.default.readFileSync("./ssl/key.pem"),
+            cert: fs_1.default.readFileSync("./ssl/cert.pem"),
+        };
+        https_1.default.createServer(options, app).listen(8080, function () {
+            console.log("HTTPS server started on port 8080");
+        });
+    }
 }
 exports.default = default_1;

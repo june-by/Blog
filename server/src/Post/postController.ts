@@ -7,19 +7,21 @@ import axios from "axios";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { title, category, content, tagArr, thumbNailUrl, isPublic } = req.body;
+    const { title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription } = req.body;
     const post = await postService.createPost({
       title,
       category,
       content,
       thumbNailUrl,
       isPublic,
+      shortDescription,
     });
 
     if (tagArr.length !== 0) {
       const result = await tagService.createTags({ tagArr });
       await postService.addTags({ post, result });
     }
+
     res.send("OK");
   } catch (err) {
     console.error(err);
@@ -59,7 +61,7 @@ const addComment = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
-  const { title, category, content, tagArr, thumbNailUrl, isPublic } = req.body;
+  const { title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription } = req.body;
   const { postId } = req.params;
   try {
     await postService.updatePost({
@@ -69,13 +71,18 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
       thumbNailUrl,
       postId,
       isPublic,
+      shortDescription,
     });
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, result });
-    await axios.post(`${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
-      id: postId,
-    });
+
+    if (process.env.NODE_ENV === "production") {
+      await axios.post(`${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
+        id: postId,
+      });
+    }
+
     return res.json({
       message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
     });

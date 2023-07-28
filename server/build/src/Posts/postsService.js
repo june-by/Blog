@@ -44,6 +44,8 @@ var sequelize_1 = __importDefault(require("sequelize"));
 var Post = models_1.default.Post, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var Op = sequelize_1.default.Op;
 var POSTS_PER_PAGE = 20;
+var DEFAULT_ORDER = [["createdAt", "DESC"]];
+var DEFAULT_EXCLUDE_COLUMN = ["content", "updatedAt"];
 var getAllPostsId = function () { return __awaiter(void 0, void 0, void 0, function () {
     var posts;
     return __generator(this, function (_a) {
@@ -64,10 +66,12 @@ var getMainPosts = function (_a) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findAll({
-                        order: [["createdAt", "DESC"]],
+                        order: DEFAULT_ORDER,
                         limit: POSTS_PER_PAGE,
                         offset: (Number(page) - 1) * POSTS_PER_PAGE,
-                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+                        attributes: {
+                            exclude: DEFAULT_EXCLUDE_COLUMN,
+                        },
                         include: [
                             {
                                 model: Tag,
@@ -90,10 +94,12 @@ var getCategoryPosts = function (_a) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findAll({
                         where: { category: category },
-                        order: [["createdAt", "DESC"]],
+                        order: DEFAULT_ORDER,
                         limit: POSTS_PER_PAGE,
                         offset: (Number(page) - 1) * POSTS_PER_PAGE,
-                        attributes: ["id", "title", "category", "createdAt", "thumbNailUrl", "views", "isPublic"],
+                        attributes: {
+                            exclude: DEFAULT_EXCLUDE_COLUMN,
+                        },
                         include: [
                             {
                                 model: Tag,
@@ -121,11 +127,11 @@ var getPostsBySearchKeyWord = function (_a) {
                                 _b[Op.like] = "%" + decodeURIComponent(keyword) + "%",
                                 _b),
                         },
-                        order: [["createdAt", "DESC"]],
+                        order: DEFAULT_ORDER,
                         limit: POSTS_PER_PAGE,
                         offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         attributes: {
-                            exclude: ["content", "updatedAt"],
+                            exclude: DEFAULT_EXCLUDE_COLUMN,
                         },
                         include: [
                             {
@@ -149,9 +155,9 @@ var getPostsByTag = function (_a) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findAll({
                         attributes: {
-                            exclude: ["content", "updatedAt"],
+                            exclude: DEFAULT_EXCLUDE_COLUMN,
                         },
-                        order: [["createdAt", "DESC"]],
+                        order: DEFAULT_ORDER,
                         limit: POSTS_PER_PAGE,
                         offset: (Number(page) - 1) * POSTS_PER_PAGE,
                         include: [

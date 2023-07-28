@@ -90,6 +90,14 @@
 
 .shortDescription {
   word-break: break-all;
+  margin-top: 10px;
+  font-size: 1rem;
+  @include mobile {
+    margin-bottom: 10px;
+  }
+  .prepare {
+    opacity: 0.6;
+  }
 }
 
 .bottom {
@@ -102,6 +110,10 @@
     display: flex;
     align-items: center;
     gap: 0.25rem;
+  }
+  @include mobile {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--primary4);
   }
 }
 

@@ -9,6 +9,7 @@ import CategorySelector from "./categorySelector";
 import TagList from "./tagList";
 import TagForm from "./tagForm";
 import SubmitButton from "./submitButton";
+import ShortDescription from "./ShortDescription";
 const Editor = dynamic(() => import("./editor"), {
   ssr: false,
 });
@@ -29,6 +30,7 @@ const WriteWrap = () => {
             <TagList />
           </div>
         </div>
+        <ShortDescription />
         <Editor />
         <ThumbNailPicker />
       </div>
