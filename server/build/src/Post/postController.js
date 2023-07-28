@@ -45,18 +45,19 @@ var commentService_1 = __importDefault(require("../../src/Comment/commentService
 var clientUrl_1 = __importDefault(require("../../src/constants/clientUrl"));
 var axios_1 = __importDefault(require("axios"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, post, result, err_1;
+    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription, post, result, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 5, , 6]);
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
+                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
                 return [4 /*yield*/, postService_1.default.createPost({
                         title: title,
                         category: category,
                         content: content,
                         thumbNailUrl: thumbNailUrl,
                         isPublic: isPublic,
+                        shortDescription: shortDescription,
                     })];
             case 1:
                 post = _b.sent();
@@ -136,15 +137,15 @@ var addComment = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, postId, post, result, err_4;
+    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription, postId, post, result, err_4;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
+                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
                 postId = req.params.postId;
                 _b.label = 1;
             case 1:
-                _b.trys.push([1, 7, , 8]);
+                _b.trys.push([1, 8, , 9]);
                 return [4 /*yield*/, postService_1.default.updatePost({
                         title: title,
                         category: category,
@@ -152,6 +153,7 @@ var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
                         thumbNailUrl: thumbNailUrl,
                         postId: postId,
                         isPublic: isPublic,
+                        shortDescription: shortDescription,
                     })];
             case 2:
                 _b.sent();
@@ -164,20 +166,22 @@ var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 return [4 /*yield*/, postService_1.default.updateTags({ post: post, result: result })];
             case 5:
                 _b.sent();
+                if (!(process.env.NODE_ENV === "production")) return [3 /*break*/, 7];
                 return [4 /*yield*/, axios_1.default.post("".concat(clientUrl_1.default, "/api/revalidate-post?secret=").concat(process.env.SECRET_REVALIDATE_TOKEN), {
                         id: postId,
                     })];
             case 6:
                 _b.sent();
-                return [2 /*return*/, res.json({
-                        message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
-                    })];
-            case 7:
+                _b.label = 7;
+            case 7: return [2 /*return*/, res.json({
+                    message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
+                })];
+            case 8:
                 err_4 = _b.sent();
                 console.error(err_4);
                 next(err_4);
-                return [3 /*break*/, 8];
-            case 8: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

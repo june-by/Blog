@@ -63,7 +63,9 @@ var getFullPost = function (_a) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, Post.findOne({
                         where: { id: postId },
-                        attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views", "isPublic"],
+                        attributes: {
+                            exclude: ["updatedAt"],
+                        },
                         include: [
                             {
                                 model: Comment,
@@ -112,7 +114,7 @@ var getPostComments = function (_a) {
     });
 };
 var createPost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
     return __awaiter(void 0, void 0, void 0, function () {
         var post;
         return __generator(this, function (_b) {
@@ -123,7 +125,8 @@ var createPost = function (_a) {
                         content: content,
                         thumbNailUrl: thumbNailUrl,
                         views: 0,
-                        isPublic: isPublic || 0,
+                        isPublic: isPublic,
+                        shortDescription: shortDescription,
                     })];
                 case 1:
                     post = _b.sent();
@@ -133,7 +136,7 @@ var createPost = function (_a) {
     });
 };
 var updatePost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -143,6 +146,7 @@ var updatePost = function (_a) {
                         content: content,
                         thumbNailUrl: thumbNailUrl,
                         isPublic: isPublic || 0,
+                        shortDescription: shortDescription,
                     }, {
                         where: { id: postId },
                     })];
