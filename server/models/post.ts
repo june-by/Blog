@@ -14,7 +14,7 @@ export default (sequelize: Sequelize, DataTypes: any) => {
         allowNull: false,
       },
       shortDescription: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(200),
         allowNull: true,
       },
       category: {

@@ -67,8 +67,8 @@ const reducer = (state: State, action: Action): State => {
     case "editIsPublic":
       return { ...state, isPublic: Number(action.isPublic) };
     case "editShortDescription": {
-      if (action.shortDescription.length > 120) {
-        alert("120자 초과");
+      if (action.shortDescription.length > 200) {
+        alert("200자 초과");
         return { ...state };
       }
       return { ...state, shortDescription: action.shortDescription };
