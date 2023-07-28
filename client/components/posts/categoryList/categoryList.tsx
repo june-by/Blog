@@ -1,30 +1,19 @@
 import React from "react";
-import CategoryChip from "components/shared/categoryChip";
 import styles from "./styles.module.scss";
 import { useGetAllCateogryLength } from "Hooks/Post";
-import CategoryChipSkeleton from "components/shared/categoryChip/Skeleton";
 import { Category } from "constants/category";
-import LoadingOrNot from "components/_hoc/LoadingOrNot";
-
-const CategoryListSkeleton = () => {
-  return (
-    <nav className={styles.CategorySelect}>
-      {Category.map((cateogry) => {
-        return <CategoryChipSkeleton key={cateogry} />;
-      })}
-    </nav>
-  );
-};
+import CategoryButton from "components/shared/CategoryButton/CategoryButton";
 
 const CategoryList = () => {
-  const { data, isLoading } = useGetAllCateogryLength();
+  const { data } = useGetAllCateogryLength();
 
   return (
-    <LoadingOrNot isLoading={isLoading} onLoading={<CategoryListSkeleton />}>
-      <nav className={styles.CategorySelect}>
+    <aside className={styles.CategoryList}>
+      <h2>📘 Categories</h2>
+      <nav className={styles.CategoryButtonWrap}>
         {Category.map((category) => {
           return (
-            <CategoryChip
+            <CategoryButton
               key={category}
               category={category}
               length={data?.find((v) => v.category === category)?.count || null}
@@ -32,7 +21,7 @@ const CategoryList = () => {
           );
         })}
       </nav>
-    </LoadingOrNot>
+    </aside>
   );
 };
 

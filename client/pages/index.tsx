@@ -7,7 +7,7 @@ import {
   useGetTagPosts,
 } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
-import PostsPageContainer from "components/postsTemp";
+import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
