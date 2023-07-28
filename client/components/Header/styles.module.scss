@@ -1,0 +1,134 @@
+@import "utils/utils.scss";
+
+.headerStyleWrap {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 60px;
+  color: white;
+  transition: margin-top 0.5s ease;
+  overflow: hidden;
+  background: var(--bg-element1);
+  color: var(--bg-element2);
+  border-bottom: 2px solid var(--bg-element4);
+  @include desktop {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include mobile {
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 5%;
+  }
+
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
+}
+
+.headerContentWrap {
+  display: flex;
+  height: 100%;
+
+  align-items: center;
+  justify-content: space-between;
+  @include desktop {
+    width: 90%;
+    max-width: 1440px;
+  }
+  h1 {
+    font-size: 1.75rem;
+    cursor: pointer;
+    margin-right: 10px;
+
+    &:hover {
+      transition: 250ms;
+      color: var(--primary1);
+    }
+  }
+}
+.SkeletonHeader {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0 15%;
+  height: 50px;
+  background: none;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-20deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  75% {
+    transform: rotate(-20deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.headerRightWrap {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  span {
+    margin: 0 10px;
+    @include mobile {
+      display: none;
+    }
+  }
+  button {
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.AuthButton {
+  @include StyledButton;
+  font-weight: 700;
+  padding: 10px;
+  margin-left: 0.5rem;
+}
+
+.iconButton {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  position: relative;
+
+  &:hover {
+    background: var(--slight-layer);
+  }
+}
+
+.writeButton {
+  @include StyledButton;
+  color: white;
+  font-weight: 700;
+  padding: 10px 15px;
+  @include mobile {
+    display: none;
+  }
+}

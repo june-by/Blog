@@ -1,0 +1,15 @@
+@import "utils/utils.scss";
+.PostSkeletonWrapper {
+  margin-top: 100px;
+  padding: 0 15%;
+  margin-bottom: 100px;
+
+  @include mobile {
+    margin-top: 75px;
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 5%;
+  }
+}

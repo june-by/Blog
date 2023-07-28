@@ -1,0 +1,52 @@
+@import "utils/variables.scss";
+@import "utils/utils.scss";
+
+.CategoryButton {
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  font-size: 13px;
+  background: var(--bg-element4);
+  &:hover {
+    transition: background 0.25s ease;
+    background: var(--bg-element7);
+  }
+  gap: 0.5rem;
+  padding: 5px 10px;
+  @include desktop {
+    padding: 10px;
+  }
+}
+
+.content {
+  @include mobile {
+    white-space: nowrap;
+  }
+  @include tablet {
+    white-space: nowrap;
+  }
+  @include tablet_landscape {
+    white-space: nowrap;
+  }
+}
+
+.length {
+  color: #6185e5;
+  border-radius: 4px;
+  background: white;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 16%);
+  border: 0.5px solid #c8c8c8;
+}
+
+.Selected {
+  background: var(--bg-element7);
+}

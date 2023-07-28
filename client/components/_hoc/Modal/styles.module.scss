@@ -1,0 +1,55 @@
+@import "utils/utils.scss";
+@import "utils/variables.scss";
+
+.Modal {
+  z-index: 110;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-size: 25px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+
+.content {
+  background: var(--bg-element1);
+  color: var(--bg-element2) !important;
+  width: 80%;
+  z-index: 2;
+  padding: 30px 20px;
+  text-align: center;
+  color: black;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+  img {
+    cursor: pointer;
+  }
+  input {
+    background: var(--bg-element3) !important;
+    color: var(--bg-element2);
+    &:focus {
+      border: 1px solid var(--bg-element3) !important;
+    }
+  }
+  @include desktop {
+    width: 30%;
+  }
+  @include tablet {
+    width: 50%;
+  }
+  @include tablet_landscape {
+    width: 40%;
+  }
+}
