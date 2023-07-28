@@ -21,14 +21,11 @@
 
 .ContactContentWrap {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  @include desktop {
+    flex-direction: column;
+  }
 
-  @include tablet {
-    flex-direction: row;
-  }
-  @include mobile {
-    flex-direction: row;
-  }
   gap: 0.5rem;
 }
 
