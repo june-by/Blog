@@ -99,6 +99,7 @@
   button {
     @include StyledButton;
     width: 15%;
+    padding: 20px;
   }
   img {
     width: 274px;
@@ -130,5 +131,13 @@
     cursor: pointer;
     border: none;
     background: none;
+  }
+}
+
+.ShortDescription {
+  margin-top: 20px;
+  input {
+    margin-top: 10px;
+    @include StyledInput;
   }
 }

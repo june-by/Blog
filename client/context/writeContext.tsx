@@ -12,6 +12,7 @@ type Action =
   | { type: "removeTag"; tag: string }
   | { type: "editThumbNailUrl"; thumbNailUrl: string }
   | { type: "editIsPublic"; isPublic: Number }
+  | { type: "editShortDescription"; shortDescription: string }
   | { type: "initializeWriteFormData"; initData: State };
 
 interface State {
@@ -21,6 +22,7 @@ interface State {
   tagArr: string[];
   thumbNailUrl: null | string;
   isPublic: number;
+  shortDescription: string;
 }
 
 interface ContextProps {
@@ -32,6 +34,7 @@ interface ContextProps {
   removeTag: (tag: string) => void;
   setThumbNailUrl: (thumbNailUrl: string) => void;
   handleChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeShortDescription: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const initialState = {
@@ -41,6 +44,7 @@ const initialState = {
   tagArr: [],
   thumbNailUrl: null,
   isPublic: 0,
+  shortDescription: "",
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -62,6 +66,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, thumbNailUrl: action.thumbNailUrl };
     case "editIsPublic":
       return { ...state, isPublic: Number(action.isPublic) };
+    case "editShortDescription":
+      return { ...state, shortDescription: action.shortDescription };
     case "initializeWriteFormData":
       return { ...action.initData };
   }
@@ -76,6 +82,7 @@ export const WriteContext = createContext<ContextProps>({
   removeTag: () => {},
   setThumbNailUrl: () => () => {},
   handleChangeIsPublic: () => {},
+  handleChangeShortDescription: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
@@ -110,6 +117,10 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
     dispatch({ type: "editIsPublic", isPublic: Number(e.target.checked) });
   };
 
+  const handleChangeShortDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "editShortDescription", shortDescription: e.target.value });
+  };
+
   useInitializeWriteFormData(dispatch);
 
   return (
@@ -123,6 +134,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
         removeTag,
         setThumbNailUrl,
         handleChangeIsPublic,
+        handleChangeShortDescription,
       }}
     >
       {children}
@@ -154,6 +166,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       tagArr: post.Tags.map((tag) => String(tag?.content)),
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
+      shortDescription: post?.shortDescription,
     };
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query, dispatch]);
