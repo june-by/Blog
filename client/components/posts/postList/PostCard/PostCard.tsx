@@ -44,16 +44,16 @@ const PostCard = ({ post }: Props) => {
             {post.Tags.length !== 0 &&
               post.Tags.map((tag) => <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />)}
           </ul>
-        </div>
-        <div className={styles.shortDescription}>
-          {post.isPublic ? (
-            <span>{shortDescription}</span>
-          ) : (
-            <>
-              <span className={styles.prepare}>준비중인 포스트입니다</span>
-              <span>📝</span>
-            </>
-          )}
+          <div className={styles.shortDescription}>
+            {post.isPublic ? (
+              <span>{shortDescription}</span>
+            ) : (
+              <>
+                <span className={styles.prepare}>준비중인 포스트입니다</span>
+                <span>📝</span>
+              </>
+            )}
+          </div>
         </div>
         <div className={styles.bottom}>
           <time>{dateForm(post.createdAt)}</time>

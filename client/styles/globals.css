@@ -24,6 +24,8 @@ body[data-theme="dark"] {
   --primary1: #6185e5;
   --primary2: #6e7788;
   --primary3: #00449a;
+  --primary4: #f8f8f8;
+
 
   --slight-layer: rgba(255, 255, 255, 0.1);
 }
@@ -42,6 +44,8 @@ body[data-theme="light"] {
   --primary1: #0099fa;
   --primary2: #005cb4;
   --primary3: #005cb4;
+  --primary4: #c6c6c6
+
 
   --slight-layer: rgba(0, 0, 0, 0.05);
 }
