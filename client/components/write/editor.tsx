@@ -39,7 +39,7 @@ const Editor = () => {
   } = useWriteContext();
   const QuillRef = useRef<ReactQuill>(null);
 
-  const imageHandler = useMemo(() => {
+  const imageHandler = () => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -58,7 +58,7 @@ const Editor = () => {
         editor.insertEmbed(Number(range?.index), "image", img_url);
       }
     };
-  }, []);
+  };
 
   const modules = useMemo(
     () => ({
@@ -74,7 +74,7 @@ const Editor = () => {
         },
       },
     }),
-    [imageHandler]
+    []
   );
 
   return (
