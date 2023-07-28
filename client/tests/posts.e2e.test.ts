@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { CATEGORY_LENGTH_MOCK_DATA, MAIN_POSTS_MOCK_DATA } from "mocks/data/post";
+import {
+  CATEGORY_LENGTH_MOCK_DATA,
+  MAIN_POSTS_MOCK_DATA,
+} from "mocks/data/post";
 import PostsPOM from "./posts";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import MESSAGE from "constants/message";
@@ -17,11 +20,17 @@ test.describe("카테고리 - ", () => {
     await posts.goTo();
 
     for (const category of CATEGORY_LENGTH_MOCK_DATA) {
-      await expect(posts.page.getByRole("link", { name: `${category.category} ${category.count}` })).toBeVisible();
+      await expect(
+        posts.page.getByRole("link", {
+          name: `${category.category} ${category.count}`,
+        })
+      ).toBeVisible();
     }
   });
 
-  test("카테고리 버튼을 클릭하면, 해당 페이지로 이동해야 한다.", async ({ page }) => {
+  test("카테고리 버튼을 클릭하면, 해당 페이지로 이동해야 한다.", async ({
+    page,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
@@ -56,12 +65,9 @@ test.describe("게시글 카드 - ", () => {
     const mockPostData = MAIN_POSTS_MOCK_DATA[10];
     const mockTargetTagData = mockPostData.Tags[0];
 
-    const targetTag = posts.page
-      .getByRole("link")
-      .filter({
-        hasText: new RegExp(`^.*(${mockPostData.title}).*`),
-      })
-      .getByText(`#${mockTargetTagData.content}`);
+    const targetTag = posts.page.getByRole("link", {
+      name: mockTargetTagData.content,
+    });
 
     await targetTag.click();
 
@@ -70,13 +76,21 @@ test.describe("게시글 카드 - ", () => {
 });
 
 test.describe("헤더 - ", () => {
-  test("깃허브 버튼을 클릭하면, 본인 깃허브로 이동한다", async ({ page, context }) => {
+  test("깃허브 버튼을 클릭하면, 본인 깃허브로 이동한다", async ({
+    page,
+    context,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const gotoGithubButton = posts.page.getByRole("button", { name: "gotoGithubButton" });
+    const gotoGithubButton = posts.page.getByRole("button", {
+      name: "gotoGithubButton",
+    });
 
-    const [githubPage] = await Promise.all([context.waitForEvent("page"), gotoGithubButton.click()]);
+    const [githubPage] = await Promise.all([
+      context.waitForEvent("page"),
+      gotoGithubButton.click(),
+    ]);
 
     await expect(githubPage).toHaveURL("https://github.com/BY-juun");
   });
@@ -85,24 +99,36 @@ test.describe("헤더 - ", () => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const emailButton = posts.page.getByRole("button", { name: "toggleEmailButton" });
+    const emailButton = posts.page.getByRole("button", {
+      name: "toggleEmailButton",
+    });
 
     await emailButton.click();
 
     await expect(posts.page.getByText("neostgeart@gmail.com")).toBeVisible();
   });
 
-  test("다크모드 토글 버튼을 누르면, 모드가 변경되어야 한다", async ({ page }) => {
+  test("다크모드 토글 버튼을 누르면, 모드가 변경되어야 한다", async ({
+    page,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
-    const darkModeTogglButton = posts.page.getByRole("button", { name: "toggleDarkModeButton" });
+    const darkModeTogglButton = posts.page.getByRole("button", {
+      name: "toggleDarkModeButton",
+    });
 
-    await expect(posts.page.locator("body")).toHaveAttribute("data-theme", "light");
+    await expect(posts.page.locator("body")).toHaveAttribute(
+      "data-theme",
+      "dark"
+    );
 
     await darkModeTogglButton.click();
 
-    await expect(posts.page.locator("body")).toHaveAttribute("data-theme", "dark");
+    await expect(posts.page.locator("body")).toHaveAttribute(
+      "data-theme",
+      "light"
+    );
   });
 
   test("검색 버튼을 누르면, 검색 모달이 노출되어야 한다", async ({ page }) => {
@@ -114,13 +140,19 @@ test.describe("헤더 - ", () => {
     await expect(posts.page.getByText("게시글 찾기")).toBeVisible();
   });
 
-  test("사용자 버튼을 누르면, 로그인 모달이 노출되어야 한다", async ({ page }) => {
+  test("사용자 버튼을 누르면, 로그인 모달이 노출되어야 한다", async ({
+    page,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
     await posts.openLoginModal();
 
-    await expect(posts.page.getByText(new RegExp(/(?=.*로그인)(?=.*소셜 계정으로 로그인).*/))).toBeVisible();
+    await expect(
+      posts.page.getByText(
+        new RegExp(/(?=.*로그인)(?=.*소셜 계정으로 로그인).*/)
+      )
+    ).toBeVisible();
   });
 });
 
@@ -159,23 +191,34 @@ test.describe("모달 - ", () => {
 
     await posts.mockGetUserAPI();
 
-    await posts.page.locator("#portal").getByRole("button", { name: "로그인" }).click();
+    await posts.page
+      .locator("#portal")
+      .getByRole("button", { name: "로그인" })
+      .click();
 
-    await expect(posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)).toBeVisible();
+    await expect(
+      posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)
+    ).toBeVisible();
   });
 
-  test("로그인 모달에서 회원가입 버튼을 클릭하면, 회원가입 모달이 노출되어야 한다.", async ({ page }) => {
+  test("로그인 모달에서 회원가입 버튼을 클릭하면, 회원가입 모달이 노출되어야 한다.", async ({
+    page,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
     await posts.openSingUpModal();
 
-    const signUpModal = posts.page.getByText(new RegExp(/(?=.*회원가입)(?=.*소셜 계정으로 로그인).*/));
+    const signUpModal = posts.page.getByText(
+      new RegExp(/(?=.*회원가입)(?=.*소셜 계정으로 로그인).*/)
+    );
 
     await expect(signUpModal).toBeVisible();
   });
 
-  test("회원가입 모달에서 정보를 입력 후 회원가입 버튼을 클릭하면, 회원가입에 성공한다.", async ({ page }) => {
+  test("회원가입 모달에서 정보를 입력 후 회원가입 버튼을 클릭하면, 회원가입에 성공한다.", async ({
+    page,
+  }) => {
     const posts = new PostsPOM(page);
     await posts.goTo();
 
