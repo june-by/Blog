@@ -12,7 +12,9 @@ const getPost = async ({ postId }: PostId) => {
 const getFullPost = async ({ postId }: PostId) => {
   const fullPost = await Post.findOne({
     where: { id: postId },
-    attributes: ["category", "content", "createdAt", "id", "title", "thumbNailUrl", "views", "isPublic"],
+    attributes: {
+      exclude: ["updatedAt"],
+    },
     include: [
       {
         model: Comment,
