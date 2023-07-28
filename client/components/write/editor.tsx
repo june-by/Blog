@@ -21,10 +21,11 @@ interface Props {
 
 const QuillNoSSRWrapper = dynamic(
   async () => {
+    console.log("QuillNoSSRWrapper");
     const { default: RQ } = await import("react-quill");
-    const TempEditor = React.forwardRef(({ forwardedRef, ...props }: Props, ref: any) => {
+    const TempEditor = ({ forwardedRef, ...props }: Props) => {
       return <RQ ref={forwardedRef} {...props} />;
-    });
+    };
     //TempEditor.displayName = "TempEditor";
     return TempEditor;
   },
@@ -33,13 +34,12 @@ const QuillNoSSRWrapper = dynamic(
 
 const Editor = () => {
   const {
-    writeFormData: { category, content },
+    writeFormData: { content },
     handleChangeContent: onChange,
   } = useWriteContext();
-
   const QuillRef = useRef<ReactQuill>(null);
 
-  const imageHandler = () => {
+  const imageHandler = useMemo(() => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -58,15 +58,12 @@ const Editor = () => {
         editor.insertEmbed(Number(range?.index), "image", img_url);
       }
     };
-  };
+  }, []);
 
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) =>
-          hljs.highlight(text, {
-            language: CATEGORY_TO_HLJS_CLASS[category] || "",
-          }).value,
+        highlight: (text: string) => hljs.highlightAuto(text).value,
       },
       toolbar: {
         container: containerConfig,
@@ -77,8 +74,9 @@ const Editor = () => {
         },
       },
     }),
-    [category]
+    [imageHandler]
   );
+
   return (
     <>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" />
