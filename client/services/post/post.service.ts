@@ -30,13 +30,14 @@ export const getAllCategoryLengthAPI = async (): Promise<Array<CategoryCount>> =
 };
 
 export const getPostAPI = async (id: number): Promise<PostType | null> => {
+  if (id === 0) return null;
   if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
   if (!id) throw new Error();
   try {
     const { data } = await customAxios.get(`/post/load/${id}`);
     return data;
   } catch (err: any) {
-    console.log("throw Error");
+    console.log(err);
     throw Error(err?.response?.data);
   }
 };

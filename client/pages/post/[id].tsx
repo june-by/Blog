@@ -22,7 +22,8 @@ const PostPage = () => {
   const postId = useQueryId();
   const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserQuery();
-  const { data } = useGetPostQuery(postId);
+
+  const { data } = useGetPostQuery(isNaN(postId) ? 0 : postId);
 
   const PostData = data?.mainPost;
 
@@ -93,9 +94,8 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient();
   try {
-    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, Number(context.params?.id)], () =>
-      getPostAPI(Number(context.params?.id))
-    );
+    const postId = Number(context.params?.id);
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () => getPostAPI(postId));
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
