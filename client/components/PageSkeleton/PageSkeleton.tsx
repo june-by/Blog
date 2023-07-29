@@ -1,5 +1,6 @@
 import React from "react";
 import PostPageSkeleton from "./PostPageSkeleton";
+import PostsPageSkeleton from "./PostsPageSkeleton";
 
 interface Props {
   nextUrl: string;
@@ -7,7 +8,7 @@ interface Props {
 
 const PageSkeleton = ({ nextUrl }: Props) => {
   if (nextUrl.includes("/post/")) return <PostPageSkeleton />;
-  return null;
+  return <PostsPageSkeleton />;
 };
 
 export default PageSkeleton;

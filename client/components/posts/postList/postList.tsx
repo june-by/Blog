@@ -1,6 +1,5 @@
 import ErrorHelper from "components/shared/errorHelper";
 import NoPost from "./NoPost";
-import POSTS_PER_PAGE from "constants/postsPerPage";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
@@ -8,6 +7,7 @@ import { PostsType } from "Types/post";
 import InfiniteScroll from "components/_hoc/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
+import PostCardSkeletonList from "./PostCardSkeletonList";
 interface Props {
   params?: any;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
@@ -41,16 +41,6 @@ const PostList = ({ params, query }: Props) => {
         ))}
       </InfiniteScroll>
     </PostsListLayout>
-  );
-};
-
-const PostCardSkeletonList = () => {
-  return (
-    <>
-      {Array.from({ length: POSTS_PER_PAGE }, () => 0).map((_, idx) => {
-        return <PostCard.Skeleton key={`postCardSkeleton${idx}`} />;
-      })}
-    </>
   );
 };
 
