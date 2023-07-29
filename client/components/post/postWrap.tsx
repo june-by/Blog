@@ -1,22 +1,21 @@
-import React, { ReactNode } from "react";
-import styles from "./styles.module.scss";
+import React from "react";
 import PostTop from "./PostHeader";
 import PostContent from "./PostContent";
 import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
-import PostSkeleton from "./Skeleton";
+import PostPageLayout from "components/shared/PageLayout/PostPageLayout";
 
 interface PostWrapProps {
-  children: ReactNode;
+  children: JSX.Element;
   Post: MainPost;
 }
 
 const PostWrap = Object.assign(
   ({ children, Post }: PostWrapProps) => (
     <PostContainer Post={Post}>
-      <main className={styles.PostWrap}>{children}</main>
+      <PostPageLayout>{children}</PostPageLayout>
     </PostContainer>
   ),
   {
@@ -24,7 +23,6 @@ const PostWrap = Object.assign(
     Content: PostContent,
     RoutePostButtons: RoutePostButtons,
     Comments: Comments,
-    Skeleton: PostSkeleton,
   }
 );
 
