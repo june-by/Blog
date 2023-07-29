@@ -16,6 +16,7 @@ import Header from "components/Header";
 import Post from "components/post";
 import ScrollIndicator from "components/post/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
+import PostPageSkeleton from "components/PageSkeleton/PostPageSkeleton/PostPageSkeleton";
 
 const PostPage = () => {
   const router = useRouter();
@@ -39,11 +40,11 @@ const PostPage = () => {
     }
   }, [userInfo, PostData, router]);
 
-  if (router.isFallback) return <Post.Skeleton />;
+  if (router.isFallback) return <PostPageSkeleton />;
 
   if (!PostData?.isPublic) {
     if (!adminValidationForNotPublicPost) {
-      return <Post.Skeleton />;
+      return <PostPageSkeleton />;
     }
   }
 
