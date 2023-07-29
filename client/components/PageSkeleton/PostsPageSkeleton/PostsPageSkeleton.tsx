@@ -8,18 +8,15 @@ import React from "react";
 
 const PostsPageSkeleton = () => {
   return (
-    <>
-      <Header />
-      <PostsPageLayout>
-        <>
-          <CategoryList />
-          <PostsListLayout>
-            <PostCardSkeletonList />
-          </PostsListLayout>
-          <Contact />
-        </>
-      </PostsPageLayout>
-    </>
+    <PostsPageLayout>
+      <>
+        <CategoryList />
+        <PostsListLayout>
+          <PostCardSkeletonList />
+        </PostsListLayout>
+        <Contact />
+      </>
+    </PostsPageLayout>
   );
 };
 
