@@ -1,4 +1,3 @@
-import Header from "components/Header";
 import CategoryList from "components/posts/CategoryList";
 import Contact from "components/posts/Contact";
 import PostCardSkeletonList from "components/posts/postList/PostCardSkeletonList";
