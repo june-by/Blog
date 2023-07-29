@@ -1,19 +1,18 @@
 import "styles/globals.css";
 import "styles/Editor.css";
 import "react-toastify/dist/ReactToastify.css";
-import type { AppContext, AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import Head from "next/head";
-import Loading from "utils/Loading";
 import ProgressBar from "components/shared/ProgressBar";
 import useSetProgressState from "Hooks/useSetProgressState";
-import App from "next/app";
 import useCheckVisitor from "Hooks/useCheckVisitor";
 import { useRouter } from "next/router";
 import { ThemeContainer } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
+import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -30,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeContainer>
         <>
           {loading ? (
-            <Loading nextUrl={nextUrl || router.pathname} />
+            <PageSkeleton nextUrl={nextUrl || router.pathname} />
           ) : (
             <Hydrate state={pageProps.dehydratedState}>
               <Head>

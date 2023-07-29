@@ -7,16 +7,17 @@ import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
 import PostSkeleton from "./Skeleton";
+import PostPageLayout from "components/shared/PageLayout/PostPageLayout";
 
 interface PostWrapProps {
-  children: ReactNode;
+  children: JSX.Element;
   Post: MainPost;
 }
 
 const PostWrap = Object.assign(
   ({ children, Post }: PostWrapProps) => (
     <PostContainer Post={Post}>
-      <main className={styles.PostWrap}>{children}</main>
+      <PostPageLayout>{children}</PostPageLayout>
     </PostContainer>
   ),
   {

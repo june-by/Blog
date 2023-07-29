@@ -63,11 +63,13 @@ const PostPage = () => {
       <Header />
       <ScrollIndicator />
       <Post Post={PostData}>
-        <Post.Header />
-        <Post.Content />
-        <Post.RoutePostButtons />
-        <Post.Comments />
-        <ScrollButton />
+        <>
+          <Post.Header />
+          <Post.Content />
+          <Post.RoutePostButtons />
+          <Post.Comments />
+          <ScrollButton />
+        </>
       </Post>
     </>
   );
