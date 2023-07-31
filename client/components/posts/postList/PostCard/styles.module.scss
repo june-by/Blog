@@ -88,14 +88,18 @@
   @include tabListlayout;
 }
 
+.shortDescriptionSkeletonWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 0;
+}
+
 .shortDescription {
   word-break: break-all;
-  margin-top: 10px;
   font-size: 1rem;
   line-height: 1.75;
-  @include mobile {
-    margin-bottom: 10px;
-  }
+
   .prepare {
     opacity: 0.6;
   }
@@ -132,18 +136,34 @@
     height: 100%;
     @include mobile {
       width: 100%;
-      height: 200px;
+      height: 210px;
     }
   }
   &_articleWrapper {
     @include articleLayout;
     @include mobile {
       margin-top: 5px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--primary4);
     }
     .titleSkeleton {
       width: 70%;
       height: 32px;
       animation: skeleton 1.5s infinite ease-in-out;
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    .titleSkeletonSecondLine {
+      display: none;
+      @include mobile {
+        display: block;
+        margin-top: 5px;
+        width: 35%;
+        height: 32px;
+        animation: skeleton 1.5s infinite ease-in-out;
+      }
     }
     .tabSkeletonWrap {
       @include tabListlayout;
