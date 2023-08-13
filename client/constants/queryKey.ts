@@ -15,6 +15,7 @@ const QUERY_KEY = {
     RECENT: "RecentTags",
   },
   VISITOR: "Visitor",
+  SERIES: "Series",
 };
 
 export default QUERY_KEY;
