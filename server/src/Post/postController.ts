@@ -37,7 +37,7 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   const { tagArr } = req.body;
   const { postId } = req.params;
   try {
-    await postService.updatePost(req.body);
+    await postService.updatePost({ ...req.body, postId });
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, result });

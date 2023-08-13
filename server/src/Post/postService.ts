@@ -32,7 +32,7 @@ interface CreatePostParams {
   thumbNailUrl: string;
   isPublic: number;
   shortDescription: string;
-  seriesId: string;
+  SeriesId: string;
 }
 
 const createPost = async ({
@@ -42,7 +42,7 @@ const createPost = async ({
   thumbNailUrl,
   isPublic,
   shortDescription,
-  seriesId,
+  SeriesId,
 }: CreatePostParams) => {
   const post = await Post.create({
     title,
@@ -52,7 +52,7 @@ const createPost = async ({
     views: 0,
     isPublic,
     shortDescription,
-    SeriesId: seriesId,
+    SeriesId,
   });
   return post;
 };
@@ -69,6 +69,7 @@ const updatePost = async ({
   postId,
   isPublic,
   shortDescription,
+  SeriesId,
 }: UpdatePostParams) => {
   await Post.update(
     {
@@ -78,6 +79,7 @@ const updatePost = async ({
       thumbNailUrl,
       isPublic: isPublic || 0,
       shortDescription,
+      SeriesId,
     },
     {
       where: { id: postId },
