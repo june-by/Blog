@@ -9,7 +9,9 @@ export type OneSeriesAPIType = SeriesType & {
 };
 
 export interface SeriesType {
+  id: number;
   title: string;
   shortDescription?: string;
   thumbNailUrl: string;
+  createdAt: Date;
 }

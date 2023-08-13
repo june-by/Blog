@@ -72,7 +72,8 @@
     border-radius: 3px;
     font-size: 85%;
     padding: 0.2em 0.4em;
-    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono",
+      Courier, monospace;
   }
 
   blockquote {
@@ -139,5 +140,14 @@
   input {
     margin-top: 10px;
     @include StyledInput;
+  }
+  select {
+    margin-top: 10px;
+    margin-right: 15px;
+  }
+  button {
+    @include StyledButton;
+    height: 45px;
+    padding: 0 10px;
   }
 }

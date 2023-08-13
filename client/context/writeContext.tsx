@@ -2,7 +2,14 @@ import { Category, CategoryType } from "constants/category";
 import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
-import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  Dispatch,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 type Action =
   | { type: "editTitle"; title: string }
@@ -11,9 +18,10 @@ type Action =
   | { type: "addTag"; tag: string }
   | { type: "removeTag"; tag: string }
   | { type: "editThumbNailUrl"; thumbNailUrl: string }
-  | { type: "editIsPublic"; isPublic: Number }
+  | { type: "editIsPublic"; isPublic: number }
   | { type: "editShortDescription"; shortDescription: string }
-  | { type: "initializeWriteFormData"; initData: State };
+  | { type: "initializeWriteFormData"; initData: State }
+  | { type: "editSeries"; seriesId: string };
 
 interface State {
   title: string;
@@ -23,6 +31,7 @@ interface State {
   thumbNailUrl: null | string;
   isPublic: number;
   shortDescription: string;
+  seriesId: string;
 }
 
 interface ContextProps {
@@ -35,6 +44,7 @@ interface ContextProps {
   setThumbNailUrl: (thumbNailUrl: string) => void;
   handleChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangeShortDescription: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChangeSeries: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const initialState = {
@@ -45,6 +55,7 @@ const initialState = {
   thumbNailUrl: null,
   isPublic: 0,
   shortDescription: "",
+  seriesId: "0",
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -73,6 +84,9 @@ const reducer = (state: State, action: Action): State => {
       }
       return { ...state, shortDescription: action.shortDescription };
     }
+    case "editSeries": {
+      return { ...state, seriesId: action.seriesId };
+    }
     case "initializeWriteFormData":
       return { ...action.initData };
   }
@@ -88,6 +102,7 @@ export const WriteContext = createContext<ContextProps>({
   setThumbNailUrl: () => () => {},
   handleChangeIsPublic: () => {},
   handleChangeShortDescription: () => {},
+  handleChangeSeries: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
@@ -123,7 +138,14 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleChangeShortDescription = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "editShortDescription", shortDescription: e.target.value });
+    dispatch({
+      type: "editShortDescription",
+      shortDescription: e.target.value,
+    });
+  };
+
+  const handleChangeSeries = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: "editSeries", seriesId: e.target.value });
   };
 
   useInitializeWriteFormData(dispatch);
@@ -140,6 +162,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
         setThumbNailUrl,
         handleChangeIsPublic,
         handleChangeShortDescription,
+        handleChangeSeries,
       }}
     >
       {children}
@@ -172,6 +195,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
       shortDescription: post?.shortDescription,
+      seriesId: "",
     };
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query, dispatch]);
