@@ -3,7 +3,7 @@ import { customAxios } from "utils/CustomAxios";
 
 export const getAllSeriesAPI = async (): Promise<AllSeriesAPIType> => {
   try {
-    const { data } = await customAxios.get("/series/load");
+    const { data } = await customAxios.get("/series");
     return data;
   } catch (err) {
     throw new Error();
