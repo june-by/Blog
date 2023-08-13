@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
-var Post = models_1.default.Post, Comment = models_1.default.Comment, User = models_1.default.User, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
+var Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var createTags = function (_a) {
     var tagArr = _a.tagArr;
     return __awaiter(void 0, void 0, void 0, function () {

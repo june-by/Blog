@@ -29,8 +29,5 @@ export default (sequelize: Sequelize, DataTypes: any) => {
     }
   );
 
-  User.associate = (db) => {
-    db.User.hasMany(db.Comment);
-  };
   return User;
 };

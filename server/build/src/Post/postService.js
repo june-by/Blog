@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
-var Post = models_1.default.Post, Comment = models_1.default.Comment, User = models_1.default.User, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
+var Post = models_1.default.Post, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var getPost = function (_a) {
     var postId = _a.postId;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -68,16 +68,6 @@ var getFullPost = function (_a) {
                         },
                         include: [
                             {
-                                model: Comment,
-                                attributes: ["content", "createdAt"],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ["nickname"],
-                                    },
-                                ],
-                            },
-                            {
                                 model: Tag,
                                 attributes: ["id", "content"],
                             },
@@ -86,29 +76,6 @@ var getFullPost = function (_a) {
                 case 1:
                     fullPost = _b.sent();
                     return [2 /*return*/, fullPost];
-            }
-        });
-    });
-};
-var getPostComments = function (_a) {
-    var postId = _a.postId;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var comments;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, Comment.findAll({
-                        where: { PostId: postId },
-                        attributes: ["content", "createdAt"],
-                        include: [
-                            {
-                                model: User,
-                                attributes: ["nickname"],
-                            },
-                        ],
-                    })];
-                case 1:
-                    comments = _b.sent();
-                    return [2 /*return*/, comments];
             }
         });
     });
@@ -292,6 +259,5 @@ var postService = {
     addViewCount: addViewCount,
     getViewCount: getViewCount,
     isPostExists: isPostExists,
-    getPostComments: getPostComments,
 };
 exports.default = postService;
