@@ -4,6 +4,7 @@ import imageModel from "./image";
 import userModel from "./user";
 import tagModel from "./tag";
 import visitorModel from "./visitor";
+import seriesModel from "./series";
 import { dbConfig } from "config/config";
 
 const env = process.env.NODE_ENV || "development";
@@ -24,6 +25,7 @@ const db: DB = {
   Post: postModel(sequelize, Sequelize),
   Tag: tagModel(sequelize, Sequelize),
   Visitor: visitorModel(sequelize, Sequelize),
+  Series: seriesModel(sequelize, Sequelize),
   sequelize: sequelize,
   Sequelize: Sequelize,
 };
