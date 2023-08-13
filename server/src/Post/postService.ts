@@ -32,6 +32,7 @@ interface CreatePostParams {
   thumbNailUrl: string;
   isPublic: number;
   shortDescription: string;
+  seriesId: string;
 }
 
 const createPost = async ({
@@ -41,6 +42,7 @@ const createPost = async ({
   thumbNailUrl,
   isPublic,
   shortDescription,
+  seriesId,
 }: CreatePostParams) => {
   const post = await Post.create({
     title,
@@ -50,6 +52,7 @@ const createPost = async ({
     views: 0,
     isPublic,
     shortDescription,
+    SeriesId: seriesId,
   });
   return post;
 };

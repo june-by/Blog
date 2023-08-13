@@ -1,11 +1,5 @@
 import { customAxios } from "utils/CustomAxios";
-import {
-  AddPostParams,
-  CategoryCount,
-  PostFormType,
-  PostsType,
-  PostType,
-} from "Types/post";
+import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
 import MESSAGE from "constants/message";
 
 export const getAllPostsId = async (): Promise<{ id: number }[]> => {

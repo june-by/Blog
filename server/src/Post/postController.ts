@@ -6,23 +6,9 @@ import axios from "axios";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {
-      title,
-      category,
-      content,
-      tagArr,
-      thumbNailUrl,
-      isPublic,
-      shortDescription,
-    } = req.body;
-    const post = await postService.createPost({
-      title,
-      category,
-      content,
-      thumbNailUrl,
-      isPublic,
-      shortDescription,
-    });
+    const { tagArr } = req.body;
+
+    const post = await postService.createPost(req.body);
 
     if (tagArr.length !== 0) {
       const result = await tagService.createTags({ tagArr });
@@ -48,26 +34,10 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    title,
-    category,
-    content,
-    tagArr,
-    thumbNailUrl,
-    isPublic,
-    shortDescription,
-  } = req.body;
+  const { tagArr } = req.body;
   const { postId } = req.params;
   try {
-    await postService.updatePost({
-      title,
-      category,
-      content,
-      thumbNailUrl,
-      postId,
-      isPublic,
-      shortDescription,
-    });
+    await postService.updatePost(req.body);
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, result });
