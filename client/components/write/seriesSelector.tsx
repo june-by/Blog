@@ -24,17 +24,17 @@ const SeriesModalButton = () => {
 const SeriesSelector = () => {
   const { data } = useGetAllSeires();
   const {
-    writeFormData: { seriesId },
+    writeFormData: { SeriesId },
     handleChangeSeries,
   } = useWriteContext();
 
-  // TODO : Initialize SeriesId
+  const selectedSeries = data?.find((v) => String(v.id) === SeriesId);
 
   return (
     <div className={styles.ShortDescription}>
       <label>시리즈</label>
       <div>
-        <select onChange={handleChangeSeries}>
+        <select onChange={handleChangeSeries} value={selectedSeries?.id}>
           {data?.map((series) => (
             <option value={series.id} key={series.title}>
               {series.title}

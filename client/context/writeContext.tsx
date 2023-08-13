@@ -22,7 +22,7 @@ type Action =
   | { type: "editIsPublic"; isPublic: number }
   | { type: "editShortDescription"; shortDescription: string }
   | { type: "initializeWriteFormData"; initData: PostFormType }
-  | { type: "editSeries"; seriesId: string };
+  | { type: "editSeries"; SeriesId: string };
 
 interface ContextProps {
   writeFormData: PostFormType;
@@ -45,7 +45,7 @@ const initialState = {
   thumbNailUrl: null,
   isPublic: 0,
   shortDescription: "",
-  seriesId: "0",
+  SeriesId: "0",
 };
 
 const reducer = (state: PostFormType, action: Action): PostFormType => {
@@ -75,7 +75,7 @@ const reducer = (state: PostFormType, action: Action): PostFormType => {
       return { ...state, shortDescription: action.shortDescription };
     }
     case "editSeries": {
-      return { ...state, seriesId: action.seriesId };
+      return { ...state, SeriesId: action.SeriesId };
     }
     case "initializeWriteFormData":
       return { ...action.initData };
@@ -135,7 +135,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleChangeSeries = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: "editSeries", seriesId: e.target.value });
+    dispatch({ type: "editSeries", SeriesId: e.target.value });
   };
 
   useInitializeWriteFormData(dispatch);
@@ -185,7 +185,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
       shortDescription: post?.shortDescription,
-      seriesId: "",
+      SeriesId: String(post?.SeriesId),
     };
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query, dispatch]);
