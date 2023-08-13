@@ -10,6 +10,7 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { PostFormType } from "Types/post";
 
 type Action =
   | { type: "editTitle"; title: string }
@@ -20,22 +21,11 @@ type Action =
   | { type: "editThumbNailUrl"; thumbNailUrl: string }
   | { type: "editIsPublic"; isPublic: number }
   | { type: "editShortDescription"; shortDescription: string }
-  | { type: "initializeWriteFormData"; initData: State }
+  | { type: "initializeWriteFormData"; initData: PostFormType }
   | { type: "editSeries"; seriesId: string };
 
-interface State {
-  title: string;
-  category: CategoryType;
-  content: string;
-  tagArr: string[];
-  thumbNailUrl: null | string;
-  isPublic: number;
-  shortDescription: string;
-  seriesId: string;
-}
-
 interface ContextProps {
-  writeFormData: State;
+  writeFormData: PostFormType;
   handleChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleChangeContent: (content: string) => void;
@@ -58,7 +48,7 @@ const initialState = {
   seriesId: "0",
 };
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (state: PostFormType, action: Action): PostFormType => {
   switch (action.type) {
     case "editTitle":
       return { ...state, title: action.title };

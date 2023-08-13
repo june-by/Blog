@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from "react";
 
-type ReturnType = [boolean, React.Dispatch<React.SetStateAction<boolean>>, () => void];
+type ReturnType = [
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>,
+  () => void
+];
 
 const useToggle = (initialState = false): ReturnType => {
   const [state, setState] = useState<boolean>(initialState);

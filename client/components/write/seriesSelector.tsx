@@ -29,6 +29,7 @@ const SeriesSelector = () => {
   } = useWriteContext();
 
   // TODO : Initialize SeriesId
+
   return (
     <div className={styles.ShortDescription}>
       <label>시리즈</label>
