@@ -3,7 +3,7 @@ const { Series, Post } = model;
 
 const getAllSeries = async () => {
   const series = await Series.findAll({
-    include: [{ model: Post, attribute: ["id", "title"] }],
+    include: [{ model: Post, attributes: ["id", "title"] }],
   });
   return series;
 };
