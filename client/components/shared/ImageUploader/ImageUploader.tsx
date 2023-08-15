@@ -19,6 +19,7 @@ const UploadButton = ({ onUploadeSuccess, text }: UploadButtonProps) => {
     inputElem.click();
     inputElem.onchange = async () => {
       const file = inputElem.files;
+
       if (!file) return;
 
       const formData = new FormData();
@@ -29,7 +30,11 @@ const UploadButton = ({ onUploadeSuccess, text }: UploadButtonProps) => {
     };
   };
 
-  return <button onClick={handleClick}>{text}</button>;
+  return (
+    <button type="button" onClick={handleClick}>
+      {text}
+    </button>
+  );
 };
 
 const UploadedImage = (props: React.ComponentProps<typeof Image>) => {

@@ -44,7 +44,8 @@
     }
   }
   @include desktop {
-    width: 30%;
+    min-width: 30%;
+    width: fit-content;
   }
   @include tablet {
     width: 50%;
