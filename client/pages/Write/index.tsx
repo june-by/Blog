@@ -16,30 +16,30 @@ const Write = () => {
 };
 export default Write;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const Cookies = req?.headers?.cookie ?? "";
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//   const Cookies = req?.headers?.cookie ?? "";
 
-  customAxios.defaults.headers.Cookie = Cookies;
+//   customAxios.defaults.headers.Cookie = Cookies;
 
-  try {
-    const { data: userInfo } = await customAxios.get("/user", {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false, //허가되지 않은 인증을 reject하지 않겠다!
-      }),
-    });
+//   try {
+//     const { data: userInfo } = await customAxios.get("/user", {
+//       httpsAgent: new https.Agent({
+//         rejectUnauthorized: false, //허가되지 않은 인증을 reject하지 않겠다!
+//       }),
+//     });
 
-    if (!IsAdmin(userInfo)) {
-      return {
-        notFound: true,
-      };
-    }
+//     if (!IsAdmin(userInfo)) {
+//       return {
+//         notFound: true,
+//       };
+//     }
 
-    return {
-      props: {},
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
-};
+//     return {
+//       props: {},
+//     };
+//   } catch (err) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+// };

@@ -66,6 +66,7 @@
 
 .Editor {
   margin-top: 25px;
+  margin-bottom: 20px;
   code {
     background: rgba(135, 131, 120, 0.15) !important;
     color: #06f;
@@ -89,22 +90,6 @@
         border-bottom: 1px solid #0099fa !important;
       }
     }
-  }
-}
-
-.PickThumbNail {
-  margin-top: 25px;
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  button {
-    @include StyledButton;
-    width: 15%;
-    padding: 20px;
-  }
-  img {
-    width: 274px;
-    height: 137px;
   }
 }
 
