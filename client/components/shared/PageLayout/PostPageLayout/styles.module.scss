@@ -1,22 +1,10 @@
 @import "utils/utils.scss";
 
 .PostWrap {
+  @include PageContentLayout;
   @include desktop {
     width: 75%;
     max-width: 1080px;
-    margin: 0 auto;
-  }
-
-  @include mobile {
-    padding: 0 5%;
-  }
-
-  @include tablet {
-    padding: 0 5%;
-  }
-
-  @include tablet_landscape {
-    padding: 0 10%;
   }
 
   img {

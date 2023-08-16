@@ -4,19 +4,12 @@
   @include desktop {
     width: 90%;
     max-width: 1440px;
-    margin: 0 auto;
     display: flex;
     gap: 2.5rem;
   }
-  @include tablet_landscape {
-    padding: 0 10%;
-    gap: 2.5rem;
-  }
-  @include mobile {
-    padding: 0 5%;
-  }
 
-  @include tablet {
-    padding: 0 5%;
+  @include PageContentLayout;
+  @include tablet_landscape {
+    gap: 2.5rem;
   }
 }
