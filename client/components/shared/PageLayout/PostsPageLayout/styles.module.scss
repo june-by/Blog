@@ -1,22 +1,10 @@
 @import "utils/utils.scss";
 
-.ListContainerWrapper {
-  margin-top: 75px;
-  min-height: 100vh;
-  height: fit-content;
-  @include desktop {
-    display: flex;
-    justify-content: center;
-  }
-}
-
 .mainContentsWrapper {
-  margin-top: 15px;
-  margin-bottom: 100px;
-
   @include desktop {
     width: 90%;
     max-width: 1440px;
+    margin: 0 auto;
     display: flex;
     gap: 2.5rem;
   }
