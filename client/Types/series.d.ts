@@ -1,7 +1,7 @@
 import { PostsType } from "./post";
 
 export type AllSeriesAPIType = (SeriesType & {
-  Posts: Pick<PostsType, "title" | "id">;
+  Posts: Pick<PostsType, "title" | "id">[];
 })[];
 
 export type OneSeriesAPIType = SeriesType & {
