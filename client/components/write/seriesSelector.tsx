@@ -28,13 +28,17 @@ const SeriesSelector = () => {
     handleChangeSeries,
   } = useWriteContext();
 
-  const selectedSeries = data?.find((v) => String(v.id) === SeriesId);
+  const selectedSeries = data?.find((v) => v.id === SeriesId);
 
   return (
     <div className={styles.ShortDescription}>
       <label>시리즈</label>
       <div>
         <select onChange={handleChangeSeries} value={selectedSeries?.id}>
+          <option disabled selected>
+            {" "}
+            -- select an option --{" "}
+          </option>
           {data?.map((series) => (
             <option value={series.id} key={series.title}>
               {series.title}
