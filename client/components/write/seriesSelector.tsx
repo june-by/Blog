@@ -6,7 +6,7 @@ import { useWriteContext } from "context/writeContext";
 import { useBooleanState } from "Hooks/useBooleanState";
 
 const SeriesModalButton = () => {
-  const [open, , openModal, closeModal] = useBooleanState(false);
+  const [open, openModal, closeModal] = useBooleanState(false);
 
   return (
     <>

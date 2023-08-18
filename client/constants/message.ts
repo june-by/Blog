@@ -14,6 +14,7 @@ const MESSAGE = {
   NEED_EMAIL: "아이디를 입력해주세요.",
   NEED_PASSWORD: "비밀번호를 입력해주세요.",
   PASSWORD_AND_CHECK_NOT_SAME: "비밀번호와 비밀번호확인이 일치하지 않습니다",
+  ADD_SERIES_SUCCESS: "시리즈가 추가 되었습니다.",
 };
 
 export default MESSAGE;
