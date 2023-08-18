@@ -68,7 +68,7 @@ export const getSeriesPostAPI = async (
   if (typeof seriesTitle !== "string") return [];
   try {
     const { data } = await customAxios.get(
-      `/posts/series/${seriesTitle}/${pageNum}`
+      `/posts/series/${encodeURIComponent(seriesTitle)}/${pageNum}`
     );
     return data;
   } catch (err) {
