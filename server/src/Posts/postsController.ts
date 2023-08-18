@@ -1,8 +1,13 @@
 import postController from "src/Post/postController";
 import { NextFunction, Request, Response } from "express";
 import postsService from "./postsService";
+import seriesService from "src/Series/seriesService";
 
-const getAllPostsId = async (req: Request, res: Response, next: NextFunction) => {
+const getAllPostsId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const postsId = await postsService.getAllPostsId();
     return res.status(200).json(postsId);
@@ -12,7 +17,11 @@ const getAllPostsId = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-const getMainPosts = async (req: Request, res: Response, next: NextFunction) => {
+const getMainPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { page } = req.params;
   try {
     const posts = await postsService.getMainPosts({ page });
@@ -23,7 +32,11 @@ const getMainPosts = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
-const getCategoryPosts = async (req: Request, res: Response, next: NextFunction) => {
+const getCategoryPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { page, category } = req.params;
   try {
     const posts = await postsService.getCategoryPosts({ page, category });
@@ -34,7 +47,27 @@ const getCategoryPosts = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-const getCategoryPostsCount = async (req: Request, res: Response, next: NextFunction) => {
+const getSeriesPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { page, seriesTitle } = req.params;
+  try {
+    const seriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
+    const posts = await postsService.getPostsBySeriesId({ page, seriesId });
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
+const getCategoryPostsCount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const categoryCount = await postsService.getCategoryPostsCount();
     res.status(200).json(categoryCount);
@@ -44,7 +77,11 @@ const getCategoryPostsCount = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-const getPostsBySearchKeyWord = async (req: Request, res: Response, next: NextFunction) => {
+const getPostsBySearchKeyWord = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { page, keyword } = req.params;
   try {
     const posts = await postsService.getPostsBySearchKeyWord({ page, keyword });
@@ -55,7 +92,11 @@ const getPostsBySearchKeyWord = async (req: Request, res: Response, next: NextFu
   }
 };
 
-const getPostsByTag = async (req: Request, res: Response, next: NextFunction) => {
+const getPostsByTag = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { page, keyword } = req.params;
   try {
     const posts = await postsService.getPostsByTag({ page, keyword });
@@ -66,7 +107,11 @@ const getPostsByTag = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-const getPostsLength = async (req: Request, res: Response, next: NextFunction) => {
+const getPostsLength = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { category } = req.params;
   try {
     const length = await postsService.getPostsCount({ category });
@@ -77,7 +122,11 @@ const getPostsLength = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-const getTopViewsPosts = async (req: Request, res: Response, next: NextFunction) => {
+const getTopViewsPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const posts = await postsService.getTopViewsPosts();
     return res.status(201).json(posts);
@@ -91,6 +140,7 @@ export default {
   getAllPostsId,
   getMainPosts,
   getCategoryPosts,
+  getSeriesPosts,
   getPostsLength,
   getCategoryPostsCount,
   getPostsBySearchKeyWord,

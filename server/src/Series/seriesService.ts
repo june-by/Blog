@@ -12,7 +12,7 @@ const getSeriesIdByTitle = async ({ seriesTitle }: { seriesTitle: string }) => {
   const series = await Series.findOne({
     where: { title: seriesTitle },
   });
-  return series;
+  return series.id;
 };
 
 interface AddSeriesParams {
