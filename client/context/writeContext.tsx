@@ -45,7 +45,7 @@ const initialState = {
   thumbNailUrl: null,
   isPublic: 0,
   shortDescription: "",
-  SeriesId: "0",
+  SeriesId: null,
 };
 
 const reducer = (state: PostFormType, action: Action): PostFormType => {
@@ -185,7 +185,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
       shortDescription: post?.shortDescription,
-      SeriesId: String(post?.SeriesId),
+      SeriesId: post?.SeriesId,
     };
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query, dispatch]);
