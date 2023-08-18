@@ -10,19 +10,25 @@ import {
   useEffect,
   useReducer,
 } from "react";
-import { PostFormType } from "Types/post";
+import { MainPost, PostFormType } from "Types/post";
 
 type Action =
-  | { type: "editTitle"; title: string }
+  | { type: "editTitle"; title: MainPost["title"] }
   | { type: "editCategory"; category: CategoryType }
-  | { type: "editContent"; content: string }
+  | { type: "editContent"; content: MainPost["content"] }
   | { type: "addTag"; tag: string }
-  | { type: "removeTag"; tag: string }
-  | { type: "editThumbNailUrl"; thumbNailUrl: string }
-  | { type: "editIsPublic"; isPublic: number }
-  | { type: "editShortDescription"; shortDescription: string }
+  | {
+      type: "removeTag";
+      tag: string;
+    }
+  | { type: "editThumbNailUrl"; thumbNailUrl: MainPost["thumbNailUrl"] }
+  | { type: "editIsPublic"; isPublic: MainPost["isPublic"] }
+  | {
+      type: "editShortDescription";
+      shortDescription: MainPost["shortDescription"];
+    }
   | { type: "initializeWriteFormData"; initData: PostFormType }
-  | { type: "editSeries"; SeriesId: string };
+  | { type: "editSeries"; SeriesId: MainPost["SeriesId"] };
 
 interface ContextProps {
   writeFormData: PostFormType;
@@ -135,7 +141,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleChangeSeries = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: "editSeries", SeriesId: e.target.value });
+    dispatch({ type: "editSeries", SeriesId: Number(e.target.value) });
   };
 
   useInitializeWriteFormData(dispatch);

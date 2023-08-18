@@ -26,7 +26,7 @@ export interface PostsType {
   views: number;
   isPublic: number;
   shortDescription: string;
-  SeriesId: string | null;
+  SeriesId: number | null;
 }
 
 type TagType = {
@@ -52,5 +52,5 @@ export interface PostFormType {
   thumbNailUrl: null | string;
   isPublic: number;
   shortDescription: string;
-  SeriesId: string | null;
+  SeriesId: number | null;
 }
