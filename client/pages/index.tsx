@@ -37,11 +37,7 @@ const Home: NextPage = () => {
         <meta property="og:url" content={url} />
       </Head>
       <Header />
-      <PostsPageContainer
-        title={getTitle(query)}
-        query={getQuery(query)}
-        params={getParams(query)}
-      />
+      <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
       <ScrollButton />
     </>
   );
@@ -98,14 +94,6 @@ function verifyValue(query: ParsedUrlQuery) {
     }
   }
   return true;
-}
-
-function getTitle(query: PostsPageQueryType) {
-  if (query.search) return `🔍 Search : ${query.search}`;
-  else if (query.tag) return `🔗 Tag : ${query.tag}`;
-  else if (query.category) return `📚 Category : ${query.category}`;
-  else if (query.series) return `✍ Series : ${query.series}`;
-  else return `📝 All Posts`;
 }
 
 function getQuery(query: PostsPageQueryType) {

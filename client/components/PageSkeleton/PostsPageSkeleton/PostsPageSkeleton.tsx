@@ -3,6 +3,7 @@ import Contact from "components/posts/Contact";
 import PostCardSkeletonList from "components/posts/postList/PostCardSkeletonList";
 import PostsListLayout from "components/posts/postList/layout";
 import PostsPageLayout from "components/shared/PageLayout/PostsPageLayout/PostsPageLayout";
+import PostsListTitle from "components/shared/PostsListTitle/PostsListTitle";
 import React from "react";
 
 const PostsPageSkeleton = () => {
@@ -11,6 +12,7 @@ const PostsPageSkeleton = () => {
       <>
         <CategoryList />
         <PostsListLayout>
+          <PostsListTitle />
           <PostCardSkeletonList />
         </PostsListLayout>
         <Contact />
