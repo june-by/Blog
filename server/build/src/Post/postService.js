@@ -81,7 +81,7 @@ var getFullPost = function (_a) {
     });
 };
 var createPost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription, SeriesId = _a.SeriesId;
     return __awaiter(void 0, void 0, void 0, function () {
         var post;
         return __generator(this, function (_b) {
@@ -94,6 +94,7 @@ var createPost = function (_a) {
                         views: 0,
                         isPublic: isPublic,
                         shortDescription: shortDescription,
+                        SeriesId: SeriesId,
                     })];
                 case 1:
                     post = _b.sent();
@@ -103,7 +104,7 @@ var createPost = function (_a) {
     });
 };
 var updatePost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic, shortDescription = _a.shortDescription, SeriesId = _a.SeriesId;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -114,6 +115,7 @@ var updatePost = function (_a) {
                         thumbNailUrl: thumbNailUrl,
                         isPublic: isPublic || 0,
                         shortDescription: shortDescription,
+                        SeriesId: SeriesId,
                     }, {
                         where: { id: postId },
                     })];

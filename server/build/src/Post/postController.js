@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -44,35 +55,28 @@ var postService_1 = __importDefault(require("./postService"));
 var clientUrl_1 = __importDefault(require("../../src/constants/clientUrl"));
 var axios_1 = __importDefault(require("axios"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription, post, result, err_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var tagArr, post, result, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _b.trys.push([0, 5, , 6]);
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
-                return [4 /*yield*/, postService_1.default.createPost({
-                        title: title,
-                        category: category,
-                        content: content,
-                        thumbNailUrl: thumbNailUrl,
-                        isPublic: isPublic,
-                        shortDescription: shortDescription,
-                    })];
+                _a.trys.push([0, 5, , 6]);
+                tagArr = req.body.tagArr;
+                return [4 /*yield*/, postService_1.default.createPost(req.body)];
             case 1:
-                post = _b.sent();
+                post = _a.sent();
                 if (!(tagArr.length !== 0)) return [3 /*break*/, 4];
                 return [4 /*yield*/, tagService_1.default.createTags({ tagArr: tagArr })];
             case 2:
-                result = _b.sent();
+                result = _a.sent();
                 return [4 /*yield*/, postService_1.default.addTags({ post: post, result: result })];
             case 3:
-                _b.sent();
-                _b.label = 4;
+                _a.sent();
+                _a.label = 4;
             case 4:
                 res.send("OK");
                 return [3 /*break*/, 6];
             case 5:
-                err_1 = _b.sent();
+                err_1 = _a.sent();
                 console.error(err_1);
                 next(err_1);
                 return [3 /*break*/, 6];
@@ -102,47 +106,39 @@ var deletePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription, postId, post, result, err_3;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var tagArr, postId, post, result, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.body, title = _a.title, category = _a.category, content = _a.content, tagArr = _a.tagArr, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
+                tagArr = req.body.tagArr;
                 postId = req.params.postId;
-                _b.label = 1;
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 8, , 9]);
-                return [4 /*yield*/, postService_1.default.updatePost({
-                        title: title,
-                        category: category,
-                        content: content,
-                        thumbNailUrl: thumbNailUrl,
-                        postId: postId,
-                        isPublic: isPublic,
-                        shortDescription: shortDescription,
-                    })];
+                _a.trys.push([1, 8, , 9]);
+                return [4 /*yield*/, postService_1.default.updatePost(__assign(__assign({}, req.body), { postId: postId }))];
             case 2:
-                _b.sent();
+                _a.sent();
                 return [4 /*yield*/, postService_1.default.getPost({ postId: postId })];
             case 3:
-                post = _b.sent();
+                post = _a.sent();
                 return [4 /*yield*/, tagService_1.default.createTags({ tagArr: tagArr })];
             case 4:
-                result = _b.sent();
+                result = _a.sent();
                 return [4 /*yield*/, postService_1.default.updateTags({ post: post, result: result })];
             case 5:
-                _b.sent();
+                _a.sent();
                 if (!(process.env.NODE_ENV === "production")) return [3 /*break*/, 7];
                 return [4 /*yield*/, axios_1.default.post("".concat(clientUrl_1.default, "/api/revalidate-post?secret=").concat(process.env.SECRET_REVALIDATE_TOKEN), {
                         id: postId,
                     })];
             case 6:
-                _b.sent();
-                _b.label = 7;
+                _a.sent();
+                _a.label = 7;
             case 7: return [2 /*return*/, res.json({
                     message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
                 })];
             case 8:
-                err_3 = _b.sent();
+                err_3 = _a.sent();
                 console.error(err_3);
                 next(err_3);
                 return [3 /*break*/, 9];

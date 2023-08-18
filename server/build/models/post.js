@@ -36,6 +36,7 @@ exports.default = (function (sequelize, DataTypes) {
     });
     Post.associate = function (db) {
         db.Post.hasMany(db.Image);
+        db.Post.belongsTo(db.Series);
         db.Post.belongsToMany(db.Tag, { through: "PostHashtag" });
     };
     return Post;

@@ -9,6 +9,7 @@ var image_1 = __importDefault(require("./image"));
 var user_1 = __importDefault(require("./user"));
 var tag_1 = __importDefault(require("./tag"));
 var visitor_1 = __importDefault(require("./visitor"));
+var series_1 = __importDefault(require("./series"));
 var config_1 = require("../config/config");
 var env = process.env.NODE_ENV || "development";
 var config = config_1.dbConfig[env];
@@ -19,6 +20,7 @@ var db = {
     Post: (0, post_1.default)(sequelize, sequelize_1.Sequelize),
     Tag: (0, tag_1.default)(sequelize, sequelize_1.Sequelize),
     Visitor: (0, visitor_1.default)(sequelize, sequelize_1.Sequelize),
+    Series: (0, series_1.default)(sequelize, sequelize_1.Sequelize),
     sequelize: sequelize,
     Sequelize: sequelize_1.Sequelize,
 };
