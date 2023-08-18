@@ -29,6 +29,7 @@ import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import MESSAGE from "constants/message";
+import { getSeriesPostAPI } from "services/post/post.service";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>(
@@ -79,6 +80,17 @@ export const useGetCategoryPosts = (params: string) =>
   useInfiniteQuery<Array<PostsType>>(
     [QUERY_KEY.POST.CATEGORY, params],
     ({ pageParam = 1 }) => getCategoryPostAPI(params, pageParam),
+    {
+      ...CACHE_OPTION.ALL,
+      getNextPageParam: (lastPage, allPage) =>
+        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
+    }
+  );
+
+export const useGetSeriesPosts = (params: string) =>
+  useInfiniteQuery<Array<PostsType>>(
+    [QUERY_KEY.POST.SEARCH, params],
+    ({ pageParam = 1 }) => getSeriesPostAPI(params, pageParam),
     {
       ...CACHE_OPTION.ALL,
       getNextPageParam: (lastPage, allPage) =>

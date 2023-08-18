@@ -61,6 +61,21 @@ export const getCategoryPostAPI = async (
   }
 };
 
+export const getSeriesPostAPI = async (
+  seriesTitle: string | string[] | undefined,
+  pageNum: number
+): Promise<Array<PostsType>> => {
+  if (typeof seriesTitle !== "string") return [];
+  try {
+    const { data } = await customAxios.get(
+      `/posts/series/${seriesTitle}/${pageNum}`
+    );
+    return data;
+  } catch (err) {
+    throw new Error();
+  }
+};
+
 export const getSearchPostAPI = async (
   search: string | string[] | undefined,
   pageNum: number
