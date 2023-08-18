@@ -8,6 +8,13 @@ const getAllSeries = async () => {
   return series;
 };
 
+const getSeriesIdByTitle = async ({ seriesTitle }: { seriesTitle: string }) => {
+  const series = await Series.findOne({
+    where: { title: seriesTitle },
+  });
+  return series;
+};
+
 interface AddSeriesParams {
   title: string;
   shortDescription: string;
@@ -31,4 +38,5 @@ const addSeries = async ({
 export default {
   getAllSeries,
   addSeries,
+  getSeriesIdByTitle,
 };
