@@ -21,7 +21,13 @@ const SeriesCard = ({
     <Link href={`/?series=${title}`} className={styles.SeriesCard}>
       <figure className={styles.thumbnailImgWrapper}>
         {isThumbNailExist ? (
-          <div>1</div>
+          <Image
+            src={thumbNailUrl as string}
+            fill
+            alt="category"
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+          />
         ) : (
           <picture>
             <source
