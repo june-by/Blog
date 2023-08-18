@@ -7,7 +7,6 @@ import Contact from "./Contact";
 import PostsPageLayout from "components/shared/PageLayout/PostsPageLayout";
 interface Props {
   params?: any;
-  title: string;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
 }
 const PostsPageContainer = (props: Props) => {
