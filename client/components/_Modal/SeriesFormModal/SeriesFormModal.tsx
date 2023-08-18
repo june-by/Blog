@@ -2,7 +2,9 @@ import { useAddSeries } from "Hooks/Series";
 import DefaultModal from "components/shared/DefaultModal";
 import ImageUploader from "components/shared/ImageUploader";
 import ModalView from "components/shared/ModalView/ModalView";
+import MESSAGE from "constants/message";
 import React, { useCallback, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
   isOpen: boolean;
@@ -17,7 +19,8 @@ const SeriesFormModal = ({ isOpen, closeModal }: Props) => {
 
   const { mutate } = useAddSeries({
     onSuccess: () => {
-      alert("성공");
+      console.log("called");
+      toast.success(MESSAGE.ADD_SERIES_SUCCESS);
     },
   });
 
