@@ -1,18 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import styles from "./@styles.module.scss";
 import { useGetAllSeires } from "Hooks/Series";
 import SeriesFormModal from "components/_Modal/SeriesFormModal";
 import { useWriteContext } from "context/writeContext";
+import { useBooleanState } from "Hooks/useBooleanState";
 
 const SeriesModalButton = () => {
-  const [open, setOpen] = useState(false);
-  const openModal = useCallback(() => {
-    setOpen(true);
-  }, []);
+  const [open, , openModal, closeModal] = useBooleanState(false);
 
-  const closeModal = useCallback(() => {
-    setOpen(false);
-  }, []);
   return (
     <>
       <button onClick={openModal}>시리즈 생성</button>
