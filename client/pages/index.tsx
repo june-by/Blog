@@ -4,6 +4,7 @@ import {
   useGetCategoryPosts,
   useGetMainPost,
   useGetSearchPosts,
+  useGetSeriesPosts,
   useGetTagPosts,
 } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
@@ -36,7 +37,11 @@ const Home: NextPage = () => {
         <meta property="og:url" content={url} />
       </Head>
       <Header />
-      <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
+      <PostsPageContainer
+        title={getTitle(query)}
+        query={getQuery(query)}
+        params={getParams(query)}
+      />
       <ScrollButton />
     </>
   );
@@ -75,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 function getVerifyNeededKeysLength(keys: string[]) {
-  const verifiedKeys = ["category", "search", "tag"];
+  const verifiedKeys = ["category", "search", "tag", "series"];
   const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
   return includedKeys.length;
 }
@@ -95,10 +100,19 @@ function verifyValue(query: ParsedUrlQuery) {
   return true;
 }
 
+function getTitle(query: PostsPageQueryType) {
+  if (query.search) return `🔍 Search : ${query.search}`;
+  else if (query.tag) return `🔗 Tag : ${query.tag}`;
+  else if (query.category) return `📚 Category : ${query.category}`;
+  else if (query.series) return `✍ Series : ${query.series}`;
+  else return `📝 All Posts`;
+}
+
 function getQuery(query: PostsPageQueryType) {
   if (query.search) return useGetSearchPosts;
   else if (query.tag) return useGetTagPosts;
   else if (query.category) return useGetCategoryPosts;
+  else if (query.series) return useGetSeriesPosts;
   else return useGetMainPost;
 }
 
@@ -106,6 +120,7 @@ function getParams(query: PostsPageQueryType) {
   if (query.search) return query.search;
   else if (query.tag) return query.tag;
   else if (query.category) return query.category;
+  else if (query.series) return query.series;
   else return null;
 }
 

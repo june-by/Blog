@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
-var Post = models_1.default.Post, Comment = models_1.default.Comment, User = models_1.default.User, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
+var Post = models_1.default.Post, Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
 var getPost = function (_a) {
     var postId = _a.postId;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -68,16 +68,6 @@ var getFullPost = function (_a) {
                         },
                         include: [
                             {
-                                model: Comment,
-                                attributes: ["content", "createdAt"],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ["nickname"],
-                                    },
-                                ],
-                            },
-                            {
                                 model: Tag,
                                 attributes: ["id", "content"],
                             },
@@ -90,31 +80,8 @@ var getFullPost = function (_a) {
         });
     });
 };
-var getPostComments = function (_a) {
-    var postId = _a.postId;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var comments;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, Comment.findAll({
-                        where: { PostId: postId },
-                        attributes: ["content", "createdAt"],
-                        include: [
-                            {
-                                model: User,
-                                attributes: ["nickname"],
-                            },
-                        ],
-                    })];
-                case 1:
-                    comments = _b.sent();
-                    return [2 /*return*/, comments];
-            }
-        });
-    });
-};
 var createPost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, isPublic = _a.isPublic, shortDescription = _a.shortDescription, SeriesId = _a.SeriesId;
     return __awaiter(void 0, void 0, void 0, function () {
         var post;
         return __generator(this, function (_b) {
@@ -127,6 +94,7 @@ var createPost = function (_a) {
                         views: 0,
                         isPublic: isPublic,
                         shortDescription: shortDescription,
+                        SeriesId: SeriesId,
                     })];
                 case 1:
                     post = _b.sent();
@@ -136,7 +104,7 @@ var createPost = function (_a) {
     });
 };
 var updatePost = function (_a) {
-    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic, shortDescription = _a.shortDescription;
+    var title = _a.title, category = _a.category, content = _a.content, thumbNailUrl = _a.thumbNailUrl, postId = _a.postId, isPublic = _a.isPublic, shortDescription = _a.shortDescription, SeriesId = _a.SeriesId;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -147,6 +115,7 @@ var updatePost = function (_a) {
                         thumbNailUrl: thumbNailUrl,
                         isPublic: isPublic || 0,
                         shortDescription: shortDescription,
+                        SeriesId: SeriesId,
                     }, {
                         where: { id: postId },
                     })];
@@ -292,6 +261,5 @@ var postService = {
     addViewCount: addViewCount,
     getViewCount: getViewCount,
     isPostExists: isPostExists,
-    getPostComments: getPostComments,
 };
 exports.default = postService;

@@ -11,7 +11,6 @@ exports.default = (function (sequelize, DataTypes) {
         collate: "utf8mb4_general_ci",
     });
     Tag.associate = function (db) {
-        //        db.Comment.belongsTo(db.User); //belongsTo가 되면 UserId, PostId column이 생긴다.
         db.Tag.belongsToMany(db.Post, { through: "PostHashtag" });
     };
     return Tag;

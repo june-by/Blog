@@ -73,3 +73,19 @@ $desktop: 1024px;
   min-height: 265px;
   margin-bottom: 25px;
 }
+
+@mixin PageContentLayout {
+  @include desktop {
+    margin: 0 auto;
+  }
+  @include tablet_landscape {
+    padding: 0 10%;
+  }
+  @include mobile {
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 5%;
+  }
+}

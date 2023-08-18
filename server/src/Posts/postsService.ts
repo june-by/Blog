@@ -33,7 +33,13 @@ const getMainPosts = async ({ page }: { page: string }) => {
   return posts;
 };
 
-const getCategoryPosts = async ({ category, page }: { page: string; category: string }) => {
+const getCategoryPosts = async ({
+  category,
+  page,
+}: {
+  page: string;
+  category: string;
+}) => {
   const posts = await Post.findAll({
     where: { category: category },
     order: DEFAULT_ORDER,
@@ -52,7 +58,38 @@ const getCategoryPosts = async ({ category, page }: { page: string; category: st
   return posts;
 };
 
-const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keyword: string }) => {
+const getPostsBySeriesId = async ({
+  page,
+  seriesId,
+}: {
+  page: string;
+  seriesId: number;
+}) => {
+  const posts = await Post.findAll({
+    where: { seriesId },
+    order: DEFAULT_ORDER,
+    limit: POSTS_PER_PAGE,
+    offset: (Number(page) - 1) * POSTS_PER_PAGE,
+    attributes: {
+      exclude: DEFAULT_EXCLUDE_COLUMN,
+    },
+    include: [
+      {
+        model: Tag,
+        attributes: ["id", "content"],
+      },
+    ],
+  });
+  return posts;
+};
+
+const getPostsBySearchKeyWord = async ({
+  page,
+  keyword,
+}: {
+  page: string;
+  keyword: string;
+}) => {
   const posts = await Post.findAll({
     where: {
       title: {
@@ -75,7 +112,13 @@ const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keywor
   return posts;
 };
 
-const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string }) => {
+const getPostsByTag = async ({
+  page,
+  keyword,
+}: {
+  page: string;
+  keyword: string;
+}) => {
   const posts = await Post.findAll({
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
@@ -96,7 +139,10 @@ const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string 
 
 const getCategoryPostsCount = async () => {
   const categoryCount = await Post.findAll({
-    attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
+    attributes: [
+      "category",
+      [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"],
+    ],
     group: ["Post.category"],
   });
   return categoryCount;
@@ -123,6 +169,7 @@ export default {
   getMainPosts,
   getCategoryPosts,
   getPostsBySearchKeyWord,
+  getPostsBySeriesId,
   getPostsByTag,
   getTopViewsPosts,
   getCategoryPostsCount,

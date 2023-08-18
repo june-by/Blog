@@ -1,21 +1,14 @@
 import tagService from "src/Tag/tagService";
 import postService from "./postService";
-import commentService from "src/Comment/commentService";
 import { NextFunction, Request, Response } from "express";
 import CLIENT_URL from "src/constants/clientUrl";
 import axios from "axios";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription } = req.body;
-    const post = await postService.createPost({
-      title,
-      category,
-      content,
-      thumbNailUrl,
-      isPublic,
-      shortDescription,
-    });
+    const { tagArr } = req.body;
+
+    const post = await postService.createPost(req.body);
 
     if (tagArr.length !== 0) {
       const result = await tagService.createTags({ tagArr });
@@ -40,47 +33,22 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const addComment = async (req: Request, res: Response, next: NextFunction) => {
-  const { postId } = req.params;
-  const { comment } = req.body;
-  const { id } = req.user as { id: number };
-  try {
-    const post = postService.isPostExists({ postId });
-    if (!post) return res.status(403).send("존재하지 않는 게시글입니다");
-    const newComment = await commentService.addComment({
-      postId,
-      comment,
-      userId: id,
-    });
-    const fullComment = await commentService.getComment(newComment.id);
-    return res.status(201).json(fullComment);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
-
 const updatePost = async (req: Request, res: Response, next: NextFunction) => {
-  const { title, category, content, tagArr, thumbNailUrl, isPublic, shortDescription } = req.body;
+  const { tagArr } = req.body;
   const { postId } = req.params;
   try {
-    await postService.updatePost({
-      title,
-      category,
-      content,
-      thumbNailUrl,
-      postId,
-      isPublic,
-      shortDescription,
-    });
+    await postService.updatePost({ ...req.body, postId });
     const post = await postService.getPost({ postId });
     const result = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, result });
 
     if (process.env.NODE_ENV === "production") {
-      await axios.post(`${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
-        id: postId,
-      });
+      await axios.post(
+        `${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
+        {
+          id: postId,
+        }
+      );
     }
 
     return res.json({
@@ -106,18 +74,11 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getPostComments = async (req: Request, res: Response, next: NextFunction) => {
-  const { postId } = req.params;
-  try {
-    const comments = await postService.getPostComments({ postId });
-    res.status(201).json({ comments });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
-
-const getPostViewCount = async (req: Request, res: Response, next: NextFunction) => {
+const getPostViewCount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { postId } = req.params;
   try {
     const { views } = await postService.getViewCount({ postId });
@@ -134,8 +95,6 @@ const postController = {
   updatePost,
   AddPost,
   deletePost,
-  addComment,
-  getPostComments,
   getPostViewCount,
 };
 

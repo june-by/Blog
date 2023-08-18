@@ -41,8 +41,8 @@ export default (sequelize: Sequelize, DataTypes: any) => {
   );
 
   Post.associate = (db) => {
-    db.Post.hasMany(db.Comment);
     db.Post.hasMany(db.Image);
+    db.Post.belongsTo(db.Series);
     db.Post.belongsToMany(db.Tag, { through: "PostHashtag" });
   };
   return Post;

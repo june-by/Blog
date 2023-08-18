@@ -17,7 +17,8 @@ const ModalViewTitle = ({ title }: Pick<ModalProps, "title">) => {
 };
 
 const ModalViewCloseButton = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement> & Pick<ModalProps, "handleClose">
+  props: React.ButtonHTMLAttributes<HTMLButtonElement> &
+    Pick<ModalProps, "handleClose">
 ) => {
   return (
     <button className={styles.closeButton} onClick={props.handleClose}>
@@ -30,17 +31,26 @@ const ModalViewHeader = ({ children }: Pick<ModalProps, "children">) => {
   return <div className={styles.header}>{children}</div>;
 };
 
-const ModalViewForm = (props: React.FormHTMLAttributes<HTMLFormElement> & Pick<ModalProps, "handleSubmit">) => {
-  return <form className={styles.form} onSubmit={props.handleSubmit} {...props} />;
+const ModalViewForm = ({
+  handleSubmit,
+  ...props
+}: React.FormHTMLAttributes<HTMLFormElement> &
+  Pick<ModalProps, "handleSubmit">) => {
+  return <form className={styles.form} onSubmit={handleSubmit} {...props} />;
 };
 
 const ModalViewFormInput = forwardRef(
-  (props: React.InputHTMLAttributes<HTMLInputElement>, ref: React.ForwardedRef<HTMLInputElement>) => {
+  (
+    props: React.InputHTMLAttributes<HTMLInputElement>,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
     return <input className={styles.input} ref={ref} {...props} />;
   }
 );
 
-const ModalViewFormButton = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+const ModalViewFormButton = (
+  props: React.ButtonHTMLAttributes<HTMLButtonElement>
+) => {
   return <button className={styles.submitButton} {...props} />;
 };
 
@@ -66,14 +76,17 @@ const SocialLoginArea = () => {
   );
 };
 
-const ModalView = Object.assign(({ children }: Pick<ModalProps, "children">) => <div>{children}</div>, {
-  Header: ModalViewHeader,
-  Title: ModalViewTitle,
-  CloseButton: ModalViewCloseButton,
-  Form: ModalViewForm,
-  Input: ModalViewFormInput,
-  SubmitButton: ModalViewFormButton,
-  SocialLoginArea: SocialLoginArea,
-});
+const ModalView = Object.assign(
+  ({ children }: Pick<ModalProps, "children">) => <div>{children}</div>,
+  {
+    Header: ModalViewHeader,
+    Title: ModalViewTitle,
+    CloseButton: ModalViewCloseButton,
+    Form: ModalViewForm,
+    Input: ModalViewFormInput,
+    SubmitButton: ModalViewFormButton,
+    SocialLoginArea: SocialLoginArea,
+  }
+);
 
 export default ModalView;

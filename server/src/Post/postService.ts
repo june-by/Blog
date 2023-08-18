@@ -1,5 +1,5 @@
 import model from "models";
-const { Post, Comment, User, Tag, sequelize } = model;
+const { Post, Tag, sequelize } = model;
 
 interface PostId {
   postId: string;
@@ -17,36 +17,12 @@ const getFullPost = async ({ postId }: PostId) => {
     },
     include: [
       {
-        model: Comment,
-        attributes: ["content", "createdAt"],
-        include: [
-          {
-            model: User,
-            attributes: ["nickname"],
-          },
-        ],
-      },
-      {
         model: Tag,
         attributes: ["id", "content"],
       },
     ],
   });
   return fullPost;
-};
-
-const getPostComments = async ({ postId }: PostId) => {
-  const comments = await Comment.findAll({
-    where: { PostId: postId },
-    attributes: ["content", "createdAt"],
-    include: [
-      {
-        model: User,
-        attributes: ["nickname"],
-      },
-    ],
-  });
-  return comments;
 };
 
 interface CreatePostParams {
@@ -56,9 +32,18 @@ interface CreatePostParams {
   thumbNailUrl: string;
   isPublic: number;
   shortDescription: string;
+  SeriesId: string;
 }
 
-const createPost = async ({ title, category, content, thumbNailUrl, isPublic, shortDescription }: CreatePostParams) => {
+const createPost = async ({
+  title,
+  category,
+  content,
+  thumbNailUrl,
+  isPublic,
+  shortDescription,
+  SeriesId,
+}: CreatePostParams) => {
   const post = await Post.create({
     title,
     category,
@@ -67,6 +52,7 @@ const createPost = async ({ title, category, content, thumbNailUrl, isPublic, sh
     views: 0,
     isPublic,
     shortDescription,
+    SeriesId,
   });
   return post;
 };
@@ -83,6 +69,7 @@ const updatePost = async ({
   postId,
   isPublic,
   shortDescription,
+  SeriesId,
 }: UpdatePostParams) => {
   await Post.update(
     {
@@ -92,6 +79,7 @@ const updatePost = async ({
       thumbNailUrl,
       isPublic: isPublic || 0,
       shortDescription,
+      SeriesId,
     },
     {
       where: { id: postId },
@@ -121,7 +109,13 @@ const isPostExists = async ({ postId }: PostId) => {
   return post;
 };
 
-const addViewCount = async ({ postId, views }: { postId: string; views: number }) => {
+const addViewCount = async ({
+  postId,
+  views,
+}: {
+  postId: string;
+  views: number;
+}) => {
   await Post.update(
     {
       views: views + 1,
@@ -132,7 +126,11 @@ const addViewCount = async ({ postId, views }: { postId: string; views: number }
   );
 };
 
-const getViewCount = async ({ postId }: { postId: string }): Promise<{ views: number }> => {
+const getViewCount = async ({
+  postId,
+}: {
+  postId: string;
+}): Promise<{ views: number }> => {
   const viewCount = await Post.findOne({
     where: { id: postId },
     attributes: ["views"],
@@ -170,6 +168,5 @@ const postService = {
   addViewCount,
   getViewCount,
   isPostExists,
-  getPostComments,
 };
 export default postService;

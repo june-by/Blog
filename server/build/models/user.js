@@ -23,8 +23,5 @@ exports.default = (function (sequelize, DataTypes) {
         charset: "utf8",
         collate: "utf8_general_ci",
     });
-    User.associate = function (db) {
-        db.User.hasMany(db.Comment);
-    };
     return User;
 });

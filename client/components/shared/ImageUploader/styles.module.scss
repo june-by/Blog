@@ -1,0 +1,11 @@
+@import "utils/utils.scss";
+
+.ImageUploader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  button {
+    @include StyledButton;
+    padding: 20px;
+  }
+}

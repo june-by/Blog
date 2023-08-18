@@ -15,8 +15,8 @@ import postRouter from "src/Post/postRouter";
 import postsRouter from "src/Posts/postsRouter";
 import userRouter from "src/User/userRouter";
 import visitorRouter from "src/Visitor/visitorRouter";
-import commentRouter from "src/Comment/commentRouter";
 import tagRouter from "src/Tag/tagRouter";
+import seriesRouter from "src/Series/seriesRouter";
 import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
@@ -61,7 +61,10 @@ export default function () {
         httpOnly: true, //cookie는 javascript로 조작할 수 없도록.
         secure: true,
         sameSite: "lax",
-        domain: process.env.NODE_ENV === "production" ? ".byjuun.com" : ".local.byjuun.com",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? ".byjuun.com"
+            : ".local.byjuun.com",
       },
     })
   );
@@ -73,8 +76,8 @@ export default function () {
   app.use("/posts", postsRouter);
   app.use("/user", userRouter);
   app.use("/visitor", visitorRouter);
-  app.use("/comment", commentRouter);
   app.use("/tag", tagRouter);
+  app.use("/series", seriesRouter);
 
   AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
