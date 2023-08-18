@@ -15,17 +15,6 @@ const getAllSeries = async (
   }
 };
 
-const getSeries = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { seriesId } = req.params;
-    const series = await seriesService.getSeries({ seriesId });
-    return res.status(200).json(series);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
-
 const addSeries = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { title, shortDescription, thumbNailUrl } = req.body;
@@ -43,6 +32,5 @@ const addSeries = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   getAllSeries,
-  getSeries,
   addSeries,
 };

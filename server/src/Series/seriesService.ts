@@ -8,15 +8,6 @@ const getAllSeries = async () => {
   return series;
 };
 
-const getSeries = async ({ seriesId }: { seriesId: string }) => {
-  const series = await Series.findOne({
-    where: { id: seriesId },
-    include: [{ model: Post, attributes: { exclude: ["content"] } }],
-  });
-
-  return series;
-};
-
 interface AddSeriesParams {
   title: string;
   shortDescription: string;
@@ -39,6 +30,5 @@ const addSeries = async ({
 
 export default {
   getAllSeries,
-  getSeries,
   addSeries,
 };
