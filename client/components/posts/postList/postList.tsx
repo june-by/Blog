@@ -10,11 +10,21 @@ import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
 interface Props {
   params?: any;
+  title: string;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
 }
 
-const PostList = ({ params, query }: Props) => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
+const PostList = ({ params, query, title }: Props) => {
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    isError,
+    refetch,
+    error,
+  } = query(params);
 
   useRestoreSrollPos();
 
@@ -26,20 +36,23 @@ const PostList = ({ params, query }: Props) => {
 
   return (
     <PostsListLayout>
-      <InfiniteScroll
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-        isLoading={isFetchingNextPage || isLoading}
-        skeleton={<PostCardSkeletonList />}
-      >
-        {data?.pages.map((page) => (
-          <>
-            {page.map((post: PostsType) => (
-              <PostCard key={post.title} post={post} />
-            ))}
-          </>
-        ))}
-      </InfiniteScroll>
+      <>
+        <h2>{title}</h2>
+        <InfiniteScroll
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage || isLoading}
+          skeleton={<PostCardSkeletonList />}
+        >
+          {data?.pages.map((page) => (
+            <>
+              {page.map((post: PostsType) => (
+                <PostCard key={post.title} post={post} />
+              ))}
+            </>
+          ))}
+        </InfiniteScroll>
+      </>
     </PostsListLayout>
   );
 };
