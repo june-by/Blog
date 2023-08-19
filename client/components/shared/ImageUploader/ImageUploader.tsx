@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { InputHTMLAttributes, ReactNode } from "react";
 import styles from "./styles.module.scss";
 import { customAxios } from "utils/CustomAxios";
 import Image from "next/image";
@@ -37,6 +37,10 @@ const UploadButton = ({ onUploadeSuccess, text }: UploadButtonProps) => {
   );
 };
 
+const ImageUrlInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
+  return <input {...props} />;
+};
+
 const UploadedImage = (props: React.ComponentProps<typeof Image>) => {
   if (isNull(props.src as string)) return null;
   return <Image {...props} alt="uploadedImage" />;
@@ -44,11 +48,12 @@ const UploadedImage = (props: React.ComponentProps<typeof Image>) => {
 
 const ImageUploader = Object.assign(
   ({ children }: { children: ReactNode }) => (
-    <div className={styles.ImageUploader}> {children}</div>
+    <div className={styles.ImageUploader}>{children}</div>
   ),
   {
     UploadButton,
     Image: UploadedImage,
+    ImageUrlInput,
   }
 );
 
