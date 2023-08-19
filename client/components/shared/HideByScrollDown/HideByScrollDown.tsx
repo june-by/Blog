@@ -41,7 +41,7 @@ const HideByScrollDown = ({
 }: Props) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const styleForAnimation = STYLE[hideDirection];
-  console.log("position : ", position);
+
   const hide = useCallback(() => {
     if (!wrapperRef.current) return;
     wrapperRef.current.style[styleForAnimation] = valueForHide;
