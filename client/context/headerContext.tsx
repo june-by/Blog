@@ -18,7 +18,13 @@ interface State {
   isSearchModalOpen: boolean;
 }
 interface Action {
-  type: "openSearch" | "openLogin" | "openSignUp" | "closeSearch" | "closeLogin" | "closeSignUp";
+  type:
+    | "openSearch"
+    | "openLogin"
+    | "openSignUp"
+    | "closeSearch"
+    | "closeLogin"
+    | "closeSignUp";
 }
 
 const HeaderContext = createContext<ContextProps>({
@@ -42,11 +48,23 @@ const initialState = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "openSearch":
-      return { isLoginModalOpen: false, isSearchModalOpen: true, isSignUpModalOpen: false };
+      return {
+        isLoginModalOpen: false,
+        isSearchModalOpen: true,
+        isSignUpModalOpen: false,
+      };
     case "openLogin":
-      return { isLoginModalOpen: true, isSearchModalOpen: false, isSignUpModalOpen: false };
+      return {
+        isLoginModalOpen: true,
+        isSearchModalOpen: false,
+        isSignUpModalOpen: false,
+      };
     case "openSignUp":
-      return { isLoginModalOpen: false, isSearchModalOpen: false, isSignUpModalOpen: true };
+      return {
+        isLoginModalOpen: false,
+        isSearchModalOpen: false,
+        isSignUpModalOpen: true,
+      };
     case "closeSearch":
       return { ...state, isSearchModalOpen: false };
     case "closeLogin":
@@ -57,7 +75,8 @@ const reducer = (state: State, action: Action): State => {
 };
 
 export const HeaderContainer = ({ children }: { children: JSX.Element }) => {
-  const [{ isLoginModalOpen, isSearchModalOpen, isSignUpModalOpen }, dispatch] = useReducer(reducer, initialState);
+  const [{ isLoginModalOpen, isSearchModalOpen, isSignUpModalOpen }, dispatch] =
+    useReducer(reducer, initialState);
 
   const openSearch = () => {
     dispatch({ type: "openSearch" });
