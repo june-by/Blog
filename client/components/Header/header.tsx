@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from "react";
 import styles from "./styles.module.scss";
-import SearchButton from "./searchButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
 import { useGetUserQuery } from "Hooks/User";
@@ -45,7 +44,6 @@ const Header = () => {
           )}
           <WriteButton />
           <ThemeToggleButton />
-          <SearchButton />
           <AuthButton isLoggedIn={isLoggedIn} />
         </div>
       </div>

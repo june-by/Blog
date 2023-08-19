@@ -8,7 +8,8 @@ import InfiniteScroll from "components/_hoc/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
-import PostsListTitle from "components/shared/PostsListTitle/PostsListTitle";
+import PostsListTitle from "components/shared/PostsListTitle";
+import PostSearchBox from "./PostSearchBox";
 interface Props {
   params?: any;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
@@ -38,6 +39,7 @@ const PostList = ({ params, query }: Props) => {
     <PostsListLayout>
       <>
         <PostsListTitle />
+        <PostSearchBox />
         <InfiniteScroll
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
