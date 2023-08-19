@@ -52,8 +52,7 @@ const getSeriesPosts = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page } = req.params;
-  const seriesTitle = decodeURIComponent(req.params.seriesTitle);
+  const { page, seriesTitle } = req.params;
   try {
     const seriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
     const posts = await postsService.getPostsBySeriesId({ page, seriesId });

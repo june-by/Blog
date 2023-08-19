@@ -105,24 +105,23 @@ var getCategoryPosts = function (req, res, next) { return __awaiter(void 0, void
     });
 }); };
 var getSeriesPosts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var page, seriesTitle, seriesId, posts, err_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, page, seriesTitle, seriesId, posts, err_4;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                page = req.params.page;
-                seriesTitle = decodeURIComponent(req.params.seriesTitle);
-                _a.label = 1;
+                _a = req.params, page = _a.page, seriesTitle = _a.seriesTitle;
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _b.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, seriesService_1.default.getSeriesIdByTitle({ seriesTitle: seriesTitle })];
             case 2:
-                seriesId = _a.sent();
+                seriesId = _b.sent();
                 return [4 /*yield*/, postsService_1.default.getPostsBySeriesId({ page: page, seriesId: seriesId })];
             case 3:
-                posts = _a.sent();
+                posts = _b.sent();
                 return [2 /*return*/, res.status(200).json(posts)];
             case 4:
-                err_4 = _a.sent();
+                err_4 = _b.sent();
                 console.error(err_4);
                 next(err_4);
                 return [3 /*break*/, 5];

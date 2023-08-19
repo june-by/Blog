@@ -3,12 +3,10 @@ import styles from "./styles.module.scss";
 import SearchButton from "./searchButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
-import useGotoPage from "Hooks/useGotoPage";
 import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
 import useScroll from "Hooks/useScroll";
-
-const ADMIN_EMAIL = "neostgeart@gmail.com";
+import Logo from "./Logo";
 
 const HEADER_HEIGHT = "65px";
 
@@ -18,8 +16,6 @@ const Header = () => {
   const { data: userData } = useGetUserQuery();
 
   const isLoggedIn = !!userData;
-
-  const gotoPage = useGotoPage();
 
   const hideHeader = useCallback(() => {
     if (!headerRef?.current) {
@@ -40,7 +36,7 @@ const Header = () => {
   return (
     <header ref={headerRef} className={styles.headerStyleWrap}>
       <div className={styles.headerContentWrap}>
-        <h1 onClick={gotoPage("/")}>ByJuun.</h1>
+        <Logo />
         <div className={styles.headerRightWrap}>
           {isLoggedIn && (
             <span>
