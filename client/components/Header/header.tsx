@@ -1,41 +1,29 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
 import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
-import useScroll from "Hooks/useScroll";
 import Logo from "./Logo";
 import PageNavigaition from "./PageNavigaition";
 import MobileMenuToggleButton from "./MobileMenuToggleButton";
+import HideByScrollDown from "components/shared/HideByScrollDown/HideByScrollDown";
 
 const HEADER_HEIGHT = "65px";
 
 const Header = () => {
-  const headerRef = useRef<HTMLHeadingElement | null>(null);
-
   const { data: userData } = useGetUserQuery();
 
   const isLoggedIn = !!userData;
 
-  const hideHeader = useCallback(() => {
-    if (!headerRef?.current) {
-      return;
-    }
-    headerRef.current.style.marginTop = `-${HEADER_HEIGHT}`;
-  }, []);
-
-  const showHeader = useCallback(() => {
-    if (!headerRef?.current) {
-      return;
-    }
-    headerRef.current.style.marginTop = "0px";
-  }, []);
-
-  useScroll({ onScrollDown: hideHeader, onScrollUp: showHeader });
-
   return (
-    <header ref={headerRef} className={styles.headerStyleWrap}>
+    <HideByScrollDown
+      tagName="header"
+      hideDirection="top"
+      valueForHide={`-${HEADER_HEIGHT}`}
+      position={{ top: "0px" }}
+      className={styles.headerStyleWrap}
+    >
       <div className={styles.headerContentWrap}>
         <Logo />
         <div className={styles.headerRightWrap}>
@@ -51,7 +39,7 @@ const Header = () => {
           <MobileMenuToggleButton />
         </div>
       </div>
-    </header>
+    </HideByScrollDown>
   );
 };
 

@@ -1,11 +1,11 @@
 import PAGE from "constants/page";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { useHeaderContext } from "context/headerContext";
-import LeftSlideLayer from "components/shared/LeftSlideLayer/LeftSlideLayer";
+import LeftSlideLayer from "components/shared/LeftSlideLayer";
 
 interface Props {
   isOpen: boolean;
