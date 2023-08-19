@@ -28,9 +28,15 @@ const SeriesFormModal = ({ isOpen, closeModal }: Props) => {
     setThumbNailUrl(imageUrl);
   }, []);
 
+  const onChangeThumbUrl = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setThumbNailUrl(e.target.value);
+    },
+    []
+  );
+
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
-      console.log("handleSubmitCalled");
       if (!titleRef.current || !shortDescriptionRef.current) return;
       e.preventDefault();
 
@@ -56,10 +62,17 @@ const SeriesFormModal = ({ isOpen, closeModal }: Props) => {
           <Input placeholder="제목" ref={titleRef} />
           <Input placeholder="짧은설명" ref={shortDescriptionRef} />
           <ImageUploader>
-            <ImageUploader.UploadButton
-              text="썸네일 설정"
-              onUploadeSuccess={onImageUploadeSuccess}
-            />
+            <div>
+              <ImageUploader.ImageUrlInput
+                placeholder="image url"
+                onChange={onChangeThumbUrl}
+                value={thumbNailUrl}
+              />
+              <ImageUploader.UploadButton
+                text="썸네일 설정"
+                onUploadeSuccess={onImageUploadeSuccess}
+              />
+            </div>
             <ImageUploader.Image
               src={thumbNailUrl}
               width={300}

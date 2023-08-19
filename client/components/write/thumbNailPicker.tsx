@@ -16,14 +16,27 @@ const ThumbNailPicker = () => {
     [setThumbNailUrl]
   );
 
+  const onChangeThumbUrl = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setThumbNailUrl(e.target.value);
+    },
+    []
+  );
   useSetDefaultThumbNail();
 
   return (
     <ImageUploader>
-      <ImageUploader.UploadButton
-        onUploadeSuccess={onImageUploadeSuccess}
-        text="썸네일 설정"
-      />
+      <div>
+        <ImageUploader.ImageUrlInput
+          placeholder="image url"
+          onChange={onChangeThumbUrl}
+          value={thumbNailUrl || ""}
+        />
+        <ImageUploader.UploadButton
+          onUploadeSuccess={onImageUploadeSuccess}
+          text="썸네일 설정"
+        />
+      </div>
       <ImageUploader.Image
         src={thumbNailUrl as string}
         alt="썸네일"

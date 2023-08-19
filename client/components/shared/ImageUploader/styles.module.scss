@@ -2,10 +2,20 @@
 
 .ImageUploader {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
   button {
     @include StyledButton;
-    padding: 20px;
+    height: 43px;
+    white-space: nowrap;
+  }
+  input {
+    @include StyledInput;
   }
 }
