@@ -4,7 +4,7 @@ import { useGetPostQuery } from "Hooks/Post";
 import { PostType } from "Types/post";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
-import LoadingOrNot from "components/_hoc/LoadingOrNot";
+import LoadingOrNot from "components/shared/LoadingOrNot";
 
 const RoutePostButtons = () => {
   const router = useRouter();
@@ -19,8 +19,16 @@ const RoutePostButtons = () => {
   return (
     <LoadingOrNot isLoading={isLoading}>
       <div className={styles.RoutePostButtons}>
-        <RoutePostButton direction="prev" postId={prevPostId} postTitle={prevPostTitle} />
-        <RoutePostButton direction="next" postId={nextPostId} postTitle={nextPostTitle} />
+        <RoutePostButton
+          direction="prev"
+          postId={prevPostId}
+          postTitle={prevPostTitle}
+        />
+        <RoutePostButton
+          direction="next"
+          postId={nextPostId}
+          postTitle={nextPostTitle}
+        />
       </div>
     </LoadingOrNot>
   );

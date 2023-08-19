@@ -1,4 +1,4 @@
-import Modal from "components/_hoc/Modal";
+import Modal from "components/shared/Modal";
 import React, { ReactNode } from "react";
 
 interface Props {

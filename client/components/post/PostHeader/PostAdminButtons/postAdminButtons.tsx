@@ -3,7 +3,7 @@ import React from "react";
 import PostDeleteButton from "./postDeleteButton";
 import useQueryId from "Hooks/useQueryId";
 import styles from "./styles.module.scss";
-import WithAdminValidation from "components/_hoc/WithAdminValidation";
+import WithAdminValidation from "components/shared/WithAdminValidation";
 
 const PostAdminButtons = () => {
   const postId = useQueryId();

@@ -1,5 +1,5 @@
 import { useGetAllSeires } from "Hooks/Series";
-import LoadingOrNot from "components/_hoc/LoadingOrNot";
+import LoadingOrNot from "components/shared/LoadingOrNot";
 import SeriesPageLayout from "components/shared/PageLayout/SeriesPageLayout";
 import React from "react";
 import SeriesList from "./SeriesList";
