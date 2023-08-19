@@ -5,25 +5,19 @@ import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { useHeaderContext } from "context/headerContext";
+import LeftSlideLayer from "components/shared/LeftSlideLayer/LeftSlideLayer";
 
 interface Props {
-  open: boolean;
+  isOpen: boolean;
   handleClose: () => void;
 }
 
-const MobileMenu = ({ open, handleClose }: Props) => {
-  const menuRef = useRef<HTMLDivElement | null>(null);
+const MobileMenu = ({ isOpen, handleClose }: Props) => {
   const { openLogin, openSignUp } = useHeaderContext();
   const { pathname } = useRouter();
 
-  useEffect(() => {
-    if (!menuRef.current) return;
-    if (!open) menuRef.current.style.left = "100%";
-    else menuRef.current.style.left = "0";
-  }, [open]);
-
   return (
-    <div className={styles.MobileMenu} ref={menuRef}>
+    <LeftSlideLayer isOpen={isOpen} className={styles.MobileMenu}>
       <div className={styles.closeArea}>
         <button onClick={handleClose}>
           <IoClose />
@@ -56,7 +50,7 @@ const MobileMenu = ({ open, handleClose }: Props) => {
           </Link>
         ))}
       </div>
-    </div>
+    </LeftSlideLayer>
   );
 };
 

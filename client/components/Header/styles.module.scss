@@ -178,11 +178,6 @@
 
 .MobileMenu {
   gap: 32px;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: var(--slight-layer2);
   transition-duration: 500ms;
   opacity: 0.95;
