@@ -6,6 +6,8 @@ import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
 import useScroll from "Hooks/useScroll";
 import Logo from "./Logo";
+import PageNavigaition from "./PageNavigaition";
+import MobileMenuToggleButton from "./MobileMenuToggleButton";
 
 const HEADER_HEIGHT = "65px";
 
@@ -42,9 +44,11 @@ const Header = () => {
               <strong>{userData.nickname}</strong>님
             </span>
           )}
+          <PageNavigaition />
           <WriteButton />
-          <ThemeToggleButton />
           <AuthButton isLoggedIn={isLoggedIn} />
+          <ThemeToggleButton />
+          <MobileMenuToggleButton />
         </div>
       </div>
     </header>

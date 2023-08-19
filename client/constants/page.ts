@@ -1,5 +1,12 @@
 const PAGE = {
-  HOME: "/",
+  POSTS: {
+    url: "/",
+    text: "POSTS",
+  },
+  SERIES: {
+    url: "/series",
+    text: "SERIES",
+  },
 };
 
 export default PAGE;
