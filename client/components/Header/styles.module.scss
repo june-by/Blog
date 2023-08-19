@@ -86,7 +86,10 @@
   height: 50px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 1rem;
+  @include mobile {
+    gap: 0;
+  }
 
   span {
     margin: 0 10px;
@@ -104,7 +107,9 @@
   @include StyledButton;
   font-weight: 700;
   padding: 10px;
-  margin-left: 0.5rem;
+  @include mobile {
+    display: none;
+  }
 }
 
 .iconButton {
@@ -129,5 +134,44 @@
   padding: 10px 15px;
   @include mobile {
     display: none;
+  }
+}
+
+.PageNavigaition {
+  display: flex;
+  gap: 1rem;
+  font-weight: 700;
+  height: 40px;
+  @include mobile {
+    display: none;
+  }
+  a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 0 10px;
+    transition-duration: 250ms;
+    font-size: 15px;
+    &:hover {
+      background: var(--bg-element4);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.MobileMenuToggleButton {
+  background: none;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: none;
+  @include mobile {
+    display: block;
+  }
+  svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--bg-element2);
   }
 }

@@ -19,7 +19,7 @@ export default class PostsPOM {
 
   async goTo() {
     await this.mocking();
-    await this.page.goto(PAGE.HOME);
+    await this.page.goto(PAGE.POSTS.url);
   }
 
   async mocking() {
