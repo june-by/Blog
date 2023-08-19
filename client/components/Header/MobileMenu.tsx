@@ -16,6 +16,16 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
   const { openLogin, openSignUp } = useHeaderContext();
   const { pathname } = useRouter();
 
+  const handleClickLoginButton = () => {
+    handleClose();
+    openLogin();
+  };
+
+  const handleClickSignUpButton = () => {
+    openSignUp();
+    handleClose();
+  };
+
   return (
     <LeftSlideLayer isOpen={isOpen} className={styles.MobileMenu}>
       <div className={styles.closeArea}>
@@ -24,22 +34,8 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
         </button>
       </div>
       <div className={styles.Navigator}>
-        <button
-          onClick={() => {
-            handleClose();
-            openLogin();
-          }}
-        >
-          LOGIN
-        </button>
-        <button
-          onClick={() => {
-            openSignUp();
-            handleClose();
-          }}
-        >
-          SIGNUP
-        </button>
+        <button onClick={handleClickLoginButton}>LOGIN</button>
+        <button onClick={handleClickSignUpButton}>SIGNUP</button>
         {Object.values(PAGE).map(({ text, url }) => (
           <Link
             key={text}
