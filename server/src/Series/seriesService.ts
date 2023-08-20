@@ -1,8 +1,10 @@
 import model from "models";
+import { ORDER_BY_CREATED_AT } from "src/constants";
 const { Series, Post } = model;
 
 const getAllSeries = async () => {
   const series = await Series.findAll({
+    order: ORDER_BY_CREATED_AT,
     include: [{ model: Post, attributes: ["id", "title"] }],
   });
   return series;
@@ -21,11 +23,7 @@ interface AddSeriesParams {
   thumbNailUrl: string;
 }
 
-const addSeries = async ({
-  title,
-  shortDescription,
-  thumbNailUrl,
-}: AddSeriesParams) => {
+const addSeries = async ({ title, shortDescription, thumbNailUrl }: AddSeriesParams) => {
   const series = await Series.create({
     title,
     shortDescription,

@@ -6,8 +6,7 @@ const MESSAGE = {
   POST_REGIST_SUCCESS: "게시글이 등록 되었습니다.",
   POST_EDIT_SUCCESS: "게시글이 수정 되었습니다.",
   POST_DELETE_SUCCESS: "게시글이 삭제 되었습니다.",
-  COMMNET_ERROR:
-    "댓글 등록 과정에서 에러가 발생했습니다.\n잠시 후 다시 시도해주세요.",
+  COMMNET_ERROR: "댓글 등록 과정에서 에러가 발생했습니다.\n잠시 후 다시 시도해주세요.",
   NETWORK_ERROR: "네트워크 에러가 발생했습니다.\n잠시 후 다시 시도 해주세요.",
   NOT_READY_POST: "준비중인 게시글입니다.",
   INVALIDE_ACCESS: "비정상적인 접근입니다.",
@@ -15,6 +14,7 @@ const MESSAGE = {
   NEED_PASSWORD: "비밀번호를 입력해주세요.",
   PASSWORD_AND_CHECK_NOT_SAME: "비밀번호와 비밀번호확인이 일치하지 않습니다",
   ADD_SERIES_SUCCESS: "시리즈가 추가 되었습니다.",
+  NEED_SEARCHKEYWORD: "검색어를 입력해주세요.",
 };
 
 export default MESSAGE;

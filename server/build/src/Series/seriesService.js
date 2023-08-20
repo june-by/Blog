@@ -40,12 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
+var constants_1 = require("../../src/constants");
 var Series = models_1.default.Series, Post = models_1.default.Post;
 var getAllSeries = function () { return __awaiter(void 0, void 0, void 0, function () {
     var series;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Series.findAll({
+                    order: constants_1.ORDER_BY_CREATED_AT,
                     include: [{ model: Post, attributes: ["id", "title"] }],
                 })];
             case 1:

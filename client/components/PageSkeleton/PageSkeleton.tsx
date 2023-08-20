@@ -9,6 +9,8 @@ interface Props {
 
 const getMainPathFromUrl = (url: string) => {
   if (url.includes("/post/")) return "post";
+  else if (url.includes("/series")) return "needed";
+  else if (url.includes("/archives")) return "needed";
   return "posts";
 };
 
@@ -22,6 +24,7 @@ const PageSkeleton = ({ nextUrl }: Props) => {
         caseBy={{
           post: <PostPageSkeleton />,
           posts: <PostsPageSkeleton />,
+          needed: null,
         }}
       />
     </>
