@@ -1,0 +1,8 @@
+@import "utils/utils.scss";
+.ArchivesPageLayout {
+  @include desktop {
+    width: 90%;
+    max-width: 1440px;
+  }
+  @include PageContentLayout;
+}
