@@ -1,5 +1,5 @@
 import LoadingOrNot from "components/shared/LoadingOrNot";
-import ArchivesPageLayout from "components/shared/PageLayout/ArchivesPageLayout/ArchivesPageLayout";
+import ArchivesPageLayout from "components/shared/PageLayout/ArchivesPageLayout";
 import PageTitle from "components/shared/PageTitle/PageTitle";
 import React from "react";
 
