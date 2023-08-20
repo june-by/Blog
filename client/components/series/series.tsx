@@ -16,8 +16,6 @@ const SeriesPageContainer = () => {
             title="✍️ Series"
             description="시리즈로 작성된 포스트들을 모아놓았습니다 😄"
           />
-          {/* <FontAppliedElement tagName="h2">✍️ Series</FontAppliedElement>
-          <span>시리즈로 작성된 포스트들을 모아놓았습니다😄</span> */}
           <SeriesList data={data as AllSeriesAPIType} />
         </>
       </SeriesPageLayout>
