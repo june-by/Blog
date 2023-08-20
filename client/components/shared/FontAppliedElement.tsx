@@ -1,7 +1,7 @@
 import React, { createElement } from "react";
-import { Concert_One } from "next/font/google";
+import { Concert_One, Jua } from "next/font/google";
 
-const MainFont = Concert_One({
+const Font = Jua({
   weight: "400",
   subsets: [],
 });
@@ -17,7 +17,7 @@ const FontAppliedElement = ({
   ...props
 }: Props) => {
   return createElement(tagName, {
-    className: `${MainFont.className} ${className}`,
+    className: `${Font.className} ${className}`,
     ...props,
   });
 };

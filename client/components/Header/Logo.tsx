@@ -12,9 +12,9 @@ const Logo = () => {
   const gotoPage = useGotoPage();
 
   return (
-    <FontAppliedElement tagName="h1" onClick={gotoPage("/")}>
+    <h1 className={ConcertOneFont.className} onClick={gotoPage("/")}>
       ByJuun.
-    </FontAppliedElement>
+    </h1>
   );
 };
 

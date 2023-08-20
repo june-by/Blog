@@ -13,7 +13,9 @@ const PageTitle = ({ title, description }: Props) => {
       <FontAppliedElement tagName="h2" className={styles.title}>
         {title}
       </FontAppliedElement>
-      <span className={styles.description}>{description}</span>
+      <FontAppliedElement tagName="span" className={styles.description}>
+        {description}
+      </FontAppliedElement>
     </div>
   );
 };
