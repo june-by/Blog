@@ -3,6 +3,8 @@ import styles from "./styles.module.scss";
 import IconButton from "components/shared/IconButton/IconButton";
 import SearchIcon from "components/Icon/search";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import MESSAGE from "constants/message";
 const PostSearchBox = () => {
   const { push } = useRouter();
 
@@ -11,6 +13,10 @@ const PostSearchBox = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchRef.current) return;
+    const searchKeyword = searchRef.current.value;
+
+    if (!searchKeyword) return toast.warn(MESSAGE.NEED_SEARCHKEYWORD);
+
     return push({
       pathname: "/",
       query: { search: searchRef.current.value },
