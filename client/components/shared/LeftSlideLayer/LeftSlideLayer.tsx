@@ -19,10 +19,7 @@ const LeftSlideLayer = ({ children, isOpen, className }: Props) => {
   }, [isOpen]);
 
   return (
-    <div
-      ref={leftSlideLayerRef}
-      className={`${styles.LeftSlideLayer} ${className}`}
-    >
+    <div ref={leftSlideLayerRef} className={`${styles.LeftSlideLayer} ${className}`}>
       {children}
     </div>
   );
