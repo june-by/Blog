@@ -1,51 +1,46 @@
 import PAGE from "constants/page";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { useHeaderContext } from "context/headerContext";
+import LeftSlideLayer from "components/shared/LeftSlideLayer";
+import FontAppliedElement from "components/shared/FontAppliedElement";
 
 interface Props {
-  open: boolean;
+  isOpen: boolean;
   handleClose: () => void;
 }
 
-const MobileMenu = ({ open, handleClose }: Props) => {
-  const menuRef = useRef<HTMLDivElement | null>(null);
+const MobileMenu = ({ isOpen, handleClose }: Props) => {
   const { openLogin, openSignUp } = useHeaderContext();
   const { pathname } = useRouter();
 
-  useEffect(() => {
-    if (!menuRef.current) return;
-    if (!open) menuRef.current.style.left = "100%";
-    else menuRef.current.style.left = "0";
-  }, [open]);
+  const handleClickLoginButton = () => {
+    handleClose();
+    openLogin();
+  };
+
+  const handleClickSignUpButton = () => {
+    openSignUp();
+    handleClose();
+  };
 
   return (
-    <div className={styles.MobileMenu} ref={menuRef}>
+    <LeftSlideLayer isOpen={isOpen} className={styles.MobileMenu}>
       <div className={styles.closeArea}>
         <button onClick={handleClose}>
           <IoClose />
         </button>
       </div>
-      <div className={styles.Navigator}>
-        <button
-          onClick={() => {
-            handleClose();
-            openLogin();
-          }}
-        >
+      <FontAppliedElement tagName="div" className={styles.Navigator}>
+        <FontAppliedElement tagName="button" onClick={handleClickLoginButton}>
           LOGIN
-        </button>
-        <button
-          onClick={() => {
-            openSignUp();
-            handleClose();
-          }}
-        >
+        </FontAppliedElement>
+        <FontAppliedElement tagName="button" onClick={handleClickSignUpButton}>
           SIGNUP
-        </button>
+        </FontAppliedElement>
         {Object.values(PAGE).map(({ text, url }) => (
           <Link
             key={text}
@@ -55,8 +50,8 @@ const MobileMenu = ({ open, handleClose }: Props) => {
             {text}
           </Link>
         ))}
-      </div>
-    </div>
+      </FontAppliedElement>
+    </LeftSlideLayer>
   );
 };
 

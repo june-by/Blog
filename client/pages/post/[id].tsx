@@ -63,10 +63,7 @@ const PostPage = () => {
           property="og:image"
           content={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
         />
-        <meta
-          property="og:url"
-          content={`https://byjuun.com/post/${router.query.id}`}
-        />
+        <meta property="og:url" content={`https://byjuun.com/post/${postId}`} />
       </Head>
       <Header />
       <ScrollIndicator />

@@ -2,7 +2,7 @@ import React from "react";
 import PostPageSkeleton from "./PostPageSkeleton";
 import PostsPageSkeleton from "./PostsPageSkeleton";
 import Header from "components/Header";
-import SwitchCase from "components/_hoc/SwitchCase";
+import SwitchCase from "components/shared/SwitchCase";
 interface Props {
   nextUrl: string;
 }

@@ -4,7 +4,7 @@ import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
-import InfiniteScroll from "components/_hoc/infiniteScroll";
+import InfiniteScroll from "components/shared/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";

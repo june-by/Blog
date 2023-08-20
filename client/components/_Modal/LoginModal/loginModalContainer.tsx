@@ -1,5 +1,5 @@
 import { useLogin } from "Hooks/User";
-import Modal from "components/_hoc/Modal";
+import Modal from "components/shared/Modal";
 import { useHeaderContext } from "context/headerContext";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
@@ -26,7 +26,8 @@ const LoginModalContainer = () => {
     e.preventDefault();
     if (!emailRef.current || !passwordRef.current) return;
     if (emailRef.current.value === "") return toast.error(MESSAGE.NEED_EMAIL);
-    if (passwordRef.current.value === "") return toast.error(MESSAGE.NEED_PASSWORD);
+    if (passwordRef.current.value === "")
+      return toast.error(MESSAGE.NEED_PASSWORD);
 
     const reqData = {
       email: emailRef.current.value,
@@ -37,7 +38,11 @@ const LoginModalContainer = () => {
 
   return (
     <DefaultModal closeModal={closeLogin} isOpen={isLoginModalOpen}>
-      <LoginForm onSubmit={submit} emailRef={emailRef} passwordRef={passwordRef} />
+      <LoginForm
+        onSubmit={submit}
+        emailRef={emailRef}
+        passwordRef={passwordRef}
+      />
     </DefaultModal>
   );
 };
