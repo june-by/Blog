@@ -5,11 +5,12 @@ import { PostType } from "Types/post";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
 import LoadingOrNot from "components/shared/LoadingOrNot";
+import useQueryId from "Hooks/useQueryId";
 
 const RoutePostButtons = () => {
-  const router = useRouter();
+  const postId = useQueryId();
 
-  const { data, isLoading } = useGetPostQuery(Number(router.query.id));
+  const { data, isLoading } = useGetPostQuery(postId);
 
   const {
     prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },

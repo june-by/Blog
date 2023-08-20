@@ -54,19 +54,15 @@ const HideByScrollDown = ({
 
   useScroll({ onScrollDown: hide, onScrollUp: show });
 
-  return (
-    <>
-      {createElement(
-        tagName,
-        {
-          className: `${styles.HideByScrollDown} ${className}`,
-          ref: wrapperRef,
-          style: { ...position },
-          ...props,
-        },
-        <>{children}</>
-      )}
-    </>
+  return createElement(
+    tagName,
+    {
+      className: `${styles.HideByScrollDown} ${className}`,
+      ref: wrapperRef,
+      style: { ...position },
+      ...props,
+    },
+    <>{children}</>
   );
 };
 
