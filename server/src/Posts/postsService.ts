@@ -1,11 +1,11 @@
 import model from "models";
 import Sequelize from "sequelize";
+import { ORDER_BY_CREATED_AT } from "src/constants";
 const { Post, Tag, sequelize } = model;
 const Op = Sequelize.Op;
 
 const POSTS_PER_PAGE = 20;
 
-const DEFAULT_ORDER = [["createdAt", "DESC"]];
 const DEFAULT_EXCLUDE_COLUMN = ["content", "updatedAt"];
 
 const getAllPostsId = async () => {
@@ -17,7 +17,7 @@ const getAllPostsId = async () => {
 
 const getMainPosts = async ({ page }: { page: string }) => {
   const posts = await Post.findAll({
-    order: DEFAULT_ORDER,
+    order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
@@ -33,16 +33,10 @@ const getMainPosts = async ({ page }: { page: string }) => {
   return posts;
 };
 
-const getCategoryPosts = async ({
-  category,
-  page,
-}: {
-  page: string;
-  category: string;
-}) => {
+const getCategoryPosts = async ({ category, page }: { page: string; category: string }) => {
   const posts = await Post.findAll({
     where: { category: category },
-    order: DEFAULT_ORDER,
+    order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
@@ -58,16 +52,10 @@ const getCategoryPosts = async ({
   return posts;
 };
 
-const getPostsBySeriesId = async ({
-  page,
-  seriesId,
-}: {
-  page: string;
-  seriesId: number;
-}) => {
+const getPostsBySeriesId = async ({ page, seriesId }: { page: string; seriesId: number }) => {
   const posts = await Post.findAll({
     where: { seriesId },
-    order: DEFAULT_ORDER,
+    order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
@@ -83,20 +71,14 @@ const getPostsBySeriesId = async ({
   return posts;
 };
 
-const getPostsBySearchKeyWord = async ({
-  page,
-  keyword,
-}: {
-  page: string;
-  keyword: string;
-}) => {
+const getPostsBySearchKeyWord = async ({ page, keyword }: { page: string; keyword: string }) => {
   const posts = await Post.findAll({
     where: {
       title: {
         [Op.like]: "%" + decodeURIComponent(keyword) + "%",
       },
     },
-    order: DEFAULT_ORDER,
+    order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     attributes: {
@@ -112,18 +94,12 @@ const getPostsBySearchKeyWord = async ({
   return posts;
 };
 
-const getPostsByTag = async ({
-  page,
-  keyword,
-}: {
-  page: string;
-  keyword: string;
-}) => {
+const getPostsByTag = async ({ page, keyword }: { page: string; keyword: string }) => {
   const posts = await Post.findAll({
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
     },
-    order: DEFAULT_ORDER,
+    order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     include: [
@@ -139,10 +115,7 @@ const getPostsByTag = async ({
 
 const getCategoryPostsCount = async () => {
   const categoryCount = await Post.findAll({
-    attributes: [
-      "category",
-      [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"],
-    ],
+    attributes: ["category", [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"]],
     group: ["Post.category"],
   });
   return categoryCount;
