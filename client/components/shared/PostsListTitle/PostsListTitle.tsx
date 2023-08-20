@@ -2,11 +2,16 @@ import { PostsPageQueryType } from "Types/page";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
+import FontAppliedElement from "../FontAppliedElement";
 
 const PostsListTitle = () => {
   const { query } = useRouter();
   const title = getTitle(query);
-  return <h2 className={styles.PostListTitle}>{title}</h2>;
+  return (
+    <FontAppliedElement tagName="h2" className={styles.PostListTitle}>
+      {title}
+    </FontAppliedElement>
+  );
 };
 
 export default PostsListTitle;

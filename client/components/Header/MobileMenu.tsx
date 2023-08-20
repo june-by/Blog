@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { useHeaderContext } from "context/headerContext";
 import LeftSlideLayer from "components/shared/LeftSlideLayer";
+import FontAppliedElement from "components/shared/FontAppliedElement";
 
 interface Props {
   isOpen: boolean;
@@ -33,9 +34,13 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           <IoClose />
         </button>
       </div>
-      <div className={styles.Navigator}>
-        <button onClick={handleClickLoginButton}>LOGIN</button>
-        <button onClick={handleClickSignUpButton}>SIGNUP</button>
+      <FontAppliedElement tagName="div" className={styles.Navigator}>
+        <FontAppliedElement tagName="button" onClick={handleClickLoginButton}>
+          LOGIN
+        </FontAppliedElement>
+        <FontAppliedElement tagName="button" onClick={handleClickSignUpButton}>
+          SIGNUP
+        </FontAppliedElement>
         {Object.values(PAGE).map(({ text, url }) => (
           <Link
             key={text}
@@ -45,7 +50,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
             {text}
           </Link>
         ))}
-      </div>
+      </FontAppliedElement>
     </LeftSlideLayer>
   );
 };

@@ -23,10 +23,19 @@ const PostCard = ({ post }: Props) => {
     <Link href={`/post/${post.id}`} className={styles.PostCard}>
       <figure className={styles.thumbnailImgWrapper}>
         {isThumbNailExist ? (
-          <Image src={thumbNailUrl as string} fill alt="category" placeholder="blur" blurDataURL={blurDataURL} />
+          <Image
+            src={thumbNailUrl as string}
+            fill
+            alt="category"
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+          />
         ) : (
           <picture>
-            <source data-srcset={S3_PREFIX + THUMBNAIL[category]?.webp} type="image/webp" />
+            <source
+              data-srcset={S3_PREFIX + THUMBNAIL[category]?.webp}
+              type="image/webp"
+            />
             <Image
               fill
               src={S3_PREFIX + THUMBNAIL[category]?.jpg}
@@ -42,7 +51,9 @@ const PostCard = ({ post }: Props) => {
           <h2>{title}</h2>
           <ul className={styles.tagListWrap}>
             {post.Tags.length !== 0 &&
-              post.Tags.map((tag) => <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />)}
+              post.Tags.map((tag) => (
+                <TagButton key={`${post.title}#${tag?.content}`} tag={tag} />
+              ))}
           </ul>
           <div className={styles.shortDescription}>
             {post.isPublic ? (

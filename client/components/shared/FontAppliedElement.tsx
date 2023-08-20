@@ -7,11 +7,19 @@ const MainFont = Concert_One({
 });
 
 interface Props extends React.HTMLAttributes<HTMLAllCollection> {
-  tagName: string;
+  tagName?: string;
+  className?: string;
 }
 
-const FontAppliedElement = ({ tagName = "div", ...props }: Props) => {
-  return createElement(tagName, { className: MainFont.className, ...props });
+const FontAppliedElement = ({
+  tagName = "div",
+  className = "",
+  ...props
+}: Props) => {
+  return createElement(tagName, {
+    className: `${MainFont.className} ${className}`,
+    ...props,
+  });
 };
 
 export default FontAppliedElement;

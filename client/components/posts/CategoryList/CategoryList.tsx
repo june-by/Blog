@@ -3,13 +3,14 @@ import styles from "./styles.module.scss";
 import { useGetAllCateogryLength } from "Hooks/Post";
 import { Category } from "constants/category";
 import CategoryButton from "components/shared/CategoryButton/CategoryButton";
+import FontAppliedElement from "components/shared/FontAppliedElement";
 
 const CategoryList = () => {
   const { data } = useGetAllCateogryLength();
 
   return (
     <aside className={styles.CategoryList}>
-      <h2>📘 Categories</h2>
+      <FontAppliedElement tagName="h2">📘 Categories</FontAppliedElement>
       <nav className={styles.CategoryButtonWrap}>
         {Category.map((category) => {
           return (
