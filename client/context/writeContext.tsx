@@ -2,31 +2,36 @@ import { Category, CategoryType } from "constants/category";
 import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
-import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  Dispatch,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+import { MainPost, PostFormType } from "Types/post";
 
 type Action =
-  | { type: "editTitle"; title: string }
+  | { type: "editTitle"; title: MainPost["title"] }
   | { type: "editCategory"; category: CategoryType }
-  | { type: "editContent"; content: string }
+  | { type: "editContent"; content: MainPost["content"] }
   | { type: "addTag"; tag: string }
-  | { type: "removeTag"; tag: string }
-  | { type: "editThumbNailUrl"; thumbNailUrl: string }
-  | { type: "editIsPublic"; isPublic: Number }
-  | { type: "editShortDescription"; shortDescription: string }
-  | { type: "initializeWriteFormData"; initData: State };
-
-interface State {
-  title: string;
-  category: CategoryType;
-  content: string;
-  tagArr: string[];
-  thumbNailUrl: null | string;
-  isPublic: number;
-  shortDescription: string;
-}
+  | {
+      type: "removeTag";
+      tag: string;
+    }
+  | { type: "editThumbNailUrl"; thumbNailUrl: MainPost["thumbNailUrl"] }
+  | { type: "editIsPublic"; isPublic: MainPost["isPublic"] }
+  | {
+      type: "editShortDescription";
+      shortDescription: MainPost["shortDescription"];
+    }
+  | { type: "initializeWriteFormData"; initData: PostFormType }
+  | { type: "editSeries"; SeriesId: MainPost["SeriesId"] };
 
 interface ContextProps {
-  writeFormData: State;
+  writeFormData: PostFormType;
   handleChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCategory: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleChangeContent: (content: string) => void;
@@ -35,6 +40,7 @@ interface ContextProps {
   setThumbNailUrl: (thumbNailUrl: string) => void;
   handleChangeIsPublic: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangeShortDescription: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChangeSeries: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const initialState = {
@@ -45,9 +51,10 @@ const initialState = {
   thumbNailUrl: null,
   isPublic: 0,
   shortDescription: "",
+  SeriesId: null,
 };
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (state: PostFormType, action: Action): PostFormType => {
   switch (action.type) {
     case "editTitle":
       return { ...state, title: action.title };
@@ -73,6 +80,9 @@ const reducer = (state: State, action: Action): State => {
       }
       return { ...state, shortDescription: action.shortDescription };
     }
+    case "editSeries": {
+      return { ...state, SeriesId: action.SeriesId };
+    }
     case "initializeWriteFormData":
       return { ...action.initData };
   }
@@ -88,6 +98,7 @@ export const WriteContext = createContext<ContextProps>({
   setThumbNailUrl: () => () => {},
   handleChangeIsPublic: () => {},
   handleChangeShortDescription: () => {},
+  handleChangeSeries: () => {},
 });
 
 export const WriteContainer = ({ children }: { children: JSX.Element }) => {
@@ -123,7 +134,14 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleChangeShortDescription = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "editShortDescription", shortDescription: e.target.value });
+    dispatch({
+      type: "editShortDescription",
+      shortDescription: e.target.value,
+    });
+  };
+
+  const handleChangeSeries = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: "editSeries", SeriesId: Number(e.target.value) });
   };
 
   useInitializeWriteFormData(dispatch);
@@ -140,6 +158,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
         setThumbNailUrl,
         handleChangeIsPublic,
         handleChangeShortDescription,
+        handleChangeSeries,
       }}
     >
       {children}
@@ -172,6 +191,7 @@ function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
       thumbNailUrl: String(post.thumbNailUrl),
       isPublic: post.isPublic,
       shortDescription: post?.shortDescription,
+      SeriesId: post?.SeriesId,
     };
     dispatch({ type: "initializeWriteFormData", initData });
   }, [post, isLoading, query, dispatch]);

@@ -26,15 +26,7 @@ export interface PostsType {
   views: number;
   isPublic: number;
   shortDescription: string;
-}
-
-export interface AddPostParams {
-  title: string;
-  category: string;
-  content: string;
-  tagArr: Array<string | null>;
-  thumbNailUrl: string | null;
-  isPublic: number;
+  SeriesId: number | null;
 }
 
 type TagType = {
@@ -50,4 +42,15 @@ export interface CategoryCount {
 export interface TopViewsPost {
   id: number;
   title: string;
+}
+
+export interface PostFormType {
+  title: string;
+  category: CategoryType;
+  content: string;
+  tagArr: string[];
+  thumbNailUrl: null | string;
+  isPublic: number;
+  shortDescription: string;
+  SeriesId: number | null;
 }

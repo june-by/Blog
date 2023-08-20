@@ -11,6 +11,7 @@ router.get("/load/main/:page", postsController_1.default.getMainPosts);
 router.get("/load/categoryLength", postsController_1.default.getCategoryPostsCount);
 router.get("/load/length/:category", postsController_1.default.getPostsLength);
 router.get("/load/:category/:page", postsController_1.default.getCategoryPosts);
+router.get("/series/:seriesTitle/:page", postsController_1.default.getSeriesPosts);
 router.get("/search/:keyword/:page", postsController_1.default.getPostsBySearchKeyWord);
 router.get("/tag/:keyword/:page", postsController_1.default.getPostsByTag);
 router.get("/topViews", postsController_1.default.getTopViewsPosts);

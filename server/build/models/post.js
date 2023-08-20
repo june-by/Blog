@@ -35,8 +35,8 @@ exports.default = (function (sequelize, DataTypes) {
         collate: "utf8mb4_general_ci", //한글 + 이모티콘
     });
     Post.associate = function (db) {
-        db.Post.hasMany(db.Comment);
         db.Post.hasMany(db.Image);
+        db.Post.belongsTo(db.Series);
         db.Post.belongsToMany(db.Tag, { through: "PostHashtag" });
     };
     return Post;

@@ -1,10 +1,7 @@
 import { useWriteContext } from "context/writeContext";
-import React from "react";
-import { customAxios } from "utils/CustomAxios";
-import styles from "./@styles.module.scss";
+import React, { useCallback } from "react";
 import useSetDefaultThumbNail from "./useSetDefaultThumbNail";
-import isNull from "utils/isNull";
-import Image from "next/image";
+import ImageUploader from "components/shared/ImageUploader/ImageUploader";
 
 const ThumbNailPicker = () => {
   const {
@@ -12,39 +9,42 @@ const ThumbNailPicker = () => {
     setThumbNailUrl,
   } = useWriteContext();
 
-  const onClickSetThumbNail = () => {
-    const input = document.createElement("input");
-    thumbnailInputAttribute.forEach(({ attr, value }) => {
-      input.setAttribute(attr, value);
-    });
-    document.body.appendChild(input);
-    input.click();
-    input.onchange = async () => {
-      const file = input.files;
-      if (file !== null) {
-        const formData = new FormData();
-        formData.append("img", file[0]);
-        const res = await customAxios.post("/uploads", formData);
-        setThumbNailUrl(res.data.url);
-      }
-    };
-  };
+  const onImageUploadeSuccess = useCallback(
+    (imageUrl: string) => {
+      setThumbNailUrl(imageUrl);
+    },
+    [setThumbNailUrl]
+  );
 
+  const onChangeThumbUrl = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setThumbNailUrl(e.target.value);
+    },
+    []
+  );
   useSetDefaultThumbNail();
+
   return (
-    <div className={styles.PickThumbNail}>
-      <button onClick={onClickSetThumbNail}>썸네일 설정</button>
-      {!isNull(thumbNailUrl) && (
-        <Image src={thumbNailUrl as string} alt="썸네일" />
-      )}
-    </div>
+    <ImageUploader>
+      <div>
+        <ImageUploader.ImageUrlInput
+          placeholder="image url"
+          onChange={onChangeThumbUrl}
+          value={thumbNailUrl || ""}
+        />
+        <ImageUploader.UploadButton
+          onUploadeSuccess={onImageUploadeSuccess}
+          text="썸네일 설정"
+        />
+      </div>
+      <ImageUploader.Image
+        src={thumbNailUrl as string}
+        alt="썸네일"
+        width={300}
+        height={200}
+      />
+    </ImageUploader>
   );
 };
 
 export default ThumbNailPicker;
-
-const thumbnailInputAttribute = [
-  { attr: "data-testid", value: "thumbnailInput" },
-  { attr: "type", value: "file" },
-  { attr: "accept", value: "image/*" },
-];

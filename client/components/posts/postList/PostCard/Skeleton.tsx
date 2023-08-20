@@ -8,6 +8,7 @@ const PostCardSkeleton = () => {
       <div className={styles.PostCardSkeleton_articleWrapper}>
         <div>
           <div className={styles.titleSkeleton} />
+          <div className={styles.titleSkeletonSecondLine} />
           <div className={styles.tabSkeletonWrap}>
             <div className={styles.tabSkeleton} />
             <div className={styles.tabSkeleton} />

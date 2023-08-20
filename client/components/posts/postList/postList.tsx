@@ -4,17 +4,28 @@ import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
 import { PostsType } from "Types/post";
-import InfiniteScroll from "components/_hoc/infiniteScroll";
+import InfiniteScroll from "components/shared/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
+import PostsListTitle from "components/shared/PostsListTitle";
+import PostSearchBox from "./PostSearchBox";
 interface Props {
   params?: any;
   query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
 }
 
 const PostList = ({ params, query }: Props) => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isError, refetch, error } = query(params);
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    isError,
+    refetch,
+    error,
+  } = query(params);
 
   useRestoreSrollPos();
 
@@ -26,20 +37,24 @@ const PostList = ({ params, query }: Props) => {
 
   return (
     <PostsListLayout>
-      <InfiniteScroll
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-        isLoading={isFetchingNextPage || isLoading}
-        skeleton={<PostCardSkeletonList />}
-      >
-        {data?.pages.map((page) => (
-          <>
-            {page.map((post: PostsType) => (
-              <PostCard key={post.title} post={post} />
-            ))}
-          </>
-        ))}
-      </InfiniteScroll>
+      <>
+        <PostsListTitle />
+        <PostSearchBox />
+        <InfiniteScroll
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage || isLoading}
+          skeleton={<PostCardSkeletonList />}
+        >
+          {data?.pages.map((page) => (
+            <>
+              {page.map((post: PostsType) => (
+                <PostCard key={post.title} post={post} />
+              ))}
+            </>
+          ))}
+        </InfiniteScroll>
+      </>
     </PostsListLayout>
   );
 };

@@ -16,12 +16,13 @@ import Header from "components/Header";
 import Post from "components/post";
 import ScrollIndicator from "components/post/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
-import PostPageSkeleton from "components/PageSkeleton/PostPageSkeleton/PostPageSkeleton";
+import PageSkeleton from "components/PageSkeleton";
 
 const PostPage = () => {
   const router = useRouter();
   const postId = useQueryId();
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
+    useState(false);
   const { data: userInfo } = useGetUserQuery();
 
   const { data } = useGetPostQuery(isNaN(postId) ? 0 : postId);
@@ -40,11 +41,11 @@ const PostPage = () => {
     }
   }, [userInfo, PostData, router]);
 
-  if (router.isFallback) return <PostPageSkeleton />;
+  if (router.isFallback) return <PageSkeleton nextUrl="/post/" />;
 
   if (!PostData?.isPublic) {
     if (!adminValidationForNotPublicPost) {
-      return <PostPageSkeleton />;
+      return <PageSkeleton nextUrl="/post/" />;
     }
   }
 
@@ -58,8 +59,11 @@ const PostPage = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={PostData.content.substring(0, 100)} />
         <meta property="og:title" content={PostData.title} />
-        <meta property="og:image" content={getOgImage(PostData.thumbNailUrl, String(PostData.category))} />
-        <meta property="og:url" content={`https://byjuun.com/post/${router.query.id}`} />
+        <meta
+          property="og:image"
+          content={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
+        />
+        <meta property="og:url" content={`https://byjuun.com/post/${postId}`} />
       </Head>
       <Header />
       <ScrollIndicator />
@@ -94,11 +98,15 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const queryClient = new QueryClient();
   try {
     const postId = Number(context.params?.id);
-    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () => getPostAPI(postId));
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () =>
+      getPostAPI(postId)
+    );
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
@@ -112,6 +120,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 export default PostPage;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url)
+    return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }

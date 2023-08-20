@@ -1,59 +1,45 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
-import SearchButton from "./searchButton";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
-import useGotoPage from "Hooks/useGotoPage";
 import { useGetUserQuery } from "Hooks/User";
 import ThemeToggleButton from "./ThemeToggleButton";
-import useScroll from "Hooks/useScroll";
-
-const ADMIN_EMAIL = "neostgeart@gmail.com";
+import Logo from "./Logo";
+import PageNavigaition from "./PageNavigaition";
+import MobileMenuToggleButton from "./MobileMenuToggleButton";
+import HideByScrollDown from "components/shared/HideByScrollDown/HideByScrollDown";
 
 const HEADER_HEIGHT = "65px";
 
 const Header = () => {
-  const headerRef = useRef<HTMLHeadingElement | null>(null);
-
   const { data: userData } = useGetUserQuery();
 
   const isLoggedIn = !!userData;
 
-  const gotoPage = useGotoPage();
-
-  const hideHeader = useCallback(() => {
-    if (!headerRef?.current) {
-      return;
-    }
-    headerRef.current.style.marginTop = `-${HEADER_HEIGHT}`;
-  }, []);
-
-  const showHeader = useCallback(() => {
-    if (!headerRef?.current) {
-      return;
-    }
-    headerRef.current.style.marginTop = "0px";
-  }, []);
-
-  useScroll({ onScrollDown: hideHeader, onScrollUp: showHeader });
-
   return (
-    <header ref={headerRef} className={styles.headerStyleWrap}>
+    <HideByScrollDown
+      tagName="header"
+      hideDirection="top"
+      valueForHide={`-${HEADER_HEIGHT}`}
+      position={{ top: "0px" }}
+      className={styles.headerStyleWrap}
+    >
       <div className={styles.headerContentWrap}>
-        <h1 onClick={gotoPage("/")}>ByJuun.</h1>
+        <Logo />
         <div className={styles.headerRightWrap}>
           {isLoggedIn && (
             <span>
               <strong>{userData.nickname}</strong>님
             </span>
           )}
+          <PageNavigaition />
           <WriteButton />
-          <ThemeToggleButton />
-          <SearchButton />
           <AuthButton isLoggedIn={isLoggedIn} />
+          <ThemeToggleButton />
+          <MobileMenuToggleButton />
         </div>
       </div>
-    </header>
+    </HideByScrollDown>
   );
 };
 

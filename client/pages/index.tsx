@@ -4,6 +4,7 @@ import {
   useGetCategoryPosts,
   useGetMainPost,
   useGetSearchPosts,
+  useGetSeriesPosts,
   useGetTagPosts,
 } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
@@ -75,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 function getVerifyNeededKeysLength(keys: string[]) {
-  const verifiedKeys = ["category", "search", "tag"];
+  const verifiedKeys = ["category", "search", "tag", "series"];
   const includedKeys = keys.filter((key) => verifiedKeys.includes(key));
   return includedKeys.length;
 }
@@ -99,6 +100,7 @@ function getQuery(query: PostsPageQueryType) {
   if (query.search) return useGetSearchPosts;
   else if (query.tag) return useGetTagPosts;
   else if (query.category) return useGetCategoryPosts;
+  else if (query.series) return useGetSeriesPosts;
   else return useGetMainPost;
 }
 
@@ -106,6 +108,7 @@ function getParams(query: PostsPageQueryType) {
   if (query.search) return query.search;
   else if (query.tag) return query.tag;
   else if (query.category) return query.category;
+  else if (query.series) return query.series;
   else return null;
 }
 

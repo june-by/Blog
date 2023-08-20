@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
+import FontAppliedElement from "components/shared/FontAppliedElement";
 const ContactContents = [
   {
     title: "Github",
@@ -24,7 +25,7 @@ const ContactContents = [
 const Contact = () => {
   return (
     <aside className={styles.Contact}>
-      <h2>🧑‍💻 Contacts</h2>
+      <FontAppliedElement tagName="h2">🧑‍💻 Contacts</FontAppliedElement>
       <nav className={styles.ContactContentWrap}>
         {ContactContents.map(({ title, icon, link }) => (
           <Link href={link} className={styles.ContactContent} key={title}>

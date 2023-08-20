@@ -114,6 +114,34 @@ var getCategoryPosts = function (_a) {
         });
     });
 };
+var getPostsBySeriesId = function (_a) {
+    var page = _a.page, seriesId = _a.seriesId;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var posts;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, Post.findAll({
+                        where: { seriesId: seriesId },
+                        order: DEFAULT_ORDER,
+                        limit: POSTS_PER_PAGE,
+                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
+                        attributes: {
+                            exclude: DEFAULT_EXCLUDE_COLUMN,
+                        },
+                        include: [
+                            {
+                                model: Tag,
+                                attributes: ["id", "content"],
+                            },
+                        ],
+                    })];
+                case 1:
+                    posts = _b.sent();
+                    return [2 /*return*/, posts];
+            }
+        });
+    });
+};
 var getPostsBySearchKeyWord = function (_a) {
     var page = _a.page, keyword = _a.keyword;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -180,7 +208,10 @@ var getCategoryPostsCount = function () { return __awaiter(void 0, void 0, void 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Post.findAll({
-                    attributes: ["category", [sequelize_1.default.fn("COUNT", sequelize_1.default.col("Post.category")), "count"]],
+                    attributes: [
+                        "category",
+                        [sequelize_1.default.fn("COUNT", sequelize_1.default.col("Post.category")), "count"],
+                    ],
                     group: ["Post.category"],
                 })];
             case 1:
@@ -226,6 +257,7 @@ exports.default = {
     getMainPosts: getMainPosts,
     getCategoryPosts: getCategoryPosts,
     getPostsBySearchKeyWord: getPostsBySearchKeyWord,
+    getPostsBySeriesId: getPostsBySeriesId,
     getPostsByTag: getPostsByTag,
     getTopViewsPosts: getTopViewsPosts,
     getCategoryPostsCount: getCategoryPostsCount,
