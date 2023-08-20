@@ -12,6 +12,7 @@ const Archives = () => {
             title="📑 Archives"
             description="모든 기록들을 한곳에 모아놓은 페이지입니다."
           />
+          <h2>준비중</h2>
         </>
       </ArchivesPageLayout>
     </LoadingOrNot>
