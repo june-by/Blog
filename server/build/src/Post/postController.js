@@ -54,6 +54,7 @@ var tagService_1 = __importDefault(require("../../src/Tag/tagService"));
 var postService_1 = __importDefault(require("./postService"));
 var clientUrl_1 = __importDefault(require("../../src/constants/clientUrl"));
 var axios_1 = __importDefault(require("axios"));
+var postsService_1 = __importDefault(require("../../src/Posts/postsService"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var tagArr, post, result, err_1;
     return __generator(this, function (_a) {
@@ -147,33 +148,43 @@ var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 var getPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, mainPost, prevPost, nextPost, err_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var postId, mainPost, category, SeriesId, _a, prevPost, nextPost, seriesPosts, err_4;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 postId = req.params.postId;
-                _a.label = 1;
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 5, , 6]);
+                _b.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, postService_1.default.getFullPost({ postId: postId })];
             case 2:
-                mainPost = _a.sent();
+                mainPost = _b.sent();
                 if (!mainPost)
                     return [2 /*return*/, res.status(403).send("존재하지 않는 게시글입니다")];
-                return [4 /*yield*/, postService_1.default.getPrevPost(mainPost.category, postId)];
+                category = mainPost.category, SeriesId = mainPost.SeriesId;
+                return [4 /*yield*/, Promise.all([
+                        postService_1.default.getPrevPost(category, postId),
+                        postService_1.default.getNextPost(category, postId),
+                        SeriesId
+                            ? postsService_1.default.getPostsBySeriesId({
+                                seriesId: SeriesId,
+                            })
+                            : {},
+                    ])];
             case 3:
-                prevPost = _a.sent();
-                return [4 /*yield*/, postService_1.default.getNextPost(mainPost.category, postId)];
+                _a = _b.sent(), prevPost = _a[0], nextPost = _a[1], seriesPosts = _a[2];
+                res.status(201).json({
+                    mainPost: __assign(__assign({}, mainPost.toJSON()), { seriesPosts: seriesPosts }),
+                    prevPost: prevPost,
+                    nextPost: nextPost,
+                });
+                return [3 /*break*/, 5];
             case 4:
-                nextPost = _a.sent();
-                res.status(201).json({ mainPost: mainPost, prevPost: prevPost, nextPost: nextPost });
-                return [3 /*break*/, 6];
-            case 5:
-                err_4 = _a.sent();
+                err_4 = _b.sent();
                 console.log(err_4);
                 next(err_4);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

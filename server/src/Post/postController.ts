@@ -3,6 +3,7 @@ import postService from "./postService";
 import { NextFunction, Request, Response } from "express";
 import CLIENT_URL from "src/constants/clientUrl";
 import axios from "axios";
+import postsService from "src/Posts/postsService";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -64,10 +65,25 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
   try {
     const mainPost = await postService.getFullPost({ postId });
+
     if (!mainPost) return res.status(403).send("존재하지 않는 게시글입니다");
-    const prevPost = await postService.getPrevPost(mainPost.category, postId);
-    const nextPost = await postService.getNextPost(mainPost.category, postId);
-    res.status(201).json({ mainPost, prevPost, nextPost });
+
+    const { category, SeriesId } = mainPost;
+    const [prevPost, nextPost, seriesPosts] = await Promise.all([
+      postService.getPrevPost(category, postId),
+      postService.getNextPost(category, postId),
+      SeriesId
+        ? postsService.getPostsBySeriesId({
+            seriesId: SeriesId,
+          })
+        : {},
+    ]);
+
+    res.status(201).json({
+      mainPost: { ...mainPost.toJSON(), seriesPosts },
+      prevPost,
+      nextPost,
+    });
   } catch (err) {
     console.log(err);
     next(err);
