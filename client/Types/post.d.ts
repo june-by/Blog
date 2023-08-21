@@ -8,6 +8,7 @@ export interface PostType {
 
 export interface MainPost extends PostsType {
   content: string;
+  SeriesPosts: PostsType[];
 }
 
 export interface OtherPostType {
