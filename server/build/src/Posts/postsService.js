@@ -117,24 +117,31 @@ var getCategoryPosts = function (_a) {
 var getPostsBySeriesId = function (_a) {
     var page = _a.page, seriesId = _a.seriesId;
     return __awaiter(void 0, void 0, void 0, function () {
-        var posts;
+        var isPagedRequest, fieldForPagedQuery, posts;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, Post.findAll({
-                        where: { seriesId: seriesId },
-                        order: constants_1.ORDER_BY_CREATED_AT,
-                        limit: POSTS_PER_PAGE,
-                        offset: (Number(page) - 1) * POSTS_PER_PAGE,
-                        attributes: {
-                            exclude: DEFAULT_EXCLUDE_COLUMN,
-                        },
-                        include: [
-                            {
-                                model: Tag,
-                                attributes: ["id", "content"],
+                case 0:
+                    isPagedRequest = !!page;
+                    fieldForPagedQuery = isPagedRequest
+                        ? {
+                            order: constants_1.ORDER_BY_CREATED_AT,
+                            limit: POSTS_PER_PAGE,
+                            offset: (Number(page) - 1) * POSTS_PER_PAGE,
+                        }
+                        : {};
+                    return [4 /*yield*/, Post.findAll({
+                            where: { seriesId: seriesId },
+                            fieldForPagedQuery: fieldForPagedQuery,
+                            attributes: {
+                                exclude: DEFAULT_EXCLUDE_COLUMN,
                             },
-                        ],
-                    })];
+                            include: [
+                                {
+                                    model: Tag,
+                                    attributes: ["id", "content"],
+                                },
+                            ],
+                        })];
                 case 1:
                     posts = _b.sent();
                     return [2 /*return*/, posts];
@@ -208,7 +215,10 @@ var getCategoryPostsCount = function () { return __awaiter(void 0, void 0, void 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Post.findAll({
-                    attributes: ["category", [sequelize_1.default.fn("COUNT", sequelize_1.default.col("Post.category")), "count"]],
+                    attributes: [
+                        "category",
+                        [sequelize_1.default.fn("COUNT", sequelize_1.default.col("Post.category")), "count"],
+                    ],
                     group: ["Post.category"],
                 })];
             case 1:
