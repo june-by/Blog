@@ -1,1 +1,1 @@
-export { getRecentTagsAPI } from "./tag.service";
+export { getAllTags } from "./tag.service";

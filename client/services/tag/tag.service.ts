@@ -1,8 +1,9 @@
+import { TagType } from "Types/Tag";
 import { customAxios } from "utils/CustomAxios";
 
-export const getRecentTagsAPI = async (): Promise<string[]> => {
+export const getAllTags = async (): Promise<TagType[]> => {
   try {
-    const { data } = await customAxios.get("/tag/recent");
+    const { data } = await customAxios.get("/tag");
     return data;
   } catch (err) {
     throw Error();

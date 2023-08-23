@@ -3,14 +3,14 @@ import styles from "./styles.module.scss";
 import FontAppliedElement from "components/shared/FontAppliedElement";
 
 interface Props {
-  title: string;
+  title?: string;
   contentComponent: JSX.Element;
 }
 
 const ArchiveContent = ({ title, contentComponent }: Props) => {
   return (
     <section className={styles.ArchiveContent}>
-      <FontAppliedElement tagName="h3">{title}</FontAppliedElement>
+      {title && <FontAppliedElement tagName="h3">{title}</FontAppliedElement>}
       {contentComponent}
     </section>
   );
