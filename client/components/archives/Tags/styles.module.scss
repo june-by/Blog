@@ -31,20 +31,3 @@
     }
   }
 }
-
-.showMoreButton {
-  margin-top: 1rem;
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-  color: var(--bg-element2);
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 15px;
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-}

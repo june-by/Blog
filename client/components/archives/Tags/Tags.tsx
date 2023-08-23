@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import Link from "next/link";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useBooleanState } from "Hooks/useBooleanState";
+import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
 const Tags = () => {
   const [showMore, , , toggleShowMore] = useBooleanState(false);
@@ -26,10 +27,7 @@ const Tags = () => {
           </Link>
         ))}
       </div>
-      <button className={styles.showMoreButton} onClick={toggleShowMore}>
-        {showMore ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-        <span>{showMore ? "숨기기" : "더보기"}</span>
-      </button>
+      <ShowMoreButton toggleShowMore={toggleShowMore} showMore={showMore} />
     </div>
   );
 };
