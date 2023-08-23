@@ -14,11 +14,10 @@ const SeriesInfo = () => {
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
 
-  const currentPostIdx =
-    seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;
-
   if (!SeriesId) return null;
 
+  const currentPostIdx =
+    seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;
   return (
     <div className={styles.SeriesInfo}>
       <BookmarkIcon className={styles.bookMarkSVG} />
