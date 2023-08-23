@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Header from "components/Header";
 import ArchivesPageContainer from "components/archives/Archives";
 
 const Archives = () => {
@@ -27,7 +26,6 @@ const Archives = () => {
         />
         <meta property="og:url" content="https://byjuun.com/archives" />
       </Head>
-      <Header />
       <ArchivesPageContainer />
     </>
   );

@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { ThemeContainer } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
+import Header from "components/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -37,6 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <title>ByJuun.com</title>
                 <link rel="shortcut icon" href="/favicon.ico" />
               </Head>
+              <Header />
               <Component {...pageProps} />
               <MyToastContainer />
               <ReactQueryDevtools initialIsOpen={false} />

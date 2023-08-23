@@ -12,7 +12,6 @@ import QUERY_KEY from "constants/queryKey";
 import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
-import Header from "components/Header";
 import Post from "components/post";
 import ScrollIndicator from "components/post/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
@@ -65,7 +64,6 @@ const PostPage = () => {
         />
         <meta property="og:url" content={`https://byjuun.com/post/${postId}`} />
       </Head>
-      <Header />
       <ScrollIndicator />
       <Post Post={PostData}>
         <>

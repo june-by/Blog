@@ -12,7 +12,6 @@ import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
-import Header from "components/Header";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
@@ -36,7 +35,6 @@ const Home: NextPage = () => {
         />
         <meta property="og:url" content={url} />
       </Head>
-      <Header />
       <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
       <ScrollButton />
     </>
