@@ -55,6 +55,7 @@ var postService_1 = __importDefault(require("./postService"));
 var clientUrl_1 = __importDefault(require("../../src/constants/clientUrl"));
 var axios_1 = __importDefault(require("axios"));
 var postsService_1 = __importDefault(require("../../src/Posts/postsService"));
+var seriesService_1 = __importDefault(require("../../src/Series/seriesService"));
 var AddPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var tagArr, post, result, err_1;
     return __generator(this, function (_a) {
@@ -148,7 +149,7 @@ var updatePost = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 var getPost = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, mainPost, category, SeriesId, _a, prevPost, nextPost, seriesPosts, err_4;
+    var postId, mainPost, category, SeriesId, _a, prevPost, nextPost, seriesPosts, seriesTitle, err_4;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -170,11 +171,12 @@ var getPost = function (req, res, next) { return __awaiter(void 0, void 0, void 
                                 seriesId: SeriesId,
                             })
                             : {},
+                        SeriesId ? seriesService_1.default.getSeriesTitleById({ seriesId: SeriesId }) : {},
                     ])];
             case 3:
-                _a = _b.sent(), prevPost = _a[0], nextPost = _a[1], seriesPosts = _a[2];
+                _a = _b.sent(), prevPost = _a[0], nextPost = _a[1], seriesPosts = _a[2], seriesTitle = _a[3];
                 res.status(201).json({
-                    mainPost: __assign(__assign({}, mainPost.toJSON()), { seriesPosts: seriesPosts }),
+                    mainPost: __assign(__assign({}, mainPost.toJSON()), { seriesPosts: seriesPosts, seriesTitle: seriesTitle }),
                     prevPost: prevPost,
                     nextPost: nextPost,
                 });

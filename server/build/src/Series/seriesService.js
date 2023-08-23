@@ -72,6 +72,22 @@ var getSeriesIdByTitle = function (_a) {
         });
     });
 };
+var getSeriesTitleById = function (_a) {
+    var seriesId = _a.seriesId;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var series;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, Series.findOne({
+                        where: { id: seriesId },
+                    })];
+                case 1:
+                    series = _b.sent();
+                    return [2 /*return*/, series.title];
+            }
+        });
+    });
+};
 var addSeries = function (_a) {
     var title = _a.title, shortDescription = _a.shortDescription, thumbNailUrl = _a.thumbNailUrl;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -94,4 +110,5 @@ exports.default = {
     getAllSeries: getAllSeries,
     addSeries: addSeries,
     getSeriesIdByTitle: getSeriesIdByTitle,
+    getSeriesTitleById: getSeriesTitleById,
 };

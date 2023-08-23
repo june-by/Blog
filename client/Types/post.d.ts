@@ -8,6 +8,8 @@ export interface PostType {
 
 export interface MainPost extends PostsType {
   content: string;
+  seriesPosts: Pick<PostsType, "id" | "title">[];
+  seriesTitle: string;
 }
 
 export interface OtherPostType {

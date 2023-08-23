@@ -7,23 +7,14 @@
   border-bottom: 2px solid var(--header-border-bottom);
 }
 
-.Content {
-  @include tablet {
-    width: 100%;
-  }
-
-  @include tablet_landscape {
-    width: 100%;
-  }
-
-  @include mobile {
-    width: 100%;
-  }
-
+.ContentWrap {
+  width: 100%;
   @include desktop {
-    width: 77%;
+    padding-right: 5%;
   }
+}
 
+.Content {
   img {
     backface-visibility: hidden;
     image-rendering: -webkit-optimize-contrast;

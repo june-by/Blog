@@ -17,13 +17,24 @@ const getSeriesIdByTitle = async ({ seriesTitle }: { seriesTitle: string }) => {
   return series.id;
 };
 
+const getSeriesTitleById = async ({ seriesId }: { seriesId: string }) => {
+  const series = await Series.findOne({
+    where: { id: seriesId },
+  });
+  return series.title;
+};
+
 interface AddSeriesParams {
   title: string;
   shortDescription: string;
   thumbNailUrl: string;
 }
 
-const addSeries = async ({ title, shortDescription, thumbNailUrl }: AddSeriesParams) => {
+const addSeries = async ({
+  title,
+  shortDescription,
+  thumbNailUrl,
+}: AddSeriesParams) => {
   const series = await Series.create({
     title,
     shortDescription,
@@ -37,4 +48,5 @@ export default {
   getAllSeries,
   addSeries,
   getSeriesIdByTitle,
+  getSeriesTitleById,
 };
