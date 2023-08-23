@@ -1,4 +1,4 @@
-import { ArchiveTagType } from "Types/Tag";
+import { ArchiveTagType } from "Types/tag";
 import { customAxios } from "utils/CustomAxios";
 
 export const getAllTags = async (): Promise<ArchiveTagType[]> => {
