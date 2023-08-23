@@ -9,7 +9,7 @@ import SeriesIndexHandler from "./SeriesIndexHandler";
 
 const SeriesInfo = () => {
   const {
-    Post: { SeriesId, seriesPosts, id: currentPostId },
+    Post: { SeriesId, seriesPosts, id: currentPostId, seriesTitle },
   } = usePostContext();
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
@@ -22,7 +22,7 @@ const SeriesInfo = () => {
   return (
     <div className={styles.SeriesInfo}>
       <BookmarkIcon className={styles.bookMarkSVG} />
-      <h2>title</h2>
+      <h2>{seriesTitle}</h2>
       {isSeriesOpen && <SeriesList seriesPosts={seriesPosts} />}
       <div className={styles.bottom}>
         <ShowSeriesButton
