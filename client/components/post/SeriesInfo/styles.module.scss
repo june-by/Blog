@@ -11,6 +11,10 @@
   h2 {
     margin: 0;
     margin-bottom: 1rem;
+    @include mobile {
+      font-size: 1.25rem;
+      padding-right: 1.5rem;
+    }
   }
   .bookMarkSVG {
     position: absolute;

@@ -1,9 +1,15 @@
+@import "utils/utils.scss";
+
 .SeriesList {
   margin: 0;
   padding-left: 0;
   list-style-position: inside;
   li {
     text-align: left;
+
+    @include mobile {
+      font-size: 1rem;
+    }
     &:hover {
       color: var(--primary1);
       font-weight: 700;
