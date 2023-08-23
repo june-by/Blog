@@ -1,4 +1,4 @@
-export interface TagType {
+export interface ArchiveTagType {
   id: number;
   createdAt: Date;
   content: string;
