@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Header from "components/Header";
 import ScrollButton from "components/shared/scrollButton";
 import SeriesPageContainer from "components/series";
 
@@ -22,7 +21,6 @@ const Series = () => {
         />
         <meta property="og:url" content="https://byjuun.com/series" />
       </Head>
-      <Header />
       <SeriesPageContainer />
       <ScrollButton />
     </>

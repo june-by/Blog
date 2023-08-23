@@ -4,15 +4,9 @@ import { GetServerSideProps } from "next";
 import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
-import Header from "components/Header";
 
 const Write = () => {
-  return (
-    <>
-      <Header />
-      <WriteForm />
-    </>
-  );
+  return <WriteForm />;
 };
 export default Write;
 
