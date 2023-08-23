@@ -40,16 +40,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var tagService_1 = __importDefault(require("./tagService"));
-var getRecentTags = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var recentTags, err_1;
+var getAllTags = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var allTags, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, tagService_1.default.getRecentTags()];
+                return [4 /*yield*/, tagService_1.default.getAllTags()];
             case 1:
-                recentTags = _a.sent();
-                return [2 /*return*/, res.status(201).json(recentTags)];
+                allTags = _a.sent();
+                return [2 /*return*/, res.status(201).json(allTags)];
             case 2:
                 err_1 = _a.sent();
                 console.error(err_1);
@@ -60,5 +60,5 @@ var getRecentTags = function (req, res, next) { return __awaiter(void 0, void 0,
     });
 }); };
 exports.default = {
-    getRecentTags: getRecentTags,
+    getAllTags: getAllTags,
 };
