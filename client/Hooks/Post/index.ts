@@ -9,6 +9,7 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
   GetTopViewsPostsAPI,
+  getSeriesPostAPI,
 } from "services/post";
 import {
   useInfiniteQuery,
@@ -29,7 +30,6 @@ import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import MESSAGE from "constants/message";
-import { getSeriesPostAPI } from "services/post/post.service";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>(

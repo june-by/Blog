@@ -70,7 +70,6 @@ const PostPage = () => {
       <Post Post={PostData}>
         <>
           <Post.Header />
-          <Post.SeriesInfo />
           <Post.Content />
           <Post.RoutePostButtons />
           <Post.Comments />

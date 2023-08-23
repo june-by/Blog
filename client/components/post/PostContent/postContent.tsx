@@ -6,6 +6,7 @@ import TableOfContents from "components/post/TableOfContents";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
 import { usePostContext } from "context/postContext";
 import useExtractTOC from "./useExtractTOC";
+import SeriesInfo from "../SeriesInfo";
 
 const PostContent = () => {
   const {
@@ -19,10 +20,13 @@ const PostContent = () => {
   return (
     <section className={styles.PostContent}>
       <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></Script>
-      <article
-        className={`Code ${styles.Content}`}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <div className={styles.ContentWrap}>
+        <SeriesInfo />
+        <article
+          className={`Code ${styles.Content}`}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </div>
       {isExtractComplete && (
         <TableOfContents tableOfContents={tableOfContents} />
       )}

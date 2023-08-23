@@ -11,4 +11,5 @@ export {
   DeletePostAPI,
   getPostViewCountAPI,
   GetTopViewsPostsAPI,
+  getSeriesPostAPI,
 } from "./post.service";
