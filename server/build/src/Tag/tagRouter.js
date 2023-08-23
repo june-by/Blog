@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var tagController_1 = __importDefault(require("./tagController"));
 var router = express_1.default.Router();
-router.get("/recent", tagController_1.default.getRecentTags);
+router.get("/", tagController_1.default.getAllTags);
 exports.default = router;

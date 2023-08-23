@@ -1,5 +1,6 @@
 import model from "models";
-const { Tag, sequelize } = model;
+import { Sequelize } from "sequelize";
+const { Tag, sequelize, Post } = model;
 
 const createTags = async ({ tagArr }: { tagArr: string[] }) => {
   const result = await Promise.all(
@@ -12,24 +13,22 @@ const createTags = async ({ tagArr }: { tagArr: string[] }) => {
   return result;
 };
 
-const getRecentTags = async () => {
-  const [tags, _] = await sequelize.query(
-    "select TagId from PostHashtag order by createdAt desc limit 15;"
-  );
-  const contents: string[] = [];
-  for (const v of tags) {
-    const [result] = await sequelize.query(
-      "select content from Tags where id=?;",
+const getAllTags = async () => {
+  const tags = await Tag.findAll({
+    attributes: {
+      include: ["content"],
+    },
+    include: [
       {
-        replacements: [v.TagId],
-      }
-    );
-    contents.push(result[0].content);
-  }
-  return contents;
+        model: Post,
+        attributes: ["id"],
+      },
+    ],
+  });
+  return tags;
 };
 
 export default {
   createTags,
-  getRecentTags,
+  getAllTags,
 };

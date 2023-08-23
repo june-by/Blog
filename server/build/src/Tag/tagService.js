@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = __importDefault(require("../../models"));
-var Tag = models_1.default.Tag, sequelize = models_1.default.sequelize;
+var Tag = models_1.default.Tag, sequelize = models_1.default.sequelize, Post = models_1.default.Post;
 var createTags = function (_a) {
     var tagArr = _a.tagArr;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -59,34 +59,28 @@ var createTags = function (_a) {
         });
     });
 };
-var getRecentTags = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, tags, _, contents, _i, tags_1, v, result;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, sequelize.query("select TagId from PostHashtag order by createdAt desc limit 15;")];
+var getAllTags = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var tags;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Tag.findAll({
+                    attributes: {
+                        include: ["content"],
+                    },
+                    include: [
+                        {
+                            model: Post,
+                            attributes: ["id"],
+                        },
+                    ],
+                })];
             case 1:
-                _a = _b.sent(), tags = _a[0], _ = _a[1];
-                contents = [];
-                _i = 0, tags_1 = tags;
-                _b.label = 2;
-            case 2:
-                if (!(_i < tags_1.length)) return [3 /*break*/, 5];
-                v = tags_1[_i];
-                return [4 /*yield*/, sequelize.query("select content from Tags where id=?;", {
-                        replacements: [v.TagId],
-                    })];
-            case 3:
-                result = (_b.sent())[0];
-                contents.push(result[0].content);
-                _b.label = 4;
-            case 4:
-                _i++;
-                return [3 /*break*/, 2];
-            case 5: return [2 /*return*/, contents];
+                tags = _a.sent();
+                return [2 /*return*/, tags];
         }
     });
 }); };
 exports.default = {
     createTags: createTags,
-    getRecentTags: getRecentTags,
+    getAllTags: getAllTags,
 };

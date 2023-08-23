@@ -1,10 +1,10 @@
 import tagService from "./tagService";
 import { NextFunction, Request, Response } from "express";
 
-const getRecentTags = async (req: Request, res: Response, next: NextFunction) => {
+const getAllTags = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const recentTags = await tagService.getRecentTags();
-    return res.status(201).json(recentTags);
+    const allTags = await tagService.getAllTags();
+    return res.status(201).json(allTags);
   } catch (err) {
     console.error(err);
     next(err);
@@ -12,5 +12,5 @@ const getRecentTags = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 export default {
-  getRecentTags,
+  getAllTags,
 };

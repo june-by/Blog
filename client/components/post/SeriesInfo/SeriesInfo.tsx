@@ -3,9 +3,9 @@ import styles from "./styles.module.scss";
 import { usePostContext } from "context/postContext";
 import SeriesList from "./SeriesList";
 import { useBooleanState } from "Hooks/useBooleanState";
-import ShowSeriesButton from "./ShowSeriesButton";
 import BookmarkIcon from "components/Icon/bookmark";
 import SeriesIndexHandler from "./SeriesIndexHandler";
+import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
 const SeriesInfo = () => {
   const {
@@ -24,9 +24,9 @@ const SeriesInfo = () => {
       <h2>{seriesTitle}</h2>
       {isSeriesOpen && <SeriesList seriesPosts={seriesPosts} />}
       <div className={styles.bottom}>
-        <ShowSeriesButton
-          isSeriesOpen={isSeriesOpen}
-          toggleSeriesOpen={toggleSeriesOpen}
+        <ShowMoreButton
+          showMore={isSeriesOpen}
+          toggleShowMore={toggleSeriesOpen}
         />
         <SeriesIndexHandler currentPostIdx={currentPostIdx} />
       </div>
