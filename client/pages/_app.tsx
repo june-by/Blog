@@ -14,6 +14,7 @@ import { ThemeContainer } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import Header from "components/Header";
+import PageLayout from "components/shared/PageLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -25,27 +26,33 @@ function MyApp({ Component, pageProps }: AppProps) {
   useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
 
+  const url = nextUrl || router.pathname;
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeContainer>
-        <>
-          {loading ? (
-            <PageSkeleton nextUrl={nextUrl || router.pathname} />
-          ) : (
-            <Hydrate state={pageProps.dehydratedState}>
-              <Head>
-                <meta charSet="utf-8"></meta>
-                <title>ByJuun.com</title>
-                <link rel="shortcut icon" href="/favicon.ico" />
-              </Head>
-              <Header />
-              <Component {...pageProps} />
-              <MyToastContainer />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </Hydrate>
-          )}
-          <ProgressBar />
-        </>
+        <Hydrate state={pageProps.dehydratedState}>
+          <>
+            <Header />
+            <PageLayout url={url}>
+              {loading ? (
+                <PageSkeleton url={url} />
+              ) : (
+                <>
+                  <Head>
+                    <meta charSet="utf-8"></meta>
+                    <title>ByJuun.com</title>
+                    <link rel="shortcut icon" href="/favicon.ico" />
+                  </Head>
+                  <Component {...pageProps} />
+                  <MyToastContainer />
+                  <ReactQueryDevtools initialIsOpen={false} />
+                </>
+              )}
+            </PageLayout>
+            <ProgressBar />
+          </>
+        </Hydrate>
       </ThemeContainer>
     </QueryClientProvider>
   );

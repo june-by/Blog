@@ -5,7 +5,6 @@ import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
-import PostPageLayout from "components/shared/PageLayout/PostPageLayout";
 
 interface PostWrapProps {
   children: JSX.Element;
@@ -14,9 +13,7 @@ interface PostWrapProps {
 
 const PostWrap = Object.assign(
   ({ children, Post }: PostWrapProps) => (
-    <PostContainer Post={Post}>
-      <PostPageLayout>{children}</PostPageLayout>
-    </PostContainer>
+    <PostContainer Post={Post}>{children}</PostContainer>
   ),
   {
     Header: PostTop,

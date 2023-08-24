@@ -1,8 +1,0 @@
-@import "utils/utils.scss";
-.SeriesPageLayout {
-  @include desktop {
-    width: 90%;
-    max-width: 1440px;
-  }
-  @include PageContentLayout;
-}

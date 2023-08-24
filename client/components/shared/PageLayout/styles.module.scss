@@ -8,3 +8,41 @@
     margin-top: 100px;
   }
 }
+
+.WithFlexLayout {
+  @include PageContentLayout;
+  @include desktop {
+    width: 75%;
+    max-width: 1080px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    word-break: break-all;
+  }
+}
+
+.WithOutFlexLayout {
+  @include desktop {
+    width: 90%;
+    max-width: 1440px;
+  }
+  @include PageContentLayout;
+}
+
+.PostsPageLayout {
+  @include desktop {
+    width: 90%;
+    max-width: 1440px;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  @include PageContentLayout;
+  @include tablet_landscape {
+    gap: 2.5rem;
+  }
+}

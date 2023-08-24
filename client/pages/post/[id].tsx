@@ -40,11 +40,11 @@ const PostPage = () => {
     }
   }, [userInfo, PostData, router]);
 
-  if (router.isFallback) return <PageSkeleton nextUrl="/post/" />;
+  if (router.isFallback) return <PageSkeleton url="/post/" />;
 
   if (!PostData?.isPublic) {
     if (!adminValidationForNotPublicPost) {
-      return <PageSkeleton nextUrl="/post/" />;
+      return <PageSkeleton url="/post/" />;
     }
   }
 
