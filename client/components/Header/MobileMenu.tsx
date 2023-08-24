@@ -45,6 +45,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           <Link
             key={text}
             href={url}
+            onClick={handleClose}
             className={isCurrentPath(pathname, url) ? `${styles.current}` : ""}
           >
             {text}

@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import SwitchCase from "../SwitchCase";
 
 interface Props {
   url: string;

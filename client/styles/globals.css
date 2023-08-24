@@ -113,4 +113,5 @@ li {
 }
 .notion-page {
   padding: 0 !important;
+  color: var(--bg-element2) !important;
 }
