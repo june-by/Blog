@@ -8,10 +8,12 @@ import {
   useGetTagPosts,
 } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
-import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
+import CategoryList from "components/posts/CategoryList";
+import PostList from "components/posts/postList";
+import Contact from "components/posts/Contact";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
@@ -35,7 +37,9 @@ const Home: NextPage = () => {
         />
         <meta property="og:url" content={url} />
       </Head>
-      <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
+      <CategoryList />
+      <PostList query={getQuery(query)} params={getParams(query)} />
+      <Contact />
       <ScrollButton />
     </>
   );
