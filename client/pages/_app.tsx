@@ -14,6 +14,7 @@ import { ThemeContainer } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import Header from "components/Header";
+import PageLayout from "components/shared/PageLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -31,20 +32,22 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Hydrate state={pageProps.dehydratedState}>
           <>
             <Header />
-            {loading ? (
-              <PageSkeleton nextUrl={nextUrl || router.pathname} />
-            ) : (
-              <>
-                <Head>
-                  <meta charSet="utf-8"></meta>
-                  <title>ByJuun.com</title>
-                  <link rel="shortcut icon" href="/favicon.ico" />
-                </Head>
-                <Component {...pageProps} />
-                <MyToastContainer />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </>
-            )}
+            <PageLayout>
+              {loading ? (
+                <PageSkeleton nextUrl={nextUrl || router.pathname} />
+              ) : (
+                <>
+                  <Head>
+                    <meta charSet="utf-8"></meta>
+                    <title>ByJuun.com</title>
+                    <link rel="shortcut icon" href="/favicon.ico" />
+                  </Head>
+                  <Component {...pageProps} />
+                  <MyToastContainer />
+                  <ReactQueryDevtools initialIsOpen={false} />
+                </>
+              )}
+            </PageLayout>
             <ProgressBar />
           </>
         </Hydrate>
