@@ -46,3 +46,8 @@
     gap: 2.5rem;
   }
 }
+
+.WithMaxWidth720px {
+  max-width: 720px;
+  @include PageContentLayout;
+}

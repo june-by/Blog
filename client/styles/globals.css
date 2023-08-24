@@ -111,3 +111,6 @@ li {
 .utterances {
   max-width: 1440px !important;
 }
+.notion-page {
+  padding: 0 !important;
+}

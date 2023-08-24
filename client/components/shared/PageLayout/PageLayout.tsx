@@ -20,6 +20,7 @@ const getClassNameFromUrl = (url: string) => {
   if (url.includes("/post/")) return styles.PostPageLayout;
   else if (url.includes("/series")) return styles.WithOutFlexLayout;
   else if (url.includes("/archives")) return styles.WithOutFlexLayout;
+  else if (url.includes("/about")) return styles.WithMaxWidth720px;
   return styles.WithFlexLayout;
 };
 
