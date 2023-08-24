@@ -18,7 +18,6 @@ const PageSkeleton = ({ nextUrl }: Props) => {
   const mainPath = getMainPathFromUrl(nextUrl);
   return (
     <>
-      <Header />
       <SwitchCase
         value={mainPath}
         caseBy={{

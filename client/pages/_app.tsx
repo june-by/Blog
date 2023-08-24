@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeContainer>
         <>
+          <Header />
           {loading ? (
             <PageSkeleton nextUrl={nextUrl || router.pathname} />
           ) : (
@@ -38,7 +39,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <title>ByJuun.com</title>
                 <link rel="shortcut icon" href="/favicon.ico" />
               </Head>
-              <Header />
               <Component {...pageProps} />
               <MyToastContainer />
               <ReactQueryDevtools initialIsOpen={false} />
