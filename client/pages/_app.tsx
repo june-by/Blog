@@ -26,15 +26,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
 
+  const url = nextUrl || router.pathname;
+  console.log("url : ", url);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeContainer>
         <Hydrate state={pageProps.dehydratedState}>
           <>
             <Header />
-            <PageLayout>
+            <PageLayout url={url}>
               {loading ? (
-                <PageSkeleton nextUrl={nextUrl || router.pathname} />
+                <PageSkeleton url={url} />
               ) : (
                 <>
                   <Head>

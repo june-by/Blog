@@ -1,10 +1,10 @@
 import React from "react";
 import PostPageSkeleton from "./PostPageSkeleton";
 import PostsPageSkeleton from "./PostsPageSkeleton";
-import Header from "components/Header";
 import SwitchCase from "components/shared/SwitchCase";
+
 interface Props {
-  nextUrl: string;
+  url: string;
 }
 
 const getMainPathFromUrl = (url: string) => {
@@ -14,8 +14,8 @@ const getMainPathFromUrl = (url: string) => {
   return "posts";
 };
 
-const PageSkeleton = ({ nextUrl }: Props) => {
-  const mainPath = getMainPathFromUrl(nextUrl);
+const PageSkeleton = ({ url }: Props) => {
+  const mainPath = getMainPathFromUrl(url);
   return (
     <>
       <SwitchCase
