@@ -1,8 +1,11 @@
 import React from "react";
+interface Props {
+  className?: string;
+}
 
-const Dark = () => {
+const Dark = (props: Props) => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="black">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="black" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
