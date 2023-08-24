@@ -28,24 +28,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeContainer>
-        <>
-          <Header />
-          {loading ? (
-            <PageSkeleton nextUrl={nextUrl || router.pathname} />
-          ) : (
-            <Hydrate state={pageProps.dehydratedState}>
-              <Head>
-                <meta charSet="utf-8"></meta>
-                <title>ByJuun.com</title>
-                <link rel="shortcut icon" href="/favicon.ico" />
-              </Head>
-              <Component {...pageProps} />
-              <MyToastContainer />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </Hydrate>
-          )}
-          <ProgressBar />
-        </>
+        <Hydrate state={pageProps.dehydratedState}>
+          <>
+            <Header />
+            {loading ? (
+              <PageSkeleton nextUrl={nextUrl || router.pathname} />
+            ) : (
+              <>
+                <Head>
+                  <meta charSet="utf-8"></meta>
+                  <title>ByJuun.com</title>
+                  <link rel="shortcut icon" href="/favicon.ico" />
+                </Head>
+                <Component {...pageProps} />
+                <MyToastContainer />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </>
+            )}
+            <ProgressBar />
+          </>
+        </Hydrate>
       </ThemeContainer>
     </QueryClientProvider>
   );
