@@ -1,13 +1,13 @@
 import React from "react";
 import SeriesListLayout from "./layout";
-import { AllSeriesAPIType } from "Types/series";
 import SeriesCard from "./SeriesCard";
+import { useGetAllSeires } from "Hooks/Series";
 
-interface Props {
-  data: AllSeriesAPIType;
-}
+const SeriesList = () => {
+  const { data, isLoading } = useGetAllSeires();
 
-const SeriesList = ({ data }: Props) => {
+  if (!data || isLoading) return null;
+
   return (
     <SeriesListLayout>
       <>

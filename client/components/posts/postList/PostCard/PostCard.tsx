@@ -10,6 +10,7 @@ import TagButton from "components/shared/tagButton";
 import { AiOutlineEye } from "react-icons/ai";
 import dateForm from "utils/dateForm";
 import PostCardSkeleton from "./Skeleton";
+import CustomWebPImage from "components/shared/CustomWebPImage";
 
 interface Props {
   post: PostsType;
@@ -31,19 +32,11 @@ const PostCard = ({ post }: Props) => {
             blurDataURL={blurDataURL}
           />
         ) : (
-          <picture>
-            <source
-              data-srcset={S3_PREFIX + THUMBNAIL[category]?.webp}
-              type="image/webp"
-            />
-            <Image
-              fill
-              src={S3_PREFIX + THUMBNAIL[category]?.jpg}
-              alt="category"
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-            />
-          </picture>
+          <CustomWebPImage
+            webPSrc={S3_PREFIX + THUMBNAIL[category]?.webp}
+            fallbackSrc={S3_PREFIX + THUMBNAIL[category]?.jpg}
+            alt="thumbNail"
+          />
         )}
       </figure>
       <article className={styles.articleWrap}>

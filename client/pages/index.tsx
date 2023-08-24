@@ -1,5 +1,4 @@
 import type { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
 import {
   useGetCategoryPosts,
   useGetMainPost,
@@ -8,34 +7,24 @@ import {
   useGetTagPosts,
 } from "Hooks/Post";
 import ScrollButton from "components/shared/scrollButton";
-import PostsPageContainer from "components/posts";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
+import CategoryList from "components/posts/CategoryList";
+import PostList from "components/posts/postList";
+import Contact from "components/posts/Contact";
+import CommonSEO from "components/shared/CommonSEO";
 
 const Home: NextPage = () => {
   const { query } = useRouter();
-  const { title, description, ogDescription, url, ogTitle } =
-    createMetaData(query);
+  const metaData = createMetaData(query);
 
   return (
     <>
-      <Head>
-        <meta charSet="utf-8"></meta>
-        <title>{title}</title>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content={description} />
-        <meta property="og:title" content={ogTitle} />
-        <meta property="og:description" content={ogDescription} />
-        <meta
-          property="og:image"
-          content={
-            "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
-          }
-        />
-        <meta property="og:url" content={url} />
-      </Head>
-      <PostsPageContainer query={getQuery(query)} params={getParams(query)} />
+      <CommonSEO {...metaData} />
+      <CategoryList />
+      <PostList query={getQuery(query)} params={getParams(query)} />
+      <Contact />
       <ScrollButton />
     </>
   );
@@ -117,7 +106,7 @@ function createMetaData(query: PostsPageQueryType) {
       description: `"${query.search}" Search Result Page`,
       ogTitle: `"${query.search}" Search Result Page`,
       ogDescription: `This page is a collection of search result for "${query.search}"`,
-      url: `https://byjuun.com/?search=${query.search}`,
+      ogUrl: `https://byjuun.com/?search=${query.search}`,
     };
   else if (query.tag)
     return {
@@ -125,7 +114,7 @@ function createMetaData(query: PostsPageQueryType) {
       description: `"${query.tag}" Tagged Page`,
       ogTitle: `"${query.tag}" Tagged Page`,
       ogDescription: `This page is a collection of posts with the "${query.tag}" tag`,
-      url: `https://byjuun.com/?tag=${query.tag}`,
+      ogUrl: `https://byjuun.com/?tag=${query.tag}`,
     };
   else if (query.category)
     return {
@@ -133,7 +122,7 @@ function createMetaData(query: PostsPageQueryType) {
       description: `"${query.category}" Category Page`,
       ogTitle: `"${query.category}" Category Page`,
       ogDescription: `This page is a collection of posts about "${query.category}" category`,
-      url: `https://byjuun.com/?category=${query.category}`,
+      ogUrl: `https://byjuun.com/?category=${query.category}`,
     };
   else
     return {
@@ -141,6 +130,6 @@ function createMetaData(query: PostsPageQueryType) {
       description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
       ogTitle: `byjuun.com`,
       ogDescription: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
-      url: `https://byjuun.com`,
+      ogUrl: `https://byjuun.com`,
     };
 }

@@ -1,5 +1,4 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
@@ -16,6 +15,7 @@ import Post from "components/post";
 import ScrollIndicator from "components/post/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
 import PageSkeleton from "components/PageSkeleton";
+import CommonSEO from "components/shared/CommonSEO";
 
 const PostPage = () => {
   const router = useRouter();
@@ -52,18 +52,14 @@ const PostPage = () => {
 
   return (
     <>
-      <Head>
-        <meta charSet="utf-8"></meta>
-        <title>{PostData.title}</title>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content={PostData.content.substring(0, 100)} />
-        <meta property="og:title" content={PostData.title} />
-        <meta
-          property="og:image"
-          content={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
-        />
-        <meta property="og:url" content={`https://byjuun.com/post/${postId}`} />
-      </Head>
+      <CommonSEO
+        title={PostData.title}
+        description={PostData.content.substring(0, 100)}
+        ogTitle={PostData.title}
+        ogDescription={PostData.content.substring(0, 100)}
+        ogImage={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
+        ogUrl={`https://byjuun.com/post/${postId}`}
+      />
       <ScrollIndicator />
       <Post Post={PostData}>
         <>
