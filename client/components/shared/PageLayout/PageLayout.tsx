@@ -8,37 +8,20 @@ interface Props {
 }
 
 const PageLayout = ({ children, url }: Props) => {
+  const contentLayoutClassName = getClassNameFromUrl(url);
   return (
     <section className={styles.PageLayout}>
-      <LayoutForContent url={url}>{children}</LayoutForContent>
+      <div className={contentLayoutClassName}>{children}</div>
     </section>
   );
 };
 
-const getMainPathFromUrl = (url: string) => {
-  if (url.includes("/post/")) return "withFlex";
-  else if (url.includes("/series")) return "withoutFlex";
-  else if (url.includes("/archives")) return "withoutFlex";
-  return "posts";
-};
-
-const LayoutForContent = ({ url, children }: Props) => {
-  const mainPath = getMainPathFromUrl(url);
-
-  return (
-    <SwitchCase
-      value={mainPath}
-      caseBy={{
-        posts: <section className={styles.PostsPageLayout}>{children}</section>,
-        withFlex: (
-          <section className={styles.WithFlexLayout}>{children}</section>
-        ),
-        withoutFlex: (
-          <section className={styles.WithOutFlexLayout}>{children}</section>
-        ),
-      }}
-    />
-  );
+const getClassNameFromUrl = (url: string) => {
+  if (url.includes("/post/")) return styles.PostPageLayout;
+  else if (url.includes("/series")) return styles.WithOutFlexLayout;
+  else if (url.includes("/archives")) return styles.WithOutFlexLayout;
+  else if (url.includes("/about")) return styles.WithMaxWidth720px;
+  return styles.WithFlexLayout;
 };
 
 export default PageLayout;
