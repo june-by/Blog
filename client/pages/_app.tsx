@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   useCheckVisitor(queryClient);
 
   const url = nextUrl || router.pathname;
-  console.log("url : ", url);
 
   return (
     <QueryClientProvider client={queryClient}>
