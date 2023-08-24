@@ -6,6 +6,7 @@ import isNull from "utils/isNull";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import dateForm from "utils/dateForm";
+import CustomWebPImage from "components/shared/CustomWebPImage";
 
 const SeriesCard = ({
   id,
@@ -29,19 +30,11 @@ const SeriesCard = ({
             blurDataURL={blurDataURL}
           />
         ) : (
-          <picture>
-            <source
-              data-srcset="https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
-              type="image/webp"
-            />
-            <Image
-              fill
-              src="https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
-              alt="category"
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-            />
-          </picture>
+          <CustomWebPImage
+            webPSrc="https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
+            fallbackSrc="https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png"
+            alt="thumbNail"
+          />
         )}
       </figure>
       <article className={styles.articleWrap}>
