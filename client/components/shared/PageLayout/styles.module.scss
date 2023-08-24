@@ -9,7 +9,7 @@
   }
 }
 
-.WithFlexLayout {
+.PostPageLayout {
   @include PageContentLayout;
   @include desktop {
     width: 75%;
@@ -33,7 +33,7 @@
   @include PageContentLayout;
 }
 
-.PostsPageLayout {
+.WithFlexLayout {
   @include desktop {
     width: 90%;
     max-width: 1440px;
