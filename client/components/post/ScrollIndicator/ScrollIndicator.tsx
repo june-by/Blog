@@ -19,7 +19,6 @@ const ScrollIndicator = () => {
       setScrollY(window.scrollY);
     };
 
-    // const timeout = setTimeout(() => onResize(), 1000);
     onResize();
     onScroll();
     window.addEventListener("scroll", onScroll);
@@ -28,7 +27,6 @@ const ScrollIndicator = () => {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
-      //   clearTimeout(timeout);
     };
   }, []);
 

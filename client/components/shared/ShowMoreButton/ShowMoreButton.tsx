@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import classnames from "classnames";
 
 interface Props {
   toggleShowMore: () => void;
@@ -10,7 +11,7 @@ interface Props {
 const ShowMoreButton = ({ showMore, toggleShowMore, className }: Props) => {
   return (
     <button
-      className={`${styles.ShowMoreButton} ${className}`}
+      className={classnames(className, styles.ShowMoreButton)}
       onClick={toggleShowMore}
     >
       {showMore ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}

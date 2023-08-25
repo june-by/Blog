@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { CategoryType } from "constants/category";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import classnames from "classnames";
 
 interface Props {
   category: CategoryType;
@@ -28,11 +29,9 @@ const CategoryButton = ({ category, length }: Props) => {
   return (
     <Link
       ref={categoryButtonRef}
-      className={
-        isCurrentSelectedCategory
-          ? `${styles.CategoryButton} ${styles.Selected}`
-          : `${styles.CategoryButton}`
-      }
+      className={classnames(styles.CategoryButton, {
+        [styles.Selected]: isCurrentSelectedCategory,
+      })}
       href={`/?category=${category}`}
     >
       <span className={styles.content}>{category}</span>

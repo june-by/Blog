@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
+import classnames from "classnames";
 interface Props {
   children: ReactNode;
   isOpen: boolean;
@@ -19,7 +20,10 @@ const LeftSlideLayer = ({ children, isOpen, className }: Props) => {
   }, [isOpen]);
 
   return (
-    <div ref={leftSlideLayerRef} className={`${styles.LeftSlideLayer} ${className}`}>
+    <div
+      ref={leftSlideLayerRef}
+      className={classnames(className, styles.LeftSlideLayer)}
+    >
       {children}
     </div>
   );

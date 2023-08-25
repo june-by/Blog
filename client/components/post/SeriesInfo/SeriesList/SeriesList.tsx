@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { usePostContext } from "context/postContext";
 import Link from "next/link";
+import classnames from "classnames";
 
 const SeriesList = ({ seriesPosts }: Pick<MainPost, "seriesPosts">) => {
   const {
@@ -13,9 +14,9 @@ const SeriesList = ({ seriesPosts }: Pick<MainPost, "seriesPosts">) => {
       {seriesPosts.map(({ id, title }) => (
         <li
           key={id}
-          className={
-            isCurrentPost(currentPostId, id) ? `${styles.current}` : ""
-          }
+          className={classnames({
+            [styles.current]: currentPostId === id,
+          })}
         >
           <Link href={`/post/${id}`}>{title}</Link>
         </li>
@@ -23,8 +24,5 @@ const SeriesList = ({ seriesPosts }: Pick<MainPost, "seriesPosts">) => {
     </ol>
   );
 };
-
-const isCurrentPost = (currentPostId: number, id: number) =>
-  currentPostId === id;
 
 export default SeriesList;

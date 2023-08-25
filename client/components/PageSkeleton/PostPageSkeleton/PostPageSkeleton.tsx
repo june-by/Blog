@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import classnames from "classnames";
 
 const PostPageSkeleton = () => {
   return (
@@ -8,21 +9,21 @@ const PostPageSkeleton = () => {
         <div className={styles.TitleSkeleton}></div>
         <div className={styles.TitleSkeletonMobile}></div>
         <div
-          className={`${styles.TitleSkeletonMobile} ${styles.TitleSecond}`}
-        ></div>
-        <div className={styles.DateSkeleton}></div>
+          className={classnames(styles.TitleSkeletonMobile, styles.TitleSecond)}
+        />
+        <div className={styles.DateSkeleton} />
         <div className={styles.TagSkeleton}>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div />
+          <div />
+          <div />
         </div>
       </div>
       <div className={styles.PostContentSkeletonWrapper}>
-        <div className={styles.PostContentSkeleton}></div>
+        <div className={styles.PostContentSkeleton} />
         <div className={styles.TopicSkeleton}>
-          {Array.from({ length: 6 }, () => 0).map((value, idx) => {
-            return <div key={idx}></div>;
-          })}
+          {Array.from({ length: 6 }, () => 0).map((v, idx) => (
+            <div key={idx} />
+          ))}
         </div>
       </div>
     </>
