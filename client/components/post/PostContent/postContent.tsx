@@ -7,6 +7,7 @@ import useHighLightCodeBlock from "./useHighlightCodeBlock";
 import { usePostContext } from "context/postContext";
 import useExtractTOC from "./useExtractTOC";
 import SeriesInfo from "../SeriesInfo";
+import classnames from "classnames";
 
 const PostContent = () => {
   const {
@@ -23,7 +24,7 @@ const PostContent = () => {
       <div className={styles.ContentWrap}>
         <SeriesInfo />
         <article
-          className={`Code ${styles.Content}`}
+          className={classnames("Code", styles.Content)}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>

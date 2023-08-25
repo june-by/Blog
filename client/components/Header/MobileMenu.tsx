@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useHeaderContext } from "context/headerContext";
 import LeftSlideLayer from "components/shared/LeftSlideLayer";
 import FontAppliedElement from "components/shared/FontAppliedElement";
+import classnames from "classnames";
 
 interface Props {
   isOpen: boolean;
@@ -46,7 +47,9 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
             key={text}
             href={url}
             onClick={handleClose}
-            className={isCurrentPath(pathname, url) ? `${styles.current}` : ""}
+            className={classnames({
+              [styles.current]: isCurrentPath(pathname, url),
+            })}
           >
             {text}
           </Link>

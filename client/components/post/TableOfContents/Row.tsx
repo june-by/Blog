@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-
+import classnames from "classnames";
 interface RowProps {
   onClick: (topic: HTMLElement) => () => void;
   tocElement: HTMLElement;
@@ -12,11 +12,10 @@ function Row({ onClick, tocElement, idx, isActive }: RowProps) {
   return (
     <nav
       id={String(idx)}
-      className={
-        isActive
-          ? `${styles.activeToc} ${styles.Row}`
-          : `${styles.inActiveToc} ${styles.Row}`
-      }
+      className={classnames(
+        styles.Row,
+        isActive ? [styles.activeToc] : [styles.inActiveToc]
+      )}
       style={RowMarginLeftStyle[tocElement.tagName]}
       onClick={onClick(tocElement)}
     >

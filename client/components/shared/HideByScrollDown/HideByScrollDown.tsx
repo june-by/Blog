@@ -1,6 +1,7 @@
 import useScroll from "Hooks/useScroll";
 import React, { ReactNode, createElement, useCallback, useRef } from "react";
 import styles from "./styles.module.scss";
+import classnames from "classnames";
 
 interface Props extends React.HTMLAttributes<HTMLAllCollection> {
   children: ReactNode;
@@ -57,7 +58,7 @@ const HideByScrollDown = ({
   return createElement(
     tagName,
     {
-      className: `${styles.HideByScrollDown} ${className}`,
+      className: classnames(styles.HideByScrollDown, className),
       ref: wrapperRef,
       style: { ...position },
       ...props,
