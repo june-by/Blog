@@ -25,7 +25,7 @@
   margin-bottom: 2.5rem;
   width: 750px;
   background: #f2f2f2;
-  animation: skeleton 1.5s infinite ease-in-out;
+  @include skeletonAnimation;
 
   @include mobile {
     display: none;
@@ -40,7 +40,7 @@
   height: 40px;
   width: 300px;
   background: #f2f2f2;
-  animation: skeleton 1.5s infinite ease-in-out;
+  @include skeletonAnimation;
   margin-bottom: 15px;
 
   @include desktop {
@@ -65,7 +65,7 @@
   height: 21px;
   margin-bottom: 15px;
   background: #f2f2f2;
-  animation: skeleton 1.5s infinite ease-in-out;
+  @include skeletonAnimation;
 }
 
 .TagSkeleton {
@@ -77,7 +77,7 @@
     width: 58px;
     height: 20px;
     background: #f2f2f2;
-    animation: skeleton 1.5s infinite ease-in-out;
+    @include skeletonAnimation;
   }
 }
 
@@ -89,8 +89,7 @@
   width: 100%;
   height: 100vh;
   background: #f2f2f2;
-  animation: skeleton 1.5s infinite ease-in-out;
-
+  @include skeletonAnimation;
   @include desktop {
     width: 77%;
   }
@@ -122,20 +121,6 @@
     width: 116px;
     height: 30px;
     background: #f2f2f2;
-    animation: skeleton 1.5s infinite ease-in-out;
-  }
-}
-
-@keyframes skeleton {
-  0% {
-    background: rgba(165, 165, 165, 0.1);
-  }
-
-  50% {
-    background: rgba(165, 165, 165, 0.5);
-  }
-
-  100% {
-    background: rgba(165, 165, 165, 0.1);
+    @include skeletonAnimation;
   }
 }
