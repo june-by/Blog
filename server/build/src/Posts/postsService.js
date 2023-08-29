@@ -244,21 +244,6 @@ var getPostsCount = function (_a) {
         });
     });
 };
-var getTopViewsPosts = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var posts;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Post.findAll({
-                    order: [["views", "DESC"]],
-                    limit: 10,
-                    attributes: ["id", "title"],
-                })];
-            case 1:
-                posts = _a.sent();
-                return [2 /*return*/, posts];
-        }
-    });
-}); };
 exports.default = {
     getAllPostsId: getAllPostsId,
     getMainPosts: getMainPosts,
@@ -266,7 +251,6 @@ exports.default = {
     getPostsBySearchKeyWord: getPostsBySearchKeyWord,
     getPostsBySeriesId: getPostsBySeriesId,
     getPostsByTag: getPostsByTag,
-    getTopViewsPosts: getTopViewsPosts,
     getCategoryPostsCount: getCategoryPostsCount,
     getPostsCount: getPostsCount,
 };

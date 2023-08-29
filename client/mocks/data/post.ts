@@ -1,18 +1,5 @@
 import { Category } from "constants/category";
 
-export const TOP_VIEWS_POST_MOCK_DATA = [
-  { id: 65, title: "TypeScript에서 undefined, null 처리하기" },
-  { id: 136, title: "스타트업 프론트엔드 개발자 1년 회고" },
-  { id: 145, title: "취준(이직) 회고" },
-  { id: 143, title: "블로그 게시글 페이지 SSR → SSG 전환기" },
-  { id: 139, title: "Sentry를 이용한 에러 모니터링과 성능 모니터링" },
-  { id: 146, title: "On-Demand Revalidate을 이용한 ISR개선하기" },
-  { id: 32, title: "React(TypeScript) + Express 게시판 만들기 (Server3)" },
-  { id: 70, title: "블로그 v2 개발 및 배포 후기 " },
-  { id: 144, title: "선언적 비동기 핸들링" },
-  { id: 142, title: "Factory를 활용해, UI 컴포넌트 재사용하기" },
-];
-
 export const CATEGORY_LENGTH_MOCK_DATA = Category.map((category, idx) => {
   return {
     category,
@@ -26,7 +13,8 @@ export const MAIN_POSTS_MOCK_DATA = [
     title: "[Effective TypeScript] 제2장 타입스크립트의 타입 시스템(2)",
     category: "TypeScript",
     createdAt: "2023-03-18T07:09:25.000Z",
-    thumbNailUrl: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
+    thumbNailUrl:
+      "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 53,
     isPublic: 1,
     Tags: [],
@@ -36,7 +24,8 @@ export const MAIN_POSTS_MOCK_DATA = [
     title: "[Effective TypeScript] 제2장 타입스크립트의 타입 시스템",
     category: "TypeScript",
     createdAt: "2023-03-12T15:22:23.000Z",
-    thumbNailUrl: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
+    thumbNailUrl:
+      "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 124,
     isPublic: 1,
     Tags: [],
@@ -46,7 +35,8 @@ export const MAIN_POSTS_MOCK_DATA = [
     title: "[Effective TypeScript] 제1장 타입스크립트 알아보기",
     category: "TypeScript",
     createdAt: "2023-03-02T15:19:31.000Z",
-    thumbNailUrl: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
+    thumbNailUrl:
+      "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 101,
     isPublic: 1,
     Tags: [],
@@ -294,26 +284,6 @@ export const MAIN_POSTS_MOCK_DATA = [
           TagId: 174,
         },
       },
-      {
-        id: 209,
-        content: "sentry",
-        PostHashtag: {
-          createdAt: "2022-12-11T10:02:02.000Z",
-          updatedAt: "2022-12-11T10:02:02.000Z",
-          PostId: 139,
-          TagId: 209,
-        },
-      },
-      {
-        id: 210,
-        content: "성능",
-        PostHashtag: {
-          createdAt: "2022-12-11T10:02:02.000Z",
-          updatedAt: "2022-12-11T10:02:02.000Z",
-          PostId: 139,
-          TagId: 210,
-        },
-      },
     ],
   },
   {
@@ -500,7 +470,8 @@ export const MAIN_POSTS_MOCK_DATA = [
     title: "Image Lazy Loading을 통한 최적화",
     category: "Web",
     createdAt: "2022-11-28T12:23:31.000Z",
-    thumbNailUrl: "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670347464447_imagelayzloading.jpg",
+    thumbNailUrl:
+      "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670347464447_imagelayzloading.jpg",
     views: 171,
     isPublic: 1,
     Tags: [

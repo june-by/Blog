@@ -1,4 +1,3 @@
-import { customAxios } from "utils/CustomAxios";
 import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
 import MESSAGE from "constants/message";
 import request from "services/request";
@@ -87,12 +86,3 @@ export const getPostViewCountAPI = async (postId: number) =>
     method: "get",
     url: `/post/load/viewCount/${postId}`,
   });
-
-export const GetTopViewsPostsAPI = async () => {
-  try {
-    const { data } = await customAxios.get("/posts/topViews");
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};

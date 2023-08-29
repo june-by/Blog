@@ -218,25 +218,6 @@ var getPostsLength = function (req, res, next) { return __awaiter(void 0, void 0
         }
     });
 }); };
-var getTopViewsPosts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts, err_9;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, postsService_1.default.getTopViewsPosts()];
-            case 1:
-                posts = _a.sent();
-                return [2 /*return*/, res.status(201).json(posts)];
-            case 2:
-                err_9 = _a.sent();
-                console.error(err_9);
-                next(err_9);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
 exports.default = {
     getAllPostsId: getAllPostsId,
     getMainPosts: getMainPosts,
@@ -246,5 +227,4 @@ exports.default = {
     getCategoryPostsCount: getCategoryPostsCount,
     getPostsBySearchKeyWord: getPostsBySearchKeyWord,
     getPostsByTag: getPostsByTag,
-    getTopViewsPosts: getTopViewsPosts,
 };

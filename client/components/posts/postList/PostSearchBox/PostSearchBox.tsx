@@ -25,8 +25,12 @@ const PostSearchBox = () => {
 
   return (
     <form className={styles.PostSearchBox} onSubmit={handleSubmit}>
-      <input placeholder="어떤 포스트를 찾으시나요?" ref={searchRef} />
-      <IconButton Icon={<SearchIcon />} />
+      <input
+        placeholder="어떤 포스트를 찾으시나요?"
+        ref={searchRef}
+        data-testid="searchInput"
+      />
+      <IconButton Icon={<SearchIcon />} data-testid="searchButton" />
     </form>
   );
 };
