@@ -198,7 +198,7 @@ test.describe("모달 - ", () => {
 });
 
 test.describe("Contact - ", () => {
-  test("Github 링크를 누르면, Github 프로필 페이지로 이동해야 한다", async ({
+  test("Github 링크를 누르면, Github 프로필 페이지로 이동해야 한다.", async ({
     page,
   }) => {
     const posts = new PostsPOM(page);
@@ -209,5 +209,22 @@ test.describe("Contact - ", () => {
     await githubProfileLink.click();
 
     await expect(posts.page).toHaveURL("https://github.com/BY-juun");
+  });
+
+  test("링크드인 링크를 누르면, 링크드인으로 이동해야 한다.", async ({
+    page,
+  }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const linkedInProfileLink = posts.page.getByRole("link", {
+      name: "LinkedIn",
+    });
+
+    await linkedInProfileLink.click();
+
+    await expect(posts.page).toHaveURL(
+      new RegExp(`^.*(https://www.linkedin.com/).*`)
+    );
   });
 });
