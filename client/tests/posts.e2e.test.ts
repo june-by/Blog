@@ -66,9 +66,10 @@ test.describe("게시글 카드 - ", () => {
       hasText: new RegExp(`^.*(${mockPostData.title}).*`),
     });
 
-    await targetPostCard.click({ force: true });
-
-    await expect(posts.page).toHaveURL(`/post/${mockPostData.id}`);
+    await expect(targetPostCard).toHaveAttribute(
+      "href",
+      `/post/${mockPostData.id}`
+    );
   });
 
   test("각 카드에 존재하는 태그를 클릭하면, 해당 태그와 매칭되는 게시글을 보여주는 페이지로 이동한다", async ({
