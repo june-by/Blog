@@ -1,11 +1,8 @@
 import { ArchiveTagType } from "Types/tag";
-import { customAxios } from "utils/CustomAxios";
+import request from "services/request";
 
-export const getAllTags = async (): Promise<ArchiveTagType[]> => {
-  try {
-    const { data } = await customAxios.get("/tag");
-    return data;
-  } catch (err) {
-    throw Error();
-  }
-};
+export const getAllTags = async () =>
+  request<ArchiveTagType[]>({
+    method: "get",
+    url: `/tag`,
+  });

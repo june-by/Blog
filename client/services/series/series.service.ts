@@ -1,26 +1,16 @@
 import { AllSeriesAPIType } from "Types/series";
-import { customAxios } from "utils/CustomAxios";
+import request from "services/request";
 
-export const getAllSeriesAPI = async (): Promise<AllSeriesAPIType> => {
-  try {
-    const { data } = await customAxios.get("/series");
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
-
+export const getAllSeriesAPI = async () =>
+  request<AllSeriesAPIType>({
+    method: "get",
+    url: `/series`,
+  });
 interface AddSeriesAPIParams {
   title: string;
   shortDescription: string;
   thumbNailUrl: string;
 }
 
-export const addSeriesAPI = async (reqData: AddSeriesAPIParams) => {
-  try {
-    const { data } = await customAxios.post("/series", reqData);
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
+export const addSeriesAPI = async (reqData: AddSeriesAPIParams) =>
+  request<void>({ method: "post", url: "/series", body: reqData });

@@ -1,4 +1,3 @@
-import { customAxios } from "utils/CustomAxios";
 import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
 import MESSAGE from "constants/message";
 import request from "services/request";
