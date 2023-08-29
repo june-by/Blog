@@ -134,7 +134,6 @@ export const useAddPost = () => {
     },
     onSuccess: () => {
       document.body.style.cursor = "default";
-      alert(MESSAGE.POST_REGIST_SUCCESS);
       return window.location.replace("/");
     },
   });
