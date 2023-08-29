@@ -196,3 +196,18 @@ test.describe("모달 - ", () => {
     await posts.page.getByRole("button", { name: "회원가입" }).click();
   });
 });
+
+test.describe("Contact - ", () => {
+  test("Github 링크를 누르면, Github 프로필 페이지로 이동해야 한다", async ({
+    page,
+  }) => {
+    const posts = new PostsPOM(page);
+    await posts.goTo();
+
+    const githubProfileLink = posts.page.getByRole("link", { name: "Github" });
+
+    await githubProfileLink.click();
+
+    await expect(posts.page).toHaveURL("https://github.com/BY-juun");
+  });
+});
