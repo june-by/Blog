@@ -131,7 +131,7 @@
   }
 
   &_thumbNailWrapper {
-    animation: skeleton 1.5s infinite ease-in-out;
+    @include skeletonAnimation;
     width: 30%;
     height: 100%;
     @include mobile {
@@ -149,7 +149,7 @@
     .titleSkeleton {
       width: 70%;
       height: 32px;
-      animation: skeleton 1.5s infinite ease-in-out;
+      @include skeletonAnimation;
       @include mobile {
         width: 100%;
       }
@@ -162,7 +162,7 @@
         margin-top: 5px;
         width: 35%;
         height: 32px;
-        animation: skeleton 1.5s infinite ease-in-out;
+        @include skeletonAnimation;
       }
     }
     .tabSkeletonWrap {
@@ -170,34 +170,20 @@
       .tabSkeleton {
         width: 50px;
         height: 20px;
-        animation: skeleton 1.5s infinite ease-in-out;
+        @include skeletonAnimation;
       }
     }
     .shortDescriptionSkeleton {
       margin-top: 5px;
       width: 80%;
       height: 20px;
-      animation: skeleton 1.5s infinite ease-in-out;
+      @include skeletonAnimation;
     }
   }
   .bottomSkeleton {
     margin-top: 5px;
     width: 30%;
     height: 20px;
-    animation: skeleton 1.5s infinite ease-in-out;
-  }
-}
-
-@keyframes skeleton {
-  0% {
-    background: rgba(165, 165, 165, 0.1);
-  }
-
-  50% {
-    background: rgba(165, 165, 165, 0.5);
-  }
-
-  100% {
-    background: rgba(165, 165, 165, 0.1);
+    @include skeletonAnimation;
   }
 }

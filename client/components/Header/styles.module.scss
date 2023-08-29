@@ -58,28 +58,6 @@
   background: none;
 }
 
-@keyframes shake {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  25% {
-    transform: rotate(-20deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  75% {
-    transform: rotate(-20deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
 .headerRightWrap {
   height: 50px;
   display: flex;
