@@ -1,79 +1,54 @@
 import { customAxios } from "utils/CustomAxios";
 import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
 import MESSAGE from "constants/message";
+import request from "services/request";
 
-export const getAllPostsId = async (): Promise<{ id: number }[]> => {
-  try {
-    const { data } = await customAxios.get(`/posts/load/id`);
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
+export const getAllPostsId = async () =>
+  request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
 
-export const getMainPostsAPI = async (
-  page: number
-): Promise<Array<PostsType>> => {
-  try {
-    const { data } = await customAxios.get(`/posts/load/main/${page}`);
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
+export const getMainPostsAPI = async (page: number) =>
+  request<PostsType[]>({
+    method: "get",
+    url: `/posts/load/main/${page}`,
+  });
 
-export const getAllCategoryLengthAPI = async (): Promise<
-  Array<CategoryCount>
-> => {
-  try {
-    const { data } = await customAxios.get("/posts/load/categoryLength");
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
+export const getAllCategoryLengthAPI = async () =>
+  request<CategoryCount[]>({
+    method: "get",
+    url: "/posts/load/categoryLength",
+  });
 
-export const getPostAPI = async (id: number): Promise<PostType | null> => {
+export const getPostAPI = async (id: number) => {
   if (id === 0) return null;
   if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
   if (!id) throw new Error();
-  try {
-    const { data } = await customAxios.get(`/post/load/${id}`);
-    return data;
-  } catch (err: any) {
-    console.log(err);
-    throw Error(err?.response?.data);
-  }
+  return request<PostType | null>({
+    method: "get",
+    url: `/post/load/${id}`,
+    onError: (err) => err?.response?.data,
+  });
 };
 
 export const getCategoryPostAPI = async (
   category: string | string[] | undefined,
   pageNum: number
-): Promise<Array<PostsType>> => {
+) => {
   if (typeof category !== "string") return [];
-  try {
-    const { data } = await customAxios.get(
-      `/posts/load/${category}/${pageNum}`
-    );
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
+  return request<PostsType[]>({
+    method: "get",
+    url: `/posts/load/${category}/${pageNum}`,
+  });
 };
 
 export const getSeriesPostAPI = async (
   seriesTitle: string | string[] | undefined,
   pageNum: number
-): Promise<Array<PostsType>> => {
+) => {
   if (typeof seriesTitle !== "string") return [];
-  try {
-    const { data } = await customAxios.get(
-      `/posts/series/${encodeURIComponent(seriesTitle)}/${pageNum}`
-    );
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
+  return request<PostsType[]>({
+    method: "get",
+    url: `/posts/series/${encodeURIComponent(seriesTitle)}/${pageNum}`,
+  });
 };
 
 export const getSearchPostAPI = async (
@@ -81,14 +56,10 @@ export const getSearchPostAPI = async (
   pageNum: number
 ): Promise<Array<PostsType>> => {
   if (typeof search !== "string") return [];
-  try {
-    const { data } = await customAxios.get(
-      `/posts/search/${encodeURIComponent(search)}/${pageNum}`
-    );
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
+  return request<PostsType[]>({
+    method: "get",
+    url: `/posts/series/${encodeURIComponent(search)}/${pageNum}`,
+  });
 };
 
 export const getTagPostAPI = async (
@@ -96,41 +67,26 @@ export const getTagPostAPI = async (
   pageNum: number
 ): Promise<Array<PostsType>> => {
   if (typeof tag !== "string") return [];
-  try {
-    const { data } = await customAxios.get(
-      `/posts/tag/${encodeURIComponent(tag)}/${pageNum}`
-    );
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
+  return request<PostsType[]>({
+    method: "get",
+    url: `/posts/series/${encodeURIComponent(tag)}/${pageNum}`,
+  });
 };
 
-export const AddPostAPI = async (reqData: PostFormType): Promise<void> => {
-  await customAxios.post("/post", reqData);
-};
+export const AddPostAPI = async (reqData: PostFormType) =>
+  request<void>({ method: "post", url: "/post", body: reqData });
 
-export const EditPostAPI = async (
-  reqData: PostFormType,
-  id: number
-): Promise<void> => {
-  await customAxios.patch(`/post/${id}`, reqData);
-};
+export const EditPostAPI = async (reqData: PostFormType, id: number) =>
+  request<void>({ method: "patch", url: `/post/${id}`, body: reqData });
 
-export const DeletePostAPI = async (id: number): Promise<void> => {
-  await customAxios.delete(`/post/${id}`);
-};
+export const DeletePostAPI = async (id: number) =>
+  request<void>({ method: "delete", url: `/post/${id}` });
 
-export const getPostViewCountAPI = async (
-  postId: number
-): Promise<{ viewCount: number }> => {
-  try {
-    const { data } = await customAxios.get(`/post/load/viewCount/${postId}`);
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};
+export const getPostViewCountAPI = async (postId: number) =>
+  request<{ viewCount: number }>({
+    method: "get",
+    url: `/post/load/viewCount/${postId}`,
+  });
 
 export const GetTopViewsPostsAPI = async () => {
   try {
