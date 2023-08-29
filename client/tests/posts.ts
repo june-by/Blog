@@ -4,7 +4,6 @@ import { ServerURL } from "constants/serverURL";
 import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,
-  TOP_VIEWS_POST_MOCK_DATA,
 } from "mocks/data/post";
 import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { USER_MOCK_DATA } from "mocks/data/user";
@@ -36,18 +35,6 @@ export default class PostsPOM {
           await route.fallback();
           return;
       }
-    });
-
-    await this.page.route(`${ServerURL}/posts/topViews`, async (route) => {
-      await route.fulfill({
-        json: TOP_VIEWS_POST_MOCK_DATA,
-      });
-    });
-
-    await this.page.route(`${ServerURL}/tag/recent`, async (route) => {
-      await route.fulfill({
-        json: RECENT_TAG_MOCK_DATA,
-      });
     });
 
     await this.page.route(
