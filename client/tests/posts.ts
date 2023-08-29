@@ -5,7 +5,6 @@ import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,
 } from "mocks/data/post";
-import { RECENT_TAG_MOCK_DATA } from "mocks/data/tag";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 
