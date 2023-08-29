@@ -1,7 +1,7 @@
 import { customAxios } from "utils/CustomAxios";
 
 interface RequestParams {
-  method: "get" | "post" | "patch";
+  method: "get" | "post" | "patch" | "delete";
   url: string;
   body?: any;
   onError?: (err: any) => any;
