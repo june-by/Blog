@@ -1,7 +1,7 @@
 import { customAxios } from "utils/CustomAxios";
 import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
 import MESSAGE from "constants/message";
-import { request } from "services";
+import request from "services/request";
 
 export const getAllPostsId = async () =>
   request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
