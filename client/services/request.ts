@@ -1,10 +1,10 @@
 import { customAxios } from "utils/CustomAxios";
 
 interface RequestParams {
-  method: "get" | "post";
+  method: "get" | "post" | "patch";
   url: string;
   body?: any;
-  onError?: (err: any) => void;
+  onError?: (err: any) => any;
 }
 
 const request = async <T>({
