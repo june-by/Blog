@@ -284,26 +284,6 @@ export const MAIN_POSTS_MOCK_DATA = [
           TagId: 174,
         },
       },
-      {
-        id: 209,
-        content: "sentry",
-        PostHashtag: {
-          createdAt: "2022-12-11T10:02:02.000Z",
-          updatedAt: "2022-12-11T10:02:02.000Z",
-          PostId: 139,
-          TagId: 209,
-        },
-      },
-      {
-        id: 210,
-        content: "성능",
-        PostHashtag: {
-          createdAt: "2022-12-11T10:02:02.000Z",
-          updatedAt: "2022-12-11T10:02:02.000Z",
-          PostId: 139,
-          TagId: 210,
-        },
-      },
     ],
   },
   {

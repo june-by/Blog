@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import DUMMY from "constants/dummy";
 import PAGE from "constants/page";
 import { ServerURL } from "constants/serverURL";
 import {
@@ -31,8 +32,9 @@ export default class PostsPOM {
           });
           return;
         case "POST":
-          await route.fallback();
-          return;
+          await route.fulfill({
+            json: { todayVisitor: 1, totalVisitor: 10 },
+          });
       }
     });
 
@@ -45,7 +47,7 @@ export default class PostsPOM {
       }
     );
 
-    await this.page.route(`${ServerURL}/posts/load/main/1`, async (route) => {
+    await this.page.route(`${ServerURL}/posts/load/main/*`, async (route) => {
       await route.fulfill({
         json: MAIN_POSTS_MOCK_DATA,
       });
@@ -57,10 +59,13 @@ export default class PostsPOM {
         json: USER_MOCK_DATA,
       });
     });
-  }
 
-  async openSearchModal() {
-    await this.page.getByRole("button", { name: "searchButton" }).click();
+    await this.page.route(`${ServerURL}/post/load/*`, async (route) => {
+      //if (route.request().method() !== "POST") return;
+      await route.fulfill({
+        json: DUMMY.POST,
+      });
+    });
   }
 
   async openLoginModal() {
