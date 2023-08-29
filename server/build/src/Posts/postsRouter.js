@@ -14,5 +14,4 @@ router.get("/load/:category/:page", postsController_1.default.getCategoryPosts);
 router.get("/series/:seriesTitle/:page", postsController_1.default.getSeriesPosts);
 router.get("/search/:keyword/:page", postsController_1.default.getPostsBySearchKeyWord);
 router.get("/tag/:keyword/:page", postsController_1.default.getPostsByTag);
-router.get("/topViews", postsController_1.default.getTopViewsPosts);
 exports.default = router;

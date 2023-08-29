@@ -87,12 +87,3 @@ export const getPostViewCountAPI = async (postId: number) =>
     method: "get",
     url: `/post/load/viewCount/${postId}`,
   });
-
-export const GetTopViewsPostsAPI = async () => {
-  try {
-    const { data } = await customAxios.get("/posts/topViews");
-    return data;
-  } catch (err) {
-    throw new Error();
-  }
-};

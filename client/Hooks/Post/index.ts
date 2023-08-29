@@ -8,7 +8,6 @@ import {
   getPostViewCountAPI,
   getSearchPostAPI,
   getTagPostAPI,
-  GetTopViewsPostsAPI,
   getSeriesPostAPI,
 } from "services/post";
 import {
@@ -61,13 +60,6 @@ export const useGetPostQuery = (
     }
   );
 };
-
-export const useGetTopViewsPosts = () =>
-  useQuery<TopViewsPost[]>(
-    [QUERY_KEY.POST.TOPVIEWS],
-    () => GetTopViewsPostsAPI(),
-    CACHE_OPTION.WITHOUT_FETCH_ON_MOUNT
-  );
 
 export const useGetAllCateogryLength = () =>
   useQuery<Array<CategoryCount>>(

@@ -18,6 +18,4 @@ router.get("/search/:keyword/:page", postsController.getPostsBySearchKeyWord);
 
 router.get("/tag/:keyword/:page", postsController.getPostsByTag);
 
-router.get("/topViews", postsController.getTopViewsPosts);
-
 export default router;

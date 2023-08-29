@@ -1,7 +1,6 @@
-import { getAllCategoryLengthAPI, getCategoryPostAPI, getPostAPI, GetTopViewsPostsAPI } from ".";
+import { getAllCategoryLengthAPI, getCategoryPostAPI, getPostAPI } from ".";
 import DUMMY from "constants/dummy";
 import { Category } from "constants/category";
-import { TOP_VIEWS_POST_MOCK_DATA } from "mocks/data/post";
 
 describe("postAPI", () => {
   it("getPostAPI", async () => {
@@ -33,10 +32,6 @@ describe("postAPI", () => {
         };
       })
     );
-  });
-
-  it("getTopViewsPosts", async () => {
-    expect(await GetTopViewsPostsAPI()).toStrictEqual(TOP_VIEWS_POST_MOCK_DATA);
   });
 
   it("getAllCategoryLength", async () => {

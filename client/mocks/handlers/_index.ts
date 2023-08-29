@@ -4,7 +4,6 @@ import {
   getOnePost,
   getPostsNum,
   getPostViewCount,
-  getTopViewsPosts,
 } from "./post";
 import { getRecentTag } from "./tag";
 import { getUserInfo, login, logout, signup } from "./user";
@@ -20,7 +19,6 @@ export const handlers = [
   getCategoryPosts,
   getOnePost,
   getPostsNum,
-  getTopViewsPosts,
   getVisitor,
   postVisitor,
   getPostViewCount,

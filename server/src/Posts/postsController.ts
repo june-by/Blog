@@ -122,20 +122,6 @@ const getPostsLength = async (
   }
 };
 
-const getTopViewsPosts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const posts = await postsService.getTopViewsPosts();
-    return res.status(201).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
-
 export default {
   getAllPostsId,
   getMainPosts,
@@ -145,5 +131,4 @@ export default {
   getCategoryPostsCount,
   getPostsBySearchKeyWord,
   getPostsByTag,
-  getTopViewsPosts,
 };
