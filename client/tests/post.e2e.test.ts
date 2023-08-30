@@ -74,4 +74,17 @@ test.describe("시리즈 - ", () => {
       `/post/${POST_MOCK_DATA.mainPost.seriesPosts[1].id}`
     );
   });
+
+  test("해당 시리즈의 첫 포스트일 경우, 이전 버튼을 누를 수 없다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo();
+
+    const gotoPrevSeriesPostButton = post.page.getByTestId(
+      "gotoPrevSeriesPostButton"
+    );
+
+    await expect(gotoPrevSeriesPostButton).toBeDisabled();
+  });
 });
