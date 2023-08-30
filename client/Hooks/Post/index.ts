@@ -29,6 +29,7 @@ import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
 import POSTS_PER_PAGE from "constants/postsPerPage";
 import MESSAGE from "constants/message";
+import { getAllPostsAPI } from "services/post/post.service";
 
 export const useGetMainPost = () =>
   useInfiniteQuery<Array<PostsType>>(
@@ -147,3 +148,6 @@ export const useDeletePost = () => {
     },
   });
 };
+
+export const useGetAllPostsQuery = () =>
+  useQuery([QUERY_KEY.POST.ALL], () => getAllPostsAPI(), CACHE_OPTION.ALL);
