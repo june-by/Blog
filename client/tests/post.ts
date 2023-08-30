@@ -28,4 +28,8 @@ export default class PostPOM {
       });
     });
   }
+
+  async clickSeriesInfoMoreButton() {
+    await this.page.getByRole("button", { name: "더보기" }).click();
+  }
 }

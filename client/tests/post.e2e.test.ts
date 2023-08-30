@@ -30,9 +30,7 @@ test.describe("시리즈 - ", () => {
     const post = new PostPOM(page);
     await post.goTo();
 
-    const moreButton = post.page.getByRole("button", { name: "더보기" });
-
-    await moreButton.click();
+    await post.clickSeriesInfoMoreButton();
 
     await expect(
       post.page.getByText(
