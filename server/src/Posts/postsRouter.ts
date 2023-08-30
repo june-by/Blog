@@ -12,6 +12,8 @@ router.get("/load/length/:category", postsController.getPostsLength);
 
 router.get("/load/:category/:page", postsController.getCategoryPosts);
 
+router.get("/load/groupByYear", postsController.getAllPostsGroupByYear);
+
 router.get("/series/:seriesTitle/:page", postsController.getSeriesPosts);
 
 router.get("/search/:keyword/:page", postsController.getPostsBySearchKeyWord);

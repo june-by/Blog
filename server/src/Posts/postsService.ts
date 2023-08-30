@@ -163,6 +163,13 @@ const getPostsCount = async ({ category }: { category: string }) => {
   return data[0].count;
 };
 
+const getAllPostsGroupByYear = async () => {
+  const query = `select title, createdAt from Posts where YEAR(createdAt) in (select YEAR(createdAt) from Posts group by YEAR(createdAt))`;
+  const [data] = await sequelize.query(query);
+
+  return data;
+};
+
 export default {
   getAllPostsId,
   getMainPosts,
@@ -172,4 +179,5 @@ export default {
   getPostsByTag,
   getCategoryPostsCount,
   getPostsCount,
+  getAllPostsGroupByYear,
 };

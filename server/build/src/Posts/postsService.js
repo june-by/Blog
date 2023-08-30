@@ -244,6 +244,19 @@ var getPostsCount = function (_a) {
         });
     });
 };
+var getAllPostsGroupByYear = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var query, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                query = "select title, createdAt from Posts where YEAR(createdAt) in (select YEAR(createdAt) from Posts group by YEAR(createdAt))";
+                return [4 /*yield*/, sequelize.query(query)];
+            case 1:
+                data = (_a.sent())[0];
+                return [2 /*return*/, data];
+        }
+    });
+}); };
 exports.default = {
     getAllPostsId: getAllPostsId,
     getMainPosts: getMainPosts,
@@ -253,4 +266,5 @@ exports.default = {
     getPostsByTag: getPostsByTag,
     getCategoryPostsCount: getCategoryPostsCount,
     getPostsCount: getPostsCount,
+    getAllPostsGroupByYear: getAllPostsGroupByYear,
 };

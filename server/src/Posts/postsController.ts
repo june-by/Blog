@@ -122,6 +122,20 @@ const getPostsLength = async (
   }
 };
 
+const getAllPostsGroupByYear = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await postsService.getAllPostsGroupByYear();
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
 export default {
   getAllPostsId,
   getMainPosts,
@@ -131,4 +145,5 @@ export default {
   getCategoryPostsCount,
   getPostsBySearchKeyWord,
   getPostsByTag,
+  getAllPostsGroupByYear,
 };
