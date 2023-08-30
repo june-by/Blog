@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import PostPOM from "./post";
+import PostPOM from "./POM/post";
 import { POST_MOCK_DATA } from "mocks/data/post";
 
 test("지정한 Page Title을 제공해야 한다.", async ({ page }) => {

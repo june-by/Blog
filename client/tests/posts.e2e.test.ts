@@ -3,7 +3,7 @@ import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,
 } from "mocks/data/post";
-import PostsPOM from "./posts";
+import PostsPOM from "./POM/posts";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import MESSAGE from "constants/message";
 

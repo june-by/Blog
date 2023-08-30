@@ -2,12 +2,11 @@ import { Page } from "@playwright/test";
 import PAGE from "constants/page";
 import { ServerURL } from "constants/serverURL";
 import { POST_MOCK_DATA } from "mocks/data/post";
+import POM from "./pom";
 
-export default class PostPOM {
-  readonly page: Page;
-
+export default class PostPOM extends POM {
   constructor(page: Page) {
-    this.page = page;
+    super(page);
   }
 
   async goTo() {

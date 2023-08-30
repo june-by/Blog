@@ -8,12 +8,11 @@ import {
 } from "mocks/data/post";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
+import POM from "./pom";
 
-export default class PostsPOM {
-  readonly page: Page;
-
+export default class PostsPOM extends POM {
   constructor(page: Page) {
-    this.page = page;
+    super(page);
   }
 
   async goTo() {
