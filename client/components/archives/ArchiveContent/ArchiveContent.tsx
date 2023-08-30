@@ -10,7 +10,7 @@ interface Props {
 const ArchiveContent = ({ title, contentComponent }: Props) => {
   return (
     <section className={styles.ArchiveContent}>
-      {title && <FontAppliedElement tagName="h3">{title}</FontAppliedElement>}
+      {title && <FontAppliedElement tagName="h2">{title}</FontAppliedElement>}
       {contentComponent}
     </section>
   );

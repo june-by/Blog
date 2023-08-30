@@ -87,9 +87,8 @@ export const getPostViewCountAPI = async (postId: number) =>
     url: `/post/load/viewCount/${postId}`,
   });
 
-export const getAllPostsAPI = async () => {
-  request<Pick<PostsType, "id" | "title" | "createdAt">>({
+export const getAllPostsAPI = async () =>
+  request<Pick<PostsType, "id" | "title" | "createdAt">[]>({
     method: "get",
     url: "/posts/load/all",
   });
-};
