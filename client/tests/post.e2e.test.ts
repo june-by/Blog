@@ -57,4 +57,21 @@ test.describe("시리즈 - ", () => {
 
     await expect(post.page).toHaveURL(`/post/${otherPostInSeries.id}`);
   });
+
+  test("다음 버튼을 누르면 해당 시리즈의 다음 포스트 페이지로 이동한다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo();
+
+    const gotoNextSeriesButton = post.page.getByTestId(
+      "gotoNextSeriesPostButton"
+    );
+
+    await gotoNextSeriesButton.click();
+
+    await expect(post.page).toHaveURL(
+      `/post/${POST_MOCK_DATA.mainPost.seriesPosts[1].id}`
+    );
+  });
 });
