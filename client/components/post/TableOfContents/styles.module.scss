@@ -13,6 +13,7 @@
   @include desktop {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     width: 20%;
     margin-left: 3%;
     flex-direction: column;

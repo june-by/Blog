@@ -163,6 +163,14 @@ const getPostsCount = async ({ category }: { category: string }) => {
   return data[0].count;
 };
 
+const getAllPosts = async () => {
+  const posts = await Post.findAll({
+    attributes: ["id", "title", "createdAt"],
+    order: ORDER_BY_CREATED_AT,
+  });
+  return posts;
+};
+
 export default {
   getAllPostsId,
   getMainPosts,
@@ -172,4 +180,5 @@ export default {
   getPostsByTag,
   getCategoryPostsCount,
   getPostsCount,
+  getAllPosts,
 };

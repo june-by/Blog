@@ -9,6 +9,7 @@ const QUERY_KEY = {
     TOPVIEWS: "TopViewsPosts",
     NUM_OF_POSTS: "PostNum",
     VIEWCOUNT: "ViewCount",
+    ALL: "All",
   },
   USER: "User",
   TAG: {

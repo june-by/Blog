@@ -122,6 +122,16 @@ const getPostsLength = async (
   }
 };
 
+const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const posts = await postsService.getAllPosts();
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
 export default {
   getAllPostsId,
   getMainPosts,
@@ -131,4 +141,5 @@ export default {
   getCategoryPostsCount,
   getPostsBySearchKeyWord,
   getPostsByTag,
+  getAllPosts,
 };

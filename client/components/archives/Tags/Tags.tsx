@@ -1,9 +1,8 @@
 import { useGetAllTags } from "Hooks/Tag";
 import FontAppliedElement from "components/shared/FontAppliedElement";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useBooleanState } from "Hooks/useBooleanState";
 import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
@@ -15,7 +14,7 @@ const Tags = () => {
 
   return (
     <div className={styles.Tags}>
-      <FontAppliedElement tagName="h3">
+      <FontAppliedElement tagName="h2">
         🔗 Tags <span>({data.length})</span>
       </FontAppliedElement>
       <div className={styles.TagListWrap}>

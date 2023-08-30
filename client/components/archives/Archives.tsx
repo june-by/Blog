@@ -3,6 +3,7 @@ import React from "react";
 import ArchiveContent from "./ArchiveContent";
 import Visitor from "./Visitor";
 import Tags from "./Tags";
+import PostsArchive from "./PostsArchive";
 
 const Archives = () => {
   return (
@@ -13,6 +14,7 @@ const Archives = () => {
       />
       <ArchiveContent title="🙏 Visitor" contentComponent={<Visitor />} />
       <ArchiveContent contentComponent={<Tags />} />
+      <ArchiveContent contentComponent={<PostsArchive />} />
     </>
   );
 };
