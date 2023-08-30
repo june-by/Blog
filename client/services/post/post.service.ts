@@ -68,7 +68,7 @@ export const getTagPostAPI = async (
   if (typeof tag !== "string") return [];
   return request<PostsType[]>({
     method: "get",
-    url: `/posts/series/${encodeURIComponent(tag)}/${pageNum}`,
+    url: `/posts/tag/${encodeURIComponent(tag)}/${pageNum}`,
   });
 };
 
