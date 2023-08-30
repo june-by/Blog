@@ -17,21 +17,27 @@ const PostsArchive = () => {
         📝 Posts <span>({allPostsCount})</span>
       </FontAppliedElement>
       <div className={styles.PostsListWrap}>
-        {Object.keys(data).map((year) => (
-          <div className={styles.PostsList} key={year}>
-            <h3 key={year}>
-              {year} ({data[year].length})
-            </h3>
-            <div className={styles.Posts}>
-              {data[year].map(({ title, date, id }) => (
-                <Link href={`/post/${id}`} className={styles.Post} key={title}>
-                  <div className={styles.date}>{date}</div>
-                  <span className={styles.title}>{title}</span>
-                </Link>
-              ))}
+        {Object.keys(data)
+          .sort((a, b) => Number(b) - Number(a))
+          .map((year) => (
+            <div className={styles.PostsList} key={year}>
+              <h3 key={year}>
+                {year} ({data[year].length})
+              </h3>
+              <div className={styles.Posts}>
+                {data[year].map(({ title, date, id }) => (
+                  <Link
+                    href={`/post/${id}`}
+                    className={styles.Post}
+                    key={title}
+                  >
+                    <div className={styles.date}>{date}</div>
+                    <span className={styles.title}>{title}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
