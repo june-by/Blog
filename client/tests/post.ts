@@ -16,7 +16,7 @@ export default class PostPOM {
   }
 
   async mocking() {
-    await this.page.route(`${ServerURL}/post/load/1`, async (route) => {
+    await this.page.route(`${ServerURL}/post/load/*`, async (route) => {
       await route.fulfill({
         json: POST_MOCK_DATA,
       });
