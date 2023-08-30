@@ -10,6 +10,7 @@ export default class PostPOM extends POM {
   }
 
   async goTo() {
+    await super.mocking();
     await this.mocking();
     await this.page.goto("/post/1");
   }

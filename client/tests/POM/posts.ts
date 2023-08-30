@@ -7,7 +7,6 @@ import {
   MAIN_POSTS_MOCK_DATA,
 } from "mocks/data/post";
 import { USER_MOCK_DATA } from "mocks/data/user";
-import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 import POM from "./pom";
 
 export default class PostsPOM extends POM {
@@ -16,27 +15,12 @@ export default class PostsPOM extends POM {
   }
 
   async goTo() {
+    await super.mocking();
     await this.mocking();
     await this.page.goto(PAGE.POSTS.url);
   }
 
   async mocking() {
-    await this.page.route(`${ServerURL}/visitor`, async (route) => {
-      const method = route.request().method();
-
-      switch (method) {
-        case "GET":
-          await route.fulfill({
-            json: VISITOR_MOCK_DATA,
-          });
-          return;
-        case "POST":
-          await route.fulfill({
-            json: { todayVisitor: 1, totalVisitor: 10 },
-          });
-      }
-    });
-
     await this.page.route(
       `${ServerURL}/posts/load/categoryLength`,
       async (route) => {
