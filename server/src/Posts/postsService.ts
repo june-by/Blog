@@ -166,6 +166,7 @@ const getPostsCount = async ({ category }: { category: string }) => {
 const getAllPosts = async () => {
   const posts = await Post.findAll({
     attributes: ["id", "title", "createdAt"],
+    order: ORDER_BY_CREATED_AT,
   });
   return posts;
 };

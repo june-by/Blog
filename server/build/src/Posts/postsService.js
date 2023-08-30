@@ -250,6 +250,7 @@ var getAllPosts = function () { return __awaiter(void 0, void 0, void 0, functio
         switch (_a.label) {
             case 0: return [4 /*yield*/, Post.findAll({
                     attributes: ["id", "title", "createdAt"],
+                    order: constants_1.ORDER_BY_CREATED_AT,
                 })];
             case 1:
                 posts = _a.sent();
