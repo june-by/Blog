@@ -38,4 +38,23 @@ test.describe("시리즈 - ", () => {
       )
     ).toBeVisible();
   });
+
+  test("시리즈의 다른 포스트를 클릭하면 해당 포스트 페이지로 이동한다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo();
+
+    await post.clickSeriesInfoMoreButton();
+
+    const otherPostInSeries = POST_MOCK_DATA.mainPost.seriesPosts[1];
+
+    const otherPostInSeriesLocator = post.page.getByText(
+      new RegExp(`^.*(${otherPostInSeries.title}).*`)
+    );
+
+    await otherPostInSeriesLocator.click();
+
+    await expect(post.page).toHaveURL(`/post/${otherPostInSeries.id}`);
+  });
 });
