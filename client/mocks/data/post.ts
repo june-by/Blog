@@ -1,4 +1,5 @@
-import { Category } from "constants/category";
+import { PostType } from "Types/post";
+import { Category, CategoryType } from "constants/category";
 
 export const CATEGORY_LENGTH_MOCK_DATA = Category.map((category, idx) => {
   return {
@@ -592,3 +593,39 @@ export const MAIN_POSTS_MOCK_DATA = [
     ],
   },
 ];
+
+export const POST_MOCK_DATA: PostType = {
+  mainPost: {
+    id: 1,
+    title: "testPost",
+    category: "JavaScript" as CategoryType,
+    content: "testContent",
+    thumbNailUrl: "/test.png",
+    views: 10,
+    createdAt: new Date("2022-11-13T06:26:45.837Z"),
+    isPublic: 1,
+    SeriesId: 1,
+    seriesTitle: "testSeries",
+    shortDescription: "shortDescription",
+    seriesPosts: [
+      { id: 1, title: "testSeries Posts1" },
+      { id: 2, title: "testSeries Posts2" },
+      { id: 3, title: "testSeries Posts3" },
+    ],
+    Tags: [
+      { content: "tag1", id: 10 },
+      { content: "tag2", id: 20 },
+      { content: "tag3", id: 30 },
+    ],
+  },
+  prevPost: {
+    OtherId: 3,
+    OtherTitle: "prevTestPost",
+    OtherCreatedAt: new Date(),
+  },
+  nextPost: {
+    OtherId: 8,
+    OtherTitle: "nextTestPost",
+    OtherCreatedAt: new Date(),
+  },
+};

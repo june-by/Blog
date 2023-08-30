@@ -35,12 +35,14 @@ const SeriesIndexHandler = ({ currentPostIdx }: Props) => {
         <button
           disabled={!prevPostId}
           onClick={() => push(`/post/${prevPostId}`)}
+          data-testid="gotoPrevSeriesPostButton"
         >
           <MdOutlineKeyboardArrowLeft />{" "}
         </button>
         <button
           disabled={!nextPostId}
           onClick={() => push(`/post/${nextPostId}`)}
+          data-testid="gotoNextSeriesPostButton"
         >
           <MdOutlineKeyboardArrowRight />
         </button>
