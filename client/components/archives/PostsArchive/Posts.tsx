@@ -13,9 +13,6 @@ const PostsArchive = () => {
 
   return (
     <div>
-      <FontAppliedElement tagName="h2">
-        📝 Posts <span>({allPostsCount})</span>
-      </FontAppliedElement>
       <div className={styles.PostsListWrap}>
         {Object.keys(data)
           .sort((a, b) => Number(b) - Number(a))
