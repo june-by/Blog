@@ -2,11 +2,13 @@ import { Category } from "constants/category";
 import { useWriteContext } from "context/writeContext";
 import React from "react";
 
-interface Props {
-  catagoryCandidate?: string[] | typeof Category;
+interface Props<T> {
+  catagoryCandidate?: T[] | typeof Category;
 }
 
-const CategorySelector = ({ catagoryCandidate = Category }: Props) => {
+const CategorySelector = <T extends string>({
+  catagoryCandidate = Category,
+}: Props<T>) => {
   const {
     handleChangeCategory,
     writeFormData: { category },

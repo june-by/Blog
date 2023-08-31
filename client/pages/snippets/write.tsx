@@ -4,13 +4,14 @@ import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
 import WriteForm from "components/write";
+import { SnippetsCategory } from "constants/category";
 
 const SnippetWritePage = () => {
   return (
     <WriteForm>
       <>
         <WriteForm.Title />
-        <WriteForm.CategorySelector />
+        <WriteForm.CategorySelector catagoryCandidate={SnippetsCategory} />
         <WriteForm.Editor />
         <WriteForm.SubmitButton />
       </>
