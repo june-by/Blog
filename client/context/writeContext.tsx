@@ -14,7 +14,7 @@ import { MainPost, PostFormType } from "Types/post";
 
 type Action =
   | { type: "editTitle"; title: MainPost["title"] }
-  | { type: "editCategory"; category: CategoryType }
+  | { type: "editCategory"; category: string }
   | { type: "editContent"; content: MainPost["content"] }
   | { type: "addTag"; tag: string }
   | {
@@ -109,8 +109,7 @@ export const WriteContainer = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
-    const targetCategory = e.target.value as CategoryType;
-    dispatch({ type: "editCategory", category: targetCategory });
+    dispatch({ type: "editCategory", category: e.target.value });
   };
 
   const handleChangeContent = (content: string) => {

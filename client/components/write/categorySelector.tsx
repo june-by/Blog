@@ -2,7 +2,11 @@ import { Category } from "constants/category";
 import { useWriteContext } from "context/writeContext";
 import React from "react";
 
-const CategorySelector = () => {
+interface Props {
+  catagoryCandidate?: string[] | typeof Category;
+}
+
+const CategorySelector = ({ catagoryCandidate = Category }: Props) => {
   const {
     handleChangeCategory,
     writeFormData: { category },
@@ -10,7 +14,7 @@ const CategorySelector = () => {
   return (
     <select name="category" onChange={handleChangeCategory} value={category}>
       <>
-        {Category.map((category) => (
+        {catagoryCandidate.map((category) => (
           <option key={category}>{category}</option>
         ))}
       </>
