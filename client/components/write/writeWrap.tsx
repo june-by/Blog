@@ -1,6 +1,5 @@
 import React from "react";
 import { WriteContainer } from "context/writeContext";
-import styles from "./@styles.module.scss";
 import dynamic from "next/dynamic";
 import ThumbNailPicker from "components/write/thumbNailPicker";
 import TitleInput from "./titleInput";
@@ -15,29 +14,22 @@ const Editor = dynamic(() => import("./editor"), {
   ssr: false,
 });
 
-const WriteWrap = () => {
-  return (
-    <WriteContainer>
-      <div className={styles.Write}>
-        <div className={styles.titleArea}>
-          <TitleInput />
-          <IsPublicCheckBox />
-          <SubmitButton />
-        </div>
-        <div className={styles.etcArea}>
-          <CategorySelector />
-          <div className={styles.tagWrap}>
-            <TagForm />
-            <TagList />
-          </div>
-        </div>
-        <SeriesSelector />
-        <ShortDescription />
-        <Editor />
-        <ThumbNailPicker />
-      </div>
-    </WriteContainer>
-  );
-};
+const WriteForm = Object.assign(
+  ({ children }: { children: JSX.Element }) => (
+    <WriteContainer>{children}</WriteContainer>
+  ),
+  {
+    Title: TitleInput,
+    IsPublicCheckBox,
+    SubmitButton,
+    CategorySelector,
+    TagInput: TagForm,
+    TagList,
+    SeriesSelector,
+    ShortDescription,
+    Editor,
+    ThumbNailPicker,
+  }
+);
 
-export default WriteWrap;
+export default WriteForm;
