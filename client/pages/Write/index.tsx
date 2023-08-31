@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 const Write = () => {
   return (
     <WriteForm>
-      <div className={styles.Write}>
+      <div>
         <div className={styles.titleArea}>
           <WriteForm.Title />
           <WriteForm.IsPublicCheckBox />
