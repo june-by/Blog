@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import FontAppliedElement from "components/shared/FontAppliedElement";
 import useArchivePosts from "./useArchivePosts";
 import Link from "next/link";
 
@@ -9,43 +8,31 @@ const PostsArchive = () => {
 
   if (!data) return null;
 
-  const allPostsCount = getAllPostCount(data);
+  const years = sortByYearDesc(Object.keys(data));
 
   return (
     <div>
       <div className={styles.PostsListWrap}>
-        {Object.keys(data)
-          .sort((a, b) => Number(b) - Number(a))
-          .map((year) => (
-            <div className={styles.PostsList} key={year}>
-              <h3 key={year}>
-                {year} ({data[year].length})
-              </h3>
-              <div className={styles.Posts}>
-                {data[year].map(({ title, date, id }) => (
-                  <Link
-                    href={`/post/${id}`}
-                    className={styles.Post}
-                    key={title}
-                  >
-                    <div className={styles.date}>{date}</div>
-                    <span className={styles.title}>{title}</span>
-                  </Link>
-                ))}
-              </div>
+        {years.map((year) => (
+          <div className={styles.PostsList} key={year}>
+            <h3>
+              {year} ({data[year].length})
+            </h3>
+            <div className={styles.Posts}>
+              {data[year].map(({ title, date, id }) => (
+                <Link href={`/post/${id}`} className={styles.Post} key={title}>
+                  <div className={styles.date}>{date}</div>
+                  <span className={styles.title}>{title}</span>
+                </Link>
+              ))}
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-const getAllPostCount = (data: ReturnType<typeof useArchivePosts>) => {
-  if (!data) return "";
-
-  const keys = Object.keys(data);
-
-  return keys.reduce((acc, cur) => acc + data[cur].length, 0);
-};
+const sortByYearDesc = (keys: string[]) =>
+  keys.sort((a, b) => Number(b) - Number(a));
 
 export default PostsArchive;
