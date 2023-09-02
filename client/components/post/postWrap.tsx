@@ -1,14 +1,14 @@
 import React from "react";
 import PostTop from "./PostHeader";
 import PostContent from "./PostContent";
-import { MainPost } from "Types/post";
 import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
+import { PostType } from "Types/post";
 
 interface PostWrapProps {
   children: JSX.Element;
-  Post: MainPost;
+  Post: PostType;
 }
 
 const PostWrap = Object.assign(

@@ -3,7 +3,7 @@ import NoPost from "./NoPost";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
 import { UseInfiniteQueryResult } from "react-query";
-import { PostsType } from "Types/post";
+import { PostListPageDataType } from "Types/post";
 import InfiniteScroll from "components/shared/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
@@ -12,7 +12,9 @@ import PostsListTitle from "components/shared/PostsListTitle";
 import PostSearchBox from "./PostSearchBox";
 interface Props {
   params?: any;
-  query: (params: any) => UseInfiniteQueryResult<PostsType[], unknown>;
+  query: (
+    params: any
+  ) => UseInfiniteQueryResult<PostListPageDataType[], unknown>;
 }
 
 const PostList = ({ params, query }: Props) => {
@@ -48,7 +50,7 @@ const PostList = ({ params, query }: Props) => {
         >
           {data?.pages.map((page) => (
             <>
-              {page.map((post: PostsType) => (
+              {page.map((post) => (
                 <PostCard key={post.title} post={post} />
               ))}
             </>

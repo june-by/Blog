@@ -1,4 +1,4 @@
-import { PostType } from "Types/post";
+import { PostPageDataType } from "Types/post";
 import { Category, CategoryType } from "constants/category";
 
 export const CATEGORY_LENGTH_MOCK_DATA = Category.map((category, idx) => {
@@ -594,7 +594,7 @@ export const MAIN_POSTS_MOCK_DATA = [
   },
 ];
 
-export const POST_MOCK_DATA: PostType = {
+export const POST_MOCK_DATA: PostPageDataType = {
   mainPost: {
     id: 1,
     title: "testPost",

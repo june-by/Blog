@@ -20,7 +20,7 @@ const ThumbNailPicker = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setThumbNailUrl(e.target.value);
     },
-    []
+    [setThumbNailUrl]
   );
   useSetDefaultThumbNail();
 

@@ -1,11 +1,11 @@
-import { MainPost } from "Types/post";
 import React from "react";
 import styles from "./styles.module.scss";
 import { usePostContext } from "context/postContext";
 import Link from "next/link";
 import classnames from "classnames";
+import { PostType } from "Types/post";
 
-const SeriesList = ({ seriesPosts }: Pick<MainPost, "seriesPosts">) => {
+const SeriesList = ({ seriesPosts }: Pick<PostType, "seriesPosts">) => {
   const {
     Post: { id: currentPostId },
   } = usePostContext();

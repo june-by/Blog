@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useGetPostQuery } from "Hooks/Post";
-import { PostType } from "Types/post";
+import { PostPageDataType } from "Types/post";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
 import LoadingOrNot from "components/shared/LoadingOrNot";
@@ -15,7 +15,7 @@ const RoutePostButtons = () => {
   const {
     prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },
     nextPost: { OtherId: nextPostId, OtherTitle: nextPostTitle },
-  } = data as PostType;
+  } = data as PostPageDataType;
 
   return (
     <LoadingOrNot isLoading={isLoading}>

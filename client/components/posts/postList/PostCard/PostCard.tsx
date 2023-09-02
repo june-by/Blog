@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { PostsType } from "Types/post";
+import { PostListPageDataType } from "Types/post";
 import Link from "next/link";
 import isNull from "utils/isNull";
 import S3_PREFIX from "constants/s3Prefix";
@@ -13,7 +13,7 @@ import PostCardSkeleton from "./Skeleton";
 import CustomWebPImage from "components/shared/CustomWebPImage";
 
 interface Props {
-  post: PostsType;
+  post: PostListPageDataType;
 }
 
 const PostCard = ({ post }: Props) => {

@@ -1,20 +1,19 @@
-import DUMMY from "constants/dummy";
 import { createContext, useContext } from "react";
-import { MainPost } from "Types/post";
+import { PostType } from "Types/post";
 
 interface Props {
   children: JSX.Element;
-  Post: MainPost;
+  Post: PostType;
 }
 
-interface ContextProps {
-  Post: MainPost;
-}
+type PostContextProps = Pick<Props, "Post">;
 
-export const PostContext = createContext<ContextProps | null>(null);
+export const PostContext = createContext<PostContextProps | null>(null);
 
 export const PostContainer = ({ children, Post }: Props) => {
-  return <PostContext.Provider value={{ Post }}>{children}</PostContext.Provider>;
+  return (
+    <PostContext.Provider value={{ Post }}>{children}</PostContext.Provider>
+  );
 };
 
 export const usePostContext = () => {
@@ -22,5 +21,5 @@ export const usePostContext = () => {
 
   if (!contextProps) throw Error("PostContext is used before initialization");
 
-  return useContext(PostContext) as ContextProps;
+  return useContext(PostContext) as PostContextProps;
 };
