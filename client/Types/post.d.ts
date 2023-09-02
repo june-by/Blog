@@ -1,25 +1,7 @@
 import { CategoryType } from "constants/category";
 
 export interface PostType {
-  mainPost: MainPost;
-  prevPost: OtherPostType;
-  nextPost: OtherPostType;
-}
-
-export interface MainPost extends PostsType {
-  content: string;
-  seriesPosts: Pick<PostsType, "id" | "title">[];
-  seriesTitle: string;
-}
-
-export interface OtherPostType {
-  OtherId: number | null;
-  OtherCreatedAt: Date | null;
-  OtherTitle: string | null;
-}
-
-export interface PostsType {
-  category: CategoryType;
+  category: string;
   createdAt: Date;
   id: number;
   title: string;
@@ -29,6 +11,33 @@ export interface PostsType {
   isPublic: number;
   shortDescription: string;
   SeriesId: number | null;
+  content: string;
+  seriesPosts: { id: number; title: string }[];
+  seriesTitle: string;
+}
+
+export interface PostFormType
+  extends Omit<
+    PostType,
+    "id" | "createdAt" | "Tags" | "views" | "seriesPosts" | "seriesTitle"
+  > {
+  tagArr: string[];
+}
+
+export type PostListPageDataType = Omit<
+  PostType,
+  "content" | "SeriesId" | "seriesPosts" | "seriesTitle"
+>;
+export interface PostPageDataType {
+  mainPost: PostType;
+  prevPost: OtherPostType;
+  nextPost: OtherPostType;
+}
+
+export interface OtherPostType {
+  OtherId: number | null;
+  OtherCreatedAt: Date | null;
+  OtherTitle: string | null;
 }
 
 type TagType = {
@@ -44,15 +53,4 @@ export interface CategoryCount {
 export interface TopViewsPost {
   id: number;
   title: string;
-}
-
-export interface PostFormType {
-  title: string;
-  category: string;
-  content: string;
-  tagArr: string[];
-  thumbNailUrl: null | string;
-  isPublic: number;
-  shortDescription: string;
-  SeriesId: number | null;
 }

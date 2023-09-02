@@ -1,4 +1,10 @@
-import { CategoryCount, PostFormType, PostsType, PostType } from "Types/post";
+import {
+  CategoryCount,
+  PostFormType,
+  PostType,
+  PostPageDataType,
+  PostListPageDataType,
+} from "Types/post";
 import MESSAGE from "constants/message";
 import request from "services/request";
 
@@ -6,7 +12,7 @@ export const getAllPostsId = async () =>
   request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
 
 export const getMainPostsAPI = async (page: number) =>
-  request<PostsType[]>({
+  request<PostListPageDataType[]>({
     method: "get",
     url: `/posts/load/main/${page}`,
   });
@@ -21,7 +27,7 @@ export const getPostAPI = async (id: number) => {
   if (id === 0) return null;
   if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
   if (!id) throw new Error();
-  return request<PostType | null>({
+  return request<PostPageDataType | null>({
     method: "get",
     url: `/post/load/${id}`,
     onError: (err) => err?.response?.data,
@@ -33,7 +39,7 @@ export const getCategoryPostAPI = async (
   pageNum: number
 ) => {
   if (typeof category !== "string") return [];
-  return request<PostsType[]>({
+  return request<PostListPageDataType[]>({
     method: "get",
     url: `/posts/load/${category}/${pageNum}`,
   });
@@ -44,7 +50,7 @@ export const getSeriesPostAPI = async (
   pageNum: number
 ) => {
   if (typeof seriesTitle !== "string") return [];
-  return request<PostsType[]>({
+  return request<PostListPageDataType[]>({
     method: "get",
     url: `/posts/series/${encodeURIComponent(seriesTitle)}/${pageNum}`,
   });
@@ -53,9 +59,9 @@ export const getSeriesPostAPI = async (
 export const getSearchPostAPI = async (
   search: string | string[] | undefined,
   pageNum: number
-): Promise<Array<PostsType>> => {
+) => {
   if (typeof search !== "string") return [];
-  return request<PostsType[]>({
+  return request<PostListPageDataType[]>({
     method: "get",
     url: `/posts/series/${encodeURIComponent(search)}/${pageNum}`,
   });
@@ -64,9 +70,9 @@ export const getSearchPostAPI = async (
 export const getTagPostAPI = async (
   tag: string | string[] | undefined,
   pageNum: number
-): Promise<Array<PostsType>> => {
+) => {
   if (typeof tag !== "string") return [];
-  return request<PostsType[]>({
+  return request<PostListPageDataType[]>({
     method: "get",
     url: `/posts/tag/${encodeURIComponent(tag)}/${pageNum}`,
   });
@@ -88,7 +94,7 @@ export const getPostViewCountAPI = async (postId: number) =>
   });
 
 export const getAllPostsAPI = async () =>
-  request<Pick<PostsType, "id" | "title" | "createdAt">[]>({
+  request<Pick<PostType, "id" | "title" | "createdAt">[]>({
     method: "get",
     url: "/posts/load/all",
   });

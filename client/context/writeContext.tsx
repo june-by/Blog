@@ -1,4 +1,4 @@
-import { Category, CategoryType } from "constants/category";
+import { Category } from "constants/category";
 import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
@@ -10,25 +10,25 @@ import {
   useEffect,
   useReducer,
 } from "react";
-import { MainPost, PostFormType } from "Types/post";
+import { PostFormType } from "Types/post";
 
 type Action =
-  | { type: "editTitle"; title: MainPost["title"] }
-  | { type: "editCategory"; category: string }
-  | { type: "editContent"; content: MainPost["content"] }
+  | { type: "editTitle"; title: PostFormType["title"] }
+  | { type: "editCategory"; category: PostFormType["category"] }
+  | { type: "editContent"; content: PostFormType["content"] }
   | { type: "addTag"; tag: string }
   | {
       type: "removeTag";
       tag: string;
     }
-  | { type: "editThumbNailUrl"; thumbNailUrl: MainPost["thumbNailUrl"] }
-  | { type: "editIsPublic"; isPublic: MainPost["isPublic"] }
+  | { type: "editThumbNailUrl"; thumbNailUrl: PostFormType["thumbNailUrl"] }
+  | { type: "editIsPublic"; isPublic: PostFormType["isPublic"] }
   | {
       type: "editShortDescription";
-      shortDescription: MainPost["shortDescription"];
+      shortDescription: PostFormType["shortDescription"];
     }
   | { type: "initializeWriteFormData"; initData: PostFormType }
-  | { type: "editSeries"; SeriesId: MainPost["SeriesId"] };
+  | { type: "editSeries"; SeriesId: PostFormType["SeriesId"] };
 
 interface ContextProps {
   writeFormData: PostFormType;

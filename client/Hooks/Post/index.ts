@@ -17,13 +17,7 @@ import {
   UseQueryOptions,
 } from "react-query";
 import { getMainPostsAPI } from "services/post";
-import {
-  CategoryCount,
-  PostFormType,
-  PostsType,
-  PostType,
-  TopViewsPost,
-} from "Types/post";
+import { CategoryCount, PostFormType, PostPageDataType } from "Types/post";
 import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
@@ -32,7 +26,7 @@ import MESSAGE from "constants/message";
 import { getAllPostsAPI } from "services/post/post.service";
 
 export const useGetMainPost = () =>
-  useInfiniteQuery<Array<PostsType>>(
+  useInfiniteQuery(
     [QUERY_KEY.POST.MAIN],
     ({ pageParam = 1 }) => getMainPostsAPI(pageParam),
     {
@@ -48,7 +42,7 @@ export const useGetPostQuery = (
 ) => {
   const router = useRouter();
 
-  return useQuery<PostType | null>(
+  return useQuery<PostPageDataType | null>(
     [QUERY_KEY.POST.ONE, id],
     () => getPostAPI(id),
     {
@@ -70,7 +64,7 @@ export const useGetAllCateogryLength = () =>
   );
 
 export const useGetCategoryPosts = (params: string) =>
-  useInfiniteQuery<Array<PostsType>>(
+  useInfiniteQuery(
     [QUERY_KEY.POST.CATEGORY, params],
     ({ pageParam = 1 }) => getCategoryPostAPI(params, pageParam),
     {
@@ -81,7 +75,7 @@ export const useGetCategoryPosts = (params: string) =>
   );
 
 export const useGetSeriesPosts = (params: string) =>
-  useInfiniteQuery<Array<PostsType>>(
+  useInfiniteQuery(
     [QUERY_KEY.POST.SEARCH, params],
     ({ pageParam = 1 }) => getSeriesPostAPI(params, pageParam),
     {
@@ -92,7 +86,7 @@ export const useGetSeriesPosts = (params: string) =>
   );
 
 export const useGetSearchPosts = (params: string) =>
-  useInfiniteQuery<Array<PostsType>>(
+  useInfiniteQuery(
     [QUERY_KEY.POST.SEARCH, params],
     ({ pageParam = 1 }) => getSearchPostAPI(params, pageParam),
     {
@@ -103,7 +97,7 @@ export const useGetSearchPosts = (params: string) =>
   );
 
 export const useGetTagPosts = (params: string) =>
-  useInfiniteQuery<Array<PostsType>>(
+  useInfiniteQuery(
     [QUERY_KEY.POST.TAG, params],
     ({ pageParam = 1 }) => getTagPostAPI(params, pageParam),
     {
