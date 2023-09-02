@@ -4,6 +4,7 @@ import { useGetAllSeires } from "Hooks/Series";
 import SeriesFormModal from "components/_Modal/SeriesFormModal";
 import { useWriteContext } from "context/writeContext";
 import { useBooleanState } from "Hooks/useBooleanState";
+import Selector from "components/shared/Selector";
 
 const SeriesModalButton = () => {
   const [open, openModal, closeModal] = useBooleanState(false);
@@ -18,28 +19,23 @@ const SeriesModalButton = () => {
 
 const SeriesSelector = () => {
   const { data } = useGetAllSeires();
-  const {
-    writeFormData: { SeriesId },
-    handleChangeSeries,
-  } = useWriteContext();
+  const { handleChangeSeries } = useWriteContext();
 
-  const selectedSeries = data?.find((v) => v.id === SeriesId);
+  if (!data) return null;
+
+  const seriesOptions = data.map(({ title, id }) => {
+    return {
+      key: title,
+      value: id,
+      text: title,
+    };
+  });
 
   return (
     <div className={styles.ShortDescription}>
       <label>시리즈</label>
       <div>
-        <select onChange={handleChangeSeries} value={selectedSeries?.id}>
-          <option disabled selected>
-            {" "}
-            -- select an option --{" "}
-          </option>
-          {data?.map((series) => (
-            <option value={series.id} key={series.title}>
-              {series.title}
-            </option>
-          ))}
-        </select>
+        <Selector onChange={handleChangeSeries} options={seriesOptions} />
         <SeriesModalButton />
       </div>
     </div>

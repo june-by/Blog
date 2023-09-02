@@ -12,6 +12,8 @@ const getMainPathFromUrl = (url: string) => {
   else if (url.includes("/series")) return "needed";
   else if (url.includes("/archives")) return "needed";
   else if (url.includes("/about")) return "needed";
+  else if (url.includes("/snippets")) return "needed";
+
   return "posts";
 };
 

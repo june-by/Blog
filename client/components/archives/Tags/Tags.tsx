@@ -14,9 +14,6 @@ const Tags = () => {
 
   return (
     <div className={styles.Tags}>
-      <FontAppliedElement tagName="h2">
-        🔗 Tags <span>({data.length})</span>
-      </FontAppliedElement>
       <div className={styles.TagListWrap}>
         {data.map(({ content, Posts }) => (
           <Link key={content} href={`/?tag=${content}`}>

@@ -1,0 +1,41 @@
+@import "utils/utils.scss";
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    @include StyledButton;
+    height: 49px;
+    width: 10%;
+  }
+  .isPublicCheckBox {
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    span {
+      font-size: 20px;
+    }
+    input {
+      cursor: pointer;
+    }
+  }
+}
+
+.etcArea {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tagWrap {
+  display: flex;
+  align-items: center;
+  input {
+    @include StyledInput;
+    width: 250px;
+  }
+}

@@ -1,17 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styles from "./styles.module.scss";
 import FontAppliedElement from "components/shared/FontAppliedElement";
 
 interface Props {
-  title?: string;
-  contentComponent: JSX.Element;
+  title: string;
+  children: ReactNode;
 }
 
-const ArchiveContent = ({ title, contentComponent }: Props) => {
+const ArchiveContent = ({ children, title }: Props) => {
   return (
     <section className={styles.ArchiveContent}>
-      {title && <FontAppliedElement tagName="h2">{title}</FontAppliedElement>}
-      {contentComponent}
+      <FontAppliedElement tagName="h2">{title}</FontAppliedElement>
+      {children}
     </section>
   );
 };

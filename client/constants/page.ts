@@ -7,6 +7,10 @@ const PAGE = {
     url: "/series",
     text: "SERIES",
   },
+  SNIPPETS: {
+    url: "/snippets",
+    text: "SNIPPETS",
+  },
   ARCHIVES: {
     url: "/archives",
     text: "ARCHIVES",

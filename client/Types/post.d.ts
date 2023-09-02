@@ -48,7 +48,7 @@ export interface TopViewsPost {
 
 export interface PostFormType {
   title: string;
-  category: CategoryType;
+  category: string;
   content: string;
   tagArr: string[];
   thumbNailUrl: null | string;

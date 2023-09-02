@@ -1,36 +1,25 @@
-import WriteForm from "components/write";
-import React from "react";
 import { GetServerSideProps } from "next";
+import React from "react";
 import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
-import styles from "./styles.module.scss";
+import WriteForm from "components/write";
+import { SnippetsCategory } from "constants/category";
 
-const Write = () => {
+const SnippetWritePage = () => {
   return (
     <WriteForm>
-      <div>
-        <div className={styles.titleArea}>
-          <WriteForm.Title />
-          <WriteForm.IsPublicCheckBox />
-          <WriteForm.SubmitButton />
-        </div>
-        <div className={styles.etcArea}>
-          <WriteForm.CategorySelector />
-          <div className={styles.tagWrap}>
-            <WriteForm.TagInput />
-            <WriteForm.TagList />
-          </div>
-        </div>
-        <WriteForm.SeriesSelector />
-        <WriteForm.ShortDescription />
+      <>
+        <WriteForm.Title />
+        <WriteForm.CategorySelector catagoryCandidate={SnippetsCategory} />
         <WriteForm.Editor />
-        <WriteForm.ThumbNailPicker />
-      </div>
+        <WriteForm.SubmitButton />
+      </>
     </WriteForm>
   );
 };
-export default Write;
+
+export default SnippetWritePage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const Cookies = req?.headers?.cookie ?? "";

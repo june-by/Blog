@@ -22,6 +22,7 @@ var userRouter_1 = __importDefault(require("../src/User/userRouter"));
 var visitorRouter_1 = __importDefault(require("../src/Visitor/visitorRouter"));
 var tagRouter_1 = __importDefault(require("../src/Tag/tagRouter"));
 var seriesRouter_1 = __importDefault(require("../src/Series/seriesRouter"));
+var snippetRouter_1 = __importDefault(require("../src/Snippet/snippetRouter"));
 var passport_2 = __importDefault(require("./passport"));
 var aws_sdk_1 = __importDefault(require("aws-sdk"));
 var multer_1 = __importDefault(require("multer"));
@@ -73,6 +74,7 @@ function default_1() {
     app.use("/visitor", visitorRouter_1.default);
     app.use("/tag", tagRouter_1.default);
     app.use("/series", seriesRouter_1.default);
+    app.use("/snippet", snippetRouter_1.default);
     aws_sdk_1.default.config.update({
         accessKeyId: process.env.S3_ACCESS_KEY_ID,
         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
