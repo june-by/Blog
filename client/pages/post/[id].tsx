@@ -16,6 +16,7 @@ import ScrollIndicator from "components/post/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
 import PageSkeleton from "components/PageSkeleton";
 import CommonSEO from "components/shared/CommonSEO";
+import styles from "./styles.module.scss";
 
 const PostPage = () => {
   const router = useRouter();
@@ -65,6 +66,10 @@ const PostPage = () => {
         <>
           <Post.AdminButtons />
           <Post.Title />
+          <div className={styles.div1}>
+            <Post.Date />
+            <Post.Category />
+          </div>
           <Post.Header />
           <Post.Content />
           <Post.RoutePostButtons />

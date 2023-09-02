@@ -6,7 +6,9 @@ import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
 import { PostType } from "Types/post";
 import PostAdminButtons from "./PostAdminButtons";
-import PostTitle from "./PostTitle";
+import PostTitle from "./postTitle";
+import PostDate from "./postDate";
+import PostCategory from "./postCategory";
 
 interface PostWrapProps {
   children: JSX.Element;
@@ -21,6 +23,8 @@ const PostWrap = Object.assign(
     Header: PostTop,
     AdminButtons: PostAdminButtons,
     Title: PostTitle,
+    Date: PostDate,
+    Category: PostCategory,
     Content: PostContent,
     RoutePostButtons: RoutePostButtons,
     Comments: Comments,
