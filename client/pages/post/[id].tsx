@@ -70,7 +70,8 @@ const PostPage = () => {
             <Post.Date />
             <Post.Category />
           </div>
-          <Post.Header />
+          <Post.Tags />
+          <Post.ViewCount />
           <Post.Content />
           <Post.RoutePostButtons />
           <Post.Comments />

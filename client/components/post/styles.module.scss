@@ -26,3 +26,24 @@
     color: var(--primary3);
   }
 }
+
+.PostTags {
+  margin-top: 10px;
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  color: #a5a5a5;
+  padding-left: 0;
+  cursor: pointer;
+
+  span {
+    &:hover {
+      color: #6185e5;
+    }
+  }
+}
+
+.PostViewCount {
+  margin-top: 10px;
+  font-size: 15px;
+}

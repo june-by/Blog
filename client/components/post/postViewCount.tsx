@@ -10,7 +10,7 @@ const PostViewCount = () => {
   const { data: viewCount, isLoading } = useGetPostViewCount(postId);
 
   return (
-    <div className={styles.viewCountWrapper}>
+    <div className={styles.PostViewCount}>
       <LoadingOrNot isLoading={isLoading}>
         <span>조회수 : {Number(viewCount) + 1}</span>
       </LoadingOrNot>
