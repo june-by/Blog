@@ -21,8 +21,10 @@ const Selector = ({ onChange, className, options, ...props }: Props) => {
         <option disabled selected>
           → select an option ←
         </option>
-        {options.map(({ text, ...params }) => (
-          <option {...params}>{text}</option>
+        {options.map(({ text, key, value }) => (
+          <option key={key} value={value}>
+            {text}
+          </option>
         ))}
       </select>
     </>
