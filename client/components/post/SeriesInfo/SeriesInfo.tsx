@@ -9,7 +9,10 @@ import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
 const SeriesInfo = () => {
   const {
-    Post: { SeriesId, seriesPosts, id: currentPostId, seriesTitle },
+    SeriesId,
+    seriesPosts,
+    id: currentPostId,
+    seriesTitle,
   } = usePostContext();
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);

@@ -4,18 +4,13 @@ import TagButton from "components/shared/tagButton";
 import styles from "./styles.module.scss";
 import PostViewCount from "components/post/PostHeader/PostViewCount";
 import { usePostContext } from "context/postContext";
-import PostAdminButtons from "./PostAdminButtons/postAdminButtons";
-import CategoryButton from "components/shared/CategoryButton/CategoryButton";
 import Link from "next/link";
 
 const PostHeader = () => {
-  const {
-    Post: { title, createdAt, category, Tags },
-  } = usePostContext();
+  const { title, createdAt, category, Tags } = usePostContext();
 
   return (
-    <header className={styles.PostTop}>
-      <PostAdminButtons />
+    <>
       <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>
@@ -32,7 +27,7 @@ const PostHeader = () => {
         </ul>
         <PostViewCount />
       </div>
-    </header>
+    </>
   );
 };
 

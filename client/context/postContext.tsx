@@ -6,13 +6,11 @@ interface Props {
   Post: PostType;
 }
 
-type PostContextProps = Pick<Props, "Post">;
-
-export const PostContext = createContext<PostContextProps | null>(null);
+export const PostContext = createContext<PostType | null>(null);
 
 export const PostContainer = ({ children, Post }: Props) => {
   return (
-    <PostContext.Provider value={{ Post }}>{children}</PostContext.Provider>
+    <PostContext.Provider value={{ ...Post }}>{children}</PostContext.Provider>
   );
 };
 
@@ -21,5 +19,5 @@ export const usePostContext = () => {
 
   if (!contextProps) throw Error("PostContext is used before initialization");
 
-  return useContext(PostContext) as PostContextProps;
+  return useContext(PostContext) as PostType;
 };

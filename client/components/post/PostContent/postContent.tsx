@@ -10,9 +10,7 @@ import SeriesInfo from "../SeriesInfo";
 import classnames from "classnames";
 
 const PostContent = () => {
-  const {
-    Post: { category, content, title: postTitle },
-  } = usePostContext();
+  const { category, content, title: postTitle } = usePostContext();
 
   const { tableOfContents, isExtractComplete } = useExtractTOC({ postTitle });
 

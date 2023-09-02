@@ -11,9 +11,7 @@ interface Props {
   currentPostIdx: number;
 }
 const SeriesIndexHandler = ({ currentPostIdx }: Props) => {
-  const {
-    Post: { SeriesId, seriesPosts, id: currentPostId },
-  } = usePostContext();
+  const { seriesPosts } = usePostContext();
   const { push } = useRouter();
 
   const nextPostIdx = currentPostIdx + 1;

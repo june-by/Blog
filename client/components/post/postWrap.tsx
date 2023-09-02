@@ -5,6 +5,7 @@ import { PostContainer } from "context/postContext";
 import Comments from "./Comments";
 import RoutePostButtons from "./RoutePostButtons";
 import { PostType } from "Types/post";
+import PostAdminButtons from "./PostAdminButtons";
 
 interface PostWrapProps {
   children: JSX.Element;
@@ -17,6 +18,7 @@ const PostWrap = Object.assign(
   ),
   {
     Header: PostTop,
+    AdminButtons: PostAdminButtons,
     Content: PostContent,
     RoutePostButtons: RoutePostButtons,
     Comments: Comments,
