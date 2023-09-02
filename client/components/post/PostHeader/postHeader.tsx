@@ -7,11 +7,9 @@ import { usePostContext } from "context/postContext";
 import Link from "next/link";
 
 const PostHeader = () => {
-  const { title, createdAt, category, Tags } = usePostContext();
-
+  const { createdAt, category, Tags } = usePostContext();
   return (
     <>
-      <h1 className={styles.PostTitle}>{title}</h1>
       <div className={styles.AdditionalInfo}>
         <div className={styles.AdditionalInfo_top}>
           <span className={styles.AdditionalInfo_createdAt}>

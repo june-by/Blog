@@ -64,6 +64,7 @@ const PostPage = () => {
       <Post Post={PostData}>
         <>
           <Post.AdminButtons />
+          <Post.Title />
           <Post.Header />
           <Post.Content />
           <Post.RoutePostButtons />
