@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import PostContent from "./PostContent";
+import PostContent from "./postContent";
 import { PostContainer } from "context/postContext";
 import PostComments from "./postComments";
 import RoutePostButtons from "./RoutePostButtons";
