@@ -1,12 +1,13 @@
 import { createContext, ReactNode, useContext } from "react";
-import { PostType } from "Types/post";
+import { PostContextDataType, PostType } from "Types/post";
+import { AtLeast } from "Types/utils";
 
 interface Props {
   children: ReactNode;
-  Post: PostType;
+  Post: PostContextDataType;
 }
 
-export const PostContext = createContext<PostType | null>(null);
+export const PostContext = createContext<PostContextDataType | null>(null);
 
 export const PostContainer = ({ children, Post }: Props) => {
   return (
@@ -19,5 +20,5 @@ export const usePostContext = () => {
 
   if (!contextProps) throw Error("PostContext is used before initialization");
 
-  return useContext(PostContext) as PostType;
+  return useContext(PostContext) as PostContextDataType;
 };

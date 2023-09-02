@@ -17,7 +17,7 @@ const SeriesInfo = () => {
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
 
-  if (!SeriesId) return null;
+  if (!SeriesId || !seriesPosts) return null;
 
   const currentPostIdx =
     seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;
@@ -32,7 +32,10 @@ const SeriesInfo = () => {
           showMore={isSeriesOpen}
           toggleShowMore={toggleSeriesOpen}
         />
-        <SeriesIndexHandler currentPostIdx={currentPostIdx} />
+        <SeriesIndexHandler
+          seriesPosts={seriesPosts}
+          currentPostIdx={currentPostIdx}
+        />
       </div>
     </div>
   );

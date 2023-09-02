@@ -1,4 +1,5 @@
 import { CategoryType } from "constants/category";
+import { AtLeast } from "./utils";
 
 export interface PostType {
   category: string;
@@ -54,3 +55,8 @@ export interface TopViewsPost {
   id: number;
   title: string;
 }
+
+export type PostContextDataType = AtLeast<
+  PostType,
+  "id" | "content" | "category" | "createdAt" | "title"
+>;

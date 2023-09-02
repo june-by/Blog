@@ -4,14 +4,13 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
-import { usePostContext } from "context/postContext";
 import { useRouter } from "next/router";
+import { PostType } from "Types/post";
 
-interface Props {
+interface Props extends Pick<PostType, "seriesPosts"> {
   currentPostIdx: number;
 }
-const SeriesIndexHandler = ({ currentPostIdx }: Props) => {
-  const { seriesPosts } = usePostContext();
+const SeriesIndexHandler = ({ currentPostIdx, seriesPosts }: Props) => {
   const { push } = useRouter();
 
   const nextPostIdx = currentPostIdx + 1;
