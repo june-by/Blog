@@ -3,7 +3,7 @@ import PostContent from "./postContent";
 import { PostContainer } from "context/postContext";
 import PostComments from "./postComments";
 import RoutePostButtons from "./RoutePostButtons";
-import { PostType } from "Types/post";
+import { PostContextDataType } from "Types/post";
 import PostAdminButtons from "./PostAdminButtons";
 import PostTitle from "./postTitle";
 import PostDate from "./postDate";
@@ -15,7 +15,7 @@ import PostTableOfContents from "./TableOfContents/TableOfContentsWrap";
 
 interface PostWrapProps {
   children: ReactNode;
-  Post: PostType;
+  Post: PostContextDataType;
 }
 
 const PostWrap = Object.assign(
