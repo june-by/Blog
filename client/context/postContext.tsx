@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { PostType } from "Types/post";
 
 interface Props {
-  children: JSX.Element;
+  children: ReactNode;
   Post: PostType;
 }
 

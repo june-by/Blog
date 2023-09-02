@@ -21,6 +21,7 @@ const SeriesInfo = () => {
 
   const currentPostIdx =
     seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;
+
   return (
     <div className={styles.SeriesInfo}>
       <BookmarkIcon className={styles.bookMarkSVG} />

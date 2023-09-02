@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { getAllPostsId, getPostAPI } from "services/post";
 import { useGetPostQuery } from "Hooks/Post";
-import ScrollButton from "components/shared/scrollButton";
+import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
@@ -12,7 +12,7 @@ import { useGetUserQuery } from "Hooks/User";
 import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import Post from "components/post";
-import ScrollIndicator from "components/post/ScrollIndicator";
+import ScrollIndicator from "components/shared/ScrollIndicator";
 import useQueryId from "Hooks/useQueryId";
 import PageSkeleton from "components/PageSkeleton";
 import CommonSEO from "components/shared/CommonSEO";
@@ -63,21 +63,25 @@ const PostPage = () => {
       />
       <ScrollIndicator />
       <Post Post={PostData}>
-        <>
-          <Post.AdminButtons />
-          <Post.Title />
-          <div className={styles.div1}>
-            <Post.Date />
-            <Post.Category />
+        <Post.AdminButtons />
+        <Post.Title />
+        <div className={styles.div1}>
+          <Post.Date />
+          <Post.Category />
+        </div>
+        <Post.Tags />
+        <Post.ViewCount />
+        <div className={styles.contentSection}>
+          <div>
+            <Post.SeriesInfo />
+            <Post.Content />
           </div>
-          <Post.Tags />
-          <Post.ViewCount />
-          <Post.Content />
-          <Post.RoutePostButtons />
-          <Post.Comments />
-          <ScrollButton />
-        </>
+          <Post.TableOfContents />
+        </div>
+        <Post.RoutePostButtons />
+        <Post.Comments />
       </Post>
+      <ScrollToTopButton />
     </>
   );
 };

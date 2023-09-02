@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import PostContent from "./PostContent";
 import { PostContainer } from "context/postContext";
-import Comments from "./Comments";
+import PostComments from "./postComments";
 import RoutePostButtons from "./RoutePostButtons";
 import { PostType } from "Types/post";
 import PostAdminButtons from "./PostAdminButtons";
@@ -10,9 +10,11 @@ import PostDate from "./postDate";
 import PostCategory from "./postCategory";
 import PostTags from "./postTags";
 import PostViewCount from "./postViewCount";
+import PostSeriesInfo from "./PostSeriesInfo";
+import PostTableOfContents from "./TableOfContents/TableOfContentsWrap";
 
 interface PostWrapProps {
-  children: JSX.Element;
+  children: ReactNode;
   Post: PostType;
 }
 
@@ -27,9 +29,11 @@ const PostWrap = Object.assign(
     Tags: PostTags,
     ViewCount: PostViewCount,
     Category: PostCategory,
+    SeriesInfo: PostSeriesInfo,
     Content: PostContent,
+    TableOfContents: PostTableOfContents,
     RoutePostButtons: RoutePostButtons,
-    Comments: Comments,
+    Comments: PostComments,
   }
 );
 

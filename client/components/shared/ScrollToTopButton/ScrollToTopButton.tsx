@@ -2,7 +2,7 @@ import TopIcon from "components/Icon/top";
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 
-const ScrollButton = () => {
+const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const checkScroll = () => {
@@ -41,4 +41,4 @@ const ScrollButton = () => {
   );
 };
 
-export default React.memo(ScrollButton);
+export default React.memo(ScrollToTopButton);
