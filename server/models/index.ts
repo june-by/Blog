@@ -5,6 +5,7 @@ import userModel from "./user";
 import tagModel from "./tag";
 import visitorModel from "./visitor";
 import seriesModel from "./series";
+import snippetsModel from "./snippets";
 import { dbConfig } from "config/config";
 
 const env = process.env.NODE_ENV || "development";
@@ -26,6 +27,7 @@ const db: DB = {
   Tag: tagModel(sequelize, Sequelize),
   Visitor: visitorModel(sequelize, Sequelize),
   Series: seriesModel(sequelize, Sequelize),
+  Snippets: snippetsModel(sequelize, Sequelize),
   sequelize: sequelize,
   Sequelize: Sequelize,
 };
