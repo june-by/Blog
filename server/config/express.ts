@@ -17,6 +17,7 @@ import userRouter from "src/User/userRouter";
 import visitorRouter from "src/Visitor/visitorRouter";
 import tagRouter from "src/Tag/tagRouter";
 import seriesRouter from "src/Series/seriesRouter";
+import snippetRouter from "src/Snippet/snippetRouter";
 import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
@@ -78,6 +79,7 @@ export default function () {
   app.use("/visitor", visitorRouter);
   app.use("/tag", tagRouter);
   app.use("/series", seriesRouter);
+  app.use("/snippet", snippetRouter);
 
   AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
