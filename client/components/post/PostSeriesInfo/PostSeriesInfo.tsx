@@ -9,7 +9,10 @@ import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
 const SeriesInfo = () => {
   const {
-    Post: { SeriesId, seriesPosts, id: currentPostId, seriesTitle },
+    SeriesId,
+    seriesPosts,
+    id: currentPostId,
+    seriesTitle,
   } = usePostContext();
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
@@ -18,6 +21,7 @@ const SeriesInfo = () => {
 
   const currentPostIdx =
     seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;
+
   return (
     <div className={styles.SeriesInfo}>
       <BookmarkIcon className={styles.bookMarkSVG} />

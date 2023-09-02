@@ -6,7 +6,7 @@ import {
   useGetSeriesPosts,
   useGetTagPosts,
 } from "Hooks/Post";
-import ScrollButton from "components/shared/scrollButton";
+import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "Types/page";
 import { ParsedUrlQuery } from "querystring";
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
       <CategoryList />
       <PostList query={getQuery(query)} params={getParams(query)} />
       <Contact />
-      <ScrollButton />
+      <ScrollToTopButton />
     </>
   );
 };

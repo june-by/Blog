@@ -3,12 +3,16 @@ import styles from "./styles.module.scss";
 import Table from "./Table";
 import { TableofContentsContainer } from "context/tableOfContents";
 import TOCButton from "./TOCButton";
+import { usePostContext } from "context/postContext";
+import useExtractTOC from "./useExtractTOC";
 
-interface Props {
-  tableOfContents: HTMLElement[];
-}
+const TableOfContentsWrap = () => {
+  const { title: postTitle } = usePostContext();
 
-const TableOfContentsWrap = ({ tableOfContents }: Props) => {
+  const { tableOfContents, isExtractComplete } = useExtractTOC({ postTitle });
+
+  if (!isExtractComplete) return null;
+
   if (!tableOfContents || tableOfContents.length === 0) return null;
 
   return (

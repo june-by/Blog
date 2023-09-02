@@ -6,9 +6,7 @@ import classnames from "classnames";
 import { PostType } from "Types/post";
 
 const SeriesList = ({ seriesPosts }: Pick<PostType, "seriesPosts">) => {
-  const {
-    Post: { id: currentPostId },
-  } = usePostContext();
+  const { id: currentPostId } = usePostContext();
   return (
     <ol className={styles.SeriesList}>
       {seriesPosts.map(({ id, title }) => (

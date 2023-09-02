@@ -41,7 +41,7 @@ const Comments = () => {
     };
   }, [isThemeLoaded, theme]);
 
-  return <section className={styles.CommentsWrap} ref={commentWrapperRef} />;
+  return <section className={styles.PostComments} ref={commentWrapperRef} />;
 };
 
 export default Comments;
