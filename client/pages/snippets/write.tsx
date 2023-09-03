@@ -31,8 +31,7 @@ const SnippetWritePage = () => {
   const addSnippetMutation = useAddSnippetMutation();
   const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
 
-  const { formState, setFormState, formItemProps, syncFormDataAndState } =
-    usePostForm<SnippetFormType>(snippetFormInitialData);
+  const { formState, formItemProps, syncFormDataAndState } = usePostForm<SnippetFormType>(snippetFormInitialData);
 
   const handleSubmitSnippet = () => {
     const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];

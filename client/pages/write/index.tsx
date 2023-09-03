@@ -35,9 +35,7 @@ const WritePage = () => {
   const AddPostMutation = useAddPost();
   const EditPostMutation = useEditPost({ postId: id });
 
-  const { data } = useGetPostQuery(id, {
-    enabled: isNaN(id) ? false : true,
-  });
+  const { data } = useGetPostQuery({ id });
 
   const { formState, formItemProps, syncFormDataAndState } = usePostForm<PostFormType>(postFormInitialData);
 

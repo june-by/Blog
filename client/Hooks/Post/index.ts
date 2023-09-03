@@ -12,7 +12,7 @@ import {
 } from "services/post";
 import { useInfiniteQuery, useMutation, useQuery, UseQueryOptions } from "react-query";
 import { getMainPostsAPI } from "services/post";
-import { CategoryCount, PostFormType, PostPageDataType } from "Types/post";
+import { CategoryCount, PostFormType, PostPageDataType, PostType } from "Types/post";
 import { useRouter } from "next/router";
 import QUERY_KEY from "constants/queryKey";
 import CACHE_OPTION from "constants/cacheOption";
@@ -26,7 +26,7 @@ export const useGetMainPost = () =>
     getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
   });
 
-export const useGetPostQuery = (id: number, queryOptions?: UseQueryOptions<any>) => {
+export const useGetPostQuery = ({ id }: Pick<PostType, "id">) => {
   const router = useRouter();
 
   return useQuery<PostPageDataType | null>([QUERY_KEY.POST.ONE, id], () => getPostAPI(id), {
@@ -35,7 +35,7 @@ export const useGetPostQuery = (id: number, queryOptions?: UseQueryOptions<any>)
       alert(err);
       router.replace("/");
     },
-    ...queryOptions,
+    enabled: isNaN(id) ? false : true,
   });
 };
 

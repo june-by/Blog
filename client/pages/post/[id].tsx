@@ -20,12 +20,11 @@ import styles from "./styles.module.scss";
 
 const PostPage = () => {
   const router = useRouter();
-  const postId = useQueryId();
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
-    useState(false);
+  const id = useQueryId();
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
   const { data: userInfo } = useGetUserQuery();
 
-  const { data } = useGetPostQuery(isNaN(postId) ? 0 : postId);
+  const { data } = useGetPostQuery({ id });
 
   const PostData = data?.mainPost;
 
@@ -59,7 +58,7 @@ const PostPage = () => {
         ogTitle={PostData.title}
         ogDescription={PostData.content.substring(0, 100)}
         ogImage={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
-        ogUrl={`https://byjuun.com/post/${postId}`}
+        ogUrl={`https://byjuun.com/post/${id}`}
       />
       <ScrollIndicator />
       <Post Post={PostData}>
@@ -104,15 +103,11 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient();
   try {
     const postId = Number(context.params?.id);
-    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () =>
-      getPostAPI(postId)
-    );
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () => getPostAPI(postId));
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
@@ -126,7 +121,6 @@ export const getStaticProps: GetStaticProps = async (
 export default PostPage;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url)
-    return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }
