@@ -27,13 +27,12 @@ const postFormInitialData = {
 };
 
 const WritePage = () => {
-  const {
-    query: { mode = "write" },
-  } = useRouter();
+  const { query } = useRouter();
+  const mode = (query.mode ?? "write") as "write" | "edit";
   const id = useQueryId();
 
-  const AddPostMutation = useAddPost();
-  const EditPostMutation = useEditPost({ postId: id });
+  const { mutateAsync: addPostMutate } = useAddPost();
+  const { mutateAsync: editPostMutate } = useEditPost({ postId: id });
 
   const { data } = useGetPostQuery({ id });
 
@@ -44,14 +43,15 @@ const WritePage = () => {
     const notEnteredKey = verifyAllKeysInFormStateEntered();
     if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
-    const mutation = mode === "write" ? AddPostMutation : EditPostMutation;
-    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
-    const mutatiotPromise = mutation.mutateAsync(formState);
-    toast.promise(mutatiotPromise, mutationPromiseMessage);
+    const mutateAsync = {
+      write: addPostMutate,
+      edit: editPostMutate,
+    };
+
+    toast.promise(mutateAsync[mode](formState), MESSAGE.FORM_MUTATION_MESSAGE[mode]);
   };
 
   useEffect(() => {
-    if (mode !== "edit") return;
     if (!data) return;
 
     const { mainPost: postData } = data;

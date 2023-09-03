@@ -21,15 +21,15 @@ const snippetFormInitialData = {
 };
 
 const SnippetWritePage = () => {
-  const {
-    query: { mode = "write" },
-  } = useRouter();
+  const { query } = useRouter();
+  const mode = (query.mode ?? "write") as "write" | "edit";
+
   const id = useQueryId();
 
   const { data } = useGetSnippetQuery({ id });
 
-  const addSnippetMutation = useAddSnippetMutation();
-  const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
+  const { mutateAsync: addSnippetMutate } = useAddSnippetMutation();
+  const { mutateAsync: editSnippetMutate } = useEditSnippetMutation({ snippetId: id });
 
   const { formState, formItemProps, syncFormDataAndState, verifyAllKeysInFormStateEntered } =
     usePostForm<SnippetFormType>(snippetFormInitialData);
@@ -38,12 +38,13 @@ const SnippetWritePage = () => {
     const notEnteredKey = verifyAllKeysInFormStateEntered();
     if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
-    const mutation = mode === "write" ? addSnippetMutation : editSnippetMutation;
-    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
-    const mutatiotPromise = mutation.mutateAsync(formState);
-    toast.promise(mutatiotPromise, mutationPromiseMessage);
+    const mutateAsync = {
+      write: addSnippetMutate,
+      edit: editSnippetMutate,
+    };
+
+    toast.promise(mutateAsync[mode](formState), MESSAGE.FORM_MUTATION_MESSAGE[mode]);
   };
-  x;
 
   useEffect(() => {
     if (!data) return;
