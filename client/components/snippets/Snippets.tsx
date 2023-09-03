@@ -24,7 +24,7 @@ const Snippets = () => {
             </FontAppliedElement>
             <div className={styles.snippetsWrap}>
               {snippets.map(({ id, title, createdAt }) => (
-                <Link key={title} href={`/snippet/${id}`}>
+                <Link key={title} href={`/snippets/${id}`}>
                   <span className={styles.title}>{title}</span>
                   <span className={styles.date}>
                     <IoCalendarClearOutline />
