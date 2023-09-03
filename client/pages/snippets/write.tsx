@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
@@ -9,9 +9,10 @@ import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
 import { SnippetFormType } from "Types/snippets";
 import PostForm from "components/postForm/postForm";
-import { useAddSnippetMutation, useEditSnippetMutation } from "Hooks/Snippet";
+import { useAddSnippetMutation, useEditSnippetMutation, useGetSnippetQuery } from "Hooks/Snippet";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
+import Omit from "utils/omit";
 
 const snippetFormInitialData = {
   title: "",
@@ -24,6 +25,8 @@ const SnippetWritePage = () => {
     query: { mode = "write" },
   } = useRouter();
   const id = useQueryId();
+
+  const { data } = useGetSnippetQuery({ id });
 
   const addSnippetMutation = useAddSnippetMutation();
   const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
@@ -43,6 +46,11 @@ const SnippetWritePage = () => {
     const mutatiotPromise = mutation.mutateAsync(formState);
     toast.promise(mutatiotPromise, mutationPromiseMessage);
   };
+
+  useEffect(() => {
+    if (!data) return;
+    syncFormDataAndState({ ...Omit(data, "id", "createdAt") });
+  }, [data, syncFormDataAndState]);
 
   return (
     <PostForm>

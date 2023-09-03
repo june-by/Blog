@@ -39,8 +39,7 @@ const WritePage = () => {
     enabled: isNaN(id) ? false : true,
   });
 
-  const { formState, setFormState, formItemProps, syncFormDataAndState } =
-    usePostForm<PostFormType>(postFormInitialData);
+  const { formState, formItemProps, syncFormDataAndState } = usePostForm<PostFormType>(postFormInitialData);
 
   const handleSubmitPost = () => {
     const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
@@ -64,7 +63,7 @@ const WritePage = () => {
       ...postData,
       tagArr: postData.Tags.map((tag) => String(tag?.content)),
     });
-  }, [data, mode, setFormState, syncFormDataAndState]);
+  }, [data, mode, syncFormDataAndState]);
 
   return (
     <PostForm>
