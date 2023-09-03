@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React from "react";
 import { useDeletePost } from "Hooks/Post";
 import styles from "./styles.module.scss";
@@ -14,11 +13,7 @@ const PostDeleteButton = () => {
   };
 
   return (
-    <button
-      data-testid="postDelBtn"
-      className={styles.DeleteBtn}
-      onClick={deletePost}
-    >
+    <button data-testid="postDelBtn" className={styles.DeleteBtn} onClick={deletePost}>
       글 삭제하기
     </button>
   );
