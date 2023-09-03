@@ -3,6 +3,7 @@ import SeriesSelector from "components/postForm/SeriesSelector";
 import { Category } from "constants/category";
 import styles from "./styles.module.scss";
 import React, { useState } from "react";
+import createFormItemProps from "components/postForm/FormItem/createFormItemProps";
 
 const Writetest = () => {
   const [formState, setFormState] = useState({
@@ -16,59 +17,38 @@ const Writetest = () => {
     SeriesId: null,
   });
 
+  const formItemProps = createFormItemProps({
+    state: formState,
+    setState: setFormState,
+  });
+
   const handleSubmitPost = () => {
     console.log(formState);
   };
+  console.log(formState);
 
   return (
     <PostForm>
       <div className={styles.FlexItems}>
-        <PostForm.CheckBox
-          stateKey="isPublic"
-          value={formState.isPublic}
-          setState={setFormState}
-          label="공개/비공개"
-        />
+        <PostForm.CheckBox {...formItemProps("isPublic")} label="공개/비공개" />
         <PostForm.SubmitButton handleSubmit={handleSubmitPost} />
       </div>
-      <PostForm.TextInput
-        stateKey="title"
-        value={formState.title}
-        setState={setFormState}
-        label="제목"
-      />
+      <PostForm.TextInput {...formItemProps("title")} label="제목" />
       <PostForm.Selector
-        stateKey="category"
-        value={formState.category}
-        setState={setFormState}
+        {...formItemProps("category")}
         label="카테고리"
         options={Category.map((category) => {
           return { key: category, value: category, text: category };
         })}
       />
-      <PostForm.ListForm
-        stateKey="tagArr"
-        value={formState.tagArr}
-        setState={setFormState}
-        label="태그"
-      />
+      <PostForm.ListForm {...formItemProps("tagArr")} label="태그" />
       <SeriesSelector setState={setFormState} />
       <PostForm.TextInput
-        stateKey="shortDescription"
-        value={formState.shortDescription}
-        setState={setFormState}
+        {...formItemProps("shortDescription")}
         label="짧은설명"
       />
-      <PostForm.Editor
-        stateKey="content"
-        value={formState.content}
-        setState={setFormState}
-      />
-      <PostForm.ImageUploader
-        stateKey="thumbNailUrl"
-        value={formState.thumbNailUrl}
-        setState={setFormState}
-      />
+      <PostForm.Editor {...formItemProps("content")} />
+      <PostForm.ImageUploader {...formItemProps("thumbNailUrl")} />
     </PostForm>
   );
 };
