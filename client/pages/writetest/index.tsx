@@ -2,12 +2,12 @@ import PostForm from "components/postForm";
 import SeriesSelector from "components/postForm/SeriesSelector";
 import { Category } from "constants/category";
 import styles from "./styles.module.scss";
-import React, { useEffect, useState } from "react";
-import createFormItemProps from "components/postForm/FormItem/createFormItemProps";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import useQueryId from "Hooks/useQueryId";
 import { useGetPostQuery } from "Hooks/Post";
 import { PostFormType } from "Types/post";
+import usePostForm from "components/postForm/usePostForm";
 
 const Writetest = () => {
   const { query: { mode } = { mode: "write" } } = useRouter();
@@ -17,21 +17,17 @@ const Writetest = () => {
     enabled: isNaN(id) ? false : true,
   });
 
-  const [formState, setFormState] = useState<PostFormType>({
-    title: "",
-    category: "",
-    content: "",
-    shortDescription: "",
-    isPublic: 0,
-    tagArr: [],
-    thumbNailUrl: "",
-    SeriesId: null,
-  });
-
-  const formItemProps = createFormItemProps({
-    state: formState,
-    setState: setFormState,
-  });
+  const { formState, setFormState, formItemProps, syncFormDataAndState } =
+    usePostForm<PostFormType>({
+      title: "",
+      category: "",
+      content: "",
+      shortDescription: "",
+      isPublic: 0,
+      tagArr: [],
+      thumbNailUrl: "",
+      SeriesId: null,
+    });
 
   const handleSubmitPost = () => {
     console.log(formState);
@@ -42,11 +38,11 @@ const Writetest = () => {
     if (!data) return;
 
     const { mainPost: postData } = data;
-    setFormState({
+    syncFormDataAndState({
       ...postData,
       tagArr: postData.Tags.map((tag) => String(tag?.content)),
     });
-  }, [data, mode]);
+  }, [data, mode, setFormState, syncFormDataAndState]);
 
   console.log(formState);
 
