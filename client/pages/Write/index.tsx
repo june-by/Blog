@@ -2,6 +2,7 @@ import PostForm from "components/postForm";
 import SeriesSelector from "components/postForm/SeriesSelector";
 import { Category } from "constants/category";
 import styles from "./styles.module.scss";
+import https from "https";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import useQueryId from "Hooks/useQueryId";
@@ -10,6 +11,9 @@ import { PostFormType } from "Types/post";
 import usePostForm from "components/postForm/usePostForm";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
+import { GetServerSideProps } from "next";
+import { customAxios } from "utils/CustomAxios";
+import IsAdmin from "utils/isAdmin";
 
 const postFormInitialData = {
   title: "",
@@ -22,7 +26,7 @@ const postFormInitialData = {
   SeriesId: null,
 };
 
-const Writetest = () => {
+const WritePage = () => {
   const { query: { mode } = { mode: "write" } } = useRouter();
   const id = useQueryId();
 
@@ -84,4 +88,32 @@ const Writetest = () => {
   );
 };
 
-export default Writetest;
+export default WritePage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const Cookies = req?.headers?.cookie ?? "";
+
+  customAxios.defaults.headers.Cookie = Cookies;
+
+  try {
+    const { data: userInfo } = await customAxios.get("/user", {
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false, //허가되지 않은 인증을 reject하지 않겠다!
+      }),
+    });
+
+    if (!IsAdmin(userInfo)) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
+};
