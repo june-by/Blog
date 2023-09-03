@@ -2,11 +2,22 @@ import PostForm from "components/postForm";
 import SeriesSelector from "components/postForm/SeriesSelector";
 import { Category } from "constants/category";
 import styles from "./styles.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import createFormItemProps from "components/postForm/FormItem/createFormItemProps";
+import { useRouter } from "next/router";
+import useQueryId from "Hooks/useQueryId";
+import { useGetPostQuery } from "Hooks/Post";
+import { PostFormType } from "Types/post";
 
 const Writetest = () => {
-  const [formState, setFormState] = useState({
+  const { query: { mode } = { mode: "write" } } = useRouter();
+  const id = useQueryId();
+
+  const { data } = useGetPostQuery(id, {
+    enabled: isNaN(id) ? false : true,
+  });
+
+  const [formState, setFormState] = useState<PostFormType>({
     title: "",
     category: "",
     content: "",
@@ -25,6 +36,18 @@ const Writetest = () => {
   const handleSubmitPost = () => {
     console.log(formState);
   };
+
+  useEffect(() => {
+    if (mode !== "edit") return;
+    if (!data) return;
+
+    const { mainPost: postData } = data;
+    setFormState({
+      ...postData,
+      tagArr: postData.Tags.map((tag) => String(tag?.content)),
+    });
+  }, [data, mode]);
+
   console.log(formState);
 
   return (
