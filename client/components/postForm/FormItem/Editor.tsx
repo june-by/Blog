@@ -1,6 +1,6 @@
 import React, { LegacyRef, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
-import styles from "./@styles.module.scss";
+import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
 import ReactQuill from "react-quill";
@@ -8,8 +8,9 @@ import { customAxios } from "utils/CustomAxios";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import { useWriteContext } from "context/writeContext";
+import { PostFormItemSharedType } from "./type";
 
-interface Props {
+interface EditorProps {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
   value: string;
   onChange: (e: string) => void;
@@ -20,23 +21,30 @@ interface Props {
 
 const QuillNoSSRWrapper = dynamic(
   async () => {
-    console.log("QuillNoSSRWrapper");
     const { default: RQ } = await import("react-quill");
-    const TempEditor = ({ forwardedRef, ...props }: Props) => {
+    const TempEditor = ({ forwardedRef, ...props }: EditorProps) => {
       return <RQ ref={forwardedRef} {...props} />;
     };
-    //TempEditor.displayName = "TempEditor";
     return TempEditor;
   },
   { ssr: false }
 );
 
-const Editor = () => {
-  const {
-    writeFormData: { content },
-    handleChangeContent: onChange,
-  } = useWriteContext();
+const Editor = <T extends Record<string, any>>({
+  setState,
+  value,
+  stateKey,
+}: PostFormItemSharedType<T>) => {
   const QuillRef = useRef<ReactQuill>(null);
+
+  const handleChangeEditorContent = (editorContent: string) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        [stateKey]: editorContent,
+      };
+    });
+  };
 
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -82,8 +90,8 @@ const Editor = () => {
       <div className={styles.Editor}>
         <QuillNoSSRWrapper
           forwardedRef={QuillRef}
-          value={content}
-          onChange={onChange}
+          value={value}
+          onChange={handleChangeEditorContent}
           modules={modules}
           formats={formats}
           theme="snow"
