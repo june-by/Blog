@@ -6,18 +6,15 @@ const PostEditBtn = ({ id }: { id: number }) => {
   const router = useRouter();
 
   const gotoEdit = () => {
+    const editPagePathName = router.pathname.includes("snippets") ? "/snippets/write" : "/write";
     router.push({
-      pathname: "/write",
+      pathname: editPagePathName,
       query: { mode: "edit", id: id },
     });
   };
 
   return (
-    <button
-      data-testid="postEditBtn"
-      className={styles.editButton}
-      onClick={gotoEdit}
-    >
+    <button data-testid="postEditBtn" className={styles.editButton} onClick={gotoEdit}>
       글 수정하기
     </button>
   );
