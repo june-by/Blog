@@ -20,15 +20,13 @@ export const useGetAllSnippetsQuery = () =>
 export const useAddSnippetMutation = () =>
   useMutation(addSnippetAPI, {
     onSuccess: () => {
-      alert(MESSAGE.POST_REGIST_SUCCESS);
-      window.location.replace("/snippet");
+      window.location.replace("/snippets");
     },
   });
 
 export const useEditSnippetMutation = ({ snippetId }: { snippetId: number }) =>
   useMutation((reqData: SnippetFormType) => editSnippetAPI({ ...reqData, snippetId }), {
     onSuccess: () => {
-      alert(MESSAGE.POST_EDIT_SUCCESS);
       window.location.replace("/snippets");
     },
   });
