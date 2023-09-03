@@ -37,14 +37,12 @@ const WritePage = () => {
 
   const { data } = useGetPostQuery({ id });
 
-  const { formState, formItemProps, syncFormDataAndState } = usePostForm<PostFormType>(postFormInitialData);
+  const { formState, formItemProps, syncFormDataAndState, verifyAllKeysInFormStateEntered } =
+    usePostForm<PostFormType>(postFormInitialData);
 
   const handleSubmitPost = () => {
-    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
-
-    for (const key of formDataKeys) {
-      if (!formState[key]) return toast.warn(`${key}를 입력해주세요.`);
-    }
+    const notEnteredKey = verifyAllKeysInFormStateEntered();
+    if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
     const mutation = mode === "write" ? AddPostMutation : EditPostMutation;
     const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
