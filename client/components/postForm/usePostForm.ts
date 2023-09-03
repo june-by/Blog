@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import createFormItemProps from "./FormItem/createFormItemProps";
 
 const usePostForm = <T extends Record<string, any>>(initialState: T) => {
@@ -9,9 +9,9 @@ const usePostForm = <T extends Record<string, any>>(initialState: T) => {
     setState: setFormState,
   });
 
-  const syncFormDataAndState = (data: T) => {
+  const syncFormDataAndState = useCallback((data: T) => {
     setFormState(data);
-  };
+  }, []);
 
   return { formItemProps, formState, setFormState, syncFormDataAndState };
 };
