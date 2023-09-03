@@ -11,6 +11,6 @@ export const getAllSnippetsIdAPI = async () =>
   request<Pick<SnippetType, "id">[]>({ method: "get", url: "/snippet/load/id" });
 
 export const getSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
-  request<SnippetType>({ method: "get", url: `/load/${id}` });
+  request<SnippetType>({ method: "get", url: `/snippet/load/${id}` });
 
 export const getAllSnippetsAPI = async () => request<SnippetType[]>({ method: "get", url: "/snippet/load/all" });

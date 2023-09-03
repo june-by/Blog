@@ -1,0 +1,20 @@
+.div1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    margin-top: 0.25rem;
+    height: 100%;
+  }
+}
+
+.contentSection {
+  margin-top: 50px;
+  position: relative;
+  display: flex;
+  padding-bottom: 50px;
+  div {
+    min-width: 0;
+  }
+}

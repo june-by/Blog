@@ -1,9 +1,53 @@
+import { useGetSnippetQuery } from "Hooks/Snippet";
+import useQueryId from "Hooks/useQueryId";
+import PageSkeleton from "components/PageSkeleton/PageSkeleton";
+import CommonSEO from "components/shared/CommonSEO";
+import ScrollIndicator from "components/shared/ScrollIndicator";
 import QUERY_KEY from "constants/queryKey";
 import { type GetStaticProps, type GetStaticPropsContext } from "next";
+import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
 import { getAllSnippetsIdAPI, getSnippetAPI } from "services/snippet/snippet.service";
+import Post from "components/post";
+import ScrollToTopButton from "components/shared/ScrollToTopButton";
+import styles from "./styles.module.scss";
 
-const SnippetPostPage = () => {};
+const SnippetPostPage = () => {
+  const snippetId = useQueryId();
+  const router = useRouter();
+  const { data: snippetData } = useGetSnippetQuery({ id: snippetId });
+
+  if (router.isFallback) return <PageSkeleton url="/post/" />;
+
+  if (!snippetData) return null;
+
+  return (
+    <>
+      <CommonSEO
+        title={snippetData.title}
+        description={snippetData.content.substring(0, 100)}
+        ogTitle={snippetData.title}
+        ogDescription={snippetData.content.substring(0, 100)}
+        ogUrl={`https://byjuun.com/snippets/${snippetId}`}
+      />
+      <ScrollIndicator />
+      <Post Post={{ ...snippetData, title: snippetData.title + ` (${snippetData.category})` }}>
+        <Post.AdminButtons />
+        <Post.Title />
+        <Post.Date />
+
+        <div className={styles.contentSection}>
+          <div>
+            <Post.Content />
+          </div>
+          <Post.TableOfContents />
+        </div>
+        <Post.Comments />
+      </Post>
+      <ScrollToTopButton />
+    </>
+  );
+};
 
 export const getStaticPaths = async () => {
   try {

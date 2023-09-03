@@ -17,6 +17,8 @@ const PageLayout = ({ children, url }: Props) => {
 
 const getClassNameFromUrl = (url: string) => {
   if (url.includes("/post/")) return styles.PostPageLayout;
+  else if (url.includes("/snippets/write")) return styles.WithOutFlexLayout;
+  else if (url.includes("/snippets/")) return styles.PostPageLayout;
   else if (url.includes("/series")) return styles.WithOutFlexLayout;
   else if (url.includes("/archives")) return styles.WithOutFlexLayout;
   else if (url.includes("/snippets")) return styles.WithOutFlexLayout;
