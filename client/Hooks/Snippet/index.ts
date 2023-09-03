@@ -15,6 +15,6 @@ export const useEditSnippetMutation = ({ snippetId }: { snippetId: number }) =>
   useMutation((reqData: SnippetFormType) => editSnippetAPI({ ...reqData, snippetId }), {
     onSuccess: () => {
       alert(MESSAGE.POST_EDIT_SUCCESS);
-      window.location.replace("/snippet");
+      window.location.replace("/snippets");
     },
   });

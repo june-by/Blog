@@ -20,7 +20,9 @@ const snippetFormInitialData = {
 };
 
 const SnippetWritePage = () => {
-  const { query: { mode } = { mode: "write" } } = useRouter();
+  const {
+    query: { mode = "write" },
+  } = useRouter();
   const id = useQueryId();
 
   const addSnippetMutation = useAddSnippetMutation();
