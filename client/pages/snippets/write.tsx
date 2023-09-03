@@ -9,6 +9,9 @@ import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
 import { SnippetFormType } from "Types/snippets";
 import PostForm from "components/postForm/postForm";
+import { useAddSnippetMutation, useEditSnippetMutation } from "Hooks/Snippet";
+import MESSAGE from "constants/message";
+import { toast } from "react-toastify";
 
 const snippetFormInitialData = {
   title: "",
@@ -20,11 +23,17 @@ const SnippetWritePage = () => {
   const { query: { mode } = { mode: "write" } } = useRouter();
   const id = useQueryId();
 
+  const addSnippetMutation = useAddSnippetMutation();
+  const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
+
   const { formState, setFormState, formItemProps, syncFormDataAndState } =
     usePostForm<SnippetFormType>(snippetFormInitialData);
 
   const handleSubmitSnippet = () => {
-    console.log("formState : ", formState);
+    const mutation = mode === "write" ? addSnippetMutation : editSnippetMutation;
+    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
+    const mutatiotPromise = mutation.mutateAsync(formState);
+    toast.promise(mutatiotPromise, mutationPromiseMessage);
   };
 
   return (
