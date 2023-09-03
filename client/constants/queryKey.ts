@@ -17,6 +17,7 @@ const QUERY_KEY = {
   },
   VISITOR: "Visitor",
   SERIES: "Series",
+  SNIPPET: "Snippet",
 };
 
 export default QUERY_KEY;

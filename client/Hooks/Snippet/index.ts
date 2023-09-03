@@ -1,7 +1,12 @@
-import { SnippetFormType } from "Types/snippets";
+import { SnippetFormType, SnippetType } from "Types/snippets";
+import CACHE_OPTION from "constants/cacheOption";
 import MESSAGE from "constants/message";
-import { useMutation } from "react-query";
-import { addSnippetAPI, editSnippetAPI } from "services/snippet/snippet.service";
+import QUERY_KEY from "constants/queryKey";
+import { useMutation, useQuery } from "react-query";
+import { addSnippetAPI, editSnippetAPI, getSnippetAPI } from "services/snippet/snippet.service";
+
+export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) =>
+  useQuery([QUERY_KEY.SNIPPET, id], () => getSnippetAPI({ id }), { ...CACHE_OPTION.ALL });
 
 export const useAddSnippetMutation = () =>
   useMutation(addSnippetAPI, {

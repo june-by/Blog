@@ -10,5 +10,5 @@ export const editSnippetAPI = async ({ snippetId, ...reqData }: SnippetFormType 
 export const getAllSnippetsAPI = async () =>
   request<Pick<SnippetType, "id">[]>({ method: "get", url: "/snippet/load/id" });
 
-export const getSnippetAPI = async (snippetId: number) =>
-  request<SnippetType>({ method: "get", url: `/load/${snippetId}` });
+export const getSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
+  request<SnippetType>({ method: "get", url: `/load/${id}` });
