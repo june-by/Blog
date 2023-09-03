@@ -10,6 +10,7 @@ interface Props<T>
     value: string | number;
     text: string | number;
   }[];
+  valueConverter?: (value: string) => number | boolean | string;
 }
 
 const Selector = <T extends Record<string, any>>({
@@ -19,13 +20,14 @@ const Selector = <T extends Record<string, any>>({
   className,
   options,
   label,
+  valueConverter = (value: string) => value,
   ...props
 }: Props<T>) => {
   const handleChangeSelector = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState((prev) => {
       return {
         ...prev,
-        [stateKey]: e.target.value,
+        [stateKey]: valueConverter(e.target.value),
       };
     });
   };
@@ -34,6 +36,7 @@ const Selector = <T extends Record<string, any>>({
     <div className={styles.DivWithLabel}>
       {label && <label>{label}</label>}
       <select
+        value={value}
         onChange={handleChangeSelector}
         className={styles.Selector}
         {...props}

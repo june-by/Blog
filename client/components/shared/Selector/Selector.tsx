@@ -3,6 +3,7 @@ import classnames from "classnames";
 import styles from "./styles.module.scss";
 
 interface Props extends React.HTMLAttributes<HTMLSelectElement> {
+  value?: string | number;
   options: {
     key: string | number;
     value: string | number;
@@ -10,12 +11,13 @@ interface Props extends React.HTMLAttributes<HTMLSelectElement> {
   }[];
 }
 
-const Selector = ({ onChange, className, options, ...props }: Props) => {
+const Selector = ({ onChange, value, className, options, ...props }: Props) => {
   return (
     <>
       <select
         onChange={onChange}
         className={classnames(styles.Selector, className)}
+        value={value}
         {...props}
       >
         <option disabled selected>

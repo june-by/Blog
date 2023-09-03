@@ -65,7 +65,7 @@ const Writetest = () => {
         })}
       />
       <PostForm.ListForm {...formItemProps("tagArr")} label="태그" />
-      <SeriesSelector setState={setFormState} />
+      <SeriesSelector {...formItemProps("SeriesId")} />
       <PostForm.TextInput
         {...formItemProps("shortDescription")}
         label="짧은설명"
