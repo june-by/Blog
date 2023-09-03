@@ -1,15 +1,8 @@
-import {
-  CategoryCount,
-  PostFormType,
-  PostType,
-  PostPageDataType,
-  PostListPageDataType,
-} from "Types/post";
+import { CategoryCount, PostFormType, PostType, PostPageDataType, PostListPageDataType } from "Types/post";
 import MESSAGE from "constants/message";
 import request from "services/request";
 
-export const getAllPostsId = async () =>
-  request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
+export const getAllPostsId = async () => request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
 
 export const getMainPostsAPI = async (page: number) =>
   request<PostListPageDataType[]>({
@@ -34,10 +27,7 @@ export const getPostAPI = async (id: number) => {
   });
 };
 
-export const getCategoryPostAPI = async (
-  category: string | string[] | undefined,
-  pageNum: number
-) => {
+export const getCategoryPostAPI = async (category: string | string[] | undefined, pageNum: number) => {
   if (typeof category !== "string") return [];
   return request<PostListPageDataType[]>({
     method: "get",
@@ -45,10 +35,7 @@ export const getCategoryPostAPI = async (
   });
 };
 
-export const getSeriesPostAPI = async (
-  seriesTitle: string | string[] | undefined,
-  pageNum: number
-) => {
+export const getSeriesPostAPI = async (seriesTitle: string | string[] | undefined, pageNum: number) => {
   if (typeof seriesTitle !== "string") return [];
   return request<PostListPageDataType[]>({
     method: "get",
@@ -56,10 +43,7 @@ export const getSeriesPostAPI = async (
   });
 };
 
-export const getSearchPostAPI = async (
-  search: string | string[] | undefined,
-  pageNum: number
-) => {
+export const getSearchPostAPI = async (search: string | string[] | undefined, pageNum: number) => {
   if (typeof search !== "string") return [];
   return request<PostListPageDataType[]>({
     method: "get",
@@ -67,10 +51,7 @@ export const getSearchPostAPI = async (
   });
 };
 
-export const getTagPostAPI = async (
-  tag: string | string[] | undefined,
-  pageNum: number
-) => {
+export const getTagPostAPI = async (tag: string | string[] | undefined, pageNum: number) => {
   if (typeof tag !== "string") return [];
   return request<PostListPageDataType[]>({
     method: "get",
@@ -84,7 +65,7 @@ export const AddPostAPI = async (reqData: PostFormType) =>
 export const EditPostAPI = async (reqData: PostFormType, id: number) =>
   request<void>({ method: "patch", url: `/post/${id}`, body: reqData });
 
-export const DeletePostAPI = async (id: number) =>
+export const DeletePostAPI = async ({ id }: Pick<PostType, "id">) =>
   request<void>({ method: "delete", url: `/post/${id}` });
 
 export const getPostViewCountAPI = async (postId: number) =>

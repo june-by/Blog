@@ -10,12 +10,7 @@ import {
   getTagPostAPI,
   getSeriesPostAPI,
 } from "services/post";
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  UseQueryOptions,
-} from "react-query";
+import { useInfiniteQuery, useMutation, useQuery, UseQueryOptions } from "react-query";
 import { getMainPostsAPI } from "services/post";
 import { CategoryCount, PostFormType, PostPageDataType } from "Types/post";
 import { useRouter } from "next/router";
@@ -26,93 +21,53 @@ import MESSAGE from "constants/message";
 import { getAllPostsAPI } from "services/post/post.service";
 
 export const useGetMainPost = () =>
-  useInfiniteQuery(
-    [QUERY_KEY.POST.MAIN],
-    ({ pageParam = 1 }) => getMainPostsAPI(pageParam),
-    {
-      ...CACHE_OPTION.ALL,
-      getNextPageParam: (lastPage, allPage) =>
-        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
-    }
-  );
+  useInfiniteQuery([QUERY_KEY.POST.MAIN], ({ pageParam = 1 }) => getMainPostsAPI(pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
-export const useGetPostQuery = (
-  id: number,
-  queryOptions?: UseQueryOptions<any>
-) => {
+export const useGetPostQuery = (id: number, queryOptions?: UseQueryOptions<any>) => {
   const router = useRouter();
 
-  return useQuery<PostPageDataType | null>(
-    [QUERY_KEY.POST.ONE, id],
-    () => getPostAPI(id),
-    {
-      ...CACHE_OPTION.ALL,
-      onError: (err) => {
-        alert(err);
-        router.replace("/");
-      },
-      ...queryOptions,
-    }
-  );
+  return useQuery<PostPageDataType | null>([QUERY_KEY.POST.ONE, id], () => getPostAPI(id), {
+    ...CACHE_OPTION.ALL,
+    onError: (err) => {
+      alert(err);
+      router.replace("/");
+    },
+    ...queryOptions,
+  });
 };
 
 export const useGetAllCateogryLength = () =>
-  useQuery<Array<CategoryCount>>(
-    [QUERY_KEY.POST.CATEGORY_LENGTH],
-    () => getAllCategoryLengthAPI(),
-    CACHE_OPTION.ALL
-  );
+  useQuery<Array<CategoryCount>>([QUERY_KEY.POST.CATEGORY_LENGTH], () => getAllCategoryLengthAPI(), CACHE_OPTION.ALL);
 
 export const useGetCategoryPosts = (params: string) =>
-  useInfiniteQuery(
-    [QUERY_KEY.POST.CATEGORY, params],
-    ({ pageParam = 1 }) => getCategoryPostAPI(params, pageParam),
-    {
-      ...CACHE_OPTION.ALL,
-      getNextPageParam: (lastPage, allPage) =>
-        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
-    }
-  );
+  useInfiniteQuery([QUERY_KEY.POST.CATEGORY, params], ({ pageParam = 1 }) => getCategoryPostAPI(params, pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useGetSeriesPosts = (params: string) =>
-  useInfiniteQuery(
-    [QUERY_KEY.POST.SEARCH, params],
-    ({ pageParam = 1 }) => getSeriesPostAPI(params, pageParam),
-    {
-      ...CACHE_OPTION.ALL,
-      getNextPageParam: (lastPage, allPage) =>
-        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
-    }
-  );
+  useInfiniteQuery([QUERY_KEY.POST.SEARCH, params], ({ pageParam = 1 }) => getSeriesPostAPI(params, pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useGetSearchPosts = (params: string) =>
-  useInfiniteQuery(
-    [QUERY_KEY.POST.SEARCH, params],
-    ({ pageParam = 1 }) => getSearchPostAPI(params, pageParam),
-    {
-      ...CACHE_OPTION.ALL,
-      getNextPageParam: (lastPage, allPage) =>
-        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
-    }
-  );
+  useInfiniteQuery([QUERY_KEY.POST.SEARCH, params], ({ pageParam = 1 }) => getSearchPostAPI(params, pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useGetTagPosts = (params: string) =>
-  useInfiniteQuery(
-    [QUERY_KEY.POST.TAG, params],
-    ({ pageParam = 1 }) => getTagPostAPI(params, pageParam),
-    {
-      ...CACHE_OPTION.ALL,
-      getNextPageParam: (lastPage, allPage) =>
-        lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
-    }
-  );
+  useInfiniteQuery([QUERY_KEY.POST.TAG, params], ({ pageParam = 1 }) => getTagPostAPI(params, pageParam), {
+    ...CACHE_OPTION.ALL,
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1),
+  });
 
 export const useGetPostViewCount = (id: number) =>
-  useQuery<{ viewCount: number }>(
-    [QUERY_KEY.POST.VIEWCOUNT, id],
-    () => getPostViewCountAPI(id),
-    CACHE_OPTION.ALL
-  );
+  useQuery<{ viewCount: number }>([QUERY_KEY.POST.VIEWCOUNT, id], () => getPostViewCountAPI(id), CACHE_OPTION.ALL);
 
 export const useAddPost = () => {
   return useMutation(AddPostAPI, {
@@ -134,7 +89,7 @@ export const useEditPost = ({ postId }: { postId: number }) => {
   });
 };
 
-export const useDeletePost = () => {
+export const useDeletePostMutation = () => {
   return useMutation(DeletePostAPI, {
     onSuccess: () => {
       alert(MESSAGE.POST_DELETE_SUCCESS);
@@ -143,5 +98,4 @@ export const useDeletePost = () => {
   });
 };
 
-export const useGetAllPostsQuery = () =>
-  useQuery([QUERY_KEY.POST.ALL], () => getAllPostsAPI(), CACHE_OPTION.ALL);
+export const useGetAllPostsQuery = () => useQuery([QUERY_KEY.POST.ALL], () => getAllPostsAPI(), CACHE_OPTION.ALL);
