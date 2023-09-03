@@ -27,7 +27,9 @@ const postFormInitialData = {
 };
 
 const WritePage = () => {
-  const { query: { mode } = { mode: "write" } } = useRouter();
+  const {
+    query: { mode = "write" },
+  } = useRouter();
   const id = useQueryId();
 
   const AddPostMutation = useAddPost();
@@ -42,9 +44,7 @@ const WritePage = () => {
 
   const handleSubmitPost = () => {
     const mutation = mode === "write" ? AddPostMutation : EditPostMutation;
-    const mutationPromiseMessage =
-      MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
-
+    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
     const mutatiotPromise = mutation.mutateAsync(formState);
     toast.promise(mutatiotPromise, mutationPromiseMessage);
   };
@@ -78,10 +78,7 @@ const WritePage = () => {
         <PostForm.ListForm {...formItemProps("tagArr")} label="태그" />
       </div>
       <SeriesSelector {...formItemProps("SeriesId")} />
-      <PostForm.TextInput
-        {...formItemProps("shortDescription")}
-        label="짧은설명"
-      />
+      <PostForm.TextInput {...formItemProps("shortDescription")} label="짧은설명" />
       <PostForm.Editor {...formItemProps("content")} />
       <PostForm.ImageUploader {...formItemProps("thumbNailUrl")} />
     </PostForm>
