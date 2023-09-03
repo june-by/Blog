@@ -8,8 +8,7 @@ const WriteButton = () => {
 
   const gotoWrite = () => {
     push({
-      pathname: "/Write",
-      query: { mode: "Write" },
+      pathname: "/write",
     });
   };
 

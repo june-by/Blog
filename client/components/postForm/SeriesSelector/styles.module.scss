@@ -1,0 +1,12 @@
+@import "utils/utils.scss";
+
+.SeriesSelector {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.SeriesCreateModalOpenButton {
+  @include StyledButton;
+  padding: 0 10px;
+  height: 45px;
+}

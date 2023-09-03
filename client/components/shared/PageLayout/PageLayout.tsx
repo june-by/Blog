@@ -21,6 +21,7 @@ const getClassNameFromUrl = (url: string) => {
   else if (url.includes("/archives")) return styles.WithOutFlexLayout;
   else if (url.includes("/snippets")) return styles.WithOutFlexLayout;
   else if (url.includes("/about")) return styles.WithMaxWidth720px;
+  else if (url.includes("/write")) return styles.WithOutFlexLayout;
   return styles.WithFlexLayout;
 };
 
