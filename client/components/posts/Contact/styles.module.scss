@@ -2,7 +2,7 @@
 .Contact {
   width: 200px;
   height: fit-content;
-
+  flex-shrink: 0;
   h2 {
     width: 100%;
     text-align: left;
