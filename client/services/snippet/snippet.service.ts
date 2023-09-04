@@ -14,3 +14,6 @@ export const getSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
   request<SnippetType>({ method: "get", url: `/snippet/load/${id}` });
 
 export const getAllSnippetsAPI = async () => request<SnippetType[]>({ method: "get", url: "/snippet/load/all" });
+
+export const deleteSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
+  request({ method: "delete", url: `/snippet/${id}` });

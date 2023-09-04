@@ -2,14 +2,7 @@ import { Category } from "constants/category";
 import { useGetPostQuery } from "Hooks/Post";
 import useQueryId from "Hooks/useQueryId";
 import { useRouter } from "next/router";
-import {
-  ChangeEvent,
-  createContext,
-  Dispatch,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import { ChangeEvent, createContext, Dispatch, useContext, useEffect, useReducer } from "react";
 import { PostFormType } from "Types/post";
 
 type Action =
@@ -171,10 +164,8 @@ export const useWriteContext = () => {
 
 function useInitializeWriteFormData(dispatch: Dispatch<Action>) {
   const { query } = useRouter();
-  const postId = useQueryId();
-  const { data, isLoading } = useGetPostQuery(postId, {
-    enabled: isNaN(postId) ? false : true,
-  });
+  const id = useQueryId();
+  const { data, isLoading } = useGetPostQuery({ id });
 
   const post = data?.mainPost;
 

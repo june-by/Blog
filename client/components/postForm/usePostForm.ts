@@ -13,7 +13,17 @@ const usePostForm = <T extends Record<string, any>>(initialState: T) => {
     setFormState(data);
   }, []);
 
-  return { formItemProps, formState, setFormState, syncFormDataAndState };
+  const verifyAllKeysInFormStateEntered = useCallback(() => {
+    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
+
+    for (const key of formDataKeys) {
+      if (!formState[key]) return key;
+    }
+
+    return false;
+  }, [formState]);
+
+  return { formItemProps, formState, setFormState, syncFormDataAndState, verifyAllKeysInFormStateEntered };
 };
 
 export default usePostForm;

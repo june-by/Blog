@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
@@ -9,9 +9,14 @@ import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
 import { SnippetFormType } from "Types/snippets";
 import PostForm from "components/postForm/postForm";
-import { useAddSnippetMutation, useEditSnippetMutation } from "Hooks/Snippet";
+import {
+  useAddSnippetMutation,
+  useEditSnippetMutation,
+  useGetSnippetQuery,
+} from "Hooks/Snippet";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
+import omit from "utils/omit";
 
 const snippetFormInitialData = {
   title: "",
@@ -20,29 +25,44 @@ const snippetFormInitialData = {
 };
 
 const SnippetWritePage = () => {
-  const {
-    query: { mode = "write" },
-  } = useRouter();
+  const { query } = useRouter();
+  const mode = (query.mode ?? "write") as "write" | "edit";
+
   const id = useQueryId();
 
-  const addSnippetMutation = useAddSnippetMutation();
-  const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
+  const { data } = useGetSnippetQuery({ id });
 
-  const { formState, setFormState, formItemProps, syncFormDataAndState } =
-    usePostForm<SnippetFormType>(snippetFormInitialData);
+  const { mutateAsync: addSnippetMutate } = useAddSnippetMutation();
+  const { mutateAsync: editSnippetMutate } = useEditSnippetMutation({
+    snippetId: id,
+  });
+
+  const {
+    formState,
+    formItemProps,
+    syncFormDataAndState,
+    verifyAllKeysInFormStateEntered,
+  } = usePostForm<SnippetFormType>(snippetFormInitialData);
 
   const handleSubmitSnippet = () => {
-    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
+    const notEnteredKey = verifyAllKeysInFormStateEntered();
+    if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
-    for (const key of formDataKeys) {
-      if (!formState[key]) return toast.warn(`${key}를 입력해주세요.`);
-    }
+    const mutateAsync = {
+      write: addSnippetMutate,
+      edit: editSnippetMutate,
+    };
 
-    const mutation = mode === "write" ? addSnippetMutation : editSnippetMutation;
-    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
-    const mutatiotPromise = mutation.mutateAsync(formState);
-    toast.promise(mutatiotPromise, mutationPromiseMessage);
+    toast.promise(
+      mutateAsync[mode](formState),
+      MESSAGE.FORM_MUTATION_MESSAGE[mode]
+    );
   };
+
+  useEffect(() => {
+    if (!data) return;
+    syncFormDataAndState({ ...omit(data, "id", "createdAt") });
+  }, [data, syncFormDataAndState]);
 
   return (
     <PostForm>

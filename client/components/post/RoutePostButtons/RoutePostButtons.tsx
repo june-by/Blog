@@ -8,9 +8,9 @@ import LoadingOrNot from "components/shared/LoadingOrNot";
 import useQueryId from "Hooks/useQueryId";
 
 const RoutePostButtons = () => {
-  const postId = useQueryId();
+  const id = useQueryId();
 
-  const { data, isLoading } = useGetPostQuery(postId);
+  const { data, isLoading } = useGetPostQuery({ id });
 
   const {
     prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },
@@ -20,16 +20,8 @@ const RoutePostButtons = () => {
   return (
     <LoadingOrNot isLoading={isLoading}>
       <div className={styles.RoutePostButtons}>
-        <RoutePostButton
-          direction="prev"
-          postId={prevPostId}
-          postTitle={prevPostTitle}
-        />
-        <RoutePostButton
-          direction="next"
-          postId={nextPostId}
-          postTitle={nextPostTitle}
-        />
+        <RoutePostButton direction="prev" postId={prevPostId} postTitle={prevPostTitle} />
+        <RoutePostButton direction="next" postId={nextPostId} postTitle={nextPostTitle} />
       </div>
     </LoadingOrNot>
   );
