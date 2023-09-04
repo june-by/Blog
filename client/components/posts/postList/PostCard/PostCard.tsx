@@ -8,16 +8,22 @@ import Image from "next/image";
 import THUMBNAIL from "constants/thumbnail";
 import TagButton from "components/shared/tagButton";
 import { AiOutlineEye } from "react-icons/ai";
-import dateForm from "utils/dateForm";
 import PostCardSkeleton from "./Skeleton";
 import CustomWebPImage from "components/shared/CustomWebPImage";
+import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 
 interface Props {
   post: PostListPageDataType;
 }
 
 const PostCard = ({ post }: Props) => {
-  const { thumbNailUrl, title, category, shortDescription = "" } = post;
+  const {
+    thumbNailUrl,
+    title,
+    category,
+    shortDescription = "",
+    createdAt,
+  } = post;
   const isThumbNailExist = !isNull(thumbNailUrl);
 
   return (
@@ -60,7 +66,13 @@ const PostCard = ({ post }: Props) => {
           </div>
         </div>
         <div className={styles.bottom}>
-          <time>{dateForm(post.createdAt)}</time>
+          <time>
+            {" "}
+            {convertDateToString({
+              date: createdAt,
+              converter: DATE_FORM["ko"],
+            })}
+          </time>
           <div>
             <AiOutlineEye />
             <span> {post.isPublic ? post.views : 0}</span>

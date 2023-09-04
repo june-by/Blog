@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import dateFormWithDot from "utils/dateFormWithDot";
+import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 
 const Snippets = () => {
   const { data } = useGetAllSnippetsQuery();
@@ -28,7 +28,12 @@ const Snippets = () => {
                   <span className={styles.title}>{title}</span>
                   <span className={styles.date}>
                     <IoCalendarClearOutline />
-                    <time>{dateFormWithDot(createdAt)}</time>
+                    <time>
+                      {convertDateToString({
+                        date: createdAt,
+                        converter: DATE_FORM["dot"],
+                      })}
+                    </time>
                   </span>
                 </Link>
               ))}

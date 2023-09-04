@@ -1,13 +1,17 @@
 import React from "react";
 import { usePostContext } from "context/postContext";
-import dateForm from "utils/dateForm";
+import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 
 const PostDate = () => {
   const { createdAt } = usePostContext();
 
   if (!createdAt) return null;
 
-  return <span>{dateForm(createdAt)}</span>;
+  return (
+    <span>
+      {convertDateToString({ date: createdAt, converter: DATE_FORM["ko"] })}
+    </span>
+  );
 };
 
 export default PostDate;

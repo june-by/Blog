@@ -1,5 +1,5 @@
 import { useGetAllPostsQuery } from "Hooks/Post";
-import getYearMonthDate from "utils/getYearMonthDate";
+import { getYearMonthDate } from "utils/convertDateToString";
 import groupBy from "utils/groupBy";
 
 const useArchivePosts = () => {
@@ -8,7 +8,7 @@ const useArchivePosts = () => {
   if (data)
     return groupBy(
       data.map(({ createdAt, ...params }) => {
-        const { year, month, date } = getYearMonthDate(createdAt);
+        const { year, month, date } = getYearMonthDate({ date: createdAt });
         return {
           date: `${month}.${date}`,
           year,
