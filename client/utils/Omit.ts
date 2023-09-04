@@ -1,4 +1,4 @@
-function Omit<T extends Record<string, any>>(obj: T, ...props: (keyof T)[]) {
+function omit<T extends Record<string, any>>(obj: T, ...props: (keyof T)[]) {
   const result = { ...obj };
   props.forEach(function (prop) {
     delete result[prop];
@@ -6,4 +6,4 @@ function Omit<T extends Record<string, any>>(obj: T, ...props: (keyof T)[]) {
   return result;
 }
 
-export default Omit;
+export default omit;
