@@ -9,6 +9,8 @@ interface Props {
 
 const getMainPathFromUrl = (url: string) => {
   if (url.includes("/post/")) return "post";
+  else if (url.includes("/snippets/write")) return "needed";
+  else if (url.includes("/snippets/")) return "post";
   else if (url.includes("/series")) return "needed";
   else if (url.includes("/archives")) return "needed";
   else if (url.includes("/about")) return "needed";

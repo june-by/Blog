@@ -2,8 +2,8 @@ import { Sequelize } from "sequelize";
 import { ModelType } from "./types";
 
 export default (sequelize: Sequelize, DataTypes: any) => {
-  const Snippets: ModelType = sequelize.define(
-    "Snippets",
+  const Snippet: ModelType = sequelize.define(
+    "Snippet",
     {
       title: {
         type: DataTypes.TEXT,
@@ -24,5 +24,5 @@ export default (sequelize: Sequelize, DataTypes: any) => {
     }
   );
 
-  return Snippets;
+  return Snippet;
 };

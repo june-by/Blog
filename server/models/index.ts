@@ -5,18 +5,13 @@ import userModel from "./user";
 import tagModel from "./tag";
 import visitorModel from "./visitor";
 import seriesModel from "./series";
-import snippetsModel from "./snippets";
+import snippetModel from "./snippet";
 import { dbConfig } from "config/config";
 
 const env = process.env.NODE_ENV || "development";
 const config = dbConfig[env];
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
-);
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
 interface DB {
   [key: string]: any;
 }
@@ -27,7 +22,7 @@ const db: DB = {
   Tag: tagModel(sequelize, Sequelize),
   Visitor: visitorModel(sequelize, Sequelize),
   Series: seriesModel(sequelize, Sequelize),
-  Snippets: snippetsModel(sequelize, Sequelize),
+  Snippet: snippetModel(sequelize, Sequelize),
   sequelize: sequelize,
   Sequelize: Sequelize,
 };

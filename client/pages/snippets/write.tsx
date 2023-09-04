@@ -4,9 +4,60 @@ import { customAxios } from "utils/CustomAxios";
 import https from "https";
 import IsAdmin from "utils/isAdmin";
 import { SnippetsCategory } from "constants/category";
+import { useRouter } from "next/router";
+import useQueryId from "Hooks/useQueryId";
+import usePostForm from "components/postForm/usePostForm";
+import { SnippetFormType } from "Types/snippets";
+import PostForm from "components/postForm/postForm";
+import { useAddSnippetMutation, useEditSnippetMutation } from "Hooks/Snippet";
+import MESSAGE from "constants/message";
+import { toast } from "react-toastify";
+
+const snippetFormInitialData = {
+  title: "",
+  category: "",
+  content: "",
+};
 
 const SnippetWritePage = () => {
-  return <div>SnippetWritePage</div>;
+  const {
+    query: { mode = "write" },
+  } = useRouter();
+  const id = useQueryId();
+
+  const addSnippetMutation = useAddSnippetMutation();
+  const editSnippetMutation = useEditSnippetMutation({ snippetId: id });
+
+  const { formState, setFormState, formItemProps, syncFormDataAndState } =
+    usePostForm<SnippetFormType>(snippetFormInitialData);
+
+  const handleSubmitSnippet = () => {
+    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
+
+    for (const key of formDataKeys) {
+      if (!formState[key]) return toast.warn(`${key}를 입력해주세요.`);
+    }
+
+    const mutation = mode === "write" ? addSnippetMutation : editSnippetMutation;
+    const mutationPromiseMessage = MESSAGE.FORM_MUTATION_MESSAGE[mode as "write" | "edit"];
+    const mutatiotPromise = mutation.mutateAsync(formState);
+    toast.promise(mutatiotPromise, mutationPromiseMessage);
+  };
+
+  return (
+    <PostForm>
+      <PostForm.SubmitButton handleSubmit={handleSubmitSnippet} />
+      <PostForm.TextInput {...formItemProps("title")} label="제목" />
+      <PostForm.Selector
+        {...formItemProps("category")}
+        label="카테고리"
+        options={SnippetsCategory.map((category) => {
+          return { key: category, value: category, text: category };
+        })}
+      />
+      <PostForm.Editor {...formItemProps("content")} />
+    </PostForm>
+  );
 };
 
 export default SnippetWritePage;
