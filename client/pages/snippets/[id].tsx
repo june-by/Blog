@@ -7,7 +7,10 @@ import QUERY_KEY from "constants/queryKey";
 import { type GetStaticProps, type GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "react-query";
-import { getAllSnippetsIdAPI, getSnippetAPI } from "services/snippet/snippet.service";
+import {
+  getAllSnippetsIdAPI,
+  getSnippetAPI,
+} from "services/snippet/snippet.service";
 import Post from "components/post";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import styles from "./styles.module.scss";
@@ -31,13 +34,17 @@ const SnippetPostPage = () => {
         ogUrl={`https://byjuun.com/snippets/${snippetId}`}
       />
       <ScrollIndicator />
-      <Post Post={{ ...snippetData, title: snippetData.title + ` (${snippetData.category})` }}>
+      <Post
+        Post={{
+          ...snippetData,
+          title: snippetData.title + ` (${snippetData.category})`,
+        }}
+      >
         <Post.AdminButtons />
         <Post.Title />
         <Post.Date />
-
         <div className={styles.contentSection}>
-          <div>
+          <div className={styles.content}>
             <Post.Content />
           </div>
           <Post.TableOfContents />
@@ -67,11 +74,15 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const queryClient = new QueryClient();
   try {
     const snippetId = Number(context.params?.id);
-    await queryClient.fetchQuery([QUERY_KEY.SNIPPET, snippetId], () => getSnippetAPI({ id: snippetId }));
+    await queryClient.fetchQuery([QUERY_KEY.SNIPPET, snippetId], () =>
+      getSnippetAPI({ id: snippetId })
+    );
     return {
       props: {
         dehydratedState: dehydrate(queryClient),

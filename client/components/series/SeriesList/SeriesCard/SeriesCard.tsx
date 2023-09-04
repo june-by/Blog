@@ -5,8 +5,8 @@ import React from "react";
 import isNull from "utils/isNull";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import dateForm from "utils/dateForm";
 import CustomWebPImage from "components/shared/CustomWebPImage";
+import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 
 const SeriesCard = ({
   id,
@@ -48,7 +48,13 @@ const SeriesCard = ({
           <div>
             <span>{Posts.length}개의 포스트</span>
           </div>
-          ﹒<time>{dateForm(createdAt)}</time>
+          ﹒
+          <time>
+            {convertDateToString({
+              date: createdAt,
+              converter: DATE_FORM["ko"],
+            })}
+          </time>
         </div>
       </article>
     </Link>

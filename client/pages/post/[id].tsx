@@ -72,7 +72,7 @@ const PostPage = () => {
         <Post.Tags />
         <Post.ViewCount />
         <div className={styles.contentSection}>
-          <div>
+          <div className={styles.content}>
             <Post.SeriesInfo />
             <Post.Content />
           </div>
