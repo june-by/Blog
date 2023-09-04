@@ -9,10 +9,14 @@ import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
 import { SnippetFormType } from "Types/snippets";
 import PostForm from "components/postForm/postForm";
-import { useAddSnippetMutation, useEditSnippetMutation, useGetSnippetQuery } from "Hooks/Snippet";
+import {
+  useAddSnippetMutation,
+  useEditSnippetMutation,
+  useGetSnippetQuery,
+} from "Hooks/Snippet";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
-import Omit from "utils/omit";
+import omit from "utils/omit";
 
 const snippetFormInitialData = {
   title: "",
@@ -29,10 +33,16 @@ const SnippetWritePage = () => {
   const { data } = useGetSnippetQuery({ id });
 
   const { mutateAsync: addSnippetMutate } = useAddSnippetMutation();
-  const { mutateAsync: editSnippetMutate } = useEditSnippetMutation({ snippetId: id });
+  const { mutateAsync: editSnippetMutate } = useEditSnippetMutation({
+    snippetId: id,
+  });
 
-  const { formState, formItemProps, syncFormDataAndState, verifyAllKeysInFormStateEntered } =
-    usePostForm<SnippetFormType>(snippetFormInitialData);
+  const {
+    formState,
+    formItemProps,
+    syncFormDataAndState,
+    verifyAllKeysInFormStateEntered,
+  } = usePostForm<SnippetFormType>(snippetFormInitialData);
 
   const handleSubmitSnippet = () => {
     const notEnteredKey = verifyAllKeysInFormStateEntered();
@@ -43,12 +53,15 @@ const SnippetWritePage = () => {
       edit: editSnippetMutate,
     };
 
-    toast.promise(mutateAsync[mode](formState), MESSAGE.FORM_MUTATION_MESSAGE[mode]);
+    toast.promise(
+      mutateAsync[mode](formState),
+      MESSAGE.FORM_MUTATION_MESSAGE[mode]
+    );
   };
 
   useEffect(() => {
     if (!data) return;
-    syncFormDataAndState({ ...Omit(data, "id", "createdAt") });
+    syncFormDataAndState({ ...omit(data, "id", "createdAt") });
   }, [data, syncFormDataAndState]);
 
   return (
