@@ -41,11 +41,11 @@ const SnippetWritePage = () => {
     formState,
     formItemProps,
     syncFormDataAndState,
-    verifyAllKeysInFormStateEntered,
+    verifyNonNullableInFormState,
   } = usePostForm<SnippetFormType>(snippetFormInitialData);
 
   const handleSubmitSnippet = () => {
-    const notEnteredKey = verifyAllKeysInFormStateEntered();
+    const notEnteredKey = verifyNonNullableInFormState();
     if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
     const mutateAsync = {

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";
 import { customAxios } from "utils/CustomAxios";
 import IsAdmin from "utils/isAdmin";
+import omit from "utils/omit";
 
 const postFormInitialData = {
   title: "",
@@ -36,11 +37,17 @@ const WritePage = () => {
 
   const { data } = useGetPostQuery({ id });
 
-  const { formState, formItemProps, syncFormDataAndState, verifyAllKeysInFormStateEntered } =
-    usePostForm<PostFormType>(postFormInitialData);
+  const {
+    formState,
+    formItemProps,
+    syncFormDataAndState,
+    verifyNonNullableInFormState,
+  } = usePostForm<PostFormType>(postFormInitialData);
 
   const handleSubmitPost = () => {
-    const notEnteredKey = verifyAllKeysInFormStateEntered();
+    const notEnteredKey = verifyNonNullableInFormState({
+      exclude: ["SeriesId", "thumbNailUrl", "tagArr"],
+    });
     if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
 
     const mutateAsync = {
@@ -48,7 +55,10 @@ const WritePage = () => {
       edit: editPostMutate,
     };
 
-    toast.promise(mutateAsync[mode](formState), MESSAGE.FORM_MUTATION_MESSAGE[mode]);
+    toast.promise(
+      mutateAsync[mode](formState),
+      MESSAGE.FORM_MUTATION_MESSAGE[mode]
+    );
   };
 
   useEffect(() => {
@@ -79,7 +89,10 @@ const WritePage = () => {
         <PostForm.ListForm {...formItemProps("tagArr")} label="태그" />
       </div>
       <SeriesSelector {...formItemProps("SeriesId")} />
-      <PostForm.TextInput {...formItemProps("shortDescription")} label="짧은설명" />
+      <PostForm.TextInput
+        {...formItemProps("shortDescription")}
+        label="짧은설명"
+      />
       <PostForm.Editor {...formItemProps("content")} />
       <PostForm.ImageUploader {...formItemProps("thumbNailUrl")} />
     </PostForm>
