@@ -101,3 +101,35 @@ test.describe("시리즈 - ", () => {
     await expect(gotoNextSeriesPostButton).toBeDisabled();
   });
 });
+
+test.describe("이전, 다음 포스트 이동 링크", () => {
+  test("이전 포스트 링크을 누르면, 이전 포스트 페이지로 이동한다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo({});
+
+    const prevPostData = POST_MOCK_DATA.prevPost;
+
+    const gotoPrevPostLink = post.page.getByTestId("gotoPrevPost");
+
+    await gotoPrevPostLink.click();
+
+    await expect(page).toHaveURL(`/post/${prevPostData.OtherId}`);
+  });
+
+  test("다음 포스트 링크을 누르면, 다음 포스트 페이지로 이동한다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo({});
+
+    const nextPostData = POST_MOCK_DATA.nextPost;
+
+    const gotoPrevPostLink = post.page.getByTestId("gotoNextPost");
+
+    await gotoPrevPostLink.click();
+
+    await expect(page).toHaveURL(`/post/${nextPostData.OtherId}`);
+  });
+});

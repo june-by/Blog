@@ -34,6 +34,10 @@ const DIRECTION = {
     prev: `${styles.prevRoutePostButton}`,
     next: `${styles.nextRoutePostButton}`,
   },
+  TEST_ID: {
+    prev: "gotoPrevPost",
+    next: "gotoNextPost",
+  },
 };
 
 const RoutePostButton = ({ direction, postTitle, postId }: Props) => {
@@ -55,6 +59,7 @@ const RoutePostButton = ({ direction, postTitle, postId }: Props) => {
       href={`/post/${postId}`}
       className={DIRECTION.CLASSNAME[direction]}
       onClick={handleClickButton}
+      data-testid={DIRECTION.TEST_ID[direction]}
     >
       <div>
         <span className={styles.RoutePostButtonDescription}>
