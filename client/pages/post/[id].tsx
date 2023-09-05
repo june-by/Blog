@@ -1,6 +1,6 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getAllPostsId, getPostAPI } from "services/post";
 import { useGetPostQuery } from "Hooks/Post";
@@ -8,8 +8,6 @@ import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import S3_PREFIX from "constants/s3Prefix";
 import THUMBNAIL from "constants/thumbnail";
 import QUERY_KEY from "constants/queryKey";
-import { useGetUserQuery } from "Hooks/User";
-import IsAdmin from "utils/isAdmin";
 import MESSAGE from "constants/message";
 import Post from "components/post";
 import ScrollIndicator from "components/shared/ScrollIndicator";
@@ -17,72 +15,60 @@ import useQueryId from "Hooks/useQueryId";
 import PageSkeleton from "components/PageSkeleton";
 import CommonSEO from "components/shared/CommonSEO";
 import styles from "./styles.module.scss";
+import WithPostPublicValidation from "components/post/WithPostPublicValidation";
 
 const PostPage = () => {
   const router = useRouter();
   const id = useQueryId();
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
-    useState(false);
-  const { data: userInfo } = useGetUserQuery();
-
   const { data } = useGetPostQuery({ id });
 
   const PostData = data?.mainPost;
 
-  useEffect(() => {
-    if (!PostData) return;
-    if (PostData.isPublic) return;
-
-    if (IsAdmin(userInfo)) {
-      setAdminValidationForNotPublicPost(true);
-    } else {
-      alert(MESSAGE.NOT_READY_POST);
-      router.replace("/");
-    }
-  }, [userInfo, PostData, router]);
-
-  if (router.isFallback) return <PageSkeleton url="/post/" />;
-
-  if (!PostData?.isPublic) {
-    if (!adminValidationForNotPublicPost) {
-      return <PageSkeleton url="/post/" />;
-    }
-  }
+  const handleNotPublicPost = useCallback(() => {
+    alert(MESSAGE.NOT_READY_POST);
+    router.replace("/");
+  }, [router]);
 
   if (!PostData) return null;
 
   return (
-    <>
-      <CommonSEO
-        title={PostData.title}
-        description={PostData.content.substring(0, 100)}
-        ogTitle={PostData.title}
-        ogDescription={PostData.content.substring(0, 100)}
-        ogImage={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
-        ogUrl={`https://byjuun.com/post/${id}`}
-      />
-      <ScrollIndicator />
-      <Post Post={PostData}>
-        <Post.AdminButtons />
-        <Post.Title />
-        <div className={styles.div1}>
-          <Post.Date />
-          <Post.Category />
-        </div>
-        <Post.Tags />
-        <Post.ViewCount />
-        <div className={styles.contentSection}>
-          <div className={styles.content}>
-            <Post.SeriesInfo />
-            <Post.Content />
+    <WithPostPublicValidation
+      isPublic={PostData.isPublic}
+      fallback={<PageSkeleton url="/post/" />}
+      onInvalid={handleNotPublicPost}
+    >
+      <>
+        <CommonSEO
+          title={PostData.title}
+          description={PostData.content.substring(0, 100)}
+          ogTitle={PostData.title}
+          ogDescription={PostData.content.substring(0, 100)}
+          ogImage={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
+          ogUrl={`https://byjuun.com/post/${id}`}
+        />
+        <ScrollIndicator />
+        <Post Post={PostData}>
+          <Post.AdminButtons />
+          <Post.Title />
+          <div className={styles.div1}>
+            <Post.Date />
+            <Post.Category />
           </div>
-          <Post.TableOfContents />
-        </div>
-        <Post.RoutePostButtons />
-        <Post.Comments />
-      </Post>
-      <ScrollToTopButton />
-    </>
+          <Post.Tags />
+          <Post.ViewCount />
+          <div className={styles.contentSection}>
+            <div className={styles.content}>
+              <Post.SeriesInfo />
+              <Post.Content />
+            </div>
+            <Post.TableOfContents />
+          </div>
+          <Post.RoutePostButtons />
+          <Post.Comments />
+        </Post>
+        <ScrollToTopButton />
+      </>
+    </WithPostPublicValidation>
   );
 };
 
