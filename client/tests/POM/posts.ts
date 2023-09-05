@@ -9,6 +9,8 @@ import {
 import { USER_MOCK_DATA } from "mocks/data/user";
 import POM from "./pom";
 
+export interface PostsPOM_MockAPIParams {}
+
 export default class PostsPOM extends POM {
   constructor(page: Page) {
     super(page);

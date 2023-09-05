@@ -21,11 +21,12 @@ import styles from "./styles.module.scss";
 const PostPage = () => {
   const router = useRouter();
   const id = useQueryId();
-  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] = useState(false);
+  const [adminValidationForNotPublicPost, setAdminValidationForNotPublicPost] =
+    useState(false);
   const { data: userInfo } = useGetUserQuery();
 
   const { data } = useGetPostQuery({ id });
-
+  console.log(data);
   const PostData = data?.mainPost;
 
   useEffect(() => {
@@ -103,11 +104,15 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const queryClient = new QueryClient();
   try {
     const postId = Number(context.params?.id);
-    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () => getPostAPI(postId));
+    await queryClient.fetchQuery([QUERY_KEY.POST.ONE, postId], () =>
+      getPostAPI(postId)
+    );
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
@@ -121,6 +126,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 export default PostPage;
 
 function getOgImage(url: string | null | undefined, category: string) {
-  if (url === "" || url === "null" || url === "undefined" || !url) return S3_PREFIX + THUMBNAIL[category]?.jpg;
+  if (url === "" || url === "null" || url === "undefined" || !url)
+    return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
 }
