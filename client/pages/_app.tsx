@@ -2,8 +2,12 @@ import "styles/globals.css";
 import "styles/Editor.css";
 import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import Head from "next/head";
 import ProgressBar from "components/shared/ProgressBar";

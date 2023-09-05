@@ -2,7 +2,7 @@ import { SnippetFormType, SnippetType } from "Types/snippets";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 import { useRouter } from "next/router";
-import { UseQueryOptions, useMutation, useQuery } from "react-query";
+import { UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import {
   addSnippetAPI,
   deleteSnippetAPI,
@@ -39,11 +39,14 @@ export const useAddSnippetMutation = () =>
   });
 
 export const useEditSnippetMutation = ({ snippetId }: { snippetId: number }) =>
-  useMutation((reqData: SnippetFormType) => editSnippetAPI({ ...reqData, snippetId }), {
-    onSuccess: () => {
-      window.location.replace("/snippets");
-    },
-  });
+  useMutation(
+    (reqData: SnippetFormType) => editSnippetAPI({ ...reqData, snippetId }),
+    {
+      onSuccess: () => {
+        window.location.replace("/snippets");
+      },
+    }
+  );
 
 export const useDeleteSnippetMutation = () =>
   useMutation(deleteSnippetAPI, {

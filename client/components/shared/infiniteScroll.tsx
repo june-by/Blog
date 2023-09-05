@@ -1,6 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { FetchNextPageOptions, InfiniteQueryObserverResult } from "react-query";
+import {
+  FetchNextPageOptions,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 import LoadingOrNot from "./LoadingOrNot";
 
 interface Props {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { QueryClient } from "react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { postVisitorAPI } from "services/visitor";
 
 interface DateInfo {

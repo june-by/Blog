@@ -6,7 +6,7 @@ import ScrollIndicator from "components/shared/ScrollIndicator";
 import QUERY_KEY from "constants/queryKey";
 import { type GetStaticProps, type GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
-import { QueryClient, dehydrate } from "react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   getAllSnippetsIdAPI,
   getSnippetAPI,

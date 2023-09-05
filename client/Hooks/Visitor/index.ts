@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getVisitorAPI } from "services/visitor";
 import { VisitorAPIType } from "Types/visitor";
 import QUERY_KEY from "constants/queryKey";
