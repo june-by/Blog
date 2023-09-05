@@ -17,11 +17,13 @@ interface gotoParams extends PostPOM_MockAPIParams {
 }
 
 export default class PostPOM extends POM {
+  data!: typeof POST_MOCK_DATA;
   constructor(page: Page) {
     super(page);
   }
 
   async goTo({ postId = "1", ...mockApiParams }: gotoParams) {
+    this.data = JSON.parse(JSON.stringify(POST_MOCK_DATA));
     await super.mocking();
     await this.mockAPI(mockApiParams);
     await this.page.goto(`/post/${postId}`);
@@ -34,14 +36,12 @@ export default class PostPOM extends POM {
     isNextPostExist = true,
   }: PostPOM_MockAPIParams) {
     await this.page.route(`${ServerURL}/post/load/*`, async (route) => {
-      const initialData = JSON.parse(JSON.stringify(POST_MOCK_DATA));
-
       const result = pipe(
         setSeriesIndex,
         deletePrevPost,
         deleteNextPost
       )({
-        data: initialData,
+        data: this.data,
         feature: {
           isFirstPostInSeries,
           isLastPostInSeries,

@@ -1,14 +1,13 @@
 import { test, expect } from "@playwright/test";
 
 import PostPOM from "./POM/post";
-import { POST_MOCK_DATA } from "mocks/data/post";
 import MESSAGE from "constants/message";
 
 test("지정한 Page Title을 제공해야 한다.", async ({ page }) => {
   const post = new PostPOM(page);
   await post.goTo({});
 
-  await expect(post.page).toHaveTitle(POST_MOCK_DATA.mainPost.title);
+  await expect(post.page).toHaveTitle(post.data.mainPost.title);
 });
 
 test.describe("시리즈 - ", () => {
@@ -20,7 +19,7 @@ test.describe("시리즈 - ", () => {
 
     await expect(
       post.page.getByText(
-        new RegExp(`^.*(${POST_MOCK_DATA.mainPost.seriesPosts[1].title}).*`)
+        new RegExp(`^.*(${post.data.mainPost.seriesPosts[1].title}).*`)
       )
     ).toBeHidden();
   });
@@ -35,7 +34,7 @@ test.describe("시리즈 - ", () => {
 
     await expect(
       post.page.getByText(
-        new RegExp(`^.*(${POST_MOCK_DATA.mainPost.seriesPosts[1].title}).*`)
+        new RegExp(`^.*(${post.data.mainPost.seriesPosts[1].title}).*`)
       )
     ).toBeVisible();
   });
@@ -48,7 +47,7 @@ test.describe("시리즈 - ", () => {
 
     await post.clickSeriesInfoMoreButton();
 
-    const otherPostInSeries = POST_MOCK_DATA.mainPost.seriesPosts[1];
+    const otherPostInSeries = post.data.mainPost.seriesPosts[1];
 
     const otherPostInSeriesLocator = post.page.getByText(
       new RegExp(`^.*(${otherPostInSeries.title}).*`)
@@ -72,7 +71,7 @@ test.describe("시리즈 - ", () => {
     await gotoNextSeriesButton.click();
 
     await expect(post.page).toHaveURL(
-      `/post/${POST_MOCK_DATA.mainPost.seriesPosts[1].id}`
+      `/post/${post.data.mainPost.seriesPosts[1].id}`
     );
   });
 
@@ -110,7 +109,7 @@ test.describe("이전, 다음 포스트 이동 링크", () => {
     const post = new PostPOM(page);
     await post.goTo({});
 
-    const prevPostData = POST_MOCK_DATA.prevPost;
+    const prevPostData = post.data.prevPost;
 
     const gotoPrevPostLink = post.page.getByTestId("gotoPrevPost");
 
@@ -125,7 +124,7 @@ test.describe("이전, 다음 포스트 이동 링크", () => {
     const post = new PostPOM(page);
     await post.goTo({});
 
-    const nextPostData = POST_MOCK_DATA.nextPost;
+    const nextPostData = post.data.nextPost;
 
     const gotoPrevPostLink = post.page.getByTestId("gotoNextPost");
 
