@@ -147,3 +147,18 @@ test.describe("이전, 다음 포스트 이동 링크", () => {
     await expect(page.getByText(MESSAGE.NO_NEXT_POST)).toBeVisible();
   });
 });
+
+test.describe("TabelOfContent", () => {
+  test("페이지가 해당 TOC 영역에 위치하지 않는다면, 해당 TOC는 Active 되어있지 않아야 한다", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo({});
+
+    const toc = post.page
+      .getByRole("navigation")
+      .filter({ hasText: "🎬 데이터 분리" });
+
+    await expect(toc).toHaveCSS("opacity", "0.7");
+  });
+});
