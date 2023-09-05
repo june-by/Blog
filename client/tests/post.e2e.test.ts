@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 
 import PostPOM from "./POM/post";
 import { POST_MOCK_DATA } from "mocks/data/post";
+import MESSAGE from "constants/message";
 
 test("지정한 Page Title을 제공해야 한다.", async ({ page }) => {
   const post = new PostPOM(page);
@@ -131,5 +132,19 @@ test.describe("이전, 다음 포스트 이동 링크", () => {
     await gotoPrevPostLink.click();
 
     await expect(page).toHaveURL(`/post/${nextPostData.OtherId}`);
+  });
+
+  test("이전 포스트가 없을 경우 안내 메시지를 노출한다.", async ({ page }) => {
+    const post = new PostPOM(page);
+    await post.goTo({ isPrevPostExist: false });
+
+    await expect(page.getByText(MESSAGE.NO_PREV_POST)).toBeVisible();
+  });
+
+  test("다음 포스트가 없을 경우 안내 메시지를 노출한다.", async ({ page }) => {
+    const post = new PostPOM(page);
+    await post.goTo({ isNextPostExist: false });
+
+    await expect(page.getByText(MESSAGE.NO_NEXT_POST)).toBeVisible();
   });
 });

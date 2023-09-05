@@ -2,12 +2,14 @@ import { Page } from "@playwright/test";
 import { ServerURL } from "constants/serverURL";
 import { POST_MOCK_DATA } from "mocks/data/post";
 import POM from "./pom";
-import { FuncsType, PipeParams } from "tests/type";
+import { FuncsType } from "tests/type";
 import pipe from "tests/utils";
 
 export interface PostPOM_MockAPIParams {
   isFirstPostInSeries?: boolean;
   isLastPostInSeries?: boolean;
+  isPrevPostExist?: boolean;
+  isNextPostExist?: boolean;
 }
 
 interface gotoParams extends PostPOM_MockAPIParams {
@@ -28,17 +30,28 @@ export default class PostPOM extends POM {
   async mockAPI({
     isFirstPostInSeries,
     isLastPostInSeries,
+    isPrevPostExist = true,
+    isNextPostExist = true,
   }: PostPOM_MockAPIParams) {
     await this.page.route(`${ServerURL}/post/load/*`, async (route) => {
-      const initialData = POST_MOCK_DATA;
+      const initialData = JSON.parse(JSON.stringify(POST_MOCK_DATA));
 
-      const result = pipe(setSeriesIndex)({
+      const result = pipe(
+        setSeriesIndex,
+        deletePrevPost,
+        deleteNextPost
+      )({
         data: initialData,
-        feature: { isFirstPostInSeries, isLastPostInSeries },
+        feature: {
+          isFirstPostInSeries,
+          isLastPostInSeries,
+          isPrevPostExist,
+          isNextPostExist,
+        },
       });
 
       await route.fulfill({
-        json: POST_MOCK_DATA,
+        json: result.data,
       });
     });
 
@@ -84,6 +97,33 @@ const setSeriesIndex: FuncsType<typeof POST_MOCK_DATA> = ({
       ...otherPostInSeriesPosts,
       currentPostInSeriesPosts,
     ];
+  }
+
+  return { data: result, feature };
+};
+
+const deletePrevPost: FuncsType<typeof POST_MOCK_DATA> = ({
+  data,
+  feature,
+}) => {
+  const result = { ...data };
+  const { isPrevPostExist } = feature;
+
+  if (!isPrevPostExist) {
+    result.prevPost = { OtherCreatedAt: null, OtherId: null, OtherTitle: null };
+  }
+  return { data: result, feature };
+};
+
+const deleteNextPost: FuncsType<typeof POST_MOCK_DATA> = ({
+  data,
+  feature,
+}) => {
+  const result = { ...data };
+  const { isNextPostExist } = feature;
+
+  if (!isNextPostExist) {
+    result.nextPost = { OtherCreatedAt: null, OtherId: null, OtherTitle: null };
   }
 
   return { data: result, feature };

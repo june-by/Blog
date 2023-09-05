@@ -6,6 +6,7 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import { toast } from "react-toastify";
+import MESSAGE from "constants/message";
 
 interface Props {
   postTitle: string | null;
@@ -23,8 +24,8 @@ const DIRECTION = {
     next: "다음 포스트",
   },
   NO_POST_TITLE: {
-    prev: "이전 포스트가 존재하지 않습니다",
-    next: "다음 포스트가 존재하지 않습니다",
+    prev: MESSAGE.NO_PREV_POST,
+    next: MESSAGE.NO_NEXT_POST,
   },
   ARROW_SVG: {
     prev: IoArrowBackCircleOutline,

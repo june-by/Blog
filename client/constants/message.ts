@@ -28,6 +28,8 @@ const MESSAGE = {
       error: "수정 중 오류가 발생했습니다.",
     },
   },
+  NO_PREV_POST: "이전 포스트가 존재하지 않습니다",
+  NO_NEXT_POST: "다음 포스트가 존재하지 않습니다",
 };
 
 export default MESSAGE;
