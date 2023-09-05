@@ -5,7 +5,7 @@ import { POST_MOCK_DATA } from "mocks/data/post";
 
 test("지정한 Page Title을 제공해야 한다.", async ({ page }) => {
   const post = new PostPOM(page);
-  await post.goTo();
+  await post.goTo({});
 
   await expect(post.page).toHaveTitle(POST_MOCK_DATA.mainPost.title);
 });
@@ -15,7 +15,7 @@ test.describe("시리즈 - ", () => {
     page,
   }) => {
     const post = new PostPOM(page);
-    await post.goTo();
+    await post.goTo({});
 
     await expect(
       post.page.getByText(
@@ -28,7 +28,7 @@ test.describe("시리즈 - ", () => {
     page,
   }) => {
     const post = new PostPOM(page);
-    await post.goTo();
+    await post.goTo({});
 
     await post.clickSeriesInfoMoreButton();
 
@@ -43,7 +43,7 @@ test.describe("시리즈 - ", () => {
     page,
   }) => {
     const post = new PostPOM(page);
-    await post.goTo();
+    await post.goTo({});
 
     await post.clickSeriesInfoMoreButton();
 
@@ -62,7 +62,7 @@ test.describe("시리즈 - ", () => {
     page,
   }) => {
     const post = new PostPOM(page);
-    await post.goTo();
+    await post.goTo({ isFirstPostInSeries: true });
 
     const gotoNextSeriesButton = post.page.getByTestId(
       "gotoNextSeriesPostButton"
@@ -79,7 +79,7 @@ test.describe("시리즈 - ", () => {
     page,
   }) => {
     const post = new PostPOM(page);
-    await post.goTo();
+    await post.goTo({ isFirstPostInSeries: true });
 
     const gotoPrevSeriesPostButton = post.page.getByTestId(
       "gotoPrevSeriesPostButton"
