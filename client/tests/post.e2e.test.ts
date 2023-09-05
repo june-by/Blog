@@ -161,4 +161,19 @@ test.describe("TabelOfContent", () => {
 
     await expect(toc).toHaveCSS("opacity", "0.7");
   });
+
+  test("페이지가 해당 TOC 영역에 위치한다면, 해당 TOC는 Active 되어있어야 한다", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo({});
+
+    const toc = post.page
+      .getByRole("navigation")
+      .filter({ hasText: "🎬 데이터 분리" });
+
+    await toc.click();
+
+    await expect(toc).toHaveCSS("opacity", "1");
+  });
 });
