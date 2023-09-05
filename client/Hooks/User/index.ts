@@ -1,5 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI, submitGithubCode } from "services/user";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getUserInfoAPI,
+  LoginAPI,
+  LogOutAPI,
+  SignUpAPI,
+  submitGithubCode,
+} from "services/user";
 import { UserType } from "Types/user";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
@@ -7,7 +13,10 @@ import MESSAGE from "constants/message";
 import { ErrorMessage, MutationParams } from "Types/shared";
 
 export const useGetUserQuery = () =>
-  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), { ...CACHE_OPTION.ALL, retry: false });
+  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), {
+    ...CACHE_OPTION.ALL,
+    retry: false,
+  });
 
 export const useSignUp = ({ onSuccess, onError }: MutationParams) => {
   return useMutation(SignUpAPI, {

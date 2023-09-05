@@ -2,7 +2,7 @@ import ErrorHelper from "components/shared/errorHelper";
 import NoPost from "./NoPost";
 import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
 import React from "react";
-import { UseInfiniteQueryResult } from "react-query";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { PostListPageDataType } from "Types/post";
 import InfiniteScroll from "components/shared/infiniteScroll";
 import PostsListLayout from "./layout";

@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { dehydrate, QueryClient } from "react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getAllPostsId, getPostAPI } from "services/post";
 import { useGetPostQuery } from "Hooks/Post";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
@@ -26,7 +26,7 @@ const PostPage = () => {
   const { data: userInfo } = useGetUserQuery();
 
   const { data } = useGetPostQuery({ id });
-  console.log(data);
+
   const PostData = data?.mainPost;
 
   useEffect(() => {
