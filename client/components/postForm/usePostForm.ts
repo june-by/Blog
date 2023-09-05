@@ -13,17 +13,28 @@ const usePostForm = <T extends Record<string, any>>(initialState: T) => {
     setFormState(data);
   }, []);
 
-  const verifyAllKeysInFormStateEntered = useCallback(() => {
-    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
+  const verifyNonNullableInFormState = useCallback(
+    (params?: { exclude: (keyof typeof formState)[] }) => {
+      const { exclude = [] } = params ?? {};
+      const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
 
-    for (const key of formDataKeys) {
-      if (!formState[key]) return key;
-    }
+      for (const key of formDataKeys) {
+        if (exclude.includes(key)) continue;
+        if (!formState[key]) return key;
+      }
 
-    return false;
-  }, [formState]);
+      return false;
+    },
+    [formState]
+  );
 
-  return { formItemProps, formState, setFormState, syncFormDataAndState, verifyAllKeysInFormStateEntered };
+  return {
+    formItemProps,
+    formState,
+    setFormState,
+    syncFormDataAndState,
+    verifyNonNullableInFormState,
+  };
 };
 
 export default usePostForm;
