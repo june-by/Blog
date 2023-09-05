@@ -87,4 +87,17 @@ test.describe("시리즈 - ", () => {
 
     await expect(gotoPrevSeriesPostButton).toBeDisabled();
   });
+
+  test("해당 시리즈의 마지막 포스트일 경우, 다음 버튼을 누를 수 없다.", async ({
+    page,
+  }) => {
+    const post = new PostPOM(page);
+    await post.goTo({ isLastPostInSeries: true });
+
+    const gotoNextSeriesPostButton = post.page.getByTestId(
+      "gotoNextSeriesPostButton"
+    );
+
+    await expect(gotoNextSeriesPostButton).toBeDisabled();
+  });
 });
