@@ -25,17 +25,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeContainer>
         <Hydrate state={pageProps.dehydratedState}>
-          <>
-            <Header />
-            <WithRouteChange
-              routeChangeFallback={(url) => <PageSkeleton url={url} />}
-            >
-              <CommonSEO />
-              <Component {...pageProps} />
-              <MyToastContainer />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </WithRouteChange>
-          </>
+          <Header />
+          <WithRouteChange
+            routeChangeFallback={(url) => <PageSkeleton url={url} />}
+          >
+            <CommonSEO />
+            <Component {...pageProps} />
+            <MyToastContainer />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </WithRouteChange>
         </Hydrate>
       </ThemeContainer>
     </QueryClientProvider>
