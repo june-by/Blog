@@ -8,29 +8,18 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
-import Head from "next/head";
-import ProgressBar from "components/shared/ProgressBar";
-import useSetProgressState from "Hooks/useSetProgressState";
 import useCheckVisitor from "Hooks/useCheckVisitor";
-import { useRouter } from "next/router";
 import { ThemeContainer } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import Header from "components/Header";
-import PageLayout from "components/shared/PageLayout";
+import CommonSEO from "components/shared/CommonSEO";
+import WithRouteChange from "components/shared/WithRouteChange";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-
-  const [queryClient] = useState(() => new QueryClient());
-  const [loading, setLoading] = useState<boolean>(false);
-  const [nextUrl, setNextUrl] = useState<string | null>(null);
-
-  useSetProgressState(setLoading, setNextUrl);
   useCheckVisitor(queryClient);
-
-  const url = nextUrl || router.pathname;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -38,23 +27,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Hydrate state={pageProps.dehydratedState}>
           <>
             <Header />
-            <PageLayout url={url}>
-              {loading ? (
-                <PageSkeleton url={url} />
-              ) : (
-                <>
-                  <Head>
-                    <meta charSet="utf-8"></meta>
-                    <title>ByJuun.com</title>
-                    <link rel="shortcut icon" href="/favicon.ico" />
-                  </Head>
-                  <Component {...pageProps} />
-                  <MyToastContainer />
-                  <ReactQueryDevtools initialIsOpen={false} />
-                </>
-              )}
-            </PageLayout>
-            <ProgressBar />
+            <WithRouteChange
+              routeChangeFallback={(url) => <PageSkeleton url={url} />}
+            >
+              <CommonSEO />
+              <Component {...pageProps} />
+              <MyToastContainer />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </WithRouteChange>
           </>
         </Hydrate>
       </ThemeContainer>
