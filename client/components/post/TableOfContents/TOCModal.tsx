@@ -24,14 +24,19 @@ const TOCModal = ({ open, setOpen }: Props) => {
     } else {
       const modalFitContentWidth = tocModalRef.current.offsetWidth;
       const modalMaxWidth = (window.innerWidth / 4) * 3;
-
-      tocModalRef.current.style.marginRight = `-${Math.min(modalMaxWidth, modalFitContentWidth)}px`;
+      tocModalRef.current.style.marginRight = `-${Math.min(
+        modalMaxWidth,
+        modalFitContentWidth
+      )}px`;
     }
   }, [open]);
 
   return (
     <div ref={tocModalRef} className={styles.TOCModal}>
-      <button className={styles.TOCModalCloseButton} onClick={handleClickCloseButton}>
+      <button
+        className={styles.TOCModalCloseButton}
+        onClick={handleClickCloseButton}
+      >
         <CloseIcon />
       </button>
 
