@@ -1,7 +1,7 @@
 import React from "react";
 import Script from "next/script";
 import styles from "./styles.module.scss";
-import "highlight.js/styles/atom-one-dark.css";
+import "highlight.js/styles/panda-syntax-dark.css";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
 import { usePostContext } from "context/postContext";
 import classnames from "classnames";

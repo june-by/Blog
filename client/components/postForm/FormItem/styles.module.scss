@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Nanum+Myeongjo:wght@800&family=Roboto+Slab:wght@500&display=swap");
 @import "utils/utils.scss";
 
 .DivWithLabel {
@@ -50,6 +51,13 @@
         border-bottom: 1px solid #0099fa !important;
       }
     }
+  }
+
+  pre {
+    line-height: 1.6 !important;
+    font-size: 0.95em !important;
+    font-family: "Fira Code", Menlo, Consolas, "PT Mono", "Liberation Mono",
+      Courier, monospace;
   }
 }
 

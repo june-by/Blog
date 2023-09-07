@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Nanum+Myeongjo:wght@800&family=Roboto+Slab:wght@500&display=swap");
 @import "utils/utils.scss";
 
 .PostTitle {
@@ -75,7 +76,9 @@
     border-radius: 3px;
     font-size: 85%;
     padding: 0.2em 0.4em;
-    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono",
+    line-height: 1.6 !important;
+    font-size: 0.95em !important;
+    font-family: "Fira Code", Menlo, Consolas, "PT Mono", "Liberation Mono",
       Courier, monospace;
   }
 
