@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Nanum+Myeongjo:wght@800&family=Roboto+Slab:wght@500&display=swap");
 @import "utils/utils.scss";
 
 .PostTitle {
@@ -74,19 +73,12 @@
     background: rgba(135, 131, 120, 0.15);
     color: #06f;
     border-radius: 3px;
-    font-size: 85%;
     padding: 0.2em 0.4em;
-
     word-break: break-all;
-  }
-
-  pre {
-    code {
-      line-height: 1.6 !important;
-      font-size: 0.95em !important;
-      font-family: Fira Code, Consolas, Monaco, Andale Mono, Ubuntu Mono,
-        monospace;
-    }
+    line-height: 1.6 !important;
+    font-size: 0.95em !important;
+    font-family: Fira Code, Consolas, Monaco, Andale Mono, Ubuntu Mono,
+      monospace;
   }
 
   blockquote {
