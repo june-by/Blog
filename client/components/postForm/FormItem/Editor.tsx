@@ -7,7 +7,6 @@ import ReactQuill from "react-quill";
 import { customAxios } from "utils/CustomAxios";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
-import { useWriteContext } from "context/writeContext";
 import { PostFormItemSharedType } from "./type";
 
 interface EditorProps {
