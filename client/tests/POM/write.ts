@@ -31,7 +31,7 @@ export default class WritePOM extends POM {
   }
 
   async mockAPI({ isAdmin = false }: WritePOM_MockAPIParams) {
-    await this.page.route(`/${ServerURL}/user`, async (route) => {
+    await this.page.route(`${ServerURL}/user`, async (route) => {
       const result = pipe(setAdmin)({
         data: this.data,
         feature: {
@@ -40,7 +40,7 @@ export default class WritePOM extends POM {
       });
 
       await route.fulfill({
-        json: result,
+        json: result.data,
       });
     });
   }
