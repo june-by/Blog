@@ -40,7 +40,7 @@ export default class WritePOM extends POM {
       });
 
       await route.fulfill({
-        json: this.data,
+        json: result,
       });
     });
   }
