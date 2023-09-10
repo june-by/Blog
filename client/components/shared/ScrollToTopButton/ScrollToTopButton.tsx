@@ -1,6 +1,7 @@
 import TopIcon from "components/Icon/top";
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
+import classnames from "classnames";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,8 +32,7 @@ const ScrollToTopButton = () => {
 
   return (
     <button
-      className={styles.up_btn}
-      style={isVisible ? { display: "inline" } : { display: "none" }}
+      className={classnames(styles.up_btn, { [styles.visible]: isVisible })}
       onClick={scrollToTop}
     >
       <TopIcon />

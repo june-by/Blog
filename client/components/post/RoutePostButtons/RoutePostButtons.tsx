@@ -10,20 +10,28 @@ import useQueryId from "Hooks/useQueryId";
 const RoutePostButtons = () => {
   const id = useQueryId();
 
-  const { data, isLoading } = useGetPostQuery({ id });
+  const { data } = useGetPostQuery({ id });
+
+  if (!data) return null;
 
   const {
     prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },
     nextPost: { OtherId: nextPostId, OtherTitle: nextPostTitle },
-  } = data as PostPageDataType;
+  } = data;
 
   return (
-    <LoadingOrNot isLoading={isLoading}>
-      <div className={styles.RoutePostButtons}>
-        <RoutePostButton direction="prev" postId={prevPostId} postTitle={prevPostTitle} />
-        <RoutePostButton direction="next" postId={nextPostId} postTitle={nextPostTitle} />
-      </div>
-    </LoadingOrNot>
+    <div className={styles.RoutePostButtons}>
+      <RoutePostButton
+        direction="prev"
+        postId={prevPostId}
+        postTitle={prevPostTitle}
+      />
+      <RoutePostButton
+        direction="next"
+        postId={nextPostId}
+        postTitle={nextPostTitle}
+      />
+    </div>
   );
 };
 
