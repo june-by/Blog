@@ -23,7 +23,7 @@ const ThemeContext = createContext<ContextProps>({
   isThemeLoaded: false,
 });
 
-export const ThemeContainer = ({ children }: { children: ReactElement }) => {
+export const ThemeProvider = ({ children }: { children: ReactElement }) => {
   const [theme, setTheme] = useState<ThemeType>("light");
   const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
