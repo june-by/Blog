@@ -1,4 +1,4 @@
-import { OnlyFunctionKey } from "Types/utils";
+import { OnlyKey } from "Types/utils";
 import { createContext, useContext, useReducer } from "react";
 
 interface ContextProps {
@@ -16,7 +16,7 @@ interface State {
 }
 
 interface Action {
-  type: OnlyFunctionKey<ContextProps>;
+  type: OnlyKey<ContextProps, Function>;
 }
 
 const HeaderContext = createContext<ContextProps>({

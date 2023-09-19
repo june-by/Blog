@@ -7,8 +7,8 @@ export type ArrayElement<ArrayType extends readonly unknown[]> =
 
 export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-export type OnlyFunctionKey<T> = {
-  [K in keyof T]: T[K] extends Function ? K : never;
+export type OnlyKey<T, OnlyType> = {
+  [K in keyof T]: T[K] extends OnlyType ? K : never;
 }[keyof T];
 
-export type PickOnlyFunction<T> = Pick<T, OnlyFunctionKey<T>>;
+export type PickOnly<T, OnlyType> = Pick<T, OnlyKey<T, OnlyType>>;
