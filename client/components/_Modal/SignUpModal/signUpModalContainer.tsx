@@ -1,6 +1,6 @@
 import { useSignUp } from "Hooks/User";
 import { useHeaderContext } from "context/headerContext";
-import React, { useRef } from "react";
+import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
 import MESSAGE from "constants/message";
@@ -9,10 +9,10 @@ import DefaultModal from "components/shared/DefaultModal";
 
 const SignUpModalContainer = () => {
   const { closeSignUp, isSignUpModalOpen } = useHeaderContext();
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const passwordCheckRef = useRef<HTMLInputElement>(null);
-  const nicknameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const passwordCheckRef = useRef<HTMLInputElement | null>(null);
+  const nicknameRef = useRef<HTMLInputElement | null>(null);
 
   const { mutate: signUpMutate } = useSignUp({
     onSuccess: () => {
@@ -24,9 +24,15 @@ const SignUpModalContainer = () => {
     },
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!emailRef.current || !passwordRef.current || !passwordCheckRef.current || !nicknameRef.current) return;
+    if (
+      !emailRef.current ||
+      !passwordRef.current ||
+      !passwordCheckRef.current ||
+      !nicknameRef.current
+    )
+      return;
     if (passwordRef.current.value !== passwordCheckRef.current.value)
       return toast.error(MESSAGE.PASSWORD_AND_CHECK_NOT_SAME);
 

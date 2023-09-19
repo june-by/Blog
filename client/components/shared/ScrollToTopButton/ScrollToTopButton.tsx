@@ -1,5 +1,5 @@
 import TopIcon from "components/Icon/top";
-import React, { useState, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import classnames from "classnames";
 
@@ -41,4 +41,4 @@ const ScrollToTopButton = () => {
   );
 };
 
-export default React.memo(ScrollToTopButton);
+export default memo(ScrollToTopButton);

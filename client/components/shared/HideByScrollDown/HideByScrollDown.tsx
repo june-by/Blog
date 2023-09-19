@@ -1,9 +1,15 @@
 import useScroll from "Hooks/useScroll";
-import React, { ReactNode, createElement, useCallback, useRef } from "react";
+import React, {
+  ReactNode,
+  createElement,
+  useCallback,
+  useRef,
+  type HTMLAttributes,
+} from "react";
 import styles from "./styles.module.scss";
 import classnames from "classnames";
 
-interface Props extends React.HTMLAttributes<HTMLAllCollection> {
+interface Props extends HTMLAttributes<HTMLAllCollection> {
   children: ReactNode;
   hideDirection: "top" | "right" | "left" | "bottom";
   valueForHide: string;

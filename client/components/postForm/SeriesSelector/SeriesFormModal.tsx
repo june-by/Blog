@@ -3,7 +3,13 @@ import DefaultModal from "components/shared/DefaultModal";
 import ImageUploader from "components/shared/ImageUploader";
 import ModalView from "components/shared/ModalView/ModalView";
 import MESSAGE from "constants/message";
-import React, { useCallback, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -28,15 +34,12 @@ const SeriesFormModal = ({ isOpen, closeModal }: Props) => {
     setThumbNailUrl(imageUrl);
   }, []);
 
-  const onChangeThumbUrl = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setThumbNailUrl(e.target.value);
-    },
-    []
-  );
+  const onChangeThumbUrl = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setThumbNailUrl(e.target.value);
+  }, []);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       if (!titleRef.current || !shortDescriptionRef.current) return;
       e.preventDefault();
 

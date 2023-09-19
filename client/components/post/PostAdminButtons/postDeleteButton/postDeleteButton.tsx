@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDeletePostMutation } from "Hooks/Post";
 import styles from "./styles.module.scss";
 import useQueryId from "Hooks/useQueryId";
@@ -20,10 +20,14 @@ const PostDeleteButton = () => {
   };
 
   return (
-    <button data-testid="postDelBtn" className={styles.DeleteBtn} onClick={handleClickDelete}>
+    <button
+      data-testid="postDelBtn"
+      className={styles.DeleteBtn}
+      onClick={handleClickDelete}
+    >
       글 삭제하기
     </button>
   );
 };
 
-export default React.memo(PostDeleteButton);
+export default memo(PostDeleteButton);

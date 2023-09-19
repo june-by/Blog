@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { memo, type HTMLAttributes, type ReactNode } from "react";
 import styles from "./styles.module.scss";
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
@@ -13,4 +13,4 @@ const IconButton = ({ Icon, ...props }: Props) => {
   );
 };
 
-export default React.memo(IconButton);
+export default memo(IconButton);

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, type FormEvent } from "react";
 import styles from "./styles.module.scss";
 import IconButton from "components/shared/IconButton/IconButton";
 import SearchIcon from "components/Icon/search";
@@ -10,7 +10,7 @@ const PostSearchBox = () => {
 
   const searchRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchRef.current) return;
     const searchKeyword = searchRef.current.value;

@@ -1,4 +1,8 @@
-import React, { InputHTMLAttributes, ReactNode } from "react";
+import React, {
+  type InputHTMLAttributes,
+  type ReactNode,
+  type ComponentProps,
+} from "react";
 import styles from "./styles.module.scss";
 import { customAxios } from "utils/CustomAxios";
 import Image from "next/image";
@@ -41,7 +45,7 @@ const ImageUrlInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
   return <input {...props} />;
 };
 
-const UploadedImage = (props: React.ComponentProps<typeof Image>) => {
+const UploadedImage = (props: ComponentProps<typeof Image>) => {
   if (isNull(props.src as string)) return null;
   return <Image {...props} alt="uploadedImage" />;
 };

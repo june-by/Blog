@@ -1,8 +1,8 @@
-import React, { type ChangeEvent } from "react";
+import React, { type ChangeEvent, type HTMLAttributes } from "react";
 import { PostFormItemSharedType } from "./type";
 import styles from "./styles.module.scss";
 
-type Props<T> = Omit<React.HTMLAttributes<HTMLInputElement>, "onChange"> &
+type Props<T> = Omit<HTMLAttributes<HTMLInputElement>, "onChange"> &
   PostFormItemSharedType<T>;
 
 const TextInput = <T extends Record<string, any>>({

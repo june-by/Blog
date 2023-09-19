@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { memo } from "react";
 import styles from "./styles.module.scss";
 import { PostType } from "Types/post";
 
@@ -7,7 +7,9 @@ const PostEditBtn = ({ id }: Pick<PostType, "id">) => {
   const { push, pathname } = useRouter();
 
   const gotoEdit = () => {
-    const editPagePathName = pathname.includes("snippets") ? "/snippets/write" : "/write";
+    const editPagePathName = pathname.includes("snippets")
+      ? "/snippets/write"
+      : "/write";
 
     push({
       pathname: editPagePathName,
@@ -16,10 +18,14 @@ const PostEditBtn = ({ id }: Pick<PostType, "id">) => {
   };
 
   return (
-    <button data-testid="postEditBtn" className={styles.editButton} onClick={gotoEdit}>
+    <button
+      data-testid="postEditBtn"
+      className={styles.editButton}
+      onClick={gotoEdit}
+    >
       글 수정하기
     </button>
   );
 };
 
-export default React.memo(PostEditBtn);
+export default memo(PostEditBtn);

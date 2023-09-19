@@ -1,4 +1,4 @@
-import React, { type HTMLAttributes } from "react";
+import React, { type HTMLAttributes, type ChangeEvent } from "react";
 import styles from "./styles.module.scss";
 import { PostFormItemSharedType } from "./type";
 
@@ -12,7 +12,7 @@ const CheckBox = <T extends Record<string, any>>({
   label,
   ...props
 }: Props<T>) => {
-  const handleChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
     setState((prev) => {
       return {
         ...prev,
