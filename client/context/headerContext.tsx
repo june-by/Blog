@@ -14,12 +14,7 @@ interface State {
   isSignUpModalOpen: boolean;
 }
 interface Action {
-  type:
-    | "openSearch"
-    | "openLogin"
-    | "openSignUp"
-    | "closeLogin"
-    | "closeSignUp";
+  type: "openLogin" | "openSignUp" | "closeLogin" | "closeSignUp";
 }
 
 const HeaderContext = createContext<ContextProps>({
@@ -39,11 +34,6 @@ const initialState = {
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "openSearch":
-      return {
-        isLoginModalOpen: false,
-        isSignUpModalOpen: false,
-      };
     case "openLogin":
       return {
         isLoginModalOpen: true,
