@@ -1,3 +1,4 @@
+import { OnlyFunctionKey } from "Types/utils";
 import { createContext, useContext, useReducer } from "react";
 
 interface ContextProps {
@@ -13,8 +14,9 @@ interface State {
   isLoginModalOpen: boolean;
   isSignUpModalOpen: boolean;
 }
+
 interface Action {
-  type: "openLogin" | "openSignUp" | "closeLogin" | "closeSignUp";
+  type: OnlyFunctionKey<ContextProps>;
 }
 
 const HeaderContext = createContext<ContextProps>({
@@ -33,6 +35,7 @@ const initialState = {
 };
 
 const reducer = (state: State, action: Action): State => {
+  action.type;
   switch (action.type) {
     case "openLogin":
       return {
