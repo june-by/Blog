@@ -30,7 +30,6 @@ const HeaderContext = createContext<ContextProps>({
 
 const initialState = {
   isLoginModalOpen: false,
-  isSearchModalOpen: false,
   isSignUpModalOpen: false,
 };
 
