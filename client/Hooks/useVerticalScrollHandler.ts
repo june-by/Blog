@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import throttle from "utils/throttle";
 
 interface Params {
@@ -6,7 +6,7 @@ interface Params {
   onScrollUp: () => void;
 }
 
-const useScroll = ({ onScrollDown, onScrollUp }: Params) => {
+const useVerticalScrollHandler = ({ onScrollDown, onScrollUp }: Params) => {
   const [yPos, setYPos] = useState<number>(0);
 
   const handleScroll = useCallback(() => {
@@ -24,7 +24,7 @@ const useScroll = ({ onScrollDown, onScrollUp }: Params) => {
         onScrollUp();
         break;
     }
-  }, [yPos]);
+  }, [onScrollDown, onScrollUp, yPos]);
 
   const throttleScroll = throttle(handleScroll, 100);
 
@@ -37,4 +37,4 @@ const useScroll = ({ onScrollDown, onScrollUp }: Params) => {
   }, [throttleScroll]);
 };
 
-export default useScroll;
+export default useVerticalScrollHandler;

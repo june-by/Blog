@@ -1,4 +1,4 @@
-import useScroll from "Hooks/useScroll";
+import useVerticalScrollHandler from "Hooks/useVerticalScrollHandler";
 import React, {
   ReactNode,
   createElement,
@@ -59,7 +59,7 @@ const HideByScrollDown = ({
     wrapperRef.current.style[styleForAnimation] = "0";
   }, [styleForAnimation]);
 
-  useScroll({ onScrollDown: hide, onScrollUp: show });
+  useVerticalScrollHandler({ onScrollDown: hide, onScrollUp: show });
 
   return createElement(
     tagName,
@@ -69,7 +69,7 @@ const HideByScrollDown = ({
       style: { ...position },
       ...props,
     },
-    <>{children}</>
+    children
   );
 };
 
