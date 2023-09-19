@@ -96,7 +96,7 @@ function getParams(query: PostsPageQueryType) {
   else if (query.tag) return query.tag;
   else if (query.category) return query.category;
   else if (query.series) return query.series;
-  else return null;
+  else return "";
 }
 
 function createMetaData(query: PostsPageQueryType) {

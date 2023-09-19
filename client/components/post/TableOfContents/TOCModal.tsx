@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 import Table from "./Table";
 import CloseIcon from "components/Icon/close";
+import { StateUpdater } from "Types/utils";
 
 interface Props {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: StateUpdater<boolean>;
 }
 
 const MARGIN_RIGHT_FOR_SHOW = "0px";

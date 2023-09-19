@@ -1,3 +1,4 @@
+import { OnlyKey } from "Types/utils";
 import { createContext, useContext, useReducer } from "react";
 
 interface ContextProps {
@@ -13,13 +14,9 @@ interface State {
   isLoginModalOpen: boolean;
   isSignUpModalOpen: boolean;
 }
+
 interface Action {
-  type:
-    | "openSearch"
-    | "openLogin"
-    | "openSignUp"
-    | "closeLogin"
-    | "closeSignUp";
+  type: OnlyKey<ContextProps, Function>;
 }
 
 const HeaderContext = createContext<ContextProps>({
@@ -33,17 +30,11 @@ const HeaderContext = createContext<ContextProps>({
 
 const initialState = {
   isLoginModalOpen: false,
-  isSearchModalOpen: false,
   isSignUpModalOpen: false,
 };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "openSearch":
-      return {
-        isLoginModalOpen: false,
-        isSignUpModalOpen: false,
-      };
     case "openLogin":
       return {
         isLoginModalOpen: true,

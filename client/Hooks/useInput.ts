@@ -1,12 +1,13 @@
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from "react";
+import { StateUpdater } from "Types/utils";
+import { type ChangeEvent, useCallback, useState } from "react";
 
-type useInputType = (
+type UseInputType = (
   defaultValue?: string
-) => [string, Dispatch<SetStateAction<string>>, (e: ChangeEvent<HTMLInputElement>) => void];
+) => [string, StateUpdater<string>, (e: ChangeEvent<HTMLInputElement>) => void];
 
-const useInput: useInputType = (defaultValue = "") => {
+const useInput: UseInputType = (defaultValue = "") => {
   const [input, setInput] = useState(defaultValue);
-  const onChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   }, []);
 

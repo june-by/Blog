@@ -11,9 +11,9 @@ import PostCardSkeletonList from "./PostCardSkeletonList";
 import PostsListTitle from "components/shared/PostsListTitle";
 import PostSearchBox from "./PostSearchBox";
 interface Props {
-  params?: any;
+  params: string;
   query: (
-    params: any
+    params: string
   ) => UseInfiniteQueryResult<PostListPageDataType[], unknown>;
 }
 

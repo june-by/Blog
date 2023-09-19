@@ -1,12 +1,9 @@
+import { StateUpdater } from "Types/utils";
 import React, { useCallback, useState } from "react";
 
-type ReturnType = [
-  boolean,
-  React.Dispatch<React.SetStateAction<boolean>>,
-  () => void
-];
+type UseToggleReturnType = [boolean, StateUpdater<boolean>, () => void];
 
-const useToggle = (initialState = false): ReturnType => {
+const useToggle = (initialState = false): UseToggleReturnType => {
   const [state, setState] = useState<boolean>(initialState);
   const onChange = useCallback(() => {
     setState((prev) => !prev);

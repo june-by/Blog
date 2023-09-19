@@ -1,8 +1,8 @@
-import React from "react";
+import React, { type HTMLAttributes } from "react";
 import styles from "./styles.module.scss";
 import { PostFormItemSharedType } from "./type";
 
-type Props<T> = Omit<React.HTMLAttributes<HTMLInputElement>, "onChange"> &
+type Props<T> = Omit<HTMLAttributes<HTMLInputElement>, "onChange"> &
   PostFormItemSharedType<T>;
 
 const CheckBox = <T extends Record<string, any>>({
