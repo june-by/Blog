@@ -29,7 +29,7 @@ app.prepare().then(() => {
   // https 서버 추가
   https
     .createServer(httpsOptions, (req, res) => {
-      const parsedUrl = parse(req.url as any, true);
+      const parsedUrl = parse(req.url as string, true);
       handle(req, res, parsedUrl);
     })
     .listen(PORT, () => {

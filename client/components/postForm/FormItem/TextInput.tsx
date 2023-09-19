@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type ChangeEvent } from "react";
 import { PostFormItemSharedType } from "./type";
 import styles from "./styles.module.scss";
 
@@ -12,7 +12,7 @@ const TextInput = <T extends Record<string, any>>({
   label,
   ...props
 }: Props<T>) => {
-  const handleChangeTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTextInput = (e: ChangeEvent<HTMLInputElement>) => {
     setState((prev) => {
       return {
         ...prev,

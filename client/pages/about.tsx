@@ -1,12 +1,17 @@
 import React from "react";
 import { NotionAPI } from "notion-client";
 import { NotionRenderer } from "react-notion-x";
+import * as notion from "notion-types";
 import "react-notion-x/src/styles.css";
 import PageTitle from "components/shared/PageTitle";
 import CommonSEO from "components/shared/CommonSEO";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 
-const AboutPage = ({ recordMap }: any) => {
+interface Props {
+  recordMap: Awaited<notion.ExtendedRecordMap>;
+}
+
+const AboutPage = ({ recordMap }: Props) => {
   return (
     <>
       <CommonSEO title="About | Byjuun.com" description="📄 개인이력서" />

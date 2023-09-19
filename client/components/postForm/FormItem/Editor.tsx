@@ -1,4 +1,4 @@
-import React, { LegacyRef, useMemo, useRef } from "react";
+import React, { type LegacyRef, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
@@ -13,7 +13,7 @@ interface EditorProps {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
   value: string;
   onChange: (e: string) => void;
-  modules: any;
+  modules: { [key: string]: any };
   formats: string[];
   theme: string;
 }

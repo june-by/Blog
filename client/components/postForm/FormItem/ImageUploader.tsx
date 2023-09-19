@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, type ChangeEvent } from "react";
 import { PostFormItemSharedType } from "./type";
 import ImageUploader from "components/shared/ImageUploader/ImageUploader";
 
@@ -8,7 +8,7 @@ const PostFormImageUploader = <T extends Record<string, any>>({
   setState,
 }: PostFormItemSharedType<T>) => {
   const handleChangeImageUrlByInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       setState((prev) => {
         return {
           ...prev,

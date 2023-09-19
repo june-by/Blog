@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, type FormEvent } from "react";
 import { PostFormItemSharedType } from "./type";
 import styles from "./styles.module.scss";
 const ListForm = <T extends Record<string, any>>({
@@ -9,7 +9,7 @@ const ListForm = <T extends Record<string, any>>({
 }: PostFormItemSharedType<T>) => {
   const formInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmitListItem = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitListItem = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formInputRef.current) return;
     setState((prev) => {

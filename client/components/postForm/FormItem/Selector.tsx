@@ -1,9 +1,9 @@
-import React from "react";
+import React, { type HTMLAttributes, type ChangeEvent } from "react";
 import styles from "./styles.module.scss";
 import { PostFormItemSharedType } from "./type";
 
 interface Props<T>
-  extends Omit<React.HTMLAttributes<HTMLSelectElement>, "onChange">,
+  extends Omit<HTMLAttributes<HTMLSelectElement>, "onChange">,
     PostFormItemSharedType<T> {
   options: {
     key: string | number;
@@ -23,7 +23,7 @@ const Selector = <T extends Record<string, any>>({
   valueConverter = (value: string) => value,
   ...props
 }: Props<T>) => {
-  const handleChangeSelector = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelector = (e: ChangeEvent<HTMLSelectElement>) => {
     setState((prev) => {
       return {
         ...prev,
