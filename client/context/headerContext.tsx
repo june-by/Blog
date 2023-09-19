@@ -35,7 +35,6 @@ const initialState = {
 };
 
 const reducer = (state: State, action: Action): State => {
-  action.type;
   switch (action.type) {
     case "openLogin":
       return {
