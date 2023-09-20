@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { TagType } from "Types/post";
 import styles from "./styles.module.scss";
 import { AiFillTag } from "react-icons/ai";
@@ -17,4 +17,4 @@ const TagButton = ({ tag }: { tag: TagType }) => {
   );
 };
 
-export default React.memo(TagButton);
+export default memo(TagButton);

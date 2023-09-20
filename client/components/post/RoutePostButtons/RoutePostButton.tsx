@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type MouseEvent } from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import {
@@ -47,7 +47,7 @@ const RoutePostButton = ({ direction, postTitle, postId }: Props) => {
   const title = postTitle ?? DIRECTION.NO_POST_TITLE[direction];
 
   const handleClickButton = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>
   ) => {
     if (!postId) {
       e.preventDefault();

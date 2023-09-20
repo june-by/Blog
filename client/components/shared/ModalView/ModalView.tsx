@@ -1,4 +1,12 @@
-import React, { ReactNode, forwardRef } from "react";
+import React, {
+  forwardRef,
+  type ReactNode,
+  type FormEvent,
+  type ButtonHTMLAttributes,
+  type FormHTMLAttributes,
+  type InputHTMLAttributes,
+  type ForwardedRef,
+} from "react";
 import styles from "./styles.module.scss";
 import CloseIcon from "components/Icon/close";
 import GithubIcon from "components/Icon/github";
@@ -8,7 +16,7 @@ import { ServerURL } from "constants/serverURL";
 interface ModalProps {
   title: string;
   handleClose: () => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   children: ReactNode;
 }
 
@@ -17,7 +25,7 @@ const ModalViewTitle = ({ title }: Pick<ModalProps, "title">) => {
 };
 
 const ModalViewCloseButton = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement> &
+  props: ButtonHTMLAttributes<HTMLButtonElement> &
     Pick<ModalProps, "handleClose">
 ) => {
   return (
@@ -34,22 +42,21 @@ const ModalViewHeader = ({ children }: Pick<ModalProps, "children">) => {
 const ModalViewForm = ({
   handleSubmit,
   ...props
-}: React.FormHTMLAttributes<HTMLFormElement> &
-  Pick<ModalProps, "handleSubmit">) => {
+}: FormHTMLAttributes<HTMLFormElement> & Pick<ModalProps, "handleSubmit">) => {
   return <form className={styles.form} onSubmit={handleSubmit} {...props} />;
 };
 
 const ModalViewFormInput = forwardRef(
   (
-    props: React.InputHTMLAttributes<HTMLInputElement>,
-    ref: React.ForwardedRef<HTMLInputElement>
+    props: InputHTMLAttributes<HTMLInputElement>,
+    ref: ForwardedRef<HTMLInputElement>
   ) => {
     return <input className={styles.input} ref={ref} {...props} />;
   }
 );
 
 const ModalViewFormButton = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement>
+  props: ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   return <button className={styles.submitButton} {...props} />;
 };

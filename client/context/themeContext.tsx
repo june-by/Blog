@@ -1,5 +1,12 @@
 import DEFAULT_THEME from "constants/defaultTheme";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type ReactElement,
+} from "react";
 import extractFromCookie from "utils/extractFromCookie";
 
 type ThemeType = "light" | "dark";
@@ -16,7 +23,7 @@ const ThemeContext = createContext<ContextProps>({
   isThemeLoaded: false,
 });
 
-export const ThemeContainer = ({ children }: { children: React.ReactElement }) => {
+export const ThemeProvider = ({ children }: { children: ReactElement }) => {
   const [theme, setTheme] = useState<ThemeType>("light");
   const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
@@ -33,13 +40,18 @@ export const ThemeContainer = ({ children }: { children: React.ReactElement }) =
 
   useEffect(() => {
     // NOTE: for synchronize cookie and theme state
-    const cookieTheme = (extractFromCookie(document.cookie, "theme") || DEFAULT_THEME) as ThemeType;
+    const cookieTheme = (extractFromCookie(document.cookie, "theme") ||
+      DEFAULT_THEME) as ThemeType;
     setTheme(cookieTheme);
     changeThemeOnDocument(cookieTheme);
     setIsThemeLoaded(true);
   }, [changeThemeOnDocument]);
 
-  return <ThemeContext.Provider value={{ theme, handleChangeTheme, isThemeLoaded }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ theme, handleChangeTheme, isThemeLoaded }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useThemeContext = () => {

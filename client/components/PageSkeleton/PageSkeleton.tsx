@@ -7,15 +7,21 @@ interface Props {
   url: string;
 }
 
-const getMainPathFromUrl = (url: string) => {
-  if (url.includes("/post/")) return "post";
-  else if (url.includes("/snippets/write")) return "needed";
-  else if (url.includes("/snippets/")) return "post";
-  else if (url.includes("/series")) return "needed";
-  else if (url.includes("/archives")) return "needed";
-  else if (url.includes("/about")) return "needed";
-  else if (url.includes("/snippets")) return "needed";
+const MAIN_PATH_MAPPER = {
+  "/post/": "post",
+  "/snippets/write": "needed",
+  "/snippets/": "post",
+  "/series": "needed",
+  "/archives": "needed",
+  "/snippets": "needed",
+  "/about": "needed",
+  "/write": "needed",
+};
 
+const getMainPathFromUrl = (url: string) => {
+  for (const [targetURL, mainPath] of Object.entries(MAIN_PATH_MAPPER)) {
+    if (url.includes(targetURL)) return mainPath;
+  }
   return "posts";
 };
 

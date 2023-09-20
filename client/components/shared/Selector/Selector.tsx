@@ -1,8 +1,8 @@
-import React from "react";
+import React, { type HTMLAttributes } from "react";
 import classnames from "classnames";
 import styles from "./styles.module.scss";
 
-interface Props extends React.HTMLAttributes<HTMLSelectElement> {
+interface Props extends HTMLAttributes<HTMLSelectElement> {
   value?: string | number;
   options: {
     key: string | number;

@@ -1,4 +1,4 @@
-import React, { type ErrorInfo, type ReactNode } from "react";
+import React, { type ErrorInfo, type ReactNode, Component } from "react";
 
 interface RenderFallbackProps<ErrorType extends Error = Error> {
   error: ErrorType;
@@ -23,7 +23,7 @@ interface State {
 
 const initialState = { hasError: false, error: null };
 
-class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends Component<Props, State> {
   public state: State = initialState;
 
   public static getDerivedStateFromError(error: Error): State {

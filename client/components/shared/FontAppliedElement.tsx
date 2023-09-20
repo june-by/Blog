@@ -1,12 +1,12 @@
-import React, { createElement } from "react";
-import { Concert_One, Jua } from "next/font/google";
+import React, { createElement, type HTMLAttributes } from "react";
+import { Jua } from "next/font/google";
 
 const Font = Jua({
   weight: "400",
   subsets: [],
 });
 
-interface Props extends React.HTMLAttributes<HTMLAllCollection> {
+interface Props extends HTMLAttributes<HTMLAllCollection> {
   tagName?: string;
   className?: string;
 }

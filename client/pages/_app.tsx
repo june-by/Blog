@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import useCheckVisitor from "Hooks/useCheckVisitor";
-import { ThemeContainer } from "context/themeContext";
+import { ThemeProvider } from "context/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import Header from "components/Header";
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeContainer>
+      <ThemeProvider>
         <Hydrate state={pageProps.dehydratedState}>
           <Header />
           <WithRouteChange
@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <ReactQueryDevtools initialIsOpen={false} />
           </WithRouteChange>
         </Hydrate>
-      </ThemeContainer>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

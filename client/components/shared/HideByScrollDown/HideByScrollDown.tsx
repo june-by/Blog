@@ -1,9 +1,15 @@
-import useScroll from "Hooks/useScroll";
-import React, { ReactNode, createElement, useCallback, useRef } from "react";
+import useVerticalScrollHandler from "Hooks/useVerticalScrollHandler";
+import React, {
+  ReactNode,
+  createElement,
+  useCallback,
+  useRef,
+  type HTMLAttributes,
+} from "react";
 import styles from "./styles.module.scss";
 import classnames from "classnames";
 
-interface Props extends React.HTMLAttributes<HTMLAllCollection> {
+interface Props extends HTMLAttributes<HTMLAllCollection> {
   children: ReactNode;
   hideDirection: "top" | "right" | "left" | "bottom";
   valueForHide: string;
@@ -53,7 +59,7 @@ const HideByScrollDown = ({
     wrapperRef.current.style[styleForAnimation] = "0";
   }, [styleForAnimation]);
 
-  useScroll({ onScrollDown: hide, onScrollUp: show });
+  useVerticalScrollHandler({ onScrollDown: hide, onScrollUp: show });
 
   return createElement(
     tagName,
@@ -63,7 +69,7 @@ const HideByScrollDown = ({
       style: { ...position },
       ...props,
     },
-    <>{children}</>
+    children
   );
 };
 
