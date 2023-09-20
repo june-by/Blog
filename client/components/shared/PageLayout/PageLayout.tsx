@@ -15,15 +15,21 @@ const PageLayout = ({ children, url }: Props) => {
   );
 };
 
+const CLASS_MAPPER = {
+  "/post/": styles.PostPageLayout,
+  "/snippets/write": styles.WithOutFlexLayout,
+  "/snippets/": styles.PostPageLayout,
+  "/series": styles.WithOutFlexLayout,
+  "/archives": styles.WithOutFlexLayout,
+  "/snippets": styles.WithOutFlexLayout,
+  "/about": styles.WithMaxWidth720px,
+  "/write": styles.WithOutFlexLayout,
+};
+
 const getClassNameFromUrl = (url: string) => {
-  if (url.includes("/post/")) return styles.PostPageLayout;
-  else if (url.includes("/snippets/write")) return styles.WithOutFlexLayout;
-  else if (url.includes("/snippets/")) return styles.PostPageLayout;
-  else if (url.includes("/series")) return styles.WithOutFlexLayout;
-  else if (url.includes("/archives")) return styles.WithOutFlexLayout;
-  else if (url.includes("/snippets")) return styles.WithOutFlexLayout;
-  else if (url.includes("/about")) return styles.WithMaxWidth720px;
-  else if (url.includes("/write")) return styles.WithOutFlexLayout;
+  for (const [targetURL, className] of Object.entries(CLASS_MAPPER)) {
+    if (url.includes(targetURL)) return className;
+  }
   return styles.WithFlexLayout;
 };
 
