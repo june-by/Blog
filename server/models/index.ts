@@ -10,7 +10,7 @@ import { dbConfig } from "config/config";
 const env = process.env.NODE_ENV || "development";
 const config = dbConfig[env];
 
-const sequelize = new Sequelize(
+export const sequelizeInstance = new Sequelize(
   config.database,
   config.username,
   config.password,
@@ -23,13 +23,13 @@ interface DB {
   [key: string]: any;
 }
 const db: DB = {
-  User: userModel(sequelize, Sequelize),
-  Post: postModel(sequelize, Sequelize),
-  Tag: tagModel(sequelize, Sequelize),
-  Visitor: visitorModel(sequelize, Sequelize),
-  Series: seriesModel(sequelize, Sequelize),
-  Snippet: snippetModel(sequelize, Sequelize),
-  sequelize: sequelize,
+  User: userModel(sequelizeInstance, Sequelize),
+  Post: postModel(sequelizeInstance, Sequelize),
+  Tag: tagModel(sequelizeInstance, Sequelize),
+  Visitor: visitorModel(sequelizeInstance, Sequelize),
+  Series: seriesModel(sequelizeInstance, Sequelize),
+  Snippet: snippetModel(sequelizeInstance, Sequelize),
+  sequelize: sequelizeInstance,
   Sequelize: Sequelize,
 };
 

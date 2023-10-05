@@ -1,5 +1,3 @@
-import { Request } from "express";
-export {};
 interface myUser {
   id: number;
 }
@@ -8,3 +6,8 @@ declare global {
     export interface User extends myUser {}
   }
 }
+
+export * from "./post";
+export * from "./series";
+export * from "./snippet";
+export * from "./tag";
