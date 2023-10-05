@@ -2,6 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { ModelType } from "./types";
 import { TagAttribute, TagCreationAttribute } from "types";
 import { sequelizeInstance } from "models";
+import { Posts } from "./post";
 
 export class Tags extends Model<TagAttribute, TagCreationAttribute> {
   declare id: number;
@@ -25,6 +26,8 @@ Tags.init(
     tableName: "Tags",
   }
 );
+
+Tags.belongsToMany(Posts, { through: "PostHashtag" });
 
 export default (sequelize: Sequelize, DataTypes: any) => {
   const Tag: ModelType = sequelize.define(

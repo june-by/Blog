@@ -2,6 +2,8 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { ModelType } from "./types";
 import { PostAttribute, PostCreationAttributes } from "types";
 import { sequelizeInstance } from "models";
+import { Series } from "./series";
+import { Tags } from "./tag";
 
 export class Posts extends Model<PostAttribute, PostCreationAttributes> {
   declare id: number;
@@ -55,6 +57,9 @@ Posts.init(
     tableName: "Posts",
   }
 );
+
+Posts.belongsTo(Series);
+Posts.belongsToMany(Tags, { through: "PostHashtag" });
 
 export default (sequelize: Sequelize, DataTypes: any) => {
   const Post: ModelType = sequelize.define(

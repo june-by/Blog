@@ -2,6 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { ModelType } from "./types";
 import { SeriesAttribute, SeriesCreationAttribute } from "types";
 import { sequelizeInstance } from "models";
+import { Posts } from "./post";
 
 export class Series extends Model<SeriesAttribute, SeriesCreationAttribute> {
   declare id: number;
@@ -35,6 +36,8 @@ Series.init(
     tableName: "Series",
   }
 );
+
+Series.hasMany(Posts);
 
 export default (sequelize: Sequelize, DataTypes: any) => {
   const Series: ModelType = sequelize.define(
