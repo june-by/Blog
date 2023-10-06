@@ -1,11 +1,10 @@
-import model from "models";
+import { Series, Posts } from "models";
 import { ORDER_BY_CREATED_AT } from "src/constants";
-const { Series, Post } = model;
 
 const getAllSeries = async () => {
   const series = await Series.findAll({
     order: ORDER_BY_CREATED_AT,
-    include: [{ model: Post, attributes: ["id", "title"] }],
+    include: [{ model: Posts, attributes: ["id", "title"] }],
   });
   return series;
 };
@@ -14,14 +13,14 @@ const getSeriesIdByTitle = async ({ seriesTitle }: { seriesTitle: string }) => {
   const series = await Series.findOne({
     where: { title: seriesTitle },
   });
-  return series.id;
+  return series?.id;
 };
 
 const getSeriesTitleById = async ({ seriesId }: { seriesId: string }) => {
   const series = await Series.findOne({
     where: { id: seriesId },
   });
-  return series.title;
+  return series?.title;
 };
 
 interface AddSeriesParams {

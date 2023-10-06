@@ -1,6 +1,5 @@
 import express from "express";
 import { isAdmin } from "middleWare/isAdmin";
-import { isLoggedIn } from "middleWare/isLoggedIn";
 import postController from "./postController";
 const router = express.Router();
 

@@ -10,7 +10,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
 import dotenv from "dotenv";
-import db from "models";
+import { sequelizeInstance } from "models";
 import postRouter from "src/Post/postRouter";
 import postsRouter from "src/Posts/postsRouter";
 import userRouter from "src/User/userRouter";
@@ -22,19 +22,13 @@ import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
+import createTablesIfNotExist from "models/createTablesIfNotExist";
 dotenv.config();
 
-export default function () {
+export default async function () {
   const app = express();
 
-  db.sequelize
-    .sync()
-    .then(() => {
-      console.log("db연결 성공");
-    })
-    .catch((err: Error) => {
-      console.error(err);
-    });
+  createTablesIfNotExist();
 
   passportConfig();
 
@@ -103,6 +97,15 @@ export default function () {
       url: (req.file as Express.MulterS3.File).location,
     });
   });
+
+  await sequelizeInstance
+    .authenticate()
+    .then(async () => {
+      console.log("connection success");
+    })
+    .catch((e) => {
+      console.log("TT : ", e);
+    });
 
   app.listen(3065, () => {
     console.log("서버 실행 중");

@@ -1,7 +1,6 @@
 import userService from "./userService";
 import passport from "passport";
 import { NextFunction, Request, Response } from "express";
-import axios from "axios";
 
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) return res.status(200).json(null);
@@ -19,10 +18,14 @@ const addUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, nickname, password } = req.body;
     const isEmailExists = await userService.checkEmailValidation({ email });
-    if (isEmailExists) return res.status(403).send("이미 사용 중인 아이디 입니다");
+    if (isEmailExists)
+      return res.status(403).send("이미 사용 중인 아이디 입니다");
 
-    const isNicknameExists = await userService.checkNicknameValidation({ nickname });
-    if (isNicknameExists) return res.status(403).send("이미 사용 중인 닉네임 입니다");
+    const isNicknameExists = await userService.checkNicknameValidation({
+      nickname,
+    });
+    if (isNicknameExists)
+      return res.status(403).send("이미 사용 중인 닉네임 입니다");
 
     await userService.addUser({ email, nickname, password });
 

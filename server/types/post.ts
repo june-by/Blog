@@ -7,6 +7,7 @@ export interface PostAttribute {
   thumbNailUrl: string | null;
   views: number;
   isPublic: number;
+  SeriesId: number;
 }
 
 export type PostCreationAttributes = Omit<PostAttribute, "id">;

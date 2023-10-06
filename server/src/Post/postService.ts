@@ -1,39 +1,29 @@
-import model from "models";
-const { Post, Tag, sequelize } = model;
+import { Posts, Tags, sequelizeInstance } from "models";
+import { PostCreationAttributes } from "types";
 
 interface PostId {
   postId: string;
 }
 const getPost = async ({ postId }: PostId) => {
-  const post = await Post.findOne({ where: { id: postId } });
+  const post = await Posts.findOne({ where: { id: postId } });
   return post;
 };
 
 const getFullPost = async ({ postId }: PostId) => {
-  const fullPost = await Post.findOne({
+  const fullPost = await Posts.findOne({
     where: { id: postId },
     attributes: {
       exclude: ["updatedAt"],
     },
     include: [
       {
-        model: Tag,
+        model: Tags,
         attributes: ["id", "content"],
       },
     ],
   });
   return fullPost;
 };
-
-interface CreatePostParams {
-  title: string;
-  category: string;
-  content: string;
-  thumbNailUrl: string;
-  isPublic: number;
-  shortDescription: string;
-  SeriesId: string;
-}
 
 const createPost = async ({
   title,
@@ -43,8 +33,8 @@ const createPost = async ({
   isPublic,
   shortDescription,
   SeriesId,
-}: CreatePostParams) => {
-  const post = await Post.create({
+}: PostCreationAttributes) => {
+  const post = await Posts.create({
     title,
     category,
     content,
@@ -57,7 +47,7 @@ const createPost = async ({
   return post;
 };
 
-interface UpdatePostParams extends CreatePostParams {
+interface UpdatePostParams extends PostCreationAttributes {
   postId: string;
 }
 
@@ -71,7 +61,7 @@ const updatePost = async ({
   shortDescription,
   SeriesId,
 }: UpdatePostParams) => {
-  await Post.update(
+  await Posts.update(
     {
       title,
       category,
@@ -88,7 +78,7 @@ const updatePost = async ({
 };
 
 const deletePost = async ({ postId }: PostId) => {
-  await Post.destroy({
+  await Posts.destroy({
     where: { id: postId },
   });
 };
@@ -102,7 +92,7 @@ const updateTags = async ({ post, result }: { post: any; result: any[] }) => {
 };
 
 const isPostExists = async ({ postId }: PostId) => {
-  const post = await Post.findOne({
+  const post = await Posts.findOne({
     //게시글 존재하는지 확인
     where: { id: postId },
   });
@@ -116,7 +106,7 @@ const addViewCount = async ({
   postId: string;
   views: number;
 }) => {
-  await Post.update(
+  await Posts.update(
     {
       views: views + 1,
     },
@@ -130,18 +120,18 @@ const getViewCount = async ({
   postId,
 }: {
   postId: string;
-}): Promise<{ views: number }> => {
-  const viewCount = await Post.findOne({
+}): Promise<Pick<PostCreationAttributes, "views">> => {
+  const viewCount = await Posts.findOne({
     where: { id: postId },
     attributes: ["views"],
   });
-  return viewCount;
+  return viewCount as Pick<PostCreationAttributes, "views">;
 };
 
 const getPrevPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
-  const [prev, _] = await sequelize.query(query, {
+  const [prev, _] = await sequelizeInstance.query(query, {
     replacements: [category, id],
   });
   return prev[0];
@@ -150,7 +140,7 @@ const getPrevPost = async (category: string, id: string) => {
 const getNextPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
-  const [next, _] = await sequelize.query(query, {
+  const [next, _] = await sequelizeInstance.query(query, {
     replacements: [category, id],
   });
   return next[0];

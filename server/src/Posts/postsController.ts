@@ -1,4 +1,3 @@
-import postController from "src/Post/postController";
 import { NextFunction, Request, Response } from "express";
 import postsService from "./postsService";
 import seriesService from "src/Series/seriesService";

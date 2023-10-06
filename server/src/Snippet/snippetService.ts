@@ -1,16 +1,15 @@
-import model from "models";
-
-const { Snippet } = model;
+import { Snippets } from "models";
+import { SnippetCreationAttribute } from "types";
 
 const getAllSnippetsId = async () => {
-  const snippets = await Snippet.findAll({
+  const snippets = await Snippets.findAll({
     attributes: ["id"],
   });
   return snippets;
 };
 
 const getAllSnippets = async () => {
-  const snippets = await Snippet.findAll({
+  const snippets = await Snippets.findAll({
     attributes: {
       exclude: ["content"],
     },
@@ -19,35 +18,29 @@ const getAllSnippets = async () => {
   return snippets;
 };
 
-interface AddSnippetParams {
-  title: string;
-  category: string;
-  content: string;
-}
-
-const addSnippet = async (params: AddSnippetParams) => {
-  const snippet = await Snippet.create({
+const addSnippet = async (params: SnippetCreationAttribute) => {
+  const snippet = await Snippets.create({
     ...params,
   });
 
   return snippet;
 };
 
-interface UpdateSnippetParams extends AddSnippetParams {
+interface UpdateSnippetParams extends SnippetCreationAttribute {
   snippetId: string;
 }
 
 const updateSnippet = async ({ snippetId, ...data }: UpdateSnippetParams) => {
-  await Snippet.update({ ...data }, { where: { id: snippetId } });
+  await Snippets.update({ ...data }, { where: { id: snippetId } });
 };
 
 const getSnippet = async ({ snippetId }: { snippetId: string }) => {
-  const snippet = await Snippet.findOne({ where: { id: snippetId } });
+  const snippet = await Snippets.findOne({ where: { id: snippetId } });
   return snippet;
 };
 
 const deleteSnippet = async ({ snippetId }: { snippetId: string }) => {
-  await Snippet.destroy({ where: { id: snippetId } });
+  await Snippets.destroy({ where: { id: snippetId } });
 };
 
 export default {

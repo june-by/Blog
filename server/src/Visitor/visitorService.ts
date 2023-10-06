@@ -1,19 +1,19 @@
-import model from "models";
-const { Visitor } = model;
+import { Visitors } from "models";
+
 const getTotalVisitor = async () => {
-  const totalVisitor = await Visitor.count({});
+  const totalVisitor = await Visitors.count({});
   return totalVisitor;
 };
 
 const getTodayVisitor = async ({ dateInfo }: { dateInfo: string }) => {
-  const todayVisitor = await Visitor.count({
+  const todayVisitor = await Visitors.count({
     where: { date: dateInfo },
   });
   return todayVisitor;
 };
 
 const addVisitor = async ({ dateInfo }: { dateInfo: string }) => {
-  await Visitor.create({
+  await Visitors.create({
     date: dateInfo,
   });
 };

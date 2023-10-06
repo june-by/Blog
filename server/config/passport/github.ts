@@ -1,8 +1,7 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github";
-import model from "models";
+import { Users } from "models";
 import userService from "src/User/userService";
-const { User } = model;
 
 export default () => {
   passport.use(
@@ -18,12 +17,12 @@ export default () => {
       async (accessToken, refreshToken, profile, done: Function) => {
         try {
           const { name } = profile._json as { name: string };
-          let user = await User.findOne({
+          let user = await Users.findOne({
             where: { nickname: name, provider: "github" },
           });
           if (!user) {
             await userService.addUser({ nickname: name, provider: "github" });
-            user = await User.findOne({
+            user = await Users.findOne({
               where: { nickname: name, provider: "github" },
             });
           }
