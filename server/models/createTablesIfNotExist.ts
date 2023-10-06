@@ -14,11 +14,10 @@ async function createTablesIfNotExist() {
     await table
       .sync()
       .then(() => {
-        console.log(`${key} Table is Created`);
+        console.log(`Sync ${key} Table Complete`);
       })
       .catch((err) => {
-        console.log(key, " 테이블만드는동안 에러가 생겼네?");
-        console.log(err);
+        console.log(`Error occured while Sync ${key} Table`);
       });
   }
 }
