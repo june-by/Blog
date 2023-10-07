@@ -4,7 +4,6 @@ import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
 import MESSAGE from "constants/message";
-import { ErrorMessage } from "Types/shared";
 import DefaultModal from "components/shared/DefaultModal";
 
 const SignUpModalContainer = () => {
@@ -19,8 +18,8 @@ const SignUpModalContainer = () => {
       closeSignUp();
       toast.success(MESSAGE.SIGHUP_SUCCESS);
     },
-    onError: (error: ErrorMessage) => {
-      toast.error(error.messsage);
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

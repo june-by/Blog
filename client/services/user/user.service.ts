@@ -18,14 +18,12 @@ export const LoginAPI = async (LoginData: LoginDataType) =>
     method: "post",
     url: `/user/login`,
     body: LoginData,
-    onError: () => MESSAGE.NETWORK_ERROR,
   });
 
 export const LogOutAPI = async () =>
   request<"success">({
     method: "get",
     url: `/user/logout`,
-    onError: () => MESSAGE.NETWORK_ERROR,
   });
 
 export const SignUpAPI = async (SignUpData: SignUpDataType) =>
@@ -33,7 +31,6 @@ export const SignUpAPI = async (SignUpData: SignUpDataType) =>
     method: "post",
     url: `/user/signup`,
     body: SignUpData,
-    onError: () => MESSAGE.NETWORK_ERROR,
   });
 
 export const getUserInfoAPI = async () =>

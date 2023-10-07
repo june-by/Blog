@@ -1,5 +1,4 @@
 import { useLogin } from "Hooks/User";
-import Modal from "components/shared/Modal";
 import { useHeaderContext } from "context/headerContext";
 import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
@@ -18,7 +17,7 @@ const LoginModalContainer = () => {
       closeLogin();
     },
     onError: (error) => {
-      toast.error(error.messsage);
+      toast.error(error.message);
     },
   });
 
