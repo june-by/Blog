@@ -3,7 +3,7 @@ import { isLoggedIn } from "middleWare/isLoggedIn";
 import { isNotLoggedIn } from "middleWare/isNotLoggedIn";
 import passport from "passport";
 import userController from "./userController";
-import CLIENT_URL from "src/constants/clientUrl";
+import { CLIENT_URL } from "src/constants";
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import snippetsService from "./snippetService";
 import axios from "axios";
-import CLIENT_URL from "src/constants/clientUrl";
+import { CLIENT_URL } from "src/constants";
 
 const getAllSnippetsId = async (
   req: Request,

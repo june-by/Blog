@@ -1,7 +1,7 @@
 import tagService from "src/Tag/tagService";
 import postService from "./postService";
 import { NextFunction, Request, Response } from "express";
-import CLIENT_URL from "src/constants/clientUrl";
+import { CLIENT_URL } from "src/constants";
 import axios from "axios";
 import postsService from "src/Posts/postsService";
 import seriesService from "src/Series/seriesService";
