@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
-import { VisitorAttribute, VisitorCreationAttribute } from "types/visitor";
+import { VisitorAttribute, VisitorCreationAttribute } from "types";
 
 export class Visitors extends Model<
   VisitorAttribute,

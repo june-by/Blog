@@ -1,6 +1,6 @@
 import { Users } from "models";
 import bcrypt from "bcrypt";
-import { UserAttribute, UserCreationAttribute } from "types/user";
+import { UserAttribute, UserCreationAttribute } from "types";
 
 const getUser = async ({ id }: Pick<UserAttribute, "id">) =>
   await Users.findOne({

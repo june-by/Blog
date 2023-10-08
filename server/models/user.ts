@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
-import { UserAttribute, UserCreationAttribute } from "types/user";
+import { UserAttribute, UserCreationAttribute } from "types";
 
 export class Users extends Model<UserAttribute, UserCreationAttribute> {
   public id!: number;
