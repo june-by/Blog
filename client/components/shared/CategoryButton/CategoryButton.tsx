@@ -4,6 +4,7 @@ import { CategoryType } from "constants/category";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import classnames from "classnames";
+import useScrollIntoElement from "Hooks/useScrollIntoElement";
 
 interface Props {
   category: CategoryType;
@@ -18,13 +19,14 @@ const CategoryButton = ({ category, length }: Props) => {
 
   const isCurrentSelectedCategory = currentCategory === category;
 
-  useEffect(() => {
-    if (!isCurrentSelectedCategory) return;
-    categoryButtonRef.current?.scrollIntoView({
+  useScrollIntoElement({
+    when: isCurrentSelectedCategory,
+    element: categoryButtonRef.current,
+    scrollOptions: {
       block: "nearest",
       inline: "center",
-    });
-  }, [isCurrentSelectedCategory]);
+    },
+  });
 
   return (
     <Link
