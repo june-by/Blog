@@ -26,6 +26,7 @@ function initSnippetModel() {
     {
       sequelize: sequelizeInstance,
       tableName: "Snippets",
+      timestamps: true,
     }
   );
 }

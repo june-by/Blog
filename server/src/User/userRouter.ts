@@ -17,7 +17,11 @@ router.get("/logout", isLoggedIn, userController.logout);
 
 router.get("/githublogin", isNotLoggedIn, passport.authenticate("github"));
 
-router.get("/github/callback", isNotLoggedIn, passport.authenticate("github", { successRedirect: CLIENT_URL }));
+router.get(
+  "/github/callback",
+  isNotLoggedIn,
+  passport.authenticate("github", { successRedirect: CLIENT_URL })
+);
 
 router.get("/kakaologin", isNotLoggedIn, passport.authenticate("kakao"));
 

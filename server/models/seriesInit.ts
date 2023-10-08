@@ -26,6 +26,7 @@ function initSerieModel() {
     {
       sequelize: sequelizeInstance,
       tableName: "Series",
+      timestamps: true,
     }
   );
 }

@@ -18,6 +18,7 @@ function initVisitorModel() {
     {
       sequelize: sequelizeInstance,
       tableName: "Visitors",
+      timestamps: true,
     }
   );
 }

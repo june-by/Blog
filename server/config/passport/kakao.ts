@@ -11,7 +11,7 @@ export default () => {
         callbackURL:
           process.env.NODE_ENV === "production"
             ? "https://api.byjuun.com/user/kakao/callback"
-            : "http://localhost:3065/user/kakao/callback",
+            : "https://local.byjuun.com:8080/user/kakao/callback",
       },
       async (accessToken, refreshToken, profile, done: Function) => {
         try {

@@ -18,6 +18,7 @@ function initTagModel() {
     {
       sequelize: sequelizeInstance,
       tableName: "Tags",
+      timestamps: true,
     }
   );
 }

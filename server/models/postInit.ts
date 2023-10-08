@@ -46,6 +46,7 @@ function initPostModel() {
     {
       sequelize: sequelizeInstance,
       tableName: "Posts",
+      timestamps: true,
     }
   );
 }
