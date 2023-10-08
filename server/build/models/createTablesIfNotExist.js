@@ -8,21 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const tagService_1 = __importDefault(require("./tagService"));
-const getAllTags = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const allTags = yield tagService_1.default.getAllTags();
-        return res.status(201).json(allTags);
-    }
-    catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-exports.default = {
-    getAllTags,
+const _1 = require("./");
+const Tables = {
+    Visitors: _1.Visitors,
+    Posts: _1.Posts,
+    Series: _1.Series,
+    Snippets: _1.Snippets,
+    Tags: _1.Tags,
+    Users: _1.Users,
 };
+function createTablesIfNotExist() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (const [key, table] of Object.entries(Tables)) {
+            yield table
+                .sync()
+                .then(() => {
+                console.log(`Sync ${key} Table Complete`);
+            })
+                .catch((err) => {
+                console.log(`Error occured while Sync ${key} Table`);
+            });
+        }
+    });
+}
+exports.default = createTablesIfNotExist;

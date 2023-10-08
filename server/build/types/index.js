@@ -20,4 +20,3 @@ __exportStar(require("./snippet"), exports);
 __exportStar(require("./tag"), exports);
 __exportStar(require("./user"), exports);
 __exportStar(require("./visitor"), exports);
-__exportStar(require("./sequelize"), exports);

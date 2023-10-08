@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var snippetController_1 = __importDefault(require("./snippetController"));
-var router = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const snippetController_1 = __importDefault(require("./snippetController"));
+const router = express_1.default.Router();
 router.get("/load/id", snippetController_1.default.getAllSnippetsId);
 router.get("/load/all", snippetController_1.default.getAllSnippets);
 router.post("/", snippetController_1.default.addSnippet);

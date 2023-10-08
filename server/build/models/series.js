@@ -1,25 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (function (sequelize, DataTypes) {
-    var Series = sequelize.define("Series", {
-        title: {
-            type: DataTypes.TEXT,
-            allowNull: false, //필수
-        },
-        shortDescription: {
-            type: DataTypes.STRING(200),
-            allowNull: true,
-        },
-        thumbNailUrl: {
-            type: DataTypes.STRING(100),
-            allowNull: true, //필수
-        },
-    }, {
-        charset: "utf8mb4",
-        collate: "utf8mb4_general_ci", //한글 + 이모티콘
-    });
-    Series.associate = function (db) {
-        db.Series.hasMany(db.Post);
-    };
-    return Series;
-});
+exports.Series = void 0;
+const sequelize_1 = require("sequelize");
+class Series extends sequelize_1.Model {
+}
+exports.Series = Series;
