@@ -79,9 +79,7 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
       postService.getPrevPost({ category, id }),
       postService.getNextPost({ category, id }),
       SeriesId ? postsService.getPostsBySeriesId({ SeriesId }) : {},
-      SeriesId
-        ? seriesService.getSeriesTitleById({ seriesId: String(SeriesId) })
-        : {},
+      SeriesId ? seriesService.getSeriesTitleById({ SeriesId }) : {},
     ]);
 
     res.status(201).json({

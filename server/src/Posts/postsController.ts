@@ -51,9 +51,9 @@ const getSeriesPosts = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page, seriesTitle } = req.params;
+  const { page, seriesTitle: title } = req.params;
   try {
-    const SeriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
+    const SeriesId = await seriesService.getSeriesIdByTitle({ title });
     const posts = await postsService.getPostsBySeriesId({ page, SeriesId });
     return res.status(200).json(posts);
   } catch (err) {

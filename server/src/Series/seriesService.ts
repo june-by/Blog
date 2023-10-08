@@ -1,5 +1,6 @@
 import { Series, Posts } from "models";
 import { ORDER_BY_CREATED_AT } from "src/constants";
+import { PostAttribute, SeriesAttribute, SeriesCreationAttribute } from "types";
 
 const getAllSeries = async () => {
   const series = await Series.findAll({
@@ -9,36 +10,25 @@ const getAllSeries = async () => {
   return series;
 };
 
-const getSeriesIdByTitle = async ({ seriesTitle }: { seriesTitle: string }) => {
+const getSeriesIdByTitle = async ({
+  title,
+}: Pick<SeriesAttribute, "title">) => {
   const series = await Series.findOne({
-    where: { title: seriesTitle },
+    where: { title },
   });
   return series?.id;
 };
 
-const getSeriesTitleById = async ({ seriesId }: { seriesId: string }) => {
+const getSeriesTitleById = async ({
+  SeriesId: id,
+}: Pick<PostAttribute, "SeriesId">) => {
   const series = await Series.findOne({
-    where: { id: seriesId },
+    where: { id },
   });
   return series?.title;
 };
-
-interface AddSeriesParams {
-  title: string;
-  shortDescription: string;
-  thumbNailUrl: string;
-}
-
-const addSeries = async ({
-  title,
-  shortDescription,
-  thumbNailUrl,
-}: AddSeriesParams) => {
-  const series = await Series.create({
-    title,
-    shortDescription,
-    thumbNailUrl,
-  });
+const addSeries = async (seriesCreationAttribute: SeriesCreationAttribute) => {
+  const series = await Series.create(seriesCreationAttribute);
 
   return series;
 };
