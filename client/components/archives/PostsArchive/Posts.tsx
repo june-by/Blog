@@ -6,7 +6,9 @@ import Link from "next/link";
 const PostsArchive = () => {
   const data = useArchivePosts();
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   const years = sortByYearDesc(Object.keys(data));
 

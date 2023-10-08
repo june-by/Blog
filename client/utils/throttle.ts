@@ -1,7 +1,9 @@
 const throttle = (callback: () => void, waitTime: number) => {
-  let timerId: null | NodeJS.Timeout = null;
+  let timerId: null | ReturnType<typeof setTimeout> = null;
   return () => {
-    if (timerId) return;
+    if (timerId) {
+      return;
+    }
     timerId = setTimeout(() => {
       callback.call(this);
       timerId = null;

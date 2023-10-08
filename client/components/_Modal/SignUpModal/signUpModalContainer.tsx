@@ -30,10 +30,13 @@ const SignUpModalContainer = () => {
       !passwordRef.current ||
       !passwordCheckRef.current ||
       !nicknameRef.current
-    )
+    ) {
       return;
-    if (passwordRef.current.value !== passwordCheckRef.current.value)
+    }
+
+    if (passwordRef.current.value !== passwordCheckRef.current.value) {
       return toast.error(MESSAGE.PASSWORD_AND_CHECK_NOT_SAME);
+    }
 
     const reqData = {
       email: emailRef.current.value,

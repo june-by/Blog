@@ -48,7 +48,9 @@ const WritePage = () => {
     const notEnteredKey = verifyNonNullableInFormState({
       exclude: ["SeriesId", "thumbNailUrl", "tagArr"],
     });
-    if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
+    if (notEnteredKey) {
+      return toast.warn(`${notEnteredKey}를 입력해주세요.`);
+    }
 
     const mutateAsync = {
       write: addPostMutate,
@@ -62,7 +64,9 @@ const WritePage = () => {
   };
 
   useEffect(() => {
-    if (!data) return;
+    if (!data) {
+      return;
+    }
 
     const { mainPost: postData } = data;
     syncFormDataAndState({

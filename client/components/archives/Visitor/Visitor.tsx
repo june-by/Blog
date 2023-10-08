@@ -4,7 +4,9 @@ import styles from "./styles.module.scss";
 const Visitor = () => {
   const { data, isLoading } = useGetVisitor();
 
-  if (isLoading || !data) return null;
+  if (isLoading || !data) {
+    return null;
+  }
 
   return (
     <div className={styles.Visitor}>

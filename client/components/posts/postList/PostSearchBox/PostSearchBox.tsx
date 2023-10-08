@@ -12,14 +12,18 @@ const PostSearchBox = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!searchRef.current) return;
+    if (!searchRef.current) {
+      return;
+    }
     const searchKeyword = searchRef.current.value;
 
-    if (!searchKeyword) return toast.warn(MESSAGE.NEED_SEARCHKEYWORD);
+    if (!searchKeyword) {
+      return toast.warn(MESSAGE.NEED_SEARCHKEYWORD);
+    }
 
     return push({
       pathname: "/",
-      query: { search: searchRef.current.value },
+      query: { search: searchKeyword },
     });
   };
 

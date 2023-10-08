@@ -11,12 +11,11 @@ export const useGetUserQuery = () =>
     retry: false,
   });
 
-export const useSignUp = ({ onSuccess, onError }: MutationParams) => {
-  return useMutation(SignUpAPI, {
+export const useSignUp = ({ onSuccess, onError }: MutationParams) =>
+  useMutation(SignUpAPI, {
     onSuccess,
     onError,
   });
-};
 
 export const useLogin = ({ onSuccess, onError }: MutationParams) => {
   const queryClient = useQueryClient();

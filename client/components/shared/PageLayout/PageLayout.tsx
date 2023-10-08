@@ -28,7 +28,9 @@ const CLASS_MAPPER = {
 
 const getClassNameFromUrl = (url: string) => {
   for (const [targetURL, className] of Object.entries(CLASS_MAPPER)) {
-    if (url.includes(targetURL)) return className;
+    if (url.includes(targetURL)) {
+      return className;
+    }
   }
   return styles.WithFlexLayout;
 };

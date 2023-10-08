@@ -46,7 +46,9 @@ const SnippetWritePage = () => {
 
   const handleSubmitSnippet = () => {
     const notEnteredKey = verifyNonNullableInFormState();
-    if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
+    if (notEnteredKey) {
+      return toast.warn(`${notEnteredKey}를 입력해주세요.`);
+    }
 
     const mutateAsync = {
       write: addSnippetMutate,
@@ -60,7 +62,9 @@ const SnippetWritePage = () => {
   };
 
   useEffect(() => {
-    if (!data) return;
+    if (!data) {
+      return;
+    }
     syncFormDataAndState({ ...omit(data, "id", "createdAt") });
   }, [data, syncFormDataAndState]);
 

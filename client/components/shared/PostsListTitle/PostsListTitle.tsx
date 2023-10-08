@@ -17,9 +17,15 @@ const PostsListTitle = () => {
 export default PostsListTitle;
 
 function getTitle(query: PostsPageQueryType) {
-  if (query.search) return `🔍 Search : ${query.search}`;
-  else if (query.tag) return `🔗 Tag : ${query.tag}`;
-  else if (query.category) return `📚 Category : ${query.category}`;
-  else if (query.series) return `✍ Series : ${query.series}`;
-  else return `📝 All Posts`;
+  if (query.search) {
+    return `🔍 Search : ${query.search}`;
+  } else if (query.tag) {
+    return `🔗 Tag : ${query.tag}`;
+  } else if (query.category) {
+    return `📚 Category : ${query.category}`;
+  } else if (query.series) {
+    return `✍ Series : ${query.series}`;
+  } else {
+    return `📝 All Posts`;
+  }
 }

@@ -23,10 +23,15 @@ const LoginModalContainer = () => {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!emailRef.current || !passwordRef.current) return;
-    if (emailRef.current.value === "") return toast.error(MESSAGE.NEED_EMAIL);
-    if (passwordRef.current.value === "")
+    if (!emailRef.current || !passwordRef.current) {
+      return;
+    }
+    if (emailRef.current.value === "") {
+      return toast.error(MESSAGE.NEED_EMAIL);
+    }
+    if (passwordRef.current.value === "") {
       return toast.error(MESSAGE.NEED_PASSWORD);
+    }
 
     const reqData = {
       email: emailRef.current.value,

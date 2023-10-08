@@ -6,9 +6,13 @@ import TagButton from "components/shared/tagButton";
 const PostTags = () => {
   const { Tags } = usePostContext();
 
-  if (!Tags) return null;
+  if (!Tags) {
+    return null;
+  }
 
-  if (Tags.length === 0) return null;
+  if (Tags.length === 0) {
+    return null;
+  }
 
   return (
     <ul className={styles.PostTags}>

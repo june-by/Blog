@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import useQueryId from "Hooks/useQueryId";
 import { useDeleteSnippetMutation } from "Hooks/Snippet";
 import { useRouter } from "next/router";
+import MESSAGE from "constants/message";
 
 const PostDeleteButton = () => {
   const id = useQueryId();
@@ -12,7 +13,9 @@ const PostDeleteButton = () => {
   const { mutate: deletePost } = useDeletePostMutation();
 
   const handleClickDelete = () => {
-    if (!window.confirm("* 정말 삭제하시겠습니까?")) return;
+    if (!window.confirm(MESSAGE.CONFIRM_DELETE)) {
+      return;
+    }
 
     const deleteFn = pathname.includes("snippets") ? deleteSnippet : deletePost;
 

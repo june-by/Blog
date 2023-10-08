@@ -17,7 +17,9 @@ const SeriesInfo = () => {
 
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
 
-  if (!SeriesId || !seriesPosts) return null;
+  if (!SeriesId || !seriesPosts) {
+    return null;
+  }
 
   const currentPostIdx =
     seriesPosts.findIndex(({ id }) => id === currentPostId) + 1;

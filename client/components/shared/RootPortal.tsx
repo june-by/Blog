@@ -10,9 +10,12 @@ interface Props {
 const RootPortal = ({ isOpen, children }: Props) => {
   const mounted = useMouted();
 
-  const portalElement = typeof window !== "undefined" && document.querySelector("#portal");
+  const portalElement =
+    typeof window !== "undefined" && document.querySelector("#portal");
 
-  if (!mounted || !portalElement || !isOpen) return null;
+  if (!mounted || !portalElement || !isOpen) {
+    return null;
+  }
 
   return createPortal(children, portalElement);
 };

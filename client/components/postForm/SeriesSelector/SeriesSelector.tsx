@@ -10,7 +10,9 @@ const SeriesSelector = <T extends Record<string, any>>(
 ) => {
   const { data } = useGetAllSeires();
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   const seriesOptions = data.map(({ title, id }) => {
     return {

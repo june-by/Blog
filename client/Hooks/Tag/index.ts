@@ -11,7 +11,9 @@ export const useGetAllTags = (showMore: boolean) => {
     CACHE_OPTION.ALL
   );
 
-  if (!data) return [];
+  if (!data) {
+    return [];
+  }
 
   return showMore ? data : data.slice(0, 20);
 };

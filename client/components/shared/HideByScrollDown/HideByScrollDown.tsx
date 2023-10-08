@@ -50,12 +50,16 @@ const HideByScrollDown = ({
   const styleForAnimation = STYLE[hideDirection];
 
   const hide = useCallback(() => {
-    if (!wrapperRef.current) return;
+    if (!wrapperRef.current) {
+      return;
+    }
     wrapperRef.current.style[styleForAnimation] = valueForHide;
   }, [styleForAnimation, valueForHide]);
 
   const show = useCallback(() => {
-    if (!wrapperRef.current) return;
+    if (!wrapperRef.current) {
+      return;
+    }
     wrapperRef.current.style[styleForAnimation] = "0";
   }, [styleForAnimation]);
 

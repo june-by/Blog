@@ -24,7 +24,9 @@ const UploadButton = ({ onUploadeSuccess, text }: UploadButtonProps) => {
     inputElem.onchange = async () => {
       const file = inputElem.files;
 
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
       const formData = new FormData();
       formData.append("img", file[0]);
@@ -46,7 +48,10 @@ const ImageUrlInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
 };
 
 const UploadedImage = (props: ComponentProps<typeof Image>) => {
-  if (isNull(props.src as string)) return null;
+  if (isNull(props.src as string)) {
+    return null;
+  }
+
   return <Image {...props} alt="uploadedImage" />;
 };
 

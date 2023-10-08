@@ -52,7 +52,9 @@ const useGetTOCActiveId = (toc: HTMLElement[]) => {
   >(null);
 
   const updateTocPositions = useCallback(() => {
-    if (!toc) return;
+    if (!toc) {
+      return;
+    }
     const scrollTop = getScrollTop();
     const headingTops = toc.map((el, id) => {
       if (!el) {
@@ -92,7 +94,9 @@ const useGetTOCActiveId = (toc: HTMLElement[]) => {
 
   const onScroll = useCallback(() => {
     const scrollTop = getScrollTop();
-    if (!headingTops) return;
+    if (!headingTops) {
+      return;
+    }
     const currentHeading = [...headingTops].reverse().find((headingTop) => {
       return scrollTop >= headingTop.top - 4;
     });
@@ -120,7 +124,9 @@ const useGetTOCActiveId = (toc: HTMLElement[]) => {
 };
 
 function getScrollTop() {
-  if (!document.body) return 0;
+  if (!document.body) {
+    return 0;
+  }
   const scrollTop = document.documentElement
     ? document.documentElement.scrollTop || document.body.scrollTop
     : document.body.scrollTop;

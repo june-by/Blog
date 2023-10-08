@@ -40,7 +40,9 @@ const SeriesFormModal = ({ isOpen, closeModal }: Props) => {
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
-      if (!titleRef.current || !shortDescriptionRef.current) return;
+      if (!titleRef.current || !shortDescriptionRef.current) {
+        return;
+      }
       e.preventDefault();
 
       mutate({

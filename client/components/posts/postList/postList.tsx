@@ -31,11 +31,15 @@ const PostList = ({ params, query }: Props) => {
 
   useRestoreSrollPos();
 
-  if (isError) return <ErrorHelper error={error} reset={refetch} />;
+  if (isError) {
+    return <ErrorHelper error={error} reset={refetch} />;
+  }
 
   const isPostsExist = data?.pages[0]?.length !== 0 ? true : false;
 
-  if (!isPostsExist) return <NoPost />;
+  if (!isPostsExist) {
+    return <NoPost />;
+  }
 
   return (
     <PostsListLayout>

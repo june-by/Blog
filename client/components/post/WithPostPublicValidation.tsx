@@ -14,13 +14,14 @@ const WithPostPublicValidation = ({
   fallback,
   onInvalid,
 }: Props) => {
-  if (isPublic) return <>{children}</>;
-  else
-    return (
-      <WithAdminValidation fallback={fallback} onInvalid={onInvalid}>
-        {children}
-      </WithAdminValidation>
-    );
+  if (isPublic) {
+    return <>{children}</>;
+  }
+  return (
+    <WithAdminValidation fallback={fallback} onInvalid={onInvalid}>
+      {children}
+    </WithAdminValidation>
+  );
 };
 
 export default WithPostPublicValidation;

@@ -9,10 +9,18 @@ const Comments = () => {
   const { theme, isThemeLoaded } = useThemeContext();
 
   useEffect(() => {
-    if (!commentWrapperRef.current) return;
-    if (!isThemeLoaded) return;
+    if (!commentWrapperRef.current) {
+      return;
+    }
 
-    if (commentWrapperRef.current?.firstChild) return;
+    if (!isThemeLoaded) {
+      return;
+    }
+
+    if (commentWrapperRef.current?.firstChild) {
+      return;
+    }
+
     const scriptElem = document.createElement("script");
     scriptElem.src = `${src}/client.js`;
     scriptElem.setAttribute("data-repo", "BY-juun/Blog");
@@ -32,7 +40,9 @@ const Comments = () => {
     commentWrapperRef.current?.appendChild(scriptElem);
 
     return () => {
-      if (!commentWrapperRef.current) return;
+      if (!commentWrapperRef.current) {
+        return;
+      }
 
       if (commentWrapperRef.current?.innerHTML) {
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -12,7 +12,9 @@ const RoutePostButtons = () => {
 
   const { data } = useGetPostQuery({ id });
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   const {
     prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },
