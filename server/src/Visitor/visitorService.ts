@@ -1,21 +1,16 @@
 import { Visitors } from "models";
+import { VisitorAttribute } from "types/visitor";
 
-const getTotalVisitor = async () => {
-  const totalVisitor = await Visitors.count({});
-  return totalVisitor;
-};
+const getTotalVisitor = async () => await Visitors.count({});
 
-const getTodayVisitor = async ({ dateInfo }: { dateInfo: string }) => {
-  const todayVisitor = await Visitors.count({
-    where: { date: dateInfo },
+const getTodayVisitor = async ({ date }: Pick<VisitorAttribute, "date">) =>
+  await Visitors.count({
+    where: { date },
   });
-  return todayVisitor;
-};
 
-const addVisitor = async ({ dateInfo }: { dateInfo: string }) => {
+const addVisitor = async ({ date }: Pick<VisitorAttribute, "date">) =>
   await Visitors.create({
-    date: dateInfo,
+    date,
   });
-};
 
 export default { getTotalVisitor, getTodayVisitor, addVisitor };
