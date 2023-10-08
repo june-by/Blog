@@ -53,8 +53,8 @@ const getSeriesPosts = async (
 ) => {
   const { page, seriesTitle } = req.params;
   try {
-    const seriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
-    const posts = await postsService.getPostsBySeriesId({ page, seriesId });
+    const SeriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
+    const posts = await postsService.getPostsBySeriesId({ page, SeriesId });
     return res.status(200).json(posts);
   } catch (err) {
     console.error(err);

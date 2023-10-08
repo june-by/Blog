@@ -78,11 +78,7 @@ const getPost = async (req: Request, res: Response, next: NextFunction) => {
     const [prevPost, nextPost, seriesPosts, seriesTitle] = await Promise.all([
       postService.getPrevPost({ category, id }),
       postService.getNextPost({ category, id }),
-      SeriesId
-        ? postsService.getPostsBySeriesId({
-            seriesId: SeriesId,
-          })
-        : {},
+      SeriesId ? postsService.getPostsBySeriesId({ SeriesId }) : {},
       SeriesId
         ? seriesService.getSeriesTitleById({ seriesId: String(SeriesId) })
         : {},

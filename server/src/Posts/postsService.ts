@@ -1,6 +1,7 @@
 import { Posts, Tags, sequelizeConnection } from "models";
-import Sequelize, { FindOptions } from "sequelize";
+import Sequelize from "sequelize";
 import { ORDER_BY_CREATED_AT } from "src/constants";
+import { PostAttribute, TypeWithOptionalPage, TypeWithPage } from "types";
 const Op = Sequelize.Op;
 
 const POSTS_PER_PAGE = 20;
@@ -35,10 +36,7 @@ const getMainPosts = async ({ page }: { page: string }) => {
 const getCategoryPosts = async ({
   category,
   page,
-}: {
-  page: string;
-  category: string;
-}) => {
+}: TypeWithPage<Pick<PostAttribute, "category">>) => {
   const posts = await Posts.findAll({
     where: { category: category },
     order: ORDER_BY_CREATED_AT,
@@ -59,11 +57,8 @@ const getCategoryPosts = async ({
 
 const getPostsBySeriesId = async ({
   page,
-  seriesId,
-}: {
-  page?: string;
-  seriesId?: number;
-}) => {
+  SeriesId,
+}: TypeWithOptionalPage<Partial<Pick<PostAttribute, "SeriesId">>>) => {
   const isPagedRequest = !!page;
 
   const fieldForPagedQuery = isPagedRequest
@@ -75,7 +70,7 @@ const getPostsBySeriesId = async ({
     : {};
 
   const posts = await Posts.findAll({
-    where: { SeriesId: seriesId },
+    where: { SeriesId },
     ...fieldForPagedQuery,
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
@@ -93,10 +88,9 @@ const getPostsBySeriesId = async ({
 const getPostsBySearchKeyWord = async ({
   page,
   keyword,
-}: {
-  page: string;
+}: TypeWithPage<{
   keyword: string;
-}) => {
+}>) => {
   const posts = await Posts.findAll({
     where: {
       title: {
@@ -122,10 +116,9 @@ const getPostsBySearchKeyWord = async ({
 const getPostsByTag = async ({
   page,
   keyword,
-}: {
-  page: string;
+}: TypeWithPage<{
   keyword: string;
-}) => {
+}>) => {
   const posts = await Posts.findAll({
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
@@ -158,7 +151,7 @@ const getCategoryPostsCount = async () => {
   return categoryCount;
 };
 
-const getPostsCount = async ({ category }: { category: string }) => {
+const getPostsCount = async ({ category }: Pick<PostAttribute, "category">) => {
   const where = category === "main" ? "" : `where category="${category}"`;
   const query = `select count(*) as count from Posts ${where}`;
   const [data, _] = await sequelizeConnection.query(query);
