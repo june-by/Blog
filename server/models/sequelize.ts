@@ -12,7 +12,7 @@ import initUserModel from "./userInit";
 const env = process.env.NODE_ENV || "development";
 const config = dbConfig[env];
 
-export const sequelizeInstance = new Sequelize(
+export const sequelizeConnection = new Sequelize(
   config.database,
   config.username,
   config.password,

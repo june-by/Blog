@@ -1,6 +1,6 @@
 import { Snippets } from "./snippet";
 import { DataTypes } from "sequelize";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initSnippetModel() {
   Snippets.init(
@@ -24,7 +24,7 @@ function initSnippetModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Snippets",
       timestamps: true,
     }

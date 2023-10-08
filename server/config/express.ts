@@ -10,7 +10,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
 import dotenv from "dotenv";
-import { sequelizeInstance } from "models";
+import { sequelizeConnection } from "models";
 import postRouter from "src/Post/postRouter";
 import postsRouter from "src/Posts/postsRouter";
 import userRouter from "src/User/userRouter";
@@ -98,7 +98,7 @@ export default async function () {
     });
   });
 
-  await sequelizeInstance
+  await sequelizeConnection
     .authenticate()
     .then(async () => {
       console.log("connection success");

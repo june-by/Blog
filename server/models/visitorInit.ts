@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { Visitors } from "./visitor";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initVisitorModel() {
   Visitors.init(
@@ -16,7 +16,7 @@ function initVisitorModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Visitors",
       timestamps: true,
     }

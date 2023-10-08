@@ -1,6 +1,6 @@
 import { Posts } from "./post";
 import { DataTypes } from "sequelize";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initPostModel() {
   Posts.init(
@@ -44,7 +44,7 @@ function initPostModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Posts",
       timestamps: true,
     }

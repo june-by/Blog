@@ -1,6 +1,6 @@
 import { Tags } from "./tag";
 import { DataTypes } from "sequelize";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initTagModel() {
   Tags.init(
@@ -16,7 +16,7 @@ function initTagModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Tags",
       timestamps: true,
     }

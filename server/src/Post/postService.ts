@@ -1,4 +1,4 @@
-import { Posts, Tags, sequelizeInstance } from "models";
+import { Posts, Tags, sequelizeConnection } from "models";
 import { PostCreationAttributes } from "types";
 
 interface PostId {
@@ -131,7 +131,7 @@ const getViewCount = async ({
 const getPrevPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
-  const [prev, _] = await sequelizeInstance.query(query, {
+  const [prev, _] = await sequelizeConnection.query(query, {
     replacements: [category, id],
   });
   return prev[0];
@@ -140,7 +140,7 @@ const getPrevPost = async (category: string, id: string) => {
 const getNextPost = async (category: string, id: string) => {
   const query =
     "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
-  const [next, _] = await sequelizeInstance.query(query, {
+  const [next, _] = await sequelizeConnection.query(query, {
     replacements: [category, id],
   });
   return next[0];

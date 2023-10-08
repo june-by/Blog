@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { Series } from "./series";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initSerieModel() {
   Series.init(
@@ -24,7 +24,7 @@ function initSerieModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Series",
       timestamps: true,
     }

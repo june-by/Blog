@@ -1,6 +1,6 @@
 import { Users } from "./user";
 import { DataTypes } from "sequelize";
-import { sequelizeInstance } from "./sequelize";
+import { sequelizeConnection } from "./sequelize";
 
 function initUserModel() {
   Users.init(
@@ -29,7 +29,7 @@ function initUserModel() {
       },
     },
     {
-      sequelize: sequelizeInstance,
+      sequelize: sequelizeConnection,
       tableName: "Users",
       timestamps: true,
     }

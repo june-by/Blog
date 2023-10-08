@@ -1,4 +1,4 @@
-import { Posts, Tags, sequelizeInstance } from "models";
+import { Posts, Tags, sequelizeConnection } from "models";
 import Sequelize, { FindOptions } from "sequelize";
 import { ORDER_BY_CREATED_AT } from "src/constants";
 const Op = Sequelize.Op;
@@ -148,7 +148,10 @@ const getCategoryPostsCount = async () => {
   const categoryCount = await Posts.findAll({
     attributes: [
       "category",
-      [sequelizeInstance.fn("COUNT", Sequelize.col("Posts.category")), "count"],
+      [
+        sequelizeConnection.fn("COUNT", Sequelize.col("Posts.category")),
+        "count",
+      ],
     ],
     group: ["Posts.category"],
   });
@@ -158,7 +161,7 @@ const getCategoryPostsCount = async () => {
 const getPostsCount = async ({ category }: { category: string }) => {
   const where = category === "main" ? "" : `where category="${category}"`;
   const query = `select count(*) as count from Posts ${where}`;
-  const [data, _] = await sequelizeInstance.query(query);
+  const [data, _] = await sequelizeConnection.query(query);
   return (data[0] as { count: number }).count;
 };
 
