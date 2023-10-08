@@ -8,7 +8,7 @@ const createTags = async ({ tagArr }: { tagArr: string[] }) => {
       })
     )
   );
-  return result;
+  return result.map(([data]) => data);
 };
 
 const getAllTags = async () => {

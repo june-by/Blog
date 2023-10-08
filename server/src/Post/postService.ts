@@ -1,17 +1,14 @@
 import { Posts, Tags, sequelizeConnection } from "models";
-import { PostCreationAttributes } from "types";
+import { PostAttribute, PostCreationAttributes } from "types";
 
-interface PostId {
-  postId: string;
-}
-const getPost = async ({ postId }: PostId) => {
-  const post = await Posts.findOne({ where: { id: postId } });
+const getPost = async ({ id }: Pick<PostAttribute, "id">) => {
+  const post = await Posts.findOne({ where: { id } });
   return post;
 };
 
-const getFullPost = async ({ postId }: PostId) => {
+const getFullPost = async ({ id }: Pick<PostAttribute, "id">) => {
   const fullPost = await Posts.findOne({
-    where: { id: postId },
+    where: { id },
     attributes: {
       exclude: ["updatedAt"],
     },
@@ -25,42 +22,24 @@ const getFullPost = async ({ postId }: PostId) => {
   return fullPost;
 };
 
-const createPost = async ({
-  title,
-  category,
-  content,
-  thumbNailUrl,
-  isPublic,
-  shortDescription,
-  SeriesId,
-}: PostCreationAttributes) => {
+const createPost = async (postCreationAttributes: PostCreationAttributes) => {
   const post = await Posts.create({
-    title,
-    category,
-    content,
-    thumbNailUrl,
+    ...postCreationAttributes,
     views: 0,
-    isPublic,
-    shortDescription,
-    SeriesId,
   });
   return post;
 };
-
-interface UpdatePostParams extends PostCreationAttributes {
-  postId: string;
-}
 
 const updatePost = async ({
   title,
   category,
   content,
   thumbNailUrl,
-  postId,
-  isPublic,
   shortDescription,
   SeriesId,
-}: UpdatePostParams) => {
+  id,
+  isPublic,
+}: PostAttribute) => {
   await Posts.update(
     {
       title,
@@ -72,63 +51,55 @@ const updatePost = async ({
       SeriesId,
     },
     {
-      where: { id: postId },
+      where: { id },
     }
   );
 };
 
-const deletePost = async ({ postId }: PostId) => {
+const deletePost = async ({ id }: Pick<PostAttribute, "id">) => {
   await Posts.destroy({
-    where: { id: postId },
+    where: { id },
   });
 };
 
-const addTags = async ({ post, result }: { post: any; result: any[] }) => {
-  await post.addTags(result.map((v) => v[0]));
+const addTags = async ({ post, tags }: { post: Posts; tags: Tags[] }) => {
+  await post.addTags(tags);
 };
 
-const updateTags = async ({ post, result }: { post: any; result: any[] }) => {
-  await post.setTags(result.map((v) => v[0]));
-};
-
-const isPostExists = async ({ postId }: PostId) => {
-  const post = await Posts.findOne({
-    //게시글 존재하는지 확인
-    where: { id: postId },
-  });
-  return post;
+const updateTags = async ({ post, tags }: { post: Posts; tags: Tags[] }) => {
+  await post.setTags(tags);
 };
 
 const addViewCount = async ({
-  postId,
+  id,
   views,
-}: {
-  postId: string;
-  views: number;
-}) => {
+}: Pick<PostAttribute, "id" | "views">) => {
   await Posts.update(
     {
       views: views + 1,
     },
     {
-      where: { id: postId },
+      where: { id },
     }
   );
 };
 
 const getViewCount = async ({
-  postId,
-}: {
-  postId: string;
-}): Promise<Pick<PostCreationAttributes, "views">> => {
+  id,
+}: Pick<PostAttribute, "id">): Promise<
+  Pick<PostCreationAttributes, "views">
+> => {
   const viewCount = await Posts.findOne({
-    where: { id: postId },
+    where: { id },
     attributes: ["views"],
   });
   return viewCount as Pick<PostCreationAttributes, "views">;
 };
 
-const getPrevPost = async (category: string, id: string) => {
+const getPrevPost = async ({
+  category,
+  id,
+}: Pick<PostAttribute, "category" | "id">) => {
   const query =
     "select * from (select id, LAG(createdAt) OVER (ORDER BY id) OtherCreatedAt, LAG(title) OVER (ORDER BY id) OtherTitle,LAG(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
   const [prev, _] = await sequelizeConnection.query(query, {
@@ -137,7 +108,10 @@ const getPrevPost = async (category: string, id: string) => {
   return prev[0];
 };
 
-const getNextPost = async (category: string, id: string) => {
+const getNextPost = async ({
+  category,
+  id,
+}: Pick<PostAttribute, "category" | "id">) => {
   const query =
     "select * from (select id, LEAD(createdAt) OVER (ORDER BY id) OtherCreatedAt, LEAD(title) OVER (ORDER BY id) OtherTitle,LEAD(id) OVER (ORDER BY id) OtherId  from Posts where category=?)A where id=?;";
   const [next, _] = await sequelizeConnection.query(query, {
@@ -157,6 +131,5 @@ const postService = {
   deletePost,
   addViewCount,
   getViewCount,
-  isPostExists,
 };
 export default postService;

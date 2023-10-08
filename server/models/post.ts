@@ -1,5 +1,10 @@
-import { Model } from "sequelize";
+import {
+  HasManyAddAssociationMixin,
+  HasManySetAssociationsMixin,
+  Model,
+} from "sequelize";
 import { PostAttribute, PostCreationAttributes } from "types";
+import { Tags } from "./tag";
 
 export class Posts extends Model<PostAttribute, PostCreationAttributes> {
   public id!: number;
@@ -11,4 +16,7 @@ export class Posts extends Model<PostAttribute, PostCreationAttributes> {
   public views!: number;
   public isPublic!: number;
   public SeriesId?: number;
+
+  declare addTags: HasManyAddAssociationMixin<Tags, Tags[]>;
+  declare setTags: HasManySetAssociationsMixin<Tags, Tags[]>;
 }
