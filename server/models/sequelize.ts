@@ -31,8 +31,8 @@ function initModel() {
 
   Posts.belongsTo(Series);
   Series.hasMany(Posts);
-  Posts.belongsToMany(Tags, { through: "PostHashTag" });
-  Tags.belongsToMany(Posts, { through: "PostHashTag" });
+  Posts.belongsToMany(Tags, { through: "PostHashtag" });
+  Tags.belongsToMany(Posts, { through: "PostHashtag" });
 }
 
 initModel();
