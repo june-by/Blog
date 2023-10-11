@@ -1,4 +1,19 @@
-import { PostHashtag, Posts, Series, Snippets, Tags, Users, Visitors } from ".";
+import {
+  PostHashtag,
+  Posts,
+  Series,
+  Snippets,
+  Tags,
+  Users,
+  Visitors,
+  initPostHashTag,
+  initPosts,
+  initSeries,
+  initSnippets,
+  initTags,
+  initUsers,
+  initVisitors,
+} from "./models";
 
 const Tables = {
   Visitors,
@@ -10,7 +25,15 @@ const Tables = {
   PostHashtag,
 };
 
-async function createTablesIfNotExist() {
+async function syncDatabase() {
+  initPosts();
+  initSeries();
+  initTags();
+  initUsers();
+  initSnippets();
+  initPostHashTag();
+  initVisitors();
+
   Posts.belongsTo(Series);
   Series.hasMany(Posts);
   Posts.belongsToMany(Tags, { through: PostHashtag });
@@ -28,4 +51,4 @@ async function createTablesIfNotExist() {
   }
 }
 
-export default createTablesIfNotExist;
+export default syncDatabase;

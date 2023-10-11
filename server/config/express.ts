@@ -22,13 +22,14 @@ import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import createTablesIfNotExist from "database/createTablesIfNotExist";
+import syncDatabase from "database/syncDatabase";
+
 dotenv.config();
 
 export default async function () {
   const app = express();
 
-  createTablesIfNotExist();
+  await syncDatabase();
 
   passportConfig();
 
