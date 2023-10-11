@@ -5,15 +5,10 @@ import QUERY_KEY from "constants/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addSeriesAPI, getAllSeriesAPI } from "services/series";
 
-export const useGetAllSeires = () => {
-  return useQuery<AllSeriesAPIType>(
-    [QUERY_KEY.SERIES],
-    () => getAllSeriesAPI(),
-    {
-      ...CACHE_OPTION.ALL,
-    }
-  );
-};
+export const useGetAllSeires = () =>
+  useQuery<AllSeriesAPIType>([QUERY_KEY.SERIES], () => getAllSeriesAPI(), {
+    ...CACHE_OPTION.ALL,
+  });
 
 export const useAddSeries = ({ onSuccess, onError }: MutationParams) => {
   const queryClient = useQueryClient();

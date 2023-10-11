@@ -20,7 +20,9 @@ const MAIN_PATH_MAPPER = {
 
 const getMainPathFromUrl = (url: string) => {
   for (const [targetURL, mainPath] of Object.entries(MAIN_PATH_MAPPER)) {
-    if (url.includes(targetURL)) return mainPath;
+    if (url.includes(targetURL)) {
+      return mainPath;
+    }
   }
   return "posts";
 };

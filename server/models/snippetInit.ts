@@ -1,0 +1,34 @@
+import { Snippets } from "./snippet";
+import { DataTypes } from "sequelize";
+import { sequelizeConnection } from "./sequelize";
+
+function initSnippetModel() {
+  Snippets.init(
+    {
+      id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      title: {
+        type: DataTypes.TEXT,
+        allowNull: false, //필수
+      },
+      content: {
+        type: DataTypes.TEXT("long"),
+        allowNull: false,
+      },
+      category: {
+        type: DataTypes.STRING(30),
+        allowNull: false, //필수
+      },
+    },
+    {
+      sequelize: sequelizeConnection,
+      tableName: "Snippets",
+      timestamps: true,
+    }
+  );
+}
+
+export default initSnippetModel;

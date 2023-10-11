@@ -84,19 +84,31 @@ function verifyValue(query: ParsedUrlQuery) {
 }
 
 function getQuery(query: PostsPageQueryType) {
-  if (query.search) return useGetSearchPosts;
-  else if (query.tag) return useGetTagPosts;
-  else if (query.category) return useGetCategoryPosts;
-  else if (query.series) return useGetSeriesPosts;
-  else return useGetMainPost;
+  if (query.search) {
+    return useGetSearchPosts;
+  } else if (query.tag) {
+    return useGetTagPosts;
+  } else if (query.category) {
+    return useGetCategoryPosts;
+  } else if (query.series) {
+    return useGetSeriesPosts;
+  } else {
+    return useGetMainPost;
+  }
 }
 
 function getParams(query: PostsPageQueryType) {
-  if (query.search) return query.search;
-  else if (query.tag) return query.tag;
-  else if (query.category) return query.category;
-  else if (query.series) return query.series;
-  else return "";
+  if (query.search) {
+    return query.search;
+  } else if (query.tag) {
+    return query.tag;
+  } else if (query.category) {
+    return query.category;
+  } else if (query.series) {
+    return query.series;
+  } else {
+    return "";
+  }
 }
 
 function createMetaData(query: PostsPageQueryType) {

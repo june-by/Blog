@@ -9,7 +9,9 @@ import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 const Snippets = () => {
   const { data } = useGetAllSnippetsQuery();
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   const SnippetsCategoryList = Object.keys(data);
 

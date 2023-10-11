@@ -1,4 +1,3 @@
-import postController from "src/Post/postController";
 import { NextFunction, Request, Response } from "express";
 import postsService from "./postsService";
 import seriesService from "src/Series/seriesService";
@@ -52,10 +51,10 @@ const getSeriesPosts = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page, seriesTitle } = req.params;
+  const { page, seriesTitle: title } = req.params;
   try {
-    const seriesId = await seriesService.getSeriesIdByTitle({ seriesTitle });
-    const posts = await postsService.getPostsBySeriesId({ page, seriesId });
+    const SeriesId = await seriesService.getSeriesIdByTitle({ title });
+    const posts = await postsService.getPostsBySeriesId({ page, SeriesId });
     return res.status(200).json(posts);
   } catch (err) {
     console.error(err);

@@ -1,70 +1,46 @@
-import model from "models";
+import { Users } from "models";
 import bcrypt from "bcrypt";
-const { User } = model;
+import { UserAttribute, UserCreationAttribute } from "types";
 
-interface getUserParams {
-  id?: number;
-  nickname?: string;
-  provider?: string;
-  email?: string;
-}
-
-interface User {
-  id: number;
-  nickname: string;
-  provider: string;
-  email: string;
-}
-
-const getUser = async ({ id }: { id: number }): Promise<User> => {
-  const user = await User.findOne({
-    where: { id: id },
-  });
-  const fullUserWithoutPassword = await User.findOne({
-    where: { id: user.id },
+const getUser = async ({ id }: Pick<UserAttribute, "id">) =>
+  await Users.findOne({
+    where: { id },
     attributes: {
       exclude: ["password"],
     },
   });
-  return fullUserWithoutPassword;
-};
 
 const addUser = async ({
   email,
   nickname,
   password,
   provider,
-}: {
-  email?: string;
-  nickname: string;
-  password?: string;
-  provider?: string;
-}) => {
+}: UserCreationAttribute) => {
   const hashedPassword = password ? await bcrypt.hash(password, 10) : "";
-  await User.create({
-    //await 안넣어주면, 비동기이기 때문에, 뒤에 res.json()이 먼저실행될수도있음.
+  await Users.create({
     email: email || `${nickname}@kakao`,
-    nickname: nickname,
+    nickname,
     password: hashedPassword || "",
     provider: provider || "local",
   });
 };
 
-const checkEmailValidation = async ({ email }: { email: string }) => {
-  const user = await User.findOne({
-    //ID가 같은사람이 있는지 검사
+const checkEmailValidation = async ({
+  email,
+}: Pick<UserAttribute, "email">) => {
+  return !!(await Users.findOne({
     where: {
-      email: email,
+      email,
     },
-  });
-  return user ? true : false;
+  }));
 };
 
-const checkNicknameValidation = async ({ nickname }: { nickname: string }) => {
-  const user = await User.findOne({
-    //nickname이 같은 사람이 있는지 검사
+const checkNicknameValidation = async ({
+  nickname,
+}: Pick<UserAttribute, "nickname">) => {
+  const user = await Users.findOne({
     where: {
-      nickname: nickname,
+      nickname,
     },
   });
   return user ? true : false;

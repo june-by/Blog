@@ -5,7 +5,9 @@ import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
 const PostDate = () => {
   const { createdAt } = usePostContext();
 
-  if (!createdAt) return null;
+  if (!createdAt) {
+    return null;
+  }
 
   return (
     <span>

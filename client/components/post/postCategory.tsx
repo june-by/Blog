@@ -6,7 +6,9 @@ import styles from "./styles.module.scss";
 const PostCategory = () => {
   const { category } = usePostContext();
 
-  if (!category) return null;
+  if (!category) {
+    return null;
+  }
   return (
     <Link className={styles.PostCategory} href={`/?category=${category}`}>
       {category}

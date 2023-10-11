@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAdmin = void 0;
-var isAdmin = function (req, res, next) {
+const isAdmin = (req, res, next) => {
     //const { id } = req.user as { id: number };
     console.log(req.user);
     next();

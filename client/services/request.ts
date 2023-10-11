@@ -1,3 +1,4 @@
+import MESSAGE from "constants/message";
 import { customAxios } from "utils/CustomAxios";
 
 interface RequestParams {
@@ -17,8 +18,8 @@ const request = async <T>({
     const { data } = await customAxios[method](url, body);
     return data;
   } catch (err: any) {
-    const errorMessage = onError ? onError(err) : err;
-    throw new Error(errorMessage);
+    const errorMessage = onError ? onError(err) : err?.response?.data;
+    throw new Error(errorMessage || MESSAGE.NETWORK_ERROR);
   }
 };
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import snippetsService from "./snippetService";
 import axios from "axios";
-import CLIENT_URL from "src/constants/clientUrl";
+import { CLIENT_URL, MESSAGE } from "src/constants";
 
 const getAllSnippetsId = async (
   req: Request,
@@ -46,25 +46,25 @@ const updateSnippet = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { snippetId } = req.params;
+  const { snippetId: id } = req.params;
 
   try {
     await snippetsService.updateSnippet({
       ...req.body,
-      snippetId,
+      id,
     });
 
     if (process.env.NODE_ENV === "production") {
       await axios.post(
         `${CLIENT_URL}/api/revalidate-snippet?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
         {
-          id: snippetId,
+          id,
         }
       );
     }
 
     return res.json({
-      message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
+      message: MESSAGE.EDIT_POST_SUCCESS,
     });
   } catch (err) {
     console.log(err);
@@ -74,8 +74,8 @@ const updateSnippet = async (
 
 const getSnippet = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { snippetId } = req.params;
-    const snippet = await snippetsService.getSnippet({ snippetId });
+    const id = Number(req.params.snippetId);
+    const snippet = await snippetsService.getSnippet({ id });
     return res.status(200).json(snippet);
   } catch (err) {
     console.log(err);
@@ -89,9 +89,10 @@ const deleteSnippet = async (
   next: NextFunction
 ) => {
   try {
-    const { snippetId } = req.params;
-    await snippetsService.deleteSnippet({ snippetId });
-    return res.status(200).json({ snippetId });
+    const id = Number(req.params.snippetId);
+
+    await snippetsService.deleteSnippet({ id });
+    return res.status(200).json({ snippetId: id });
   } catch (err) {
     console.log(err);
     next(err);

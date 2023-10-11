@@ -4,9 +4,10 @@ import { NextFunction, Request, Response } from "express";
 
 const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dateInfo = getVisitorDateInfo();
     const totalVisitor = await visitorService.getTotalVisitor();
-    const todayVisitor = await visitorService.getTodayVisitor({ dateInfo });
+    const todayVisitor = await visitorService.getTodayVisitor({
+      date: getVisitorDateInfo(),
+    });
     return res.status(201).json({ totalVisitor, todayVisitor });
   } catch (err) {
     console.error(err);
@@ -16,9 +17,7 @@ const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
 
 const addVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dateInfo = getVisitorDateInfo();
-    await visitorService.addVisitor({ dateInfo });
-    //await getVisitor();
+    await visitorService.addVisitor({ date: getVisitorDateInfo() });
   } catch (err) {
     console.error(err);
     next(err);

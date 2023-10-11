@@ -16,7 +16,9 @@ const useCheckVisitor = (queryClient: QueryClient) => {
 
     if (visitToday) {
       const dateInfo: DateInfo = JSON.parse(visitToday);
-      if (!isVisitMoreThanOneDay(dateInfo)) return;
+      if (!isVisitMoreThanOneDay(dateInfo)) {
+        return;
+      }
     }
 
     AddVisitor(queryClient, date);
@@ -44,8 +46,12 @@ function getCurrentTimeInfo() {
 function isVisitMoreThanOneDay(dateInfo: DateInfo) {
   const { currentYear, currentMonth, currentDate } = getCurrentTimeInfo();
 
-  if (currentMonth > dateInfo.month || currentYear > dateInfo.year) return true;
-  if (currentDate > dateInfo.date) return true;
+  if (currentMonth > dateInfo.month || currentYear > dateInfo.year) {
+    return true;
+  }
+  if (currentDate > dateInfo.date) {
+    return true;
+  }
 
   return false;
 }

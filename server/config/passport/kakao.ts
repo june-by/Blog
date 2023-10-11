@@ -1,8 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-kakao";
-import model from "models";
+import { Users } from "models";
 import userService from "src/User/userService";
-const { User } = model;
 
 export default () => {
   passport.use(
@@ -12,20 +11,21 @@ export default () => {
         callbackURL:
           process.env.NODE_ENV === "production"
             ? "https://api.byjuun.com/user/kakao/callback"
-            : "http://localhost:3065/user/kakao/callback",
+            : "https://local.byjuun.com:8080/user/kakao/callback",
       },
       async (accessToken, refreshToken, profile, done: Function) => {
         try {
           const { username } = profile as { username: string };
-          console.log("username : ", username);
-          let user = await User.findOne({
+
+          let user = await Users.findOne({
             where: { nickname: username, provider: "kakao" },
           });
-          console.log("beforeCreateUser : ", user);
-
           if (!user) {
-            await userService.addUser({ nickname: username, provider: "kakao" });
-            user = await User.findOne({
+            await userService.addUser({
+              nickname: username,
+              provider: "kakao",
+            });
+            user = await Users.findOne({
               where: { nickname: username, provider: "kakao" },
             });
           }

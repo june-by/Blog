@@ -20,9 +20,13 @@ const SnippetPostPage = () => {
   const router = useRouter();
   const { data: snippetData } = useGetSnippetQuery({ id: snippetId });
 
-  if (router.isFallback) return <PageSkeleton url="/post/" />;
+  if (router.isFallback) {
+    return <PageSkeleton url="/post/" />;
+  }
 
-  if (!snippetData) return null;
+  if (!snippetData) {
+    return null;
+  }
 
   return (
     <>

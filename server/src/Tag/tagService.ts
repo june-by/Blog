@@ -1,26 +1,24 @@
-import model from "models";
-import { Sequelize } from "sequelize";
-const { Tag, sequelize, Post } = model;
+import { Tags, Posts } from "models";
 
 const createTags = async ({ tagArr }: { tagArr: string[] }) => {
   const result = await Promise.all(
     tagArr.map((tag) =>
-      Tag.findOrCreate({
+      Tags.findOrCreate({
         where: { content: tag.toLowerCase() },
       })
     )
   );
-  return result;
+  return result.map(([data]) => data);
 };
 
 const getAllTags = async () => {
-  const tags = await Tag.findAll({
+  const tags = await Tags.findAll({
     attributes: {
       include: ["content"],
     },
     include: [
       {
-        model: Post,
+        model: Posts,
         attributes: ["id"],
       },
     ],

@@ -20,7 +20,9 @@ const usePostForm = <T extends Record<string, any>>(initialState: T) => {
 
       for (const key of formDataKeys) {
         if (exclude.includes(key)) continue;
-        if (!formState[key]) return key;
+        if (!formState[key]) {
+          return key;
+        }
       }
 
       return false;

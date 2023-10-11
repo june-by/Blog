@@ -19,9 +19,15 @@ const WithAdminValidation = ({
   const isAdmin = IsAdmin(userInfo);
 
   useEffect(() => {
-    if (!onInvalid) return;
-    if (isLoading) return;
-    if (!IsAdmin(userInfo)) onInvalid();
+    if (!onInvalid) {
+      return;
+    }
+    if (isLoading) {
+      return;
+    }
+    if (!IsAdmin(userInfo)) {
+      onInvalid();
+    }
   }, [isLoading, onInvalid, userInfo]);
 
   return (

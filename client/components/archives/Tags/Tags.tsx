@@ -10,7 +10,9 @@ const Tags = () => {
   const [showMore, , , toggleShowMore] = useBooleanState(false);
   const data = useGetAllTags(showMore);
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   return (
     <div className={styles.Tags}>

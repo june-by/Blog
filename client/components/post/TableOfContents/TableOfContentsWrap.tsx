@@ -11,10 +11,13 @@ const TableOfContentsWrap = () => {
 
   const { tableOfContents, isExtractComplete } = useExtractTOC({ postTitle });
 
-  if (!isExtractComplete)
+  if (!isExtractComplete) {
     return <aside className={styles.TableOfContentsWrap} />;
+  }
 
-  if (!tableOfContents || tableOfContents.length === 0) return null;
+  if (!tableOfContents || tableOfContents.length === 0) {
+    return null;
+  }
 
   return (
     <TableofContentsContainer tableOfContents={tableOfContents}>

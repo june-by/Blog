@@ -29,7 +29,9 @@ const PostPage = () => {
     router.replace("/");
   }, [router]);
 
-  if (!PostData) return null;
+  if (!PostData) {
+    return null;
+  }
 
   return (
     <WithPostPublicValidation

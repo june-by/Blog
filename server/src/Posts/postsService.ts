@@ -1,7 +1,7 @@
-import model from "models";
+import { Posts, Tags, sequelizeConnection } from "models";
 import Sequelize from "sequelize";
 import { ORDER_BY_CREATED_AT } from "src/constants";
-const { Post, Tag, sequelize } = model;
+import { PostAttribute, TypeWithOptionalPage, TypeWithPage } from "types";
 const Op = Sequelize.Op;
 
 const POSTS_PER_PAGE = 20;
@@ -9,14 +9,14 @@ const POSTS_PER_PAGE = 20;
 const DEFAULT_EXCLUDE_COLUMN = ["content", "updatedAt"];
 
 const getAllPostsId = async () => {
-  const posts = await Post.findAll({
+  const posts = await Posts.findAll({
     attributes: ["id"],
   });
   return posts;
 };
 
 const getMainPosts = async ({ page }: { page: string }) => {
-  const posts = await Post.findAll({
+  const posts = await Posts.findAll({
     order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
@@ -25,7 +25,7 @@ const getMainPosts = async ({ page }: { page: string }) => {
     },
     include: [
       {
-        model: Tag,
+        model: Tags,
         attributes: ["id", "content"],
       },
     ],
@@ -36,11 +36,8 @@ const getMainPosts = async ({ page }: { page: string }) => {
 const getCategoryPosts = async ({
   category,
   page,
-}: {
-  page: string;
-  category: string;
-}) => {
-  const posts = await Post.findAll({
+}: TypeWithPage<Pick<PostAttribute, "category">>) => {
+  const posts = await Posts.findAll({
     where: { category: category },
     order: ORDER_BY_CREATED_AT,
     limit: POSTS_PER_PAGE,
@@ -50,7 +47,7 @@ const getCategoryPosts = async ({
     },
     include: [
       {
-        model: Tag,
+        model: Tags,
         attributes: ["id", "content"],
       },
     ],
@@ -60,11 +57,8 @@ const getCategoryPosts = async ({
 
 const getPostsBySeriesId = async ({
   page,
-  seriesId,
-}: {
-  page?: string;
-  seriesId: number;
-}) => {
+  SeriesId,
+}: TypeWithOptionalPage<Partial<Pick<PostAttribute, "SeriesId">>>) => {
   const isPagedRequest = !!page;
 
   const fieldForPagedQuery = isPagedRequest
@@ -75,15 +69,15 @@ const getPostsBySeriesId = async ({
       }
     : {};
 
-  const posts = await Post.findAll({
-    where: { seriesId },
-    fieldForPagedQuery,
+  const posts = await Posts.findAll({
+    where: { SeriesId },
+    ...fieldForPagedQuery,
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
     },
     include: [
       {
-        model: Tag,
+        model: Tags,
         attributes: ["id", "content"],
       },
     ],
@@ -94,11 +88,10 @@ const getPostsBySeriesId = async ({
 const getPostsBySearchKeyWord = async ({
   page,
   keyword,
-}: {
-  page: string;
+}: TypeWithPage<{
   keyword: string;
-}) => {
-  const posts = await Post.findAll({
+}>) => {
+  const posts = await Posts.findAll({
     where: {
       title: {
         [Op.like]: "%" + decodeURIComponent(keyword) + "%",
@@ -112,7 +105,7 @@ const getPostsBySearchKeyWord = async ({
     },
     include: [
       {
-        model: Tag,
+        model: Tags,
         attributes: ["id", "content"],
       },
     ],
@@ -123,11 +116,10 @@ const getPostsBySearchKeyWord = async ({
 const getPostsByTag = async ({
   page,
   keyword,
-}: {
-  page: string;
+}: TypeWithPage<{
   keyword: string;
-}) => {
-  const posts = await Post.findAll({
+}>) => {
+  const posts = await Posts.findAll({
     attributes: {
       exclude: DEFAULT_EXCLUDE_COLUMN,
     },
@@ -136,7 +128,7 @@ const getPostsByTag = async ({
     offset: (Number(page) - 1) * POSTS_PER_PAGE,
     include: [
       {
-        model: Tag,
+        model: Tags,
         where: { content: keyword },
         attributes: ["id", "content"],
       },
@@ -146,25 +138,28 @@ const getPostsByTag = async ({
 };
 
 const getCategoryPostsCount = async () => {
-  const categoryCount = await Post.findAll({
+  const categoryCount = await Posts.findAll({
     attributes: [
       "category",
-      [Sequelize.fn("COUNT", Sequelize.col("Post.category")), "count"],
+      [
+        sequelizeConnection.fn("COUNT", Sequelize.col("Posts.category")),
+        "count",
+      ],
     ],
-    group: ["Post.category"],
+    group: ["Posts.category"],
   });
   return categoryCount;
 };
 
-const getPostsCount = async ({ category }: { category: string }) => {
+const getPostsCount = async ({ category }: Pick<PostAttribute, "category">) => {
   const where = category === "main" ? "" : `where category="${category}"`;
   const query = `select count(*) as count from Posts ${where}`;
-  const [data, _] = await sequelize.query(query);
-  return data[0].count;
+  const [data, _] = await sequelizeConnection.query(query);
+  return (data[0] as { count: number }).count;
 };
 
 const getAllPosts = async () => {
-  const posts = await Post.findAll({
+  const posts = await Posts.findAll({
     attributes: ["id", "title", "createdAt"],
     order: ORDER_BY_CREATED_AT,
   });

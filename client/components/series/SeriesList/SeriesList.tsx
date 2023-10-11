@@ -6,7 +6,9 @@ import { useGetAllSeires } from "Hooks/Series";
 const SeriesList = () => {
   const { data, isLoading } = useGetAllSeires();
 
-  if (!data || isLoading) return null;
+  if (!data || isLoading) {
+    return null;
+  }
 
   return (
     <SeriesListLayout>

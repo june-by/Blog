@@ -1,6 +1,6 @@
 import passport from "passport";
 import local from "./local";
-import model from "models";
+import { Users } from "models";
 import github from "./github";
 import kakao from "./kakao";
 
@@ -13,9 +13,9 @@ export default () => {
     done(null, (user as User).id); //서버에는 userid만 들고 있는다
   });
 
-  passport.deserializeUser(async (id, done) => {
+  passport.deserializeUser(async (id: number, done) => {
     try {
-      const user = await model.User.findOne({ where: { id } });
+      const user = await Users.findOne({ where: { id } });
       done(null, user); //req.user안에 넣어줌.
     } catch (error) {
       console.error(error);

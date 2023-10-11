@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isNotLoggedIn = void 0;
-var isNotLoggedIn = function (req, res, next) {
+const isNotLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         next();
     }

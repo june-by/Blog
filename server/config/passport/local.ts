@@ -1,8 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import model from "models";
+import { Users } from "models";
 import bcrypt from "bcrypt";
-const { User } = model;
 
 export default () => {
   passport.use(
@@ -13,7 +12,7 @@ export default () => {
       },
       async (email: string, password: string, done: Function) => {
         try {
-          const user = await User.findOne({
+          const user = await Users.findOne({
             where: { email },
           });
           if (!user) {

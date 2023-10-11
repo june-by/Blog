@@ -19,7 +19,10 @@ const TOCModal = ({ open, setOpen }: Props) => {
   };
 
   useEffect(() => {
-    if (!tocModalRef.current) return;
+    if (!tocModalRef.current) {
+      return;
+    }
+
     if (open) {
       tocModalRef.current.style.marginRight = MARGIN_RIGHT_FOR_SHOW;
     } else {

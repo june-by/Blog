@@ -5,11 +5,17 @@ export default function useRestoreSrollPos() {
   const { pathname: currentPathname } = useRouter();
 
   useEffect(() => {
-    if (!sessionStorage.getItem("scrollPos")) return;
-    const { pathname, scrollY } = JSON.parse(sessionStorage.getItem("scrollPos") as string);
+    if (!sessionStorage.getItem("scrollPos")) {
+      return;
+    }
+    const { pathname, scrollY } = JSON.parse(
+      sessionStorage.getItem("scrollPos") as string
+    );
 
     sessionStorage.removeItem("scrollPos");
-    if (document.body.scrollHeight < scrollY) return;
+    if (document.body.scrollHeight < scrollY) {
+      return;
+    }
 
     if (pathname === currentPathname) {
       setTimeout(() => {

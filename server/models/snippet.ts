@@ -1,28 +1,12 @@
-import { Sequelize } from "sequelize";
-import { ModelType } from "./types";
+import { Model } from "sequelize";
+import { SnippetAttribute, SnippetCreationAttribute } from "types";
 
-export default (sequelize: Sequelize, DataTypes: any) => {
-  const Snippet: ModelType = sequelize.define(
-    "Snippet",
-    {
-      title: {
-        type: DataTypes.TEXT,
-        allowNull: false, //필수
-      },
-      content: {
-        type: DataTypes.TEXT("long"),
-        allowNull: false,
-      },
-      category: {
-        type: DataTypes.STRING(30),
-        allowNull: false, //필수
-      },
-    },
-    {
-      charset: "utf8mb4",
-      collate: "utf8mb4_general_ci", //한글 + 이모티콘
-    }
-  );
-
-  return Snippet;
-};
+export class Snippets extends Model<
+  SnippetAttribute,
+  SnippetCreationAttribute
+> {
+  public id!: number;
+  public title!: string;
+  public content!: string;
+  public category!: string;
+}

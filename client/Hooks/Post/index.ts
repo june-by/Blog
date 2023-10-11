@@ -116,8 +116,8 @@ export const useGetPostViewCount = (id: number) =>
     CACHE_OPTION.ALL
   );
 
-export const useAddPost = () => {
-  return useMutation(AddPostAPI, {
+export const useAddPost = () =>
+  useMutation(AddPostAPI, {
     onMutate: () => {
       document.body.style.cursor = "wait";
     },
@@ -126,24 +126,21 @@ export const useAddPost = () => {
       return window.location.replace("/");
     },
   });
-};
 
-export const useEditPost = ({ postId }: { postId: number }) => {
-  return useMutation((reqData: PostFormType) => EditPostAPI(reqData, postId), {
+export const useEditPost = ({ postId }: { postId: number }) =>
+  useMutation((reqData: PostFormType) => EditPostAPI(reqData, postId), {
     onSuccess: () => {
       return window.location.replace(`/post/${postId}`);
     },
   });
-};
 
-export const useDeletePostMutation = () => {
-  return useMutation(DeletePostAPI, {
+export const useDeletePostMutation = () =>
+  useMutation(DeletePostAPI, {
     onSuccess: () => {
       alert(MESSAGE.POST_DELETE_SUCCESS);
       return window.location.replace("/");
     },
   });
-};
 
 export const useGetAllPostsQuery = () =>
-  useQuery([QUERY_KEY.POST.ALL], () => getAllPostsAPI(), CACHE_OPTION.ALL);
+  useQuery([QUERY_KEY.POST.ALL], getAllPostsAPI, CACHE_OPTION.ALL);
