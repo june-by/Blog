@@ -1,6 +1,6 @@
 import passport from "passport";
 import local from "./local";
-import { Users } from "models";
+import { Users } from "database";
 import github from "./github";
 import kakao from "./kakao";
 

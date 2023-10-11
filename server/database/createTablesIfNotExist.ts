@@ -1,12 +1,4 @@
-import {
-  PostHashtag,
-  Posts,
-  Series,
-  Snippets,
-  Tags,
-  Users,
-  Visitors,
-} from "./";
+import { PostHashtag, Posts, Series, Snippets, Tags, Users, Visitors } from ".";
 
 const Tables = {
   Visitors,

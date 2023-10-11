@@ -1,4 +1,4 @@
-import { Series, Posts } from "models";
+import { Series, Posts } from "database";
 import { ORDER_BY_CREATED_AT } from "src/constants";
 import { PostAttribute, SeriesAttribute, SeriesCreationAttribute } from "types";
 

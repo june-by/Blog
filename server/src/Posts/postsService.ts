@@ -1,4 +1,4 @@
-import { Posts, Tags, sequelizeConnection } from "models";
+import { Posts, Tags, sequelizeConnection } from "database";
 import Sequelize from "sequelize";
 import { ORDER_BY_CREATED_AT } from "src/constants";
 import { PostAttribute, TypeWithOptionalPage, TypeWithPage } from "types";

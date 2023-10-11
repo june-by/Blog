@@ -1,4 +1,4 @@
-import { Posts, Tags, sequelizeConnection } from "models";
+import { Posts, Tags, sequelizeConnection } from "database";
 import { PostAttribute, PostCreationAttributes } from "types";
 
 const getPost = async ({ id }: Pick<PostAttribute, "id">) => {

@@ -1,4 +1,4 @@
-import { Users } from "models";
+import { Users } from "database";
 import bcrypt from "bcrypt";
 import { UserAttribute, UserCreationAttribute } from "types";
 

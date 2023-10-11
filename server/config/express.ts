@@ -10,7 +10,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
 import dotenv from "dotenv";
-import { sequelizeConnection } from "models";
+import { sequelizeConnection } from "database";
 import postRouter from "src/Post/postRouter";
 import postsRouter from "src/Posts/postsRouter";
 import userRouter from "src/User/userRouter";
@@ -22,7 +22,7 @@ import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import createTablesIfNotExist from "models/createTablesIfNotExist";
+import createTablesIfNotExist from "database/createTablesIfNotExist";
 dotenv.config();
 
 export default async function () {

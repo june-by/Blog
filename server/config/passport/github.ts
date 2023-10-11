@@ -1,6 +1,6 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github";
-import { Users } from "models";
+import { Users } from "database";
 import userService from "src/User/userService";
 
 export default () => {

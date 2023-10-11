@@ -1,4 +1,4 @@
-import { Snippets } from "models";
+import { Snippets } from "database";
 import { SnippetAttribute, SnippetCreationAttribute } from "types";
 
 const getAllSnippetsId = async () => {
