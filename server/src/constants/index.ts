@@ -1,4 +1,5 @@
 import { Order } from "sequelize";
+import { type SessionOptions } from "express-session";
 
 export const ORDER_BY_CREATED_AT = [["createdAt", "DESC"]] as Order;
 export const CLIENT_URL =
@@ -12,4 +13,20 @@ export const MESSAGE = {
   ADD_POST_SUCCESS: "게시글 등록이 완료되었습니다.",
   ID_EXIST: "이미 사용 중인 아이디 입니다",
   NICKNAME_EXIST: "이미 사용 중인 닉네임 입니다",
+};
+
+export const SESSION_OPTIONS: SessionOptions = {
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET as string,
+  proxy: true,
+  cookie: {
+    httpOnly: true, //cookie는 javascript로 조작할 수 없도록.
+    secure: true,
+    sameSite: "lax",
+    domain:
+      process.env.NODE_ENV === "production"
+        ? ".byjuun.com"
+        : ".local.byjuun.com",
+  },
 };
