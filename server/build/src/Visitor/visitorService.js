@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../../models");
-const getTotalVisitor = () => __awaiter(void 0, void 0, void 0, function* () { return yield models_1.Visitors.count({}); });
+const database_1 = require("../../src/database");
+const getTotalVisitor = () => __awaiter(void 0, void 0, void 0, function* () { return yield database_1.Visitors.count({}); });
 const getTodayVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Visitors.count({
+    return yield database_1.Visitors.count({
         where: { date },
     });
 });
 const addVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Visitors.create({
+    return yield database_1.Visitors.create({
         date,
     });
 });

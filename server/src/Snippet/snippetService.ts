@@ -1,5 +1,5 @@
-import { Snippets } from "database";
-import { SnippetAttribute, SnippetCreationAttribute } from "types";
+import { Snippets } from "src/database";
+import { SnippetAttribute, SnippetCreationAttribute } from "src/types";
 
 const getAllSnippetsId = async () => {
   const snippets = await Snippets.findAll({

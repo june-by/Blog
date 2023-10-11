@@ -1,5 +1,5 @@
-import { Visitors } from "database";
-import { VisitorAttribute } from "types";
+import { Visitors } from "src/database";
+import { VisitorAttribute } from "src/types";
 
 const getTotalVisitor = async () => await Visitors.count({});
 

@@ -24,7 +24,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const models_1 = require("../models");
+const database_1 = require("../src/database");
 const postRouter_1 = __importDefault(require("../src/Post/postRouter"));
 const postsRouter_1 = __importDefault(require("../src/Posts/postsRouter"));
 const userRouter_1 = __importDefault(require("../src/User/userRouter"));
@@ -36,12 +36,11 @@ const passport_2 = __importDefault(require("./passport"));
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
-const createTablesIfNotExist_1 = __importDefault(require("../models/createTablesIfNotExist"));
 dotenv_1.default.config();
 function default_1() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
-        (0, createTablesIfNotExist_1.default)();
+        yield (0, database_1.syncDatabase)();
         (0, passport_2.default)();
         if (process.env.NODE_ENV === "production") {
             app.use((0, morgan_1.default)("combined"));
@@ -100,7 +99,7 @@ function default_1() {
                 url: req.file.location,
             });
         });
-        yield models_1.sequelizeConnection
+        yield database_1.sequelizeConnection
             .authenticate()
             .then(() => __awaiter(this, void 0, void 0, function* () {
             console.log("connection success");

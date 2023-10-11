@@ -1,4 +1,4 @@
-import express from "config/express";
+import express from "src/config/express";
 
 function bootStrap() {
   express();

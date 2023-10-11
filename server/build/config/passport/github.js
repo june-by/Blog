@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_github_1 = __importDefault(require("passport-github"));
-const models_1 = require("../../models");
+const database_1 = require("../../src/database");
 const userService_1 = __importDefault(require("../../src/User/userService"));
 exports.default = () => {
     passport_1.default.use(new passport_github_1.default.Strategy({
@@ -26,12 +26,12 @@ exports.default = () => {
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { name: nickname } = profile._json;
-            let user = yield models_1.Users.findOne({
+            let user = yield database_1.Users.findOne({
                 where: { nickname, provider: "github" },
             });
             if (!user) {
                 yield userService_1.default.addUser({ nickname, provider: "github" });
-                user = yield models_1.Users.findOne({
+                user = yield database_1.Users.findOne({
                     where: { nickname, provider: "github" },
                 });
             }

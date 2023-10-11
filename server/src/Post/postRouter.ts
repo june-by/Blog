@@ -1,5 +1,5 @@
 import express from "express";
-import { isAdmin } from "middleWare/isAdmin";
+import { isAdmin } from "src/middleWare/isAdmin";
 import postController from "./postController";
 const router = express.Router();
 

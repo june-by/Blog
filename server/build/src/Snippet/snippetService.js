@@ -20,15 +20,15 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../../models");
+const database_1 = require("../../src/database");
 const getAllSnippetsId = () => __awaiter(void 0, void 0, void 0, function* () {
-    const snippets = yield models_1.Snippets.findAll({
+    const snippets = yield database_1.Snippets.findAll({
         attributes: ["id"],
     });
     return snippets;
 });
 const getAllSnippets = () => __awaiter(void 0, void 0, void 0, function* () {
-    const snippets = yield models_1.Snippets.findAll({
+    const snippets = yield database_1.Snippets.findAll({
         attributes: {
             exclude: ["content"],
         },
@@ -36,19 +36,19 @@ const getAllSnippets = () => __awaiter(void 0, void 0, void 0, function* () {
     return snippets;
 });
 const addSnippet = (snippetCreationAttribute) => __awaiter(void 0, void 0, void 0, function* () {
-    const snippet = yield models_1.Snippets.create(snippetCreationAttribute);
+    const snippet = yield database_1.Snippets.create(snippetCreationAttribute);
     return snippet;
 });
 const updateSnippet = (_a) => __awaiter(void 0, void 0, void 0, function* () {
     var { id } = _a, data = __rest(_a, ["id"]);
-    yield models_1.Snippets.update(Object.assign({}, data), { where: { id } });
+    yield database_1.Snippets.update(Object.assign({}, data), { where: { id } });
 });
 const getSnippet = ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
-    const snippet = yield models_1.Snippets.findOne({ where: { id } });
+    const snippet = yield database_1.Snippets.findOne({ where: { id } });
     return snippet;
 });
 const deleteSnippet = ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
-    yield models_1.Snippets.destroy({ where: { id } });
+    yield database_1.Snippets.destroy({ where: { id } });
 });
 exports.default = {
     getAllSnippetsId,

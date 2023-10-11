@@ -1,6 +1,10 @@
-import { Series, Posts } from "database";
+import { Series, Posts } from "src/database";
 import { ORDER_BY_CREATED_AT } from "src/constants";
-import { PostAttribute, SeriesAttribute, SeriesCreationAttribute } from "types";
+import {
+  PostAttribute,
+  SeriesAttribute,
+  SeriesCreationAttribute,
+} from "src/types";
 
 const getAllSeries = async () => {
   const series = await Series.findAll({

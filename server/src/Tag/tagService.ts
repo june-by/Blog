@@ -1,4 +1,4 @@
-import { Tags, Posts } from "database";
+import { Tags, Posts } from "src/database";
 
 const createTags = async ({ tagArr }: { tagArr: string[] }) => {
   const result = await Promise.all(

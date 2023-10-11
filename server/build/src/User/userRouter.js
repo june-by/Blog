@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const isLoggedIn_1 = require("../../middleWare/isLoggedIn");
-const isNotLoggedIn_1 = require("../../middleWare/isNotLoggedIn");
+const isLoggedIn_1 = require("../../src/middleWare/isLoggedIn");
+const isNotLoggedIn_1 = require("../../src/middleWare/isNotLoggedIn");
 const passport_1 = __importDefault(require("passport"));
 const userController_1 = __importDefault(require("./userController"));
 const constants_1 = require("../../src/constants");

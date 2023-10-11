@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const local_1 = __importDefault(require("./local"));
-const models_1 = require("../../models");
+const database_1 = require("../../src/database");
 const github_1 = __importDefault(require("./github"));
 const kakao_1 = __importDefault(require("./kakao"));
 exports.default = () => {
@@ -23,7 +23,7 @@ exports.default = () => {
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = yield models_1.Users.findOne({ where: { id } });
+            const user = yield database_1.Users.findOne({ where: { id } });
             done(null, user); //req.user안에 넣어줌.
         }
         catch (error) {
