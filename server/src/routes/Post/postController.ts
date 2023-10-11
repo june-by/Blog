@@ -1,10 +1,10 @@
-import tagService from "src/Tag/tagService";
+import tagService from "../Tag/tagService";
 import postService from "./postService";
 import { NextFunction, Request, Response } from "express";
 import { CLIENT_URL, MESSAGE } from "src/constants";
 import axios from "axios";
-import postsService from "src/Posts/postsService";
-import seriesService from "src/Series/seriesService";
+import postsService from "../Posts/postsService";
+import seriesService from "../Series/seriesService";
 
 const AddPost = async (req: Request, res: Response, next: NextFunction) => {
   try {

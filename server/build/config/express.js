@@ -25,17 +25,12 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = require("../src/database");
-const postRouter_1 = __importDefault(require("../src/Post/postRouter"));
-const postsRouter_1 = __importDefault(require("../src/Posts/postsRouter"));
-const userRouter_1 = __importDefault(require("../src/User/userRouter"));
-const visitorRouter_1 = __importDefault(require("../src/Visitor/visitorRouter"));
-const tagRouter_1 = __importDefault(require("../src/Tag/tagRouter"));
-const seriesRouter_1 = __importDefault(require("../src/Series/seriesRouter"));
-const snippetRouter_1 = __importDefault(require("../src/Snippet/snippetRouter"));
 const passport_2 = __importDefault(require("./passport"));
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
+const constants_1 = require("../src/constants");
+const routes_1 = __importDefault(require("src/routes"));
 dotenv_1.default.config();
 function default_1() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -54,30 +49,13 @@ function default_1() {
         app.use(express_1.default.urlencoded({ extended: true, limit: "50mb" }));
         app.use(express_1.default.json({ limit: "50mb" }));
         app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
-        app.use((0, express_session_1.default)({
-            resave: false,
-            saveUninitialized: false,
-            secret: process.env.COOKIE_SECRET,
-            proxy: true,
-            cookie: {
-                httpOnly: true,
-                secure: true,
-                sameSite: "lax",
-                domain: process.env.NODE_ENV === "production"
-                    ? ".byjuun.com"
-                    : ".local.byjuun.com",
-            },
-        }));
+        app.use((0, express_session_1.default)(constants_1.SESSION_OPTIONS));
         app.use(passport_1.default.initialize());
         app.use(passport_1.default.session());
         app.set("trust proxy", 1);
-        app.use("/post", postRouter_1.default);
-        app.use("/posts", postsRouter_1.default);
-        app.use("/user", userRouter_1.default);
-        app.use("/visitor", visitorRouter_1.default);
-        app.use("/tag", tagRouter_1.default);
-        app.use("/series", seriesRouter_1.default);
-        app.use("/snippet", snippetRouter_1.default);
+        routes_1.default.forEach(({ url, router }) => {
+            app.use(url, router);
+        });
         aws_sdk_1.default.config.update({
             accessKeyId: process.env.S3_ACCESS_KEY_ID,
             secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,

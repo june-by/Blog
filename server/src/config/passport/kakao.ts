@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-kakao";
 import { Users } from "src/database";
-import userService from "src/User/userService";
+import userService from "src/routes/User/userService";
 
 export default () => {
   passport.use(

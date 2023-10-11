@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_github_1 = __importDefault(require("passport-github"));
 const database_1 = require("../../src/database");
-const userService_1 = __importDefault(require("../../src/User/userService"));
+const userService_1 = __importDefault(require("src/routes/User/userService"));
 exports.default = () => {
     passport_1.default.use(new passport_github_1.default.Strategy({
         clientID: process.env.GITHUB_CLIENT_ID,

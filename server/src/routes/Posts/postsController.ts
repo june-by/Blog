@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import postsService from "./postsService";
-import seriesService from "src/Series/seriesService";
+import seriesService from "../Series/seriesService";
 
 const getAllPostsId = async (
   req: Request,
