@@ -1,13 +1,18 @@
 import { Model, DataTypes } from "sequelize";
+import { SnippetAttribute, SnippetCreationAttribute } from "types";
 import { sequelizeConnection } from "./SequelizeConnection";
-import { SeriesAttribute, SeriesCreationAttribute } from "types";
-export class Series extends Model<SeriesAttribute, SeriesCreationAttribute> {
+
+export class Snippets extends Model<
+  SnippetAttribute,
+  SnippetCreationAttribute
+> {
   public id!: number;
   public title!: string;
-  public shortDescription!: string;
-  public thumbNailUrl?: string | null;
+  public content!: string;
+  public category!: string;
 }
-Series.init(
+
+Snippets.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -18,18 +23,18 @@ Series.init(
       type: DataTypes.TEXT,
       allowNull: false, //필수
     },
-    shortDescription: {
-      type: DataTypes.STRING(200),
-      allowNull: true,
+    content: {
+      type: DataTypes.TEXT("long"),
+      allowNull: false,
     },
-    thumbNailUrl: {
-      type: DataTypes.STRING(100),
-      allowNull: true, //필수
+    category: {
+      type: DataTypes.STRING(30),
+      allowNull: false, //필수
     },
   },
   {
     sequelize: sequelizeConnection,
-    tableName: "Series",
+    tableName: "Snippets",
     timestamps: true,
   }
 );
