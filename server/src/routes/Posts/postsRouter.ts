@@ -1,10 +1,11 @@
 import express from "express";
 import postsController from "./postsController";
+import { cacheMiddleware } from "@middleware/cacheMiddleware";
 const router = express.Router();
 
 router.get("/load/id", postsController.getAllPostsId);
 
-router.get("/load/main/:page", postsController.getMainPosts);
+router.get("/load/main/:page", cacheMiddleware(), postsController.getMainPosts);
 
 router.get("/load/categoryLength", postsController.getCategoryPostsCount);
 
