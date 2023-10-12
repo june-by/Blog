@@ -15,7 +15,7 @@ import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import { SESSION_OPTIONS } from "../constants";
+import { SESSION_OPTIONS } from "@constants";
 import ROUTER_LIST from "@routes";
 
 dotenv.config();
