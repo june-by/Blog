@@ -1,7 +1,7 @@
-import { Posts, Tags, sequelizeConnection } from "src/database";
+import { Posts, Tags, sequelizeConnection } from "@database";
 import Sequelize from "sequelize";
-import { ORDER_BY_CREATED_AT } from "src/constants";
-import { PostAttribute, TypeWithOptionalPage, TypeWithPage } from "src/types";
+import { ORDER_BY_CREATED_AT } from "../../constants";
+import { PostAttribute, TypeWithOptionalPage, TypeWithPage } from "@types";
 const Op = Sequelize.Op;
 
 const POSTS_PER_PAGE = 20;

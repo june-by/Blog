@@ -1,7 +1,7 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github";
-import { Users } from "src/database";
-import userService from "src/routes/User/userService";
+import { Users } from "@database";
+import userService from "@routes/User/userService";
 
 export default () => {
   passport.use(

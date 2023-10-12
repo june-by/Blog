@@ -1,7 +1,7 @@
 import { sequelizeConnection } from "../SequelizeConnection";
 
 import { Model, DataTypes } from "sequelize";
-import { UserAttribute, UserCreationAttribute } from "src/types";
+import { UserAttribute, UserCreationAttribute } from "@types";
 
 export class Users extends Model<UserAttribute, UserCreationAttribute> {
   public id!: number;

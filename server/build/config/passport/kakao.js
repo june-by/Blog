@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_kakao_1 = require("passport-kakao");
-const database_1 = require("../../src/database");
-const userService_1 = __importDefault(require("src/routes/User/userService"));
+const _database_1 = require("../../database");
+const userService_1 = __importDefault(require("../../routes/User/userService"));
 exports.default = () => {
     passport_1.default.use(new passport_kakao_1.Strategy({
         clientID: process.env.KAKAO_CLIENT_ID,
@@ -25,7 +25,7 @@ exports.default = () => {
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { username } = profile;
-            let user = yield database_1.Users.findOne({
+            let user = yield _database_1.Users.findOne({
                 where: { nickname: username, provider: "kakao" },
             });
             if (!user) {
@@ -33,7 +33,7 @@ exports.default = () => {
                     nickname: username,
                     provider: "kakao",
                 });
-                user = yield database_1.Users.findOne({
+                user = yield _database_1.Users.findOne({
                     where: { nickname: username, provider: "kakao" },
                 });
             }

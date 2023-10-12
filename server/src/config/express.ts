@@ -10,13 +10,13 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
 import dotenv from "dotenv";
-import { sequelizeConnection, syncDatabase } from "src/database";
+import { sequelizeConnection, syncDatabase } from "@database";
 import passportConfig from "./passport";
 import AWS from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import { SESSION_OPTIONS } from "src/constants";
-import ROUTER_LIST from "src/routes";
+import { SESSION_OPTIONS } from "../constants";
+import ROUTER_LIST from "@routes";
 
 dotenv.config();
 
