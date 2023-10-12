@@ -1,9 +1,9 @@
 import express from "express";
-import { isLoggedIn } from "src/middleWare/isLoggedIn";
-import { isNotLoggedIn } from "src/middleWare/isNotLoggedIn";
+import { isLoggedIn } from "@middleware/isLoggedIn";
+import { isNotLoggedIn } from "@middleware/isNotLoggedIn";
 import passport from "passport";
 import userController from "./userController";
-import { CLIENT_URL } from "src/constants";
+import { CLIENT_URL } from "@constants";
 
 const router = express.Router();
 

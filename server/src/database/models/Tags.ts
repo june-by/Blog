@@ -1,6 +1,6 @@
 import { sequelizeConnection } from "../SequelizeConnection";
 import { Model, DataTypes } from "sequelize";
-import { TagAttribute, TagCreationAttribute } from "src/types";
+import { TagAttribute, TagCreationAttribute } from "@types";
 
 export class Tags extends Model<TagAttribute, TagCreationAttribute> {
   public id!: number;

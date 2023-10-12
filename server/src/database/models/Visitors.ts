@@ -1,7 +1,7 @@
 import { sequelizeConnection } from "../SequelizeConnection";
 
 import { Model, DataTypes } from "sequelize";
-import { VisitorAttribute, VisitorCreationAttribute } from "src/types";
+import { VisitorAttribute, VisitorCreationAttribute } from "@types";
 
 export class Visitors extends Model<
   VisitorAttribute,

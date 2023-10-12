@@ -1,7 +1,7 @@
 import userService from "./userService";
 import passport from "passport";
 import { NextFunction, Request, Response } from "express";
-import { MESSAGE } from "src/constants";
+import { MESSAGE } from "@constants";
 
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) return res.status(200).json(null);

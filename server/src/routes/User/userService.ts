@@ -1,6 +1,6 @@
-import { Users } from "src/database";
+import { Users } from "@database";
 import bcrypt from "bcrypt";
-import { UserAttribute, UserCreationAttribute } from "src/types";
+import { UserAttribute, UserCreationAttribute } from "@types";
 
 const getUser = async ({ id }: Pick<UserAttribute, "id">) =>
   await Users.findOne({

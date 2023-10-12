@@ -4,7 +4,7 @@ import {
   Model,
   DataTypes,
 } from "sequelize";
-import { PostAttribute, PostCreationAttributes } from "src/types";
+import { PostAttribute, PostCreationAttributes } from "@types";
 import { Tags } from "./Tags";
 import { sequelizeConnection } from "../SequelizeConnection";
 

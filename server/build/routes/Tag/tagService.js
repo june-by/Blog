@@ -9,21 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = require("../../src/database");
+const _database_1 = require("../../database");
 const createTags = ({ tagArr }) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Promise.all(tagArr.map((tag) => database_1.Tags.findOrCreate({
+    const result = yield Promise.all(tagArr.map((tag) => _database_1.Tags.findOrCreate({
         where: { content: tag.toLowerCase() },
     })));
     return result.map(([data]) => data);
 });
 const getAllTags = () => __awaiter(void 0, void 0, void 0, function* () {
-    const tags = yield database_1.Tags.findAll({
+    const tags = yield _database_1.Tags.findAll({
         attributes: {
             include: ["content"],
         },
         include: [
             {
-                model: database_1.Posts,
+                model: _database_1.Posts,
                 attributes: ["id"],
             },
         ],

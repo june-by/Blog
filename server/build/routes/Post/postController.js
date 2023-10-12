@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const tagService_1 = __importDefault(require("../Tag/tagService"));
 const postService_1 = __importDefault(require("./postService"));
-const constants_1 = require("../../src/constants");
+const constants_1 = require("../../constants");
 const axios_1 = __importDefault(require("axios"));
 const postsService_1 = __importDefault(require("../Posts/postsService"));
 const seriesService_1 = __importDefault(require("../Series/seriesService"));

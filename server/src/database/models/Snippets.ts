@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { SnippetAttribute, SnippetCreationAttribute } from "src/types";
+import { SnippetAttribute, SnippetCreationAttribute } from "@types";
 import { sequelizeConnection } from "../SequelizeConnection";
 
 export class Snippets extends Model<

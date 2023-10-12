@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelizeConnection } from "../SequelizeConnection";
-import { SeriesAttribute, SeriesCreationAttribute } from "src/types";
+import { SeriesAttribute, SeriesCreationAttribute } from "@types";
 export class Series extends Model<SeriesAttribute, SeriesCreationAttribute> {
   public id!: number;
   public title!: string;

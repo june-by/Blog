@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const userService_1 = __importDefault(require("./userService"));
 const passport_1 = __importDefault(require("passport"));
-const constants_1 = require("../../src/constants");
+const _constants_1 = require("../../constants");
 const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user)
         return res.status(200).json(null);
@@ -33,12 +33,12 @@ const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         const { email, nickname, password } = req.body;
         const isEmailExists = yield userService_1.default.checkEmailValidation({ email });
         if (isEmailExists)
-            return res.status(403).send(constants_1.MESSAGE.ID_EXIST);
+            return res.status(403).send(_constants_1.MESSAGE.ID_EXIST);
         const isNicknameExists = yield userService_1.default.checkNicknameValidation({
             nickname,
         });
         if (isNicknameExists)
-            return res.status(403).send(constants_1.MESSAGE.NICKNAME_EXIST);
+            return res.status(403).send(_constants_1.MESSAGE.NICKNAME_EXIST);
         yield userService_1.default.addUser({ email, nickname, password });
         res.status(200).send("ok");
     }

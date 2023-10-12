@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = require("passport-local");
-const database_1 = require("../../src/database");
+const _database_1 = require("../../database");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 exports.default = () => {
     passport_1.default.use(new passport_local_1.Strategy({
@@ -22,7 +22,7 @@ exports.default = () => {
         passwordField: "password",
     }, (email, password, done) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = yield database_1.Users.findOne({
+            const user = yield _database_1.Users.findOne({
                 where: { email },
             });
             if (!user) {

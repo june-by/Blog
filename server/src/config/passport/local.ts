@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { Users } from "src/database";
+import { Users } from "@database";
 import bcrypt from "bcrypt";
 
 export default () => {

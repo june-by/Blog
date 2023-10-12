@@ -1,5 +1,5 @@
-import { Posts, Tags, sequelizeConnection } from "src/database";
-import { PostAttribute, PostCreationAttributes } from "src/types";
+import { Posts, Tags, sequelizeConnection } from "@database";
+import { PostAttribute, PostCreationAttributes } from "@types";
 
 const getPost = async ({ id }: Pick<PostAttribute, "id">) => {
   const post = await Posts.findOne({ where: { id } });
