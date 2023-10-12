@@ -29,7 +29,7 @@ const passport_2 = __importDefault(require("./passport"));
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
-const constants_1 = require("../constants");
+const _constants_1 = require("../constants");
 const _routes_1 = __importDefault(require("../routes"));
 dotenv_1.default.config();
 function default_1() {
@@ -49,7 +49,7 @@ function default_1() {
         app.use(express_1.default.urlencoded({ extended: true, limit: "50mb" }));
         app.use(express_1.default.json({ limit: "50mb" }));
         app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
-        app.use((0, express_session_1.default)(constants_1.SESSION_OPTIONS));
+        app.use((0, express_session_1.default)(_constants_1.SESSION_OPTIONS));
         app.use(passport_1.default.initialize());
         app.use(passport_1.default.session());
         app.set("trust proxy", 1);
