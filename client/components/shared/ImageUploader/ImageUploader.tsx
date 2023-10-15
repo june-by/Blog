@@ -4,7 +4,7 @@ import React, {
   type ComponentProps,
 } from "react";
 import styles from "./styles.module.scss";
-import { customAxios, isNull } from "utils";
+import { customAxios, isNull } from "@utils";
 import Image from "next/image";
 interface UploadButtonProps {
   onUploadeSuccess: (imageUrl: string) => void;

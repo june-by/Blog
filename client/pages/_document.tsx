@@ -6,7 +6,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import { extractFromCookie } from "utils";
+import { extractFromCookie } from "@utils";
 
 let theme = "light";
 

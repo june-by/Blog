@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
 import ReactQuill from "react-quill";
-import { customAxios } from "utils";
+import { customAxios } from "@utils";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import { PostFormItemSharedType } from "./type";

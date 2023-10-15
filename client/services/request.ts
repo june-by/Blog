@@ -1,5 +1,5 @@
 import { MESSAGE } from "@constants";
-import { customAxios } from "utils";
+import { customAxios } from "@utils";
 
 interface RequestParams {
   method: "get" | "post" | "patch" | "delete";

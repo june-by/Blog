@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import React, { useEffect } from "react";
-import { customAxios, IsAdmin, omit } from "utils";
+import { customAxios, IsAdmin, omit } from "@utils";
 import https from "https";
 import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";

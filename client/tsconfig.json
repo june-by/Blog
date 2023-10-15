@@ -16,7 +16,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@constants": ["constants"]
+      "@constants": ["constants"],
+      "@utils": ["utils"]
     }
   },
   "include": [

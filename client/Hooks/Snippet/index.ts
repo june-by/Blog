@@ -9,7 +9,7 @@ import {
   getAllSnippetsAPI,
   getSnippetAPI,
 } from "services/snippet/snippet.service";
-import { groupBy } from "utils";
+import { groupBy } from "@utils";
 
 export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {
   const { replace } = useRouter();

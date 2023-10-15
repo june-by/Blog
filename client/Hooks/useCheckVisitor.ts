@@ -3,7 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { postVisitorAPI } from "services/visitor";
 import { QUERY_KEY } from "@constants";
 import { DateType } from "Types/shared";
-import { getCurrentYearMonthDate } from "utils";
+import { getCurrentYearMonthDate } from "@utils";
 
 const useCheckVisitor = (queryClient: QueryClient) => {
   useEffect(() => {

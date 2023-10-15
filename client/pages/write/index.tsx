@@ -11,7 +11,7 @@ import { PostFormType } from "Types/post";
 import usePostForm from "components/postForm/usePostForm";
 import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";
-import { customAxios, IsAdmin } from "utils";
+import { customAxios, IsAdmin } from "@utils";
 
 const postFormInitialData = {
   title: "",
