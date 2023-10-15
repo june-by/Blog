@@ -1,3 +1,4 @@
+import { MESSAGE } from "@constants";
 import { getVisitorDateInfo } from "./utils";
 import visitorService from "./visitorService";
 import { NextFunction, Request, Response } from "express";
@@ -18,6 +19,7 @@ const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
 const addVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await visitorService.addVisitor({ date: getVisitorDateInfo() });
+    return res.status(200).send(MESSAGE.SUCCESS);
   } catch (err) {
     console.error(err);
     next(err);
