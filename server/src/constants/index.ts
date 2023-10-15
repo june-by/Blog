@@ -13,6 +13,9 @@ export const MESSAGE = {
   ADD_POST_SUCCESS: "게시글 등록이 완료되었습니다.",
   ID_EXIST: "이미 사용 중인 아이디 입니다",
   NICKNAME_EXIST: "이미 사용 중인 닉네임 입니다",
+  ONLY_AVAILABLE_TO_ADMIN: "관리자만 이용 가능합니다.",
+  LOGIN_NEEDED: "로그인이 필요합니다.",
+  LOGOUT_NEEDED: "로그인하지 않은 사용자만 접근 가능합니다.",
 };
 
 export const SESSION_OPTIONS: SessionOptions = {
