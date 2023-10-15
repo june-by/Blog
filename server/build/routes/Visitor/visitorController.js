@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const _constants_1 = require("../../constants");
 const utils_1 = require("./utils");
 const visitorService_1 = __importDefault(require("./visitorService"));
 const getVisitor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,6 +31,7 @@ const getVisitor = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 const addVisitor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield visitorService_1.default.addVisitor({ date: (0, utils_1.getVisitorDateInfo)() });
+        return res.status(200).send(_constants_1.MESSAGE.SUCCESS);
     }
     catch (err) {
         console.error(err);

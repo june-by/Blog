@@ -16,6 +16,7 @@ export const MESSAGE = {
   ONLY_AVAILABLE_TO_ADMIN: "관리자만 이용 가능합니다.",
   LOGIN_NEEDED: "로그인이 필요합니다.",
   LOGOUT_NEEDED: "로그인하지 않은 사용자만 접근 가능합니다.",
+  SUCCESS: "SUCCESS",
 };
 
 export const SESSION_OPTIONS: SessionOptions = {
