@@ -24,7 +24,9 @@
       "@services/*": ["services/*"],
       "@services": ["services"],
       "@hooks/*": ["Hooks/*"],
-      "@hooks": ["Hooks"]
+      "@hooks": ["Hooks"],
+      "@styles/*": ["styles/*"],
+      "@styles": ["styles"]
     }
   },
   "include": [
