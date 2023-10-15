@@ -12,10 +12,7 @@ export const cacheClearMiddleWare = (key: string) => {
     };
 
     const sendResponse = <T>(data: T) => {
-      console.log(memoryCache.cache.keys());
       memoryCache.delAll(key);
-      console.log(memoryCache.cache.keys());
-
       res.sendResponse(data);
     };
 
