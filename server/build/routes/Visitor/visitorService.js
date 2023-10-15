@@ -16,9 +16,16 @@ const getTodayVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function
         where: { date },
     });
 });
+const getVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
+    const [totalVisitor, todayVisitor] = yield Promise.all([
+        getTotalVisitor(),
+        getTodayVisitor({ date }),
+    ]);
+    return { totalVisitor, todayVisitor };
+});
 const addVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
     return yield _database_1.Visitors.create({
         date,
     });
 });
-exports.default = { getTotalVisitor, getTodayVisitor, addVisitor };
+exports.default = { addVisitor, getVisitor };
