@@ -1,4 +1,4 @@
-import { StateUpdater } from "Types/utils";
+import { StateUpdater } from "@Types";
 import React, { useCallback, useState } from "react";
 
 type UseToggleReturnType = [boolean, StateUpdater<boolean>, () => void];

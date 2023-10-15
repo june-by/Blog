@@ -1,4 +1,4 @@
-import { ArchiveTagType } from "Types/tag";
+import { ArchiveTagType } from "@Types";
 import request from "services/request";
 
 export const getAllTags = async () =>

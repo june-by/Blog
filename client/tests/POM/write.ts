@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import POM from "./pom";
-import { UserType } from "Types/user";
+import { UserType } from "@Types";
 import { USER_MOCK_DATA } from "mocks/data/user";
 import { ServerURL } from "@constants";
 import pipe from "tests/utils";

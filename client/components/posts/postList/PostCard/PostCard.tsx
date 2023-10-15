@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { PostListPageDataType } from "Types/post";
+import { PostListPageDataType } from "@Types";
 import Link from "next/link";
 import { S3_PREFIX, THUMBNAIL } from "@constants";
 import Image from "next/image";

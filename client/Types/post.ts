@@ -1,4 +1,3 @@
-import { CategoryType } from "@constants";
 import { AtLeast } from "./utils";
 
 export interface PostType {
@@ -41,7 +40,7 @@ export interface OtherPostType {
   OtherTitle: string | null;
 }
 
-type TagType = {
+export type TagType = {
   id: number;
   content: string;
 } | null;

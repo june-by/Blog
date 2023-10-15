@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { memo } from "react";
 import styles from "./styles.module.scss";
-import { PostType } from "Types/post";
+import { PostType } from "@Types";
 
 const PostEditBtn = ({ id }: Pick<PostType, "id">) => {
   const { push, pathname } = useRouter();

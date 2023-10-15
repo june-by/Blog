@@ -17,7 +17,7 @@ import {
   PostFormType,
   PostPageDataType,
   PostType,
-} from "Types/post";
+} from "@Types";
 import { useRouter } from "next/router";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
 import { getAllPostsAPI } from "services/post/post.service";

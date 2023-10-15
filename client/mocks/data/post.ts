@@ -1,4 +1,4 @@
-import { PostPageDataType } from "Types/post";
+import { PostPageDataType } from "@Types";
 import { Category } from "@constants";
 
 export const CATEGORY_LENGTH_MOCK_DATA = Category.map((category, idx) => {

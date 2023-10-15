@@ -6,7 +6,7 @@ import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";
 import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
-import { SnippetFormType } from "Types/snippets";
+import { SnippetFormType } from "@Types";
 import PostForm from "components/postForm/postForm";
 import {
   useAddSnippetMutation,

@@ -1,4 +1,4 @@
-import { VisitorAPIType } from "Types/visitor";
+import { VisitorAPIType } from "@Types";
 import request from "services/request";
 
 export const getVisitorAPI = async (): Promise<VisitorAPIType> =>

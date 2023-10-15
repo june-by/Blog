@@ -1,4 +1,4 @@
-import { PostsPageQueryType } from "Types/page";
+import { PostsPageQueryType } from "@Types";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";

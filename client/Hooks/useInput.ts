@@ -1,4 +1,4 @@
-import { StateUpdater } from "Types/utils";
+import { StateUpdater } from "@Types";
 import { type ChangeEvent, useCallback, useState } from "react";
 
 type UseInputType = (

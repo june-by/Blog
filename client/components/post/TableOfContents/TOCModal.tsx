@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 import Table from "./Table";
 import CloseIcon from "components/Icon/close";
-import { StateUpdater } from "Types/utils";
+import { StateUpdater } from "@Types";
 
 interface Props {
   open: boolean;

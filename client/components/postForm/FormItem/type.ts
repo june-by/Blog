@@ -1,4 +1,4 @@
-import { StateUpdater } from "Types/utils";
+import { StateUpdater } from "@Types";
 
 export interface PostFormItemSharedType<T> {
   setState: StateUpdater<T>;

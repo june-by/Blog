@@ -1,5 +1,4 @@
-import { AllSeriesAPIType } from "Types/series";
-import { MutationParams } from "Types/shared";
+import { AllSeriesAPIType, MutationParams } from "@Types";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addSeriesAPI, getAllSeriesAPI } from "services/series";

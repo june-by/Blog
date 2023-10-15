@@ -1,5 +1,4 @@
-import { AllSeriesAPIType } from "Types/series";
-import { ArrayElement } from "Types/utils";
+import { AllSeriesAPIType, ArrayElement } from "@Types";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";

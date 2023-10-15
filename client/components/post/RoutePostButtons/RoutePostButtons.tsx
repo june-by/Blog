@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useGetPostQuery } from "Hooks/Post";
-import { PostPageDataType } from "Types/post";
+import { PostPageDataType } from "@Types";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
 import LoadingOrNot from "components/shared/LoadingOrNot";

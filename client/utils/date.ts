@@ -1,4 +1,4 @@
-import { DateType } from "Types/shared";
+import { DateType } from "@Types";
 
 export const getYearMonthDate = ({ date }: { date: Date }) => {
   const newDate = new Date(date);

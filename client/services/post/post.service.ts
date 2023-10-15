@@ -4,7 +4,7 @@ import {
   PostType,
   PostPageDataType,
   PostListPageDataType,
-} from "Types/post";
+} from "@Types";
 import { MESSAGE } from "@constants";
 import request from "services/request";
 

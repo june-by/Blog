@@ -1,4 +1,4 @@
-import { DateType } from "Types/shared";
+import { DateType } from "@Types";
 import { getYearMonthDate } from "./date";
 
 interface ConvertDateToStringParams {

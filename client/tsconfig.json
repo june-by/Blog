@@ -18,7 +18,9 @@
     "paths": {
       "@constants": ["constants"],
       "@utils": ["utils"],
-      "@contexts/*": ["contexts/*"]
+      "@contexts/*": ["contexts/*"],
+      "@Types/*": ["Types/*"],
+      "@Types": ["Types"]
     }
   },
   "include": [

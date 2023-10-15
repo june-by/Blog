@@ -1,5 +1,5 @@
 import request from "services/request";
-import { UserType } from "Types/user";
+import { UserType } from "@Types";
 
 interface LoginDataType {
   email: string;

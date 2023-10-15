@@ -1,4 +1,4 @@
-import { OnlyKey } from "Types/utils";
+import { OnlyKey } from "@Types";
 import { createContext, useContext, useReducer } from "react";
 
 interface ContextProps {

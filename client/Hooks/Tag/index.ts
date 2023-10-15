@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
 import { getAllTags } from "services/tag";
-import { ArchiveTagType } from "Types/tag";
+import { ArchiveTagType } from "@Types";
 
 export const useGetAllTags = (showMore: boolean) => {
   const { data } = useQuery<ArchiveTagType[]>(

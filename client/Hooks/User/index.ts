@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/user";
-import { UserType } from "Types/user";
+import { UserType, MutationParams } from "@Types";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
-import { MutationParams } from "Types/shared";
 
 export const useGetUserQuery = () =>
   useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), {

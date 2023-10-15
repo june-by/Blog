@@ -8,7 +8,7 @@ import {
 } from "Hooks/Post";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import { useRouter } from "next/router";
-import { PostsPageQueryType } from "Types/page";
+import { PostsPageQueryType } from "@Types";
 import { ParsedUrlQuery } from "querystring";
 import CategoryList from "components/posts/CategoryList";
 import PostList from "components/posts/postList";

@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import useQueryId from "Hooks/useQueryId";
 import { useAddPost, useEditPost, useGetPostQuery } from "Hooks/Post";
-import { PostFormType } from "Types/post";
+import { PostFormType } from "@Types";
 import usePostForm from "components/postForm/usePostForm";
 import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";

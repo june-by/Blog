@@ -1,4 +1,4 @@
-import { UserType } from "Types/user";
+import { UserType } from "@Types";
 
 export const USER_MOCK_DATA: UserType = {
   createdAt: new Date(),
