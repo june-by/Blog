@@ -1,7 +1,7 @@
 import React from "react";
 import SeriesListLayout from "./layout";
 import SeriesCard from "./SeriesCard";
-import { useGetAllSeires } from "Hooks/Series";
+import { useGetAllSeires } from "@hooks/query";
 
 const SeriesList = () => {
   const { data, isLoading } = useGetAllSeires();

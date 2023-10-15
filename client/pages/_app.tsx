@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import useCheckVisitor from "Hooks/useCheckVisitor";
+import { useCheckVisitor } from "@hooks";
 import { ThemeProvider } from "@contexts/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";

@@ -1,6 +1,6 @@
 import ErrorHelper from "components/shared/errorHelper";
 import NoPost from "./NoPost";
-import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
+import { useRestoreSrollPos } from "@hooks";
 import React from "react";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { PostListPageDataType } from "@Types";

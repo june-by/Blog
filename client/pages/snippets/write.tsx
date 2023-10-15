@@ -4,7 +4,7 @@ import { customAxios, IsAdmin, omit } from "@utils";
 import https from "https";
 import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";
-import useQueryId from "Hooks/useQueryId";
+import { useQueryId } from "@hooks";
 import usePostForm from "components/postForm/usePostForm";
 import { SnippetFormType } from "@Types";
 import PostForm from "components/postForm/postForm";
@@ -12,7 +12,7 @@ import {
   useAddSnippetMutation,
   useEditSnippetMutation,
   useGetSnippetQuery,
-} from "Hooks/Snippet";
+} from "@hooks/query";
 import { toast } from "react-toastify";
 
 const snippetFormInitialData = {

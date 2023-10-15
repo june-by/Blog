@@ -22,7 +22,9 @@
       "@Types/*": ["Types/*"],
       "@Types": ["Types"],
       "@services/*": ["services/*"],
-      "@services": ["services"]
+      "@services": ["services"],
+      "@hooks/*": ["Hooks/*"],
+      "@hooks": ["Hooks"]
     }
   },
   "include": [

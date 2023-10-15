@@ -1,4 +1,4 @@
-import { useGetUserQuery } from "Hooks/User";
+import { useGetUserQuery } from "@hooks/query";
 import { IsAdmin } from "@utils";
 import LoadingOrNot from "./LoadingOrNot";
 import SwitchCase from "./SwitchCase";

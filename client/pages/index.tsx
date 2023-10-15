@@ -5,7 +5,7 @@ import {
   useGetSearchPosts,
   useGetSeriesPosts,
   useGetTagPosts,
-} from "Hooks/Post";
+} from "@hooks/query";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "@Types";

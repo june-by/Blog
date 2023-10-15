@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllSeires } from "Hooks/Series";
+import { useGetAllSeires } from "@hooks/query";
 import Selector from "../FormItem/Selector";
 import styles from "./styles.module.scss";
 import { PostFormItemSharedType } from "../FormItem/type";

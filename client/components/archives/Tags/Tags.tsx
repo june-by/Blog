@@ -1,9 +1,8 @@
-import { useGetAllTags } from "Hooks/Tag";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import { useGetAllTags } from "@hooks/query";
 import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
-import { useBooleanState } from "Hooks/useBooleanState";
+import { useBooleanState } from "@hooks";
 import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
 
 const Tags = () => {

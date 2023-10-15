@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { useHeaderContext } from "@contexts/headerContext";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import { useLogOut } from "Hooks/User";
+import { useLogOut } from "@hooks/query";
 
 interface AuthButtonProps {
   isLoggedIn: boolean;

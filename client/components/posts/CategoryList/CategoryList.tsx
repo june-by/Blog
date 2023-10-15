@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { useGetAllCateogryLength } from "Hooks/Post";
+import { useGetAllCateogryLength } from "@hooks/query";
 import { Category } from "@constants";
 import CategoryButton from "components/shared/CategoryButton/CategoryButton";
 import FontAppliedElement from "components/shared/FontAppliedElement";

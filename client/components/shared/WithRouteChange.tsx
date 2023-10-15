@@ -1,9 +1,9 @@
-import React, { useEffect, useState, type ReactNode, useCallback } from "react";
-import { Router, useRouter } from "next/router";
+import React, { useState, type ReactNode, useCallback } from "react";
+import { useRouter } from "next/router";
 import ProgressBar from "./ProgressBar";
 import PageLayout from "./PageLayout";
 import LoadingOrNot from "./LoadingOrNot";
-import useRouteChange from "Hooks/useRouteChange";
+import { useRouteChange } from "@hooks";
 
 interface Props {
   children: ReactNode;

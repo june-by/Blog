@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import WriteButton from "./writeButton";
 import AuthButton from "./AuthButton";
-import { useGetUserQuery } from "Hooks/User";
+import { useGetUserQuery } from "@hooks/query";
 import ThemeToggleButton from "./ThemeToggleButton";
 import Logo from "./Logo";
 import PageNavigaition from "./PageNavigaition";

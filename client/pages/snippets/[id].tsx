@@ -1,5 +1,5 @@
-import { useGetSnippetQuery } from "Hooks/Snippet";
-import useQueryId from "Hooks/useQueryId";
+import { useGetSnippetQuery } from "@hooks/query";
+import { useQueryId } from "@hooks";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import CommonSEO from "components/shared/CommonSEO";
 import ScrollIndicator from "components/shared/ScrollIndicator";

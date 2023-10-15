@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { usePostContext } from "@contexts/postContext";
 import SeriesList from "./SeriesList";
-import { useBooleanState } from "Hooks/useBooleanState";
+import { useBooleanState } from "@hooks";
 import BookmarkIcon from "components/Icon/bookmark";
 import SeriesIndexHandler from "./SeriesIndexHandler";
 import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
