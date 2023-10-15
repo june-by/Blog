@@ -8,7 +8,7 @@ import {
   editSnippetAPI,
   getAllSnippetsAPI,
   getSnippetAPI,
-} from "services/snippet/snippet.service";
+} from "@services/snippet/snippet.service";
 import { groupBy } from "@utils";
 
 export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {

@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getAllPostsId, getPostAPI } from "services/post";
+import { getAllPostsId, getPostAPI } from "@services/post";
 import { useGetPostQuery } from "Hooks/Post";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import { MESSAGE, QUERY_KEY, S3_PREFIX, THUMBNAIL } from "@constants";

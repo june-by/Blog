@@ -1,5 +1,5 @@
 import { SnippetFormType, SnippetType } from "@Types";
-import request from "services/request";
+import request from "@services/request";
 
 export const addSnippetAPI = async (reqData: SnippetFormType) =>
   request({ method: "post", url: "/snippet", body: reqData });

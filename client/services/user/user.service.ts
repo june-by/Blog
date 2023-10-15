@@ -1,4 +1,4 @@
-import request from "services/request";
+import request from "@services/request";
 import { UserType } from "@Types";
 
 interface LoginDataType {

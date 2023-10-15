@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "services/user";
+import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "@services/user";
 import { UserType, MutationParams } from "@Types";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
 

@@ -9,9 +9,9 @@ import {
   getSearchPostAPI,
   getTagPostAPI,
   getSeriesPostAPI,
-} from "services/post";
+} from "@services/post";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
-import { getMainPostsAPI } from "services/post";
+import { getMainPostsAPI } from "@services/post";
 import {
   CategoryCount,
   PostFormType,
@@ -20,7 +20,7 @@ import {
 } from "@Types";
 import { useRouter } from "next/router";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
-import { getAllPostsAPI } from "services/post/post.service";
+import { getAllPostsAPI } from "@services/post/post.service";
 
 export const useGetMainPost = () =>
   useInfiniteQuery(

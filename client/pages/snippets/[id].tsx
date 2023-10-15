@@ -10,7 +10,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   getAllSnippetsIdAPI,
   getSnippetAPI,
-} from "services/snippet/snippet.service";
+} from "@services/snippet/snippet.service";
 import Post from "components/post";
 import ScrollToTopButton from "components/shared/ScrollToTopButton";
 import styles from "./styles.module.scss";

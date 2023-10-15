@@ -20,7 +20,9 @@
       "@utils": ["utils"],
       "@contexts/*": ["contexts/*"],
       "@Types/*": ["Types/*"],
-      "@Types": ["Types"]
+      "@Types": ["Types"],
+      "@services/*": ["services/*"],
+      "@services": ["services"]
     }
   },
   "include": [
