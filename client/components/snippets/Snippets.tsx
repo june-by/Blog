@@ -1,5 +1,5 @@
 import { useGetAllSnippetsQuery } from "@hooks/query";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import FontAppliedElement from "@components/shared/FontAppliedElement";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";

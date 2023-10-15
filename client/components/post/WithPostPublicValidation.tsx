@@ -1,4 +1,4 @@
-import WithAdminValidation from "components/shared/WithAdminValidation";
+import WithAdminValidation from "@components/shared/WithAdminValidation";
 import React from "react";
 
 interface Props {

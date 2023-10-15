@@ -7,7 +7,7 @@ import ThemeToggleButton from "./ThemeToggleButton";
 import Logo from "./Logo";
 import PageNavigaition from "./PageNavigaition";
 import MobileMenuToggleButton from "./MobileMenuToggleButton";
-import HideByScrollDown from "components/shared/HideByScrollDown/HideByScrollDown";
+import HideByScrollDown from "@components/shared/HideByScrollDown/HideByScrollDown";
 
 const HEADER_HEIGHT = "65px";
 

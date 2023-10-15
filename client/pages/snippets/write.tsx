@@ -5,9 +5,9 @@ import https from "https";
 import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";
 import { useQueryId } from "@hooks";
-import usePostForm from "components/postForm/usePostForm";
+import usePostForm from "@components/postForm/usePostForm";
 import { SnippetFormType } from "@Types";
-import PostForm from "components/postForm/postForm";
+import PostForm from "@components/postForm/postForm";
 import {
   useAddSnippetMutation,
   useEditSnippetMutation,

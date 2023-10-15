@@ -1,5 +1,5 @@
 import { useBooleanState } from "@hooks";
-import SeriesFormModal from "components/postForm/SeriesSelector/SeriesFormModal";
+import SeriesFormModal from "@components/postForm/SeriesSelector/SeriesFormModal";
 import React from "react";
 import styles from "./styles.module.scss";
 

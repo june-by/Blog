@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import TOCModal from "./TOCModal";
-import HideByScrollDown from "components/shared/HideByScrollDown";
+import HideByScrollDown from "@components/shared/HideByScrollDown";
 
 const MARGIN_RIGHT_FOR_HIDE = "-50px";
 

@@ -1,7 +1,7 @@
 import React, { useRef, type FormEvent } from "react";
 import styles from "./styles.module.scss";
-import IconButton from "components/shared/IconButton/IconButton";
-import SearchIcon from "components/Icon/search";
+import IconButton from "@components/shared/IconButton/IconButton";
+import SearchIcon from "@components/Icon/search";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";

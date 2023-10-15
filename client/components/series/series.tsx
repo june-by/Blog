@@ -1,7 +1,7 @@
 import React from "react";
 import SeriesList from "./SeriesList";
 
-import PageTitle from "components/shared/PageTitle/PageTitle";
+import PageTitle from "@components/shared/PageTitle/PageTitle";
 
 const SeriesPageContainer = () => {
   return (

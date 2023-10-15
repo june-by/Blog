@@ -3,9 +3,9 @@ import { NotionAPI } from "notion-client";
 import { NotionRenderer } from "react-notion-x";
 import * as notion from "notion-types";
 import "react-notion-x/src/styles.css";
-import PageTitle from "components/shared/PageTitle";
-import CommonSEO from "components/shared/CommonSEO";
-import ScrollToTopButton from "components/shared/ScrollToTopButton";
+import PageTitle from "@components/shared/PageTitle";
+import CommonSEO from "@components/shared/CommonSEO";
+import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 
 interface Props {
   recordMap: Awaited<notion.ExtendedRecordMap>;

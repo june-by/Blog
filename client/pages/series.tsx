@@ -1,7 +1,7 @@
 import React from "react";
-import ScrollToTopButton from "components/shared/ScrollToTopButton";
-import SeriesPageContainer from "components/series";
-import CommonSEO from "components/shared/CommonSEO";
+import ScrollToTopButton from "@components/shared/ScrollToTopButton";
+import SeriesPageContainer from "@components/series";
+import CommonSEO from "@components/shared/CommonSEO";
 
 const Series = () => {
   return (

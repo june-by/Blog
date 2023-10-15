@@ -4,15 +4,15 @@ import React, { useCallback } from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getAllPostsId, getPostAPI } from "@services/post";
 import { useGetPostQuery } from "@hooks/query";
-import ScrollToTopButton from "components/shared/ScrollToTopButton";
+import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { MESSAGE, QUERY_KEY, S3_PREFIX, THUMBNAIL } from "@constants";
-import Post from "components/post";
-import ScrollIndicator from "components/shared/ScrollIndicator";
+import Post from "@components/post";
+import ScrollIndicator from "@components/shared/ScrollIndicator";
 import { useQueryId } from "@hooks";
-import PageSkeleton from "components/PageSkeleton";
-import CommonSEO from "components/shared/CommonSEO";
+import PageSkeleton from "@components/PageSkeleton";
+import CommonSEO from "@components/shared/CommonSEO";
 import styles from "./styles.module.scss";
-import WithPostPublicValidation from "components/post/WithPostPublicValidation";
+import WithPostPublicValidation from "@components/post/WithPostPublicValidation";
 
 const PostPage = () => {
   const router = useRouter();

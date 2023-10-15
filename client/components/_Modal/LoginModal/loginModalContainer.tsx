@@ -4,7 +4,7 @@ import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import LoginForm from "./loginForm";
 import { MESSAGE } from "@constants";
-import DefaultModal from "components/shared/DefaultModal";
+import DefaultModal from "@components/shared/DefaultModal";
 
 const LoginModalContainer = () => {
   const { closeLogin, isLoginModalOpen } = useHeaderContext();

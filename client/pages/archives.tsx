@@ -1,6 +1,6 @@
 import React from "react";
-import ArchivesPageContainer from "components/archives/Archives";
-import CommonSEO from "components/shared/CommonSEO";
+import ArchivesPageContainer from "@components/archives/Archives";
+import CommonSEO from "@components/shared/CommonSEO";
 
 const Archives = () => {
   return (

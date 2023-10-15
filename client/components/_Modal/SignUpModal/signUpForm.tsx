@@ -1,7 +1,7 @@
 import React, { type FormEvent, type RefObject } from "react";
 
 import { useHeaderContext } from "@contexts/headerContext";
-import ModalView from "components/shared/ModalView";
+import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

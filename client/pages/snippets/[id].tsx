@@ -1,8 +1,8 @@
 import { useGetSnippetQuery } from "@hooks/query";
 import { useQueryId } from "@hooks";
-import PageSkeleton from "components/PageSkeleton/PageSkeleton";
-import CommonSEO from "components/shared/CommonSEO";
-import ScrollIndicator from "components/shared/ScrollIndicator";
+import PageSkeleton from "@components/PageSkeleton/PageSkeleton";
+import CommonSEO from "@components/shared/CommonSEO";
+import ScrollIndicator from "@components/shared/ScrollIndicator";
 import { QUERY_KEY } from "@constants";
 import { type GetStaticProps, type GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
@@ -11,8 +11,8 @@ import {
   getAllSnippetsIdAPI,
   getSnippetAPI,
 } from "@services/snippet/snippet.service";
-import Post from "components/post";
-import ScrollToTopButton from "components/shared/ScrollToTopButton";
+import Post from "@components/post";
+import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import styles from "./styles.module.scss";
 
 const SnippetPostPage = () => {

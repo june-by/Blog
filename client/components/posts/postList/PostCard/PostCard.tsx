@@ -4,10 +4,10 @@ import { PostListPageDataType } from "@Types";
 import Link from "next/link";
 import { S3_PREFIX, THUMBNAIL } from "@constants";
 import Image from "next/image";
-import TagButton from "components/shared/tagButton";
+import TagButton from "@components/shared/tagButton";
 import { AiOutlineEye } from "react-icons/ai";
 import PostCardSkeleton from "./Skeleton";
-import CustomWebPImage from "components/shared/CustomWebPImage";
+import CustomWebPImage from "@components/shared/CustomWebPImage";
 import { DATE_FORM, convertDateToString, isNull } from "@utils";
 
 interface Props {

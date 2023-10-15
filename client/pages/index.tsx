@@ -6,14 +6,14 @@ import {
   useGetSeriesPosts,
   useGetTagPosts,
 } from "@hooks/query";
-import ScrollToTopButton from "components/shared/ScrollToTopButton";
+import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { useRouter } from "next/router";
 import { PostsPageQueryType } from "@Types";
 import { ParsedUrlQuery } from "querystring";
-import CategoryList from "components/posts/CategoryList";
-import PostList from "components/posts/postList";
-import Contact from "components/posts/Contact";
-import CommonSEO from "components/shared/CommonSEO";
+import CategoryList from "@components/posts/CategoryList";
+import PostList from "@components/posts/postList";
+import Contact from "@components/posts/Contact";
+import CommonSEO from "@components/shared/CommonSEO";
 
 const Home: NextPage = () => {
   const { query } = useRouter();

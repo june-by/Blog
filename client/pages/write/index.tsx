@@ -1,5 +1,5 @@
-import PostForm from "components/postForm";
-import SeriesSelector from "components/postForm/SeriesSelector";
+import PostForm from "@components/postForm";
+import SeriesSelector from "@components/postForm/SeriesSelector";
 import { Category, MESSAGE } from "@constants";
 import styles from "./styles.module.scss";
 import https from "https";
@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useQueryId } from "@hooks";
 import { useAddPost, useEditPost, useGetPostQuery } from "@hooks/query";
 import { PostFormType } from "@Types";
-import usePostForm from "components/postForm/usePostForm";
+import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";
 import { customAxios, IsAdmin } from "@utils";

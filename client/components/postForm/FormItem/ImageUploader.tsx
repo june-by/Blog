@@ -1,6 +1,6 @@
 import React, { useCallback, type ChangeEvent } from "react";
 import { PostFormItemSharedType } from "./type";
-import ImageUploader from "components/shared/ImageUploader/ImageUploader";
+import ImageUploader from "@components/shared/ImageUploader/ImageUploader";
 
 const PostFormImageUploader = <T extends Record<string, any>>({
   value,

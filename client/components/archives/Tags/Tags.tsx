@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import { useBooleanState } from "@hooks";
-import ShowMoreButton from "components/shared/ShowMoreButton/ShowMoreButton";
+import ShowMoreButton from "@components/shared/ShowMoreButton/ShowMoreButton";
 
 const Tags = () => {
   const [showMore, , , toggleShowMore] = useBooleanState(false);

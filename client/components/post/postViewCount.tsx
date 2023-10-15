@@ -2,7 +2,7 @@ import { useGetPostViewCount } from "@hooks/query";
 import React from "react";
 import styles from "./styles.module.scss";
 import { useQueryId } from "@hooks";
-import LoadingOrNot from "components/shared/LoadingOrNot";
+import LoadingOrNot from "@components/shared/LoadingOrNot";
 
 const PostViewCount = () => {
   const postId = useQueryId();

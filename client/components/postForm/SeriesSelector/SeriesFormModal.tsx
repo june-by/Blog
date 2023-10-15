@@ -1,7 +1,7 @@
 import { useAddSeries } from "@hooks/query";
-import DefaultModal from "components/shared/DefaultModal";
-import ImageUploader from "components/shared/ImageUploader";
-import ModalView from "components/shared/ModalView/ModalView";
+import DefaultModal from "@components/shared/DefaultModal";
+import ImageUploader from "@components/shared/ImageUploader";
+import ModalView from "@components/shared/ModalView/ModalView";
 import { MESSAGE } from "@constants";
 import React, {
   useCallback,
