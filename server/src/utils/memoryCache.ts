@@ -1,7 +1,7 @@
 import cache from "memory-cache";
 
-class MemoryCache<K, V> {
-  private cache;
+class MemoryCache<K extends string, V> {
+  public cache;
   constructor(Cache: typeof cache) {
     this.cache = Cache;
   }
@@ -18,6 +18,19 @@ class MemoryCache<K, V> {
   }
   del(key: K): boolean {
     return this.cache.del(key);
+  }
+  delAll(targetKey: K): boolean {
+    this.keys().forEach((key) => {
+      if (key.includes(targetKey)) {
+        if (!this.del(key)) {
+          return false;
+        }
+      }
+    });
+    return true;
+  }
+  keys(): K[] {
+    return this.cache.keys();
   }
   clear() {
     this.cache.clear();
