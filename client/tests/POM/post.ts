@@ -2,8 +2,8 @@ import { Page } from "@playwright/test";
 import { ServerURL } from "@constants";
 import { POST_MOCK_DATA } from "@mocks/data/post";
 import POM from "./pom";
-import { FuncsType } from "tests/type";
-import pipe from "tests/utils";
+import { FuncsType } from "../type";
+import pipe from "../utils";
 
 export interface PostPOM_MockAPIParams {
   isFirstPostInSeries?: boolean;
