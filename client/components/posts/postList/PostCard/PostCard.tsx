@@ -10,7 +10,7 @@ import TagButton from "components/shared/tagButton";
 import { AiOutlineEye } from "react-icons/ai";
 import PostCardSkeleton from "./Skeleton";
 import CustomWebPImage from "components/shared/CustomWebPImage";
-import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
+import { DATE_FORM, convertDateToString } from "utils";
 
 interface Props {
   post: PostListPageDataType;

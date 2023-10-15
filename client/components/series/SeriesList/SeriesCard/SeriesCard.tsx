@@ -6,7 +6,7 @@ import isNull from "utils/isNull";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import CustomWebPImage from "components/shared/CustomWebPImage";
-import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
+import { DATE_FORM, convertDateToString } from "utils";
 
 const SeriesCard = ({
   id,
