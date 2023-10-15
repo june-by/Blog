@@ -1,14 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cacheMiddleware = void 0;
-const memory_cache_1 = __importDefault(require("memory-cache"));
+const _utils_1 = require("../utils");
 const cacheMiddleware = (duration) => {
     return function (req, res, next) {
         const key = "__express__" + req.originalUrl || req.url;
-        const data = memory_cache_1.default.get(key);
+        const data = _utils_1.memoryCache.get(key);
         if (data) {
             return res.status(200).send(data);
         }
@@ -16,11 +12,11 @@ const cacheMiddleware = (duration) => {
             res.sendJsonResponse = res.json;
             res.sendResponse = res.send;
             const sendJsonResponse = (data) => {
-                memory_cache_1.default.put(key, data, duration && duration * 1000);
+                _utils_1.memoryCache.put(key, data, duration && duration * 1000);
                 res.sendJsonResponse(data);
             };
             const sendResponse = (data) => {
-                memory_cache_1.default.put(key, data, duration && duration * 1000);
+                _utils_1.memoryCache.put(key, data, duration && duration * 1000);
                 res.sendResponse(data);
             };
             res.json = sendJsonResponse;
@@ -29,4 +25,4 @@ const cacheMiddleware = (duration) => {
         }
     };
 };
-exports.cacheMiddleware = cacheMiddleware;
+exports.default = cacheMiddleware;

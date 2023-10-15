@@ -1,6 +1,5 @@
 import express from "express";
-import { isLoggedIn } from "@middleware/isLoggedIn";
-import { isNotLoggedIn } from "@middleware/isNotLoggedIn";
+import { isLoggedIn, isNotLoggedIn } from "@middleware";
 import passport from "passport";
 import userController from "./userController";
 import { CLIENT_URL } from "@constants";

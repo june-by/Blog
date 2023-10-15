@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isLoggedIn = void 0;
+const _constants_1 = require("../constants");
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     }
     else {
-        res.status(401).send("로그인이 필요합니다.");
+        res.status(401).send(_constants_1.MESSAGE.LOGIN_NEEDED);
     }
 };
-exports.isLoggedIn = isLoggedIn;
+exports.default = isLoggedIn;

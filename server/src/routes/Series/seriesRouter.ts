@@ -1,10 +1,15 @@
 import express from "express";
 import seriesController from "./seriesController";
-import { isAdmin } from "@middleware/isAdmin";
+import { cacheClearMiddleWare, cacheMiddleware, isAdmin } from "@middleware";
 const router = express.Router();
 
-router.get("/", seriesController.getAllSeries);
+router.get("/", cacheMiddleware(), seriesController.getAllSeries);
 
-router.post("/", isAdmin, seriesController.addSeries);
+router.post(
+  "/",
+  isAdmin,
+  cacheClearMiddleWare("series"),
+  seriesController.addSeries
+);
 
 export default router;

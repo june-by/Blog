@@ -1,17 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAdmin = void 0;
+const _constants_1 = require("../constants");
 const isAdmin = (req, res, next) => {
     var _a;
     const id = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
     if (!id) {
-        return res.status(401).send("관리자만 이용 가능합니다.");
+        return res.status(401).send(_constants_1.MESSAGE.ONLY_AVAILABLE_TO_ADMIN);
     }
-    console.log("id : ", id);
-    console.log("rocess.env.ADMIN_ID : ", process.env.ADMIN_ID);
     if (String(id) !== process.env.ADMIN_ID) {
-        return res.status(401).send("관리자만 이용 가능합니다.");
+        return res.status(401).send(_constants_1.MESSAGE.ONLY_AVAILABLE_TO_ADMIN);
     }
     next();
 };
-exports.isAdmin = isAdmin;
+exports.default = isAdmin;

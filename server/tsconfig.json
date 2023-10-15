@@ -35,10 +35,12 @@
       "@database": ["src/database"],
       "@database/*": ["src/database/*"],
       "@middleware/*": ["src/middleWare/*"],
+      "@middleware": ["src/middleWare"],
       "@routes": ["src/routes"],
       "@routes/*": ["src/routes/*"],
       "@types/*": ["src/types/*"],
-      "@types": ["src/types"]
+      "@types": ["src/types"],
+      "@utils": ["src/utils"]
     },
     /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
