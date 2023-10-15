@@ -35,6 +35,7 @@
       "@database": ["src/database"],
       "@database/*": ["src/database/*"],
       "@middleware/*": ["src/middleWare/*"],
+      "@middleware": ["src/middleWare"],
       "@routes": ["src/routes"],
       "@routes/*": ["src/routes/*"],
       "@types/*": ["src/types/*"],
