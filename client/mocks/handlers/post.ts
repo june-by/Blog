@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { DUMMY, ServerURL } from "@constants";
-import { CATEGORY_LENGTH_MOCK_DATA } from "mocks/data/post";
+import { CATEGORY_LENGTH_MOCK_DATA } from "@mocks/data/post";
 
 export const getCategoryPosts = rest.get(
   `${ServerURL}/posts/load/:category/:pageNum`,

@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,
-} from "mocks/data/post";
+} from "@mocks/data/post";
 import PostsPOM from "./POM/posts";
-import { USER_MOCK_DATA } from "mocks/data/user";
+import { USER_MOCK_DATA } from "@mocks/data/user";
 import { MESSAGE } from "@constants";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {

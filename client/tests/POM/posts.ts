@@ -3,8 +3,8 @@ import { DUMMY, PAGE, ServerURL } from "@constants";
 import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,
-} from "mocks/data/post";
-import { USER_MOCK_DATA } from "mocks/data/user";
+} from "@mocks/data/post";
+import { USER_MOCK_DATA } from "@mocks/data/user";
 import POM from "./pom";
 
 export interface PostsPOM_MockAPIParams {}

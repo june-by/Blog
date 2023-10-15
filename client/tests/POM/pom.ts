@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { ServerURL } from "@constants";
-import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
+import { VISITOR_MOCK_DATA } from "@mocks/data/visitor";
 
 export default class POM {
   readonly page: Page;
