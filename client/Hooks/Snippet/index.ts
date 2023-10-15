@@ -1,6 +1,5 @@
 import { SnippetFormType, SnippetType } from "Types/snippets";
-import CACHE_OPTION from "constants/cacheOption";
-import QUERY_KEY from "constants/queryKey";
+import { CACHE_OPTION, QUERY_KEY } from "@constants";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 import PostPOM from "./POM/post";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 
 test("지정한 Page Title을 제공해야 한다.", async ({ page }) => {
   const post = new PostPOM(page);

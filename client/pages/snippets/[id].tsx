@@ -3,7 +3,7 @@ import useQueryId from "Hooks/useQueryId";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import CommonSEO from "components/shared/CommonSEO";
 import ScrollIndicator from "components/shared/ScrollIndicator";
-import QUERY_KEY from "constants/queryKey";
+import { QUERY_KEY } from "@constants";
 import { type GetStaticProps, type GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "@tanstack/react-query";

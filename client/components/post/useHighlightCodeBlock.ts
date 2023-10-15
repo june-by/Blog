@@ -1,4 +1,4 @@
-import { CATEGORY_TO_HLJS_CLASS, CategoryType } from "constants/category";
+import { CATEGORY_TO_HLJS_CLASS, CategoryType } from "@constants";
 import hljs from "highlight.js";
 import { useEffect } from "react";
 

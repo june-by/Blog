@@ -1,4 +1,4 @@
-import { CategoryType } from "constants/category";
+import { CategoryType } from "@constants";
 import { AtLeast } from "./utils";
 
 export interface PostType {

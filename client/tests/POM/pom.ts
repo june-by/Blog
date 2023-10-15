@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { ServerURL } from "constants/serverURL";
+import { ServerURL } from "@constants";
 import { VISITOR_MOCK_DATA } from "mocks/data/visitor";
 
 export default class POM {

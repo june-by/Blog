@@ -1,4 +1,3 @@
-import MESSAGE from "constants/message";
 import request from "services/request";
 import { UserType } from "Types/user";
 

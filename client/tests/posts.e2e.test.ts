@@ -5,7 +5,7 @@ import {
 } from "mocks/data/post";
 import PostsPOM from "./POM/posts";
 import { USER_MOCK_DATA } from "mocks/data/user";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 
 test("지정한 Page Title을 제공 해야 한다", async ({ page }) => {
   const posts = new PostsPOM(page);

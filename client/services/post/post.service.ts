@@ -5,7 +5,7 @@ import {
   PostPageDataType,
   PostListPageDataType,
 } from "Types/post";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 import request from "services/request";
 
 export const getAllPostsId = async () =>

@@ -1,7 +1,5 @@
 import { Page } from "@playwright/test";
-import DUMMY from "constants/dummy";
-import PAGE from "constants/page";
-import { ServerURL } from "constants/serverURL";
+import { DUMMY, PAGE, ServerURL } from "@constants";
 import {
   CATEGORY_LENGTH_MOCK_DATA,
   MAIN_POSTS_MOCK_DATA,

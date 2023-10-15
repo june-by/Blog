@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import CACHE_OPTION from "constants/cacheOption";
-import QUERY_KEY from "constants/queryKey";
+import { CACHE_OPTION, QUERY_KEY } from "@constants";
 import { getAllTags } from "services/tag";
 import { ArchiveTagType } from "Types/tag";
 

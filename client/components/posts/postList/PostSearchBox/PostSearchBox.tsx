@@ -4,7 +4,8 @@ import IconButton from "components/shared/IconButton/IconButton";
 import SearchIcon from "components/Icon/search";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
+
 const PostSearchBox = () => {
   const { push } = useRouter();
 

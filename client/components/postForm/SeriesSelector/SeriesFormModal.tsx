@@ -2,7 +2,7 @@ import { useAddSeries } from "Hooks/Series";
 import DefaultModal from "components/shared/DefaultModal";
 import ImageUploader from "components/shared/ImageUploader";
 import ModalView from "components/shared/ModalView/ModalView";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 import React, {
   useCallback,
   useRef,

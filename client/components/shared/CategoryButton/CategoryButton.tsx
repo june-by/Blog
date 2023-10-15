@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
-import { CategoryType } from "constants/category";
+import { CategoryType } from "@constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import classnames from "classnames";

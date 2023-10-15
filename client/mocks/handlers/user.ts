@@ -1,6 +1,5 @@
 import { rest } from "msw";
-import { ServerURL } from "constants/serverURL";
-import DUMMY from "constants/dummy";
+import { DUMMY, ServerURL } from "@constants";
 
 export const getUserInfo = rest.get(`${ServerURL}/user`, (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(DUMMY.USER));

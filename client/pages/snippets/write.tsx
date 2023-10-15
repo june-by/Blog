@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import React, { useEffect } from "react";
 import { customAxios, IsAdmin, omit } from "utils";
 import https from "https";
-import { SnippetsCategory } from "constants/category";
+import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";
 import useQueryId from "Hooks/useQueryId";
 import usePostForm from "components/postForm/usePostForm";
@@ -13,7 +13,6 @@ import {
   useEditSnippetMutation,
   useGetSnippetQuery,
 } from "Hooks/Snippet";
-import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
 
 const snippetFormInitialData = {

@@ -1,4 +1,4 @@
-import DEFAULT_THEME from "constants/defaultTheme";
+import { DEFAULT_THEME } from "@constants";
 import Document, {
   Html,
   Head,

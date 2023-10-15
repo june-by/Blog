@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { ServerURL } from "constants/serverURL";
+import { ServerURL } from "@constants";
 import { POST_MOCK_DATA } from "mocks/data/post";
 import POM from "./pom";
 import { FuncsType } from "tests/type";
