@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Send } from "express";
-import cache from "memory-cache";
+import { memoryCache } from "src/utils";
 
 export const cacheMiddleware = (duration?: number) => {
   return function (req: Request, res: Response, next: NextFunction) {
     const key = "__express__" + req.originalUrl || req.url;
-    const data = cache.get(key);
+    const data = memoryCache.get(key);
 
     if (data) {
       return res.status(200).send(data);
@@ -13,12 +13,12 @@ export const cacheMiddleware = (duration?: number) => {
       res.sendResponse = res.send;
 
       const sendJsonResponse = (data: any) => {
-        cache.put(key, data, duration && duration * 1000);
+        memoryCache.put(key, data, duration && duration * 1000);
         res.sendJsonResponse(data);
       };
 
       const sendResponse = (data: any) => {
-        cache.put(key, data, duration && duration * 1000);
+        memoryCache.put(key, data, duration && duration * 1000);
         res.sendResponse(data);
       };
 
