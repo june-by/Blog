@@ -1,7 +1,6 @@
 import express from "express";
-import { isAdmin } from "@middleware/isAdmin";
 import postController from "./postController";
-import { cacheClearMiddleWare } from "@middleware/cacheClearMiddleware";
+import { cacheClearMiddleWare, isAdmin } from "@middleware";
 const router = express.Router();
 
 router.post("/", isAdmin, cacheClearMiddleWare("post"), postController.AddPost);

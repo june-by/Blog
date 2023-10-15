@@ -1,6 +1,6 @@
 import express from "express";
 import postsController from "./postsController";
-import { cacheMiddleware } from "@middleware/cacheMiddleware";
+import { cacheMiddleware } from "@middleware";
 const router = express.Router();
 
 router.get("/load/id", postsController.getAllPostsId);

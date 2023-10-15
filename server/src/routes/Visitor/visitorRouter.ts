@@ -1,7 +1,6 @@
 import express from "express";
 import visitorController from "./visitorController";
-import { cacheMiddleware } from "@middleware/cacheMiddleware";
-import { cacheClearMiddleWare } from "@middleware/cacheClearMiddleware";
+import { cacheClearMiddleWare, cacheMiddleware } from "@middleware";
 const router = express.Router();
 
 router.get("/", cacheMiddleware(), visitorController.getVisitor);

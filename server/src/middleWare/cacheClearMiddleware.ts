@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Send } from "express";
 import { memoryCache } from "src/utils";
 
-export const cacheClearMiddleWare = (key: string) => {
+const cacheClearMiddleWare = (key: string) => {
   return function (req: Request, res: Response, next: NextFunction) {
     res.sendJsonResponse = res.json;
     res.sendResponse = res.send;
@@ -22,3 +22,5 @@ export const cacheClearMiddleWare = (key: string) => {
     next();
   };
 };
+
+export default cacheClearMiddleWare;

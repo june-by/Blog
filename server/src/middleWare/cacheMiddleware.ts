@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Send } from "express";
 import { memoryCache } from "src/utils";
 
-export const cacheMiddleware = (duration?: number) => {
+const cacheMiddleware = (duration?: number) => {
   return function (req: Request, res: Response, next: NextFunction) {
     const key = "__express__" + req.originalUrl || req.url;
     const data = memoryCache.get(key);
@@ -29,3 +29,5 @@ export const cacheMiddleware = (duration?: number) => {
     }
   };
 };
+
+export default cacheMiddleware;

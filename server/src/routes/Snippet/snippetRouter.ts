@@ -1,8 +1,6 @@
 import express from "express";
 import snippetsController from "./snippetController";
-import { isAdmin } from "@middleware/isAdmin";
-import { cacheMiddleware } from "@middleware/cacheMiddleware";
-import { cacheClearMiddleWare } from "@middleware/cacheClearMiddleware";
+import { cacheClearMiddleWare, cacheMiddleware, isAdmin } from "@middleware";
 
 const router = express.Router();
 
