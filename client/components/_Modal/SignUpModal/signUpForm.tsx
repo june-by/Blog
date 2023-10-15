@@ -1,6 +1,6 @@
 import React, { type FormEvent, type RefObject } from "react";
 
-import { useHeaderContext } from "context/headerContext";
+import { useHeaderContext } from "@contexts/headerContext";
 import ModalView from "components/shared/ModalView";
 
 interface Props {

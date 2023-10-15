@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import Row from "./Row";
-import { useTableOfContentsContext } from "context/tableOfContents";
+import { useTableOfContentsContext } from "@contexts/tableOfContents";
 
 const Table = () => {
   const { tableOfContents, activeId: activeContentId } =

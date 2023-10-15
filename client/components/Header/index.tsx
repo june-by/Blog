@@ -1,4 +1,4 @@
-import { HeaderContainer } from "context/headerContext";
+import { HeaderContainer } from "@contexts/headerContext";
 import HeaderWrap from "./headerWrap";
 
 const Header = () => {

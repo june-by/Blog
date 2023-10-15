@@ -1,7 +1,7 @@
 import React from "react";
 import Light from "components/Icon/light";
 import Dark from "components/Icon/dark";
-import { useThemeContext } from "context/themeContext";
+import { useThemeContext } from "@contexts/themeContext";
 import styles from "./styles.module.scss";
 import SwitchCase from "components/shared/SwitchCase";
 

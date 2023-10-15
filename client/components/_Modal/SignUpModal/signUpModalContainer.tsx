@@ -1,5 +1,5 @@
 import { useSignUp } from "Hooks/User";
-import { useHeaderContext } from "context/headerContext";
+import { useHeaderContext } from "@contexts/headerContext";
 import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";

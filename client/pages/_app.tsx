@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import useCheckVisitor from "Hooks/useCheckVisitor";
-import { ThemeProvider } from "context/themeContext";
+import { ThemeProvider } from "@contexts/themeContext";
 import MyToastContainer from "components/shared/MyToastContainer";
 import PageSkeleton from "components/PageSkeleton/PageSkeleton";
 import Header from "components/Header";

@@ -1,4 +1,4 @@
-import { useHeaderContext } from "context/headerContext";
+import { useHeaderContext } from "@contexts/headerContext";
 import React, { type FormEvent, type RefObject } from "react";
 import ModalView from "components/shared/ModalView";
 import styles from "./styles.module.scss";

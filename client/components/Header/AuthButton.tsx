@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { useHeaderContext } from "context/headerContext";
+import { useHeaderContext } from "@contexts/headerContext";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { useLogOut } from "Hooks/User";

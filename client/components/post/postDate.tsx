@@ -1,5 +1,5 @@
 import React from "react";
-import { usePostContext } from "context/postContext";
+import { usePostContext } from "@contexts/postContext";
 import { DATE_FORM, convertDateToString } from "@utils";
 
 const PostDate = () => {
