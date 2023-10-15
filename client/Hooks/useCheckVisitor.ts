@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { postVisitorAPI } from "services/visitor";
+import QUERY_KEY from "constants/queryKey";
 
 interface DateInfo {
   year: number;
@@ -22,16 +23,15 @@ const useCheckVisitor = (queryClient: QueryClient) => {
     }
 
     AddVisitor(queryClient, date);
-  }, []);
+  }, [queryClient]);
 };
 
 export default useCheckVisitor;
 
 async function AddVisitor(queryClient: QueryClient, date: DateInfo) {
   localStorage.setItem("visitToday", JSON.stringify(date));
-  //api콜
   const data = await postVisitorAPI();
-  queryClient.setQueryData(["visitor"], data);
+  queryClient.setQueryData([QUERY_KEY.VISITOR], data);
 }
 
 function getCurrentTimeInfo() {
