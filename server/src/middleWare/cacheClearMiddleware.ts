@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Send } from "express";
-import { memoryCache } from "src/utils";
+import { memoryCache } from "@utils";
 
 const cacheClearMiddleWare = (key: string) => {
   return function (req: Request, res: Response, next: NextFunction) {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Send } from "express";
-import { memoryCache } from "src/utils";
+import { memoryCache } from "@utils";
 
 const cacheMiddleware = (duration?: number) => {
   return function (req: Request, res: Response, next: NextFunction) {
