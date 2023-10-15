@@ -12,12 +12,12 @@ export const cacheMiddleware = (duration?: number) => {
       res.sendJsonResponse = res.json;
       res.sendResponse = res.send;
 
-      const sendJsonResponse = (data: any) => {
+      const sendJsonResponse = <T>(data: T) => {
         memoryCache.put(key, data, duration && duration * 1000);
         res.sendJsonResponse(data);
       };
 
-      const sendResponse = (data: any) => {
+      const sendResponse = <T>(data: T) => {
         memoryCache.put(key, data, duration && duration * 1000);
         res.sendResponse(data);
       };
