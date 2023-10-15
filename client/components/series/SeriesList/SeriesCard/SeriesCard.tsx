@@ -2,11 +2,10 @@ import { AllSeriesAPIType } from "Types/series";
 import { ArrayElement } from "Types/utils";
 import Link from "next/link";
 import React from "react";
-import isNull from "utils/isNull";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import CustomWebPImage from "components/shared/CustomWebPImage";
-import { DATE_FORM, convertDateToString } from "utils";
+import { DATE_FORM, convertDateToString, isNull } from "utils";
 
 const SeriesCard = ({
   id,

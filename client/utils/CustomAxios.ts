@@ -1,7 +1,9 @@
 import axios, { AxiosInstance } from "axios";
 import { ServerURL } from "constants/serverURL";
 
-export const customAxios: AxiosInstance = axios.create({
+const customAxios: AxiosInstance = axios.create({
   baseURL: `${ServerURL}`,
   withCredentials: true,
 });
+
+export default customAxios;

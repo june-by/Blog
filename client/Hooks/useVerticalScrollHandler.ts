@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import throttle from "utils/throttle";
+import { throttle } from "utils";
 
 interface Params {
   onScrollDown: () => void;

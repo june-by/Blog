@@ -2,7 +2,7 @@ import { SnippetFormType, SnippetType } from "Types/snippets";
 import CACHE_OPTION from "constants/cacheOption";
 import QUERY_KEY from "constants/queryKey";
 import { useRouter } from "next/router";
-import { UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   addSnippetAPI,
   deleteSnippetAPI,
@@ -10,7 +10,7 @@ import {
   getAllSnippetsAPI,
   getSnippetAPI,
 } from "services/snippet/snippet.service";
-import groupBy from "utils/groupBy";
+import { groupBy } from "utils";
 
 export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {
   const { replace } = useRouter();

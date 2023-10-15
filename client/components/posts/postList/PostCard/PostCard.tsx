@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { PostListPageDataType } from "Types/post";
 import Link from "next/link";
-import isNull from "utils/isNull";
+import { isNull } from "utils";
 import S3_PREFIX from "constants/s3Prefix";
 import Image from "next/image";
 import THUMBNAIL from "constants/thumbnail";

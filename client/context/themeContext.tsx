@@ -7,7 +7,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import extractFromCookie from "utils/extractFromCookie";
+import { extractFromCookie } from "utils";
 
 type ThemeType = "light" | "dark";
 

@@ -1,6 +1,5 @@
 import { useGetAllPostsQuery } from "Hooks/Post";
-import { getYearMonthDate } from "utils";
-import groupBy from "utils/groupBy";
+import { getYearMonthDate, groupBy } from "utils";
 
 const useArchivePosts = () => {
   const { data } = useGetAllPostsQuery();

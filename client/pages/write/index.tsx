@@ -12,9 +12,7 @@ import usePostForm from "components/postForm/usePostForm";
 import MESSAGE from "constants/message";
 import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";
-import { customAxios } from "utils/CustomAxios";
-import IsAdmin from "utils/isAdmin";
-import omit from "utils/omit";
+import { customAxios, IsAdmin } from "utils";
 
 const postFormInitialData = {
   title: "",
