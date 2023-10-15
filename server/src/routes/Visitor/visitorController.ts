@@ -5,10 +5,10 @@ import { NextFunction, Request, Response } from "express";
 
 const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const totalVisitor = await visitorService.getTotalVisitor();
-    const todayVisitor = await visitorService.getTodayVisitor({
-      date: getVisitorDateInfo(),
-    });
+    const [totalVisitor, todayVisitor] = await Promise.all([
+      visitorService.getTotalVisitor(),
+      visitorService.getTodayVisitor({ date: getVisitorDateInfo() }),
+    ]);
     return res.status(201).json({ totalVisitor, todayVisitor });
   } catch (err) {
     console.error(err);
