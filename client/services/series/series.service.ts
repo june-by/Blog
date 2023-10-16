@@ -1,5 +1,5 @@
-import { AllSeriesAPIType } from "Types/series";
-import request from "services/request";
+import { AllSeriesAPIType } from "@Types";
+import request from "@services/request";
 
 export const getAllSeriesAPI = async () =>
   request<AllSeriesAPIType>({

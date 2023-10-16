@@ -5,7 +5,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 import { useRouter } from "next/router";
-import { PostType } from "Types/post";
+import { PostType } from "@Types";
 
 interface Props extends Pick<PostType, "seriesPosts"> {
   currentPostIdx: number;

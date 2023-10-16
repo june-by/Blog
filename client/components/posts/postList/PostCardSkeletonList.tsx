@@ -1,6 +1,6 @@
 import React from "react";
 import PostCard from "./PostCard";
-import POSTS_PER_PAGE from "constants/postsPerPage";
+import { POSTS_PER_PAGE } from "@constants";
 
 const PostCardSkeletonList = () => {
   return (

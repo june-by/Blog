@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { usePostContext } from "context/postContext";
+import { usePostContext } from "@contexts/postContext";
 import Link from "next/link";
 import classnames from "classnames";
-import { PostType } from "Types/post";
+import { PostType } from "@Types";
 
 const SeriesList = ({ seriesPosts }: Pick<PostType, "seriesPosts">) => {
   const { id: currentPostId } = usePostContext();

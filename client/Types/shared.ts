@@ -10,3 +10,9 @@ declare module "axios" {
     Cookie?: string;
   }
 }
+
+export interface DateType {
+  year: number;
+  month: number;
+  date: number;
+}

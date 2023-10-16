@@ -1,14 +1,14 @@
-import ErrorHelper from "components/shared/errorHelper";
+import ErrorHelper from "@components/shared/errorHelper";
 import NoPost from "./NoPost";
-import useRestoreSrollPos from "Hooks/useRestoreScrollPos";
+import { useRestoreSrollPos } from "@hooks";
 import React from "react";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
-import { PostListPageDataType } from "Types/post";
-import InfiniteScroll from "components/shared/infiniteScroll";
+import { PostListPageDataType } from "@Types";
+import InfiniteScroll from "@components/shared/infiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
-import PostsListTitle from "components/shared/PostsListTitle";
+import PostsListTitle from "@components/shared/PostsListTitle";
 import PostSearchBox from "./PostSearchBox";
 interface Props {
   params: string;

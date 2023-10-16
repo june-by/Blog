@@ -1,7 +1,6 @@
 import React from "react";
 import { Concert_One } from "next/font/google";
-import useGotoPage from "Hooks/useGotoPage";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import { useGotoPage } from "@hooks";
 
 const ConcertOneFont = Concert_One({
   weight: "400",

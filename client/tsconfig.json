@@ -14,8 +14,31 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@constants": ["constants"],
+      "@utils": ["utils"],
+      "@contexts/*": ["contexts/*"],
+      "@Types/*": ["Types/*"],
+      "@Types": ["Types"],
+      "@services/*": ["services/*"],
+      "@services": ["services"],
+      "@hooks/*": ["Hooks/*"],
+      "@hooks": ["Hooks"],
+      "@styles/*": ["styles/*"],
+      "@styles": ["styles"],
+      "@components/*": ["components/*"],
+      "@components": ["components"],
+      "@mocks/*": ["mocks/*"],
+      "@mocks": ["mocks"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.config.js", "server.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.config.js",
+    "server.ts"
+  ],
   "exclude": ["node_modules"]
 }

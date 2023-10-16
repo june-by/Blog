@@ -1,4 +1,4 @@
-import TopIcon from "components/Icon/top";
+import TopIcon from "@components/Icon/top";
 import React, { memo, useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import classnames from "classnames";

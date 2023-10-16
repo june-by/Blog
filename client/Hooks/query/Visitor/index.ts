@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getVisitorAPI } from "services/visitor";
-import { VisitorAPIType } from "Types/visitor";
-import QUERY_KEY from "constants/queryKey";
+import { getVisitorAPI } from "@services/visitor";
+import { VisitorAPIType } from "@Types";
+import { QUERY_KEY } from "@constants";
 
 export const useGetVisitor = () =>
   useQuery<VisitorAPIType>([QUERY_KEY.VISITOR], getVisitorAPI, {

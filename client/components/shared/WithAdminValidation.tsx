@@ -1,5 +1,5 @@
-import { useGetUserQuery } from "Hooks/User";
-import IsAdmin from "utils/isAdmin";
+import { useGetUserQuery } from "@hooks/query";
+import { IsAdmin } from "@utils";
 import LoadingOrNot from "./LoadingOrNot";
 import SwitchCase from "./SwitchCase";
 import { useEffect } from "react";

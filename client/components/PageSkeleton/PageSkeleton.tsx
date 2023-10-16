@@ -1,7 +1,7 @@
 import React from "react";
 import PostPageSkeleton from "./PostPageSkeleton";
 import PostsPageSkeleton from "./PostsPageSkeleton";
-import SwitchCase from "components/shared/SwitchCase";
+import SwitchCase from "@components/shared/SwitchCase";
 
 interface Props {
   url: string;

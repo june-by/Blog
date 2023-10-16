@@ -1,4 +1,4 @@
-import { usePostContext } from "context/postContext";
+import { usePostContext } from "@contexts/postContext";
 import React from "react";
 import styles from "./styles.module.scss";
 

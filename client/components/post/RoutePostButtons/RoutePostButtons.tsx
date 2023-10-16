@@ -1,11 +1,8 @@
-import { useRouter } from "next/router";
 import React from "react";
-import { useGetPostQuery } from "Hooks/Post";
-import { PostPageDataType } from "Types/post";
+import { useGetPostQuery } from "@hooks/query";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
-import LoadingOrNot from "components/shared/LoadingOrNot";
-import useQueryId from "Hooks/useQueryId";
+import { useQueryId } from "@hooks";
 
 const RoutePostButtons = () => {
   const id = useQueryId();

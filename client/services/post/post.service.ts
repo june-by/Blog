@@ -4,9 +4,9 @@ import {
   PostType,
   PostPageDataType,
   PostListPageDataType,
-} from "Types/post";
-import MESSAGE from "constants/message";
-import request from "services/request";
+} from "@Types";
+import { MESSAGE } from "@constants";
+import request from "@services/request";
 
 export const getAllPostsId = async () =>
   request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });

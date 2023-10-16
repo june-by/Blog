@@ -1,16 +1,14 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { PostListPageDataType } from "Types/post";
+import { PostListPageDataType } from "@Types";
 import Link from "next/link";
-import isNull from "utils/isNull";
-import S3_PREFIX from "constants/s3Prefix";
+import { S3_PREFIX, THUMBNAIL } from "@constants";
 import Image from "next/image";
-import THUMBNAIL from "constants/thumbnail";
-import TagButton from "components/shared/tagButton";
+import TagButton from "@components/shared/tagButton";
 import { AiOutlineEye } from "react-icons/ai";
 import PostCardSkeleton from "./Skeleton";
-import CustomWebPImage from "components/shared/CustomWebPImage";
-import { DATE_FORM, convertDateToString } from "utils/convertDateToString";
+import CustomWebPImage from "@components/shared/CustomWebPImage";
+import { DATE_FORM, convertDateToString, isNull } from "@utils";
 
 interface Props {
   post: PostListPageDataType;

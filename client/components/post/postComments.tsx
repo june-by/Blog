@@ -1,4 +1,4 @@
-import { useThemeContext } from "context/themeContext";
+import { useThemeContext } from "@contexts/themeContext";
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 

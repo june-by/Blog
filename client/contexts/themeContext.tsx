@@ -1,4 +1,4 @@
-import DEFAULT_THEME from "constants/defaultTheme";
+import { DEFAULT_THEME } from "@constants";
 import {
   createContext,
   useCallback,
@@ -7,7 +7,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import extractFromCookie from "utils/extractFromCookie";
+import { extractFromCookie } from "@utils";
 
 type ThemeType = "light" | "dark";
 

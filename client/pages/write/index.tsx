@@ -1,20 +1,17 @@
-import PostForm from "components/postForm";
-import SeriesSelector from "components/postForm/SeriesSelector";
-import { Category } from "constants/category";
+import PostForm from "@components/postForm";
+import SeriesSelector from "@components/postForm/SeriesSelector";
+import { Category, MESSAGE } from "@constants";
 import styles from "./styles.module.scss";
 import https from "https";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import useQueryId from "Hooks/useQueryId";
-import { useAddPost, useEditPost, useGetPostQuery } from "Hooks/Post";
-import { PostFormType } from "Types/post";
-import usePostForm from "components/postForm/usePostForm";
-import MESSAGE from "constants/message";
+import { useQueryId } from "@hooks";
+import { useAddPost, useEditPost, useGetPostQuery } from "@hooks/query";
+import { PostFormType } from "@Types";
+import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
 import { GetServerSideProps } from "next";
-import { customAxios } from "utils/CustomAxios";
-import IsAdmin from "utils/isAdmin";
-import omit from "utils/omit";
+import { customAxios, IsAdmin } from "@utils";
 
 const postFormInitialData = {
   title: "",

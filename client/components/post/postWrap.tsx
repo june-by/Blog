@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import PostContent from "./postContent";
-import { PostContainer } from "context/postContext";
+import { PostContainer } from "@contexts/postContext";
 import PostComments from "./postComments";
 import RoutePostButtons from "./RoutePostButtons";
-import { PostContextDataType } from "Types/post";
+import { PostContextDataType } from "@Types";
 import PostAdminButtons from "./PostAdminButtons";
 import PostTitle from "./postTitle";
 import PostDate from "./postDate";

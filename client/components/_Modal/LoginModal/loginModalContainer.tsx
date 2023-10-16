@@ -1,10 +1,10 @@
-import { useLogin } from "Hooks/User";
-import { useHeaderContext } from "context/headerContext";
+import { useLogin } from "@hooks/query";
+import { useHeaderContext } from "@contexts/headerContext";
 import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import LoginForm from "./loginForm";
-import MESSAGE from "constants/message";
-import DefaultModal from "components/shared/DefaultModal";
+import { MESSAGE } from "@constants";
+import DefaultModal from "@components/shared/DefaultModal";
 
 const LoginModalContainer = () => {
   const { closeLogin, isLoginModalOpen } = useHeaderContext();

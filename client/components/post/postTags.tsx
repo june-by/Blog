@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { usePostContext } from "context/postContext";
-import TagButton from "components/shared/tagButton";
+import { usePostContext } from "@contexts/postContext";
+import TagButton from "@components/shared/tagButton";
 
 const PostTags = () => {
   const { Tags } = usePostContext();

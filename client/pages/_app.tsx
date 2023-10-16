@@ -1,5 +1,5 @@
-import "styles/globals.css";
-import "styles/Editor.css";
+import "@styles/globals.css";
+import "@styles/Editor.css";
 import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
 import {
@@ -8,13 +8,13 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import useCheckVisitor from "Hooks/useCheckVisitor";
-import { ThemeProvider } from "context/themeContext";
-import MyToastContainer from "components/shared/MyToastContainer";
-import PageSkeleton from "components/PageSkeleton/PageSkeleton";
-import Header from "components/Header";
-import CommonSEO from "components/shared/CommonSEO";
-import WithRouteChange from "components/shared/WithRouteChange";
+import { useCheckVisitor } from "@hooks";
+import { ThemeProvider } from "@contexts/themeContext";
+import MyToastContainer from "@components/shared/MyToastContainer";
+import PageSkeleton from "@components/PageSkeleton/PageSkeleton";
+import Header from "@components/Header";
+import CommonSEO from "@components/shared/CommonSEO";
+import WithRouteChange from "@components/shared/WithRouteChange";
 
 const queryClient = new QueryClient();
 

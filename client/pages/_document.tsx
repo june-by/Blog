@@ -1,4 +1,4 @@
-import DEFAULT_THEME from "constants/defaultTheme";
+import { DEFAULT_THEME } from "@constants";
 import Document, {
   Html,
   Head,
@@ -6,7 +6,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import extractFromCookie from "utils/extractFromCookie";
+import { extractFromCookie } from "@utils";
 
 let theme = "light";
 

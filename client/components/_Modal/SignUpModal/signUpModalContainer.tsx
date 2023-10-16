@@ -1,10 +1,10 @@
-import { useSignUp } from "Hooks/User";
-import { useHeaderContext } from "context/headerContext";
+import { useSignUp } from "@hooks/query";
+import { useHeaderContext } from "@contexts/headerContext";
 import React, { useRef, type FormEvent } from "react";
 import { toast } from "react-toastify";
 import SignUpForm from "./signUpForm";
-import MESSAGE from "constants/message";
-import DefaultModal from "components/shared/DefaultModal";
+import { MESSAGE } from "@constants";
+import DefaultModal from "@components/shared/DefaultModal";
 
 const SignUpModalContainer = () => {
   const { closeSignUp, isSignUpModalOpen } = useHeaderContext();

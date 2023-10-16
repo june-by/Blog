@@ -1,6 +1,6 @@
-import Header from "components/Header";
-import CommonSEO from "components/shared/CommonSEO";
-import NotFoundPageIndicator from "components/shared/NotFoundPageIndicator/NotFoundPageIndicator";
+import Header from "@components/Header";
+import CommonSEO from "@components/shared/CommonSEO";
+import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator/NotFoundPageIndicator";
 import React from "react";
 
 const Custom404 = () => {

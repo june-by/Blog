@@ -1,4 +1,4 @@
-import useMouted from "Hooks/useMounted";
+import { useMouted } from "@hooks";
 import React, { ReactNode } from "react";
 import { createPortal } from "react-dom";
 

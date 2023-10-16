@@ -6,7 +6,7 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import { toast } from "react-toastify";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 
 interface Props {
   postTitle: string | null;

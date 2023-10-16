@@ -8,9 +8,18 @@ const getTodayVisitor = async ({ date }: Pick<VisitorAttribute, "date">) =>
     where: { date },
   });
 
+const getVisitor = async ({ date }: Pick<VisitorAttribute, "date">) => {
+  const [totalVisitor, todayVisitor] = await Promise.all([
+    getTotalVisitor(),
+    getTodayVisitor({ date }),
+  ]);
+
+  return { totalVisitor, todayVisitor };
+};
+
 const addVisitor = async ({ date }: Pick<VisitorAttribute, "date">) =>
   await Visitors.create({
     date,
   });
 
-export default { getTotalVisitor, getTodayVisitor, addVisitor };
+export default { addVisitor, getVisitor };

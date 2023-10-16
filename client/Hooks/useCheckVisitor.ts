@@ -1,57 +1,59 @@
 import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
-import { postVisitorAPI } from "services/visitor";
-
-interface DateInfo {
-  year: number;
-  month: number;
-  date: number;
-}
+import { postVisitorAPI } from "@services/visitor";
+import { QUERY_KEY } from "@constants";
+import { DateType } from "@Types";
+import { getCurrentYearMonthDate } from "@utils";
 
 const useCheckVisitor = (queryClient: QueryClient) => {
   useEffect(() => {
-    const visitToday = localStorage.getItem("visitToday");
-    const { date } = getCurrentTimeInfo();
-    //localStorage에 값이 있음 -> 방문한 적이 있음
+    const isVisitedWithInADay = getIsVisitedWithInADay();
 
-    if (visitToday) {
-      const dateInfo: DateInfo = JSON.parse(visitToday);
-      if (!isVisitMoreThanOneDay(dateInfo)) {
-        return;
-      }
+    if (isVisitedWithInADay) {
+      return;
     }
 
-    AddVisitor(queryClient, date);
-  }, []);
+    addVisitor(queryClient, getCurrentYearMonthDate());
+  }, [queryClient]);
 };
 
-export default useCheckVisitor;
+function getIsVisitedWithInADay() {
+  const lastVisitDateInStorage = localStorage.getItem("visitToday");
 
-async function AddVisitor(queryClient: QueryClient, date: DateInfo) {
+  if (lastVisitDateInStorage) {
+    const lastVisitDate: DateType = JSON.parse(lastVisitDateInStorage);
+
+    const isMoreThanADayAgo = getIsMoreThanADayAgo(lastVisitDate);
+    if (!isMoreThanADayAgo) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+async function addVisitor(queryClient: QueryClient, date: DateType) {
   localStorage.setItem("visitToday", JSON.stringify(date));
-  //api콜
   const data = await postVisitorAPI();
-  queryClient.setQueryData(["visitor"], data);
+  queryClient.setQueryData([QUERY_KEY.VISITOR], data);
 }
 
-function getCurrentTimeInfo() {
-  const currentTime = new Date();
-  const currentYear = currentTime.getFullYear();
-  const currentMonth = currentTime.getMonth();
-  const currentDate = currentTime.getDate();
-  const date = { year: currentYear, month: currentMonth, date: currentDate };
-  return { date, currentYear, currentMonth, currentDate };
-}
+function getIsMoreThanADayAgo({ year, month, date }: DateType) {
+  const {
+    year: currentYear,
+    month: currentMonth,
+    date: currentDate,
+  } = getCurrentYearMonthDate();
 
-function isVisitMoreThanOneDay(dateInfo: DateInfo) {
-  const { currentYear, currentMonth, currentDate } = getCurrentTimeInfo();
-
-  if (currentMonth > dateInfo.month || currentYear > dateInfo.year) {
+  if (currentMonth > month || currentYear > year) {
     return true;
   }
-  if (currentDate > dateInfo.date) {
+
+  if (currentDate > date) {
     return true;
   }
 
   return false;
 }
+
+export default useCheckVisitor;

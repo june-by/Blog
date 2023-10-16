@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import { useDeletePostMutation } from "Hooks/Post";
+import { useDeletePostMutation } from "@hooks/query";
 import styles from "./styles.module.scss";
-import useQueryId from "Hooks/useQueryId";
-import { useDeleteSnippetMutation } from "Hooks/Snippet";
+import { useQueryId } from "@hooks";
+import { useDeleteSnippetMutation } from "@hooks/query";
 import { useRouter } from "next/router";
-import MESSAGE from "constants/message";
+import { MESSAGE } from "@constants";
 
 const PostDeleteButton = () => {
   const id = useQueryId();

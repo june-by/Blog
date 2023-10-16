@@ -1,4 +1,4 @@
-import PageTitle from "components/shared/PageTitle/PageTitle";
+import PageTitle from "@components/shared/PageTitle/PageTitle";
 import React from "react";
 import ArchiveContent from "./ArchiveContent";
 import Visitor from "./Visitor";

@@ -8,10 +8,10 @@ import React, {
   type ForwardedRef,
 } from "react";
 import styles from "./styles.module.scss";
-import CloseIcon from "components/Icon/close";
-import GithubIcon from "components/Icon/github";
-import KaKaoIcon from "components/Icon/kakao";
-import { ServerURL } from "constants/serverURL";
+import CloseIcon from "@components/Icon/close";
+import GithubIcon from "@components/Icon/github";
+import KaKaoIcon from "@components/Icon/kakao";
+import { ServerURL } from "@constants";
 
 interface ModalProps {
   title: string;

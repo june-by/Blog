@@ -1,22 +1,19 @@
 import { GetServerSideProps } from "next";
 import React, { useEffect } from "react";
-import { customAxios } from "utils/CustomAxios";
+import { customAxios, IsAdmin, omit } from "@utils";
 import https from "https";
-import IsAdmin from "utils/isAdmin";
-import { SnippetsCategory } from "constants/category";
+import { SnippetsCategory, MESSAGE } from "@constants";
 import { useRouter } from "next/router";
-import useQueryId from "Hooks/useQueryId";
-import usePostForm from "components/postForm/usePostForm";
-import { SnippetFormType } from "Types/snippets";
-import PostForm from "components/postForm/postForm";
+import { useQueryId } from "@hooks";
+import usePostForm from "@components/postForm/usePostForm";
+import { SnippetFormType } from "@Types";
+import PostForm from "@components/postForm/postForm";
 import {
   useAddSnippetMutation,
   useEditSnippetMutation,
   useGetSnippetQuery,
-} from "Hooks/Snippet";
-import MESSAGE from "constants/message";
+} from "@hooks/query";
 import { toast } from "react-toastify";
-import omit from "utils/omit";
 
 const snippetFormInitialData = {
   title: "",

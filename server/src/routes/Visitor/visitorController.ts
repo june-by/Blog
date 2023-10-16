@@ -5,8 +5,7 @@ import { NextFunction, Request, Response } from "express";
 
 const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const totalVisitor = await visitorService.getTotalVisitor();
-    const todayVisitor = await visitorService.getTodayVisitor({
+    const { totalVisitor, todayVisitor } = await visitorService.getVisitor({
       date: getVisitorDateInfo(),
     });
     return res.status(201).json({ totalVisitor, todayVisitor });
@@ -19,7 +18,10 @@ const getVisitor = async (req: Request, res: Response, next: NextFunction) => {
 const addVisitor = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await visitorService.addVisitor({ date: getVisitorDateInfo() });
-    return res.status(200).send(MESSAGE.SUCCESS);
+    const { totalVisitor, todayVisitor } = await visitorService.getVisitor({
+      date: getVisitorDateInfo(),
+    });
+    return res.status(200).json({ totalVisitor, todayVisitor });
   } catch (err) {
     console.error(err);
     next(err);

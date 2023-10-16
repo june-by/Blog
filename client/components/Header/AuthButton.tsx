@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { useHeaderContext } from "context/headerContext";
+import { useHeaderContext } from "@contexts/headerContext";
 import { toast } from "react-toastify";
-import MESSAGE from "constants/message";
-import { useLogOut } from "Hooks/User";
+import { MESSAGE } from "@constants";
+import { useLogOut } from "@hooks/query";
 
 interface AuthButtonProps {
   isLoggedIn: boolean;
@@ -13,7 +13,11 @@ const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
   const { ButtonText, handleButtonClick } = useAuth({ isLoggedIn });
 
   return (
-    <button type="button" onClick={handleButtonClick} className={styles.AuthButton}>
+    <button
+      type="button"
+      onClick={handleButtonClick}
+      className={styles.AuthButton}
+    >
       {ButtonText}
     </button>
   );

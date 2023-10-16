@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import FontAppliedElement from "@components/shared/FontAppliedElement";
 const ContactContents = [
   {
     title: "Github",

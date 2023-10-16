@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
-import WithAdminValidation from "components/shared/WithAdminValidation";
+import WithAdminValidation from "@components/shared/WithAdminValidation";
 
 const WriteButton = () => {
   const { push } = useRouter();

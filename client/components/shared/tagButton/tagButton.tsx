@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { memo } from "react";
-import { TagType } from "Types/post";
+import { TagType } from "@Types";
 import styles from "./styles.module.scss";
 import { AiFillTag } from "react-icons/ai";
 

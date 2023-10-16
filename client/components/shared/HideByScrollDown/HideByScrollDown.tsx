@@ -1,4 +1,4 @@
-import useVerticalScrollHandler from "Hooks/useVerticalScrollHandler";
+import { useVerticalScrollHandler } from "@hooks";
 import React, {
   ReactNode,
   createElement,

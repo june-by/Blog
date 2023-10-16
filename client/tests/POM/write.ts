@@ -1,10 +1,10 @@
 import { Page } from "@playwright/test";
 import POM from "./pom";
-import { UserType } from "Types/user";
-import { USER_MOCK_DATA } from "mocks/data/user";
-import { ServerURL } from "constants/serverURL";
-import pipe from "tests/utils";
-import { FuncsType } from "tests/type";
+import { UserType } from "@Types";
+import { USER_MOCK_DATA } from "@mocks/data/user";
+import { ServerURL } from "@constants";
+import { FuncsType } from "../type";
+import pipe from "../utils";
 
 export interface WritePOM_MockAPIParams {
   isAdmin?: boolean;

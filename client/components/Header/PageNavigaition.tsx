@@ -1,8 +1,8 @@
-import PAGE from "constants/page";
+import { PAGE } from "@constants";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import FontAppliedElement from "@components/shared/FontAppliedElement";
 
 const PageNavigaition = () => {
   return (

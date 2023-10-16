@@ -1,12 +1,12 @@
-import PAGE from "constants/page";
+import { PAGE } from "@constants";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { useHeaderContext } from "context/headerContext";
-import LeftSlideLayer from "components/shared/LeftSlideLayer";
-import FontAppliedElement from "components/shared/FontAppliedElement";
+import { useHeaderContext } from "@contexts/headerContext";
+import LeftSlideLayer from "@components/shared/LeftSlideLayer";
+import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
 
 interface Props {

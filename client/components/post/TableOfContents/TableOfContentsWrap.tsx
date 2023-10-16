@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Table from "./Table";
-import { TableofContentsContainer } from "context/tableOfContents";
+import { TableofContentsContainer } from "@contexts/tableOfContents";
 import TOCButton from "./TOCButton";
-import { usePostContext } from "context/postContext";
+import { usePostContext } from "@contexts/postContext";
 import useExtractTOC from "./useExtractTOC";
 
 const TableOfContentsWrap = () => {

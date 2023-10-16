@@ -1,4 +1,4 @@
-import { useThemeContext } from "context/themeContext";
+import { useThemeContext } from "@contexts/themeContext";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 

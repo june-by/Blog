@@ -1,16 +1,15 @@
-import { SnippetFormType, SnippetType } from "Types/snippets";
-import CACHE_OPTION from "constants/cacheOption";
-import QUERY_KEY from "constants/queryKey";
+import { SnippetFormType, SnippetType } from "@Types";
+import { CACHE_OPTION, QUERY_KEY } from "@constants";
 import { useRouter } from "next/router";
-import { UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   addSnippetAPI,
   deleteSnippetAPI,
   editSnippetAPI,
   getAllSnippetsAPI,
   getSnippetAPI,
-} from "services/snippet/snippet.service";
-import groupBy from "utils/groupBy";
+} from "@services/snippet/snippet.service";
+import { groupBy } from "@utils";
 
 export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {
   const { replace } = useRouter();
