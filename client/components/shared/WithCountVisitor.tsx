@@ -1,9 +1,16 @@
-import { useEffect } from "react";
-import { QueryClient } from "@tanstack/react-query";
+import React, { PropsWithChildren, useEffect } from "react";
 import { postVisitorAPI } from "@services/visitor";
 import { QUERY_KEY } from "@constants";
 import { DateType } from "@Types";
 import { getCurrentYearMonthDate } from "@utils";
+import { type QueryClient, useQueryClient } from "@tanstack/react-query";
+
+const WithCountVisitor = ({ children }: PropsWithChildren) => {
+  const queryClient = useQueryClient();
+  useCheckVisitor(queryClient);
+
+  return <React.Fragment>{children}</React.Fragment>;
+};
 
 const useCheckVisitor = (queryClient: QueryClient) => {
   useEffect(() => {
@@ -56,4 +63,4 @@ function getIsMoreThanADayAgo({ year, month, date }: DateType) {
   return false;
 }
 
-export default useCheckVisitor;
+export default WithCountVisitor;
