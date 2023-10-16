@@ -1,18 +1,24 @@
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useCallback, useEffect } from "react";
 import { postVisitorAPI } from "@services/visitor";
 import { QUERY_KEY } from "@constants";
 import { DateType } from "@Types";
 import { getCurrentYearMonthDate } from "@utils";
-import { type QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+
+const KEY_FOR_COUNT_VISITOR = "KEY_FOR_COUNT_VISITOR";
 
 const WithCountVisitor = ({ children }: PropsWithChildren) => {
   const queryClient = useQueryClient();
-  useCheckVisitor(queryClient);
 
-  return <React.Fragment>{children}</React.Fragment>;
-};
+  const addVisitor = useCallback(async () => {
+    localStorage.setItem(
+      KEY_FOR_COUNT_VISITOR,
+      JSON.stringify(getCurrentYearMonthDate())
+    );
+    const data = await postVisitorAPI();
+    queryClient.setQueryData([QUERY_KEY.VISITOR], data);
+  }, [queryClient]);
 
-const useCheckVisitor = (queryClient: QueryClient) => {
   useEffect(() => {
     const isVisitedWithInADay = getIsVisitedWithInADay();
 
@@ -20,12 +26,14 @@ const useCheckVisitor = (queryClient: QueryClient) => {
       return;
     }
 
-    addVisitor(queryClient, getCurrentYearMonthDate());
-  }, [queryClient]);
+    addVisitor();
+  }, [addVisitor, queryClient]);
+
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 function getIsVisitedWithInADay() {
-  const lastVisitDateInStorage = localStorage.getItem("visitToday");
+  const lastVisitDateInStorage = localStorage.getItem(KEY_FOR_COUNT_VISITOR);
 
   if (lastVisitDateInStorage) {
     const lastVisitDate: DateType = JSON.parse(lastVisitDateInStorage);
@@ -37,12 +45,6 @@ function getIsVisitedWithInADay() {
   }
 
   return false;
-}
-
-async function addVisitor(queryClient: QueryClient, date: DateType) {
-  localStorage.setItem("visitToday", JSON.stringify(date));
-  const data = await postVisitorAPI();
-  queryClient.setQueryData([QUERY_KEY.VISITOR], data);
 }
 
 function getIsMoreThanADayAgo({ year, month, date }: DateType) {
