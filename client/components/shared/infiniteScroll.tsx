@@ -1,13 +1,12 @@
-import React, { ReactNode, useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { type PropsWithChildren, useCallback } from "react";
 import {
   FetchNextPageOptions,
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
 import LoadingOrNot from "./LoadingOrNot";
+import ImpressionArea from "./ImpressionArea";
 
-interface Props {
-  children: ReactNode;
+interface Props extends PropsWithChildren {
   fetchNextPage: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<InfiniteQueryObserverResult<any, unknown>>;
@@ -23,17 +22,20 @@ const InfiniteScroll = ({
   isLoading,
   skeleton,
 }: Props) => {
-  const { ref, inView } = useInView({ rootMargin: "150px" });
-
-  useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
+  const fetchNextData = useCallback(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage]);
 
   return (
     <>
       {children}
       <LoadingOrNot isLoading={isLoading} onLoading={skeleton}>
-        <div ref={ref} />
+        <ImpressionArea
+          onImpression={fetchNextData}
+          options={{ rootMargin: "150px" }}
+        />
       </LoadingOrNot>
     </>
   );
