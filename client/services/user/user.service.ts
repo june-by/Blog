@@ -1,18 +1,7 @@
 import request from "@services/request";
-import { UserType } from "@Types";
+import { UserFormDataType, UserType } from "@Types";
 
-interface LoginDataType {
-  email: string;
-  password: string;
-}
-
-interface SignUpDataType {
-  email: string;
-  password: string;
-  nickname: string;
-}
-
-export const LoginAPI = async (LoginData: LoginDataType) =>
+export const LoginAPI = async (LoginData: Omit<UserFormDataType, "nickname">) =>
   request<"success">({
     method: "post",
     url: `/user/login`,
@@ -25,7 +14,7 @@ export const LogOutAPI = async () =>
     url: `/user/logout`,
   });
 
-export const SignUpAPI = async (SignUpData: SignUpDataType) =>
+export const SignUpAPI = async (SignUpData: UserFormDataType) =>
   request<"success">({
     method: "post",
     url: `/user/signup`,

@@ -5,3 +5,7 @@ export interface UserType {
   nickname: string;
   provider: string;
 }
+
+export type UserFormDataType = Pick<UserType, "email" | "nickname"> & {
+  password: string;
+};
