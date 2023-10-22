@@ -1,4 +1,4 @@
-import { AllSeriesAPIType } from "@Types";
+import { AllSeriesAPIType, SeriesType } from "@Types";
 import request from "@services/request";
 
 export const getAllSeriesAPI = async () =>
@@ -6,11 +6,7 @@ export const getAllSeriesAPI = async () =>
     method: "get",
     url: `/series`,
   });
-interface AddSeriesAPIParams {
-  title: string;
-  shortDescription: string;
-  thumbNailUrl: string;
-}
 
-export const addSeriesAPI = async (reqData: AddSeriesAPIParams) =>
-  request<void>({ method: "post", url: "/series", body: reqData });
+export const addSeriesAPI = async (
+  reqData: Pick<SeriesType, "title" | "shortDescription" | "thumbNailUrl">
+) => request<void>({ method: "post", url: "/series", body: reqData });

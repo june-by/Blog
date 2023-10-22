@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useCallback, useEffect } from "react";
-import { postVisitorAPI } from "@services/visitor";
+import { addVisitorAPI } from "@services/visitor";
 import { QUERY_KEY } from "@constants";
 import { DateType } from "@Types";
 import { getCurrentYearMonthDate } from "@utils";
@@ -15,7 +15,7 @@ const WithCountVisitor = ({ children }: PropsWithChildren) => {
       KEY_FOR_COUNT_VISITOR,
       JSON.stringify(getCurrentYearMonthDate())
     );
-    const data = await postVisitorAPI();
+    const data = await addVisitorAPI();
     queryClient.setQueryData([QUERY_KEY.VISITOR], data);
   }, [queryClient]);
 
