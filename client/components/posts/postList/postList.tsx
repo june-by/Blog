@@ -4,7 +4,7 @@ import { useRestoreSrollPos } from "@hooks";
 import React from "react";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { PostListPageDataType } from "@Types";
-import InfiniteScroll from "@components/shared/infiniteScroll";
+import InfiniteScroll from "@components/shared/InfiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
