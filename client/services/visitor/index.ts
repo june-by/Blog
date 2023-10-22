@@ -1,1 +1,1 @@
-export { getVisitorAPI, postVisitorAPI } from "./visitor.service";
+export * from "./visitor.service";
