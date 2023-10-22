@@ -1,7 +1,7 @@
-import React from "react";
+import React, { type PropsWithChildren } from "react";
 import styles from "./styles.module.scss";
 
-const SeriesListLayout = ({ children }: { children: JSX.Element }) => {
+const SeriesListLayout = ({ children }: PropsWithChildren) => {
   return <div className={styles.SeriesListLayout}>{children}</div>;
 };
 

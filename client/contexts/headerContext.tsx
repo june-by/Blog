@@ -1,5 +1,10 @@
 import { OnlyKey } from "@Types";
-import { createContext, useContext, useReducer } from "react";
+import {
+  type PropsWithChildren,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 
 interface ContextProps {
   isLoginModalOpen: boolean;
@@ -52,7 +57,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export const HeaderContainer = ({ children }: { children: JSX.Element }) => {
+export const HeaderContainer = ({ children }: PropsWithChildren) => {
   const [{ isLoginModalOpen, isSignUpModalOpen }, dispatch] = useReducer(
     reducer,
     initialState

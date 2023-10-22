@@ -43,24 +43,22 @@ const PostList = ({ params, query }: Props) => {
 
   return (
     <PostsListLayout>
-      <>
-        <PostsListTitle />
-        <PostSearchBox />
-        <InfiniteScroll
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isLoading={isFetchingNextPage || isLoading}
-          skeleton={<PostCardSkeletonList />}
-        >
-          {data?.pages.map((page) => (
-            <>
-              {page.map((post) => (
-                <PostCard key={post.title} post={post} />
-              ))}
-            </>
-          ))}
-        </InfiniteScroll>
-      </>
+      <PostsListTitle />
+      <PostSearchBox />
+      <InfiniteScroll
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isLoading={isFetchingNextPage || isLoading}
+        skeleton={<PostCardSkeletonList />}
+      >
+        {data?.pages.map((page) => (
+          <>
+            {page.map((post) => (
+              <PostCard key={post.title} post={post} />
+            ))}
+          </>
+        ))}
+      </InfiniteScroll>
     </PostsListLayout>
   );
 };

@@ -5,7 +5,7 @@ import {
   useContext,
   useEffect,
   useState,
-  type ReactElement,
+  type PropsWithChildren,
 } from "react";
 import { extractFromCookie } from "@utils";
 
@@ -23,7 +23,7 @@ const ThemeContext = createContext<ContextProps>({
   isThemeLoaded: false,
 });
 
-export const ThemeProvider = ({ children }: { children: ReactElement }) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<ThemeType>("light");
   const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 

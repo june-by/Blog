@@ -1,7 +1,7 @@
 import React, {
   type InputHTMLAttributes,
-  type ReactNode,
   type ComponentProps,
+  type PropsWithChildren,
 } from "react";
 import styles from "./styles.module.scss";
 import { customAxios, isNull } from "@utils";
@@ -54,7 +54,7 @@ const UploadedImage = (props: ComponentProps<typeof Image>) => {
 };
 
 const ImageUploader = Object.assign(
-  ({ children }: { children: ReactNode }) => (
+  ({ children }: PropsWithChildren) => (
     <div className={styles.ImageUploader}>{children}</div>
   ),
   {
