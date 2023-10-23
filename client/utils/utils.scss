@@ -45,6 +45,8 @@ $desktop: 1024px;
 
 @mixin StyledButton {
   width: fit-content;
+  padding: 13px 20px;
+
   border: none;
   background: var(--bg-element5);
   color: white;

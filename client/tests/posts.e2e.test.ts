@@ -150,7 +150,7 @@ test.describe("모달 - ", () => {
     await posts.mockGetUserAPI();
 
     await posts.page
-      .locator("#portal")
+      .locator("form")
       .getByRole("button", { name: "로그인" })
       .click();
 

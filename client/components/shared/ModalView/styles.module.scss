@@ -1,77 +1,137 @@
 @import "utils/utils.scss";
+@import "utils/variables.scss";
 
-.header {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 25px;
-  margin: 0;
-}
-
-.closeButton {
-  cursor: pointer;
-  border: none;
-  background: none !important;
-}
-
-.form {
-  @include mobile {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.input {
-  @include StyledInput;
-  margin-bottom: 10px;
-}
-
-.submitButton {
-  @include StyledButton;
-  padding: 10px 0;
+.ModalWrap {
+  z-index: 110;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-size: 25px;
 }
 
-.socialLoginArea {
-  display: flex;
-  flex-direction: column;
-  h4 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    color: #868e96;
-    font-size: 15px;
+.Overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+
+.Modal {
+  background: var(--bg-element1);
+  color: var(--bg-element2) !important;
+  width: 80%;
+  z-index: 2;
+  padding: 30px 20px;
+  text-align: center;
+  color: black;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+
+  @include desktop {
+    min-width: 30%;
+    width: fit-content;
   }
-  div {
+  @include tablet {
+    width: 50%;
+  }
+  @include tablet_landscape {
+    width: 40%;
+  }
+
+  &_Header {
+    display: flex;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-  }
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 100%;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-      width: 30px;
-      height: 30px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    h3 {
+      margin: 0;
+    }
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
     }
   }
-  .githubLoginBtn {
-    background: rgb(39, 46, 51);
-    svg {
-      path {
-        fill: white !important;
-      }
-    }
-  }
-  .kakaoLoginBtn {
-    background: #f9e000;
+
+  &_Content {
+    background: var(--bg-element1);
+    color: var(--bg-element2) !important;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+    color: black;
+    border-radius: 6px;
   }
 }
+
+// .ModalOpenAnimation {
+//   animation-name: pop-in-from-bottom;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// .ModalCloseAnimation {
+//   animation-name: pop-out;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// .OverlayOpenAnimation {
+//   animation-name: fade-in;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// @keyframes pop-in-from-bottom {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(400px) scale(0.75);
+//   }
+
+//   75% {
+//     opacity: 1;
+//     transform: translateY(-16px) scale(1);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// @keyframes fade-in {
+//   0% {
+//     opacity: 0;
+//   }
+
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes pop-out {
+//   0% {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+
+//   25% {
+//     opacity: 1;
+//     transform: translateY(-16px) scale(1);
+//   }
+
+//   to {
+//     opacity: 0;
+//     transform: translateY(400px) scale(0.75);
+//   }
+// }

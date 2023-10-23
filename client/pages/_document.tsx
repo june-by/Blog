@@ -33,7 +33,6 @@ class MyDocument extends Document {
           <div id="toast-root" />
           <Main />
           <NextScript />
-          <div id="portal" />
         </body>
       </Html>
     );

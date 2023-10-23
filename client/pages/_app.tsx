@@ -11,10 +11,12 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@contexts/themeContext";
 import MyToastContainer from "@components/shared/MyToastContainer";
 import PageSkeleton from "@components/PageSkeleton/PageSkeleton";
-import Header from "@components/Header";
 import CommonSEO from "@components/shared/CommonSEO";
 import WithRouteChange from "@components/shared/WithRouteChange";
 import WithCountVisitor from "@components/shared/WithCountVisitor";
+import Header from "@components/Header";
+import { ModalProvider } from "@contexts/modalContex";
+import { Modals } from "@components/shared/Modals";
 
 const queryClient = new QueryClient();
 
@@ -24,15 +26,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       <WithCountVisitor>
         <ThemeProvider>
           <Hydrate state={pageProps.dehydratedState}>
-            <Header />
-            <WithRouteChange
-              routeChangeFallback={(url) => <PageSkeleton url={url} />}
-            >
-              <CommonSEO />
-              <Component {...pageProps} />
-              <MyToastContainer />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </WithRouteChange>
+            <ModalProvider>
+              <Header />
+              <WithRouteChange
+                routeChangeFallback={(url) => <PageSkeleton url={url} />}
+              >
+                <CommonSEO />
+                <Component {...pageProps} />
+                <Modals />
+                <MyToastContainer />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </WithRouteChange>
+            </ModalProvider>
           </Hydrate>
         </ThemeProvider>
       </WithCountVisitor>

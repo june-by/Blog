@@ -4,10 +4,11 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { useHeaderContext } from "@contexts/headerContext";
 import LeftSlideLayer from "@components/shared/LeftSlideLayer";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
+import { useModals } from "@hooks";
+import { MODALS } from "@components/shared/Modals/Modals";
 
 interface Props {
   isOpen: boolean;
@@ -15,17 +16,17 @@ interface Props {
 }
 
 const MobileMenu = ({ isOpen, handleClose }: Props) => {
-  const { openLogin, openSignUp } = useHeaderContext();
   const { pathname } = useRouter();
+  const { openModal } = useModals();
 
   const handleClickLoginButton = () => {
     handleClose();
-    openLogin();
+    openModal(MODALS.LOGIN);
   };
 
   const handleClickSignUpButton = () => {
-    openSignUp();
     handleClose();
+    openModal(MODALS.SIGNUP);
   };
 
   return (
