@@ -11,9 +11,14 @@ const SignUpModal = dynamic(() => import("./SignUpModal"), {
   ssr: false,
 });
 
+const SeriesFormModal = dynamic(() => import("./SeriesFormModal"), {
+  ssr: false,
+});
+
 export const MODALS = {
   LOGIN: LoginModal,
   SIGNUP: SignUpModal,
+  SERIES_FORM: SeriesFormModal,
 };
 
 const Modals = () => {

@@ -1,20 +1,19 @@
-import { useBooleanState } from "@hooks";
-import SeriesFormModal from "@components/postForm/SeriesSelector/SeriesFormModal";
+import { useModals } from "@hooks";
 import React from "react";
 import styles from "./styles.module.scss";
+import { MODALS } from "@components/shared/Modals/Modals";
 
 const SeriesCreateModalOpenButton = () => {
-  const [open, openModal, closeModal] = useBooleanState(false);
+  const { openModal } = useModals();
 
   return (
     <>
       <button
         className={styles.SeriesCreateModalOpenButton}
-        onClick={openModal}
+        onClick={() => openModal(MODALS.SERIES_FORM)}
       >
         시리즈 생성
       </button>
-      <SeriesFormModal isOpen={open} closeModal={closeModal} />
     </>
   );
 };
