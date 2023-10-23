@@ -1,6 +1,5 @@
 import React, { type FormEventHandler } from "react";
 import styles from "./styles.module.scss";
-import Modal from "../../Modal/Modal";
 import useInput from "@hooks/useInput";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
@@ -8,6 +7,7 @@ import { MESSAGE } from "@constants";
 import { SocialLoginArea } from "@components/shared/SocialLoginArea";
 import useModals from "@hooks/useModals";
 import { MODALS } from "../Modals";
+import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
@@ -42,7 +42,7 @@ const LoginModal = ({ onClose }: Props) => {
   };
 
   return (
-    <Modal title="로그인" onClose={onClose}>
+    <ModalView title="로그인" onClose={onClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -69,7 +69,7 @@ const LoginModal = ({ onClose }: Props) => {
         회원가입
       </button>
       <SocialLoginArea />
-    </Modal>
+    </ModalView>
   );
 };
 

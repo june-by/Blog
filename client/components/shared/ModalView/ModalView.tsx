@@ -6,7 +6,7 @@ interface Props {
   onClose: () => void;
 }
 
-const Modal = ({ children, title, onClose }: PropsWithChildren<Props>) => {
+const ModalView = ({ children, title, onClose }: PropsWithChildren<Props>) => {
   return (
     <div className={styles.ModalWrap}>
       <div className={styles.Overlay} />
@@ -23,4 +23,4 @@ const Modal = ({ children, title, onClose }: PropsWithChildren<Props>) => {
   );
 };
 
-export default Modal;
+export default ModalView;

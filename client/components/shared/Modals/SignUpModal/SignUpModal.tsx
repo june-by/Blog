@@ -6,7 +6,7 @@ import { SocialLoginArea } from "@components/shared/SocialLoginArea";
 import { useSignUp } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import { Modal } from "@components/shared/Modal";
+import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
@@ -39,7 +39,7 @@ const SignUpModal = ({ onClose }: Props) => {
   };
 
   return (
-    <Modal title="회원가입" onClose={onClose}>
+    <ModalView title="회원가입" onClose={onClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -69,7 +69,7 @@ const SignUpModal = ({ onClose }: Props) => {
         <button>회원가입</button>
       </form>
       <SocialLoginArea />
-    </Modal>
+    </ModalView>
   );
 };
 
