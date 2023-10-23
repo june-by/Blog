@@ -12,7 +12,7 @@ import {
 interface ModalContext<T extends FunctionComponent<any>> {
   Component: T;
   props: ComponentProps<T>;
-  open: (Component: T, props: ComponentProps<T>) => void;
+  open: (Component: T, props?: ComponentProps<T>) => void;
   close: (Component: T) => void;
   closeWithAnimation: (Component: T, duration?: number) => void;
 }
@@ -35,7 +35,7 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
 
   const open = <T extends FunctionComponent<any>>(
     Component: ModalContext<T>["Component"],
-    props: ModalContext<T>["props"]
+    props?: ModalContext<T>["props"]
   ) => {
     setOpenedModals((modals) => {
       return [...modals, { Component, props }];

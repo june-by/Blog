@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { useLogOut } from "@hooks/query";
-import { LoginModal } from "@components/shared/Modal/LoginModal";
-import { SignUpModal } from "@components/shared/Modal/SignUpModal";
+import useModals from "@hooks/useModals";
+import { MODALS } from "@components/shared/Modals/Modals";
 
 interface AuthButtonProps {
   isLoggedIn: boolean;
 }
 
 const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  const [openSignUpModal, setOpenSignUpModal] = useState(false);
+  const { openModal } = useModals();
 
   const { mutate: logoutMutate } = useLogOut({
     onSuccess: () => toast.success(MESSAGE.LOGOUT_SUCCESS),
@@ -22,7 +21,7 @@ const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
     if (isLoggedIn) {
       logoutMutate();
     } else {
-      setOpenLoginModal(true);
+      openModal(MODALS.LOGIN);
     }
   };
 
@@ -35,15 +34,6 @@ const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
       >
         {isLoggedIn ? "로그아웃" : "로그인"}
       </button>
-      {openLoginModal && (
-        <LoginModal
-          setOpenLoginModal={setOpenLoginModal}
-          setOpenSignUpModal={setOpenSignUpModal}
-        />
-      )}
-      {openSignUpModal && (
-        <SignUpModal setOpenSignUpModal={setOpenSignUpModal} />
-      )}
     </>
   );
 };

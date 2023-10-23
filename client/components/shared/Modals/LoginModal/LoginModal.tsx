@@ -1,26 +1,28 @@
 import React, { FormEventHandler, useState } from "react";
 import styles from "./styles.module.scss";
-import Modal from "../Modal";
+import Modal from "../../Modal/Modal";
 import { StateUpdater } from "@Types/utils";
 import useInput from "@hooks/useInput";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { SocialLoginArea } from "@components/shared/SocialLoginArea";
+import useModals from "@hooks/useModals";
+import { MODALS } from "../Modals";
 
 interface Props {
-  setOpenLoginModal: StateUpdater<boolean>;
-  setOpenSignUpModal: StateUpdater<boolean>;
+  onClose: () => void;
 }
 
-const LoginModal = ({ setOpenLoginModal, setOpenSignUpModal }: Props) => {
+const LoginModal = ({ onClose }: Props) => {
+  const { openModal } = useModals();
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
 
   const { mutate: loginMutate } = useLogin({
     onSuccess: () => {
       toast.success(MESSAGE.LOGIN_SUCCESS);
-      setOpenLoginModal(false);
+      onClose();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -41,7 +43,7 @@ const LoginModal = ({ setOpenLoginModal, setOpenSignUpModal }: Props) => {
   };
 
   return (
-    <Modal title="로그인" onClose={() => setOpenLoginModal(false)}>
+    <Modal title="로그인" onClose={onClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -61,8 +63,8 @@ const LoginModal = ({ setOpenLoginModal, setOpenSignUpModal }: Props) => {
       <button
         className={styles.SignUpButton}
         onClick={() => {
-          setOpenLoginModal(false);
-          setOpenSignUpModal(true);
+          onClose();
+          openModal(MODALS.SIGNUP);
         }}
       >
         회원가입

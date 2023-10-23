@@ -1,18 +1,18 @@
 import React, { FormEventHandler } from "react";
 import styles from "./styles.module.scss";
 import { useInput } from "@hooks";
-import Modal from "../Modal";
 import { StateUpdater } from "@Types/utils";
 import { SocialLoginArea } from "@components/shared/SocialLoginArea";
 import { useSignUp } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
+import { Modal } from "@components/shared/Modal";
 
 interface Props {
-  setOpenSignUpModal: StateUpdater<boolean>;
+  onClose: () => void;
 }
 
-const SignUpModal = ({ setOpenSignUpModal }: Props) => {
+const SignUpModal = ({ onClose }: Props) => {
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
   const [passwordCheck, , onChangePasswordCheck] = useInput("");
@@ -20,7 +20,7 @@ const SignUpModal = ({ setOpenSignUpModal }: Props) => {
 
   const { mutate: signUpMutate } = useSignUp({
     onSuccess: () => {
-      setOpenSignUpModal(false);
+      onClose();
       toast.success(MESSAGE.SIGHUP_SUCCESS);
     },
     onError: (error) => {
@@ -39,7 +39,7 @@ const SignUpModal = ({ setOpenSignUpModal }: Props) => {
   };
 
   return (
-    <Modal title="회원가입" onClose={() => setOpenSignUpModal(false)}>
+    <Modal title="회원가입" onClose={onClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
