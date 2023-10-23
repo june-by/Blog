@@ -18,7 +18,7 @@ export const MODALS = {
 
 const Modals = () => {
   const openedModals = useModalStateContext();
-  const { closeModal, closeModalWithAnimation } = useModals();
+  const { closeModal } = useModals();
   return (
     <>
       {openedModals.map(({ Component, props }, idx) => {
@@ -26,18 +26,7 @@ const Modals = () => {
           closeModal(Component);
         };
 
-        const onCloseWithAnimation = () => {
-          closeModalWithAnimation(Component);
-        };
-
-        return (
-          <Component
-            {...props}
-            key={`${idx}Modal`}
-            onClose={onClose}
-            onCloseWithAnimation={onCloseWithAnimation}
-          />
-        );
+        return <Component {...props} key={`${idx}Modal`} onClose={onClose} />;
       })}
     </>
   );

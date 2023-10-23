@@ -14,13 +14,9 @@ interface ModalContext<T extends FunctionComponent<any>> {
   props: ComponentProps<T>;
   open: (Component: T, props?: ComponentProps<T>) => void;
   close: (Component: T) => void;
-  closeWithAnimation: (Component: T, duration?: number) => void;
 }
 
-type ModalDispatchContextType = Pick<
-  ModalContext<any>,
-  "close" | "closeWithAnimation" | "open"
->;
+type ModalDispatchContextType = Pick<ModalContext<any>, "close" | "open">;
 
 type ModalStateContextType = Pick<ModalContext<any>, "Component" | "props">[];
 
@@ -50,18 +46,7 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const closeWithAnimation = <T extends FunctionComponent<any>>(
-    Component: ModalContext<T>["Component"],
-    duration = 500
-  ) => {
-    setTimeout(() => {
-      setOpenedModals((modals) => {
-        return modals.filter((modal) => modal.Component !== Component);
-      });
-    }, duration);
-  };
-
-  const dispatch = useMemo(() => ({ open, close, closeWithAnimation }), []);
+  const dispatch = useMemo(() => ({ open, close }), []);
 
   return (
     <ModalStateContext.Provider value={openedModals}>
