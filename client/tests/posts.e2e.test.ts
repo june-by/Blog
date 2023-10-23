@@ -149,10 +149,7 @@ test.describe("모달 - ", () => {
 
     await posts.mockGetUserAPI();
 
-    await posts.page
-      .locator("#portal")
-      .getByRole("button", { name: "로그인" })
-      .click();
+    await posts.page.getByRole("button", { name: "로그인" }).click();
 
     await expect(
       posts.page.getByText(`${USER_MOCK_DATA.nickname}님`)
