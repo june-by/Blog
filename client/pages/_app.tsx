@@ -15,6 +15,7 @@ import CommonSEO from "@components/shared/CommonSEO";
 import WithRouteChange from "@components/shared/WithRouteChange";
 import WithCountVisitor from "@components/shared/WithCountVisitor";
 import { Header } from "@components/Header";
+import { ModalProvider } from "@contexts/modalContex";
 
 const queryClient = new QueryClient();
 
@@ -24,15 +25,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       <WithCountVisitor>
         <ThemeProvider>
           <Hydrate state={pageProps.dehydratedState}>
-            <Header />
-            <WithRouteChange
-              routeChangeFallback={(url) => <PageSkeleton url={url} />}
-            >
-              <CommonSEO />
-              <Component {...pageProps} />
-              <MyToastContainer />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </WithRouteChange>
+            <ModalProvider>
+              <Header />
+              <WithRouteChange
+                routeChangeFallback={(url) => <PageSkeleton url={url} />}
+              >
+                <CommonSEO />
+                <Component {...pageProps} />
+                <MyToastContainer />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </WithRouteChange>
+            </ModalProvider>
           </Hydrate>
         </ThemeProvider>
       </WithCountVisitor>
