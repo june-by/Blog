@@ -1,7 +1,6 @@
-import React, { FormEventHandler, useState } from "react";
+import React, { type FormEventHandler } from "react";
 import styles from "./styles.module.scss";
 import Modal from "../../Modal/Modal";
-import { StateUpdater } from "@Types/utils";
 import useInput from "@hooks/useInput";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";

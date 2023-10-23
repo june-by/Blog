@@ -1,8 +1,15 @@
 import { useModalStateContext } from "@contexts/modalContex";
 import { useModals } from "@hooks";
 import React from "react";
-import { LoginModal } from "./LoginModal";
-import { SignUpModal } from "./SignUpModal";
+import dynamic from "next/dynamic";
+
+const LoginModal = dynamic(() => import("./LoginModal"), {
+  ssr: false,
+});
+
+const SignUpModal = dynamic(() => import("./SignUpModal"), {
+  ssr: false,
+});
 
 export const MODALS = {
   LOGIN: LoginModal,
