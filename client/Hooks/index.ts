@@ -6,3 +6,4 @@ export { default as useRestoreSrollPos } from "./useRestoreScrollPos";
 export { default as useRouteChange } from "./useRouteChange";
 export { default as useScrollIntoElement } from "./useScrollIntoElement";
 export { default as useVerticalScrollHandler } from "./useVerticalScrollHandler";
+export { default as useInput } from "./useInput";

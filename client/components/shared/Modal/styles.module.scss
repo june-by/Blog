@@ -1,7 +1,7 @@
 @import "utils/utils.scss";
 @import "utils/variables.scss";
 
-.Modal {
+.ModalWrap {
   z-index: 110;
   position: fixed;
   top: 0;
@@ -15,7 +15,7 @@
   font-size: 25px;
 }
 
-.overlay {
+.Overlay {
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 
-.content {
+.Modal {
   background: var(--bg-element1);
   color: var(--bg-element2) !important;
   width: 80%;
@@ -33,16 +33,7 @@
   color: black;
   border-radius: 6px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
-  img {
-    cursor: pointer;
-  }
-  input {
-    background: var(--bg-element3) !important;
-    color: var(--bg-element2);
-    &:focus {
-      border: 1px solid var(--bg-element3) !important;
-    }
-  }
+
   @include desktop {
     min-width: 30%;
     width: fit-content;
@@ -53,4 +44,95 @@
   @include tablet_landscape {
     width: 40%;
   }
+
+  &_Header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    h3 {
+      margin: 0;
+    }
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+  }
+
+  &_Content {
+    background: var(--bg-element1);
+    color: var(--bg-element2) !important;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+    color: black;
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+  }
 }
+
+// .ModalOpenAnimation {
+//   animation-name: pop-in-from-bottom;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// .ModalCloseAnimation {
+//   animation-name: pop-out;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// .OverlayOpenAnimation {
+//   animation-name: fade-in;
+//   animation-duration: 0.4s;
+//   animation-fill-mode: forwards;
+//   animation-timing-function: ease-in-out;
+// }
+
+// @keyframes pop-in-from-bottom {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(400px) scale(0.75);
+//   }
+
+//   75% {
+//     opacity: 1;
+//     transform: translateY(-16px) scale(1);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// @keyframes fade-in {
+//   0% {
+//     opacity: 0;
+//   }
+
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes pop-out {
+//   0% {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+
+//   25% {
+//     opacity: 1;
+//     transform: translateY(-16px) scale(1);
+//   }
+
+//   to {
+//     opacity: 0;
+//     transform: translateY(400px) scale(0.75);
+//   }
+// }

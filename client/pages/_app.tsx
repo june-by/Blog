@@ -11,10 +11,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@contexts/themeContext";
 import MyToastContainer from "@components/shared/MyToastContainer";
 import PageSkeleton from "@components/PageSkeleton/PageSkeleton";
-import Header from "@components/Header";
 import CommonSEO from "@components/shared/CommonSEO";
 import WithRouteChange from "@components/shared/WithRouteChange";
 import WithCountVisitor from "@components/shared/WithCountVisitor";
+import { Header } from "@components/Header";
 
 const queryClient = new QueryClient();
 

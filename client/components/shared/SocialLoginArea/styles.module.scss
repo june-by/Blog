@@ -1,41 +1,4 @@
-@import "utils/utils.scss";
-
-.header {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 25px;
-  margin: 0;
-}
-
-.closeButton {
-  cursor: pointer;
-  border: none;
-  background: none !important;
-}
-
-.form {
-  @include mobile {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.input {
-  @include StyledInput;
-  margin-bottom: 10px;
-}
-
-.submitButton {
-  @include StyledButton;
-  padding: 10px 0;
-  width: 100%;
-}
-
-.socialLoginArea {
+.SocialLoginArea {
   display: flex;
   flex-direction: column;
   h4 {

@@ -4,7 +4,6 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { useHeaderContext } from "@contexts/headerContext";
 import LeftSlideLayer from "@components/shared/LeftSlideLayer";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
@@ -15,16 +14,15 @@ interface Props {
 }
 
 const MobileMenu = ({ isOpen, handleClose }: Props) => {
-  const { openLogin, openSignUp } = useHeaderContext();
   const { pathname } = useRouter();
 
   const handleClickLoginButton = () => {
     handleClose();
-    openLogin();
+    // openLogin();
   };
 
   const handleClickSignUpButton = () => {
-    openSignUp();
+    // openSignUp();
     handleClose();
   };
 

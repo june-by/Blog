@@ -1,0 +1,19 @@
+@import "utils/utils.scss";
+
+.Form {
+  @include desktop {
+    width: 500px;
+  }
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    @include StyledInput;
+    margin-bottom: 10px;
+  }
+  button {
+    @include StyledButton;
+    width: 100%;
+  }
+}
