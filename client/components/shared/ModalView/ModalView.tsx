@@ -9,7 +9,7 @@ interface Props {
 const ModalView = ({ children, title, onClose }: PropsWithChildren<Props>) => {
   return (
     <div className={styles.ModalWrap}>
-      <div className={styles.Overlay} />
+      <div className={styles.Overlay} onClick={onClose} />
       <div className={styles.Modal}>
         <div className={styles.Modal_Header}>
           <h3>{title}</h3>
