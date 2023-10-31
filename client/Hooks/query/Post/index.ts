@@ -18,7 +18,7 @@ import {
   PostPageDataType,
   PostType,
 } from "@Types";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
 import { getAllPostsAPI } from "@services/post/post.service";
 

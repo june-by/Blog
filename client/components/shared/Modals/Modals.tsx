@@ -1,3 +1,5 @@
+"use client";
+
 import { useModalStateContext } from "@contexts/modalContex";
 import { useModals } from "@hooks";
 import React from "react";

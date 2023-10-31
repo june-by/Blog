@@ -1,20 +1,20 @@
-import React, { useState, type ReactNode, useCallback } from "react";
-import { useRouter } from "next/router";
+"use client";
+
+import React, { useState, type ReactNode, useCallback, Suspense } from "react";
+import { usePathname } from "next/navigation";
 import ProgressBar from "./ProgressBar";
 import PageLayout from "./PageLayout";
-import LoadingOrNot from "./LoadingOrNot";
 import { useRouteChange } from "@hooks";
 
 interface Props {
   children: ReactNode;
-  routeChangeFallback: (url: string) => JSX.Element;
+  routeChangeFallback: (url: string) => JSX.Element | Promise<JSX.Element>;
 }
 
 const WithRouteChange = ({ children, routeChangeFallback }: Props) => {
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [nextUrl, setNextUrl] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const onRouteChangeStart = useCallback((url: string) => {
     window.scrollTo({ top: 0 });
@@ -32,14 +32,14 @@ const WithRouteChange = ({ children, routeChangeFallback }: Props) => {
     onRouteChangeError: onRouteChangeEnd,
   });
 
-  const url = nextUrl || router.pathname;
+  const url = nextUrl || pathname || "";
 
   return (
     <>
       <PageLayout url={url}>
-        <LoadingOrNot isLoading={loading} onLoading={routeChangeFallback(url)}>
-          <>{children}</>
-        </LoadingOrNot>
+        <Suspense fallback={<p>Loading...</p>}>
+          {loading ? <>{routeChangeFallback(url)}</> : children}
+        </Suspense>
       </PageLayout>
       <ProgressBar />
     </>

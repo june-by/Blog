@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import LeftSlideLayer from "@components/shared/LeftSlideLayer";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const MobileMenu = ({ isOpen, handleClose }: Props) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const { openModal } = useModals();
 
   const handleClickLoginButton = () => {
@@ -49,7 +49,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
             href={url}
             onClick={handleClose}
             className={classnames({
-              [styles.current]: isCurrentPath(pathname, url),
+              [styles.current]: isCurrentPath(url, pathname),
             })}
           >
             {text}
@@ -60,6 +60,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
   );
 };
 
-const isCurrentPath = (pathname: string, url: string) => pathname === url;
+const isCurrentPath = (url: string, pathname: string | null) =>
+  pathname === url;
 
 export default MobileMenu;
