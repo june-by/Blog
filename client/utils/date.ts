@@ -18,3 +18,21 @@ export const DATE_FORM = {
   ko: ({ year, month, date }: DateType) => `${year}년 ${month}월 ${date}일`,
   dot: ({ year, month, date }: DateType) => `${year}.${month}.${date}`,
 };
+
+export function getIsMoreThanADayAgo({ year, month, date }: DateType) {
+  const {
+    year: currentYear,
+    month: currentMonth,
+    date: currentDate,
+  } = getCurrentYearMonthDate();
+
+  if (currentMonth > month || currentYear > year) {
+    return true;
+  }
+
+  if (currentDate > date) {
+    return true;
+  }
+
+  return false;
+}
