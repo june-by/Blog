@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import styles from "./styles.module.scss";
 import { CategoryType } from "@constants";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import classnames from "classnames";
 import { useScrollIntoElement } from "@hooks";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   category: CategoryType;
@@ -13,9 +13,9 @@ interface Props {
 
 const CategoryButton = ({ category, length }: Props) => {
   const categoryButtonRef = useRef<HTMLAnchorElement | null>(null);
-  const { query } = useRouter();
+  const searchParams = useSearchParams();
 
-  const currentCategory = query.category;
+  const currentCategory = searchParams?.get("category");
 
   const isCurrentSelectedCategory = currentCategory === category;
 
