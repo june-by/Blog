@@ -1,15 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { usePostContext } from "@contexts/postContext";
 import TagButton from "@components/shared/tagButton";
+import { PostType } from "@Types/post";
 
-const PostTags = () => {
-  const { Tags } = usePostContext();
-
-  if (!Tags) {
-    return null;
-  }
-
+const PostTags = ({ Tags }: Pick<PostType, "Tags">) => {
   if (Tags.length === 0) {
     return null;
   }

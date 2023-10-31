@@ -3,12 +3,10 @@ import styles from "./styles.module.scss";
 import Table from "./Table";
 import { TableofContentsContainer } from "@contexts/tableOfContents";
 import TOCButton from "./TOCButton";
-import { usePostContext } from "@contexts/postContext";
 import useExtractTOC from "./useExtractTOC";
+import { PostType } from "@Types/post";
 
-const TableOfContentsWrap = () => {
-  const { title: postTitle } = usePostContext();
-
+const TableOfContentsWrap = ({ title: postTitle }: Pick<PostType, "title">) => {
   const { tableOfContents, isExtractComplete } = useExtractTOC({ postTitle });
 
   if (!isExtractComplete) {

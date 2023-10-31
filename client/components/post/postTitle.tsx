@@ -1,13 +1,11 @@
-import { usePostContext } from "@contexts/postContext";
 import React from "react";
 import styles from "./styles.module.scss";
 
-const PostTitle = () => {
-  const { title } = usePostContext();
+interface Props {
+  title: string;
+}
 
-  if (!title) {
-    return null;
-  }
+const PostTitle = ({ title }: Props) => {
   return <h1 className={styles.PostTitle}>{title}</h1>;
 };
 

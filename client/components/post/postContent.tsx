@@ -3,12 +3,13 @@ import Script from "next/script";
 import styles from "./styles.module.scss";
 import "highlight.js/styles/panda-syntax-dark.css";
 import useHighLightCodeBlock from "./useHighlightCodeBlock";
-import { usePostContext } from "@contexts/postContext";
 import classnames from "classnames";
+import { PostType } from "@Types/post";
 
-const PostContent = () => {
-  const { category, content } = usePostContext();
-
+const PostContent = ({
+  category,
+  content,
+}: Pick<PostType, "category" | "content">) => {
   useHighLightCodeBlock(category);
 
   return (

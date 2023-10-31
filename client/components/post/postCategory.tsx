@@ -1,14 +1,9 @@
-import { usePostContext } from "@contexts/postContext";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
+import { PostType } from "@Types/post";
 
-const PostCategory = () => {
-  const { category } = usePostContext();
-
-  if (!category) {
-    return null;
-  }
+const PostCategory = ({ category }: Pick<PostType, "category">) => {
   return (
     <Link className={styles.PostCategory} href={`/?category=${category}`}>
       {category}

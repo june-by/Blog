@@ -1,22 +1,14 @@
 import React from "react";
-import { useGetPostQuery } from "@hooks/query";
 import styles from "./styles.module.scss";
 import RoutePostButton from "../RoutePostButtons/RoutePostButton";
-import { useQueryId } from "@hooks";
+import { PostPageDataType } from "@Types/post";
 
-const RoutePostButtons = () => {
-  const id = useQueryId();
-
-  const { data } = useGetPostQuery({ id });
-
-  if (!data) {
-    return null;
-  }
-
-  const {
-    prevPost: { OtherId: prevPostId, OtherTitle: prevPostTitle },
-    nextPost: { OtherId: nextPostId, OtherTitle: nextPostTitle },
-  } = data;
+const RoutePostButtons = ({
+  prevPost,
+  nextPost,
+}: Pick<PostPageDataType, "prevPost" | "nextPost">) => {
+  const { OtherId: prevPostId, OtherTitle: prevPostTitle } = prevPost;
+  const { OtherId: nextPostId, OtherTitle: nextPostTitle } = nextPost;
 
   return (
     <div className={styles.RoutePostButtons}>

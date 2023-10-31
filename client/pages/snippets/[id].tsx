@@ -11,7 +11,14 @@ import {
   getAllSnippetsIdAPI,
   getSnippetAPI,
 } from "@services/snippet/snippet.service";
-import Post from "@components/post";
+import {
+  PostAdminButtons,
+  PostComments,
+  PostContent,
+  PostDate,
+  PostTableOfContents,
+  PostTitle,
+} from "@components/post";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import styles from "./styles.module.scss";
 
@@ -38,23 +45,19 @@ const SnippetPostPage = () => {
         ogUrl={`https://byjuun.com/snippets/${snippetId}`}
       />
       <ScrollIndicator />
-      <Post
-        Post={{
-          ...snippetData,
-          title: snippetData.title + ` (${snippetData.category})`,
-        }}
-      >
-        <Post.AdminButtons />
-        <Post.Title />
-        <Post.Date />
-        <div className={styles.contentSection}>
-          <div className={styles.content}>
-            <Post.Content />
-          </div>
-          <Post.TableOfContents />
+      <PostAdminButtons />
+      <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
+      <PostDate date={snippetData.createdAt} />
+      <div className={styles.contentSection}>
+        <div className={styles.content}>
+          <PostContent
+            category={snippetData.category}
+            content={snippetData.content}
+          />
         </div>
-        <Post.Comments />
-      </Post>
+        <PostTableOfContents title={snippetData.title} />
+      </div>
+      <PostComments />
       <ScrollToTopButton />
     </>
   );

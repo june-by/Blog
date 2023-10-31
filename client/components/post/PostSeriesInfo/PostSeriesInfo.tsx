@@ -1,20 +1,18 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { usePostContext } from "@contexts/postContext";
 import SeriesList from "./SeriesList";
 import { useBooleanState } from "@hooks";
 import BookmarkIcon from "@components/Icon/bookmark";
 import SeriesIndexHandler from "./SeriesIndexHandler";
 import ShowMoreButton from "@components/shared/ShowMoreButton/ShowMoreButton";
+import { PostType } from "@Types/post";
 
-const SeriesInfo = () => {
-  const {
-    SeriesId,
-    seriesPosts,
-    id: currentPostId,
-    seriesTitle,
-  } = usePostContext();
-
+const SeriesInfo = ({
+  SeriesId,
+  seriesPosts,
+  id: currentPostId,
+  seriesTitle,
+}: Pick<PostType, "SeriesId" | "id" | "seriesTitle" | "seriesPosts">) => {
   const [isSeriesOpen, , , toggleSeriesOpen] = useBooleanState(false);
 
   if (!SeriesId || !seriesPosts) {
@@ -28,7 +26,9 @@ const SeriesInfo = () => {
     <div className={styles.SeriesInfo}>
       <BookmarkIcon className={styles.bookMarkSVG} />
       <h2>{seriesTitle}</h2>
-      {isSeriesOpen && <SeriesList seriesPosts={seriesPosts} />}
+      {isSeriesOpen && (
+        <SeriesList seriesPosts={seriesPosts} id={currentPostId} />
+      )}
       <div className={styles.bottom}>
         <ShowMoreButton
           showMore={isSeriesOpen}

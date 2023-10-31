@@ -1,18 +1,14 @@
 import React from "react";
-import { usePostContext } from "@contexts/postContext";
 import { DATE_FORM, convertDateToString } from "@utils";
+import { PostType } from "@Types/post";
 
-const PostDate = () => {
-  const { createdAt } = usePostContext();
+interface Props {
+  date: PostType["createdAt"];
+}
 
-  if (!createdAt) {
-    return null;
-  }
-
+const PostDate = ({ date }: Props) => {
   return (
-    <span>
-      {convertDateToString({ date: createdAt, converter: DATE_FORM["ko"] })}
-    </span>
+    <span>{convertDateToString({ date, converter: DATE_FORM["ko"] })}</span>
   );
 };
 
