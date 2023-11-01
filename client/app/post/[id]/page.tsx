@@ -19,7 +19,7 @@ import { Metadata } from "next";
 import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
 import { PostPageDataType, PostType } from "@Types/post";
-import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator/NotFoundPageIndicator";
+import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 
 interface Props {
   params: {
