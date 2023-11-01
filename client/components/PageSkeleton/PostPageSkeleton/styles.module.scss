@@ -1,0 +1,126 @@
+@import "utils/utils.scss";
+
+.PostSkeletonWrapper {
+  margin-top: 100px;
+  padding: 0 15%;
+  margin-bottom: 100px;
+
+  @include mobile {
+    margin-top: 75px;
+    padding: 0 5%;
+  }
+
+  @include tablet {
+    padding: 0 5%;
+  }
+}
+
+.PostHeaderSkeletonWrapper {
+  margin-bottom: 50px;
+}
+
+.TitleSkeleton {
+  height: 52px;
+  margin: 10px 0;
+  margin-bottom: 2.5rem;
+  width: 750px;
+  background: #f2f2f2;
+  @include skeletonAnimation;
+
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    width: 500px;
+  }
+}
+
+.TitleSkeletonMobile {
+  height: 40px;
+  width: 300px;
+  background: #f2f2f2;
+  @include skeletonAnimation;
+  margin-bottom: 15px;
+
+  @include desktop {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
+
+  @include tablet_landscape {
+    display: none;
+  }
+}
+
+.TitleSecond {
+  width: 200px;
+}
+
+.DateSkeleton {
+  width: 117px;
+  height: 21px;
+  margin-bottom: 15px;
+  background: #f2f2f2;
+  @include skeletonAnimation;
+}
+
+.TagSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  div {
+    width: 58px;
+    height: 20px;
+    background: #f2f2f2;
+    @include skeletonAnimation;
+  }
+}
+
+.PostContentSkeletonWrapper {
+  display: flex;
+}
+
+.PostContentSkeleton {
+  width: 100%;
+  height: 100vh;
+  background: #f2f2f2;
+  @include skeletonAnimation;
+  @include desktop {
+    width: 77%;
+  }
+}
+
+.TopicSkeleton {
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
+
+  @include tablet_landscape {
+    display: none;
+  }
+
+  width: 20%;
+  margin-left: 3%;
+  border-left: 1px solid #c8c8c8;
+  padding-left: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
+
+  div {
+    width: 116px;
+    height: 30px;
+    background: #f2f2f2;
+    @include skeletonAnimation;
+  }
+}

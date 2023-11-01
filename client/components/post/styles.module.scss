@@ -1,0 +1,53 @@
+@import "utils/utils.scss";
+
+.PostTitle {
+  font-size: 3rem;
+  line-height: 1.5;
+  letter-spacing: -0.004em;
+  margin-top: 0px;
+  font-weight: 800;
+  color: var(--text1);
+  margin-bottom: 2rem;
+  word-break: keep-all;
+  transition: color 0.125s ease-in 0s;
+
+  @include mobile {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.PostCategory {
+  color: var(--primary1);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    color: var(--primary3);
+  }
+}
+
+.PostTags {
+  margin-top: 10px;
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  color: #a5a5a5;
+  padding-left: 0;
+  cursor: pointer;
+
+  span {
+    &:hover {
+      color: #6185e5;
+    }
+  }
+}
+
+.PostViewCount {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.PostComments {
+  margin-top: 50px;
+}

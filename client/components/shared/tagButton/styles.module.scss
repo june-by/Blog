@@ -1,0 +1,23 @@
+.TagButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  list-style-type: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(---bg-element2);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  span {
+    transition: color 0.25s ease;
+  }
+  &:hover {
+    span {
+      color: var(--primary1);
+    }
+  }
+  svg {
+    color: #005cb4;
+  }
+}

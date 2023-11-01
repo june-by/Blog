@@ -1,0 +1,76 @@
+import { Page } from "@playwright/test";
+import { DUMMY, PAGE, ServerURL } from "@constants";
+import {
+  CATEGORY_LENGTH_MOCK_DATA,
+  MAIN_POSTS_MOCK_DATA,
+} from "@mocks/data/post";
+import { USER_MOCK_DATA } from "@mocks/data/user";
+import POM from "./pom";
+
+export interface PostsPOM_MockAPIParams {}
+
+export default class PostsPOM extends POM {
+  constructor(page: Page) {
+    super(page);
+  }
+
+  async goTo() {
+    await super.mocking();
+    await this.mocking();
+    await this.page.goto(PAGE.POSTS.url);
+  }
+
+  async mocking() {
+    await this.page.route(
+      `${ServerURL}/posts/load/categoryLength`,
+      async (route) => {
+        await route.fulfill({
+          json: CATEGORY_LENGTH_MOCK_DATA,
+        });
+      }
+    );
+
+    await this.page.route(`${ServerURL}/posts/load/main/*`, async (route) => {
+      await route.fulfill({
+        json: MAIN_POSTS_MOCK_DATA,
+      });
+    });
+
+    await this.page.route(`${ServerURL}/user/login`, async (route) => {
+      //if (route.request().method() !== "POST") return;
+      await route.fulfill({
+        json: USER_MOCK_DATA,
+      });
+    });
+
+    await this.page.route(`${ServerURL}/post/load/*`, async (route) => {
+      //if (route.request().method() !== "POST") return;
+      await route.fulfill({
+        json: DUMMY.POST,
+      });
+    });
+  }
+
+  async openLoginModal() {
+    await this.page.getByRole("button", { name: "로그인" }).click();
+  }
+
+  async openSingUpModal() {
+    await this.openLoginModal();
+    await this.page.getByRole("button", { name: "회원가입" }).click();
+  }
+
+  async mockGetUserAPI() {
+    await this.page.route(`${ServerURL}/user`, async (route) => {
+      await route.fulfill({
+        json: USER_MOCK_DATA,
+      });
+    });
+  }
+
+  async mockSignUpAPI() {
+    await this.page.route(`${ServerURL}/user/signup`, async (route) => {
+      await route.fulfill({ body: "ok" });
+    });
+  }
+}

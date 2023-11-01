@@ -1,0 +1,86 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@constants": [
+        "constants"
+      ],
+      "@utils": [
+        "utils"
+      ],
+      "@contexts/*": [
+        "contexts/*"
+      ],
+      "@Types/*": [
+        "Types/*"
+      ],
+      "@Types": [
+        "Types"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@services": [
+        "services"
+      ],
+      "@hooks/*": [
+        "Hooks/*"
+      ],
+      "@hooks": [
+        "Hooks"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@styles": [
+        "styles"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@components": [
+        "components"
+      ],
+      "@mocks/*": [
+        "mocks/*"
+      ],
+      "@mocks": [
+        "mocks"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.config.js",
+    "server.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

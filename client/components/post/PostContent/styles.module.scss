@@ -1,0 +1,48 @@
+.PostContent {
+  img {
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  h1 {
+    font-size: 1.75em !important;
+  }
+  h2 {
+    font-size: 1.17em !important;
+  }
+  a {
+    color: #eb5757;
+    &:hover {
+      border-bottom: 1px solid #eb5757;
+    }
+  }
+  li {
+    line-height: 24px;
+  }
+
+  code {
+    background: rgba(135, 131, 120, 0.15);
+    color: #06f;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    word-break: break-all;
+    line-height: 1.6 !important;
+    font-size: 0.95em !important;
+    font-family: Fira Code, Consolas, Monaco, Andale Mono, Ubuntu Mono,
+      monospace;
+  }
+
+  blockquote {
+    margin: 2rem 0px !important;
+    border-left: 4px solid #0099fa !important;
+    padding: 1rem 1rem 1rem 2rem !important;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: rgba(135, 131, 120, 0.15) !important;
+    a {
+      color: #0099fa !important;
+      &:hover {
+        border-bottom: 1px solid #0099fa !important;
+      }
+    }
+  }
+}

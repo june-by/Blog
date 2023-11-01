@@ -1,0 +1,12 @@
+.DeleteBtn {
+  background: #fc96a5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  margin-right: 15px;
+  &:hover {
+    background: #c16171;
+  }
+}

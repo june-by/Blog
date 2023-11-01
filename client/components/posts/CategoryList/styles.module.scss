@@ -1,0 +1,70 @@
+@import "utils/utils.scss";
+
+.CategoryList {
+  width: 200px;
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  height: fit-content;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include mobile {
+    width: 95vw;
+    padding-right: 5vw;
+  }
+
+  @include tablet {
+    width: 90vw;
+  }
+  @include tablet_landscape {
+    width: 80vw;
+  }
+
+  @include desktop {
+    flex-direction: column;
+    position: sticky;
+    top: 75px;
+  }
+
+  h2 {
+    width: 100%;
+    text-align: left;
+    font-size: 1.5rem;
+    margin: 0px 0px 1.25rem;
+    display: none;
+    @include desktop {
+      display: block;
+    }
+  }
+}
+
+.CategoryButtonWrap {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: var(--bg-element4);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--primary1);
+  }
+  flex-direction: row;
+  height: fit-content;
+  padding: 0px 0 0.5rem 0px;
+  overflow-y: hidden;
+  @include desktop {
+    padding: 0px 1rem 1rem 0px;
+    overflow-y: scroll;
+    height: 285px;
+    flex-direction: column;
+  }
+}
