@@ -1,13 +1,14 @@
-import { useGetAllSnippetsQuery } from "@hooks/query";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { DATE_FORM, convertDateToString } from "@utils";
+import { DATE_FORM, convertDateToString, groupBy } from "@utils";
+import { ServerURL } from "@constants";
+import { SnippetType } from "@Types/snippets";
 
-const Snippets = () => {
-  const { data } = useGetAllSnippetsQuery();
+const Snippets = async () => {
+  const data = await getAllSnippets();
 
   if (!data) {
     return null;
@@ -46,5 +47,19 @@ const Snippets = () => {
     </div>
   );
 };
+
+async function getAllSnippets() {
+  try {
+    const res = await fetch(`${ServerURL}/snippet/load/all`, {
+      cache: "force-cache",
+    });
+
+    const snippets: SnippetType[] = await res.json();
+
+    return groupBy(snippets, "category");
+  } catch (err) {
+    return null;
+  }
+}
 
 export default Snippets;
