@@ -1,7 +1,7 @@
 import PageTitle from "@components/shared/PageTitle";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
-import SnippetsList from "@components/snippets";
+import { SnippetList } from "@components/snippets";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -27,7 +27,7 @@ const SnippetPage = () => {
       />
       <Suspense fallback={null}>
         {/* @ts-expect-error Server Component */}
-        <SnippetsList />
+        <SnippetList />
       </Suspense>
     </>
   );

@@ -1,14 +1,15 @@
-import { type NextRequest, type NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const secret = searchParams.get("secret");
 
   const body = await req.json();
 
   if (secret !== process.env.SECRET_REVALIDATE_TOKEN) {
-    return Response.json({ message: "Invalid token" }, { status: 401 });
+    return NextResponse.json({ message: "Invalid token" }, { status: 401 });
   }
   try {
     if (!body) {
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (idToRevalidate) {
       revalidatePath(`/post/${idToRevalidate}`);
-      return Response.json({ revalidated: true });
+      return NextResponse.json({ revalidated: true });
     }
   } catch (err) {
     return new Response("Error while revalidating", { status: 500 });
