@@ -9,3 +9,4 @@ export { default as PostTags } from "./PostTags";
 export { default as PostViewCount } from "./PostViewCount";
 export { default as RoutePostButtons } from "./RoutePostButtons";
 export { default as PostComments } from "./PostComments";
+export { default as PostWriteForm } from "./PostWriteForm";

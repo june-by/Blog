@@ -1,17 +1,16 @@
+"use client";
+
 import PostForm from "@components/postForm";
 import SeriesSelector from "@components/postForm/SeriesSelector";
 import { Category, MESSAGE } from "@constants";
 import styles from "./styles.module.scss";
-import https from "https";
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 import { useQueryId } from "@hooks";
 import { useAddPost, useEditPost, useGetPostQuery } from "@hooks/query";
 import { PostFormType } from "@Types";
 import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
-import { GetServerSideProps } from "next";
-import { customAxios, IsAdmin } from "@utils";
 
 const postFormInitialData = {
   title: "",
@@ -24,9 +23,10 @@ const postFormInitialData = {
   SeriesId: null,
 };
 
-const WritePage = () => {
-  const { query } = useRouter();
-  const mode = (query.mode ?? "write") as "write" | "edit";
+const PostWriteForm = () => {
+  const searchParams = useSearchParams();
+  const mode = (searchParams?.get("mode") || "write") as "write" | "edit";
+
   const id = useQueryId();
 
   const { mutateAsync: addPostMutate } = useAddPost();
@@ -100,31 +100,4 @@ const WritePage = () => {
   );
 };
 
-export default WritePage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const Cookies = req?.headers?.cookie ?? "";
-
-  customAxios.defaults.headers.Cookie = Cookies;
-  try {
-    const { data: userInfo } = await customAxios.get("/user", {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false, //허가되지 않은 인증을 reject하지 않겠다!
-      }),
-    });
-
-    if (!IsAdmin(userInfo)) {
-      return {
-        notFound: true,
-      };
-    }
-
-    return {
-      props: {},
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
-};
+export default PostWriteForm;
