@@ -1,12 +1,13 @@
 import React from "react";
 import SeriesListLayout from "./layout";
 import SeriesCard from "./SeriesCard";
-import { useGetAllSeires } from "@hooks/query";
+import { ServerURL } from "@constants";
+import { AllSeriesAPIType } from "@Types/series";
 
-const SeriesList = () => {
-  const { data, isLoading } = useGetAllSeires();
+const SeriesList = async () => {
+  const data = await getAllSeries();
 
-  if (!data || isLoading) {
+  if (!data) {
     return null;
   }
 
@@ -20,5 +21,16 @@ const SeriesList = () => {
     </SeriesListLayout>
   );
 };
+
+async function getAllSeries() {
+  try {
+    const res = await fetch(`${ServerURL}/series`, { cache: "force-cache" });
+    const seriesList: AllSeriesAPIType = await res.json();
+
+    return seriesList;
+  } catch (err) {
+    return null;
+  }
+}
 
 export default SeriesList;
