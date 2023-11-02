@@ -106,7 +106,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const Cookies = req?.headers?.cookie ?? "";
 
   customAxios.defaults.headers.Cookie = Cookies;
-
   try {
     const { data: userInfo } = await customAxios.get("/user", {
       httpsAgent: new https.Agent({
