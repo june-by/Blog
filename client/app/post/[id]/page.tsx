@@ -20,6 +20,7 @@ import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
 import { PostPageDataType, PostType } from "@Types/post";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
+import request from "@services/request";
 
 interface Props {
   params: {
@@ -100,13 +101,13 @@ function getOgImage(url: string | null | undefined, category: string) {
 
 async function getPost({ id }: Pick<PostType, "id">) {
   try {
-    const res = await fetch(`${ServerURL}/post/load/${id}`, {
+    const data = await request<PostPageDataType | null>({
+      url: `/post/load/${id}`,
       cache: "force-cache",
+      method: "get",
     });
 
-    const postData: PostPageDataType | null = await res.json();
-
-    return postData;
+    return data;
   } catch (err) {
     return null;
   }

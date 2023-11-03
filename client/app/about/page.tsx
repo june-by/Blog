@@ -7,6 +7,7 @@ import "react-notion-x/src/styles.css";
 import NotionPage from "@components/NotionPage";
 import * as notion from "notion-types";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
+import request from "@services/request";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -41,7 +42,12 @@ const AboutPage = async () => {
 
 async function getNotionRecordMap() {
   try {
-    const res = await fetch("http://localhost:3001/about/api", {
+    // const recordMap = await request<notion.ExtendedRecordMap>({
+    //   url: "/about/api",
+    //   cache: "force-cache",
+    //   method: "get",
+    // });
+    const res = await fetch("/about/api", {
       cache: "force-cache",
     });
 

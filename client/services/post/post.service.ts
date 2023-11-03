@@ -32,7 +32,6 @@ export const getPostAPI = async (id: number) => {
   return request<PostPageDataType | null>({
     method: "get",
     url: `/post/load/${id}`,
-    onError: (err) => err?.response?.data,
   });
 };
 

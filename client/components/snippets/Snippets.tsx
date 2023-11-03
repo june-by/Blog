@@ -4,8 +4,8 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { DATE_FORM, convertDateToString, groupBy } from "@utils";
-import { ServerURL } from "@constants";
 import { SnippetType } from "@Types/snippets";
+import request from "@services/request";
 
 const Snippets = async () => {
   const data = await getAllSnippets();
@@ -50,13 +50,13 @@ const Snippets = async () => {
 
 async function getAllSnippets() {
   try {
-    const res = await fetch(`${ServerURL}/snippet/load/all`, {
+    const data = await request<SnippetType[]>({
+      url: "/snippet/load/all",
+      method: "get",
       cache: "force-cache",
     });
 
-    const snippets: SnippetType[] = await res.json();
-
-    return groupBy(snippets, "category");
+    return groupBy(data, "category");
   } catch (err) {
     return null;
   }

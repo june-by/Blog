@@ -24,23 +24,12 @@ const request = async <T>({
       credentials: "include",
     });
 
-    const isJSONResponse =
-      res.headers.get("content-type")?.indexOf("application/json") !== -1;
+    const data = await convertResponse<T | string>(res);
 
-    if (isJSONResponse) {
-      const data = await res.json();
-      if (res.ok) {
-        return data;
-      } else {
-        throw new Error(data);
-      }
+    if (res.ok) {
+      return data as T;
     } else {
-      const text = await res.text();
-      if (res.ok) {
-        return text as T;
-      } else {
-        throw new Error(text);
-      }
+      throw new Error(data as string);
     }
   } catch (err: any) {
     throw new Error(err?.message || MESSAGE.NETWORK_ERROR);
@@ -48,3 +37,14 @@ const request = async <T>({
 };
 
 export default request;
+
+async function convertResponse<T>(res: Response): Promise<T> {
+  const isJSONResponse =
+    res.headers.get("content-type")?.indexOf("application/json") !== -1;
+
+  if (isJSONResponse) {
+    return await res.json();
+  } else {
+    return (await res.text()) as unknown as T;
+  }
+}

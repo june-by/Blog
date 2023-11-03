@@ -15,6 +15,7 @@ import {
   PostTableOfContents,
   PostTitle,
 } from "@components/post";
+import request from "@services/request";
 
 interface Props {
   params: {
@@ -78,14 +79,15 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
 
 async function getSnippet({ id }: Pick<SnippetType, "id">) {
   try {
-    const res = await fetch(`${ServerURL}/snippet/load/${id}`, {
+    const data = await request<SnippetType | null>({
+      url: `/snippet/load/${id}`,
+      method: "get",
       cache: "force-cache",
     });
 
-    const snippetData: SnippetType | null = await res.json();
-
-    return snippetData;
+    return data;
   } catch (err) {
+    console.log("err : ", err);
     return null;
   }
 }
