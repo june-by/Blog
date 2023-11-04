@@ -7,7 +7,7 @@ const cacheMiddleware = (duration?: number) => {
     const data = memoryCache.get(key);
 
     if (data) {
-      return res.status(200).send(data);
+      return res.status(200).json(data);
     } else {
       res.sendJsonResponse = res.json;
       res.sendResponse = res.send;

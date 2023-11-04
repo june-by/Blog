@@ -6,7 +6,7 @@ class MemoryCache<K extends string, V> {
     this.cache = Cache;
   }
   get(key: K): V | null {
-    return this.cache.get(key);
+    return JSON.parse(this.cache.get(key));
   }
   put(
     key: K,
