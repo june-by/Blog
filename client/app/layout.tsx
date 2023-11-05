@@ -7,8 +7,6 @@ import Providers from "@components/Providers";
 import { Modals } from "@components/shared/Modals";
 import MyToastContainer from "@components/shared/MyToastContainer";
 import { PropsWithChildren } from "react";
-import WithRouteChange from "@components/shared/WithRouteChange";
-import PageSkeleton from "@components/PageSkeleton";
 import ProgressBar from "@components/shared/ProgressBar";
 import styles from "./styles.module.scss";
 
@@ -28,17 +26,10 @@ const RootLayout = ({ children }: PropsWithChildren) => {
         <Providers>
           <Header />
           <section className={styles.layout}>
-            {/* <WithRouteChange
-              routeChangeFallback={async (url) => {
-                "use server";
-                return <PageSkeleton url={url} />;
-              }}
-            > */}
             {children}
             <Modals />
             <MyToastContainer />
             <ProgressBar />
-            {/* </WithRouteChange> */}
           </section>
         </Providers>
       </body>
