@@ -6,7 +6,7 @@ const cacheMiddleware = (duration) => {
         const key = "__express__" + req.originalUrl || req.url;
         const data = _utils_1.memoryCache.get(key);
         if (data) {
-            return res.status(200).send(data);
+            return res.status(200).json(data);
         }
         else {
             res.sendJsonResponse = res.json;
