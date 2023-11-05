@@ -9,7 +9,7 @@ class MemoryCache {
         this.cache = Cache;
     }
     get(key) {
-        return this.cache.get(key);
+        return JSON.parse(this.cache.get(key));
     }
     put(key, value, time, timeoutCallback) {
         return this.cache.put(key, value, time, timeoutCallback);
