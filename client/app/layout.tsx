@@ -13,9 +13,6 @@ import WithRouteChange from "@components/shared/WithRouteChange";
 import PageSkeleton from "@components/PageSkeleton";
 
 const RootLayout = ({ children }: PropsWithChildren) => {
-  const cookieStore = cookies();
-  const theme = cookieStore.get("theme")?.value || "light";
-
   return (
     <html lang="en">
       <head>
@@ -27,7 +24,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           rel="stylesheet"
         />
       </head>
-      <body data-theme={theme}>
+      <body data-theme="dark">
         <Providers>
           <Header />
           <WithRouteChange
