@@ -66,7 +66,9 @@ const PostPage = async ({ params: { id } }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <PostAdminButtons />
+      <Suspense>
+        <PostAdminButtons />
+      </Suspense>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
       <Suspense fallback={null}>

@@ -5,7 +5,7 @@ import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { ServerURL } from "@constants";
 import { getAllSnippetsIdAPI } from "@services/snippet";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
 import {
   PostAdminButtons,
@@ -59,7 +59,9 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <PostAdminButtons />
+      <Suspense>
+        <PostAdminButtons />
+      </Suspense>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>
