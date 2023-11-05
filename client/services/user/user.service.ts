@@ -32,3 +32,15 @@ export const submitGithubCode = async (code: string) =>
     method: "post",
     url: `/user/githubAuth?code=${code}`,
   });
+
+export const getUserData = async (cookie: string) =>
+  request<UserType | null>({
+    method: "get",
+    url: "/user",
+    options: {
+      cache: "no-store",
+      headers: {
+        cookie,
+      },
+    },
+  });

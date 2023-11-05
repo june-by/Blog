@@ -100,7 +100,9 @@ export const getPostViewCountAPI = async (postId: number) =>
   request<{ viewCount: number }>({
     method: "get",
     url: `/post/load/viewCount/${postId}`,
-    cache: "no-store",
+    options: {
+      cache: "no-store",
+    },
   });
 
 export const getAllPostsAPI = async () =>

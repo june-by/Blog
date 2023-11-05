@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { cookies } from "next/headers";
-import https from "https";
-import { IsAdmin, customAxios } from "@utils";
+import { IsAdmin } from "@utils";
+import { getUserData } from "@services/user";
 
 interface Props {
   fallback?: JSX.Element | null;
@@ -13,7 +13,7 @@ const WithAdmin = async ({
   fallback,
   onInvalid,
 }: PropsWithChildren<Props>) => {
-  const userData = await getUser();
+  const userData = await getUserData(cookies().toString());
 
   if (!IsAdmin(userData)) {
     onInvalid?.();
@@ -24,19 +24,3 @@ const WithAdmin = async ({
 };
 
 export default WithAdmin;
-
-async function getUser() {
-  try {
-    customAxios.defaults.headers.Cookie = cookies().toString();
-
-    const { data } = await customAxios.get("/user", {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
-    });
-
-    return data;
-  } catch (err) {
-    return null;
-  }
-}

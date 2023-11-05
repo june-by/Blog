@@ -28,7 +28,9 @@ async function getAllSeries() {
     const data = await request<AllSeriesAPIType>({
       url: "/series",
       method: "get",
-      cache: "force-cache",
+      options: {
+        cache: "force-cache",
+      },
     });
     return data;
   } catch (err) {

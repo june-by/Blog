@@ -4,14 +4,14 @@ interface RequestParams {
   method: "get" | "post" | "patch" | "delete";
   url: string;
   body?: any;
-  cache?: "force-cache" | "no-store";
+  options?: Parameters<typeof fetch>[1];
 }
 
 const request = async <T>({
   method,
   url,
   body,
-  cache,
+  options,
 }: RequestParams): Promise<T> => {
   try {
     const res = await fetch(`${ServerURL}${url}`, {
@@ -20,8 +20,8 @@ const request = async <T>({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-      cache,
       credentials: "include",
+      ...options,
     });
 
     const data = await convertResponse<T | string>(res);

@@ -4,8 +4,9 @@ import React, {
   type PropsWithChildren,
 } from "react";
 import styles from "./styles.module.scss";
-import { customAxios, isNull } from "@utils";
+import { isNull } from "@utils";
 import Image from "next/image";
+import { ServerURL } from "@constants";
 interface UploadButtonProps {
   onUploadeSuccess: (imageUrl: string) => void;
   text: string;
@@ -28,8 +29,15 @@ const UploadButton = ({ onUploadeSuccess, text }: UploadButtonProps) => {
 
       const formData = new FormData();
       formData.append("img", file[0]);
-      const res = await customAxios.post("/uploads", formData);
-      onUploadeSuccess(res.data.url);
+
+      const response = await fetch(`${ServerURL}/uploads`, {
+        method: "post",
+        body: formData,
+      });
+
+      const data: { url: string; uploaded: boolean } = await response.json();
+
+      onUploadeSuccess(data.url);
       document.body.removeChild(inputElem);
     };
   };

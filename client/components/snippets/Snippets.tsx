@@ -53,7 +53,9 @@ async function getAllSnippets() {
     const data = await request<SnippetType[]>({
       url: "/snippet/load/all",
       method: "get",
-      cache: "force-cache",
+      options: {
+        cache: "force-cache",
+      },
     });
 
     return groupBy(data, "category");

@@ -105,8 +105,10 @@ async function getPost({ id }: Pick<PostType, "id">) {
   try {
     const data = await request<PostPageDataType | null>({
       url: `/post/load/${id}`,
-      cache: "force-cache",
       method: "get",
+      options: {
+        cache: "force-cache",
+      },
     });
 
     return data;

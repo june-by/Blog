@@ -84,7 +84,9 @@ async function getSnippet({ id }: Pick<SnippetType, "id">) {
     const data = await request<SnippetType | null>({
       url: `/snippet/load/${id}`,
       method: "get",
-      cache: "force-cache",
+      options: {
+        cache: "force-cache",
+      },
     });
 
     return data;
