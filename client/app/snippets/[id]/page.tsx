@@ -2,7 +2,6 @@ import { SnippetType } from "@Types/snippets";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import ScrollIndicator from "@components/shared/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
-import { ServerURL } from "@constants";
 import { getAllSnippetsIdAPI } from "@services/snippet";
 import { Metadata } from "next";
 import React, { Suspense } from "react";

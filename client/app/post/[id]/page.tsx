@@ -13,7 +13,7 @@ import {
 } from "@components/post";
 import ScrollIndicator from "@components/shared/ScrollIndicator/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
-import { S3_PREFIX, ServerURL, THUMBNAIL } from "@constants";
+import { S3_PREFIX, THUMBNAIL } from "@constants";
 import { getAllPostsId } from "@services/post";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
@@ -54,8 +54,9 @@ export async function generateMetadata({
   };
 }
 
-const PostPage = async ({ params: { id } }: Props) => {
-  const postData = await getPost({ id: Number(id) });
+const PostPage = async ({ params }: Props) => {
+  const id = Number(params.id);
+  const postData = await getPost({ id });
 
   if (!postData) {
     return <NotFoundPageIndicator text="존재하지 않는 게시글입니다." />;
@@ -71,10 +72,7 @@ const PostPage = async ({ params: { id } }: Props) => {
       </Suspense>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
-      <Suspense fallback={null}>
-        {/* @ts-expect-error Server Component */}
-        <PostViewCount id={id} />
-      </Suspense>
+      <PostViewCount id={id} />
       <div className={styles.div1}>
         <PostDate date={post.createdAt} />
         <PostCategory category={post.category} />
