@@ -2,10 +2,8 @@ import "@styles/globals.css";
 import "@styles/Editor.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { cookies } from "next/headers";
 import Header from "@components/Header";
 import Providers from "@components/Providers";
-import CommonSEO from "@components/shared/CommonSEO";
 import { Modals } from "@components/shared/Modals";
 import MyToastContainer from "@components/shared/MyToastContainer";
 import { PropsWithChildren } from "react";
@@ -33,7 +31,6 @@ const RootLayout = ({ children }: PropsWithChildren) => {
               return <PageSkeleton url={url} />;
             }}
           >
-            <CommonSEO />
             {children}
             <Modals />
             <MyToastContainer />
