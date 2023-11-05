@@ -9,6 +9,8 @@ import MyToastContainer from "@components/shared/MyToastContainer";
 import { PropsWithChildren } from "react";
 import WithRouteChange from "@components/shared/WithRouteChange";
 import PageSkeleton from "@components/PageSkeleton";
+import ProgressBar from "@components/shared/ProgressBar";
+import styles from "./styles.module.scss";
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -25,16 +27,19 @@ const RootLayout = ({ children }: PropsWithChildren) => {
       <body data-theme="dark">
         <Providers>
           <Header />
-          <WithRouteChange
-            routeChangeFallback={async (url) => {
-              "use server";
-              return <PageSkeleton url={url} />;
-            }}
-          >
+          <section className={styles.layout}>
+            {/* <WithRouteChange
+              routeChangeFallback={async (url) => {
+                "use server";
+                return <PageSkeleton url={url} />;
+              }}
+            > */}
             {children}
             <Modals />
             <MyToastContainer />
-          </WithRouteChange>
+            <ProgressBar />
+            {/* </WithRouteChange> */}
+          </section>
         </Providers>
       </body>
     </html>

@@ -35,12 +35,9 @@ const WithRouteChange = ({ children, routeChangeFallback }: Props) => {
   const url = nextUrl || pathname || "";
 
   return (
-    <>
-      <PageLayout url={url}>
-        <>{loading ? <>{routeChangeFallback(url)}</> : children}</>
-      </PageLayout>
-      <ProgressBar />
-    </>
+    // <PageLayout url={url}>
+    <>{loading ? <>{routeChangeFallback(url)}</> : children}</>
+    // </PageLayout>
   );
 };
 

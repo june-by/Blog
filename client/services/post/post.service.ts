@@ -97,7 +97,7 @@ export const DeletePostAPI = async ({ id }: Pick<PostType, "id">) =>
   request<void>({ method: "delete", url: `/post/${id}` });
 
 export const getPostViewCountAPI = async (postId: number) =>
-  request<{ viewCount: number }>({
+  request<number>({
     method: "get",
     url: `/post/load/viewCount/${postId}`,
     options: {

@@ -9,8 +9,8 @@ const PostViewCount = ({ id }: Pick<PostType, "id">) => {
   const [viewCount, setViewCount] = useState<number | null>(null);
 
   useEffect(() => {
-    getPostViewCountAPI(id).then((res) => {
-      setViewCount(res.viewCount);
+    getPostViewCountAPI(id).then((viewCount) => {
+      setViewCount(viewCount);
     });
   }, [id]);
 
