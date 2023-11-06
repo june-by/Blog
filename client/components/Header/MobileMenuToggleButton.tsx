@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { HiMenu } from "react-icons/hi";
 import styles from "./styles.module.scss";

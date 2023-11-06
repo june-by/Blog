@@ -8,12 +8,14 @@ import { SocialLoginArea } from "@components/shared/SocialLoginArea";
 import useModals from "@hooks/useModals";
 import { MODALS } from "../Modals";
 import ModalView from "@components/shared/ModalView";
+import { useRouter } from "next/navigation";
 
 interface Props {
   onClose: () => void;
 }
 
 const LoginModal = ({ onClose }: Props) => {
+  const router = useRouter();
   const { openModal } = useModals();
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
@@ -22,6 +24,7 @@ const LoginModal = ({ onClose }: Props) => {
     onSuccess: () => {
       toast.success(MESSAGE.LOGIN_SUCCESS);
       onClose();
+      router.refresh();
     },
     onError: (error) => {
       toast.error(error.message);

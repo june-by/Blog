@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
@@ -5,6 +6,7 @@ import { MESSAGE } from "@constants";
 import { useLogOut } from "@hooks/query";
 import useModals from "@hooks/useModals";
 import { MODALS } from "@components/shared/Modals/Modals";
+import { useRouter } from "next/navigation";
 
 interface AuthButtonProps {
   isLoggedIn: boolean;
@@ -12,9 +14,13 @@ interface AuthButtonProps {
 
 const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
   const { openModal } = useModals();
+  const router = useRouter();
 
   const { mutate: logoutMutate } = useLogOut({
-    onSuccess: () => toast.success(MESSAGE.LOGOUT_SUCCESS),
+    onSuccess: () => {
+      toast.success(MESSAGE.LOGOUT_SUCCESS);
+      router.refresh();
+    },
   });
 
   const handleClickButton = () => {

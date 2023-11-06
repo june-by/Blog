@@ -15,6 +15,7 @@ import {
   PostTitle,
 } from "@components/post";
 import request from "@services/request";
+import WithAdmin from "@components/shared/WithAdmin";
 
 interface Props {
   params: {
@@ -58,9 +59,10 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <Suspense>
+      {/* @ts-expect-error Server Component */}
+      <WithAdmin>
         <PostAdminButtons />
-      </Suspense>
+      </WithAdmin>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>
@@ -94,7 +96,6 @@ async function getSnippet({ id }: Pick<SnippetType, "id">) {
 
     return data;
   } catch (err) {
-    console.log("err : ", err);
     return null;
   }
 }

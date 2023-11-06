@@ -21,6 +21,7 @@ import styles from "./styles.module.scss";
 import { PostPageDataType, PostType } from "@Types/post";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import request from "@services/request";
+import WithAdmin from "@components/shared/WithAdmin";
 
 interface Props {
   params: {
@@ -67,9 +68,10 @@ const PostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <Suspense>
+      {/* @ts-expect-error Server Component */}
+      <WithAdmin>
         <PostAdminButtons />
-      </Suspense>
+      </WithAdmin>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
       <PostViewCount id={id} />

@@ -3,12 +3,6 @@ import { getUserInfoAPI, LoginAPI, LogOutAPI, SignUpAPI } from "@services/user";
 import { UserType, MutationParams } from "@Types";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
 
-export const useGetUserQuery = () =>
-  useQuery<UserType | null>([QUERY_KEY.USER], () => getUserInfoAPI(), {
-    ...CACHE_OPTION.ALL,
-    retry: false,
-  });
-
 export const useSignUp = ({ onSuccess, onError }: MutationParams) =>
   useMutation(SignUpAPI, {
     onSuccess,
