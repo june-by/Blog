@@ -1,0 +1,15 @@
+import PageLayout from "@components/shared/PageLayout";
+import WithAdmin from "@components/shared/WithAdmin";
+import { notFound } from "next/navigation";
+import React, { PropsWithChildren } from "react";
+
+const WritePageLayout = ({ children }: PropsWithChildren) => {
+  return (
+    <PageLayout type="NonFlex">
+      {/* @ts-expect-error Server Component */}
+      <WithAdmin onInvalid={notFound}>{children}</WithAdmin>
+    </PageLayout>
+  );
+};
+
+export default WritePageLayout;

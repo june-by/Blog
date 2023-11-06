@@ -9,15 +9,15 @@ router.get("/load/:postId", postController.getPost);
 
 router.get("/load/viewCount/:postId", postController.getPostViewCount);
 
-router.delete(
-  "/:postId",
+router.post(
+  "/delete/:postId",
   isAdmin,
   cacheClearMiddleWare("post"),
   postController.deletePost
 );
 
-router.patch(
-  "/:postId",
+router.post(
+  "/edit/:postId",
   isAdmin,
   cacheClearMiddleWare("post"),
   postController.updatePost

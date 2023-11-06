@@ -1,20 +1,18 @@
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import React, { memo } from "react";
 import styles from "./styles.module.scss";
 import { PostType } from "@Types";
 
 const PostEditBtn = ({ id }: Pick<PostType, "id">) => {
-  const { push, pathname } = useRouter();
+  const { push } = useRouter();
+  const pathname = usePathname();
 
   const gotoEdit = () => {
-    const editPagePathName = pathname.includes("snippets")
+    const editPagePathName = pathname?.includes("snippets")
       ? "/snippets/write"
       : "/write";
 
-    push({
-      pathname: editPagePathName,
-      query: { mode: "edit", id: id },
-    });
+    push(`${editPagePathName}?mode=edit&id=${id}`);
   };
 
   return (

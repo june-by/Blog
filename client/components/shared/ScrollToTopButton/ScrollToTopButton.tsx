@@ -1,3 +1,5 @@
+"use client";
+
 import TopIcon from "@components/Icon/top";
 import React, { memo, useState, useEffect } from "react";
 import styles from "./styles.module.scss";

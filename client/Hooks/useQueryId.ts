@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
-
+import { useSearchParams } from "next/navigation";
 const useQueryId = () => {
-  const { query } = useRouter();
-
-  return Number(query.id);
+  const searchParams = useSearchParams();
+  return Number(searchParams?.get("id"));
 };
 
 export default useQueryId;

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=https ts-node server",
+    "dev": "ts-node server",
     "dev:test": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,12 +15,11 @@
   "dependencies": {
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-devtools": "^4.33.0",
-    "axios": "^0.27.2",
     "classnames": "^2.3.2",
     "dotenv": "^16.3.1",
     "highlight.js": "^11.5.1",
     "js-cookie": "^3.0.1",
-    "next": "^13.2.1",
+    "next": "^14.0.1",
     "notion-client": "^6.16.0",
     "nprogress": "^0.2.0",
     "react": "^18.2.0",

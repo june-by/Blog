@@ -1,8 +1,10 @@
+"use client";
+
 import React, { useRef, type FormEvent } from "react";
 import styles from "./styles.module.scss";
 import IconButton from "@components/shared/IconButton/IconButton";
 import SearchIcon from "@components/Icon/search";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 
@@ -22,10 +24,7 @@ const PostSearchBox = () => {
       return toast.warn(MESSAGE.NEED_SEARCHKEYWORD);
     }
 
-    return push({
-      pathname: "/",
-      query: { search: searchKeyword },
-    });
+    return push(`/?search=${searchKeyword}`);
   };
 
   return (

@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export default function useRestoreSrollPos() {
-  const { pathname: currentPathname } = useRouter();
+  const currentPathname = usePathname();
 
   useEffect(() => {
     if (!sessionStorage.getItem("scrollPos")) {

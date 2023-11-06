@@ -17,15 +17,15 @@ router.post(
 
 router.get("/load/:snippetId", snippetsController.getSnippet);
 
-router.patch(
-  "/:snippetId",
+router.post(
+  "/edit/:snippetId",
   isAdmin,
   cacheClearMiddleWare("snippet"),
   snippetsController.updateSnippet
 );
 
-router.delete(
-  "/:snippetId",
+router.post(
+  "/delete/:snippetId",
   isAdmin,
   cacheClearMiddleWare("snippet"),
   snippetsController.deleteSnippet

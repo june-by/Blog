@@ -5,7 +5,6 @@ import {
   PostPageDataType,
   PostListPageDataType,
 } from "@Types";
-import { MESSAGE } from "@constants";
 import request from "@services/request";
 
 export const getAllPostsId = async () =>
@@ -21,18 +20,24 @@ export const getAllCategoryLengthAPI = async () =>
   request<CategoryCount[]>({
     method: "get",
     url: "/posts/load/categoryLength",
+    options: {
+      next: {
+        tags: ["post"],
+      },
+    },
   });
 
-export const getPostAPI = async (id: number) => {
-  if (id === 0) {
-    return null;
-  }
-  if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
-  if (!id) throw new Error();
+export const getPost = async ({ id }: Pick<PostType, "id">) => {
+  if (isNaN(id)) return null;
+
   return request<PostPageDataType | null>({
-    method: "get",
     url: `/post/load/${id}`,
-    onError: (err) => err?.response?.data,
+    method: "get",
+    options: {
+      next: {
+        tags: [`post${id}`],
+      },
+    },
   });
 };
 
@@ -92,15 +97,18 @@ export const AddPostAPI = async (reqData: PostFormType) =>
   request<void>({ method: "post", url: "/post", body: reqData });
 
 export const EditPostAPI = async (reqData: PostFormType, id: number) =>
-  request<void>({ method: "patch", url: `/post/${id}`, body: reqData });
+  request<void>({ method: "post", url: `/post/edit/${id}`, body: reqData });
 
 export const DeletePostAPI = async ({ id }: Pick<PostType, "id">) =>
-  request<void>({ method: "delete", url: `/post/${id}` });
+  request<void>({ method: "post", url: `/post/delete/${id}` });
 
 export const getPostViewCountAPI = async (postId: number) =>
-  request<{ viewCount: number }>({
+  request<number>({
     method: "get",
     url: `/post/load/viewCount/${postId}`,
+    options: {
+      cache: "no-store",
+    },
   });
 
 export const getAllPostsAPI = async () =>

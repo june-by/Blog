@@ -8,10 +8,6 @@ import PostsArchive from "./PostsArchive";
 const Archives = () => {
   return (
     <>
-      <PageTitle
-        title="📑 Archives"
-        description="모든 기록들을 한곳에 모아놓은 페이지입니다."
-      />
       <ArchiveContent title="🤗 Visitor">
         <Visitor />
       </ArchiveContent>

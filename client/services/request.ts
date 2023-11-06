@@ -1,26 +1,54 @@
-import { MESSAGE } from "@constants";
-import { customAxios } from "@utils";
+import { MESSAGE, ServerURL } from "@constants";
 
 interface RequestParams {
   method: "get" | "post" | "patch" | "delete";
   url: string;
   body?: any;
-  onError?: (err: any) => any;
+  options?: Parameters<typeof fetch>[1];
 }
 
 const request = async <T>({
   method,
   url,
   body,
-  onError,
+  options,
 }: RequestParams): Promise<T> => {
+  if (process.env.NODE_ENV === "development") {
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  }
   try {
-    const { data } = await customAxios[method](url, body);
-    return data;
+    const res = await fetch(`${ServerURL}${url}`, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      credentials: "include",
+      ...options,
+    });
+
+    const data = await convertResponse<T | string>(res);
+
+    if (res.ok) {
+      return data as T;
+    } else {
+      throw new Error(data as string);
+    }
   } catch (err: any) {
-    const errorMessage = onError ? onError(err) : err?.response?.data;
-    throw new Error(errorMessage || MESSAGE.NETWORK_ERROR);
+    console.error("error : ", err);
+    throw new Error(err?.message || MESSAGE.NETWORK_ERROR);
   }
 };
 
 export default request;
+
+async function convertResponse<T>(res: Response): Promise<T> {
+  const isJSONResponse =
+    res.headers.get("content-type")?.indexOf("application/json") !== -1;
+
+  if (isJSONResponse) {
+    return await res.json();
+  } else {
+    return (await res.text()) as unknown as T;
+  }
+}

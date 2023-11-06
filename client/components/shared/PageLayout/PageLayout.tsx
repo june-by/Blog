@@ -1,38 +1,20 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
-  url: string;
-  children: JSX.Element;
+  type: "Flex" | "NonFlex" | "WithMaxWidth720" | "PostPage";
 }
 
-const PageLayout = ({ children, url }: Props) => {
-  const contentLayoutClassName = getClassNameFromUrl(url);
-  return (
-    <section className={styles.PageLayout}>
-      <div className={contentLayoutClassName}>{children}</div>
-    </section>
-  );
+const PageLayout = ({ children, type }: PropsWithChildren<Props>) => {
+  const contentLayoutClassName = CLASS_MAPPER[type];
+  return <div className={contentLayoutClassName}>{children}</div>;
 };
 
-const CLASS_MAPPER = {
-  "/post/": styles.PostPageLayout,
-  "/snippets/write": styles.WithOutFlexLayout,
-  "/snippets/": styles.PostPageLayout,
-  "/series": styles.WithOutFlexLayout,
-  "/archives": styles.WithOutFlexLayout,
-  "/snippets": styles.WithOutFlexLayout,
-  "/about": styles.WithMaxWidth720px,
-  "/write": styles.WithOutFlexLayout,
-};
-
-const getClassNameFromUrl = (url: string) => {
-  for (const [targetURL, className] of Object.entries(CLASS_MAPPER)) {
-    if (url.includes(targetURL)) {
-      return className;
-    }
-  }
-  return styles.WithFlexLayout;
+const CLASS_MAPPER: Record<Props["type"], string> = {
+  Flex: styles.WithFlexLayout,
+  NonFlex: styles.WithOutFlexLayout,
+  WithMaxWidth720: styles.WithMaxWidth720px,
+  PostPage: styles.PostPageLayout,
 };
 
 export default PageLayout;
