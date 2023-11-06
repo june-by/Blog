@@ -13,7 +13,7 @@ import {
   PostTableOfContents,
   PostTitle,
 } from "@components/post";
-import request from "@services/request";
+import WithAdminValidation from "@components/shared/WithAdminValidation";
 
 interface Props {
   params: {
@@ -58,10 +58,9 @@ const SnippetPostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <Suspense>
-        {/* @ts-expect-error Server Component */}
-        <PostAdminButtons />
-      </Suspense>
+      <WithAdminValidation>
+        <PostAdminButtons id={id} />
+      </WithAdminValidation>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>

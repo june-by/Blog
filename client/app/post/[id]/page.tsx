@@ -16,9 +16,10 @@ import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { S3_PREFIX, THUMBNAIL } from "@constants";
 import { getAllPostsId, getPost } from "@services/post";
 import { Metadata } from "next";
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
+import WithAdminValidation from "@components/shared/WithAdminValidation";
 
 interface Props {
   params: {
@@ -65,10 +66,9 @@ const PostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <Suspense>
-        {/* @ts-expect-error Server Component */}
-        <PostAdminButtons />
-      </Suspense>
+      <WithAdminValidation>
+        <PostAdminButtons id={id} />
+      </WithAdminValidation>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
       <PostViewCount id={id} />
