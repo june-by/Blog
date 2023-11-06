@@ -21,6 +21,11 @@ export const getAllCategoryLengthAPI = async () =>
   request<CategoryCount[]>({
     method: "get",
     url: "/posts/load/categoryLength",
+    options: {
+      next: {
+        tags: ["post"],
+      },
+    },
   });
 
 export const getPostAPI = async (id: number) => {

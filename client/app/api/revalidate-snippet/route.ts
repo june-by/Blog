@@ -1,5 +1,5 @@
 import { type NextRequest } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
     const idToRevalidate = body?.id;
 
     if (idToRevalidate) {
-      revalidatePath(`/snippets/${idToRevalidate}`);
+      revalidateTag(`snippet${idToRevalidate}`);
+      revalidateTag(`snippet`);
       return NextResponse.json({ revalidated: true });
     }
   } catch (err) {

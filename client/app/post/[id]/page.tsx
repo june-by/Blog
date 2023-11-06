@@ -107,7 +107,9 @@ async function getPost({ id }: Pick<PostType, "id">) {
       url: `/post/load/${id}`,
       method: "get",
       options: {
-        cache: "force-cache",
+        next: {
+          tags: [`post${id}`],
+        },
       },
     });
 

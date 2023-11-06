@@ -86,7 +86,9 @@ async function getSnippet({ id }: Pick<SnippetType, "id">) {
       url: `/snippet/load/${id}`,
       method: "get",
       options: {
-        cache: "force-cache",
+        next: {
+          tags: [`snippet${id}`],
+        },
       },
     });
 

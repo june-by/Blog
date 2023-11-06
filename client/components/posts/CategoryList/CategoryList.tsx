@@ -1,14 +1,12 @@
-"use client";
-
 import React from "react";
 import styles from "./styles.module.scss";
-import { useGetAllCateogryLength } from "@hooks/query";
 import { Category } from "@constants";
-import CategoryButton from "@components/shared/CategoryButton/CategoryButton";
+import CategoryButton from "@components/shared/CategoryButton";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
+import { getAllCategoryLengthAPI } from "@services/post";
 
-const CategoryList = () => {
-  const { data } = useGetAllCateogryLength();
+const CategoryList = async () => {
+  const data = await getAllCategoryLengthAPI();
 
   return (
     <aside className={styles.CategoryList}>

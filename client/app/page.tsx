@@ -5,7 +5,7 @@ import PostList from "@components/posts/postList";
 import PageLayout from "@components/shared/PageLayout";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton/ScrollToTopButton";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 
 interface Props {
   searchParams: PostsPageQueryType;
@@ -34,6 +34,7 @@ export async function generateMetadata({
 const MainPage = () => {
   return (
     <PageLayout type="Flex">
+      {/* @ts-expect-error Server Component */}
       <CategoryList />
       <PostList />
       <Contact />
