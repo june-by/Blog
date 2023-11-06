@@ -1,5 +1,3 @@
-"use client";
-
 import { useVerticalScrollHandler } from "@hooks";
 import React, {
   ReactNode,

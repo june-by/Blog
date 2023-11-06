@@ -1,12 +1,23 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.scss";
-import Link from "next/link";
+import WithAdminValidation from "@components/shared/WithAdminValidation";
 
 const WriteButton = () => {
+  const { push } = useRouter();
+
   return (
-    <Link href="/write" className={styles.writeButton}>
-      새 글 작성
-    </Link>
+    <WithAdminValidation>
+      <button
+        type="button"
+        onClick={() => {
+          push("/write");
+        }}
+        className={styles.writeButton}
+      >
+        새 글 작성
+      </button>
+    </WithAdminValidation>
   );
 };
 

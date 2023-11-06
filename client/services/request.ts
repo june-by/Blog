@@ -13,9 +13,6 @@ const request = async <T>({
   body,
   options,
 }: RequestParams): Promise<T> => {
-  if (process.env.NODE_ENV === "development")
-    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
-
   try {
     const res = await fetch(`${ServerURL}${url}`, {
       method,

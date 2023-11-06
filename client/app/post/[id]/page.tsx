@@ -18,10 +18,7 @@ import { getAllPostsId, getPost } from "@services/post";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
-import { PostPageDataType, PostType } from "@Types/post";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
-import request from "@services/request";
-import WithAdmin from "@components/shared/WithAdmin";
 
 interface Props {
   params: {
@@ -68,10 +65,10 @@ const PostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      {/* @ts-expect-error Server Component */}
-      <WithAdmin>
-        <PostAdminButtons id={id} />
-      </WithAdmin>
+      <Suspense>
+        {/* @ts-expect-error Server Component */}
+        <PostAdminButtons />
+      </Suspense>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
       <PostViewCount id={id} />

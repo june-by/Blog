@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Light from "@components/Icon/light";
 import Dark from "@components/Icon/dark";

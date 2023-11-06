@@ -38,18 +38,16 @@
     width: 90%;
     max-width: 1440px;
   }
-}
-
-.Logo {
-  font-size: 1.75rem;
-  cursor: pointer;
-  margin-right: 10px;
-  &:hover {
-    transition: 250ms;
-    color: var(--primary1);
+  h1 {
+    font-size: 1.75rem;
+    cursor: pointer;
+    margin-right: 10px;
+    &:hover {
+      transition: 250ms;
+      color: var(--primary1);
+    }
   }
 }
-
 .SkeletonHeader {
   position: fixed;
   top: 0;

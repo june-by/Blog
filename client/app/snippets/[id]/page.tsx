@@ -1,4 +1,3 @@
-import { SnippetType } from "@Types/snippets";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import ScrollIndicator from "@components/shared/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
@@ -15,7 +14,6 @@ import {
   PostTitle,
 } from "@components/post";
 import request from "@services/request";
-import WithAdmin from "@components/shared/WithAdmin";
 
 interface Props {
   params: {
@@ -60,10 +58,10 @@ const SnippetPostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      {/* @ts-expect-error Server Component */}
-      <WithAdmin>
-        <PostAdminButtons id={id} />
-      </WithAdmin>
+      <Suspense>
+        {/* @ts-expect-error Server Component */}
+        <PostAdminButtons />
+      </Suspense>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>

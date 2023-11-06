@@ -1,8 +1,6 @@
 import React from "react";
 import { Concert_One } from "next/font/google";
-import Link from "next/link";
-import classNames from "classnames";
-import styles from "./styles.module.scss";
+import { useGotoPage } from "@hooks";
 
 const ConcertOneFont = Concert_One({
   weight: "400",
@@ -10,13 +8,12 @@ const ConcertOneFont = Concert_One({
 });
 
 const Logo = () => {
+  const gotoPage = useGotoPage();
+
   return (
-    <Link
-      className={classNames(ConcertOneFont.className, styles.Logo)}
-      href="/"
-    >
+    <h1 className={ConcertOneFont.className} onClick={gotoPage("/")}>
       ByJuun.
-    </Link>
+    </h1>
   );
 };
 
