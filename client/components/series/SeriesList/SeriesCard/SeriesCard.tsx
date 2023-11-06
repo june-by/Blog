@@ -7,7 +7,6 @@ import CustomWebPImage from "@components/shared/CustomWebPImage";
 import { DATE_FORM, convertDateToString, isNull } from "@utils";
 
 const SeriesCard = ({
-  id,
   title,
   thumbNailUrl,
   shortDescription,

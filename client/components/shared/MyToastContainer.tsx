@@ -1,3 +1,4 @@
+"use client";
 import { useThemeContext } from "@contexts/themeContext";
 import React from "react";
 import { ToastContainer } from "react-toastify";

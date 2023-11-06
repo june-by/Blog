@@ -58,6 +58,7 @@ const SignUpModal = ({ onClose }: Props) => {
           value={passwordCheck}
           onChange={onChangePasswordCheck}
           data-testid="passwordCheckInput"
+          type="password"
           placeholder="비밀번호확인"
         />
         <input

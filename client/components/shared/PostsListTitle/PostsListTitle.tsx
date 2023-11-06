@@ -1,12 +1,12 @@
 import { PostsPageQueryType } from "@Types";
-import { useRouter } from "next/router";
+import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.scss";
 import FontAppliedElement from "../FontAppliedElement";
 
 const PostsListTitle = () => {
-  const { query } = useRouter();
-  const title = getTitle(query);
+  const searchParams = useSearchParams();
+  const title = getTitle(searchParams);
   return (
     <FontAppliedElement tagName="h2" className={styles.PostListTitle}>
       {title}
@@ -16,15 +16,15 @@ const PostsListTitle = () => {
 
 export default PostsListTitle;
 
-function getTitle(query: PostsPageQueryType) {
-  if (query.search) {
-    return `🔍 Search : ${query.search}`;
-  } else if (query.tag) {
-    return `🔗 Tag : ${query.tag}`;
-  } else if (query.category) {
-    return `📚 Category : ${query.category}`;
-  } else if (query.series) {
-    return `✍ Series : ${query.series}`;
+function getTitle(searchParams: ReadonlyURLSearchParams | null) {
+  if (searchParams?.get("search")) {
+    return `🔍 Search : ${searchParams?.get("search")}`;
+  } else if (searchParams?.get("tag")) {
+    return `🔗 Tag : ${searchParams?.get("tag")}`;
+  } else if (searchParams?.get("category")) {
+    return `📚 Category : ${searchParams?.get("category")}`;
+  } else if (searchParams?.get("series")) {
+    return `✍ Series : ${searchParams?.get("series")}`;
   } else {
     return `📝 All Posts`;
   }

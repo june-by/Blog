@@ -1,19 +1,19 @@
 import { SnippetFormType, SnippetType } from "@Types";
 import { CACHE_OPTION, QUERY_KEY } from "@constants";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   addSnippetAPI,
   deleteSnippetAPI,
   editSnippetAPI,
   getAllSnippetsAPI,
-  getSnippetAPI,
+  getSnippet,
 } from "@services/snippet";
 import { groupBy } from "@utils";
 
 export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {
   const { replace } = useRouter();
-  return useQuery([QUERY_KEY.SNIPPET, id], () => getSnippetAPI({ id }), {
+  return useQuery([QUERY_KEY.SNIPPET, id], () => getSnippet({ id }), {
     ...CACHE_OPTION.ALL,
     enabled: isNaN(id) ? false : true,
     onError: (err) => {
@@ -22,6 +22,7 @@ export const useGetSnippetQuery = ({ id }: Pick<SnippetType, "id">) => {
     },
   });
 };
+
 export const useGetAllSnippetsQuery = () =>
   useQuery([QUERY_KEY.SNIPPET], getAllSnippetsAPI, {
     ...CACHE_OPTION.ALL,

@@ -4,8 +4,7 @@ import {
   EditPostAPI,
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
-  getPostAPI,
-  getPostViewCountAPI,
+  getPost,
   getSearchPostAPI,
   getTagPostAPI,
   getSeriesPostAPI,
@@ -18,7 +17,7 @@ import {
   PostPageDataType,
   PostType,
 } from "@Types";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
 import { getAllPostsAPI } from "@services/post/post.service";
 
@@ -38,7 +37,7 @@ export const useGetPostQuery = ({ id }: Pick<PostType, "id">) => {
 
   return useQuery<PostPageDataType | null>(
     [QUERY_KEY.POST.ONE, id],
-    () => getPostAPI(id),
+    () => getPost({ id }),
     {
       ...CACHE_OPTION.ALL,
       onError: (err) => {
@@ -99,13 +98,6 @@ export const useGetTagPosts = (params: string) =>
       getNextPageParam: (lastPage, allPage) =>
         lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
     }
-  );
-
-export const useGetPostViewCount = (id: number) =>
-  useQuery<{ viewCount: number }>(
-    [QUERY_KEY.POST.VIEWCOUNT, id],
-    () => getPostViewCountAPI(id),
-    CACHE_OPTION.ALL
   );
 
 export const useAddPost = () =>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetAllTags } from "@hooks/query";
 import React from "react";
 import styles from "./styles.module.scss";

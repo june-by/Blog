@@ -4,10 +4,10 @@ import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
 import ReactQuill from "react-quill";
-import { customAxios } from "@utils";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import { PostFormItemSharedType } from "./type";
+import { ServerURL } from "@constants";
 
 interface EditorProps {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -57,8 +57,15 @@ const Editor = <T extends Record<string, any>>({
       if (file !== null && QuillRef.current) {
         const formData = new FormData();
         formData.append("img", file[0]);
-        const res = await customAxios.post("/uploads", formData);
-        const img_url = res.data.url;
+
+        const response = await fetch(`${ServerURL}/uploads`, {
+          method: "post",
+          body: formData,
+        });
+
+        const data: { url: string; uploaded: boolean } = await response.json();
+
+        const img_url = data.url;
         const editor = QuillRef.current.getEditor();
         const range = editor.getSelection();
         editor.insertEmbed(Number(range?.index), "image", img_url);

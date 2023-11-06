@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode } from "react";
 import styles from "./styles.module.scss";
 import FontAppliedElement from "@components/shared/FontAppliedElement";

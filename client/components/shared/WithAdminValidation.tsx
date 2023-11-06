@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetUserQuery } from "@hooks/query";
 import { IsAdmin } from "@utils";
 import LoadingOrNot from "./LoadingOrNot";

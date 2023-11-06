@@ -1,36 +1,22 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { CategoryType } from "@constants";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import classnames from "classnames";
-import { useScrollIntoElement } from "@hooks";
+import Link from "next/link";
 
 interface Props {
   category: CategoryType;
+  isCurrentSelectedCategory: Boolean;
   length?: number | null;
 }
 
-const CategoryButton = ({ category, length }: Props) => {
-  const categoryButtonRef = useRef<HTMLAnchorElement | null>(null);
-  const { query } = useRouter();
-
-  const currentCategory = query.category;
-
-  const isCurrentSelectedCategory = currentCategory === category;
-
-  useScrollIntoElement({
-    when: isCurrentSelectedCategory,
-    element: categoryButtonRef.current,
-    scrollOptions: {
-      block: "nearest",
-      inline: "center",
-    },
-  });
-
+const CategoryButton = ({
+  category,
+  length,
+  isCurrentSelectedCategory,
+}: Props) => {
   return (
     <Link
-      ref={categoryButtonRef}
       className={classnames(styles.CategoryButton, {
         [styles.Selected]: isCurrentSelectedCategory,
       })}

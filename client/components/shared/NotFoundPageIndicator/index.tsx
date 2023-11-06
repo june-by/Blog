@@ -1,1 +1,1 @@
-export * from "./NotFoundPageIndicator";
+export { default } from "./NotFoundPageIndicator";

@@ -1,14 +1,13 @@
 import React, { memo } from "react";
 import { useDeletePostMutation } from "@hooks/query";
 import styles from "./styles.module.scss";
-import { useQueryId } from "@hooks";
 import { useDeleteSnippetMutation } from "@hooks/query";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { MESSAGE } from "@constants";
+import { PostType } from "@Types/post";
 
-const PostDeleteButton = () => {
-  const id = useQueryId();
-  const { pathname } = useRouter();
+const PostDeleteButton = ({ id }: Pick<PostType, "id">) => {
+  const pathname = usePathname();
   const { mutate: deleteSnippet } = useDeleteSnippetMutation();
   const { mutate: deletePost } = useDeletePostMutation();
 
@@ -17,7 +16,9 @@ const PostDeleteButton = () => {
       return;
     }
 
-    const deleteFn = pathname.includes("snippets") ? deleteSnippet : deletePost;
+    const deleteFn = pathname?.includes("snippets")
+      ? deleteSnippet
+      : deletePost;
 
     deleteFn({ id });
   };
