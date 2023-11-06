@@ -29,6 +29,7 @@ export const getPostAPI = async (id: number) => {
   }
   if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
   if (!id) throw new Error();
+  console.log("Id In getPostAPI In post.service.ts : ", id);
   return request<PostPageDataType | null>({
     method: "get",
     url: `/post/load/${id}`,
@@ -91,10 +92,10 @@ export const AddPostAPI = async (reqData: PostFormType) =>
   request<void>({ method: "post", url: "/post", body: reqData });
 
 export const EditPostAPI = async (reqData: PostFormType, id: number) =>
-  request<void>({ method: "patch", url: `/post/${id}`, body: reqData });
+  request<void>({ method: "post", url: `/post/edit/${id}`, body: reqData });
 
 export const DeletePostAPI = async ({ id }: Pick<PostType, "id">) =>
-  request<void>({ method: "delete", url: `/post/${id}` });
+  request<void>({ method: "post", url: `/post/delete/${id}` });
 
 export const getPostViewCountAPI = async (postId: number) =>
   request<number>({

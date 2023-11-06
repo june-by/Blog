@@ -79,6 +79,8 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
 };
 
 async function getSnippet({ id }: Pick<SnippetType, "id">) {
+  if (isNaN(id)) return null;
+
   try {
     const data = await request<SnippetType | null>({
       url: `/snippet/load/${id}`,

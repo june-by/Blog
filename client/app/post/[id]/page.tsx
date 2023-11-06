@@ -100,6 +100,8 @@ function getOgImage(url: string | null | undefined, category: string) {
 }
 
 async function getPost({ id }: Pick<PostType, "id">) {
+  if (isNaN(id)) return null;
+
   try {
     const data = await request<PostPageDataType | null>({
       url: `/post/load/${id}`,
