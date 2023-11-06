@@ -16,9 +16,25 @@ export const getAllSnippetsIdAPI = async () =>
     url: "/snippet/load/id",
   });
 
-export const getSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
-  request<SnippetType>({ method: "get", url: `/snippet/load/${id}` });
+export const getSnippet = async ({ id }: Pick<SnippetType, "id">) => {
+  if (isNaN(id)) return null;
 
+  try {
+    const data = await request<SnippetType | null>({
+      url: `/snippet/load/${id}`,
+      method: "get",
+      options: {
+        next: {
+          tags: [`snippet${id}`],
+        },
+      },
+    });
+
+    return data;
+  } catch (err) {
+    return null;
+  }
+};
 export const getAllSnippetsAPI = async () =>
   request<SnippetType[]>({ method: "get", url: "/snippet/load/all" });
 

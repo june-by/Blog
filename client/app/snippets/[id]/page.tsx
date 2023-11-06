@@ -2,7 +2,7 @@ import { SnippetType } from "@Types/snippets";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import ScrollIndicator from "@components/shared/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
-import { getAllSnippetsIdAPI } from "@services/snippet";
+import { getAllSnippetsIdAPI, getSnippet } from "@services/snippet";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
@@ -79,26 +79,6 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
     </>
   );
 };
-
-async function getSnippet({ id }: Pick<SnippetType, "id">) {
-  if (isNaN(id)) return null;
-
-  try {
-    const data = await request<SnippetType | null>({
-      url: `/snippet/load/${id}`,
-      method: "get",
-      options: {
-        next: {
-          tags: [`snippet${id}`],
-        },
-      },
-    });
-
-    return data;
-  } catch (err) {
-    return null;
-  }
-}
 
 export async function generateStaticParams() {
   const data = await getAllSnippetsIdAPI();
