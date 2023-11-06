@@ -32,6 +32,7 @@ const request = async <T>({
       throw new Error(data as string);
     }
   } catch (err: any) {
+    console.error("error : ", err);
     throw new Error(err?.message || MESSAGE.NETWORK_ERROR);
   }
 };

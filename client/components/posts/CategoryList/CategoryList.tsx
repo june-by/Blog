@@ -6,7 +6,7 @@ import FontAppliedElement from "@components/shared/FontAppliedElement";
 import { getAllCategoryLengthAPI } from "@services/post";
 
 const CategoryList = async () => {
-  const data = await getAllCategoryLengthAPI();
+  const data = await getAllCategoryLength();
 
   return (
     <aside className={styles.CategoryList}>
@@ -25,5 +25,14 @@ const CategoryList = async () => {
     </aside>
   );
 };
+
+async function getAllCategoryLength() {
+  try {
+    const data = await getAllCategoryLengthAPI();
+    return data;
+  } catch (err) {
+    return null;
+  }
+}
 
 export default CategoryList;
