@@ -10,6 +10,6 @@ const router = express_1.default.Router();
 router.post("/", _middleware_1.isAdmin, (0, _middleware_1.cacheClearMiddleWare)("post"), postController_1.default.AddPost);
 router.get("/load/:postId", postController_1.default.getPost);
 router.get("/load/viewCount/:postId", postController_1.default.getPostViewCount);
-router.delete("/:postId", _middleware_1.isAdmin, (0, _middleware_1.cacheClearMiddleWare)("post"), postController_1.default.deletePost);
-router.patch("/:postId", _middleware_1.isAdmin, (0, _middleware_1.cacheClearMiddleWare)("post"), postController_1.default.updatePost);
+router.post("/delete/:postId", _middleware_1.isAdmin, (0, _middleware_1.cacheClearMiddleWare)("post"), postController_1.default.deletePost);
+router.post("/edit/:postId", _middleware_1.isAdmin, (0, _middleware_1.cacheClearMiddleWare)("post"), postController_1.default.updatePost);
 exports.default = router;
