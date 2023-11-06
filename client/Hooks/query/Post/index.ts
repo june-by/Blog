@@ -5,7 +5,6 @@ import {
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
   getPostAPI,
-  getPostViewCountAPI,
   getSearchPostAPI,
   getTagPostAPI,
   getSeriesPostAPI,
@@ -38,7 +37,7 @@ export const useGetPostQuery = ({ id }: Pick<PostType, "id">) => {
 
   return useQuery<PostPageDataType | null>(
     [QUERY_KEY.POST.ONE, id],
-    () => getPostAPI(id),
+    () => getPostAPI({ id }),
     {
       ...CACHE_OPTION.ALL,
       onError: (err) => {

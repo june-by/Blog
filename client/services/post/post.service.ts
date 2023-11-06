@@ -28,16 +28,17 @@ export const getAllCategoryLengthAPI = async () =>
     },
   });
 
-export const getPostAPI = async (id: number) => {
-  if (id === 0) {
-    return null;
-  }
-  if (isNaN(id)) throw new Error(MESSAGE.INVALIDE_ACCESS);
-  if (!id) throw new Error();
-  console.log("Id In getPostAPI In post.service.ts : ", id);
+export const getPostAPI = async ({ id }: Pick<PostType, "id">) => {
+  if (isNaN(id)) return null;
+
   return request<PostPageDataType | null>({
-    method: "get",
     url: `/post/load/${id}`,
+    method: "get",
+    options: {
+      next: {
+        tags: [`post${id}`],
+      },
+    },
   });
 };
 

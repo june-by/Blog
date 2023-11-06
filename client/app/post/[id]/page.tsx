@@ -14,7 +14,7 @@ import {
 import ScrollIndicator from "@components/shared/ScrollIndicator/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { S3_PREFIX, THUMBNAIL } from "@constants";
-import { getAllPostsId } from "@services/post";
+import { getAllPostsId, getPostAPI } from "@services/post";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
@@ -103,16 +103,7 @@ async function getPost({ id }: Pick<PostType, "id">) {
   if (isNaN(id)) return null;
 
   try {
-    const data = await request<PostPageDataType | null>({
-      url: `/post/load/${id}`,
-      method: "get",
-      options: {
-        next: {
-          tags: [`post${id}`],
-        },
-      },
-    });
-
+    const data = await getPostAPI({ id });
     return data;
   } catch (err) {
     return null;
