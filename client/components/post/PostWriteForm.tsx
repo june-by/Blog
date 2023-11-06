@@ -5,12 +5,16 @@ import SeriesSelector from "@components/postForm/SeriesSelector";
 import { Category, MESSAGE } from "@constants";
 import styles from "./styles.module.scss";
 import React, { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useQueryId } from "@hooks";
-import { useAddPost, useEditPost, useGetPostQuery } from "@hooks/query";
-import { PostFormType } from "@Types";
+import { useAddPost, useEditPost } from "@hooks/query";
+import { PostFormType, PostPageDataType } from "@Types";
 import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
+
+interface Props {
+  mode: "write" | "edit";
+  id: number;
+  postData: null | PostPageDataType["mainPost"];
+}
 
 const postFormInitialData = {
   title: "",
@@ -23,16 +27,9 @@ const postFormInitialData = {
   SeriesId: null,
 };
 
-const PostWriteForm = () => {
-  const searchParams = useSearchParams();
-  const mode = (searchParams?.get("mode") || "write") as "write" | "edit";
-
-  const id = useQueryId();
-
+const PostWriteForm = ({ mode, id, postData }: Props) => {
   const { mutateAsync: addPostMutate } = useAddPost();
   const { mutateAsync: editPostMutate } = useEditPost({ postId: id });
-
-  const { data } = useGetPostQuery({ id });
 
   const {
     formState,
@@ -61,16 +58,14 @@ const PostWriteForm = () => {
   };
 
   useEffect(() => {
-    if (!data) {
+    if (!postData) {
       return;
     }
-
-    const { mainPost: postData } = data;
     syncFormDataAndState({
       ...postData,
       tagArr: postData.Tags.map((tag) => String(tag?.content)),
     });
-  }, [data, mode, syncFormDataAndState]);
+  }, [postData, mode, syncFormDataAndState]);
 
   return (
     <PostForm>

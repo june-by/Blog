@@ -3,17 +3,17 @@
 import React, { useEffect } from "react";
 import { omit } from "@utils";
 import { SnippetsCategory, MESSAGE } from "@constants";
-import { useSearchParams } from "next/navigation";
-import { useQueryId } from "@hooks";
 import usePostForm from "@components/postForm/usePostForm";
-import { SnippetFormType } from "@Types";
+import { SnippetFormType, SnippetType } from "@Types";
 import PostForm from "@components/postForm/postForm";
-import {
-  useAddSnippetMutation,
-  useEditSnippetMutation,
-  useGetSnippetQuery,
-} from "@hooks/query";
+import { useAddSnippetMutation, useEditSnippetMutation } from "@hooks/query";
 import { toast } from "react-toastify";
+
+interface Props {
+  mode: "write" | "edit";
+  id: number;
+  snippetData: null | SnippetType;
+}
 
 const snippetFormInitialData = {
   title: "",
@@ -21,14 +21,7 @@ const snippetFormInitialData = {
   content: "",
 };
 
-const SnippetWriteForm = () => {
-  const searchParams = useSearchParams();
-  const mode = (searchParams?.get("mode") || "write") as "write" | "edit";
-
-  const id = useQueryId();
-
-  const { data } = useGetSnippetQuery({ id });
-
+const SnippetWriteForm = ({ mode, id, snippetData }: Props) => {
   const { mutateAsync: addSnippetMutate } = useAddSnippetMutation();
   const { mutateAsync: editSnippetMutate } = useEditSnippetMutation({
     snippetId: id,
@@ -59,11 +52,11 @@ const SnippetWriteForm = () => {
   };
 
   useEffect(() => {
-    if (!data) {
+    if (!snippetData) {
       return;
     }
-    syncFormDataAndState({ ...omit(data, "id", "createdAt") });
-  }, [data, syncFormDataAndState]);
+    syncFormDataAndState({ ...omit(snippetData, "id", "createdAt") });
+  }, [snippetData, syncFormDataAndState]);
 
   return (
     <PostForm>

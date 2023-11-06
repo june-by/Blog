@@ -4,7 +4,7 @@ import {
   EditPostAPI,
   getAllCategoryLengthAPI,
   getCategoryPostAPI,
-  getPostAPI,
+  getPost,
   getSearchPostAPI,
   getTagPostAPI,
   getSeriesPostAPI,
@@ -37,7 +37,7 @@ export const useGetPostQuery = ({ id }: Pick<PostType, "id">) => {
 
   return useQuery<PostPageDataType | null>(
     [QUERY_KEY.POST.ONE, id],
-    () => getPostAPI({ id }),
+    () => getPost({ id }),
     {
       ...CACHE_OPTION.ALL,
       onError: (err) => {

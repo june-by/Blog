@@ -49,8 +49,9 @@ export async function generateMetadata({
   };
 }
 
-const SnippetPostPage = async ({ params: { id } }: Props) => {
-  const snippetData = await getSnippet({ id: Number(id) });
+const SnippetPostPage = async ({ params }: Props) => {
+  const id = Number(params.id);
+  const snippetData = await getSnippet({ id });
 
   if (!snippetData) {
     return <NotFoundPageIndicator text="존재하지 않는 게시글입니다." />;
@@ -61,7 +62,7 @@ const SnippetPostPage = async ({ params: { id } }: Props) => {
       <ScrollIndicator />
       {/* @ts-expect-error Server Component */}
       <WithAdmin>
-        <PostAdminButtons />
+        <PostAdminButtons id={id} />
       </WithAdmin>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />

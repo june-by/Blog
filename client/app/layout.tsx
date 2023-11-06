@@ -24,6 +24,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
       </head>
       <body data-theme="dark">
         <Providers>
+          {/* @ts-expect-error Server Component */}
           <Header />
           <section className={styles.layout}>
             {children}

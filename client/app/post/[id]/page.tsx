@@ -14,7 +14,7 @@ import {
 import ScrollIndicator from "@components/shared/ScrollIndicator/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { S3_PREFIX, THUMBNAIL } from "@constants";
-import { getAllPostsId, getPostAPI } from "@services/post";
+import { getAllPostsId, getPost } from "@services/post";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 import styles from "./styles.module.scss";
@@ -70,7 +70,7 @@ const PostPage = async ({ params }: Props) => {
       <ScrollIndicator />
       {/* @ts-expect-error Server Component */}
       <WithAdmin>
-        <PostAdminButtons />
+        <PostAdminButtons id={id} />
       </WithAdmin>
       <PostTitle title={post.title} />
       <PostTags Tags={post.Tags} />
@@ -99,17 +99,6 @@ function getOgImage(url: string | null | undefined, category: string) {
   if (url === "" || url === "null" || url === "undefined" || !url)
     return S3_PREFIX + THUMBNAIL[category]?.jpg;
   else return url;
-}
-
-async function getPost({ id }: Pick<PostType, "id">) {
-  if (isNaN(id)) return null;
-
-  try {
-    const data = await getPostAPI({ id });
-    return data;
-  } catch (err) {
-    return null;
-  }
 }
 
 export async function generateStaticParams() {

@@ -1,18 +1,16 @@
 "use client";
-
 import PostEditButton from "./postEditButton";
+
 import React from "react";
 import PostDeleteButton from "./postDeleteButton";
-import { useQueryId } from "@hooks";
 import styles from "./styles.module.scss";
+import { PostType } from "@Types/post";
 
-const PostAdminButtons = () => {
-  const postId = useQueryId();
-
+const PostAdminButtons = ({ id }: Pick<PostType, "id">) => {
   return (
     <div className={styles.PostAdminButtons}>
-      <PostDeleteButton />
-      <PostEditButton id={postId} />
+      <PostDeleteButton id={id} />
+      <PostEditButton id={id} />
     </div>
   );
 };

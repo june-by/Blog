@@ -12,7 +12,7 @@ const PostEditBtn = ({ id }: Pick<PostType, "id">) => {
       ? "/snippets/write"
       : "/write";
 
-    push(`${editPagePathName}?mode=edit&id=${id}}`);
+    push(`${editPagePathName}?mode=edit&id=${id}`);
   };
 
   return (

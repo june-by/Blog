@@ -5,7 +5,6 @@ import {
   PostPageDataType,
   PostListPageDataType,
 } from "@Types";
-import { MESSAGE } from "@constants";
 import request from "@services/request";
 
 export const getAllPostsId = async () =>
@@ -28,7 +27,7 @@ export const getAllCategoryLengthAPI = async () =>
     },
   });
 
-export const getPostAPI = async ({ id }: Pick<PostType, "id">) => {
+export const getPost = async ({ id }: Pick<PostType, "id">) => {
   if (isNaN(id)) return null;
 
   return request<PostPageDataType | null>({

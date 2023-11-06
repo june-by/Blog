@@ -1,13 +1,12 @@
 import React, { memo } from "react";
 import { useDeletePostMutation } from "@hooks/query";
 import styles from "./styles.module.scss";
-import { useQueryId } from "@hooks";
 import { useDeleteSnippetMutation } from "@hooks/query";
 import { usePathname } from "next/navigation";
 import { MESSAGE } from "@constants";
+import { PostType } from "@Types/post";
 
-const PostDeleteButton = () => {
-  const id = useQueryId();
+const PostDeleteButton = ({ id }: Pick<PostType, "id">) => {
   const pathname = usePathname();
   const { mutate: deleteSnippet } = useDeleteSnippetMutation();
   const { mutate: deletePost } = useDeletePostMutation();
