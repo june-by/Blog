@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import React from "react";
-import { NotionAPI } from "notion-client";
 import PageTitle from "@components/shared/PageTitle";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import "react-notion-x/src/styles.css";
 import NotionPage from "@components/NotionPage";
 import * as notion from "notion-types";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
-import request from "@services/request";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -47,11 +45,12 @@ async function getNotionRecordMap() {
     //   cache: "force-cache",
     //   method: "get",
     // });
-    const res = await fetch("/about/api", {
+    const res = await fetch("https://byjuun.com/about/api", {
       cache: "force-cache",
     });
 
     const recordMap: notion.ExtendedRecordMap = await res.json();
+
     return recordMap;
   } catch (err) {
     return null;
