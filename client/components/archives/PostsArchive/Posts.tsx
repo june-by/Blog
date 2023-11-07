@@ -2,17 +2,20 @@
 
 import React from "react";
 import styles from "./styles.module.scss";
-import useArchivePosts from "./useArchivePosts";
 import Link from "next/link";
+import { getAllPosts } from "@services/post";
+import { getYearMonthDate, groupBy } from "@utils";
 
-const PostsArchive = () => {
-  const data = useArchivePosts();
+interface Props {
+  posts?: NonNullable<Awaited<ReturnType<typeof getAllPosts>>>["data"];
+}
 
-  if (!data) {
+const PostsArchive = ({ posts }: Props) => {
+  if (!posts) {
     return null;
   }
 
-  const years = sortByYearDesc(Object.keys(data));
+  const years = sortByYearDesc(Object.keys(posts));
 
   return (
     <div>
@@ -20,10 +23,10 @@ const PostsArchive = () => {
         {years.map((year) => (
           <div className={styles.PostsList} key={year}>
             <h3>
-              {year} ({data[year].length})
+              {year} ({posts[year].length})
             </h3>
             <div className={styles.Posts}>
-              {data[year].map(({ title, date, id }) => (
+              {posts[year].map(({ title, date, id }) => (
                 <Link href={`/post/${id}`} className={styles.Post} key={title}>
                   <div className={styles.date}>{date}</div>
                   <span className={styles.title}>{title}</span>

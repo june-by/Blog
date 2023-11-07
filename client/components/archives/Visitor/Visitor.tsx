@@ -1,19 +1,11 @@
-"use client";
-
-import { useGetVisitor } from "@hooks/query";
 import React from "react";
 import styles from "./styles.module.scss";
-const Visitor = () => {
-  const { data, isLoading } = useGetVisitor();
-
-  if (isLoading || !data) {
-    return null;
-  }
-
+import { VisitorAPIType } from "@Types/visitor";
+const Visitor = ({ todayVisitor, totalVisitor }: VisitorAPIType) => {
   return (
     <div className={styles.Visitor}>
-      <span>Total : {data.totalVisitor}</span>
-      <span>Today : {data.todayVisitor}</span>
+      <span>Total : {totalVisitor}</span>
+      <span>Today : {todayVisitor}</span>
     </div>
   );
 };
