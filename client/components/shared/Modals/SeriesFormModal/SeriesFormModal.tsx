@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
+import { revalidateSeries } from "@utils";
 
 interface Props {
   onClose: () => void;
@@ -49,6 +50,7 @@ const SeriesFormModal = ({ onClose }: Props) => {
         thumbNailUrl,
       });
 
+      revalidateSeries();
       onClose();
     },
     [mutate, onClose, thumbNailUrl]

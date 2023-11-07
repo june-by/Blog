@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { omit } from "@utils";
+import { omit, revalidateSnippet } from "@utils";
 import { SnippetsCategory, MESSAGE } from "@constants";
 import usePostForm from "@components/postForm/usePostForm";
 import { SnippetFormType, SnippetType } from "@Types";
@@ -49,6 +49,8 @@ const SnippetWriteForm = ({ mode, id, snippetData }: Props) => {
       mutateAsync[mode](formState),
       MESSAGE.FORM_MUTATION_MESSAGE[mode]
     );
+
+    revalidateSnippet(id);
   };
 
   useEffect(() => {
