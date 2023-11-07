@@ -20,6 +20,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import WithAdminValidation from "@components/shared/WithAdminValidation";
+import WithPostPublicValidation from "@components/post/WithPostPublicValidation";
 
 interface Props {
   params: {
@@ -61,32 +62,51 @@ const PostPage = async ({ params }: Props) => {
     return <NotFoundPageIndicator text="존재하지 않는 게시글입니다." />;
   }
 
-  const { mainPost: post, prevPost, nextPost } = postData;
+  const {
+    mainPost: {
+      title,
+      category,
+      content,
+      Tags,
+      createdAt,
+      seriesPosts,
+      seriesTitle,
+      SeriesId,
+      isPublic,
+    },
+    prevPost,
+    nextPost,
+  } = postData;
 
   return (
-    <>
+    <WithPostPublicValidation isPublic={isPublic}>
       <ScrollIndicator />
       <WithAdminValidation>
         <PostAdminButtons id={id} />
       </WithAdminValidation>
-      <PostTitle title={post.title} />
-      <PostTags Tags={post.Tags} />
+      <PostTitle title={title} />
+      <PostTags Tags={Tags} />
       <PostViewCount id={id} />
       <div className={styles.div1}>
-        <PostDate date={post.createdAt} />
-        <PostCategory category={post.category} />
+        <PostDate date={createdAt} />
+        <PostCategory category={category} />
       </div>
       <div className={styles.contentSection}>
         <div className={styles.content}>
-          <PostSeriesInfo {...post} />
-          <PostContent category={post.category} content={post.content} />
+          <PostSeriesInfo
+            seriesPosts={seriesPosts}
+            seriesTitle={seriesTitle}
+            SeriesId={SeriesId}
+            id={id}
+          />
+          <PostContent category={category} content={content} />
         </div>
-        <PostTableOfContents title={post.title} />
+        <PostTableOfContents title={title} />
       </div>
       <RoutePostButtons prevPost={prevPost} nextPost={nextPost} />
       <PostComments />
       <ScrollToTopButton />
-    </>
+    </WithPostPublicValidation>
   );
 };
 

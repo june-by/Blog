@@ -1,24 +1,23 @@
+"use client";
+import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import WithAdminValidation from "@components/shared/WithAdminValidation";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
 interface Props {
   isPublic: number;
-  children: JSX.Element;
-  fallback?: JSX.Element | null;
-  onInvalid: () => void;
 }
 
 const WithPostPublicValidation = ({
   children,
   isPublic,
-  fallback,
-  onInvalid,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
   if (isPublic) {
     return <>{children}</>;
   }
   return (
-    <WithAdminValidation fallback={fallback} onInvalid={onInvalid}>
+    <WithAdminValidation
+      fallback={<NotFoundPageIndicator text="준비중인 포스트입니다." />}
+    >
       {children}
     </WithAdminValidation>
   );
