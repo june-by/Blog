@@ -5,6 +5,7 @@ import {
   PostPageDataType,
   PostListPageDataType,
 } from "@Types";
+import { REVALIDATE_TAG } from "@constants";
 import request from "@services/request";
 
 export const getAllPostsId = async () =>
@@ -22,7 +23,7 @@ export const getAllCategoryLengthAPI = async () =>
     url: "/posts/load/categoryLength",
     options: {
       next: {
-        tags: ["post"],
+        tags: [REVALIDATE_TAG.POST],
       },
     },
   });
@@ -35,7 +36,7 @@ export const getPost = async ({ id }: Pick<PostType, "id">) => {
     method: "get",
     options: {
       next: {
-        tags: [`post${id}`],
+        tags: [`${REVALIDATE_TAG.POST}${id}`],
       },
     },
   });

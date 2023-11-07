@@ -1,9 +1,7 @@
 import React from "react";
 import SeriesListLayout from "./layout";
 import SeriesCard from "./SeriesCard";
-import { ServerURL } from "@constants";
-import { AllSeriesAPIType } from "@Types/series";
-import request from "@services/request";
+import { getAllSeries } from "@services/series";
 
 const SeriesList = async () => {
   const data = await getAllSeries();
@@ -22,20 +20,5 @@ const SeriesList = async () => {
     </SeriesListLayout>
   );
 };
-
-async function getAllSeries() {
-  try {
-    const data = await request<AllSeriesAPIType>({
-      url: "/series",
-      method: "get",
-      options: {
-        cache: "force-cache",
-      },
-    });
-    return data;
-  } catch (err) {
-    return null;
-  }
-}
 
 export default SeriesList;

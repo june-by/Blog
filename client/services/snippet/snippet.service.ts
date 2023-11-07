@@ -1,4 +1,5 @@
 import { SnippetFormType, SnippetType } from "@Types";
+import { REVALIDATE_TAG } from "@constants";
 import request from "@services/request";
 
 export const addSnippetAPI = async (reqData: SnippetFormType) =>
@@ -25,7 +26,7 @@ export const getSnippet = async ({ id }: Pick<SnippetType, "id">) => {
       method: "get",
       options: {
         next: {
-          tags: [`snippet${id}`],
+          tags: [`${REVALIDATE_TAG.SNIPPET}${id}`],
         },
       },
     });
@@ -36,7 +37,11 @@ export const getSnippet = async ({ id }: Pick<SnippetType, "id">) => {
   }
 };
 export const getAllSnippetsAPI = async () =>
-  request<SnippetType[]>({ method: "get", url: "/snippet/load/all" });
+  request<SnippetType[]>({
+    method: "get",
+    url: "/snippet/load/all",
+    options: { next: { tags: [REVALIDATE_TAG.SNIPPET] } },
+  });
 
 export const deleteSnippetAPI = async ({ id }: Pick<SnippetType, "id">) =>
   request({ method: "post", url: `/snippet/delete/${id}` });
