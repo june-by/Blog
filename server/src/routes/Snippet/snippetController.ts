@@ -54,15 +54,6 @@ const updateSnippet = async (
       id,
     });
 
-    if (process.env.NODE_ENV === "production") {
-      await axios.post(
-        `${CLIENT_URL}/api/revalidate-snippet?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
-        {
-          id,
-        }
-      );
-    }
-
     return res.json({
       message: MESSAGE.EDIT_POST_SUCCESS,
     });

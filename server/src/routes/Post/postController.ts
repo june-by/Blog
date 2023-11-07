@@ -1,8 +1,7 @@
 import tagService from "../Tag/tagService";
 import postService from "./postService";
 import { NextFunction, Request, Response } from "express";
-import { CLIENT_URL, MESSAGE } from "../../constants";
-import axios from "axios";
+import { MESSAGE } from "../../constants";
 import postsService from "../Posts/postsService";
 import seriesService from "../Series/seriesService";
 
@@ -47,15 +46,6 @@ const updatePost = async (req: Request, res: Response, next: NextFunction) => {
 
     const tags = await tagService.createTags({ tagArr });
     await postService.updateTags({ post, tags });
-
-    if (process.env.NODE_ENV === "production") {
-      await axios.post(
-        `${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
-        {
-          id,
-        }
-      );
-    }
 
     return res.json({
       message: MESSAGE.EDIT_POST_SUCCESS,
