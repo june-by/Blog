@@ -35,10 +35,10 @@ export async function generateMetadata({
   if (!postData) return {};
 
   const {
-    mainPost: { title, content, thumbNailUrl, category },
+    mainPost: { title, content, thumbNailUrl, category, shortDescription },
   } = postData;
 
-  const description = content.substring(0, 100);
+  const description = shortDescription ?? content.substring(0, 100);
 
   return {
     metadataBase: new URL("http://localhost:3000"),

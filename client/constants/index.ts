@@ -5,6 +5,7 @@ export { default as MESSAGE } from "./message";
 export { default as PAGE } from "./page";
 export { default as QUERY_KEY } from "./queryKey";
 export { default as THUMBNAIL } from "./thumbnail";
+export { default as REVALIDATE_TAG } from "./revalidateTag";
 
 export const POSTS_PER_PAGE = 20;
 export const DEFAULT_THEME = "dark";

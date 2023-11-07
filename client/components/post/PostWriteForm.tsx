@@ -9,6 +9,7 @@ import { useAddPost, useEditPost } from "@hooks/query";
 import { PostFormType, PostPageDataType } from "@Types";
 import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
+import { revalidatePost } from "@utils";
 
 interface Props {
   mode: "write" | "edit";
@@ -55,6 +56,8 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
       mutateAsync[mode](formState),
       MESSAGE.FORM_MUTATION_MESSAGE[mode]
     );
+
+    revalidatePost(id);
   };
 
   useEffect(() => {

@@ -3,9 +3,8 @@ import Link from "next/link";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { DATE_FORM, convertDateToString, groupBy } from "@utils";
-import { SnippetType } from "@Types/snippets";
-import request from "@services/request";
+import { DATE_FORM, convertDateToString } from "@utils";
+import { getAllSnippets } from "@services/snippet";
 
 const Snippets = async () => {
   const data = await getAllSnippets();
@@ -47,21 +46,5 @@ const Snippets = async () => {
     </div>
   );
 };
-
-async function getAllSnippets() {
-  try {
-    const data = await request<SnippetType[]>({
-      url: "/snippet/load/all",
-      method: "get",
-      options: {
-        cache: "force-cache",
-      },
-    });
-
-    return groupBy(data, "category");
-  } catch (err) {
-    return null;
-  }
-}
 
 export default Snippets;

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import snippetsService from "./snippetService";
-import axios from "axios";
-import { CLIENT_URL, MESSAGE } from "@constants";
+import { MESSAGE } from "@constants";
 
 const getAllSnippetsId = async (
   req: Request,
@@ -53,15 +52,6 @@ const updateSnippet = async (
       ...req.body,
       id,
     });
-
-    if (process.env.NODE_ENV === "production") {
-      await axios.post(
-        `${CLIENT_URL}/api/revalidate-snippet?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
-        {
-          id,
-        }
-      );
-    }
 
     return res.json({
       message: MESSAGE.EDIT_POST_SUCCESS,
