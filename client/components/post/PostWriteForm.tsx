@@ -41,7 +41,7 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
 
   const handleSubmitPost = () => {
     const notEnteredKey = verifyNonNullableInFormState({
-      exclude: ["SeriesId", "thumbNailUrl", "tagArr"],
+      exclude: ["SeriesId", "thumbNailUrl", "tagArr", "isPublic"],
     });
     if (notEnteredKey) {
       return toast.warn(`${notEnteredKey}를 입력해주세요.`);

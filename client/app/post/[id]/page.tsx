@@ -20,6 +20,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import WithAdminValidation from "@components/shared/WithAdminValidation";
+import WithPostPublicValidation from "@components/post/WithPostPublicValidation";
 
 interface Props {
   params: {
@@ -71,13 +72,14 @@ const PostPage = async ({ params }: Props) => {
       seriesPosts,
       seriesTitle,
       SeriesId,
+      isPublic,
     },
     prevPost,
     nextPost,
   } = postData;
 
   return (
-    <>
+    <WithPostPublicValidation isPublic={isPublic}>
       <ScrollIndicator />
       <WithAdminValidation>
         <PostAdminButtons id={id} />
@@ -104,7 +106,7 @@ const PostPage = async ({ params }: Props) => {
       <RoutePostButtons prevPost={prevPost} nextPost={nextPost} />
       <PostComments />
       <ScrollToTopButton />
-    </>
+    </WithPostPublicValidation>
   );
 };
 

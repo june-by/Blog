@@ -4,10 +4,9 @@ import { useGetUserQuery } from "@hooks/query";
 import { IsAdmin } from "@utils";
 import LoadingOrNot from "./LoadingOrNot";
 import SwitchCase from "./SwitchCase";
-import { useEffect } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
 interface Props {
-  children: JSX.Element;
   fallback?: JSX.Element | null;
   onInvalid?: () => void;
 }
@@ -16,7 +15,7 @@ const WithAdminValidation = ({
   children,
   fallback = null,
   onInvalid,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
   const { data: userInfo, isLoading } = useGetUserQuery();
   const isAdmin = IsAdmin(userInfo);
 
