@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const snippetService_1 = __importDefault(require("./snippetService"));
-const axios_1 = __importDefault(require("axios"));
 const _constants_1 = require("../../constants");
 const getAllSnippetsId = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -49,11 +48,6 @@ const updateSnippet = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     const { snippetId: id } = req.params;
     try {
         yield snippetService_1.default.updateSnippet(Object.assign(Object.assign({}, req.body), { id }));
-        if (process.env.NODE_ENV === "production") {
-            yield axios_1.default.post(`${_constants_1.CLIENT_URL}/api/revalidate-snippet?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
-                id,
-            });
-        }
         return res.json({
             message: _constants_1.MESSAGE.EDIT_POST_SUCCESS,
         });

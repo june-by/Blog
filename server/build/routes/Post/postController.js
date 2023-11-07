@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tagService_1 = __importDefault(require("../Tag/tagService"));
 const postService_1 = __importDefault(require("./postService"));
 const constants_1 = require("../../constants");
-const axios_1 = __importDefault(require("axios"));
 const postsService_1 = __importDefault(require("../Posts/postsService"));
 const seriesService_1 = __importDefault(require("../Series/seriesService"));
 const AddPost = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,11 +53,6 @@ const updatePost = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             return res.status(403).send(constants_1.MESSAGE.NO_POST);
         const tags = yield tagService_1.default.createTags({ tagArr });
         yield postService_1.default.updateTags({ post, tags });
-        if (process.env.NODE_ENV === "production") {
-            yield axios_1.default.post(`${constants_1.CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`, {
-                id,
-            });
-        }
         return res.json({
             message: constants_1.MESSAGE.EDIT_POST_SUCCESS,
         });
