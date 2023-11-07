@@ -19,7 +19,6 @@ import {
 } from "@Types";
 import { useRouter } from "next/navigation";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
-import { getAllPostsAPI } from "@services/post/post.service";
 
 export const useGetMainPost = () =>
   useInfiniteQuery(
@@ -125,6 +124,3 @@ export const useDeletePostMutation = () =>
       return window.location.replace("/");
     },
   });
-
-export const useGetAllPostsQuery = () =>
-  useQuery([QUERY_KEY.POST.ALL], getAllPostsAPI, CACHE_OPTION.ALL);

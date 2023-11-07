@@ -1,24 +1,29 @@
 "use client";
 
-import { useGetAllTags } from "@hooks/query";
 import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import { useBooleanState } from "@hooks";
 import ShowMoreButton from "@components/shared/ShowMoreButton/ShowMoreButton";
+import { ArchiveTagType } from "@Types/tag";
 
-const Tags = () => {
+interface Props {
+  tags: ArchiveTagType[];
+}
+
+const Tags = ({ tags }: Props) => {
   const [showMore, , , toggleShowMore] = useBooleanState(false);
-  const data = useGetAllTags(showMore);
 
-  if (!data) {
+  if (!tags) {
     return null;
   }
+
+  const displayedTags = showMore ? tags : tags.slice(0, 20);
 
   return (
     <div className={styles.Tags}>
       <div className={styles.TagListWrap}>
-        {data.map(({ content, Posts }) => (
+        {displayedTags.map(({ content, Posts }) => (
           <Link key={content} href={`/?tag=${content}`}>
             <span>
               {content} ({Posts.length})

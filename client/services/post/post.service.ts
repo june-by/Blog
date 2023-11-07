@@ -7,6 +7,7 @@ import {
 } from "@Types";
 import { REVALIDATE_TAG } from "@constants";
 import request from "@services/request";
+import { getYearMonthDate, groupBy } from "@utils";
 
 export const getAllPostsId = async () =>
   request<{ id: number }[]>({ method: "get", url: `/posts/load/id` });
@@ -112,8 +113,32 @@ export const getPostViewCountAPI = async (postId: number) =>
     },
   });
 
-export const getAllPostsAPI = async () =>
-  request<Pick<PostType, "id" | "title" | "createdAt">[]>({
-    method: "get",
-    url: "/posts/load/all",
-  });
+export const getAllPosts = async () => {
+  try {
+    const posts = await request<Pick<PostType, "id" | "title" | "createdAt">[]>(
+      {
+        method: "get",
+        url: "/posts/load/all",
+        options: {
+          next: { tags: [REVALIDATE_TAG.POST] },
+        },
+      }
+    );
+    return {
+      data: groupBy(
+        posts.map(({ createdAt, ...params }) => {
+          const { year, month, date } = getYearMonthDate({ date: createdAt });
+          return {
+            date: `${month}.${date}`,
+            year,
+            ...params,
+          };
+        }),
+        "year"
+      ),
+      length: posts.length,
+    };
+  } catch (err) {
+    return null;
+  }
+};

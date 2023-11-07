@@ -1,10 +1,13 @@
 import { VisitorAPIType } from "@Types";
 import request from "@services/request";
 
-export const getVisitorAPI = async () =>
+export const getVisitor = async () =>
   request<VisitorAPIType>({
     method: "get",
     url: `/visitor`,
+    options: {
+      cache: "no-store",
+    },
   });
 
 export const addVisitorAPI = async () =>
