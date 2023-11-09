@@ -1,1 +1,1 @@
-export { default } from "./ArchiveContent";
+export { default } from "./ArchiveContentWithSuspense";

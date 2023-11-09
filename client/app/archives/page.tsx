@@ -2,12 +2,12 @@ import PageTitle from "@components/shared/PageTitle";
 import { Metadata } from "next";
 import React from "react";
 import { getVisitor } from "@services/visitor";
-import ArchiveContent from "@components/archives/ArchiveContent";
 import Visitor from "@components/archives/Visitor";
 import { getAllTags } from "@services/tag";
 import Tags from "@components/archives/Tags";
 import { getAllPosts } from "@services/post";
 import PostsArchive from "@components/archives/PostsArchive";
+import ArchiveContent from "@components/archives/ArchiveContent";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -25,11 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const ArchivePage = async () => {
-  const [visitor, tags, posts] = await Promise.all([
-    getVisitor(),
-    getAllTags(),
-    getAllPosts(),
-  ]);
+  const [visitor, posts] = await Promise.all([getVisitor(), getAllPosts()]);
 
   return (
     <>
@@ -37,14 +33,20 @@ const ArchivePage = async () => {
         title="📑 Archives"
         description="모든 기록들을 한곳에 모아놓은 페이지입니다."
       />
-      <ArchiveContent title="🤗 Visitor">
-        <Visitor {...visitor} />
+      <ArchiveContent title="🤗 Visitor" fetcher={getVisitor}>
+        {(visitor) => <Visitor {...visitor} />}
       </ArchiveContent>
-      <ArchiveContent title={`🔗 Tags(${tags.length})`}>
-        <Tags tags={tags} />
+      <ArchiveContent
+        fetcher={getAllTags}
+        title={(tags) => `🔗 Tags(${tags.length})`}
+      >
+        {(tags) => <Tags tags={tags} />}
       </ArchiveContent>
-      <ArchiveContent title={`📝 Posts(${posts?.length})`}>
-        <PostsArchive posts={posts?.data} />
+      <ArchiveContent
+        title={(posts) => `📝 Posts(${posts?.length})`}
+        fetcher={getAllPosts}
+      >
+        {(posts) => <PostsArchive posts={posts?.data} />}
       </ArchiveContent>
     </>
   );
