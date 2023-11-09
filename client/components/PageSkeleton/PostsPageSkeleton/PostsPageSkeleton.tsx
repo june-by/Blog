@@ -9,7 +9,6 @@ import React from "react";
 const PostsPageSkeleton = () => {
   return (
     <>
-      {/* @ts-expect-error Server Component */}
       <CategoryList />
       <PostsListLayout>
         <PostsListTitle />

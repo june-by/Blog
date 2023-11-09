@@ -34,7 +34,6 @@ export async function generateMetadata({
 const MainPage = () => {
   return (
     <PageLayout type="Flex">
-      {/* @ts-expect-error Server Component */}
       <CategoryList />
       <PostList />
       <Contact />

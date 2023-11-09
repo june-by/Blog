@@ -7,7 +7,6 @@ const ArchiveContentWithSuspense = <T extends Object>(
 ) => {
   return (
     <Suspense>
-      {/* @ts-expect-error Server Component */}
       <ArchiveContent {...props} />
     </Suspense>
   );
