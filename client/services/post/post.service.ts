@@ -139,6 +139,6 @@ export const getAllPosts = async () => {
       length: posts.length,
     };
   } catch (err) {
-    return null;
+    return {};
   }
 };

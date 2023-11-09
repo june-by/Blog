@@ -20,7 +20,7 @@ const WithAdmin = async ({
     return fallback;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default WithAdmin;

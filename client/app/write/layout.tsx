@@ -6,7 +6,6 @@ import React, { PropsWithChildren } from "react";
 const WritePageLayout = ({ children }: PropsWithChildren) => {
   return (
     <PageLayout type="NonFlex">
-      {/* @ts-expect-error Server Component */}
       <WithAdmin onInvalid={notFound}>{children}</WithAdmin>
     </PageLayout>
   );
