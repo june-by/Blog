@@ -3,7 +3,7 @@ import { ServerURL } from "@constants";
 import { POST_MOCK_DATA } from "@mocks/data/post";
 import POM from "./pom";
 import { FuncsType } from "../type";
-import pipe from "../utils";
+import { pipe } from "../utils";
 
 export interface PostPOM_MockAPIParams {
   isFirstPostInSeries?: boolean;
