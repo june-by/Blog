@@ -9,7 +9,7 @@ import { useAddPost, useEditPost } from "@hooks/query";
 import { PostFormType, PostPageDataType } from "@Types";
 import usePostForm from "@components/postForm/usePostForm";
 import { toast } from "react-toastify";
-import { revalidatePost } from "@utils";
+import { revalidatePost, revalidateSeries } from "@utils";
 
 interface Props {
   mode: "write" | "edit";
@@ -39,6 +39,11 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
     verifyNonNullableInFormState,
   } = usePostForm<PostFormType>(postFormInitialData);
 
+  const revalidate = () => {
+    revalidatePost(id);
+    if (formState.SeriesId) revalidateSeries();
+  };
+
   const handleSubmitPost = () => {
     const notEnteredKey = verifyNonNullableInFormState({
       exclude: ["SeriesId", "thumbNailUrl", "tagArr", "isPublic"],
@@ -57,7 +62,7 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
       MESSAGE.FORM_MUTATION_MESSAGE[mode]
     );
 
-    revalidatePost(id);
+    revalidate();
   };
 
   useEffect(() => {
