@@ -19,8 +19,8 @@ import { Metadata } from "next";
 import React from "react";
 import styles from "./styles.module.scss";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
-import WithAdminValidation from "@components/shared/WithAdminValidation";
 import WithPostPublicValidation from "@components/post/WithPostPublicValidation";
+import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
 
 interface Props {
   params: {
@@ -81,9 +81,9 @@ const PostPage = async ({ params }: Props) => {
   return (
     <WithPostPublicValidation isPublic={isPublic}>
       <ScrollIndicator />
-      <WithAdminValidation>
+      <WithAdminOnClient>
         <PostAdminButtons id={id} />
-      </WithAdminValidation>
+      </WithAdminOnClient>
       <PostTitle title={title} />
       <PostTags Tags={Tags} />
       <PostViewCount id={id} />

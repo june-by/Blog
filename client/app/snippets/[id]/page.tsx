@@ -3,7 +3,7 @@ import ScrollIndicator from "@components/shared/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { getAllSnippetsIdAPI, getSnippet } from "@services/snippet";
 import { Metadata } from "next";
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import {
   PostAdminButtons,
@@ -13,7 +13,7 @@ import {
   PostTableOfContents,
   PostTitle,
 } from "@components/post";
-import WithAdminValidation from "@components/shared/WithAdminValidation";
+import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
 
 interface Props {
   params: {
@@ -58,9 +58,9 @@ const SnippetPostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <WithAdminValidation>
+      <WithAdminOnClient>
         <PostAdminButtons id={id} />
-      </WithAdminValidation>
+      </WithAdminOnClient>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>
