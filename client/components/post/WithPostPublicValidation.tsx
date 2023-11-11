@@ -1,16 +1,13 @@
 "use client";
+import { PostType } from "@Types/post";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
 import React, { PropsWithChildren } from "react";
 
-interface Props {
-  isPublic: number;
-}
-
 const WithPostPublicValidation = ({
   children,
   isPublic,
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<Pick<PostType, "isPublic">>) => {
   if (isPublic) {
     return <>{children}</>;
   }
