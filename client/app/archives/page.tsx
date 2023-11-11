@@ -25,8 +25,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const ArchivePage = async () => {
-  const [visitor, posts] = await Promise.all([getVisitor(), getAllPosts()]);
-
   return (
     <>
       <PageTitle
