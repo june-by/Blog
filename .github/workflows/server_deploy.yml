@@ -20,5 +20,7 @@ jobs:
           key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
           script: | # 실행할 스크립트
             cd Blog/server
-            git pull origin production
+            git pull origin server-deploy-test
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm reload all
