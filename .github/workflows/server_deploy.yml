@@ -1,0 +1,24 @@
+name: dev branch auto ci process script
+
+on:
+  pull_request:
+    branches: [production]
+  push:
+    branches: [server-deploy-test]
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: excuting remote ssh commands
+        uses: appleboy/ssh-action@v0.1.6 # ssh 접속하는 오픈소스
+        with:
+          host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
+          username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
+          script: | # 실행할 스크립트
+            cd Blog/server
+            git pull origin production
+            npm reload all
