@@ -19,7 +19,7 @@ const visitorCountMiddleWare = (
       expires: nextDay,
     });
 
-    visitorService.addVisitor({ date: getVisitorDateInfo() });
+    visitorService.addVisitor();
   }
 
   next();

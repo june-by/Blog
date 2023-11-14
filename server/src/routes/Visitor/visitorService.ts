@@ -1,5 +1,6 @@
 import { Visitors } from "@database";
 import { VisitorAttribute } from "@types";
+import { getVisitorDateInfo } from "./utils";
 
 const getTotalVisitor = async () => await Visitors.count({});
 
@@ -17,9 +18,9 @@ const getVisitor = async ({ date }: Pick<VisitorAttribute, "date">) => {
   return { totalVisitor, todayVisitor };
 };
 
-const addVisitor = async ({ date }: Pick<VisitorAttribute, "date">) =>
+const addVisitor = async () =>
   await Visitors.create({
-    date,
+    date: getVisitorDateInfo(),
   });
 
 export default { addVisitor, getVisitor };
