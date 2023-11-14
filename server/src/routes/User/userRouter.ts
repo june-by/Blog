@@ -1,12 +1,12 @@
 import express from "express";
-import { isLoggedIn, isNotLoggedIn } from "@middleware";
+import { isLoggedIn, isNotLoggedIn, visitorCountMiddleWare } from "@middleware";
 import passport from "passport";
 import userController from "./userController";
 import { CLIENT_URL } from "@constants";
 
 const router = express.Router();
 
-router.get("/", userController.getUser);
+router.get("/", visitorCountMiddleWare, userController.getUser);
 
 router.post("/signup", isNotLoggedIn, userController.addUser);
 
