@@ -19,10 +19,6 @@ export default class POM {
             json: VISITOR_MOCK_DATA,
           });
           return;
-        case "POST":
-          await route.fulfill({
-            json: { todayVisitor: 1, totalVisitor: 10 },
-          });
       }
     });
   }

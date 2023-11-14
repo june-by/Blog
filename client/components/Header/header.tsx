@@ -10,6 +10,7 @@ import Logo from "./Logo";
 import PageNavigaition from "./PageNavigaition";
 import MobileMenuToggleButton from "./MobileMenuToggleButton";
 import HideByScrollDown from "@components/shared/HideByScrollDown/HideByScrollDown";
+import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
 
 const HEADER_HEIGHT = "65px";
 
@@ -35,7 +36,9 @@ const Header = () => {
             </span>
           )}
           <PageNavigaition />
-          <WriteButton />
+          <WithAdminOnClient>
+            <WriteButton />
+          </WithAdminOnClient>
           <AuthButton isLoggedIn={isLoggedIn} />
           <ThemeToggleButton />
           <MobileMenuToggleButton />

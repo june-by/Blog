@@ -15,7 +15,6 @@ const QUERY_KEY = {
   TAG: {
     RECENT: "RecentTags",
   },
-  VISITOR: "Visitor",
   SERIES: "Series",
   SNIPPET: "Snippet",
 };

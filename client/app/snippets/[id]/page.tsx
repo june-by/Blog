@@ -3,7 +3,7 @@ import ScrollIndicator from "@components/shared/ScrollIndicator";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton";
 import { getAllSnippetsIdAPI, getSnippet } from "@services/snippet";
 import { Metadata } from "next";
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import {
   PostAdminButtons,
@@ -13,7 +13,8 @@ import {
   PostTableOfContents,
   PostTitle,
 } from "@components/post";
-import WithAdminValidation from "@components/shared/WithAdminValidation";
+import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
+import { createMetaData } from "@utils";
 
 interface Props {
   params: {
@@ -32,19 +33,11 @@ export async function generateMetadata({
 
   const description = content.substring(0, 100);
 
-  return {
-    metadataBase: new URL("http://localhost:3000"),
+  return createMetaData({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url: `https://byjuun.com/snippets/${id}`,
-      images: [
-        "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png",
-      ],
-    },
-  };
+    ogUrl: `https://byjuun.com/snippets/${id}`,
+  });
 }
 
 const SnippetPostPage = async ({ params }: Props) => {
@@ -58,9 +51,9 @@ const SnippetPostPage = async ({ params }: Props) => {
   return (
     <>
       <ScrollIndicator />
-      <WithAdminValidation>
+      <WithAdminOnClient>
         <PostAdminButtons id={id} />
-      </WithAdminValidation>
+      </WithAdminOnClient>
       <PostTitle title={snippetData.title + ` (${snippetData.category})`} />
       <PostDate date={snippetData.createdAt} />
       <div className={styles.contentSection}>

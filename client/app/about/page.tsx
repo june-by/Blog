@@ -6,20 +6,14 @@ import "react-notion-x/src/styles.css";
 import NotionPage from "@components/NotionPage";
 import * as notion from "notion-types";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
+import { createMetaData } from "@utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return createMetaData({
     title: "About | Byjuun.com",
     description: "📄 개인이력서",
-    openGraph: {
-      title: "About | Byjuun.com",
-      description: "📄 개인이력서",
-      url: "https://byjuun.com/about",
-      images: [
-        "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png",
-      ],
-    },
-  };
+    ogUrl: "https://byjuun.com/about",
+  });
 }
 
 const AboutPage = async () => {

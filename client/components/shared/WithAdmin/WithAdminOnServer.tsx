@@ -1,18 +1,14 @@
 import React, { PropsWithChildren } from "react";
+import { WithAdminProps } from "./types";
+import { getUserData } from "@services/user";
 import { cookies } from "next/headers";
 import { IsAdmin } from "@utils";
-import { getUserData } from "@services/user";
 
-interface Props {
-  fallback?: JSX.Element | null;
-  onInvalid?: () => void;
-}
-
-const WithAdmin = async ({
+const WithAdminOnServer = async ({
   children,
-  fallback,
   onInvalid,
-}: PropsWithChildren<Props>) => {
+  fallback,
+}: PropsWithChildren<WithAdminProps>) => {
   const userData = await getUserData(cookies().toString());
 
   if (!IsAdmin(userData)) {
@@ -23,4 +19,4 @@ const WithAdmin = async ({
   return <>{children}</>;
 };
 
-export default WithAdmin;
+export default WithAdminOnServer;

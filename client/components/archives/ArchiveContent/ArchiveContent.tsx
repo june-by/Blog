@@ -1,18 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
-
-interface Props<T> {
-  fetcher: () => Promise<T>;
-  children: (data: T) => ReactNode;
-  title: ((data: T) => string) | string;
-}
+import { ArchiveContentProps } from "./types";
 
 const ArchiveContent = async <T extends Object>({
   fetcher,
   children,
   title,
-}: Props<T>) => {
+}: ArchiveContentProps<T>) => {
   const data = await fetcher();
   return (
     <section className={styles.ArchiveContent}>
