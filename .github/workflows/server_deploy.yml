@@ -23,4 +23,4 @@ jobs:
             git pull origin server-deploy-test
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            npm reload all
+            npm run reload all
