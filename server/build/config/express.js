@@ -53,6 +53,9 @@ function default_1() {
         app.use(passport_1.default.initialize());
         app.use(passport_1.default.session());
         app.set("trust proxy", 1);
+        app.use("/test", (req, res, next) => {
+            res.send("github action deploy test");
+        });
         _routes_1.default.forEach(({ url, router }) => {
             app.use(url, router);
         });

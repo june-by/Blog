@@ -47,6 +47,10 @@ export default async function () {
   app.use(passport.session());
   app.set("trust proxy", 1);
 
+  app.use("/test", (req, res, next) => {
+    res.send("github action deploy test");
+  });
+
   ROUTER_LIST.forEach(({ url, router }) => {
     app.use(url, router);
   });
