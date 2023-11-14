@@ -48,7 +48,7 @@ export default async function () {
   app.set("trust proxy", 1);
 
   app.use("/test", (req, res, next) => {
-    res.send("github action deploy test22");
+    res.send("github action deploy test33");
   });
 
   ROUTER_LIST.forEach(({ url, router }) => {
