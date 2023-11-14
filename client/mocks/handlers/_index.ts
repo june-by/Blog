@@ -6,7 +6,7 @@ import {
   getPostViewCount,
 } from "./post";
 import { getUserInfo, login, logout, signup } from "./user";
-import { getVisitor, postVisitor } from "./visitor";
+import { getVisitor } from "./visitor";
 
 export const handlers = [
   getAllCategoryLength,
@@ -18,6 +18,5 @@ export const handlers = [
   getOnePost,
   getPostsNum,
   getVisitor,
-  postVisitor,
   getPostViewCount,
 ];

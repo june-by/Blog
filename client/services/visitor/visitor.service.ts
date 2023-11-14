@@ -9,9 +9,3 @@ export const getVisitor = async () =>
       cache: "no-store",
     },
   });
-
-export const addVisitorAPI = async () =>
-  request<VisitorAPIType>({
-    method: "post",
-    url: `/visitor`,
-  });

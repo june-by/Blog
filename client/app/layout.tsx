@@ -9,7 +9,6 @@ import MyToastContainer from "@components/shared/MyToastContainer";
 import { PropsWithChildren } from "react";
 import ProgressBar from "@components/shared/ProgressBar";
 import styles from "./styles.module.scss";
-import WithCountVisitor from "@components/WithCountVisitor";
 
 export const metadata = {
   metadataBase: new URL("https://byjuun.com"),
@@ -29,15 +28,13 @@ const RootLayout = ({ children }: PropsWithChildren) => {
       </head>
       <body data-theme="dark">
         <Providers>
-          <WithCountVisitor>
-            <Header />
-            <section className={styles.layout}>
-              {children}
-              <Modals />
-              <MyToastContainer />
-              <ProgressBar />
-            </section>
-          </WithCountVisitor>
+          <Header />
+          <section className={styles.layout}>
+            {children}
+            <Modals />
+            <MyToastContainer />
+            <ProgressBar />
+          </section>
         </Providers>
       </body>
     </html>
