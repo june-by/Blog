@@ -17,6 +17,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import { SESSION_OPTIONS } from "@constants";
 import ROUTER_LIST from "@routes";
+import { visitorCountMiddleWare } from "@middleware";
 
 dotenv.config();
 
@@ -46,6 +47,8 @@ export default async function () {
   app.use(passport.initialize());
   app.use(passport.session());
   app.set("trust proxy", 1);
+
+  app.use(visitorCountMiddleWare);
 
   ROUTER_LIST.forEach(({ url, router }) => {
     app.use(url, router);
