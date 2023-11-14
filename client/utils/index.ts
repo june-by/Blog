@@ -8,3 +8,4 @@ export { default as omit } from "./omit";
 export { default as throttle } from "./throttle";
 export * from "./visitor";
 export * from "./revalidate";
+export { default as createMetaData } from "./createMetaData";

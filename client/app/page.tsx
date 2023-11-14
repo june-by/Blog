@@ -4,8 +4,9 @@ import Contact from "@components/posts/Contact";
 import PostList from "@components/posts/postList";
 import PageLayout from "@components/shared/PageLayout";
 import ScrollToTopButton from "@components/shared/ScrollToTopButton/ScrollToTopButton";
+import { createMetaData } from "@utils";
 import { Metadata } from "next";
-import React, { Suspense } from "react";
+import React from "react";
 
 interface Props {
   searchParams: PostsPageQueryType;
@@ -14,21 +15,7 @@ interface Props {
 export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
-  const { title, description, ogTitle, ogDescription, ogUrl } =
-    createMetaData(searchParams);
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title: ogTitle,
-      description: ogDescription,
-      url: ogUrl,
-      images: [
-        "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png",
-      ],
-    },
-  };
+  return createMetaData(createPostsPageMetaData(searchParams));
 }
 
 const MainPage = () => {
@@ -44,7 +31,11 @@ const MainPage = () => {
 
 export default MainPage;
 
-function createMetaData({ search, tag, category }: PostsPageQueryType) {
+function createPostsPageMetaData({
+  search,
+  tag,
+  category,
+}: PostsPageQueryType) {
   if (search)
     return {
       title: search,

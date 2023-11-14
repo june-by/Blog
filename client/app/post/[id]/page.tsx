@@ -21,6 +21,7 @@ import styles from "./styles.module.scss";
 import NotFoundPageIndicator from "@components/shared/NotFoundPageIndicator";
 import WithPostPublicValidation from "@components/post/WithPostPublicValidation";
 import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
+import { createMetaData } from "@utils";
 
 interface Props {
   params: {
@@ -41,17 +42,12 @@ export async function generateMetadata({
 
   const description = shortDescription ?? content.substring(0, 100);
 
-  return {
-    metadataBase: new URL("http://localhost:3000"),
+  return createMetaData({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url: `https://byjuun.com/post/${id}`,
-      images: [getOgImage(thumbNailUrl, String(category))],
-    },
-  };
+    ogUrl: `https://byjuun.com/post/${id}`,
+    ogImage: getOgImage(thumbNailUrl, String(category)),
+  });
 }
 
 const PostPage = async ({ params }: Props) => {

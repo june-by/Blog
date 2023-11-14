@@ -14,6 +14,7 @@ import {
   PostTitle,
 } from "@components/post";
 import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
+import { createMetaData } from "@utils";
 
 interface Props {
   params: {
@@ -32,19 +33,11 @@ export async function generateMetadata({
 
   const description = content.substring(0, 100);
 
-  return {
-    metadataBase: new URL("http://localhost:3000"),
+  return createMetaData({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url: `https://byjuun.com/snippets/${id}`,
-      images: [
-        "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png",
-      ],
-    },
-  };
+    ogUrl: `https://byjuun.com/snippets/${id}`,
+  });
 }
 
 const SnippetPostPage = async ({ params }: Props) => {

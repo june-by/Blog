@@ -11,6 +11,10 @@ import ProgressBar from "@components/shared/ProgressBar";
 import styles from "./styles.module.scss";
 import WithCountVisitor from "@components/WithCountVisitor";
 
+export const metadata = {
+  metadataBase: new URL("https://byjuun.com"),
+};
+
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
