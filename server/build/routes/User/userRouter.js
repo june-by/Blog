@@ -9,7 +9,7 @@ const passport_1 = __importDefault(require("passport"));
 const userController_1 = __importDefault(require("./userController"));
 const _constants_1 = require("../../constants");
 const router = express_1.default.Router();
-router.get("/", userController_1.default.getUser);
+router.get("/", _middleware_1.visitorCountMiddleWare, userController_1.default.getUser);
 router.post("/signup", _middleware_1.isNotLoggedIn, userController_1.default.addUser);
 router.post("/login", _middleware_1.isNotLoggedIn, userController_1.default.login);
 router.get("/logout", _middleware_1.isLoggedIn, userController_1.default.logout);

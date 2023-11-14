@@ -26,20 +26,6 @@ const getVisitor = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         next(err);
     }
 });
-const addVisitor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield visitorService_1.default.addVisitor({ date: (0, utils_1.getVisitorDateInfo)() });
-        const { totalVisitor, todayVisitor } = yield visitorService_1.default.getVisitor({
-            date: (0, utils_1.getVisitorDateInfo)(),
-        });
-        return res.status(200).json({ totalVisitor, todayVisitor });
-    }
-    catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
 exports.default = {
     getVisitor,
-    addVisitor,
 };

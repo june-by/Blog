@@ -31,7 +31,6 @@ const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
 const _constants_1 = require("../constants");
 const _routes_1 = __importDefault(require("../routes"));
-const _middleware_1 = require("../middleWare");
 dotenv_1.default.config();
 function default_1() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -54,7 +53,6 @@ function default_1() {
         app.use(passport_1.default.initialize());
         app.use(passport_1.default.session());
         app.set("trust proxy", 1);
-        app.use(_middleware_1.visitorCountMiddleWare);
         _routes_1.default.forEach(({ url, router }) => {
             app.use(url, router);
         });

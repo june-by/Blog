@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const _database_1 = require("../../database");
+const utils_1 = require("./utils");
 const getTotalVisitor = () => __awaiter(void 0, void 0, void 0, function* () { return yield _database_1.Visitors.count({}); });
 const getTodayVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
     return yield _database_1.Visitors.count({
@@ -23,9 +24,9 @@ const getVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () 
     ]);
     return { totalVisitor, todayVisitor };
 });
-const addVisitor = ({ date }) => __awaiter(void 0, void 0, void 0, function* () {
+const addVisitor = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield _database_1.Visitors.create({
-        date,
+        date: (0, utils_1.getVisitorDateInfo)(),
     });
 });
 exports.default = { addVisitor, getVisitor };
