@@ -1,14 +1,14 @@
 import React from "react";
 import { HiMenu } from "react-icons/hi";
 import styles from "./styles.module.scss";
-import { useModals } from "@hooks";
-import { MODALS } from "@components/shared/Modals/Modals";
+import { useOverlay } from "@hooks";
+import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 const MobileMenuToggleButton = () => {
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
 
   const handleClickMobileMenuOpenButton = () => {
-    openModal(MODALS.MOBILE_MENU_MDAPL);
+    openOverlay(OVERLAYS.MOBILE_MENU);
   };
 
   return (

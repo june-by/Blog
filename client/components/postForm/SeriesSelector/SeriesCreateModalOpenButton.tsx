@@ -1,20 +1,18 @@
-import { useModals } from "@hooks";
+import { useOverlay } from "@hooks";
 import React from "react";
 import styles from "./styles.module.scss";
-import { MODALS } from "@components/shared/Modals/Modals";
+import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 const SeriesCreateModalOpenButton = () => {
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
 
   return (
-    <>
-      <button
-        className={styles.SeriesCreateModalOpenButton}
-        onClick={() => openModal(MODALS.SERIES_FORM)}
-      >
-        시리즈 생성
-      </button>
-    </>
+    <button
+      className={styles.SeriesCreateModalOpenButton}
+      onClick={() => openOverlay(OVERLAYS.SERIES_FORM_MODAL)}
+    >
+      시리즈 생성
+    </button>
   );
 };
 

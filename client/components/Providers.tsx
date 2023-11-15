@@ -3,7 +3,7 @@
 import React, { PropsWithChildren, useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ModalProvider } from "@contexts/modalContex";
+import { OverlayProvider } from "@contexts/overlayContex";
 import { ThemeProvider } from "@contexts/themeContext";
 
 function Providers({ children }: PropsWithChildren) {
@@ -12,7 +12,7 @@ function Providers({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={client}>
       <ThemeProvider>
-        <ModalProvider>{children}</ModalProvider>
+        <OverlayProvider>{children}</OverlayProvider>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

@@ -6,10 +6,10 @@ import HideByScrollDown from "@components/shared/HideByScrollDown";
 const MARGIN_RIGHT_FOR_HIDE = "-50px";
 
 const TOCButton = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openOverlay, setopenOverlay] = useState(false);
 
   const handleClickButton = () => {
-    setOpenModal(true);
+    setopenOverlay(true);
   };
 
   return (
@@ -24,7 +24,7 @@ const TOCButton = () => {
       >
         TOC
       </HideByScrollDown>
-      <TOCModal open={openModal} setOpen={setOpenModal} />
+      <TOCModal open={openOverlay} setOpen={setopenOverlay} />
     </>
   );
 };

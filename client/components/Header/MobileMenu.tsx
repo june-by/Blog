@@ -6,8 +6,8 @@ import { IoClose } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
-import { useModals } from "@hooks";
-import { MODALS } from "@components/shared/Modals/Modals";
+import { useOverlay } from "@hooks";
+import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 interface Props {
   isOpen: boolean;
@@ -16,16 +16,16 @@ interface Props {
 
 const MobileMenu = ({ onClose }: Props) => {
   const pathname = usePathname();
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
 
   const handleClickLoginButton = () => {
     onClose();
-    openModal(MODALS.LOGIN);
+    openOverlay(OVERLAYS.LOGIN_MODAL);
   };
 
   const handleClickSignUpButton = () => {
     onClose();
-    openModal(MODALS.SIGNUP);
+    openOverlay(OVERLAYS.SIGNUP_MODAL);
   };
 
   return (

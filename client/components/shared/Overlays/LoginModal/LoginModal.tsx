@@ -1,12 +1,11 @@
 import React, { type FormEventHandler } from "react";
 import styles from "./styles.module.scss";
-import useInput from "@hooks/useInput";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { SocialLoginArea } from "@components/shared/SocialLoginArea";
-import useModals from "@hooks/useModals";
-import { MODALS } from "../Modals";
+import { useOverlay, useInput } from "@hooks";
+import { OVERLAYS } from "../Overlays";
 import ModalView from "@components/shared/ModalView";
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const LoginModal = ({ onClose }: Props) => {
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
 
@@ -63,7 +62,7 @@ const LoginModal = ({ onClose }: Props) => {
         className={styles.SignUpButton}
         onClick={() => {
           onClose();
-          openModal(MODALS.SIGNUP);
+          openOverlay(OVERLAYS.SIGNUP_MODAL);
         }}
       >
         회원가입

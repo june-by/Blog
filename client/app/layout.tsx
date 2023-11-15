@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Header from "@components/Header";
 import Providers from "@components/Providers";
-import { Modals } from "@components/shared/Modals";
+import Overlays from "@components/shared/Overlays";
 import MyToastContainer from "@components/shared/MyToastContainer";
 import { PropsWithChildren } from "react";
 import ProgressBar from "@components/shared/ProgressBar";
@@ -31,7 +31,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           <Header />
           <section className={styles.layout}>
             {children}
-            <Modals />
+            <Overlays />
             <MyToastContainer />
             <ProgressBar />
           </section>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useModalStateContext } from "@contexts/modalContex";
-import { useModals } from "@hooks";
+import { useOverlayStateContext } from "@contexts/overlayContex";
+import { useOverlay } from "@hooks";
 import React from "react";
 import dynamic from "next/dynamic";
 
@@ -21,21 +21,21 @@ const MobileMenuModal = dynamic(() => import("@components/Header/MobileMenu"), {
   ssr: false,
 });
 
-export const MODALS = {
-  LOGIN: LoginModal,
-  SIGNUP: SignUpModal,
-  SERIES_FORM: SeriesFormModal,
-  MOBILE_MENU_MDAPL: MobileMenuModal,
+export const OVERLAYS = {
+  LOGIN_MODAL: LoginModal,
+  SIGNUP_MODAL: SignUpModal,
+  SERIES_FORM_MODAL: SeriesFormModal,
+  MOBILE_MENU: MobileMenuModal,
 };
 
 const Modals = () => {
-  const openedModals = useModalStateContext();
-  const { closeModal } = useModals();
+  const openedModals = useOverlayStateContext();
+  const { closeOverlay } = useOverlay();
   return (
     <>
       {openedModals.map(({ Component, props }, idx) => {
         const onClose = () => {
-          closeModal(Component);
+          closeOverlay(Component);
         };
 
         return <Component {...props} key={`${idx}Modal`} onClose={onClose} />;
