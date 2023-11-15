@@ -11,10 +11,11 @@ import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 interface Props {
   isOpen: boolean;
+  onClose: () => void;
   onExit: (time: number) => void;
 }
 
-const MobileMenu = ({ onExit }: Props) => {
+const MobileMenu = ({ onClose, onExit }: Props) => {
   const [isClose, setIsClose] = useState(false);
   const pathname = usePathname();
   const { openOverlay } = useOverlay();
@@ -25,12 +26,12 @@ const MobileMenu = ({ onExit }: Props) => {
   };
 
   const handleClickLoginButton = () => {
-    closeWithAnimation();
+    onClose();
     openOverlay(OVERLAYS.LOGIN_MODAL);
   };
 
   const handleClickSignUpButton = () => {
-    closeWithAnimation();
+    onClose();
     openOverlay(OVERLAYS.SIGNUP_MODAL);
   };
 

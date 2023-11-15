@@ -1,4 +1,4 @@
-import React, { type FormEventHandler } from "react";
+import React, { useState, type FormEventHandler } from "react";
 import styles from "./styles.module.scss";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
@@ -10,17 +10,24 @@ import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
+  onExit: (time: number) => void;
 }
 
-const LoginModal = ({ onClose }: Props) => {
+const LoginModal = ({ onClose, onExit }: Props) => {
+  const [isClose, setIsClose] = useState(false);
   const { openOverlay } = useOverlay();
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
 
+  const closeWithAnimation = () => {
+    setIsClose(true);
+    onExit(500);
+  };
+
   const { mutate: loginMutate } = useLogin({
     onSuccess: () => {
       toast.success(MESSAGE.LOGIN_SUCCESS);
-      onClose();
+      closeWithAnimation();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -41,7 +48,7 @@ const LoginModal = ({ onClose }: Props) => {
   };
 
   return (
-    <ModalView title="로그인" onClose={onClose}>
+    <ModalView title="로그인" onClose={closeWithAnimation} isClose={isClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}

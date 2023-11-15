@@ -28,12 +28,12 @@ export const OVERLAYS = {
   MOBILE_MENU: MobileMenuModal,
 };
 
-const Modals = () => {
-  const openedModals = useOverlayStateContext();
+const Overlays = () => {
+  const openedOverlays = useOverlayStateContext();
   const { closeOverlay } = useOverlay();
   return (
     <>
-      {openedModals.map(({ Component, props }, idx) => {
+      {openedOverlays.map(({ Component, props }, idx) => {
         const onClose = () => {
           closeOverlay(Component);
         };
@@ -57,4 +57,4 @@ const Modals = () => {
   );
 };
 
-export default Modals;
+export default Overlays;
