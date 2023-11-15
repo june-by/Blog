@@ -17,7 +17,7 @@ const SeriesFormModal = dynamic(() => import("./SeriesFormModal"), {
   ssr: false,
 });
 
-const MobileMenuModal = dynamic(() => import("@components/Header/MobileMenu"), {
+const MobileMenuModal = dynamic(() => import("./MobileMenu"), {
   ssr: false,
 });
 
