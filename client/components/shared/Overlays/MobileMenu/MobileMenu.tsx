@@ -1,38 +1,48 @@
 import { PAGE } from "@constants";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { usePathname } from "next/navigation";
-import LeftSlideLayer from "@components/shared/LeftSlideLayer";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
-import { useModals } from "@hooks";
-import { MODALS } from "@components/shared/Modals/Modals";
+import { useOverlay } from "@hooks";
+import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 interface Props {
   isOpen: boolean;
-  handleClose: () => void;
+  onClose: () => void;
+  onExit: (time: number) => void;
 }
 
-const MobileMenu = ({ isOpen, handleClose }: Props) => {
+const MobileMenu = ({ onClose, onExit }: Props) => {
+  const [isClose, setIsClose] = useState(false);
   const pathname = usePathname();
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
+
+  const closeWithAnimation = () => {
+    setIsClose(true);
+    onExit(500);
+  };
 
   const handleClickLoginButton = () => {
-    handleClose();
-    openModal(MODALS.LOGIN);
+    onClose();
+    openOverlay(OVERLAYS.AUTH_MODAL, { type: "LOGIN" });
   };
 
   const handleClickSignUpButton = () => {
-    handleClose();
-    openModal(MODALS.SIGNUP);
+    onClose();
+    openOverlay(OVERLAYS.AUTH_MODAL, { type: "SIGN_UP" });
   };
 
   return (
-    <LeftSlideLayer isOpen={isOpen} className={styles.MobileMenu}>
+    <div
+      className={classnames(styles.MobileMenu, {
+        [styles.closeAnimation]: isClose,
+      })}
+    >
       <div className={styles.closeArea}>
-        <button onClick={handleClose}>
+        <button onClick={closeWithAnimation}>
           <IoClose />
         </button>
       </div>
@@ -47,7 +57,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           <Link
             key={text}
             href={url}
-            onClick={handleClose}
+            onClick={closeWithAnimation}
             className={classnames({
               [styles.current]: isCurrentPath(url, pathname),
             })}
@@ -56,7 +66,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           </Link>
         ))}
       </FontAppliedElement>
-    </LeftSlideLayer>
+    </div>
   );
 };
 

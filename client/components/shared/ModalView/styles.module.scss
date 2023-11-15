@@ -16,6 +16,7 @@
 }
 
 .Overlay {
+  animation: fade-in 0.5s forwards;
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
@@ -24,6 +25,7 @@
 }
 
 .Modal {
+  animation: pop-in-from-bottom 0.5s forwards;
   background: var(--bg-element1);
   color: var(--bg-element2) !important;
   width: 80%;
@@ -71,67 +73,64 @@
   }
 }
 
-// .ModalOpenAnimation {
-//   animation-name: pop-in-from-bottom;
-//   animation-duration: 0.4s;
-//   animation-fill-mode: forwards;
-//   animation-timing-function: ease-in-out;
-// }
+.modalCloseAnimation {
+  animation: pop-out 0.5s forwards;
+}
 
-// .ModalCloseAnimation {
-//   animation-name: pop-out;
-//   animation-duration: 0.4s;
-//   animation-fill-mode: forwards;
-//   animation-timing-function: ease-in-out;
-// }
+.overlayCloseAnimation {
+  animation: fade-out 0.5s forwards;
+}
 
-// .OverlayOpenAnimation {
-//   animation-name: fade-in;
-//   animation-duration: 0.4s;
-//   animation-fill-mode: forwards;
-//   animation-timing-function: ease-in-out;
-// }
+@keyframes pop-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(400px) scale(0.75);
+  }
 
-// @keyframes pop-in-from-bottom {
-//   0% {
-//     opacity: 0;
-//     transform: translateY(400px) scale(0.75);
-//   }
+  75% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1);
+  }
 
-//   75% {
-//     opacity: 1;
-//     transform: translateY(-16px) scale(1);
-//   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-//   to {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// }
+@keyframes pop-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-// @keyframes fade-in {
-//   0% {
-//     opacity: 0;
-//   }
+  25% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1);
+  }
 
-//   to {
-//     opacity: 1;
-//   }
-// }
+  to {
+    opacity: 0;
+    transform: translateY(400px) scale(0.75);
+  }
+}
 
-// @keyframes pop-out {
-//   0% {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
 
-//   25% {
-//     opacity: 1;
-//     transform: translateY(-16px) scale(1);
-//   }
+  to {
+    opacity: 1;
+  }
+}
 
-//   to {
-//     opacity: 0;
-//     transform: translateY(400px) scale(0.75);
-//   }
-// }
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

@@ -1,18 +1,15 @@
 import React, { FormEventHandler } from "react";
-import styles from "./styles.module.scss";
 import { useInput } from "@hooks";
-import { StateUpdater } from "@Types/utils";
-import { SocialLoginArea } from "@components/shared/SocialLoginArea";
+import styles from "./styles.module.scss";
 import { useSignUp } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
 }
 
-const SignUpModal = ({ onClose }: Props) => {
+const SignUpForm = ({ onClose }: Props) => {
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
   const [passwordCheck, , onChangePasswordCheck] = useInput("");
@@ -39,7 +36,7 @@ const SignUpModal = ({ onClose }: Props) => {
   };
 
   return (
-    <ModalView title="회원가입" onClose={onClose}>
+    <>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -69,9 +66,8 @@ const SignUpModal = ({ onClose }: Props) => {
         />
         <button>회원가입</button>
       </form>
-      <SocialLoginArea />
-    </ModalView>
+    </>
   );
 };
 
-export default SignUpModal;
+export default SignUpForm;

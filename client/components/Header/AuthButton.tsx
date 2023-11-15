@@ -3,15 +3,15 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { useLogOut } from "@hooks/query";
-import useModals from "@hooks/useModals";
-import { MODALS } from "@components/shared/Modals/Modals";
+import { useOverlay } from "@hooks";
+import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 interface AuthButtonProps {
   isLoggedIn: boolean;
 }
 
 const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
-  const { openModal } = useModals();
+  const { openOverlay } = useOverlay();
 
   const { mutate: logoutMutate } = useLogOut({
     onSuccess: () => toast.success(MESSAGE.LOGOUT_SUCCESS),
@@ -21,7 +21,7 @@ const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
     if (isLoggedIn) {
       logoutMutate();
     } else {
-      openModal(MODALS.LOGIN);
+      openOverlay(OVERLAYS.AUTH_MODAL, { type: "LOGIN" });
     }
   };
 

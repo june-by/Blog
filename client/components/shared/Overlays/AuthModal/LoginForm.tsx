@@ -1,20 +1,16 @@
-import React, { type FormEventHandler } from "react";
+import React, { FormEventHandler } from "react";
 import styles from "./styles.module.scss";
-import useInput from "@hooks/useInput";
+import { useInput } from "@hooks";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import { SocialLoginArea } from "@components/shared/SocialLoginArea";
-import useModals from "@hooks/useModals";
-import { MODALS } from "../Modals";
-import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
+  openSignUpModal: () => void;
 }
 
-const LoginModal = ({ onClose }: Props) => {
-  const { openModal } = useModals();
+const LoginForm = ({ onClose, openSignUpModal }: Props) => {
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
 
@@ -42,7 +38,7 @@ const LoginModal = ({ onClose }: Props) => {
   };
 
   return (
-    <ModalView title="로그인" onClose={onClose}>
+    <>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -59,18 +55,11 @@ const LoginModal = ({ onClose }: Props) => {
         />
         <button>로그인</button>
       </form>
-      <button
-        className={styles.SignUpButton}
-        onClick={() => {
-          onClose();
-          openModal(MODALS.SIGNUP);
-        }}
-      >
+      <button className={styles.SignUpButton} onClick={openSignUpModal}>
         회원가입
       </button>
-      <SocialLoginArea />
-    </ModalView>
+    </>
   );
 };
 
-export default LoginModal;
+export default LoginForm;
