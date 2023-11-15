@@ -1,33 +1,23 @@
-import React, { FormEventHandler, useState } from "react";
-import styles from "./styles.module.scss";
+import React, { FormEventHandler } from "react";
 import { useInput } from "@hooks";
-import { StateUpdater } from "@Types/utils";
-import { SocialLoginArea } from "@components/shared/SocialLoginArea";
+import styles from "./styles.module.scss";
 import { useSignUp } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
-  onExit: (time: number) => void;
 }
 
-const SignUpModal = ({ onClose, onExit }: Props) => {
-  const [isClose, setIsClose] = useState(false);
+const SignUpForm = ({ onClose }: Props) => {
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
   const [passwordCheck, , onChangePasswordCheck] = useInput("");
   const [nickname, , onChangeNickname] = useInput("");
 
-  const closeWithAnimation = () => {
-    setIsClose(true);
-    onExit(500);
-  };
-
   const { mutate: signUpMutate } = useSignUp({
     onSuccess: () => {
-      closeWithAnimation();
+      onClose();
       toast.success(MESSAGE.SIGHUP_SUCCESS);
     },
     onError: (error) => {
@@ -46,7 +36,7 @@ const SignUpModal = ({ onClose, onExit }: Props) => {
   };
 
   return (
-    <ModalView title="회원가입" onClose={closeWithAnimation} isClose={isClose}>
+    <>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -76,9 +66,8 @@ const SignUpModal = ({ onClose, onExit }: Props) => {
         />
         <button>회원가입</button>
       </form>
-      <SocialLoginArea />
-    </ModalView>
+    </>
   );
 };
 
-export default SignUpModal;
+export default SignUpForm;

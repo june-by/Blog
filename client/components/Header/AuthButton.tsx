@@ -21,7 +21,7 @@ const AuthButton = ({ isLoggedIn }: AuthButtonProps) => {
     if (isLoggedIn) {
       logoutMutate();
     } else {
-      openOverlay(OVERLAYS.LOGIN_MODAL);
+      openOverlay(OVERLAYS.AUTH_MODAL, { type: "LOGIN" });
     }
   };
 

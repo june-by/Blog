@@ -27,12 +27,12 @@ const MobileMenu = ({ onClose, onExit }: Props) => {
 
   const handleClickLoginButton = () => {
     onClose();
-    openOverlay(OVERLAYS.LOGIN_MODAL);
+    openOverlay(OVERLAYS.AUTH_MODAL, { type: "LOGIN" });
   };
 
   const handleClickSignUpButton = () => {
     onClose();
-    openOverlay(OVERLAYS.SIGNUP_MODAL);
+    openOverlay(OVERLAYS.AUTH_MODAL, { type: "SIGN_UP" });
   };
 
   return (

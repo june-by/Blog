@@ -5,11 +5,7 @@ import { useOverlay } from "@hooks";
 import React from "react";
 import dynamic from "next/dynamic";
 
-const LoginModal = dynamic(() => import("./LoginModal"), {
-  ssr: false,
-});
-
-const SignUpModal = dynamic(() => import("./SignUpModal"), {
+const AuthModal = dynamic(() => import("./AuthModal"), {
   ssr: false,
 });
 
@@ -22,8 +18,7 @@ const MobileMenuModal = dynamic(() => import("./MobileMenu"), {
 });
 
 export const OVERLAYS = {
-  LOGIN_MODAL: LoginModal,
-  SIGNUP_MODAL: SignUpModal,
+  AUTH_MODAL: AuthModal,
   SERIES_FORM_MODAL: SeriesFormModal,
   MOBILE_MENU: MobileMenuModal,
 };

@@ -1,33 +1,23 @@
-import React, { useState, type FormEventHandler } from "react";
+import React, { FormEventHandler } from "react";
 import styles from "./styles.module.scss";
+import { useInput } from "@hooks";
 import { useLogin } from "@hooks/query";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
-import { SocialLoginArea } from "@components/shared/SocialLoginArea";
-import { useOverlay, useInput } from "@hooks";
-import { OVERLAYS } from "../Overlays";
-import ModalView from "@components/shared/ModalView";
 
 interface Props {
   onClose: () => void;
-  onExit: (time: number) => void;
+  openSignUpModal: () => void;
 }
 
-const LoginModal = ({ onClose, onExit }: Props) => {
-  const [isClose, setIsClose] = useState(false);
-  const { openOverlay } = useOverlay();
+const LoginForm = ({ onClose, openSignUpModal }: Props) => {
   const [email, , onChangeEmail] = useInput("");
   const [password, , onChangePassword] = useInput("");
-
-  const closeWithAnimation = () => {
-    setIsClose(true);
-    onExit(500);
-  };
 
   const { mutate: loginMutate } = useLogin({
     onSuccess: () => {
       toast.success(MESSAGE.LOGIN_SUCCESS);
-      closeWithAnimation();
+      onClose();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -48,7 +38,7 @@ const LoginModal = ({ onClose, onExit }: Props) => {
   };
 
   return (
-    <ModalView title="로그인" onClose={closeWithAnimation} isClose={isClose}>
+    <>
       <form className={styles.Form} onSubmit={onSubmit}>
         <input
           value={email}
@@ -65,18 +55,11 @@ const LoginModal = ({ onClose, onExit }: Props) => {
         />
         <button>로그인</button>
       </form>
-      <button
-        className={styles.SignUpButton}
-        onClick={() => {
-          onClose();
-          openOverlay(OVERLAYS.SIGNUP_MODAL);
-        }}
-      >
+      <button className={styles.SignUpButton} onClick={openSignUpModal}>
         회원가입
       </button>
-      <SocialLoginArea />
-    </ModalView>
+    </>
   );
 };
 
-export default LoginModal;
+export default LoginForm;
