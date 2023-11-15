@@ -1,6 +1,6 @@
 import { PAGE } from "@constants";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { usePathname } from "next/navigation";
@@ -11,27 +11,37 @@ import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
+  onExit: (time: number) => void;
 }
 
-const MobileMenu = ({ onClose }: Props) => {
+const MobileMenu = ({ onExit }: Props) => {
+  const [isClose, setIsClose] = useState(false);
   const pathname = usePathname();
   const { openOverlay } = useOverlay();
 
+  const closeWithAnimation = () => {
+    setIsClose(true);
+    onExit(500);
+  };
+
   const handleClickLoginButton = () => {
-    onClose();
+    closeWithAnimation();
     openOverlay(OVERLAYS.LOGIN_MODAL);
   };
 
   const handleClickSignUpButton = () => {
-    onClose();
+    closeWithAnimation();
     openOverlay(OVERLAYS.SIGNUP_MODAL);
   };
 
   return (
-    <div className={styles.MobileMenu}>
+    <div
+      className={classnames(styles.MobileMenu, {
+        [styles.closeAnimation]: isClose,
+      })}
+    >
       <div className={styles.closeArea}>
-        <button onClick={onClose}>
+        <button onClick={closeWithAnimation}>
           <IoClose />
         </button>
       </div>
@@ -46,7 +56,7 @@ const MobileMenu = ({ onClose }: Props) => {
           <Link
             key={text}
             href={url}
-            onClick={onClose}
+            onClick={closeWithAnimation}
             className={classnames({
               [styles.current]: isCurrentPath(url, pathname),
             })}

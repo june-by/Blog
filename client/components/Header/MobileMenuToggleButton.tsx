@@ -7,14 +7,12 @@ import { OVERLAYS } from "@components/shared/Overlays/Overlays";
 const MobileMenuToggleButton = () => {
   const { openOverlay } = useOverlay();
 
-  const handleClickMobileMenuOpenButton = () => {
-    openOverlay(OVERLAYS.MOBILE_MENU);
-  };
-
   return (
     <button
       className={styles.MobileMenuToggleButton}
-      onClick={handleClickMobileMenuOpenButton}
+      onClick={() => {
+        openOverlay(OVERLAYS.MOBILE_MENU);
+      }}
     >
       <HiMenu />
     </button>

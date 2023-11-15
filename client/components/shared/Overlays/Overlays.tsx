@@ -38,7 +38,20 @@ const Modals = () => {
           closeOverlay(Component);
         };
 
-        return <Component {...props} key={`${idx}Modal`} onClose={onClose} />;
+        const onExit = (time: number) => {
+          setTimeout(() => {
+            onClose();
+          }, time);
+        };
+
+        return (
+          <Component
+            {...props}
+            key={`${idx}Modal`}
+            onClose={onClose}
+            onExit={onExit}
+          />
+        );
       })}
     </>
   );
