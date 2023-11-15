@@ -1,19 +1,23 @@
 import React from "react";
 import { HiMenu } from "react-icons/hi";
 import styles from "./styles.module.scss";
-import MobileMenu from "./MobileMenu";
-import { useBooleanState } from "@hooks";
+import { useModals } from "@hooks";
+import { MODALS } from "@components/shared/Modals/Modals";
 
 const MobileMenuToggleButton = () => {
-  const [isOpen, , close, toggleState] = useBooleanState(false);
+  const { openModal } = useModals();
+
+  const handleClickMobileMenuOpenButton = () => {
+    openModal(MODALS.MOBILE_MENU_MDAPL);
+  };
 
   return (
-    <>
-      <button className={styles.MobileMenuToggleButton} onClick={toggleState}>
-        <HiMenu />
-      </button>
-      <MobileMenu isOpen={isOpen} handleClose={close} />
-    </>
+    <button
+      className={styles.MobileMenuToggleButton}
+      onClick={handleClickMobileMenuOpenButton}
+    >
+      <HiMenu />
+    </button>
   );
 };
 

@@ -4,7 +4,6 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IoClose } from "react-icons/io5";
 import { usePathname } from "next/navigation";
-import LeftSlideLayer from "@components/shared/LeftSlideLayer";
 import FontAppliedElement from "@components/shared/FontAppliedElement";
 import classnames from "classnames";
 import { useModals } from "@hooks";
@@ -12,27 +11,27 @@ import { MODALS } from "@components/shared/Modals/Modals";
 
 interface Props {
   isOpen: boolean;
-  handleClose: () => void;
+  onClose: () => void;
 }
 
-const MobileMenu = ({ isOpen, handleClose }: Props) => {
+const MobileMenu = ({ onClose }: Props) => {
   const pathname = usePathname();
   const { openModal } = useModals();
 
   const handleClickLoginButton = () => {
-    handleClose();
+    onClose();
     openModal(MODALS.LOGIN);
   };
 
   const handleClickSignUpButton = () => {
-    handleClose();
+    onClose();
     openModal(MODALS.SIGNUP);
   };
 
   return (
-    <LeftSlideLayer isOpen={isOpen} className={styles.MobileMenu}>
+    <div className={styles.MobileMenu}>
       <div className={styles.closeArea}>
-        <button onClick={handleClose}>
+        <button onClick={onClose}>
           <IoClose />
         </button>
       </div>
@@ -47,7 +46,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           <Link
             key={text}
             href={url}
-            onClick={handleClose}
+            onClick={onClose}
             className={classnames({
               [styles.current]: isCurrentPath(url, pathname),
             })}
@@ -56,7 +55,7 @@ const MobileMenu = ({ isOpen, handleClose }: Props) => {
           </Link>
         ))}
       </FontAppliedElement>
-    </LeftSlideLayer>
+    </div>
   );
 };
 

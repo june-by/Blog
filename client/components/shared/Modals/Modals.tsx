@@ -17,10 +17,15 @@ const SeriesFormModal = dynamic(() => import("./SeriesFormModal"), {
   ssr: false,
 });
 
+const MobileMenuModal = dynamic(() => import("@components/Header/MobileMenu"), {
+  ssr: false,
+});
+
 export const MODALS = {
   LOGIN: LoginModal,
   SIGNUP: SignUpModal,
   SERIES_FORM: SeriesFormModal,
+  MOBILE_MENU_MDAPL: MobileMenuModal,
 };
 
 const Modals = () => {
