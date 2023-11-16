@@ -12,6 +12,8 @@ import React, {
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import { revalidateSeries } from "@utils";
+import { Input } from "@components/shared/Form";
+import Button from "@components/shared/Form/Button";
 
 interface Props {
   onClose: () => void;
@@ -59,8 +61,8 @@ const SeriesFormModal = ({ onClose }: Props) => {
   return (
     <ModalView title="시리즈 생성" onClose={onClose}>
       <form className={styles.Form} onSubmit={onSubmit}>
-        <input placeholder="제목" ref={titleRef} />
-        <input placeholder="짧은설명" ref={shortDescriptionRef} />
+        <Input placeholder="제목" ref={titleRef} />
+        <Input placeholder="짧은설명" ref={shortDescriptionRef} />
         <ImageUploader>
           <div>
             <ImageUploader.ImageUrlInput
@@ -80,7 +82,7 @@ const SeriesFormModal = ({ onClose }: Props) => {
             alt="썸네일"
           />
         </ImageUploader>
-        <button>생성</button>
+        <Button>생성</Button>
       </form>
     </ModalView>
   );

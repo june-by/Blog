@@ -1,7 +1,7 @@
 import React from "react";
-import { PostForm } from "@components/post";
 import { getPost } from "@services/post";
 import { getAllSeries } from "@services/series";
+import { PostForm } from "@components/post";
 
 interface Props {
   searchParams: {

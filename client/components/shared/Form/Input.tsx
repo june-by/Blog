@@ -1,4 +1,6 @@
 import React, { ForwardedRef, InputHTMLAttributes, forwardRef } from "react";
+import styles from "./styles.module.scss";
+import classNames from "classnames";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -9,7 +11,11 @@ const Input = forwardRef(
     return (
       <div>
         {label && <label>{label}</label>}
-        <input {...props} ref={ref} />
+        <input
+          className={classNames(styles.input, props.className)}
+          {...props}
+          ref={ref}
+        />
       </div>
     );
   }

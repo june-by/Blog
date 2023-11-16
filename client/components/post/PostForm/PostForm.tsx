@@ -19,9 +19,10 @@ import {
   Editor,
   ImageUploader,
 } from "@components/shared/Form";
-import SeriesCreateModalOpenButton from "@components/post/SeriesCreateModalOpenButton";
+import SeriesCreateModalOpenButton from "./SeriesCreateModalOpenButton";
 import { toast } from "react-toastify";
 import { revalidatePost, revalidateSeries } from "@utils";
+import Button from "@components/shared/Form/Button";
 
 interface Props {
   mode: "write" | "edit";
@@ -70,19 +71,20 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
   };
 
   return (
-    <form>
+    <form className={styles.Form}>
       <div className={styles.FlexItems}>
         <div className={styles.DivWithLabel}>
           <CheckBox {...register("isPublic")} label="공개/비공개" />
         </div>
-        <button type="submit" onClick={handleSubmit(onSubmit)}>
+        <Button type="submit" onClick={handleSubmit(onSubmit)}>
           제출
-        </button>
+        </Button>
       </div>
       <Input
         {...register("title", { required: "제목을 입력해주세요." })}
         label="제목"
       />
+      <Input {...register("shortDescription")} label="짧은설명" />
       {errors.title && <ErrorMsg>{errors.title.message}</ErrorMsg>}
       <div className={styles.FlexItems}>
         <Selector
@@ -92,15 +94,16 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
             return { key: c, text: c, value: c };
           })}
         />
+
         {tagArr.map((tag, idx) => (
-          <div key={tag.id}>
-            <input {...register(`tagArr.${idx}.value`)} />
-            <button onClick={() => remove(idx)}>x</button>
+          <div key={tag.id} className={styles.ListItem}>
+            <Input {...register(`tagArr.${idx}.value`)} />
+            <Button onClick={() => remove(idx)}>x</Button>
           </div>
         ))}
-        <button type="button" onClick={() => append({ value: "" })}>
-          +
-        </button>
+        <Button type="button" onClick={() => append({ value: "" })}>
+          태그 추가
+        </Button>
       </div>
       <div className={styles.FlexItems}>
         <Selector
@@ -116,7 +119,6 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
         />
         <SeriesCreateModalOpenButton />
       </div>
-      <Input {...register("shortDescription")} label="짧은설명" />
       <Controller
         name="content"
         control={control}
