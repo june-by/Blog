@@ -30,4 +30,9 @@ export const CATEGORY_TO_HLJS_CLASS: Record<CategoryType, string> = {
   회고: "",
 };
 
-export const SnippetsCategory = ["JavaScript", "TypeScript", "React", "HTML/CSS"];
+export const SnippetsCategory = [
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "HTML/CSS",
+];

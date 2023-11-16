@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { Category, MESSAGE } from "@constants";
-import { ErrorMsg, Selector } from "@components/shared/Form";
+import { CheckBox, ErrorMsg, Input, Selector } from "@components/shared/Form";
 import SeriesCreateModalOpenButton from "@components/postForm/SeriesSelector/SeriesCreateModalOpenButton";
 import Editor from "@components/postForm/FormItem/Editor";
 import PostFormImageUploader from "@components/postForm/FormItem/ImageUploader";
@@ -68,43 +68,24 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
     <form>
       <div className={styles.FlexItems}>
         <div className={styles.DivWithLabel}>
-          <label>공개/비공개</label>
-          <Controller
-            name="isPublic"
-            control={control}
-            render={({ field }) => (
-              <input
-                type="checkbox"
-                value={field.value}
-                onChange={(e) => field.onChange(Number(e.target.checked))}
-              />
-            )}
-          />
+          <CheckBox {...register("isPublic")} label="공개/비공개" />
         </div>
         <button type="submit" onClick={handleSubmit(onSubmit)}>
           생성
         </button>
       </div>
-      <input {...register("title", { required: "제목을 입력해주세요." })} />
+      <Input
+        {...register("title", { required: "제목을 입력해주세요." })}
+        label="제목"
+      />
       {errors.title && <ErrorMsg>{errors.title.message}</ErrorMsg>}
       <div className={styles.FlexItems}>
-        <Controller
-          name="category"
-          control={control}
-          render={({ field }) => (
-            <Selector
-              label="카테고리"
-              value={field.value}
-              onChange={(e) => field.onChange(e.target.value)}
-              options={Category.map((category) => {
-                return {
-                  key: category,
-                  value: category,
-                  text: category,
-                };
-              })}
-            />
-          )}
+        <Selector
+          label="카테고리"
+          {...register("category")}
+          options={Category.map((c) => {
+            return { key: c, text: c, value: c };
+          })}
         />
         {tagArr.map((tag, idx) => (
           <div key={tag.id}>
@@ -117,28 +98,20 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
         </button>
       </div>
       <div className={styles.FlexItems}>
-        <Controller
-          name="SeriesId"
-          control={control}
-          render={({ field }) => (
-            <Selector
-              label="시리즈"
-              value={field.value}
-              onChange={(e) => field.onChange(Number(e.target.value))}
-              options={seriesList?.map(({ title, id }) => {
-                return {
-                  text: title,
-                  value: Number(id),
-                  key: title,
-                };
-              })}
-            />
-          )}
+        <Selector
+          {...register("SeriesId")}
+          label="시리즈"
+          options={seriesList?.map(({ title, id }) => {
+            return {
+              text: title,
+              value: Number(id),
+              key: title,
+            };
+          })}
         />
         <SeriesCreateModalOpenButton />
       </div>
-      <label>짧은 설명</label>
-      <input {...register("shortDescription")} />
+      <Input {...register("shortDescription")} label="짧은설명" />
       <Controller
         name="content"
         control={control}

@@ -8,7 +8,7 @@ export interface PostType {
   Tags: Array<TagType>;
   thumbNailUrl: string | null;
   views: number;
-  isPublic: number;
+  isPublic: boolean;
   shortDescription: string;
   SeriesId: number | null;
   content: string;
