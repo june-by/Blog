@@ -6,7 +6,7 @@ export interface PostAttribute {
   category: string;
   thumbNailUrl: string | null;
   views: number;
-  isPublic: number;
+  isPublic: boolean;
   SeriesId: number;
 }
 
