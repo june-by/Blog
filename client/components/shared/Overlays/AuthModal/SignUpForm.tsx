@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { UserFormDataType } from "@Types/user";
+import { ErrorMsg } from "@components/shared/Form";
 
 interface Props {
   onClose: () => void;
@@ -53,18 +54,14 @@ const SignUpForm = ({ onClose }: Props) => {
           data-testid="emailInput"
           placeholder="이메일 혹은 아이디"
         />
-        {errors.email && (
-          <span className={styles.errMsg}>{errors.email.message}</span>
-        )}
+        {errors.email && <ErrorMsg>{errors.email.message}</ErrorMsg>}
         <input
           {...register("password", { required: MESSAGE.NEED_PASSWORD })}
           data-testid="passwordInput"
           type="password"
           placeholder="비밀번호"
         />
-        {errors.password && (
-          <span className={styles.errMsg}>{errors.password.message}</span>
-        )}
+        {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
         <input
           {...register("passwordCheck", {
             required: MESSAGE.NEED_PASSWORD_CHECK,
@@ -79,16 +76,14 @@ const SignUpForm = ({ onClose }: Props) => {
           placeholder="비밀번호확인"
         />
         {errors.passwordCheck && (
-          <span className={styles.errMsg}>{errors.passwordCheck.message}</span>
+          <ErrorMsg>{errors.passwordCheck.message}</ErrorMsg>
         )}
         <input
           {...register("nickname", { required: MESSAGE.NEED_NICKNAME })}
           data-testid="nicknameInput"
           placeholder="닉네임"
         />
-        {errors.nickname && (
-          <span className={styles.errMsg}>{errors.nickname.message}</span>
-        )}
+        {errors.nickname && <ErrorMsg>{errors.nickname.message}</ErrorMsg>}
         <button>회원가입</button>
       </form>
     </>

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { UserFormDataType } from "@Types/user";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { ErrorMsg } from "@components/shared/Form";
 interface Props {
   onClose: () => void;
   openSignUpModal: () => void;
@@ -48,18 +49,14 @@ const LoginForm = ({ onClose, openSignUpModal }: Props) => {
           data-testid="emailInput"
           placeholder="이메일"
         />
-        {errors.email && (
-          <span className={styles.errMsg}>{errors.email.message}</span>
-        )}
+        {errors.email && <ErrorMsg>{errors.email.message}</ErrorMsg>}
         <input
           {...register("password", { required: MESSAGE.NEED_PASSWORD })}
           data-testid="passwordInput"
           type="password"
           placeholder="비밀번호"
         />
-        {errors.password && (
-          <span className={styles.errMsg}>{errors.password.message}</span>
-        )}
+        {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
         <button>로그인</button>
       </form>
       <button className={styles.SignUpButton} onClick={openSignUpModal}>

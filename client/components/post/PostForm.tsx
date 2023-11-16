@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { Category, MESSAGE } from "@constants";
-import { Selector } from "@components/shared/Form";
+import { ErrorMsg, Selector } from "@components/shared/Form";
 import SeriesCreateModalOpenButton from "@components/postForm/SeriesSelector/SeriesCreateModalOpenButton";
 import Editor from "@components/postForm/FormItem/Editor";
 import PostFormImageUploader from "@components/postForm/FormItem/ImageUploader";
@@ -86,7 +86,7 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
         </button>
       </div>
       <input {...register("title", { required: "제목을 입력해주세요." })} />
-      {errors.title && <span>{errors.title.message}</span>}
+      {errors.title && <ErrorMsg>{errors.title.message}</ErrorMsg>}
       <div className={styles.FlexItems}>
         <Controller
           name="category"
