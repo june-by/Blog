@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { UserFormDataType } from "@Types/user";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { ErrorMsg, Input } from "@components/shared/Form";
-import Button from "@components/shared/Form/Button";
+import { ErrorMsg, Input, Button } from "@components/shared/Form";
+
 interface Props {
   onClose: () => void;
   openSignUpModal: () => void;

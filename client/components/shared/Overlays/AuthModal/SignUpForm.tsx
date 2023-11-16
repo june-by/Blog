@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { UserFormDataType } from "@Types/user";
-import { ErrorMsg, Input } from "@components/shared/Form";
-import Button from "@components/shared/Form/Button";
+import { ErrorMsg, Input, Button } from "@components/shared/Form";
 
 interface Props {
   onClose: () => void;
@@ -19,7 +18,7 @@ const SignUpForm = ({ onClose }: Props) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<SignUpFormType>();
 
   const { mutate: signUpMutate } = useSignUp({

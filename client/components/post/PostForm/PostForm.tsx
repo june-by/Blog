@@ -18,11 +18,11 @@ import {
   Selector,
   Editor,
   ImageUploader,
+  Button,
 } from "@components/shared/Form";
 import SeriesCreateModalOpenButton from "./SeriesCreateModalOpenButton";
 import { toast } from "react-toastify";
 import { revalidatePost, revalidateSeries } from "@utils";
-import Button from "@components/shared/Form/Button";
 
 interface Props {
   mode: "write" | "edit";

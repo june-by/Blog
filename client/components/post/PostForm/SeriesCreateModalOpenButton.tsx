@@ -2,7 +2,7 @@ import { useOverlay } from "@hooks";
 import React from "react";
 import styles from "./styles.module.scss";
 import { OVERLAYS } from "@components/shared/Overlays/Overlays";
-import Button from "@components/shared/Form/Button";
+import { Button } from "@components/shared/Form";
 
 const SeriesCreateModalOpenButton = () => {
   const { openOverlay } = useOverlay();
