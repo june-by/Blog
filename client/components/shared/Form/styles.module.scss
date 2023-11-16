@@ -1,0 +1,17 @@
+.DivWithLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+}
+
+.Selector {
+  font-size: 15px;
+  cursor: posinter;
+  width: 250px;
+  border: none;
+  background: #f5f5f5;
+  padding: 13px 20px;
+  outline: none;
+  border-radius: 4px;
+}

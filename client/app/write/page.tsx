@@ -1,6 +1,7 @@
 import React from "react";
-import { PostWriteForm } from "@components/post";
+import { PostForm } from "@components/post";
 import { getPost } from "@services/post";
+import { getAllSeries } from "@services/series";
 
 interface Props {
   searchParams: {
@@ -12,10 +13,19 @@ interface Props {
 const WritePage = async ({ searchParams }: Props) => {
   const mode = searchParams?.mode || "write";
   const id = Number(searchParams.id);
-  const postData = await getPost({ id });
+
+  const [postData, seriesList] = await Promise.all([
+    getPost({ id }),
+    getAllSeries(),
+  ]);
 
   return (
-    <PostWriteForm mode={mode} id={id} postData={postData?.mainPost || null} />
+    <PostForm
+      mode={mode}
+      id={id}
+      postData={postData?.mainPost || null}
+      seriesList={seriesList}
+    />
   );
 };
 

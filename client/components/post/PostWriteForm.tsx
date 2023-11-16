@@ -69,10 +69,10 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
     if (!postData) {
       return;
     }
-    syncFormDataAndState({
-      ...postData,
-      tagArr: postData.Tags.map((tag) => String(tag?.content)),
-    });
+    // syncFormDataAndState({
+    //   ...postData,
+    //   tagArr: postData.Tags.map((tag) => String(tag?.content)),
+    // });
   }, [postData, mode, syncFormDataAndState]);
 
   return (
@@ -97,8 +97,8 @@ const PostWriteForm = ({ mode, id, postData }: Props) => {
         {...formItemProps("shortDescription")}
         label="짧은설명"
       />
-      <PostForm.Editor {...formItemProps("content")} />
-      <PostForm.ImageUploader {...formItemProps("thumbNailUrl")} />
+      {/* <PostForm.Editor {...formItemProps("content")} /> */}
+      {/* <PostForm.ImageUploader {...formItemProps("thumbNailUrl")} /> */}
     </PostForm>
   );
 };

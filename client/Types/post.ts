@@ -21,7 +21,7 @@ export interface PostFormType
     PostType,
     "id" | "createdAt" | "Tags" | "views" | "seriesPosts" | "seriesTitle"
   > {
-  tagArr: string[];
+  tagArr: { value: string }[];
 }
 
 export type PostListPageDataType = Omit<

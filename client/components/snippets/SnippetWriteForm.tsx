@@ -71,7 +71,7 @@ const SnippetWriteForm = ({ mode, id, snippetData }: Props) => {
           return { key: category, value: category, text: category };
         })}
       />
-      <PostForm.Editor {...formItemProps("content")} />
+      {/* <PostForm.Editor {...formItemProps("content")} /> */}
     </PostForm>
   );
 };

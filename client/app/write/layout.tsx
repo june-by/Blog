@@ -6,7 +6,9 @@ import React, { PropsWithChildren } from "react";
 const WritePageLayout = ({ children }: PropsWithChildren) => {
   return (
     <PageLayout type="NonFlex">
-      <WithAdminOnServer onInvalid={notFound}>{children}</WithAdminOnServer>
+      {/* <WithAdminOnServer onInvalid={notFound}> */}
+      {children}
+      {/* </WithAdminOnServer> */}
     </PageLayout>
   );
 };

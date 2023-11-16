@@ -57,3 +57,10 @@
   gap: 1rem;
   width: 100%;
 }
+
+.DivWithLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+}

@@ -17,6 +17,7 @@ export const getAllSeries = async () => {
     return null;
   }
 };
+
 export const addSeriesAPI = async (
   reqData: Pick<SeriesType, "title" | "shortDescription" | "thumbNailUrl">
 ) => request<void>({ method: "post", url: "/series", body: reqData });

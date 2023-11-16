@@ -29,21 +29,11 @@ const QuillNoSSRWrapper = dynamic(
   { ssr: false }
 );
 
-const Editor = <T extends Record<string, any>>({
-  setState,
+const Editor = ({
   value,
-  stateKey,
-}: PostFormItemSharedType<T>) => {
+  onChange,
+}: Pick<EditorProps, "value" | "onChange">) => {
   const QuillRef = useRef<ReactQuill>(null);
-
-  const handleChangeEditorContent = (editorContent: string) => {
-    setState((prev) => {
-      return {
-        ...prev,
-        [stateKey]: editorContent,
-      };
-    });
-  };
 
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -97,7 +87,7 @@ const Editor = <T extends Record<string, any>>({
         <QuillNoSSRWrapper
           forwardedRef={QuillRef}
           value={value}
-          onChange={handleChangeEditorContent}
+          onChange={onChange}
           modules={modules}
           formats={formats}
           theme="snow"
