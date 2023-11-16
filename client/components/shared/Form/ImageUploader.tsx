@@ -1,5 +1,5 @@
 import React, { useCallback, type ChangeEvent } from "react";
-import ImageUploader from "@components/shared/ImageUploader/ImageUploader";
+import ImageUploader from "@components/shared/ImageUploader";
 
 interface Props {
   value?: string | null;

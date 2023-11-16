@@ -6,7 +6,6 @@ import hljs from "highlight.js";
 import ReactQuill from "react-quill";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
-import { PostFormItemSharedType } from "./type";
 import { ServerURL } from "@constants";
 
 interface EditorProps {

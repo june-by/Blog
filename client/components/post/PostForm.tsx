@@ -11,10 +11,15 @@ import {
 } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { Category, MESSAGE } from "@constants";
-import { CheckBox, ErrorMsg, Input, Selector } from "@components/shared/Form";
-import SeriesCreateModalOpenButton from "@components/postForm/SeriesSelector/SeriesCreateModalOpenButton";
-import Editor from "@components/postForm/FormItem/Editor";
-import PostFormImageUploader from "@components/postForm/FormItem/ImageUploader";
+import {
+  CheckBox,
+  ErrorMsg,
+  Input,
+  Selector,
+  Editor,
+  ImageUploader,
+} from "@components/shared/Form";
+import SeriesCreateModalOpenButton from "@components/post/SeriesCreateModalOpenButton";
 import { toast } from "react-toastify";
 import { revalidatePost, revalidateSeries } from "@utils";
 
@@ -71,7 +76,7 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
           <CheckBox {...register("isPublic")} label="공개/비공개" />
         </div>
         <button type="submit" onClick={handleSubmit(onSubmit)}>
-          생성
+          제출
         </button>
       </div>
       <Input
@@ -126,7 +131,7 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
         name="thumbNailUrl"
         control={control}
         render={({ field }) => (
-          <PostFormImageUploader
+          <ImageUploader
             value={field.value}
             onChange={(imgUrl: string) => field.onChange(imgUrl)}
           />
