@@ -56,6 +56,9 @@ $desktop: 1024px;
     transition: background 0.25s ease;
     background: var(--primary2);
   }
+  &:disabled {
+    opacity: 0.6;
+  }
 }
 
 @mixin Card {

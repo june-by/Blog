@@ -18,6 +18,12 @@
     @include StyledButton;
     width: 100%;
   }
+  .errMsg {
+    font-size: 12px;
+    text-align: left;
+    color: var(--complement);
+    margin-bottom: 10px;
+  }
 }
 
 .SignUpButton {
