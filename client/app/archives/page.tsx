@@ -21,10 +21,6 @@ export async function generateMetadata(): Promise<Metadata> {
 const ArchivePage = async () => {
   return (
     <>
-      <PageTitle
-        title="📑 Archives"
-        description="모든 기록들을 한곳에 모아놓은 페이지입니다."
-      />
       <ArchiveContent title="🤗 Visitor" fetcher={getVisitor}>
         {(visitor) => <Visitor {...visitor} />}
       </ArchiveContent>
