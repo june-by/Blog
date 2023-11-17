@@ -1,33 +1,23 @@
 import React, { useCallback, type ChangeEvent } from "react";
-import { PostFormItemSharedType } from "./type";
-import ImageUploader from "@components/shared/ImageUploader/ImageUploader";
+import ImageUploader from "@components/shared/ImageUploader";
 
-const PostFormImageUploader = <T extends Record<string, any>>({
-  value,
-  stateKey,
-  setState,
-}: PostFormItemSharedType<T>) => {
+interface Props {
+  value?: string | null;
+  onChange: (imgUrl: string) => void;
+}
+
+const PostFormImageUploader = ({ value, onChange }: Props) => {
   const handleChangeImageUrlByInput = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setState((prev) => {
-        return {
-          ...prev,
-          [stateKey]: e.target.value,
-        };
-      });
+      onChange(e.target.value);
     },
-    [setState, stateKey]
+    [onChange]
   );
   const onImageUploadeSuccess = useCallback(
     (imageUrl: string) => {
-      setState((prev) => {
-        return {
-          ...prev,
-          [stateKey]: imageUrl,
-        };
-      });
+      onChange(imageUrl);
     },
-    [setState, stateKey]
+    [onChange]
   );
 
   return (
@@ -35,7 +25,7 @@ const PostFormImageUploader = <T extends Record<string, any>>({
       <div>
         <ImageUploader.ImageUrlInput
           placeholder="image url"
-          value={value}
+          value={value ?? ""}
           onChange={handleChangeImageUrlByInput}
         />
         <ImageUploader.UploadButton

@@ -3,6 +3,7 @@
 .Form {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   @include desktop {
     width: 100%;
   }
@@ -10,12 +11,7 @@
     display: flex;
     flex-direction: column;
   }
-  input {
-    @include StyledInput;
-    margin-bottom: 10px;
-  }
   button {
-    @include StyledButton;
     width: 100%;
   }
 }

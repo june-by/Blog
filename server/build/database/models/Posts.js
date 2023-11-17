@@ -38,7 +38,7 @@ const initPosts = () => {
             allowNull: false,
         },
         isPublic: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: sequelize_1.DataTypes.BOOLEAN,
             allowNull: false,
         },
         SeriesId: {

@@ -17,7 +17,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 53,
-    isPublic: 1,
+    isPublic: true,
     Tags: [],
   },
   {
@@ -28,7 +28,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 124,
-    isPublic: 1,
+    isPublic: true,
     Tags: [],
   },
   {
@@ -39,7 +39,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677770366420_EffectiveTypeScript.jpeg",
     views: 101,
-    isPublic: 1,
+    isPublic: true,
     Tags: [],
   },
   {
@@ -50,7 +50,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677419313305_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%287%29.jpg",
     views: 212,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 214,
@@ -72,7 +72,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1675675164714_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202023-02-06%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.18.37.webp",
     views: 606,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 217,
@@ -114,7 +114,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1675001744256_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%284%29.jpg",
     views: 183,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 159,
@@ -156,7 +156,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1674532390879_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%283%29.jpg",
     views: 257,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 28,
@@ -198,7 +198,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1673876283264_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%281%29.jpg",
     views: 185,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 79,
@@ -230,7 +230,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1671728484414_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001.jpg",
     views: 151,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 211,
@@ -262,7 +262,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1671632638800_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001.jpg",
     views: 111,
-    isPublic: 1,
+    isPublic: true,
     Tags: [],
   },
   {
@@ -273,7 +273,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670753150822_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%281%29.jpg",
     views: 212,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 174,
@@ -295,7 +295,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670472781169_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001.jpg",
     views: 143,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 7,
@@ -336,7 +336,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     createdAt: "2022-12-07T16:45:18.000Z",
     thumbNailUrl: null,
     views: 109,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 205,
@@ -358,7 +358,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670241671225_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202022-12-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.00.49.jpg",
     views: 624,
-    isPublic: 1,
+    isPublic: true,
     Tags: [],
   },
   {
@@ -369,7 +369,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670347551204_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-003.jpg",
     views: 153,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 133,
@@ -411,7 +411,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670348144079_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001.jpg",
     views: 137,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 7,
@@ -442,7 +442,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     createdAt: "2022-11-29T07:03:55.000Z",
     thumbNailUrl: null,
     views: 126,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 201,
@@ -474,7 +474,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670347464447_imagelayzloading.jpg",
     views: 171,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 1,
@@ -516,7 +516,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670418509608_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%281%29.jpg",
     views: 131,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 199,
@@ -558,7 +558,7 @@ export const MAIN_POSTS_MOCK_DATA = [
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1670418648119_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%284%29.jpg",
     views: 117,
-    isPublic: 1,
+    isPublic: true,
     Tags: [
       {
         id: 152,
@@ -606,7 +606,7 @@ export const POST_MOCK_DATA: PostPageDataType = {
     thumbNailUrl:
       "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/1677419313305_%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8%E1%84%92%E1%85%A2%E1%84%8C%E1%85%AE%E1%84%89%E1%85%A6%E1%84%8B%E1%85%AD_-001%20%287%29.jpg",
     views: 234,
-    isPublic: 1,
+    isPublic: true,
     createdAt: new Date(),
     SeriesId: 3,
     Tags: [

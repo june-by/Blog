@@ -39,7 +39,7 @@ const updatePost = ({ title, category, content, thumbNailUrl, shortDescription, 
         category,
         content,
         thumbNailUrl,
-        isPublic: isPublic || 0,
+        isPublic: isPublic || false,
         shortDescription,
         SeriesId,
     }, {

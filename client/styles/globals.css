@@ -27,6 +27,8 @@ body[data-theme="dark"] {
   --primary3: #00449a;
   --primary4: #f8f8f8;
 
+  --complement: #e05d70;
+  --complement_hover: #ff6f8b;
   --slight-layer: rgba(255, 255, 255, 0.1);
   --slight-layer2: rgb(45 45 45);
   --slight-layer3: rgb(38 38 38);
@@ -49,7 +51,8 @@ body[data-theme="light"] {
   --primary2: #005cb4;
   --primary3: #005cb4;
   --primary4: #c6c6c6;
-
+  --complement: #ef6593;
+  --complement_hover: #9f0046;
   --slight-layer: rgba(0, 0, 0, 0.05);
   --slight-layer2: rgb(229 229 229);
   --slight-layer3: rgb(237 237 237);

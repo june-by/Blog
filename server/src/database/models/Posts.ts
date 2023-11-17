@@ -16,7 +16,7 @@ export class Posts extends Model<PostAttribute, PostCreationAttributes> {
   public category!: string;
   public thumbNailUrl?: string | null;
   public views!: number;
-  public isPublic!: number;
+  public isPublic!: boolean;
   public SeriesId?: number;
 
   declare addTags: HasManyAddAssociationMixin<Tags, Tags[]>;
@@ -56,7 +56,7 @@ export const initPosts = () => {
         allowNull: false,
       },
       isPublic: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       SeriesId: {

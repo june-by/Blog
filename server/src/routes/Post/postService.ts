@@ -46,7 +46,7 @@ const updatePost = async ({
       category,
       content,
       thumbNailUrl,
-      isPublic: isPublic || 0,
+      isPublic: isPublic || false,
       shortDescription,
       SeriesId,
     },

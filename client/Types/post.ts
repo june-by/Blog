@@ -8,7 +8,7 @@ export interface PostType {
   Tags: Array<TagType>;
   thumbNailUrl: string | null;
   views: number;
-  isPublic: number;
+  isPublic: boolean;
   shortDescription: string;
   SeriesId: number | null;
   content: string;
@@ -21,7 +21,7 @@ export interface PostFormType
     PostType,
     "id" | "createdAt" | "Tags" | "views" | "seriesPosts" | "seriesTitle"
   > {
-  tagArr: string[];
+  tagArr: { value: string }[];
 }
 
 export type PostListPageDataType = Omit<
