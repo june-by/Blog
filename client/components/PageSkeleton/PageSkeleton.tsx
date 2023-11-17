@@ -14,7 +14,6 @@ const MAIN_PATH_MAPPER = {
   "/series": "needed",
   "/archives": "needed",
   "/snippets": "needed",
-  "/about": "needed",
   "/write": "needed",
 };
 
