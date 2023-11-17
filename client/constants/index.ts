@@ -8,8 +8,8 @@ export { default as THUMBNAIL } from "./thumbnail";
 export { default as REVALIDATE_TAG } from "./revalidateTag";
 
 export const POSTS_PER_PAGE = 20;
-export const DEFAULT_THEME = "dark";
 export const S3_PREFIX =
   "https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/";
 export const ServerURL =
   process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8080";
+export const DEFAULT_THEME = "dark";

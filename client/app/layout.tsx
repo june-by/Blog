@@ -5,9 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "@components/Header";
 import Providers from "@components/Providers";
 import Overlays from "@components/shared/Overlays";
-import MyToastContainer from "@components/shared/MyToastContainer";
+import ToastContainer from "@components/shared/ToastContainer";
 import { PropsWithChildren } from "react";
-import ProgressBar from "@components/shared/ProgressBar";
 import styles from "./styles.module.scss";
 
 export const metadata = {
@@ -32,8 +31,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           <section className={styles.layout}>
             {children}
             <Overlays />
-            <MyToastContainer />
-            <ProgressBar />
+            <ToastContainer />
           </section>
         </Providers>
       </body>

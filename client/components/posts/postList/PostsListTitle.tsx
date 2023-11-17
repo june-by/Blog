@@ -1,8 +1,7 @@
-import { PostsPageQueryType } from "@Types";
 import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.scss";
-import FontAppliedElement from "../FontAppliedElement";
+import FontAppliedElement from "@components/shared/FontAppliedElement";
 
 const PostsListTitle = () => {
   const searchParams = useSearchParams();

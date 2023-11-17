@@ -3,7 +3,6 @@ import {
   FetchNextPageOptions,
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
-import LoadingOrNot from "./LoadingOrNot";
 import ImpressionArea from "./ImpressionArea";
 
 interface Props extends PropsWithChildren {
@@ -31,12 +30,14 @@ const InfiniteScroll = ({
   return (
     <>
       {children}
-      <LoadingOrNot isLoading={isLoading} onLoading={skeleton}>
+      {isLoading ? (
+        skeleton
+      ) : (
         <ImpressionArea
           onImpression={fetchNextData}
           options={{ rootMargin: "150px" }}
         />
-      </LoadingOrNot>
+      )}
     </>
   );
 };

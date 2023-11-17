@@ -3,7 +3,7 @@ import SwitchCase from "@components/shared/SwitchCase";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-import { SocialLoginArea } from "@components/shared/SocialLoginArea";
+import SocialLoginArea from "./SocialLoginArea";
 
 interface Props {
   type: "LOGIN" | "SIGN_UP";
