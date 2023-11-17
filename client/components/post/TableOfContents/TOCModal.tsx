@@ -43,7 +43,6 @@ const TOCModal = ({ open, setOpen }: Props) => {
       >
         <CloseIcon />
       </button>
-
       <Table />
     </div>
   );

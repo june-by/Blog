@@ -1,4 +1,32 @@
 .PostAdminButtons {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.deleteButton {
+  cursor: pointer;
+  border: none;
+  background: var(--complement);
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-align: center;
+  &:hover {
+    transition: background 0.25s ease;
+    background: var(--complement_hover);
+  }
+}
+
+.editLink {
+  background: var(--bg-element5);
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-align: center;
+  &:hover {
+    transition: background 0.25s ease;
+    background: var(--primary2);
+  }
 }

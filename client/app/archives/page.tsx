@@ -1,4 +1,3 @@
-import PageTitle from "@components/shared/PageTitle";
 import { Metadata } from "next";
 import React from "react";
 import { getVisitor } from "@services/visitor";
