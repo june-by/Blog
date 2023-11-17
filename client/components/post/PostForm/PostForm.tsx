@@ -81,7 +81,7 @@ const PostForm = ({ mode, id, postData, seriesList }: Props) => {
         </Button>
       </div>
       <Input
-        {...register("title", { required: "제목을 입력해주세요." })}
+        {...register("title", { required: MESSAGE.NEED_TITLE })}
         label="제목"
       />
       <Input {...register("shortDescription")} label="짧은설명" />

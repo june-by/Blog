@@ -34,6 +34,7 @@ const MESSAGE = {
   NO_PREV_POST: "이전 포스트가 존재하지 않습니다",
   NO_NEXT_POST: "다음 포스트가 존재하지 않습니다",
   CONFIRM_DELETE: "* 정말 삭제하시겠습니까?",
+  NEED_TITLE: "제목을 입력해주세요.",
 };
 
 export default MESSAGE;

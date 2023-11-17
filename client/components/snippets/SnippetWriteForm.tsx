@@ -49,7 +49,7 @@ const SnippetWriteForm = ({ mode, id, snippetData }: Props) => {
       </button>
       <Input
         label="제목"
-        {...register("title", { required: "제목을 입력해주세요." })}
+        {...register("title", { required: MESSAGE.NEED_TITLE })}
       />
       {errors.title && <ErrorMsg>{errors.title.message}</ErrorMsg>}
       <Selector
