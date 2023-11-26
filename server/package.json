@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc --outDir build && tsc-alias",
-    "start": "NODE_ENV=production pm2 start build/index.js",
-    "start-js": "NODE_ENV=production node build/index.js",
+    "start": "pm2 start ecosystem.config.js --env production",
     "reload": "npx pm2 reload all"
   },
   "author": "By-juun",
