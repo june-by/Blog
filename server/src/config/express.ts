@@ -20,6 +20,8 @@ import ROUTER_LIST from "@routes";
 
 dotenv.config();
 
+let isDisableKeepAlive = false;
+
 export default async function () {
   const app = express();
 
@@ -27,7 +29,14 @@ export default async function () {
 
   passportConfig();
 
-  if (process.env.NODE_ENV === "production") {
+  app.use(function (req, res, next) {
+    if (isDisableKeepAlive) {
+      res.set("Connection", "close");
+    }
+    next();
+  });
+
+  https: if (process.env.NODE_ENV === "production") {
     app.use(morgan("combined"));
     app.use(hpp());
     app.use(helmet());
@@ -84,7 +93,10 @@ export default async function () {
       console.log("TT : ", e);
     });
 
-  app.listen(3065, () => {
+  const server = app.listen(3065, () => {
+    if (process.send) {
+      process.send("ready");
+    }
     console.log("서버 실행 중");
   });
 
@@ -98,4 +110,9 @@ export default async function () {
       console.log(`HTTPS server started on port 8080`);
     });
   }
+
+  process.on("SIGINT", () => {
+    isDisableKeepAlive = true;
+    server.close(() => process.exit(0));
+  });
 }

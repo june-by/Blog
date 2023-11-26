@@ -11,6 +11,7 @@ import PageNavigaition from "./PageNavigaition";
 import MobileMenuToggleButton from "./MobileMenuToggleButton";
 import HideByScrollDown from "@components/shared/HideByScrollDown/HideByScrollDown";
 import WithAdminOnClient from "@components/shared/WithAdmin/WithAdminOnClient";
+import UserNickname from "./UserNickname";
 
 const HEADER_HEIGHT = "65px";
 
@@ -30,11 +31,7 @@ const Header = () => {
       <div className={styles.headerContentWrap}>
         <Logo />
         <div className={styles.headerRightWrap}>
-          {isLoggedIn && (
-            <span>
-              <strong>{userData.nickname}</strong>님
-            </span>
-          )}
+          <UserNickname nickname={userData?.nickname} />
           <PageNavigaition />
           <WithAdminOnClient>
             <WriteButton />

@@ -7,7 +7,6 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { extractFromCookie } from "@utils";
 
 type ThemeType = "light" | "dark";
 
@@ -57,3 +56,16 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
 export const useThemeContext = () => {
   return useContext(ThemeContext);
 };
+
+function extractFromCookie(cookie: string | undefined, key: string) {
+  if (!cookie) {
+    return null;
+  }
+  const cookieArray = cookie.split(";");
+  const keyValue = cookieArray.find((item) => item.trim().startsWith(key));
+  if (!keyValue) {
+    return null;
+  }
+  const value = keyValue.split("=")[1];
+  return value;
+}

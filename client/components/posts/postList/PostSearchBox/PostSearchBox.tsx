@@ -1,40 +1,37 @@
 "use client";
 
-import React, { useRef, type FormEvent } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
-import IconButton from "@components/shared/IconButton/IconButton";
 import SearchIcon from "@components/Icon/search";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { MESSAGE } from "@constants";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type SearchKeyword = { search: string };
 
 const PostSearchBox = () => {
   const { push } = useRouter();
+  const { register, handleSubmit } = useForm<SearchKeyword>();
 
-  const searchRef = useRef<HTMLInputElement | null>(null);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!searchRef.current) {
-      return;
-    }
-    const searchKeyword = searchRef.current.value;
-
-    if (!searchKeyword) {
+  const onSubmit: SubmitHandler<SearchKeyword> = ({ search }) => {
+    if (!search) {
       return toast.warn(MESSAGE.NEED_SEARCHKEYWORD);
     }
 
-    return push(`/?search=${searchKeyword}`);
+    return push(`/?search=${search}`);
   };
 
   return (
-    <form className={styles.PostSearchBox} onSubmit={handleSubmit}>
+    <form className={styles.PostSearchBox} onSubmit={handleSubmit(onSubmit)}>
       <input
+        {...register("search")}
         placeholder="어떤 포스트를 찾으시나요?"
-        ref={searchRef}
         data-testid="searchInput"
       />
-      <IconButton Icon={<SearchIcon />} data-testid="searchButton" />
+      <button>
+        <SearchIcon />
+      </button>
     </form>
   );
 };

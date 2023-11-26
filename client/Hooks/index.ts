@@ -1,9 +1,4 @@
 export { default as useBooleanState } from "./useBooleanState";
-export { default as useGotoPage } from "./useGotoPage";
-export { default as useMouted } from "./useMounted";
-export { default as useQueryId } from "./useQueryId";
-export { default as useRestoreSrollPos } from "./useRestoreScrollPos";
 export { default as useScrollIntoElement } from "./useScrollIntoElement";
 export { default as useVerticalScrollHandler } from "./useVerticalScrollHandler";
-export { default as useInput } from "./useInput";
 export { default as useOverlay } from "./useOverlay";

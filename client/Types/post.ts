@@ -54,8 +54,3 @@ export interface TopViewsPost {
   id: number;
   title: string;
 }
-
-export type PostContextDataType = AtLeast<
-  PostType,
-  "id" | "content" | "category" | "createdAt" | "title"
->;

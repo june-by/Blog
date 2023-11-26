@@ -78,7 +78,7 @@ export const getSearchPostAPI = async (
   }
   return request<PostListPageDataType[]>({
     method: "get",
-    url: `/posts/series/${encodeURIComponent(search)}/${pageNum}`,
+    url: `/posts/search/${encodeURIComponent(search)}/${pageNum}`,
   });
 };
 
@@ -95,13 +95,13 @@ export const getTagPostAPI = async (
   });
 };
 
-export const AddPostAPI = async (reqData: PostFormType) =>
+export const addPostAPI = async (reqData: PostFormType) =>
   request<void>({ method: "post", url: "/post", body: reqData });
 
-export const EditPostAPI = async (reqData: PostFormType, id: number) =>
+export const editPostAPI = async (reqData: PostFormType, id: number) =>
   request<void>({ method: "post", url: `/post/edit/${id}`, body: reqData });
 
-export const DeletePostAPI = async ({ id }: Pick<PostType, "id">) =>
+export const deletePostAPI = async ({ id }: Pick<PostType, "id">) =>
   request<void>({ method: "post", url: `/post/delete/${id}` });
 
 export const getPostViewCountAPI = async (postId: number) =>

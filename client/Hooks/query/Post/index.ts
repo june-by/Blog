@@ -1,23 +1,15 @@
 import {
-  AddPostAPI,
-  DeletePostAPI,
-  EditPostAPI,
-  getAllCategoryLengthAPI,
+  addPostAPI,
+  deletePostAPI,
+  editPostAPI,
   getCategoryPostAPI,
-  getPost,
   getSearchPostAPI,
   getTagPostAPI,
   getSeriesPostAPI,
 } from "@services/post";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { getMainPostsAPI } from "@services/post";
-import {
-  CategoryCount,
-  PostFormType,
-  PostPageDataType,
-  PostType,
-} from "@Types";
-import { useRouter } from "next/navigation";
+import { PostFormType } from "@Types";
 import { POSTS_PER_PAGE, CACHE_OPTION, MESSAGE, QUERY_KEY } from "@constants";
 
 export const useGetMainPost = () =>
@@ -29,30 +21,6 @@ export const useGetMainPost = () =>
       getNextPageParam: (lastPage, allPage) =>
         lastPage.length < POSTS_PER_PAGE ? undefined : allPage.length + 1,
     }
-  );
-
-export const useGetPostQuery = ({ id }: Pick<PostType, "id">) => {
-  const router = useRouter();
-
-  return useQuery<PostPageDataType | null>(
-    [QUERY_KEY.POST.ONE, id],
-    () => getPost({ id }),
-    {
-      ...CACHE_OPTION.ALL,
-      onError: (err) => {
-        alert(err);
-        router.replace("/");
-      },
-      enabled: isNaN(id) ? false : true,
-    }
-  );
-};
-
-export const useGetAllCateogryLength = () =>
-  useQuery<Array<CategoryCount>>(
-    [QUERY_KEY.POST.CATEGORY_LENGTH],
-    () => getAllCategoryLengthAPI(),
-    CACHE_OPTION.ALL
   );
 
 export const useGetCategoryPosts = (params: string) =>
@@ -100,7 +68,7 @@ export const useGetTagPosts = (params: string) =>
   );
 
 export const useAddPost = () =>
-  useMutation(AddPostAPI, {
+  useMutation(addPostAPI, {
     onMutate: () => {
       document.body.style.cursor = "wait";
     },
@@ -111,14 +79,14 @@ export const useAddPost = () =>
   });
 
 export const useEditPost = ({ postId }: { postId: number }) =>
-  useMutation((reqData: PostFormType) => EditPostAPI(reqData, postId), {
+  useMutation((reqData: PostFormType) => editPostAPI(reqData, postId), {
     onSuccess: () => {
       return window.location.replace(`/post/${postId}`);
     },
   });
 
 export const useDeletePostMutation = () =>
-  useMutation(DeletePostAPI, {
+  useMutation(deletePostAPI, {
     onSuccess: () => {
       alert(MESSAGE.POST_DELETE_SUCCESS);
       return window.location.replace("/");

@@ -32,12 +32,19 @@ const multer_s3_1 = __importDefault(require("multer-s3"));
 const _constants_1 = require("../constants");
 const _routes_1 = __importDefault(require("../routes"));
 dotenv_1.default.config();
+let isDisableKeepAlive = false;
 function default_1() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         yield (0, _database_1.syncDatabase)();
         (0, passport_2.default)();
-        if (process.env.NODE_ENV === "production") {
+        app.use(function (req, res, next) {
+            if (isDisableKeepAlive) {
+                res.set("Connection", "close");
+            }
+            next();
+        });
+        https: if (process.env.NODE_ENV === "production") {
             app.use((0, morgan_1.default)("combined"));
             app.use((0, hpp_1.default)());
             app.use((0, helmet_1.default)());
@@ -85,7 +92,10 @@ function default_1() {
             .catch((e) => {
             console.log("TT : ", e);
         });
-        app.listen(3065, () => {
+        const server = app.listen(3065, () => {
+            if (process.send) {
+                process.send("ready");
+            }
             console.log("서버 실행 중");
         });
         if (process.env.NODE_ENV !== "production") {
@@ -97,6 +107,10 @@ function default_1() {
                 console.log(`HTTPS server started on port 8080`);
             });
         }
+        process.on("SIGINT", () => {
+            isDisableKeepAlive = true;
+            server.close(() => process.exit(0));
+        });
     });
 }
 exports.default = default_1;

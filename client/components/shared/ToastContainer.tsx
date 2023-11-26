@@ -1,12 +1,12 @@
 "use client";
 import { useThemeContext } from "@contexts/themeContext";
 import React from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer as OriginToastContainer } from "react-toastify";
 
-const MyToastContainer = () => {
+const ToastContainer = () => {
   const { theme } = useThemeContext();
   return (
-    <ToastContainer
+    <OriginToastContainer
       position="top-right"
       autoClose={1500}
       hideProgressBar={false}
@@ -21,4 +21,4 @@ const MyToastContainer = () => {
   );
 };
 
-export default MyToastContainer;
+export default ToastContainer;

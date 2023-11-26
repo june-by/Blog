@@ -2,15 +2,12 @@
 
 import ErrorHelper from "@components/shared/errorHelper";
 import NoPost from "./NoPost";
-import { useRestoreSrollPos } from "@hooks";
 import React from "react";
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
-import { PostListPageDataType, PostsPageQueryType } from "@Types";
 import InfiniteScroll from "@components/shared/InfiniteScroll";
 import PostsListLayout from "./layout";
 import PostCard from "./PostCard";
 import PostCardSkeletonList from "./PostCardSkeletonList";
-import PostsListTitle from "@components/shared/PostsListTitle";
+import PostsListTitle from "./PostsListTitle";
 import PostSearchBox from "./PostSearchBox";
 import { useSearchParams } from "next/navigation";
 import {
@@ -37,10 +34,12 @@ const PostList = () => {
     error,
   } = query(params);
 
-  useRestoreSrollPos();
-
   if (isError) {
-    return <ErrorHelper error={error} reset={refetch} />;
+    return (
+      <div>
+        <ErrorHelper error={error} reset={refetch} />
+      </div>
+    );
   }
 
   const isPostsExist = data?.pages[0]?.length !== 0 ? true : false;
