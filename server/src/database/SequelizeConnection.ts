@@ -11,5 +11,6 @@ export const sequelizeConnection = new Sequelize(
   {
     host: config.host,
     dialect: config.dialect,
+    logging: false,
   }
 );
