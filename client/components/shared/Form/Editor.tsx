@@ -1,4 +1,4 @@
-import React, { type LegacyRef, useMemo, useRef } from "react";
+import React, { type LegacyRef, useMemo, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
 import "react-quill/dist/quill.snow.css";
@@ -7,6 +7,7 @@ import ReactQuill from "react-quill";
 import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import { ServerURL } from "@constants";
+import useImageUpload from "@hooks/useImageUpload";
 
 interface EditorProps {
   forwardedRef: LegacyRef<ReactQuill> | undefined;
@@ -34,33 +35,17 @@ const Editor = ({
 }: Pick<EditorProps, "value" | "onChange">) => {
   const QuillRef = useRef<ReactQuill>(null);
 
-  const imageHandler = () => {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    document.body.appendChild(input);
-    input.style.display = "none";
-    input.click();
-    input.onchange = async () => {
-      const file = input.files;
-      if (file !== null && QuillRef.current) {
-        const formData = new FormData();
-        formData.append("img", file[0]);
+  const onImageUploadSuccess = useCallback(({ url }: { url: string }) => {
+    if (!QuillRef.current) {
+      return;
+    }
 
-        const response = await fetch(`${ServerURL}/uploads`, {
-          method: "post",
-          body: formData,
-        });
+    const editor = QuillRef.current.getEditor();
+    const range = editor.getSelection();
+    editor.insertEmbed(Number(range?.index), "image", url);
+  }, []);
 
-        const data: { url: string; uploaded: boolean } = await response.json();
-
-        const img_url = data.url;
-        const editor = QuillRef.current.getEditor();
-        const range = editor.getSelection();
-        editor.insertEmbed(Number(range?.index), "image", img_url);
-      }
-    };
-  };
+  const { handleClickUploadButton } = useImageUpload({ onImageUploadSuccess });
 
   const modules = useMemo(
     () => ({
@@ -69,13 +54,14 @@ const Editor = ({
       },
       toolbar: {
         container: containerConfig,
-        handlers: { image: imageHandler },
+        handlers: { image: handleClickUploadButton },
         clipboard: {
           // toggle to add extra line breaks when pasting HTML:
           matchVisual: false,
         },
       },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

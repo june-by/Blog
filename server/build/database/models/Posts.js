@@ -30,7 +30,7 @@ const initPosts = () => {
             allowNull: false, //필수
         },
         thumbNailUrl: {
-            type: sequelize_1.DataTypes.STRING(100),
+            type: sequelize_1.DataTypes.TEXT,
             allowNull: true, //필수
         },
         views: {

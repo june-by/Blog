@@ -1,5 +1,7 @@
 import React, { useCallback, type ChangeEvent } from "react";
-import ImageUploader from "@components/shared/ImageUploader";
+import useImageUpload from "@hooks/useImageUpload";
+import styles from "./styles.module.scss";
+import Image from "next/image";
 
 interface Props {
   value?: string | null;
@@ -13,33 +15,30 @@ const PostFormImageUploader = ({ value, onChange }: Props) => {
     },
     [onChange]
   );
-  const onImageUploadeSuccess = useCallback(
-    (imageUrl: string) => {
-      onChange(imageUrl);
+
+  const onImageUploadSuccess = useCallback(
+    ({ url }: { url: string }) => {
+      onChange(url);
     },
     [onChange]
   );
 
+  const { handleClickUploadButton } = useImageUpload({ onImageUploadSuccess });
+
   return (
-    <ImageUploader>
+    <div className={styles.ImageUploader}>
       <div>
-        <ImageUploader.ImageUrlInput
+        <input
           placeholder="image url"
           value={value ?? ""}
           onChange={handleChangeImageUrlByInput}
         />
-        <ImageUploader.UploadButton
-          onUploadeSuccess={onImageUploadeSuccess}
-          text="썸네일 설정"
-        />
+        <button type="button" onClick={handleClickUploadButton}>
+          썸네일 설정
+        </button>
       </div>
-      <ImageUploader.Image
-        src={value as string}
-        alt="썸네일"
-        width={300}
-        height={200}
-      />
-    </ImageUploader>
+      {value && <Image src={value} alt="썸네일" width={300} height={200} />}
+    </div>
   );
 };
 
