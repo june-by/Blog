@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const _database_1 = require("../../database");
 const createTags = ({ tagArr }) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Promise.all(tagArr.map((tag) => _database_1.Tags.findOrCreate({
-        where: { content: tag.toLowerCase() },
+    const result = yield Promise.all(tagArr.map(({ value }) => _database_1.Tags.findOrCreate({
+        where: { content: value.toLowerCase() },
     })));
     return result.map(([data]) => data);
 });
