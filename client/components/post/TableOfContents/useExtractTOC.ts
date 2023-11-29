@@ -32,7 +32,9 @@ const useExtractTOC = ({ postTitle }: { postTitle: string }) => {
 export default useExtractTOC;
 
 function getElementsByTagName(tagName: string) {
-  const $tags = document.querySelector(".Code")?.getElementsByTagName(tagName);
+  const $tags = document
+    .querySelector(".PostContent")
+    ?.getElementsByTagName(tagName);
 
   const tagArray = [];
   if ($tags?.length !== 0) {

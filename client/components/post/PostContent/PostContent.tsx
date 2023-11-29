@@ -8,7 +8,7 @@ const PostContent = ({ content }: Pick<PostType, "content">) => {
   return (
     <>
       <article
-        className={classnames("Code", styles.PostContent)}
+        className={classnames("PostContent", styles.PostContent)}
         dangerouslySetInnerHTML={{ __html: content }}
       />
     </>

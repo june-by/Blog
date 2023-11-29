@@ -17,10 +17,15 @@ const MobileMenuModal = dynamic(() => import("./MobileMenu"), {
   ssr: false,
 });
 
+const ImageModal = dynamic(() => import("./ImageModal"), {
+  ssr: false,
+});
+
 export const OVERLAYS = {
   AUTH_MODAL: AuthModal,
   SERIES_FORM_MODAL: SeriesFormModal,
   MOBILE_MENU: MobileMenuModal,
+  IMAGE_MODAL: ImageModal,
 };
 
 const Overlays = () => {

@@ -2,6 +2,7 @@ import { PostType } from "@Types/post";
 import React from "react";
 import HighLightCodeBlock from "./HighLightCodeBlock";
 import PostContent from "./PostContent";
+import ImageOverlayHandler from "./ImageOverlayHandler";
 
 const PostContentWrap = ({
   category,
@@ -9,7 +10,9 @@ const PostContentWrap = ({
 }: Pick<PostType, "category" | "content">) => {
   return (
     <HighLightCodeBlock category={category}>
-      <PostContent content={content} />
+      <ImageOverlayHandler>
+        <PostContent content={content} />
+      </ImageOverlayHandler>
     </HighLightCodeBlock>
   );
 };
