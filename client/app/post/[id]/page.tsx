@@ -77,9 +77,9 @@ const PostPage = async ({ params }: Props) => {
   return (
     <WithPostPublicValidation isPublic={isPublic}>
       <ScrollIndicator />
-      {/* <WithAdminOnClient> */}
-      <PostAdminButtons id={id} />
-      {/* </WithAdminOnClient> */}
+      <WithAdminOnClient>
+        <PostAdminButtons id={id} />
+      </WithAdminOnClient>
       <PostTitle title={title} />
       <PostTags Tags={Tags} />
       <PostViewCount id={id} />
