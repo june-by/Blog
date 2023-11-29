@@ -74,6 +74,7 @@ export default async function () {
         cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
       },
     }),
+    limits: { fileSize: 5 * 1024 * 1024 },
   });
 
   app.use("/", express.static(path.join(__dirname, "uploads")));
