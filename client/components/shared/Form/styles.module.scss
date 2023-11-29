@@ -1,3 +1,5 @@
+@import "utils/utils.scss";
+
 .DivWithLabel {
   display: flex;
   flex-direction: column;
@@ -63,5 +65,25 @@
     font-size: 0.95em !important;
     font-family: Fira Code, Consolas, Monaco, Andale Mono, Ubuntu Mono,
       monospace;
+  }
+}
+
+.ImageUploader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  button {
+    @include StyledButton;
+    height: 43px;
+    white-space: nowrap;
+  }
+  input {
+    @include StyledInput;
   }
 }

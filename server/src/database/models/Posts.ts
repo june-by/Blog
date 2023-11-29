@@ -48,7 +48,7 @@ export const initPosts = () => {
         allowNull: false, //필수
       },
       thumbNailUrl: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.TEXT,
         allowNull: true, //필수
       },
       views: {
