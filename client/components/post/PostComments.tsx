@@ -25,20 +25,12 @@ const Comments = () => {
 
     const scriptElem = document.createElement("script");
     scriptElem.src = `${src}/client.js`;
-    scriptElem.setAttribute("data-repo", "BY-juun/Blog");
-    scriptElem.setAttribute("data-repo-id", "MDEwOlJlcG9zaXRvcnkzODc4MTYxNjA=");
-    scriptElem.setAttribute("data-category", "Comments");
-    scriptElem.setAttribute("data-category-id", "DIC_kwDOFx2a4M4CYB9c");
-    scriptElem.setAttribute("data-mapping", "pathname");
-    scriptElem.setAttribute("data-reactions-enabled", "1");
-    scriptElem.setAttribute("data-emit-metadata", "0");
-    scriptElem.setAttribute("data-input-position", "bottom");
-    scriptElem.setAttribute("data-theme", theme);
-    scriptElem.setAttribute("data-lang", "ko");
-    scriptElem.setAttribute("data-loading", "lazy");
-    scriptElem.setAttribute("crossorigin", "anonymous");
-    scriptElem.async = true;
 
+    Object.entries(SCRIPT_ATTRIBUTES).forEach(([key, value]) => {
+      scriptElem.setAttribute(key, value);
+    });
+    scriptElem.setAttribute("data-theme", theme);
+    scriptElem.async = true;
     commentWrapperRef.current?.appendChild(scriptElem);
 
     return () => {
@@ -54,6 +46,20 @@ const Comments = () => {
   }, [isThemeLoaded, theme]);
 
   return <section className={styles.PostComments} ref={commentWrapperRef} />;
+};
+
+const SCRIPT_ATTRIBUTES = {
+  "data-repo": "BY-juun/Blog",
+  "data-repo-id": "MDEwOlJlcG9zaXRvcnkzODc4MTYxNjA=",
+  "data-category": "Comments",
+  "data-category-id": "DIC_kwDOFx2a4M4CYB9c",
+  "data-mapping": "pathname",
+  "data-reactions-enabled": "1",
+  "data-emit-metadata": "0",
+  "data-input-position": "bottom",
+  "data-lang": "ko",
+  "data-loading": "lazy",
+  crossorigin: "anonymous",
 };
 
 export default Comments;
