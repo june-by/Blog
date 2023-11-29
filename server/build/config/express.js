@@ -76,6 +76,7 @@ function default_1() {
                     cb(null, `original/${Date.now()}_${path_1.default.basename(file.originalname)}`);
                 },
             }),
+            limits: { fileSize: 5 * 1024 * 1024 },
         });
         app.use("/", express_1.default.static(path_1.default.join(__dirname, "uploads")));
         app.post("/uploads", upload.single("img"), (req, res) => {

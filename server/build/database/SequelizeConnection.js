@@ -8,4 +8,5 @@ const config = config_1.dbConfig[env];
 exports.sequelizeConnection = new sequelize_1.Sequelize(config.database, config.username, config.password, {
     host: config.host,
     dialect: config.dialect,
+    logging: false,
 });
