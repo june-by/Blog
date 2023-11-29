@@ -1,10 +1,10 @@
 import { Tags, Posts } from "@database";
 
-const createTags = async ({ tagArr }: { tagArr: string[] }) => {
+const createTags = async ({ tagArr }: { tagArr: { value: string }[] }) => {
   const result = await Promise.all(
-    tagArr.map((tag) =>
+    tagArr.map(({ value }) =>
       Tags.findOrCreate({
-        where: { content: tag.toLowerCase() },
+        where: { content: value.toLowerCase() },
       })
     )
   );
