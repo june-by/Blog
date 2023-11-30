@@ -1,0 +1,123 @@
+---
+title: "함수와 일급 객체 [모던 자바스크립트 Deep Dive 18장]"
+date: "2022-05-26"
+lastmod: "2022-05-26"
+tags: ["function", "object"]
+series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
+summary: '모던 자바스크립트 Deep Dive' 18장 내용을 정리한 포스트입니다.'
+images:
+[
+"https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7",
+]
+---
+
+다음과 같은 조건을 만족하는 객체를 `일급 객체`라 한다.
+
+1. 무명의 리터럴로 생성 가능. 즉, 런타임에 생성 가능
+2. 변수나 자료구조(객체, 배열)에 저장 가능
+3. 함수의 매게변수에 전달 가능
+4. 함수의 반환값으로 사용 가능
+   자바스크립트에서 함수는 위의 조건을 모두 만족하기 때문에, 일급 객체다.
+
+```js
+// 1. 함수는 무명의 리터럴로 생성할 수 있다.
+// 2. 함수는 변수에 저장할 수 있다.
+// 런타임(할당 단계)에 함수 리터럴이 평가되어 함수 객체가 생성되고 변수에 할당된다.
+const increase = function (num) {
+  return ++num;
+};
+
+const decrease = function (num) {
+  return --num;
+};
+
+// 2. 함수는 객체에 저장할 수 있다.
+const auxs = { increase, decrease };
+
+// 3. 함수의 매개변수에게 전달할 수 있다.
+// 4. 함수의 반환값으로 사용할 수 있다.
+function makeCounter(aux) {
+  let num = 0;
+
+  return function () {
+    num = aux(num);
+    return num;
+  };
+}
+
+// 3. 함수는 매개변수에게 함수를 전달할 수 있다.
+const increaser = makeCounter(auxs.increase);
+console.log(increaser()); // 1
+console.log(increaser()); // 2
+
+// 3. 함수는 매개변수에게 함수를 전달할 수 있다.
+const decreaser = makeCounter(auxs.decrease);
+console.log(decreaser()); // -1
+console.log(decreaser()); // -2
+```
+
+함수가 일급 객체라는 것은 함수를 객체와 동일하게 사용할 수 있다는 의미이다.
+
+함수는 객체이기 때문에, 프로퍼티를 가진다.
+
+```js
+function square(number) {
+return number \* number;
+}
+
+console.log(Object.getOwnPropertyDescriptors(square));
+
+/_
+{
+length: {value: 1, writable: false, enumerable: false, configurable: true},
+name: {value: "square", writable: false, enumerable: false, configurable: true},
+arguments: {value: null, writable: false, enumerable: false, configurable: false},
+caller: {value: null, writable: false, enumerable: false, configurable: false},
+prototype: {value: {...}, writable: true, enumerable: false, configurable: false}
+}
+_/
+
+// **proto**는 square 함수의 프로퍼티가 아니다.
+console.log(Object.getOwnPropertyDescriptor(square, '**proto**')); // undefined
+
+// **proto**는 Object.prototype 객체의 접근자 프로퍼티다.
+// square 함수는 Object.prototype 객체로부터 **proto** 접근자 프로퍼티를 상속받는다.
+console.log(Object.getOwnPropertyDescriptor(Object.prototype, '**proto**'));
+// {get: ƒ, set: ƒ, enumerable: false, configurable: true}
+```
+
+Object.prototype 의 **proto** 접근자 프로퍼티는 모든 객체에서 사용할 수 있다.
+
+`arguments 객체`는 **함수 호출 시 전달된 인수의 정보를 담고 있는 순회 가능한 유사 배열 객체**이며, 함수 내부에서 지역 변수처럼 사용할 수 있다.
+arguments 객체는 매개변수 개수를 확정할 수 없는 가변 인자 함수를 구현할 때 유용하다.
+
+```js
+function sum() {
+  let res = 0;
+
+  // arguments 객체는 length 프로퍼티가 있는 유사 배열 객체이므로 for 문으로 순회할 수 있다.
+  for (let i = 0; i < arguments.length; i++) {
+    res += arguments[i];
+  }
+
+  return res;
+}
+
+console.log(sum()); // 0
+console.log(sum(1, 2)); // 3
+console.log(sum(1, 2, 3)); // 6
+```
+
+`arguments` 객체는 배열이 아닌 유사 배열 객체이므로, 배열 메서드를 사용할 수 없다 (Function.prototype.call, Function.prototype.apply 를 사용해 간적접으로 호출은 가능함)
+
+이런 번거로움을 해결하기 위해, ES6에서는 Rest 파라미터를 도입했다.
+
+```js
+// ES6 Rest parameter
+function sum(...args) {
+  return args.reduce((pre, cur) => pre + cur, 0);
+}
+
+console.log(sum(1, 2)); // 3
+console.log(sum(1, 2, 3, 4, 5)); // 15
+```
