@@ -28,17 +28,22 @@
   img {
     border: 5px solid white;
     border-radius: 4px;
-    @include desktop {
-      transform: scale(1.5);
-    }
+    // @include desktop {
+    //   transform: scale(1.5);
+    // }
   }
-  button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    z-index: 100;
+}
+
+.CloseButton {
+  position: absolute;
+  top: -50px;
+  right: 0px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 100;
+  svg {
+    width: 25px;
+    height: 25px;
   }
 }

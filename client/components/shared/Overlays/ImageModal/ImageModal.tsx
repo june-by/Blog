@@ -15,9 +15,9 @@ const ImageModal = ({ onClose, src, width = 100, height = 100 }: Props) => {
     <div className={styles.ModalWrap}>
       <div className={styles.Overlay} onClick={onClose} />
       <div className={styles.Content}>
-        {/* <button onClick={onClose}>
+        <button className={styles.CloseButton} onClick={onClose}>
           <CloseIcon />
-        </button> */}
+        </button>
         <Image src={src} alt="" width={width} height={height} />
       </div>
     </div>
