@@ -1,0 +1,81 @@
+---
+title: "strict mode [모던 자바스크립트 Deep Dive 20장]"
+date: "2022-05-26"
+lastmod: "2022-05-26"
+tags: ["prototype"]
+series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
+summary: '모던 자바스크립트 Deep Dive' 20장 내용을 정리한 포스트입니다.'
+images:
+[
+"https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7",
+]
+---
+
+# 🌟 strict mode
+
+strict mode는 자바스크립트 언어의 문법을 좀 더 엄격히 적용해, 오류를 발생시킬 가능성이 높거나 자바스크립트 엔진의 최적화 작업에 문제를 일으킬 수 있는 코드에 대해 명시적인 에러를 발생시킨다. (Eslint 를 통해서도 비슷한 효과를 얻을 수 있다)
+
+strict mode를 적용하려면, 전역의 선두 또는 함수의 몸체의 선두에 'use strict;'를 추가한다.
+
+전역의 선두에 추가하면 스크립트 전체에 strict mode가 적용된다.
+
+```js
+"use strict";
+
+function foo() {
+  x = 10; // ReferenceError: x is not defined
+}
+foo();
+function foo() {
+  "use strict";
+
+  x = 10; // ReferenceError: x is not defined
+}
+foo();
+function foo() {
+  x = 10; // 에러를 발생시키지 않는다.'use strict';
+}
+foo();
+```
+
+strict mode의 경우에 전역으로 적용할 경우, script 단위로 적용된다.
+
+이는 strict mode 스크립트와 non-strict mode 스크립트를 혼용하는 것이기 때문에, 오류를 발생시킬 수 있어, 피하는 것이 좋다.
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      "use strict";
+    </script>
+    <script>
+      x = 1; // 에러가 발생하지 않는다.console.log(x); // 1
+    </script>
+    <script>
+      "use strict";
+
+      y = 1; // ReferenceError: y is not definedconsole.log(y);
+    </script>
+  </body>
+</html>
+```
+
+함수 단위로 strict mode를 적용하는 것 역시, 위와 마찬가지로 어떤 함수는 strict mode를 적용하고 어떤 함수는 strict mode를 적용하지 것은 오류를 발생시킬 수 있다.
+
+또, strict mode가 적용된 함수가 참조할 함수 외부의 컨텍스트에 strict mode를 적용하지 않는다면 이 또한 문제가 발생할 수 있다.
+
+따라서, strict mode는 즉시 실행 함수로 감싼 스크립트 단위로 적용하는 것이 바람직하다
+
+```js
+(function () {
+  // non-strict modevar lеt = 10; // 에러가 발생하지 않는다.
+
+  function foo() {
+    "use strict";
+
+    let = 20; // SyntaxError: Unexpected strict mode reserved word
+  }
+  foo();
+})();
+```
