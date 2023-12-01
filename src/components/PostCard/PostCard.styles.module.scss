@@ -1,0 +1,82 @@
+@import "@/utils/utils.scss";
+
+.postCardWrap {
+  display: flex;
+  width: 100%;
+  gap: 1.5rem;
+  @include mobile {
+    padding: 0;
+    display: block;
+  }
+}
+
+.thumbnailWrap {
+  margin: 0;
+  position: relative;
+  width: 40%;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  overflow: hidden;
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 50%;
+  }
+  @include mobile {
+    width: 100%;
+    &::after {
+      content: "";
+      display: block;
+      padding-bottom: 60%;
+    }
+  }
+}
+
+.articleWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(55% - 1.5rem);
+  font-weight: 500;
+  @include mobile {
+    width: 100%;
+  }
+  @include mobile {
+    padding: 5px;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin: 0;
+    @include mobile {
+      font-size: 1.25rem;
+    }
+  }
+  .description {
+    font-size: 15px;
+  }
+  .date {
+    margin-top: 5px;
+    font-size: 13px;
+  }
+
+  .tagListWrap {
+    display: flex;
+    gap: 10px;
+    .tag {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 13px;
+
+      svg {
+        color: #005cb4;
+      }
+    }
+  }
+}

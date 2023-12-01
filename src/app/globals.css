@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background: white;
+  color: black;
+  --bg-element1: white;
+  --bg-element2: black;
+  --bg-element3: #f8f8f8;
+  --bg-element4: #e5e5e5;
+  --bg-element5: #0099fa;
+  --bg-element6: white;
+  --bg-element7: #c6c6c6;
+  --bg-element8: #f8f9fa;
+
+  --primary1: #0099fa;
+  --primary2: #005cb4;
+  --primary3: #005cb4;
+  --primary4: #c6c6c6;
+  --complement: #ef6593;
+  --complement_hover: #9f0046;
+  --slight-layer: rgba(0, 0, 0, 0.05);
+  --slight-layer2: rgb(229 229 229);
+  --slight-layer3: rgb(237 237 237);
+  --slight-layer4: rgb(229 229 229);
+  --hr: #e5e7eb;
+}
+
+[data-theme="dark"] {
+  background: #121212;
+  color: white;
+  --bg-element1: #121212;
+  --bg-element2: white;
+  --bg-element3: #282c34;
+  --bg-element4: #4d515a;
+  --bg-element5: #3e4756;
+  --bg-element6: #282c34;
+  --bg-element7: #2a2a2a;
+  --bg-element8: #1e1e1e;
+
+  --primary1: #6185e5;
+  --primary2: #6e7788;
+  --primary3: #00449a;
+  --primary4: #f8f8f8;
+
+  --complement: #e05d70;
+  --complement_hover: #ff6f8b;
+  --slight-layer: rgba(255, 255, 255, 0.1);
+  --slight-layer2: rgb(45 45 45);
+  --slight-layer3: rgb(38 38 38);
+  --slight-layer4: rgb(54 54 54);
+  --hr: #374151;
+}

@@ -4,11 +4,8 @@ date: "2022-05-26"
 lastmod: "2022-05-26"
 tags: ["prototype"]
 series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
-description: '모던 자바스크립트 Deep Dive' 19장 내용을 정리한 포스트입니다.'
-images:
-[
-"https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7",
-]
+description: "모던 자바스크립트 Deep Dive 19장 내용을 정리한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7"
 ---
 
 자바스크립트는 명령형, 함수형, 프로토타입 기반 객체지향 프로그래밍을 지원하는 멀티 패러다임 프로그래밍 언어이다.
@@ -74,7 +71,7 @@ console.log(circle.getArea()); // 78.53981633974483
 
 > 따라서, 객체는 상태 데이터와 동작을 하나의 논리적인 단위로 묶은 복합적인 자료구조이다.
 
-<br/>
+<br />
 
 # 🌟 상속과 프로토타입
 
@@ -142,7 +139,7 @@ console.log(circle2.getArea()); // 12.566370614359172
 
 `Circle 생성자 함수`가 생성한 모든 인스턴스는 자신의 상위(부모) 객체 역할을 하는 `Circle prototype`의 모든 프로퍼티와 메서드를 상속받는다.
 
-<br/>
+<br />
 
 # 🌟 프로토타입
 
@@ -154,7 +151,7 @@ console.log(circle2.getArea()); // 12.566370614359172
 
 `[[Prototype]]` 내부 슬롯에는 직접 접근할 수 없으며, `__proto__` 접근자 프로퍼티를 통해 간접적으로 프로토타입에 접근할 수 있다.
 
-<img src="https://github.com/BY-juun/Blog/assets/78716842/3b7725be-5e5f-4867-83f4-b5b9cc583af4"/>
+<img src="https://github.com/BY-juun/Blog/assets/78716842/3b7725be-5e5f-4867-83f4-b5b9cc583af4" />
 
 정리하자면, 객체는 `__proto__` 접근자 프로퍼티를 이용해 자신의 프로토타입(`[[Prototype]]` 이 가리키는)에 간접적으로 접근 할 수 있다.  
 생성자 함수는 `prototype 프로퍼티`를 통해 생성자 함수에 접근 할 수 있으며,
@@ -257,7 +254,7 @@ console.log(me.constructor === Person); // true
 
 위 코드에서 `me` 객체는 프로토타입의 `constructor` 프로퍼티를 통해, `Person` 생성자 함수와 연결되어 있다.
 
-<br/>
+<br />
 
 # 🌟 객체 생성 방식과 프로토타입의 결정
 
@@ -307,7 +304,7 @@ me.sayHello(); // Hi! My name is Lee
 you.sayHello(); // Hi! My name is Kim
 ```
 
-<br/>
+<br />
 
 # 🌟 프로토타입 체인
 
@@ -382,7 +379,7 @@ delete me.sayHello;
 me.sayHello(); // Hi! My name is Lee
 ```
 
-<br/>
+<br />
 
 # 🌟 정적 프로퍼티/메서드
 
@@ -417,7 +414,7 @@ me.staticMethod(); // TypeError: me.staticMethod is not a function
 
 `static property/method`는 생성자 함수가 생성한 인스턴스로 참조/호출 할 수 없다
 
-<br/>
+<br />
 
 # 🌟 프로퍼티 존재 확인
 
