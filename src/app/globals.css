@@ -94,3 +94,7 @@ a[data-level="3"] {
 .activeToc {
   @apply text-blue-500 font-bold;
 }
+
+.material-theme-lighter {
+  @apply border border-gray-200;
+}
