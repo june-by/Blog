@@ -90,3 +90,7 @@ a[data-level="2"] {
 a[data-level="3"] {
   @apply pl-6;
 }
+
+.activeToc {
+  @apply text-blue-500 font-bold;
+}

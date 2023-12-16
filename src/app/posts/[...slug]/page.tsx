@@ -70,7 +70,9 @@ export default async function PostPage({ params }: PostProps) {
             series={post.series}
             currentPostTitle={post.title}
           />
-          <Mdx code={post.body.code} />
+          <div className="postcontent">
+            <Mdx code={post.body.code} />
+          </div>
           <TableOfContents headings={post.headings} />
         </div>
         <RoutePostButtons title={post.title} category={post.category} />
