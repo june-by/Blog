@@ -1,0 +1,252 @@
+---
+title: "NextJS 프로젝트 테스트 작성하기 (feat: useRouter)"
+date: "2022-11-03"
+lastmod: "2022-11-03"
+category: "React"
+tags: ["nextjs", "jest", "react testing library"]
+description: "NextJS로 만든 블로그에 테스트 코드를 적용하기 위한 셋업 과정과 useRouter를 모킹하는 과정 그리고 간단한 컴포넌트에 대한 테스트코드 작성을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/f6736619-6c83-4e9b-8d48-d3d5a55e8a43"
+---
+
+# 1️⃣ 필요한 라이브러리 설치
+
+가장 먼저, 테스트에 필요한 기본적인 라이브러리부터 설치해보겠습니다.
+
+```shell
+yarn add jest
+yarn add --dev @types/jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom identity-obj-proxy
+```
+
+`jest`와 `react testing library`는 테스트를 위해 기본적으로 필요한 라이브러리입니다.
+
+`jest-environment-jsdom` 라이브러리는 `jest`의 테스팅 환경을 변경시켜주기 위한 라이브러리입니다.
+
+`jest`의 기본 테스트 환경은 `NodeJS`입니다. NodeJs 테스트 환경에서 테스트를 진행하게 되면, `NextJS`에서 `window`를 찾지 못하는 것과 같이 `document` 객체를 찾을 수 없다는 에러를 뱉습니다.  
+따라서, `jest`의 기본 테스트 환경을 브라우저로 변경시켜주기 위해, `jest-enviroment-jsdom` 라이브러리를 설치하고 테스트 환경을 변경시켜주는 작업이 필요합니다.  
+`identity-obj-proxy` 라이브러리의 경우에는 컴포넌트에서 `css` 파일을 `import` 할 때, 에러가 발생하는데 이를 해결하기 위해서 설치하게 됩니다.
+
+<br />
+
+# 2️⃣ config 설정
+
+본격적인 테스트에 들어가기 전에, 테스트에 필요한 기본 설정을 해야 합니다.
+
+먼저, `setupTests.ts/js` 파일을 루트 디렉토리에 만들고, 해당 파일에서 다음과 같이 `jest-dom` 라이브러리를 import 해주어야 합니다.
+
+```js title="setupTests.ts/js"
+import "@testing-library/jest-dom";
+```
+
+위와 같이 `jest-dom` 라이브러리를 `import` 하는 이유는 테스트 전에 `jest-dom` 라이브러리를 `import`를 해야 `jest-dom`에서 제공하는 기능을 사용 할 수 있기 때문입니다.
+
+다음으로, `babel.config.js` 파일을 루트 디렉토리에 만들고, 다음과 같이 작성하면 됩니다.
+
+```js
+module.exports = {
+  presets: ["next/babel"],
+};
+```
+
+`jest`는 `commonJS` 기반으로 작동하기 때문에, `babel` 관련 설정을 해야 `ES6` 이상의 문법이나 `typescript`를 사용 할 수 있습니다.
+
+다음으로, `jest.config.js` 파일을 루트 디렉토리에 만들고, 다음과 같이 작성하면 됩니다.
+
+```js title="jest.config.js"
+module.exports = {
+  moduleNameMapper: { "\\.(css|less|scss|sass)$": "identity-obj-proxy" },
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
+};
+```
+
+`moduleNameMapper`는 테스트 과정에서 `css` 파일을 `import`하지 못하는 문제를 `proxy`를 통해 해결하기 위한 것이며,  
+`testEnvironment` 는 앞서 말씀드린 테스팅 환경을 `NodeJS`에서 브라우저 환경으로 변경시켜주기 위한 것입니다.
+`setUpFilesAfterEnv` 는 앞서 작성한 `setupTests.ts` 파일이 테스트 시작 전에 먼저 실행 될 수 있도록 하기 위함입니다.
+
+<br />
+
+# 3️⃣ useRouter 모킹
+
+`NextJS`를 통해 컴포넌트를 렌더링하게 되는 경우, `React`의 `Context`를 이용해서 만든 `RouterContext`가 해당 컴포넌트를 감싸는 형태(HOC)로 렌더링되고, 이에 따라 `RouterContext`에서 제공하는 기능을 `useRouter` 훅을 통해 사용 할 수 있습니다.  
+테스팅 환경에서 `RouterContext`로 감싸지 않을 경우, 테스트하는 컴포넌트에서 `useRouter` 훅을 사용할 수 없습니다.  
+따라서, 테스트하는 컴포넌트에서 `useRouter`를 사용하려면, 해당 컴포넌트를 `NextJS`의 `RouterContext.Provider` 로 감싸고, 해당 `Context`에 `value` 값을 넣어 커스텀 하는 형태를 만들어 주어야 합니다.  
+이를 위해서, `RouterContext.Provider`의 기본 `value`를 넣어주기 위한 함수를 만들고, 해당 함수에 필요한 `key`, `value`를 주입하는 방식으로 사용했습니다.
+
+<a href="https://github.com/BY-juun/Blog/blob/master/client/utils/test/createMockRouter.ts">
+  https://github.com/BY-juun/Blog/blob/master/client/utils/test/createMockRouter.ts
+</a>
+
+```tsx
+import { NextRouter } from "next/router";
+
+export function createMockRouter(router?: Partial<NextRouter>): NextRouter {
+  return {
+    basePath: "",
+    pathname: "/",
+    route: "/",
+    query: {},
+    asPath: "/",
+    back: jest.fn(),
+    beforePopState: jest.fn(),
+    prefetch: jest.fn(),
+    push: jest.fn(),
+    reload: jest.fn(),
+    replace: jest.fn(),
+    events: {
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
+    },
+    isFallback: false,
+    isLocaleDomain: false,
+    isReady: true,
+    defaultLocale: "en",
+    domainLocales: [],
+    isPreview: false,
+    ...router,
+  };
+}
+```
+
+위와 같이 `default value`를 넣어주기 위한 `createMockRouter` 함수를 만들고, 이를 이용해서, `RouterContext.Provider`에 `value props`를 넣어주면 됩니다.
+
+```tsx
+render(
+  <RouterContext.Provider value={createMockRouter()}>
+    <CategoryChip category={props.category} />
+  </RouterContext.Provider>
+);
+```
+
+<br />
+
+# 4️⃣ 테스트 코드 작성
+
+이제 모든 설정은 끝났고, 테스트 코드만 작성하면 됩니다.
+
+```tsx
+import { useRouter } from "next/router";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
+import { ThemeContext } from "../../../utils/ThemeContext";
+import styles from "./styles.module.scss";
+import useChangeColor from "./useChangeColor";
+
+interface Props {
+  category: string;
+  length?: number;
+  mode?: string;
+}
+
+const CategoryChip = ({ category, length, mode }: Props) => {
+  const { push } = useRouter();
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const { theme } = useContext(ThemeContext);
+
+  const onClickBtn = useCallback(
+    (category: string) => {
+      push({
+        pathname: "/filter",
+        query: { category: category, page: 1 },
+      });
+    },
+    [push]
+  );
+
+  useChangeColor({ category, btnRef });
+
+  return (
+    <button
+      ref={btnRef}
+      className={`${styles.CategoryChip} ${styles[theme]}`}
+      onClick={() => onClickBtn(category)}
+    >
+      <span>{category}</span>
+      {mode !== "post" && (
+        <div className={`${styles.CategoryLength}`}>{length ? length : 0}</div>
+      )}
+    </button>
+  );
+};
+
+export default CategoryChip;
+```
+
+테스트를 진행할 컴포넌트는 `CategoryChip` 컴포넌트입니다. 해당 컴포넌트는 각 카테고리의 정보를 나타내고, 클릭 시 해당 카테고리 페이지로 이동하는 컴포넌트입니다.
+
+진행해볼 테스트는, 컴포넌트 렌더링 테스트와 클릭 테스트입니다.  
+컴포넌트가 각각 다른 `props`를 가졌을 때 렌더링이 정확히 되는지를 먼저 테스트해보겠습니다.
+
+```tsx
+describe("<CategoryChip />", () => {
+  it("length가 있는 CategoryChip 렌더링 테스트", () => {
+    const props = {
+      category: "테스트카테고리",
+      length: 11,
+    };
+    render(
+      <RouterContext.Provider value={createMockRouter()}>
+        <CategoryChip {...props} />
+      </RouterContext.Provider>
+    );
+    expect(screen.getByText(props.category)).toBeInTheDocument();
+    expect(screen.getByText(props.length)).toBeInTheDocument();
+  });
+
+  it("length가 없는 CategoryChip 렌더링 테스트", () => {
+    const props = {
+      category: "테스트카테고리",
+    };
+    render(
+      <RouterContext.Provider value={createMockRouter()}>
+        <CategoryChip {...props} />
+      </RouterContext.Provider>
+    );
+    expect(screen.getByText(props.category)).toBeInTheDocument();
+    expect(screen.getByText(0)).toBeInTheDocument();
+  });
+
+  it("length가 있고, mode가 post인 CategoryChip 렌더링 테스트", async () => {
+    const props = {
+      category: "테스트카테고리",
+      length: 10,
+      mode: "post",
+    };
+    render(
+      <RouterContext.Provider value={createMockRouter()}>
+        <CategoryChip {...props} />
+      </RouterContext.Provider>
+    );
+    expect(screen.getByText(props.category)).toBeInTheDocument();
+    expect(screen.queryByText(props.length)).not.toBeInTheDocument();
+  });
+});
+```
+
+해당 컴포넌트는 `useRouter` 훅을 사용하기 때문에, 앞서 작성한 `createMockRouter` 함수와 `RouterContext`를 이용해서 `useRouter`를 모킹해서 사용 할 수 있도록 했습니다.
+
+다음으로는, 버튼 클릭시 이벤트가 발생하는지를 테스트 해보겠습니다.
+
+```tsx
+it("CategoryChip 클릭 이벤트 테스트", async () => {
+  const router = createMockRouter();
+  const props = {
+    category: "testCategory",
+    length: 10,
+  };
+  render(
+    <RouterContext.Provider value={router}>
+      <CategoryChip {...props} />
+    </RouterContext.Provider>
+  );
+  const categroyChipBtn = screen.getByRole("button");
+  expect(categroyChipBtn).toBeInTheDocument();
+  fireEvent.click(categroyChipBtn);
+  expect(router.push).toHaveBeenCalledWith({
+    pathname: "/filter",
+    query: { category: props.category, page: 1 },
+  });
+});
+```
+
+해당 버튼을 누르면, `useRouter`의 `push` 메서드가 실행되게 됩니다.  
+해당 메서드가 실행 될 때, 어떤 매게변수를 통해 실행되는지 테스트함으로써, 정확한 동작을 테스트 할 수 있습니다.

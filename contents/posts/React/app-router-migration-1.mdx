@@ -1,0 +1,459 @@
+---
+title: "블로그 Pages Router → App Router 전환기 1편 [NextJS]"
+date: "2023-11-07"
+lastmod: "2023-11-07"
+category: "React"
+tags: ["nextjs", "rsc"]
+series: "Blog 개발일지"
+description: "NextJS v12의 Page Router 방식으로 개발된 개인블로그를 NextJS v13(14)의 AppRouter로 전환하면서 있었던 과정에 대해 정리한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/883000a0-6c6f-4c2d-8a99-225afa10d0c4"
+---
+
+# ⚙️ 마이그레이션을 진행한 이유
+
+`React Server Component` 가 등장한지는 약 2년, App router가 안정화된 NextJS 13.4버전이 등장한지는 약 6개월의 시간이 지났습니다.  
+올해 TODO 리스트 중에는 `RSC(React Server Component)`의 동작원리 스터디와 블로그 `App Router` 전환이 있었는데요.  
+`App Router` 방식에서는 모든 컴포넌트가 기본적으로 `Server Component`로 동작하기 때문에, `App Router` 전환을 진행하게 된다면, 동시에 `RSC`를 공부할 수 있는 기회가 될 수 있다 생각하여 마이그레이션을 진행하게 되었습니다.  
+추가로 `Pages Router` 구조에서 크게 불편한 점을 느끼지 못해 계속해서 미루다, 최근에 App Router, RSC 관련 여러 아티클들을 많이 접하게 되어 진행했습니다.
+
+<br />
+
+# 🛠️ Server Component 간단하게 살펴보기
+
+## RSC(React Server Component)
+
+기존 React에서는 사용자가 브라우저에 들어가서 번들링된 파일(ex, bundle.js)을 다운로드 받은 후, 해당 파일의 다운로드가 완료되면 파일을 실행하고 화면을 그렸습니다.  
+따라서, 사용자가 브라우저에 처음 들어가 서버로 부터 받게되는 html 파일은 비어있었습니다.(오직 `<div id=”root”></div>` 만 존재)  
+코드스플리팅, 트리쉐이킹등의 최적화 과정을 통해 초기 로드 속도를 조금 더 빠르게 할 수 있지만, 여전히 느리며 js를 다운로드 받을때까지 사용자는 빈 화면만을 보게 되었습니다.  
+`RSC(React Server Component)`는 서버 컴포넌트라는 이름답게 클라이언트(브라우저)가 아닌 서버에서 동작하는 컴포넌트입니다.  
+서버에서 동작하는 컴포넌트이기 때문에, 사용자는 해당 컴포넌트의 번들파일을 다운로드 받아 실행할 필요가 없다는 장점이 존재합니다.
+
+RSC가 렌더링되는 절차를 간단히 나타내면 아래와 같습니다. (Reference → <a href="https://www.plasmic.app/blog/how-react-server-components-work">how-react-server-components-work</a>)
+
+1. 서버에서 요청을 받아, 어떤 Component, 어떤 Props를 적용할지 결정한다.
+2. 서버가 루트 Component를 JSON으로 직렬화한다. 이때, Client Component를 만나면 실행하지 않고 직렬화하지 않고, placeholder 해놓는다.
+3. 서버에서 초기 루트 서버 컴포넌트를 기본 HTML 태그와 Client Componet ‘placeholders’의 트리로 렌더링한 후 브라우저로 전송한다.
+4. 브라우저에서는 직렬화된 트리를 역직렬화하고, Clinet Component ‘placeholders’를 서버에서 받아온 JavaScript Bundle 파일을 이용해 실제 Client Component로 교체한다.
+5. 최종 결과물을 렌더링하여 사용자에게 보여준다.
+
+## NextJS에서의 Server Component Rendering
+
+NextJS에서는 다음과 같은 절차를 걸쳐 사용자에게 interactive한 페이지를 제공합니다. → <a href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">
+https://nextjs.org/docs/app/building-your-application/rendering/server-components</a>
+
+1. (on the server) React가 Server Component를 렌더링해 RSC Payload를 만든다.
+2. (on the server) 만들어진 RSC Payload와 Client Component JavaScript를 이용해 HTML을 만든다.
+3. (on the client) HTML을 이용해 non-interactive한 화면을 먼저 보게 된다.
+4. (on the client) stream을 통해 받은 RSC Payload를 이용해 Client, Server Component Tree를 재조정하고, DOM을 업데이트한다.
+5. (on the client) Hydration을 통해 interactive하게 만든다.
+
+이 과정에서 `Full Page`를 가져오는게 아닌 `Navigation`을 변경하는 경우라면, `Client Component`는 서버에서 렌더링되어 `HTML`을 만들지 않고, 오직 `Client`에서만 렌더링 됩니다. (<a href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">https://nextjs.org/docs/app/building-your-application/rendering/server-components</a>)
+
+→ Client Component JS Bundle을 다운로드받고 파싱한다는 의미입니다.
+
+## 기존 SSR (With Client-Component)
+
+기존 SSR은 **Page단위로 렌더링 방식을 결정**할 수 있었습니다.  
+예를 들어, SSG을 하는 Page라고 가정한다면, 해당 Page에서 리얼타임 데이터를 다루는 영역이 있다면, 해당 영역은 서버에서 렌더링을 하지 못합니다.  
+반대로, SSR을 하는 Page에서 특정 영역이 Static한 데이터를 다룬다고 하더라도, 해당 영역을 Static하게 렌더링 할 수 없습니다.
+
+기존 SSR은 실제 **모든 코드가 JavaScript Bundle 파일에 포함**됩니다. 서버에서 렌더링되어 HTML로 변환된 후 클라이언트로 보내지지만, 모든 코드가 포함되어 있는 JavaScript Bundle 파일을 받아온 후 Hydration 과정을 거쳐야 합니다. 따라서, 사용자가 빈 화면이 아닌 초기 화면을 보는 속도를 빠르지만, 페이지와 상호 작용 할 수 있는 `TTI(Time To Interactive)`는 여전히 느립니다.
+
+기존 `SSR`에 `RSC`를 합칠경우 다음과 같은 장점을 얻을 수 있습니다.
+
+- RSC는 서버에서만 동작하기 때문에, **JavaScript Bundle 파일에 포함시키지 않아 파일 사이즈를 줄일 수 있다.**
+- 모든 JavaScript Bundle파일을 받아, Hydration을 하는게 아닌 Stream 형태로 받은 RSC Payload를 통해 Client-Component payload로 마킹되어 있는 부분만 JavaScript Bundle파일을 이용해 클라이언트에서 렌더링하기 때문에, 훨씬 빠른 TTI 시간을 가지게 됩니다.
+
+이번에 마이그레이션을 진행한 NextJS의 App Router 방식은 RSC형태를 제공하는 NextJS의 새로운 방식입니다. (RSC 제공 이외에도, 기존의 file system based router가 발전된 형태)
+
+<br/ >
+
+# Trouble Shooting, Feature
+
+마이그레이션은 공식문서를 보고 진행했기 때문에, 자세한 내용은 공식문서를 보는 것을 추천합니다<a href="https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app">https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app</a>
+
+## Render Props 에러
+
+기존에는 아래 코드처럼 Routing이 변화할 때, 화면에 보여야 하는 `FallBack Component`를 그려야되는 상황에 `Render Prop 패턴`을 사용했습니다.
+
+```tsx title="app.tsx"
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <WithRouteChange routeChangeFallback={(url) => <PageSkeleton url={url} />}>
+      <CommonSEO />
+      <Component {...pageProps} />
+      <Modals />
+      <MyToastContainer />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </WithRouteChange>
+  );
+}
+```
+
+```tsx title="Path에 따라 Skeleton 렌더링"
+const PageSkeleton = ({ url }: Props) => {
+  const mainPath = getMainPathFromUrl(url);
+  return (
+    <>
+      <SwitchCase
+        value={mainPath}
+        caseBy={{
+          post: <PostPageSkeleton />,
+          posts: <PostsPageSkeleton />,
+          needed: null,
+        }}
+      />
+    </>
+  );
+};
+```
+
+`PageSkeleton` 컴포넌트 `url`을 `props`로 받아, 화면에 표시할 `Skeleton`을 렌더링합니다.
+
+`RSC`는 직렬화되어 브라우저에 전달됩니다. 따라서, 직렬화가 불가능한 함수는 `props`로 전달할 수 없습니다. (`ServerComponent` → `ClientComponent` 경우에만)  
+그리고 위에 코드처럼 전달하게 되었을 때, 아래와 같은 에러를 만났습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/ff584c88-b032-409b-889b-602089027677" />
+
+제가 생각했을 때, 위 에러를 해결하는 방법은 총 3가지가 있었습니다.
+
+1. Client Component는 Server Component로 변경
+2. props로 넘기는 함수에 “use server” 키워드를 사용해, server action으로 바꾸기
+3. 함수를 props로 넘기지 않도록 코드, 구조 수정
+
+(참고 Reference → <a href="https://medium.com/@warren_74490/there-and-back-again-next-13-and-render-props-b1a11d4d1d24">https://medium.com/@warren_74490/there-and-back-again-next-13-and-render-props-b1a11d4d1d24</a>)
+
+하지만, 위 `Skeleton` 코드는 routing에 대한 loading state를 위한 코드였고, App Router에서는 각 Routing 디렉토리에 `loading.tsx` 파일을 만들어, 대신할 수 있습니다.
+
+그래서, 위 코드를 삭제하고 각 Routing 디렉토리의 `loading.tsx` 파일로 대체하였습니다.
+
+<br />
+
+# Compound Component 패턴 사용 불가
+
+기존에는 아래와 같이 `Compound Component` 패턴을 사용했습니다. → <a href="https://github.com/BY-juun/Blog/blob/page_router/client/pages/post/%5Bid%5D.tsx">원본코드</a>
+
+```tsx title="pages/post/index.tsx"
+const PostPage = () => {
+  // ...
+
+  return (
+    <>
+      <CommonSEO
+        title={PostData.title}
+        description={PostData.content.substring(0, 100)}
+        ogTitle={PostData.title}
+        ogDescription={PostData.content.substring(0, 100)}
+        ogImage={getOgImage(PostData.thumbNailUrl, String(PostData.category))}
+        ogUrl={`https://byjuun.com/post/${id}`}
+      />
+      <ScrollIndicator />
+      <Post Post={PostData}>
+        <Post.AdminButtons />
+        <Post.Title />
+        <div className={styles.div1}>
+          <Post.Date />
+          <Post.Category />
+        </div>
+        <Post.Tags />
+        <Post.ViewCount />
+        <div className={styles.contentSection}>
+          <div className={styles.content}>
+            <Post.SeriesInfo />
+            <Post.Content />
+          </div>
+          <Post.TableOfContents />
+        </div>
+        <Post.RoutePostButtons />
+        <Post.Comments />
+      </Post>
+      <ScrollToTopButton />
+    </>
+  );
+};
+```
+
+마이그레이션 진행과정에서 해당 `Post Page`를 `Server Component`로 옮기게 되면, 아래와 같은 에러를 만났습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/bd1bd6b5-3991-4627-a0c9-3ea4451f5af6" />
+
+관련 Reference를 찾아보았지만 없었습니다.
+
+추측하기로는 `Server Component`에서 `Compound Component 패턴`을 사용하게 될 경우, 직렬화 과정에서 필요한 `Component Type`을 파악할 수 없어 에러가 발생하는 것으로 보입니다.  
+해당 컴포넌트를 `Client Component`로 바꿔도 해결이 되지만, `SSG` 페이지에서 사용하는 `Root Component` 였고, `User Interaction`이 거의 없기 때문에, `Compound Component 패턴`을 버리고 각각의 Component를 따로 불러와 사용하는 아래 방식으로 코드를 수정해 해결했습니다.
+
+```tsx title="app/post/page.tsx"
+const PostPage = async ({ params }: Props) => {
+  // ...
+  return (
+    <WithPostPublicValidation isPublic={isPublic}>
+      <ScrollIndicator />
+      <WithAdminValidation>
+        <PostAdminButtons id={id} />
+      </WithAdminValidation>
+      <PostTitle title={title} />
+      <PostTags Tags={Tags} />
+      <PostViewCount id={id} />
+      <div className={styles.div1}>
+        <PostDate date={createdAt} />
+        <PostCategory category={category} />
+      </div>
+      <div className={styles.contentSection}>
+        <div className={styles.content}>
+          <PostSeriesInfo
+            seriesPosts={seriesPosts}
+            seriesTitle={seriesTitle}
+            SeriesId={SeriesId}
+            id={id}
+          />
+          <PostContent category={category} content={content} />
+        </div>
+        <PostTableOfContents title={title} />
+      </div>
+      <RoutePostButtons prevPost={prevPost} nextPost={nextPost} />
+      <PostComments />
+      <ScrollToTopButton />
+    </WithPostPublicValidation>
+  );
+};
+```
+
+<br />
+
+# Good Bye Axios
+
+`App router`에서는 `fetch API`의 옵션을 이용해 렌더링 방식을 결정하게 됩니다. <a href="https://nextjs.org/docs/app/api-reference/functions/fetch">(공식문서)</a>  
+기존에 사용하던 `Axios`를 사용하기 위해서는 캐싱을 위한 세팅이 추가로 필요했습니다.  
+따라서, 기존에 사용하던 `Axios`를 걷어내고 `fetch API`로 전환했습니다.  
+기존에 axios instance를 한번 감싼 함수를 사용했기 때문에, 해당 함수의 구현만 바꾸었습니다.
+
+AS-IS → <a href="https://github.com/BY-juun/Blog/blob/page_router/client/services/request.ts">Link</a>
+
+```ts
+interface RequestParams {
+  method: "get" | "post" | "patch" | "delete";
+  url: string;
+  body?: any;
+  onError?: (err: any) => any;
+}
+
+const request = async <T>({
+  method,
+  url,
+  body,
+  onError,
+}: RequestParams): Promise<T> => {
+  try {
+    const { data } = await customAxios[method](url, body);
+    return data;
+  } catch (err: any) {
+    const errorMessage = onError ? onError(err) : err?.response?.data;
+    throw new Error(errorMessage || MESSAGE.NETWORK_ERROR);
+  }
+};
+```
+
+TO-BE → <a href="https://github.com/BY-juun/Blog/blob/master/client/services/request.ts">Link</a>
+
+```ts
+interface RequestParams {
+  method: "get" | "post" | "patch" | "delete";
+  url: string;
+  body?: any;
+  options?: Parameters<typeof fetch>[1];
+}
+
+const request = async <T>({
+  method,
+  url,
+  body,
+  options,
+}: RequestParams): Promise<T> => {
+  if (process.env.NODE_ENV === "development") {
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  }
+  try {
+    const res = await fetch(`${ServerURL}${url}`, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      credentials: "include",
+      ...options,
+    });
+
+    const data = await convertResponse<T | string>(res);
+
+    if (res.ok) {
+      return data as T;
+    } else {
+      throw new Error(data as string);
+    }
+  } catch (err: any) {
+    console.error("error : ", err);
+    throw new Error(err?.message || MESSAGE.NETWORK_ERROR);
+  }
+};
+
+export default request;
+
+async function convertResponse<T>(res: Response): Promise<T> {
+  const isJSONResponse =
+    res.headers.get("content-type")?.indexOf("application/json") !== -1;
+
+  if (isJSONResponse) {
+    return await res.json();
+  } else {
+    return (await res.text()) as unknown as T;
+  }
+}
+```
+
+<br />
+
+# Server Component에서 Fetch를 사용할 수 없을 때
+
+`App Router`기반에서는 fetch api의 `cache option`을 통해 렌더링 방식을 결정하게 됩니다.  
+하지만, **데이터를 요청하는 API Call을 라이브러리에서 하게 될 경우**, cache option을 지정할 수 없었습니다.
+
+`Notion`에서 제공하는 API를 통해 데이터를 받아와 SSG를 하는 about 페이지가 해당 케이스에 포함되었습니다.
+
+```tsx title="pages/about/index.tsx"
+const AboutPage = ({ recordMap }: Props) => {
+  return (
+    <>
+      <CommonSEO title="About | Byjuun.com" description="📄 개인이력서" />
+      <PageTitle title="📄 About" description="🧑‍💻 개인이력서입니다." />
+      <ScrollToTopButton />
+      <NotionRenderer recordMap={recordMap} />
+    </>
+  );
+};
+
+export async function getStaticProps() {
+  const notion = new NotionAPI();
+  const NOTION_PAGE_ID = "on-Website-8f7d18bbf99644dbac7129dfd252e373?pvs=4";
+  const recordMap = await notion.getPage(NOTION_PAGE_ID);
+  return {
+    props: {
+      recordMap,
+    },
+  };
+}
+```
+
+Notion 서버로 API Call을 하는 코드가 `notion-client` 라이브러리 내부에 있었기 때문에, `cache option`을 설정할 수 없었습니다.  
+이 상태 그대로 `App Router`기반으로 마이그레이션을 진행할 경우, `SSG`가 아닌 `SSR`형태로 렌더링되게 됩니다.
+
+이 문제를 해결하기 위해, 내부적으로 `notion-client` 라이브러리를 이용해 데이터를 가져오는 내부 api를 따로 만들고, about 페이지에서는 해당 api를 fetch를 통해 call하게 만들어, `Static Generation`이 가능하도록 만들었습니다.
+
+```tsx title="apps/about/page.tsx"
+const AboutPage = async () => {
+  const recordMap = await getNotionRecordMap();
+  if (!recordMap) {
+    return <NotFoundPageIndicator text="오류가 발생했습니다." />;
+  }
+  return (
+    <>
+      <PageTitle title="📄 About" description="🧑‍💻 개인이력서입니다." />
+      <ScrollToTopButton />
+      <NotionPage recordMap={recordMap} />
+    </>
+  );
+};
+
+async function getNotionRecordMap() {
+  try {
+    const res = await fetch("/about/api", {
+      cache: "force-cache",
+    });
+    const recordMap: notion.ExtendedRecordMap = await res.json();
+    return recordMap;
+  } catch (err) {
+    return null;
+  }
+}
+```
+
+```ts title="about/api/route.ts"
+export async function GET() {
+  const notion = new NotionAPI();
+  const recordMap = await notion.getPage(NOTION_PAGE_ID);
+  return NextResponse.json(recordMap);
+}
+```
+
+<br />
+
+# Server Component와 Client 로직 분리
+
+아래와 같이 **User Interaction을 위한 핸들러가 없는 경우**에는 번들파일의 크기를 줄이기 위해, `HOC` 패턴을 사용해 `Client` 로직을 컴포넌트로 부터 분리했습니다.
+
+AS-IS
+
+```tsx
+const PostContent = () => {
+  const { category, content } = usePostContext();
+  useHighLightCodeBlock(category);
+  return (
+    <>
+      <article
+        className={classnames("Code", styles.PostContent)}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </>
+  );
+};
+```
+
+TO-BE
+
+```tsx title="post/HighLightCodeBlock.tsx"
+"use client";
+const HighLightCodeBlock = ({
+  category,
+  children,
+}: PropsWithChildren<Pick<PostType, "category">>) => {
+  useHighLightCodeBlock(category);
+  return <>{children}</>;
+};
+```
+
+```tsx title="post/PostContent.tsx"
+// 아래는 서버 컴포넌트
+const PostContent = ({ content }: Pick<PostType, "content">) => {
+  return (
+    <article
+      className={classnames("Code", styles.PostContent)}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
+};
+```
+
+```tsx title="post/postContentWrap.tsx"
+const PostContentWrap = ({
+  category,
+  content,
+}: Pick<PostType, "category" | "content">) => {
+  return (
+    <HighLightCodeBlock category={category}>
+      <PostContent content={content} />
+    </HighLightCodeBlock>
+  );
+};
+```
+
+`HOC` 패턴을 사용한 이유는 `React Tree` 구조에서 `Client Component`가 자식으로 `Server Component`를 가지기 위해서는 **children props를 사용하는 방법밖에 없기 때문**입니다.
+
+자세한 내용은 공식문서에 나와있습니다. → <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props">https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props</a>
+
+요약하면, 아래와 같습니다.
+
+- `client-component` 입장에서는 `children`으로 무엇이 올지 알 수 없고 알 필요도 없으며, 오직 특정 자리에 `children`을 두면 된다는것에 대한 책임만 있다.
+- 공통 조상(위에서는 `PostContetWrap`)이 있기 때문에, `client-component(HighLightCodeBlock)`과 `server-component(PostContent)`가 따로 렌더링 되며, **server-component는 server에서 먼저 렌더링**된다.
+
+포스트가 너무 길어져 2편으로 나누어 올리겠습니다.
+
+2편에서는 Trouble Shooting, Feature의 남은 부분(SSG, Cache Revalidation, HOC 등)과 App Router로 전환하며 좋았던점과 아쉬웠던점에 대해 다뤄보겠습니다.

@@ -1,0 +1,136 @@
+---
+title: "Recoil의 Prefeching을 통한 사용자 경험 개선기"
+date: "2022-06-01"
+lastmod: "2022-06-01"
+category: "React"
+series: "Frontend 성능 최적화"
+tags: ["recoil"]
+description: "Recoil의 Prefetching 기능을 이용해 특정 페이지의 렌더링을 최적화해 사용자 경험을 개선한 내용을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/7b604f3f-0c71-444c-81fd-bb6b2327855a"
+---
+
+# 🛠 Prefetching?
+
+먼저, `Prefeching`은 무엇일까요? `Prefetching`은 말 그래도 Pre + Fetching **Fetching을 미리 하는 것**입니다.  
+이를 통해서, 이후 실제 `Fetching`의 시간을 단축시키거나, 실제 `Fetching` 동작을 실행하지 않음으로써, 성능상의 이점을 얻을 수 있습니다.
+
+엔지니오의 모든 데이터 `Fetching` 로직은 모두, `Recoil`의 `selector`와 `selectorFamily`를 이용해서 구현되어 있으며, Recoil에서는 자체적으로 `API Caching` 기능을 지원하고 있습니다.  
+`selector`와 `selectorFamily` 내부의 `key`, `구독중인 Atom`, `전달된 파라미터`를 기준으로 Caching 기능을 제공합니다.
+
+<br />
+
+# ❌ 문제상황
+
+`Recoil`에서는 기본적으로 `API` 요청에 대해서, `Caching` 기능을 제공하지만, 첫 API 요청은 `Caching`이 적용되지 않기 때문에, 첫 API 요청에서 Fetching 해야 할 데이터가 많다면(응답이 오래 걸린다면), 사용자는 오랜 시간을 기다릴 수 밖에 없습니다.
+
+대표적으로, 엔지니오 서비스에서 이런 문제를 겪었던 기능으로는 `CBT Review` 기능과 `오답노트` 기능이 있습니다.  
+`CBT Review` 기능은 사용자가 이전에 풀었던 CBT 실전 모의고사 결과를 볼 수 있는 기능이며, 오답노트 기능은 이전에 오답노트에 저장한 문제들을 확인 할 수 있는 기능입니다.
+
+그 중에서, `CBT Review` 기능을 살펴 보겠습니다.  
+아래 영상에서 볼 수 있듯, 네트워크가 느린 사용자의 입장으로 보았을 때, `examRecord`라고 표시되어 있는 API 요청은 굉장히 느린 것(약 2.8초)을 확인 할 수 있습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/f02313de-e89c-44e3-9122-2ccf9363498b" />
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/8f30f549-65cb-4083-b9fc-47a7824d910a" />
+
+추가적으로, `Performance` 탭을 이용한 성능 측정에서도, 해당 API의 요청이 약 `2.8초` 걸린 것을 확인 할 수 있습니다.
+
+2.8초 라는 시간은 길지 않은 시간 같지만, 사용자의 입장에서는 굉장히 느리다고 느낄 수 있습니다.
+
+참고) `Slow 3G` 환경에서 측정해서 이렇게 느린게 아닌가요? 라고 질문 하실 수도 있을 거라고 생각합니다.  
+하지만, 연령대가 높은 사용자가 많기(느린 인터넷 환경에서 이용하시는 분들이 다수 존재함)때문에, `Slow 3G` 환경에서 테스트하는 것이 옳다고 생각했습니다.
+
+<br />
+
+# 👨‍💻 해결 방법
+
+문제 상황을 파악한 이후, 어떤식으로 해결할 수 있을지 `해결 방법`에 대해서 분석하고 고민했습니다.
+
+가장 먼저, 이 문제를 `클라이언트`에서 해결을 해야 할지, 서버에서 해결을 해야 할지 결정해야 했습니다.
+
+서버에서 해결할 경우, 서버에서 캐싱 혹은 쿼리 튜닝 등을 통해, `API 응답 속도`를 최적화 할 수 있을거라 생각했습니다.  
+클라이언트에서 해결할 경우, `API Prefetching` 혹은 `HTTP Header`를 이용한 `Caching`, `localStorage` 등의 `Storage`를 이용한 `Caching`등을 이용할 수 있을거라 생각했습니다.
+
+일단, 서버 개발자분이 이 문제를 해결할 만큼 여유가 있던 상황이 아니었으며, 이 문제가 **서버에서 요청을 받고 반환 하기까지의 시간이 느려서** 문제인지, **네트워크가 느려서** 문제인지 정확한 판단이 되지 않았기 때문에, `클라이언트`에서 해결하기로 결정했습니다.
+
+이후에는, 어떤 방식을 사용해서 클라이언트에서 문제를 해결할지 결정해야 했습니다.  
+기능의 특성 상 사용자가 새로운 시험을 봤을 때(기존 데이터와 비교해서 `새로운 데이터가 추가 되었을 때`), 해당 페이지에 들어가기 때문에, `Caching`은 의미가 없을거라 판단했습니다.  
+따라서, `Prefetching`을 이용해서 문제를 해결하기로 했으며, `Recoil`에서 제공하는 `Prefetching` 기능을 활용하기로 했습니다.
+
+<br />
+
+# 🕰 Recoil에서의 Prefetching
+
+Recoil에서는 데이터 Prefetching 기능을 지원합니다.
+
+useRecoilCallback 훅을 이용해서, Prefeching을 구현 할 수 있었습니다.
+
+useRecoilCallback 훅은 useCallback과 같이 의존성에 따라 갱신되는 메모이즈된 함수를 생성합니다. 생성된 함수의 매게변수로 상태의 한 순간인 snapshot과 상태를 다루는 객체 및 함수가 함께 전달됩니다. -> <a href="https://recoiljs.org/ko/docs/api-reference/core/useRecoilCallback/">https://recoiljs.org/ko/docs/api-reference/core/useRecoilCallback/</a>
+
+다음과 같이, `useRecoilCallback` 훅을 통해서, `Data Prefetching`을 구현 할 수 있습니다 (`getMyCBTReview` 는 `CBT Review` 목록을 가져오는 `selector`의 `key` 값입니다)
+
+```tsx
+const preFetch = useRecoilCallback(
+  ({ snapshot, set }) =>
+    () => {
+      snapshot.getLoadable(getMyCBTReviewList);
+    },
+  []
+);
+```
+
+기본적인, 로직은 다음과 같습니다.
+
+1. `snapshot.getLoadable` 을 통해서, `selector`의 내부 로직을 미리 실행
+2. 미리 실행된 `selector` 로직으로 인해, `selector`의 결과가 `caching` 된다.
+3. 실제 `fetching`에서는 `caching`된 결과를 사용한다.
+
+<br />
+
+# 🧐 Prefetching 시점?
+
+그렇다면, `PreFetching` 로직을 언제 실행 해야 할지 결정 해야 했습니다.
+
+다음과 같이 2가지 상황을 고려했습니다.
+
+- 이전 페이지 Mount 시점
+- CBT Review 페이지로 가는 버튼을 Hover 했을 때
+
+결론적으로, 두 가지 상황 중 `1` 을 선택 했습니다.
+
+이전 페이지는 사실, 다른 페이지로 이동하기 위한 **가이드 페이지**의 느낌이 강합니다.  
+따라서, 사용자가 버튼을 `Hover`한 이후, 사용자는 거의 바로 버튼을 클릭해서 다음 페이지로 이동합니다.  
+그렇게 된다면, 버튼을 `Hover` 했을 때, `PreFetching`을 함으로써 얻는 성능상의 이점이 크지 않다고 판단했습니다
+
+이전 페이지가 `Mount`된 이후, 사용자가 다음 동작(페이지 이동)을 취할 때 까지는, 실제 브라우저는 아무것도 하지 않고 놀고 있는 상태(`Idle`)가 됩니다. (내부적으로, 로직을 처리할 수도 있음)  
+이 `Idle` 상태를 활용해서, 데이터 `Prefetching`을 진행한다면, 브라우저를 최대한 활용 할 수 있을 것이라고 판단했습니다.
+
+이에 따라, 이전 페이지가 `Mount` 된 이후 `PreFetching` 로직을 실행하기로 했습니다.
+
+```tsx
+const preFetchCBTReview = useRecoilCallback(
+  ({ snapshot, set }) =>
+    () => {
+      snapshot.getLoadable(getMyCBTReviewList);
+    },
+  []
+);
+
+useEffect(() => {
+  preFetchCBTReview();
+}, []);
+```
+
+<br />
+
+# 😁 결과
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/efa5d692-5436-49db-b2be-cdb38c39bd6e" />
+
+결과적으로, 페이지를 `랜더링` 하는 과정에서, `Data Fetching` 로직이 사라지고(examRecord API를 호출하지 않음), 약 `2.8초`의 성능상 이점을 얻을 수 있었습니다.
+
+엔지니오에서는, 위 문제 뿐만 아니라 다양한 문제에서, `Recoil`에서 제공하는 `Prefetching` 기능을 활용해, 더 나은 사용자 경험(UX)을 제공 하려고 노력하고 있습니다.
+
+하나의 예로, 사용자가 문제를 풀고 있을 때 다음 문제의 데이터를 미리 가져오는 방식으로 `Prefetching` 기능을 활용하고 있습니다. (ex, 1번 문제에서 2번 문제로 넘어갈 때, 3번 문제에 대한 API를 Call한 후, 해당 API 결과를 캐싱 배열 데이터에 넣어둠)
+
+지금까지, `Recoil`의 `Prefetching`기능을 활용한 사용자 경험 개선기였습니다.

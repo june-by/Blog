@@ -1,10 +1,9 @@
 import React from "react";
-import styles from "./PostCard.styles.module.scss";
 import { Post } from "contentlayer/generated";
 import Link from "next/link";
 import Image from "next/image";
-import { AiFillTag } from "react-icons/ai";
 import { formatDate } from "@/utils";
+import TagList from "./TagList";
 
 const PostCard = (post: Post) => {
   return (
@@ -23,18 +22,13 @@ const PostCard = (post: Post) => {
           blurDataURL={blurDataURL}
         />
       </figure>
-      <article className={styles.articleWrap}>
-        <h2 className="group-hover:underline decoration-2">{post.title}</h2>
+      <article className="flex flex-col justify-between w-full p-1 sm:w-[calc(55%-1.5rem)] sm:p-0">
+        <h2 className="group-hover:underline decoration-2 font-bold text-xl sm:text-2xl">
+          {post.title}
+        </h2>
         {post.description && <p className="text-sm">{post.description}</p>}
-        <ul className="flex gap-1 pl-0">
-          {post.tags?.map((tag, idx) => (
-            <li key={`${tag}${idx}`} className="flex items-center gap-0.5">
-              <AiFillTag className="text-blue-700" />
-              <span className="text-sm">{tag}</span>
-            </li>
-          ))}
-        </ul>
-        <time className={styles.date}>{formatDate(post.date)}</time>
+        <TagList tags={post.tags} />
+        <time className="mt-1 text-sm">{formatDate(post.date)}</time>
       </article>
     </Link>
   );

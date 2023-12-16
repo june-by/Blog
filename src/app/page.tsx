@@ -1,11 +1,27 @@
 import { allPosts } from "contentlayer/generated";
 import PostCard from "@/components/PostCard";
-export default function Home() {
+import { sortedPosts } from "@/utils";
+import Categories from "@/components/home/Categories";
+import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
+
+interface Props {
+  searchParams: {
+    category?: string;
+  };
+}
+export default function Home({ searchParams: { category } }: Props) {
+  const posts = category
+    ? allPosts.filter((post) => post.category === category)
+    : allPosts;
   return (
-    <div className="flex flex-col gap-4 mt-4">
-      {allPosts.map((post) => (
-        <PostCard {...post} key={post._id} />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col gap-4 mt-4">
+        <Categories posts={allPosts} />
+        {sortedPosts(posts).map((post) => (
+          <PostCard {...post} key={post._id} />
+        ))}
+      </div>
+      <ScrollToTopButton />
+    </>
   );
 }
