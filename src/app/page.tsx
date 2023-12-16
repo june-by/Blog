@@ -16,7 +16,7 @@ export default function Home({ searchParams: { category } }: Props) {
   return (
     <>
       <div className="flex flex-col gap-4 mt-4">
-        <Categories posts={allPosts} />
+        <Categories posts={allPosts} currentCategory={category} />
         {sortedPosts(posts).map((post) => (
           <PostCard {...post} key={post._id} />
         ))}

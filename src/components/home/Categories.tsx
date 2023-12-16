@@ -5,16 +5,21 @@ import React from "react";
 
 interface Props {
   posts: Post[];
+  currentCategory?: Post["category"];
 }
 
-const Categories = ({ posts }: Props) => {
+const Categories = ({ posts, currentCategory }: Props) => {
   const categories = getCategories(posts);
 
   return (
     <div className="pb-2 flex gap-1 overflow-x-scroll scrollbar scrollbar-h-0.5 scrollbar-thumb-blue-500 scrollbar-track-gray-100">
       {categories.map(({ text, count }) => (
         <Link
-          className="flex gap-1 text-[13px] rounded p-2 bg-neutral-200 dark:bg-neutral-800 whitespace-nowrap"
+          className={`flex gap-1 text-[13px] rounded p-2  whitespace-nowrap ${
+            currentCategory === text
+              ? "bg-neutral-600"
+              : "bg-neutral-200 dark:bg-neutral-800"
+          }`}
           key={text}
           href={{
             pathname: "/",
