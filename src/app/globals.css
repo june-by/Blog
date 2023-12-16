@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 a {
   word-break: break-all;
 }
@@ -77,4 +81,12 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 .prose
   :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply border-l-blue-500;
+}
+
+a[data-level="2"] {
+  @apply pl-4;
+}
+
+a[data-level="3"] {
+  @apply pl-6;
 }
