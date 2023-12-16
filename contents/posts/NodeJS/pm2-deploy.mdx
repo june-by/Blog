@@ -9,8 +9,6 @@ description: "NodeJS 기반 서비스의 Process Manage를 위한 패키지 PM2�
 thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/d551ccba-1aca-400b-b0d8-a3053714034c"
 ---
 
-#
-
 아래 `Reference`를 참고했습니다.
 
 > <a href="https://engineering.linecorp.com/ko/blog/pm2-nodejs">
@@ -91,8 +89,6 @@ app.listen(3065, () => {
   console.log("서버 실행 중");
 });
 ```
-
-##
 
 ## 3️⃣ 클라이언트 요청 처리 도중, 프로세스가 죽는 경우
 
@@ -179,8 +175,6 @@ process.on("SIGINT", () => {
   server.close(() => process.exit(0));
 });
 ```
-
-###
 
 ### HTTP 1.1 Keep Alive
 

@@ -28,7 +28,7 @@ const computedFields: ComputedFields = {
           const flag = groups?.flag;
           const content = groups?.content;
           return {
-            level: flag.length,
+            level: flag?.length,
             text: content,
             slug: content ? slugger.slug(content) : undefined,
           };
@@ -85,6 +85,6 @@ export default makeSource({
   contentDirPath: "./contents",
   documentTypes: [Post],
   mdx: {
-    rehypePlugins: [[rehypePrettyCode as any, prettyCodeOptions, rehypeSlug]],
+    rehypePlugins: [[rehypePrettyCode as any, prettyCodeOptions], rehypeSlug],
   },
 });
