@@ -1,0 +1,248 @@
+---
+title: "이벤트 [모던 자바스크립트 Deep Dive 40장]"
+date: "2022-06-13"
+lastmod: "2022-06-13"
+category: "JavaScript"
+tags: ["event"]
+series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
+description: "모던 자바스크립트 Deep Dive 40장 내용을 정리한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7"
+---
+
+# 🌟 이벤트 드리븐 프로그래밍
+
+이벤트가 발생했을 때, 호출될 함수를 이벤트 핸들러(event handler)라고 한다.
+
+이벤트가 발생했을 때 브라우저에게 이벤트 핸들러의 호출을 위임하는 것을 이벤트 핸들러 등록이라고 한다.
+
+프로그램의 흐름을 이벤트 중심으로 제어하는 프로그래밍 방식을 이벤트 드리븐 프로그래밍(Event Driven Programming)이라고 한다.
+
+# 🌟 이벤트 핸들러 등록
+
+**이벤트 핸들러 어트리뷰트 방식**
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="sayHi('Lee')">Click me!</button>
+    <script>
+      function sayHi(name) {
+        console.log(`Hi! ${name}.`);
+      }
+    </script>
+  </body>
+</html>
+```
+
+HTML 요소의 어트리뷰트 중에는 이벤트에 대응하는 이벤트 핸들러 어트리뷰트가 있다. 이를 통해, 이벤트 핸들러를 등록할 수 있다.
+
+## 이벤트 핸들러 프로퍼티 방식
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      // 이벤트 핸들러 프로퍼티에 이벤트 핸들러를 바인딩
+      $button.onclick = function () {
+        console.log("button click");
+      };
+    </script>
+  </body>
+</html>
+```
+
+이벤트 타깃을 설정하고 이벤트 타입을 통해 이벤트 핸들러를 지정한다.
+
+## addEventListner 방식
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      // 이벤트 핸들러 프로퍼티 방식//
+      $button.onclick = function () {
+        console.log("button click");
+      }; // addEventListener 메서드 방식
+      $button.addEventListener("click", function () {
+        console.log("button click");
+      });
+    </script>
+  </body>
+</html>
+```
+
+`addEventListner` 메서드를 이용해 이벤트 핸들러를 등록할 수 있다.
+
+<br />
+
+# 🌟 이벤트 핸들러 제거
+
+`addEventListner` 메서드로 등록한 이벤트 핸들러는 `removeEventListner` 메서드를 통해 제거할 수 있다.
+
+이때, `addEventListner` 메서드에 전달한 인수와 같은 인수를 `removeEventListner`에 전달해야 한다.
+
+```html
+<html>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      const handleClick = () => console.log("button click");
+
+      // 이벤트 핸들러 등록
+      $button.addEventListener("click", handleClick);
+
+      // 이벤트 핸들러 제거
+      // addEventListener 메서드에 전달한 인수와 removeEventListener 메서드에 전달한 인수가 일치하지 않으면 이벤트 핸들러가 제거되지 않는다.
+      $button.removeEventListener("click", handleClick, true); // 실패
+      $button.removeEventListener("click", handleClick); // 성공
+    </script>
+  </body>
+</html>
+```
+
+<br />
+
+# 🌟 이벤트 객체
+
+이벤트가 발생하면 이벤트에 관련한 다양한 정보를 담고 있는 이벤트 객체가 동적으로 생성되며, 이벤트 핸들러의 첫 번째 인수로 전달된다.
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>클릭하세요. 클릭한 곳의 좌표가 표시됩니다.</p>
+    <em class="message"></em>
+    <script>
+      const $msg = document.querySelector(".message");
+
+      // 클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
+      function showCoords(e) {
+        $msg.textContent = `clientX: ${e.clientX}, clientY: ${e.clientY}`;
+      }
+
+      document.onclick = showCoords;
+    </script>
+  </body>
+</html>
+```
+
+그때그때, `console`에 찍어서 확인하고 필요한 프로퍼티를 사용하자
+
+<br />
+
+# 🌟 이벤트 전파
+
+DOM 트리 상에 존재하는 DOM 요소 노드에서 발생한 이벤트는 DOM 트리를 통해, 전파된다.
+
+- 캡처링 단계(capturing phase) : 이벤트가 상위 요소에서 하위 요소 방향으로 전파
+- 타깃 단계(target phase) : 이벤트가 이벤트 타깃에 도달
+- 버블링 단계(bubbling phase) : 이벤트가 하위 요소에서 상위 요소 방향으로 전파
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul id="fruits">
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+    <script>
+      const $fruits = document.getElementById("fruits");
+
+      // #fruits 요소의 하위 요소인 li 요소를 클릭한 경우
+      $fruits.addEventListener("click", (e) => {
+        console.log(`이벤트 단계: ${e.eventPhase}`);
+        // 3: 버블링 단계
+        console.log(`이벤트 타깃: ${e.target}`); // [object HTMLLIElement]
+        console.log(`커런트 타깃: ${e.currentTarget}`); // [object HTMLUListElement]
+      });
+    </script>
+  </body>
+</html>
+```
+
+ul 요소에 이벤트 핸들러를 바인딩하고 ul 요소의 하위 요소인 li요소를 클릭하여 이벤트를 발생시켜 보자.
+
+이때, 이벤트 타깃(e.target)은 li 요소이고, 커런트 타깃(e.currentTarget)은 ul 요소다.
+
+li요소를 클릭하면, 클릭 이벤트가 발생하고 클릭 이벤트 객체가 생성되고 클릭된 li 요소가 이벤트 타겟이 된다.
+
+이때, 클릭 이벤트는 window(전역객체)에서 시작해서 이벤트 타겟인 li 요소까지 전파된다(캡처링 단계)
+
+이후, 객체는 이벤트를 발생시킨 타겟에 도달한다.(타깃 단계)
+
+이후 이벤트 객체는 이벤트 타겟에서 시작해 window방향으로 전파된다(버블링 단계)
+
+DOM 트리를 통해 전파되는 이벤트는 이벤트 패스에 위치한 모든 DOM 요소에서 캐치할 수 있다.
+
+# 🌟 DOM 요소의 기본 동작 조작
+
+## DOM 요소의 기본 동작 중단
+
+이벤트 객체의 `preventDefault` 메서드를 이용해 DOM의 기본 동작(a tag -> href)을 중단시킬 수 있다.
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <a href="https://www.google.com">go</a><input type="checkbox" />
+    <script>
+      document.querySelector("a").onclick = (e) => {
+        // a 요소의 기본 동작을 중단한다.
+        e.preventDefault();
+      };
+
+      document.querySelector("input[type=checkbox]").onclick = (e) => {
+        // checkbox 요소의 기본 동작을 중단한다.
+        e.preventDefault();
+      };
+    </script>
+  </body>
+</html>
+```
+
+## 이벤트 전파 방지
+
+이벤트 객체의 `stopPropagation` 메서드는 이벤트 전파를 중지시킨다.
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="container">
+      <button class="btn1">Button 1</button
+      ><button class="btn2">Button 2</button
+      ><button class="btn3">Button 3</button>
+    </div>
+    <script>
+      // 이벤트 위임. 클릭된 하위 버튼 요소의 color를 변경한다.
+      document.querySelector(".container").onclick = ({ target }) => {
+        if (!target.matches(".container > button")) return;
+        target.style.color = "red";
+      };
+
+      // .btn2 요소는 이벤트를 전파하지 않으므로 상위 요소에서 이벤트를 캐치할 수 없다.
+      document.querySelector(".btn2").onclick = (e) => {
+        e.stopPropagation(); // 이벤트 전파 중단
+        e.target.style.color = "blue";
+      };
+    </script>
+  </body>
+</html>
+```
+
+위 예제에서 상위 DOM 요소인 container 에 이벤트를 위임했다. 따라서, 하위 DOM 요소에서 발생한 클릭 이벤트를 상위 DOM 요소인 container 가 캐치하여 이벤트를 처리한다.
+
+그러나, 하위 요소 중에서 btn2는 자체적으로 이벤트를 처리한다. 이때, **btn2는 자신이 발생시킨 이벤트가 전파되는 것을 중단해, 자신에게 바인딩된 이벤트 핸들러만 실행되도록** 한다.
