@@ -39,6 +39,22 @@ const computedFields: ComputedFields = {
   },
 };
 
+export const Page = defineDocumentType(() => ({
+  name: "Page",
+  filePathPattern: `pages/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+  },
+  computedFields,
+}));
+
 const prettyCodeOptions: PrettyCodeOptions = {
   theme: {
     dark: "material-theme-darker",
@@ -83,7 +99,7 @@ export const Post = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "./contents",
-  documentTypes: [Post],
+  documentTypes: [Post, Page],
   mdx: {
     rehypePlugins: [[rehypePrettyCode as any, prettyCodeOptions], rehypeSlug],
   },
