@@ -6,3 +6,4 @@ export { default as RoutePostButtons } from "./RoutePostButtons";
 export { default as PostListInSeries } from "./PostListInSeries";
 export { default as TableOfContents } from "./TableOfContents";
 export * from "./MdxComponent";
+export { default as NoPost } from "./noPost";
