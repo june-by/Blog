@@ -1,11 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import Header from "@/components/shared/Header";
 import ToastContainer from "@/components/shared/ToastContainer";
 import "react-toastify/dist/ReactToastify.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -23,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`antialiased min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 ${inter.className}`}
+        className={`antialiased min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 `}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="max-w-2xl mx-auto py-10 px-4">
