@@ -1,0 +1,205 @@
+---
+title: "브라우저의 렌더링 과정 [모던 자바스크립트 Deep Dive 38장]"
+date: "2022-06-11"
+lastmod: "2022-06-11"
+category: "JavaScript"
+tags: ["brower", "render"]
+series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
+description: "모던 자바스크립트 Deep Dive 38장 내용을 정리한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7"
+---
+
+`브라우저`는 다음과 같은 과정을 거쳐 `렌더링`을 수행한다.
+
+1. 브라우저는 `HTML`, `CSS`, `Javascript`, `이미지`, `폰트 파일` 등 렌더링에 필요한 리소스를 요청하고 서버로부터 응답을 받는다.
+2. 브라우저의 렌더링 엔진은 서버로부터 응답된 `HTML`과 `CSS`를 파싱하여 `DOM`과 `CSSOM`을 생성하고 이들을 결합하여 렌더 트리를 생성한다.
+3. 브라우저의 자바스크립트 엔진은 서버로부터 응답된 자바스크립트를 파싱하여 `AST`(`Abstraction Syntax Tree`)를 생성하고 `바이트코드`로 변환하여 실행한다.
+4. 렌더 트리를 기반으로 `HTML` 요소의 레이아웃을 계산하고 브라우저 화면에 `HTML` 요소를 페인팅한다.
+
+<br />
+
+# 🌟 요청과 응답
+
+> 브라우저의 핵심 기능은 필요한 리소스를 서버에 요청하고 서버로부터 응답을 받아, 브라우저에 시각적으로 렌더링 하는 것이다.
+
+브라우저의 렌더링 엔진은 `HTML`을 파싱하는 도중에 외부 리소스를 로드하는 태그, 즉 `CSS` 파일을 로드하는 `link` 태그, `이미지` 파일을 로드하는 `img` 태그, `JavaScript` 파일을 로드하는 `script`태그 등을 만나면, 파싱을 `일시 중단`하고 해당 `리소스 파일을 서버로 요청`한다.
+
+<br />
+
+# 🌟 HTTP 1.1과 HTTP 2.0
+
+`HTTP`는 웹에서 브라우저와 서버가 통신하기 위한 `프로토콜`이다.
+
+`HTTP/1.1`은 기본적으로 <u>커넥션당 하나의 요청과 응답</u>만 처리한다. → 즉, 여러 개의 요청을 한번에 전송할 수 없고, 응답 또한 마찬가지다.
+
+따라서 HTML 문서 내에 포함된 여러 개의 리소스 요청, 즉 CSS 파일을 로드하는 `link` 태그, `img` 태그, `script` 태그 등에 의한 리소스 요청이 `개별적`으로 전송되고 응답 또한 `개별적`으로 전송된다.
+
+> 이처럼 HTTP/1.1은 리소스의 동시 전송이 불가능한 구조이므로 요청할 리소스의 개수에 비례하여 응답 시간도 증가하는 단점이 있다.
+
+> HTTP/2.0은 커넥션당 여러 개의 요청과 응답(다중 요청/응답)이 가능하다. 따라서 여러 리소스의 동시 전송이 가능하므로, 페이지 로드 속도가 약 50% 정도 빠르다고 알려져 있다.
+
+<br />
+
+# 🌟 HTML 파싱과 DOM 생성
+
+브라우저의 요청에 의해 서버가 응답한 `HTML` 문서는 `문자열`로 이루어진 순수한 `텍스트`다.  
+이를 브라우저에 시각적인 픽셀로 렌더링하려면 `HTML` 문서를 브라우저가 이해할 수 있는 자료구조(객체)로 변환하여 메모리에 저장해야 한다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/76e7d052-63b3-4faf-a912-95886bf812c6" />
+
+브라우저의 렌더링 엔진은 `HTML`문서를 `파싱`해 브라우저가 이해할 수 있는 자료구조인 `DOM`을 생성한다.
+
+1. 서버에 존재하던 `HTML` 파일이 브라우저의 요청에 의해 응답된다. 이때 서버는 브라우저가 요청한 HTML 파일을 읽어 들여 메모리 저장한 후 메모리 저장된 `바이트`를 인터넷을 경유해 응답한다.
+2. 브라우저는 서버가 응답한 `HTML` 문서를 `바이트(2진수) 형태로 응답`받는다. 그리고 응답된 바이트 형태의 `HTML` 문서는 `meta` 태그의 `charset` 어트리뷰트에 의해 지정된 방식(ex, UTF-8)을 기준으로 문자열로 변환한다.
+3. 문자열로 변환된 `HTML` 문서를 읽어 들여 문법적 의미를 갖는 최소 단위인 `토큰`들로 `분해`한다.
+4. 각 `토큰`들을 객체로 변환해 `노드`를 생성한다. 노드는 이후 DOM을 구성하는 기본 요소가 된다.
+5. HTML 요소 간의 부자 관계를 반영해, 모든 `노드`들을 `트리 자료구조`로 구성한다.
+
+<br />
+
+# 🌟 CSS 파싱과 CSSOM 생성
+
+렌더링 엔진은 `DOM`을 생성해 나가다가 `CSS`를 로드하는 `link` 태그나 `style` 태그를 만나면 <u>DOM 생성을 일시 중단</u>한다.
+
+그리고 `link` 태그의 `href` 어트리뷰트에 지정된 `CSS` 파일을 서버에 요청해 로드한 `CSS`파일이나 `style` 태그 내의 `CSS`를 `HTML`과 동일한 과정(바이트 → 문자 → 토큰 → 노드 → CSSOM)을 거치며 해석해 `CSSOM`을 생성한다.
+
+이후, CSS 파싱을 완료하면 <u>HTML 파싱이 중단된 시점부터 다시 HTML</u>을 파싱하기 시작해, DOM 생성을 재개한다.
+
+<br />
+
+# 🌟 렌더 트리 생성
+
+`랜더링 엔진`은 서버로 부터 응답된 `HTML`과 `CSS`를 파싱해, 각각 `DOM`과 `CSSOM`을 생성한다.  
+그리고, `DOM`과 `CSSOM`은 렌더링을 위해 `렌더 트리`로 결합된다.
+
+> `렌더 트리`는 렌더링을 위한 트리 구조의 자료 구조다.
+
+따라서, <u>브라우저 화면에 렌더링 되지 않는 노드</u>(ex, meta 태그, script 태그)와 CSS에 의해 비표시(`display : none`)되는 노드들은 포함하지 않는다.
+
+이후 완성된 렌더 트리는 각 HTML 요소의 `레이아웃`을 계산하는 데 사용되며, 브라우저 화면에 픽셀을 렌더링하는 `페인팅` 처리에 의해 입력된다.
+
+지금까지 살펴본, 브라우저의 렌더링 과정은 반복해서 실행될 수 있다.
+
+예를 들어, 다음과 같은 경우 반복해서 레이아웃 계산과 페인팅이 재차 실행된다.
+
+- 자바스크립트에 의한 노드 추가 또는 삭제
+- 브라우저 창의 리사이징에 의한 뷰포트 크기 변경
+- HTML 요소의 레이아웃(위치,크기)에 변경을 발생시키는 경우
+  - width/height
+  - margin
+  - padding
+  - border
+  - display
+  - position
+  - top/right/bottom/left 등의 스타일 변경
+
+레이아웃 계산과 페인팅을 다시 실행하는 `리렌더링`은 비용이 많이 드는 작업이다.
+
+따라서, 가급적 `리렌더링`이 빈번하게 발생하지 않도록 주의할 필요가 있다.
+
+<br />
+
+# 🌟 자바스크립트 파싱과 실행
+
+`CSS` 파싱 과정과 마찬가지로 렌더링 엔진은 `HTML`을 한 줄씩 순차적으로 파싱하여, `DOM`을 생성해 나가다가 `JavaScript` 파일을 로드하는 `script` 태그를 만나면 `DOM` 생성을 일시 중지한다.
+
+그리고 `script` 태그의 src 어트리뷰트에 정의된 `JavaScript` 파일을 서버에 요청해, 로드한 `JavaScript` 코드를 파싱하기 위해 `JavaScript Engine`에 제어권을 넘긴다.
+
+이후, `JavaScript` 파싱과 실행이 종료되면 `렌더링 엔진`으로 다시 제어권을 넘겨 HTML파싱을 중단된 지점부터 다시 시작한다.
+
+`JavaScript` 파싱과 실행은 `JavaScript Engine`이 처리한다.
+
+`JavaScript Engine`은 자바스크립트 코드를 파싱해, CPU가 이해할 수 있는 `low level language`로 변환하고, 실행하는 역할을 한다.
+
+`HTML`, `CSS`를 파싱해 `DOM`과 `CSSOM`을 생성하듯, `JavaScript Engine`은 `JavaScript`를 해석해, `AST(Abstraction Syntax Tree)`를 생성한다. 그리고 `AST`를 기반으로 인터프리터가 실행 할 수 있는 중간 코드인 바이트코드를 생성하여 실행한다.
+
+<br />
+
+# 🌟 리플로우와 리페인트
+
+만약 자바스크립트 코드에 `DOM`이나 `CSSOM`을 변경하는 `DOM API`가 사용된 경우, `DOM`이나 `CSSOM`이 변경된다.
+
+이때, 변경된 `DOM`과 `CSSOM`은 다시 `렌더 트리`로 결합되고 <u>변경된 렌더 트리를 기반으로 레이아웃과 페인트 과정을 거쳐 브라우저의 화면에 다시 렌더링</u>한다.
+
+> 이를 리플로우, 리페인트라고 한다.
+
+`리플로우`는 <u>레이아웃 계산(위치, 크기 계산)을 다시 하는 것</u>을 말하며, 노드 추가/삭제, 요소의 크기/위치 변경, 윈도우 리사이징 등 <u>레이아웃에 영향을 주는 변경</u>이 발생한 경우에 한하여 실행된다.
+
+`리페인트`는 재결합된 렌더 트리를 기반으로 <u>다시 페인트(픽셀 렌더링)</u>를 하는 것을 말한다.
+
+<br />
+
+# 🌟 자바스크립트 파싱에 의한 HTML 파싱 중단
+
+지금까지 살펴본 바에 따르면, `브라우저`는 `위에서 아래 방향`으로 `HTML`, `CSS`, `JavaScript`를 파싱하고 실행한다. (DOM을 생성하는 도중 CSS, JS 파일을 로드하는 태그를 만나면, 파일을 로드하고 CSSOM을 만들거나, AST를 만든다)
+
+이는 <u>script태그의 위치에 따라 HTML파싱이 블로킹 되어 DOM 생성이 지연</u>될 수 있다는 것을 의미한다.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      /*
+        DOM API인 document.getElementById는 DOM에서 id가 'apple'인 HTML 요소를
+        취득한다. 
+        아래 DOM API가 실행되는 시점에는 아직 id가 'apple'인 HTML 요소를 파싱하지
+        않았기 때문에 DOM에는 id가 'apple'인 HTML 요소가 포함되어 있지 않다.
+        따라서 아래 코드는 정상적으로 id가 'apple'인 HTML 요소를 취득하지 못한다.
+      */
+      const $apple = document.getElementById("apple");
+
+      // id가 'apple'인 HTML 요소의 css color 프로퍼티 값을 변경한다.
+      // 이때 DOM에는 id가 'apple'인 HTML 요소가 포함되어 있지 않기 때문에 에러가 발생한다.
+      $apple.style.color = "red";
+      // TypeError: Cannot read property 'style' of null
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+  </body>
+</html>
+```
+
+`DOM API`인 `document.getElementById('apple')` 는 DOM에서 id가 'apple'인 HTML 요소를 취득한다.
+
+하지만, `document.getElementById('apple')`을 실행하는 시점에는 아직 id가 'apple'인 HTML 요소를 파싱하지 않았기 때문에, 정상적으로 동작하지 않는다.
+
+이를 위해, `JavaScript`를 `body` 요소의 가장 아래, 닫는 `body` 태그 바로 위에 위치시켜 보자.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+    <script>
+      /*
+        DOM API인 document.getElementById는 DOM에서 id가 'apple'인 HTML 요소를
+        취득한다. 
+        아래 코드가 실행되는 시점에는 id가 'apple'인 HTML 요소의 파싱이 완료되어
+        DOM에 포함되어 있기 때문에 정상적으로 동작한다.
+      */
+      const $apple = document.getElementById("apple");
+
+      // apple 요소의 css color 프로퍼티 값을 변경한다.
+      $apple.style.color = "red";
+    </script>
+  </body>
+</html>
+```
+
+또한 `JavaScript`가 실행되기 이전에 `DOM` 생성이 완료되어 렌더링 되므로, 페이지 로딩 시간이 단축되는 이점도 있다.

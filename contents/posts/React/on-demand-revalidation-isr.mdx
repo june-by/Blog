@@ -1,0 +1,137 @@
+---
+title: "On-Demand Revalidate을 이용한 ISR개선하기"
+date: "2023-02-26"
+lastmod: "2023-02-26"
+category: "React"
+tags: ["ssg", "isr"]
+series: "Blog 개발일지"
+description: "On Demand Revalidation을 활용해 특정 상황에서만 ISR을 적용한 과정과 결과에 대해 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/72a92ac1-c740-416b-a25a-1431c7adec21"
+---
+
+# 🌄 배경
+
+기존에는, `getStaticProps` 메서드의 `revalidate`옵션을 통해, 사용자에게 `fresh`한 페이지를 제공하고 있었으며, 다음과 같은 순서로 이루어졌습니다.
+
+1. `Build Time`에 각 게시글에 대한 `SSG`를 통해 `HTML`파일과 `JSON`데이터 파일 생성
+2. 클라이언트에게 `HTML`파일이 있을 경우, 기존에 만들어 놓은 `JSON`데이터를 이용해 `HTML`파일을 구성 후 제공, `HTML`파일이 없을 경우, 미리 만들어 놓은 `HTML`파일 제공
+3. 사용자가 방문 후, `60초`가 지난 후(`revalidate:60`), `NextJS서버`에서 새롭게 `HTML`파일과 `JSON`데이터파일 생성
+
+실제로 데이터가 변경되지 않더라도, 사용자가 방문하게 될 경우, 무조건적으로 `revalidate`를 하기 때문에 **비효율적**이었습니다.
+
+따라서, `On-Demand Revalidation`을 적용해, 실제로 데이터가 변경된 경우에만, `revalidate`되도록 개선하게 되었습니다.
+
+<br />
+
+# 🛠 On Demand Revalidation 플로우
+
+게시글 수정의 경우 이전에는 아래와 같은 순서로 이루어졌습니다.
+
+1. 수정을 원하는 게시글의 데이터를 백엔드서버에서 받아온다.
+2. 에디터를 이용해 데이터를 수정한다.
+3. 백엔드서버에 수정한 데이터를 전송한다.
+4. 백엔드서버에서 데이터베이스에 데이터를 수정한다.
+
+`NextJS`에서 `On Demand Revalidation`의 경우, 서버 내부 `API`를 통해 구현할 수 있습니다. → [https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
+
+따라서, `백엔드서버`에서 위 4번 과정 이후, `NextJS서버` 내부 `API`에 요청을 보내, `revalidate`할 수 있도록 했습니다.
+
+아래 이미지는 게시글 수정에 대한 전체 플로우를 나타낸 순서도입니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/3ff9fb44-9815-406e-838e-18a7a8824de8" />
+
+<br />
+
+# 🧑‍💻 NextJS서버 내부 API 구성
+
+`백엔드서버`에게 요청받은 `API`는 여러 상황에 대한 검증 이후, `res.revalidate`를 통해 해당 게시글에 대해 `revalidation`을 하게 됩니다. → [https://github.com/BY-juun/Blog/blob/master/client/pages/api/revalidate-post.ts](https://github.com/BY-juun/Blog/blob/master/client/pages/api/revalidate-post.ts)
+
+```tsx
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { method, query, body } = req;
+
+  if (method !== "POST")
+    return res
+      .status(400)
+      .json({ error: "Invalid HTTP method. Only POST method is allowed." });
+
+  if (query.secret !== process.env.SECRET_REVALIDATE_TOKEN)
+    return res.status(401).json({ message: "Invalid token" });
+
+  try {
+    if (!body) return res.status(400).send("Bad reqeust (no body)");
+
+    const revalidatedPostID = body.id;
+    if (idToRevalidate) {
+      await res.revalidate(`/post/${revalidatedPostID}`);
+      return res.json({ revalidated: true });
+    }
+  } catch (err) {
+    return res.status(500).send("Error while revalidating");
+  }
+}
+```
+
+`백엔드서버`에서는 `데이터베이스`에 데이터를 수정한 이후, `NextJS서버 API`로 요청을 보내게 됩니다.
+
+```ts {16-21}
+const updatePost = async (req: Request, res: Response, next: NextFunction) => {
+  const { title, category, content, tagArr, thumbNailUrl, isPublic } = req.body;
+  const { postId } = req.params;
+  try {
+    await postService.updatePost({
+      title,
+      category,
+      content,
+      thumbNailUrl,
+      postId,
+      isPublic,
+    });
+    const post = await postService.getPost({ postId });
+    const result = await tagService.createTags({ tagArr });
+    await postService.updateTags({ post, result });
+    await axios.post(
+      `${CLIENT_URL}/api/revalidate-post?secret=${process.env.SECRET_REVALIDATE_TOKEN}`,
+      {
+        id: postId,
+      }
+    );
+    return res.json({
+      message: "게시글 수정이 완료되었습니다. 메인화면으로 돌아갑니다",
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+```
+
+<br />
+
+# 🎬 데이터 분리
+
+게시글의 `제목`과 `내용`은 작성자가 수정을 하지 않는 이상 변화하지 않지만, 게시글의 `조회수`와 `댓글`의 경우에는 작성자가 수정을 하지 않아도 변할 수 있는 부분입니다.
+
+이전에는, 사용자가 게시글을 본 이후 60초 이후에 `ISR`이 진행되기 때문에, 크게 문제가 되지 않았지만, `On-Demand Revalidation`으로 변경한 이후, 게시글을 수정하지 않는다면, 사용자들은 계속해서 같은 조회수와 댓글을 보게 됩니다.
+
+또한, `조회수`와 `댓글` 같은 경우에는 검색엔진에 노출되지 않아도 상관 없는 데이터입니다.
+
+따라서, 게시글의 조회수와 댓글에 대해서는, `Build Time`에서 수행되는 게시글의 정보를 가져오는 `API`에서 따로 분리하게 되었습니다.
+
+게시글의 정보를 가져오는 `API`에서 분리된 조회수와 댓글의 경우에는, `SEO`가 필요하지 않은 부분이기 때문에, `CSR`단계에서 `API`요청을 통해 데이터를 가져오고 화면에 표시하도록 만들게 되었습니다.
+
+<br />
+
+# 💁‍♂️ 결과
+
+결과적으로, 총 2가지 상황을 개선할 수 있었습니다.
+
+- 실제로 데이터가 수정되지 않았지만, `revalidate`를 하게 되어 서버 리소스가 낭비되는 상황
+- 데이터를 수정 이후, 이를 확인하기 위해서는 `revalidation`을 위한 60초를 기다려야 하는 상황
+
+추가적으로, 사용자에게 최신 데이터를 보여주어야 하는 부분에 대해서는 `API`를 분리해, 60초의 시간 내에 방문한 여러 사용자는 동일한 데이터를 보게 되는 현상을 막을 수 있었습니다.

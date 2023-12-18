@@ -1,0 +1,246 @@
+---
+title: "블로그 게시글 페이지 SSR → SSG 전환기"
+date: "2023-01-24"
+lastmod: "2023-01-24"
+category: "React"
+tags: ["ssr", "ssg", "NextJS"]
+description: "SSR로 서빙되던 블로그 각 포스트 페이지를 SSG로 전환한 과정과 결과를 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/251523cd-2360-46b9-8fc5-f28d9c7fc18a"
+---
+
+#
+
+# 🌁 배경
+
+기존 블로그 각 게시글 페이지의 경우, `NextJS`에서 제공하는 `Dynamic Routing`을 사용하고 있으며, `SSG` 방식이 아닌 `SSR` 방식을 사용하고 있었습니다. `pages/post/[id].tsx`, `getServerSideProps`
+
+`NextJS` 공식 문서에서는, 블로그 게시글과 같이 내부 콘텐츠가 자주 변하지 않는 페이지의 경우에는, `SSG` 사용을 권장하고 있습니다.
+
+공식 문서에서 권장하는 `SSG`가 아닌 `SSR`형태로 구현한 이유는 `SSG`에 대한 이해가 부족해서였습니다.
+
+딱히, 불편한 점은 없었지만, `SSR` 형태로 구현되다 보니, 서버에서 매번 `HTML` 파일을 만들게 되어 로딩이 살짝 느렸습니다.
+
+그래서, 이번에 `SSG`에 대한 학습과 함께, 블로그 게시글 페이지를 `SSR`방식에서 `SSG`로 변경 한 후, 성능 분석까지 진행해보게 되었습니다.
+
+<br />
+
+# 🧐 SSR? SSG?
+
+먼저, `SSR`은 `Server Side Rendering`의 약자이고, `SSG`는 `Server Site Generation`의 약자이며, `SSR`과 `SSG` , `pre-rendering`(서버에서 페이지를 HTML 문서로 생성 후 반환)을 위한 방식입니다.
+
+`SSR`의 경우, 유저의 요청 마다, 그에 상응하는 `HTML` 문서를 생성해, 반환하는 방식입니다. → [https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props)
+
+`SSG`의 경우, `HTML`을 `Build Time`에 생성하고, 해당 페이지로 요청이 올 경우, `Build Time`에 생성한 `HTML`을 반환하는 방식입니다. → [https://nextjs.org/docs/basic-features/data-fetching/get-static-props](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+
+`SSG` 방식은 미리 생성된 `HTML`을 전달만 하면 되기 때문에, `SSR` 방식에 비해, 응답속도가 매우 빠릅니다.
+
+따라서, 다음과 같은 상황에서는 `SSG`방식 사용을 권장합니다.
+
+- `Performance`가 중요할 때 → 미리 만들어 놓은 `HTML` 파일들을 `CDN`을 통해 더 빠르게 응답
+- 마케팅 페이지 / 블로그 게시글 / 제품의 목록 등 한번 생성된 후, 각 요청에 대해 동일한 문서를 반환할 수 있는 경우
+
+반대로, 다음과 같은 상황에서는 `SSR`방식 사용을 권장합니다.
+
+- 항상 최신 상태를 유지해야 하는 경우 → 요청에 따라, 응답 내용이 시시각각 변하는 경우
+- 요청 마다 다른 내용 또는 형식의 `HTML` 문서가 반환되는 경우
+- `SSG`의 경우, 모든 `URL`(요청 주소)에 매핑되는 `HTML` 파일을 생성해야 하기 때문에, `URL`을 예측할 수 없는 경우
+
+<br />
+
+# ✍️ SSR → SSG
+
+내부적으로, `React Query`를 사용하고 있기 때문에, `Server`에서 렌더링 하는 단계에서 데이터를 `Prefetch`한 `QueryClient`를 반환하는 방식으로 `SSR`을 구현해놓은 상태였습니다. → [https://tanstack.com/query/v4/docs/react/guides/ssr](https://tanstack.com/query/v4/docs/react/guides/ssr)
+
+기존 `SSR` 코드
+
+```tsx title="AS-IS"
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["Post", Number(query.id)], () =>
+    getOnePostAPI(Number(query.id))
+  );
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
+```
+
+`SSG` 방식으로 변경 → `Dynamic Routing`을 사용하고 있기 때문에, `getStaticPaths`와 함께 사용
+
+```tsx title="TO-BE"
+export const getStaticPaths = async () => {
+  const data = await getAllPostsId();
+  const paths = data.map(({ id }) => {
+    return { params: { id: String(id) } };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    [QUERY_KEY.POST.ONE, Number(context.params?.id)],
+    () => getOnePostAPI(Number(context.params?.id))
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
+```
+
+`SSG`의 경우, 각 `URL(페이지)`에 매핑되는 `HTML`파일을 만들어 놓아야 하기 때문에, 어떤 `URL(페이지)`이 있어야 하는지 알아야 합니다.
+
+그래서, 서버에서 `getAllPostsId`를 통해, 존재하는 모든 게시글의 `id`를 가져와, 어떤 `URL(페이지)`가 있는지를 `paths` 변수를 통해 넘겨주었습니다.
+
+`getStaticPaths`에서 반환하는 `fallback`의 경우, 미리 만들어 놓은 `HTML`이 없을 때, 어떻게 대응 할 것인가에 대해 설정하는 값이다.
+
+간단하게만 알아보면 다음과 같다. → [https://nextjs.org/docs/api-reference/data-fetching/get-static-paths](https://nextjs.org/docs/api-reference/data-fetching/get-static-paths)
+
+- fallback : false → getStaticPaths가 반환하지 않은 모든 path에 대해서 404 페이지를 반환한다.
+- fallback : true → 반환하지 않은 path에 대해 fallback 버전을 먼저 보여준 뒤, getStaticProps를 이용해, HTML파일과 JSON파일을 만든다. 이후, 같은 path에 대한 요청에 대해 이때, 생성한 HTML을 반환한다.
+- fallback. : blocking → 반환하지 않은 path에 대해 fallback 상태를 보여주지 않고, SSR처럼 동작한다.
+
+<br />
+
+# ✨ISR
+
+`ISR`은 `Incremental Static Regeneration`의 약자로, `정적생성(Static Generation)`을 통해, 미리 만들어 놓은 사이트들도 업데이트가 필요하다면, 다시 생성하도록 만드는 방식입니다.
+
+이번에, `SSG`에 대해서 자료를 찾아보고, 학습하기 전까지는 `SSG`를 통해 `HTML`을 생성한 후, 해당 `HTML`파일에 들어가야하는 내용이 수정되면 어떻게 처리하지?... 라는 의문이 있었습니다.
+
+`NextJS`에서는 `ISR`과 `On-Demand Revalidation`을 통해, 정적 생성 해놓은 HTML 파일을 업데이트 할 수 있습니다.
+
+이번 구현에서는 `ISR`방식만 사용했으며, 이후에 `NextJS` 서버 내부 `API`를 구현해, `On-Demand Revalidation`으로 변경할 예정이며 이에 대한 글을 추후에 작성할 예정입니다.
+
+`NextJS`에서는 `getStaticProps`에서 반환하는 `revalidate`값을 통해, 미리 만들어 놓은 `HTML`을 업데이트 할 수 있습니다.
+
+사용자가 해당 페이지로 진입한 이후 `revalidate`에 설정한 `초(Second)`가 지나게 되면, 해당 페이지에 대해서 다시 정적생성을 진행하게 됩니다.
+
+`ISR`적용 `getStaticProps`
+
+```tsx
+export const getStaticPaths = async () => {
+  const data = await getAllPostsId();
+  const paths = data.map(({ id }) => {
+    return { params: { id: String(id) } };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    [QUERY_KEY.POST.ONE, Number(context.params?.id)],
+    () => getOnePostAPI(Number(context.params?.id))
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    //요청이 들어온 이후, 60초 후에 재생성revalidate: 60,
+  };
+};
+```
+
+<br />
+
+# 🤔 HTML? JSON?
+
+지금까지 `SSG` 방식은 빌드 타임에 `HTML 파일`을 생성하고, 반환하는 방식이라고 생각했습니다.
+
+하지만, 실제로 네트워크탭을 통해 살펴보면, 언제는 HTML파일을 반환하고, 또 언제는 `JSON`데이터를 가져 오는 것을 확인할 수 있었습니다.
+
+## 💾 JSON 데이터를 가져오는 상황
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/b81b18cf-815a-4629-82ad-bb1b653499da" />
+
+## 📃 HTML파일을 받아오는 상황
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/dc260397-78f7-43e6-a655-aaa59730b373" />
+
+## 🎬 그렇다면, 언제?
+
+`NextJS` 공식문서에 나온 `getStaticProps`에 대해서 살펴보니([getStaticProps in NextJS](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)), 빌드타임에 해당 페이지에 총 2가지의 형태를 생성합니다.
+
+1. 데이터 기반으로 다 그려놓은 `HTML`파일
+2. 미리 받아온 `json` 형식의 데이터
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/90b9134b-af32-4802-85ab-28017fc07d89" />
+
+이미 `HTML` 파일이 클라이언트에게 있는 경우(ex, 버튼 클릭을 통한 이동)에는 `HTML`파일을 반환하는 것이 아니라, 빌드타임에 생성한 `JSON` 데이터를 가져와서, `HTML`파일을 구성하게 됩니다.
+
+반대로, `HTML` 파일이 클라이언트에게 없는 경우(ex, 새로고침, 외부링크를 통한 접근)에는 빌드타임에 생성한 `HTML`파일을 가져옵니다.
+
+따라서, 기존에 `HTML`파일이 있는 경우에는, 빌드 타임에 생성한 `JSON`데이터를 가져와서, 화면을 그려야 하기 때문에(데이터를 가져오는 네트워크 통신 과정에서 Delay 발생), `CSR`과 거의 유사하게 동작한다(스켈레톤 컴포넌트 또는 로딩 스피너를 보여준다).
+
+<img src="https://user-images.githubusercontent.com/78716842/221340020-ce74a845-85f6-47ff-82d9-85969a2462bd.gif" />
+
+<br />
+
+# 🚗 router.push, next/link
+
+결국 기존에 `HTML`파일이 있는 상황에서도, `SSG` 방식과 유사하게 동작하기 위해서는, `JSON` 데이터를 받아오는 딜레이가 없어야 합니다.
+
+이 말은 `JSON` 데이터에 대해서 `prefetch`가 이루어져야 한다는 말과 같습니다.
+
+`NextJS`에서 `routing`을 하는 방법은 `router.push`과 이벤트 핸들러를 이용한 방법과 `next/link`의 `Link` 태그를 이용하는 방법이 있습니다.
+
+기존에는, 둘의 차이가 `SEO` 관점에서의 차이만 존재하는 것으로 알고 있었습니다. (`Link`태그의 경우 내부적으로 `a`태그 생성하기 때문)
+
+하지만, 공식문서를 통해 살펴보니, `Link` 태그의 경우, `production` 모드에서, `SSG`로 생성된 `JSON` 데이터에 대해서 `Prefetch`를 제공합니다. → [next/link in NextJS](https://nextjs.org/docs/api-reference/next/link)
+
+따라서, `router.push`를 이용한 `routing` 방식에서, `next/link`를 이용한 방식으로 변경해, `JSON` 데이터를 받아오는 딜레이를 없앨 수 있었습니다.
+
+<img src="https://user-images.githubusercontent.com/78716842/221341268-6ef693fc-ab76-4a2b-8251-5c349507d54f.gif" />
+
+<br />
+
+# ⏱ SSR, SSG 성능비교
+
+먼저, `SSR`방식을 사용했을 때의 성능입니다.
+
+## 🛠 SSR
+
+크롬 Network
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/6c0d0217-2174-45c0-acf4-2c1dccea23f2" />
+
+크롬 LightHouse
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/87a23509-0eb6-4f83-817f-187d559b63cc" />
+
+사용자에게 화면을 보여주기까지 1초 이상의 시간이 걸리는 것을 확인할 수 있고, `LightHouse`를 통한 성능측정에서도, 초기 서버 응답 시간 단축을 권장하고 있으며, 뷰포트에 콘텐츠가 눈에 띄게 채워지는 속도인 `Speed Index` 값이 2.9초로 상당히 느린 것을 확인할 수 있습니다.
+
+## 🛠 SSG
+
+크롬 Network
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/d194afb6-c068-4721-b212-dfee8fcf3387" />
+
+사용자에게 화면이 보여지기 까지 `0.2`초 정도의 시간이 걸리는 것을 확인할 수 있습니다. (`SSR`방식에 비해, 약 `1`초 단축)
+
+크롬 LightHouse
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/b73b2a2e-a598-4a51-bc67-fc62fd3c72c4" />
+
+`성능 점수`가 `93 → 100` 향상되었으며, 뷰포트에 콘텐츠가 눈에 띄게 채워지는 속도인 `Speed Index` 또한 `2.9초 → 1.1초`로 향상되었습니다.
+
+이번 기회를 통해, `SSG`에 대해 조금 더 확실하게 이해할 수 있었던 거 같습니다.

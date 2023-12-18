@@ -1,0 +1,107 @@
+---
+title: "다른 레포의 커밋 Cherry Pick하기"
+date: "2023-06-10"
+lastmod: "2022-06-10"
+category: "Git"
+description: "다른 레포의 커밋 내역을 가져와 Cherry Pick을 통해 기존 레포에 반영하는 방법에 대해 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/5048c4d1-356f-4fa4-bb0a-737b0ac019cf"
+---
+
+# 🌄 배경
+
+`멀티레포`의 형태로 존재하는 여러 프로젝트를 `모노레포`로 전환하는 작업을 진행중이었습니다. 그리고 이와 동시에 기존 레포(멀티 레포)에서의 작업도 이루어져야 했습니다.  
+따라서, 모노레포 전환이 완료되기 전까지는 기존 레포에서 작업을 진행하고 작업이 완료된 이후 새롭게 구성중인 모노레포로 작업 결과 커밋을 `cherry-pick` 하기로 결정했습니다.  
+이 과정에서 기존 `Repository`가 아닌 다른 `Repository`의 커밋을 `cherry-pick`을 해야하는 상황이 발생했습니다.
+
+<br />
+
+# 🍒 Cherry-pick이란?
+
+<a href="https://git-scm.com/docs/git-cherry-pick">
+  https://git-scm.com/docs/git-cherry-pick
+</a>
+
+`Cherry-pick` 은 다른 브랜치에서의 작업 내용을 가져와 반영하도록 해주는 명령어입니다.
+
+```sh
+$ git cherry-pick <commit hash>
+```
+
+그림으로 살펴보면 아래와 같습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/85e24272-8f95-489f-8901-f7b6181f942d" />
+
+만약 개발자 B가 `B`라는 브랜치에서 작업을 하고 있는 도중에 A개발자가 `A`라는 브랜치에서 작업한 내용을 가져와 반영하고 싶다면, 가져오고 싶은 커밋을 `Cherry-pick`하면 됩니다.
+
+```sh
+$ git cherry-pick 76a397 9bd995 dbdff5
+
+```
+
+그 결과로 아래와 같은 형태의 히스토리가 만들어 지게 됩니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/dcaaa998-e4ca-403b-bb0e-698237138db1" />
+
+`cherry-pick`을 진행하는 상황에서 `conflict`이 발생할 경우, 2가지 방법을 통해 해결할 수 있습니다.
+
+1️⃣ -abort
+
+`cherry-pick`을 중단하고 싶을 때 사용한다. 이 경우, `cherry-pick` 이전 상황으로 코드가 롤백됩니다.
+
+```sh
+$ git cherry-pick --abort
+
+```
+
+2️⃣ -continue
+
+충돌이 발생한 코드를 직접 수정 후에 `-- continue` 명령어를 통해 `cherry-pick`을 재개할 수 있습니다.
+
+```sh
+// 파일 수정 이후
+$ git add $file
+$ git cherry-pick --continue
+
+```
+
+<br />
+
+# 🍒 다른 레포의 커밋 Cherry-pick
+
+앞서 다뤄본 상황은 같은 레포 환경에서의 `cherry-pick`에 대한 내용입니다.
+
+다른 레포의 `Cherry-pick` 역시 별로 다르지 않았습니다
+
+1. `Cherry-pick`을 통해 가져올 레포를 `remote`로 지정합니다.
+
+```
+$ git remote add cherryPickTargetRepo <https://github.com/>...
+```
+
+2. `git fetch`를 통해 `remote` 레포의 변경사항을 가져옵니다.
+
+```
+$ git fetch cherryPickTargetRepo
+
+```
+
+3. `git log`를 통해 가져온 레포의 커밋 로그를 확인합니다. (`git log remoteName/branchName`)
+
+```
+$ git log cherryPickTargetRepot/cherryPickTargetBranch
+
+```
+
+4. 로그를 통해 확인한 커밋을 `cherry-pick`합니다.
+
+```
+$ git cherry-pick commit1 commit2 commit3 ...
+
+```
+
+5. `conflict`이 발생할 경우, 수정 이후 진행합니다.
+
+```
+$ git add $file
+$ git cherry-pick --continue
+```

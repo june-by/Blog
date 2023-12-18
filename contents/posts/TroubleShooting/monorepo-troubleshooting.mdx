@@ -1,0 +1,198 @@
+---
+title: "모노레포 세팅 Trouble Shooting (feat. babel)"
+date: "2023-06-03"
+lastmod: "2023-06-03"
+category: "TroubleShooting"
+tags: ["monorepo", "babel"]
+description: "모노레포 적용 과정에서 프로젝트 전체에 동일한 Babel 설정을 적용하기 위한 트러블슈팅 내용을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/51d4974e-ac53-4ad3-999e-135ec842d2d2"
+---
+
+# 🌄 배경
+
+최근 진행한 프로젝트에서 `모노레포`를 적용 할 때 `TypeScript`를 `ES5`로 변환하는 과정에서 문제가 발생했습니다.
+
+구체적으로, 기존에 세팅되어 있는 모노레포 프로젝트의 설정과 디렉토리 구조를 동일하게 신규 모노레포 세팅 프로젝트에 적용하고자 했지만, 빌드에 실패하는 상황이었습니다.
+
+기존 프로젝트는 아래와 같이 모노레포의 `루트 디렉토리`에 `Babel` 설정파일 하나만을 가지고 있는 상태였습니다. → `.babelrc`
+
+```text title="기존프로젝트 폴더구조"
+기존프로젝트
+├─ tsconfig.base.json
+├─ package.json
+├─ pnpm-lock.yaml
+├─ pnpm-workspace.yaml
+├─ node_modules
+├─ webpack
+├─ .babelrc
+└─ packages
+  └─ sub-package1
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+  └─ sub-package2
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+  └─ sub-package3
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+```
+
+신규 모노레포 세팅 프로젝트 역시, 위와 같은 구조로 각 `package`마다 `babel` 설정파일을 만들지 않고 `루트`에 존재하는 `babel` 설정 파일을 사용하도록 만들고 싶었지만, 정상 동작하지 않았습니다.
+
+<br />
+
+# 🤔 why?
+
+차이점을 확인해보니, 기존 모노레포 프로젝트는 `ts-loader`를 이용해, `TypeScript`를 `ES5`로 변환하고 있었습니다
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "target": "es5"
+  }
+}
+```
+
+그리고, 신규 모노레포 세팅 프로젝트는 `ts-loader`를 사용하지 않고, `babel`을 이용해, `TypeScript`를 `ES5`로 변환하고 있었습니다.
+
+그림으로 나타내면 아래와 같습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/b90cc7ff-e5bc-4d55-a714-71f51436468f" />
+
+<br />
+
+기존 모노레포 프로젝트는 `TS → ES6 → ES5` 변환 과정에 있어 `ts-loader`를 사용했고, `ts-loader`를 통해 `es5`로 변환된 이후 `babel`을 이용해 `transpile` 되었기 때문에, 직접 작성한 `babel` 설정파일이 따로 없더라도 (`default`로 내부 설정 사용함) 문제가 발생하지 않았습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/7c9b1289-474d-4930-9d5a-93e869874fd1" />
+
+요약하자면, 기존 모노레포 프로젝트는 루트에 `Babel` 설정파일(`.babelrc`)가 존재했지만, 사용하지 않고 있던 상황이었습니다.
+
+하지만, 신규 세팅 프로젝트는 `TS → ES6 → ES5` 변환 과정에 있어 `babel`을 사용했고 이에따라 `babel` 설정이 꼭 필요해, 각 `sub-package`에 `Babel` 설정 파일이 없다면 실행이 되지 않았던 것입니다.
+
+```text title="신규프로젝트 폴더구조" {14,20,26}
+신규프로젝트
+├─ tsconfig.base.json
+├─ package.json
+├─ pnpm-lock.yaml
+├─ pnpm-workspace.yaml
+├─ node_modules
+├─ webpack
+├─ .babelrc
+└─ packages
+  └─ sub-package1
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     ├─ .babelrc
+     └─ src
+  └─ sub-package2
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     ├─ .babelrc
+     └─ src
+  └─ sub-package3
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     ├─ .babelrc
+     └─ src
+
+```
+
+# 🛠 각 Package의 Babel 설정 파일에서 루트 Babel 설정을 가져오기
+
+[Babel 공식문서에서 6버전과 7버전을 비교한 내용](https://babeljs.io/docs/config-files#6x-vs-7x-babelrc-loading)중에 다음과 같은 이야기가 있었습니다.
+
+모노레포를 사용할 때 아래와 같은 구조를 사용한다면, 문제가 될 수 있다.
+
+```text
+.babelrc
+packages/
+  mod1/
+    package.json
+    src/index.js
+  mod2/
+    package.json
+    src/index.js
+
+```
+
+`package boundary`에 의해 설정이 무시 될 것이다.
+
+한 가지 방법은 각 `sub-package`에 `.babelrc`파일을 만들고, `"extends"` 를 이용해, 설정 파일을 확장하는 것이다.
+
+```javascript title=".babelrc"
+{ "extends": "../../.babelrc" }
+```
+
+현재 프로젝트의 상황과 정확히 일치 했기 때문에, 1차적으로 해당 방법을 통해 문제를 해결했습니다.
+
+<br />
+
+# 🧐 루트에 있는 Babel 설정 파일을 사용할 수 없을까?
+
+각 `sub-package`에 `babel` 설정 파일을 만들고, `"extends"`를 통해 설정을 가져오는 방법 역시 해결이 가능했지만, `sub-package`를 만들때마다, `babel` 설정 파일을 만들어주어야 하는 불편한점이 존재했습니다.
+
+이에 따라, 최종적인 목표는 모노레포에 존재하는 각 `sub-package`가 루트에 있는 `babel`설정 파일을 사용하는 것이었습니다.
+
+`babel`이 `transpile`을 수행할 때는 `working directory`라는 개념이 존재하고, `working directory`를 기준으로 설정 파일을 찾게 됩니다.
+
+따라서, 루트에 `babel` 설정파일이 존재하더라도, 각 `sub-package`에서 `transpile`을 실행할 때, 루트의 `babel`설정 파일을 찾아서 사용할 수 없었던 것 입니다.
+
+이를 해결하기 위해서는 `"rootMode"` 옵션을 `"upward"`로 설정해, `Babel`이 `working directory`에서 위쪽으로 `babel.config.json` 파일을 찾도록 해야 합니다.
+
+[공식문서 - Root babel.config.json file](https://babeljs.io/docs/config-files#6x-vs-7x-babelrc-loading)
+
+[공식문서](https://babeljs.io/docs/options#rootmode)에 나와있는 `"rootMode"`에 대한 설명을 읽어보니, `"upward"`로 설정할 경우, `"root(working directory)"`를 기준으로 위로 거슬러 올라가 `babel.config.json`파일을 찾고, 없다면 `babel.config.json` 파일을 찾을 수 없다는 에러를 던진다는 사실을 알 수 있었습니다. (`babel.config.json`을 제외한 `.babelrc` / `.babelrc.json` 불가)
+
+최종적으로 루트에 존재하는 `babel` 설정 파일의 네이밍을 `babel.config.json`으로 변경 후, `babel`의 `rootMode` 설정을 `upward`로 바꿔주어 원하는 결과를 얻을 수 있었습니다.
+
+```text title="신규프로젝트 폴더구조" {8}
+신규프로젝트
+├─ tsconfig.base.json
+├─ package.json
+├─ pnpm-lock.yaml
+├─ pnpm-workspace.yaml
+├─ node_modules
+├─ webpack
+├─ babel.config.json
+└─ packages
+  └─ sub-package1
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+  └─ sub-package2
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+  └─ sub-package3
+     ├─ webpack
+     ├─ package.json
+     ├─ tsconfig.json
+     └─ src
+
+```
+
+`webpack.config.js`의 `babel-loader` 설정 부분
+
+```javascript title="webpack.config.js"
+modules : {
+  rules : [
+    test : /\.(js|tsx|ts)$/,
+    exclude : [/node_modules/],
+    loader : 'babel-loader',
+    options : {
+      rootMode : 'upward',
+    }
+  ]
+}
+```

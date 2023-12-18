@@ -1,0 +1,103 @@
+---
+title: "Webpack Path Alias 수정을 통해 CJS파일 사용하기"
+date: "2023-06-14"
+lastmod: "2023-06-14"
+category: "TroubleShooting"
+tags: ["webpack", "cjs", "esm"]
+description: "프로젝트에 Jotai 라이브러리를 도입하는 과정에서 발생한 IE 백화현상에 대해 해결한 과정을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/adebedb7-0856-46fa-beb9-2b508d5926cd"
+---
+
+# 🌃 배경
+
+진행중인 프로젝트에서 불필요한 리렌더링을 막기 위해, `Context API`로 관리되고 있던 상태관리를 `Jotai`로 전환하게 되었습니다.
+이 과정에서, 서비스의 특성 상 `IE(Internet Explorer)`를 지원해야 했지만, `Jotai`로 전환 작업 후 확인해보니 `IE`에서 정상동작 하지 않았습니다.  
+IE환경에 접속 이후 개발자 도구 탭을 통해 콘솔창을 확인해보니, `Jotai`가 내부적으로 `Set`, `Map`, `WeakMap`, `Arrow Function` 등 구형 브라우저에서 지원하지 않는 문법을 사용해 발생한 문제라는 것을 확인했습니다.  
+이에 따라, 프로젝트 빌드 과정에 `node_modules` 내부에 있는 `Jotai`를 포함시켜, 함께 `번들링` 되도록 만드는 방식으로 해결하고자 했습니다. → <a href="https://tech.kakao.com/2020/12/01/frontend-growth-02/">참고자료</a>
+
+이 과정에서 아래 `Jotai Github Repository`에서 특정 `ISSUE`와 `Comment`를 통해 `Jotai`에서 `CJS`파일을 지원하는 것을 확인했고, 전환작업을 진행중인 프로젝트에서는 `Jotai`에서 제공하는 `CJS` 파일이 아닌 `ESM` 파일을 가져와 빌드를 하게 되어 `IE`에서 정상동작 하지 않는 것으로 예측했습니다.
+
+ISSUE and Comment → <a href="https://github.com/pmndrs/jotai/issues/265#issuecomment-762764500">https://github.com/pmndrs/jotai/issues/265#issuecomment-762764500</a>
+
+<br />
+
+# 🚪package.json의 exports 옵션
+
+가장 먼저, 프로젝트 빌드 과정에서 왜 CJS 파일이 아닌 ESM 파일을 가져오는지에 대한 자료 조사가 필요했고, `Jotai` 프로젝트에 작성된 `package.json`의 `exports` 옵션 때문이라는 사실을 확인할 수 있었습니다.
+
+참고했던 자료 → <a href="https://toss.tech/article/commonjs-esm-exports-field">https://toss.tech/article/commonjs-esm-exports-field</a>
+
+Jotai의 pakage.json파일의 exports 옵션은 아래와 같습니다. → <a href="https://github.com/pmndrs/jotai/blob/main/package.json">https://github.com/pmndrs/jotai/blob/main/package.json</a>
+
+```js title="package.json"
+"exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "import": {
+        "types": "./esm/index.d.mts",
+        "default": "./esm/index.mjs"
+      },
+      "default": "./index.js"
+    },
+    "./*": {
+      "types": "./*.d.ts",
+      "import": {
+        "types": "./esm/*.d.mts",
+        "default": "./esm/*.mjs"
+      },
+      "default": "./*.js"
+}
+```
+
+전환작업 진행중인 프로젝트에서는 `import jotai from ‘jotai’` 와 같이 `import(ESM 문법)`을 통해 `Jotai`를 불러오고 있었고, 이에 따라 `CJS` 파일 (index.js)이 아닌, `ESM` 파일(esm/index.mjs)파일을 가져와 빌드를 하고 있었습니다.  
+(index.js 파일이 CJS 형태로 빌드한 파일이라는 것은 Jotai의 rollup 설정 파일을 통해 확인했습니다. → <a href="https://github.com/pmndrs/jotai/blob/10001a7b34bf2dbd0cdff28b0f14877a4707e509/rollup.config.js#L86">https://github.com/pmndrs/jotai/blob/10001a7b34bf2dbd0cdff28b0f14877a4707e509/rollup.config.js#L86</a>)
+
+<br />
+
+# ✍️ Webpack Path Alias 수정
+
+지금까지 살펴본 바에 따르면, 빌드 과정에서 `CJS` 파일이 아닌, `ESM` 파일을 가져오는것이 문제의 원인이었습니다.  
+따라서, 빌드 과정에서 `ESM` 파일이 아닌 `CJS` 파일을 가져오도록 만들면 문제를 해결 할 수 있을 것으로 예상했습니다.
+
+내부적으로 번들링을 위해 `Webpack`을 사용하고 있었고, `Webpack`에서는 `resolve.alias` 옵션을 통해 특정 모듈의 `path`를 지정할 수 있습니다.
+
+흔히 사용되는 `resolve.alias` 설정은 아래와 같습니다. (`../../../` 과 같이 상대경로가 길어지는 것을 피하기 위해 사용)
+
+```js
+const path = require("path");
+
+module.exports = {
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src/"),
+    },
+  },
+};
+
+import a from "@/compoents/a";
+```
+
+이와 똑같이 node_modules에 위치한 라이브러리를 불러오는 path 역시 설정 할 수 있습니다.
+
+```js
+const path = require("path");
+
+module.exports = {
+  resolve: {
+    alias: {
+      jotai: path.resolve(__dirname, "../../../node_modules/jotai/index.js"),
+    },
+  },
+};
+
+import jotai from "jotai";
+// '../../../node_modules/jotai/index.js' CJS 파일을 불러옴
+```
+
+<br />
+
+# 🙌 결과
+
+결과적으로, `IE`에서도 사용 가능한 `CJS` 파일을 불러오도록 `Path Alias`를 수정해 `IE`에서도 정상동작하도록 만들 수 있었습니다.  
+추가적으로, 번들파일의 사이즈 역시 ESM 파일을 불러왔을 때와 CJS 파일을 불러왔을 때의 차이가 거의 존재하지 않았습니다 :)

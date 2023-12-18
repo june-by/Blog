@@ -1,0 +1,126 @@
+---
+title: "Nginx에서 HTTP Cache 적용하기"
+date: "2022-11-30"
+lastmod: "2022-11-30"
+category: "Web"
+tags: ["http", "nginx"]
+series: "Frontend 성능 최적화"
+description: "정적파일을 제공하는 Nginx 웹서버에 HTTP Cache를 적용하는 과정과 결과에 관한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/9337e043-547b-4d62-b313-f748d48e16ad"
+---
+
+# 🌟배경
+
+네이버 부스트캠프 팀프로젝트인 `fanup`의 클라이언트는 `React`를 이용해 만들어졌으며, `Webpack`을 이용해 빌드됩니다.  
+그 후, 빌드를 통해 만들어진 static 파일들(index.html, js, css, image ….)들을 `Nginx`를 통해 서빙하는 형태입니다.
+
+아래를 보면, `Nginx`에서는 기본 `HTTP Cache-Control` 설정은 `no-cache`로 해놓은 것을 확인 할 수 있습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/efcc719a-cb16-4516-ab87-7c3b2bccc42f" />
+
+`no-cache` 설정의 경우에는 다음과 같은 의미를 가집니다. → <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Cache-Control#no-cache">cache-control : no-cache</a>
+
+- 데이터를 캐시해도 되지만, 항상 `origin` 서버에 검증(Last-Modified, ETag)하는 과정을 거쳐라
+- `origin` 서버에서 데이터를 가져오지는 않지만? **검증을 위한 요청**을 보내야 한다
+
+<br />
+추가적으로, 크롬의 `LightHouse`를 이용한 성능 측정에서도, 효율적인 캐시 정책을 사용하여
+정적인 에셋 제공을 권장하고 있습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/1e67a8cb-70c6-42a7-bd8d-094a80337eb0" />
+
+`Webpack`을 이용해, 빌드 되는 서비스는 `js`, `css` 파일의 내용이 변하게 된다면, 빌드과정에서 파일의 이름이 바뀌게 됩니다. (ex, `chunk.1234.js` → `chunk.513dfrer.js`)
+
+위 캡처에서 불러오는 js 파일의 이름은 `main.f42c0b67.js` 입니다.  
+`main` 뒤에 붙는 `f42c0b67` 는 js 파일의 내용을 빌드하는 과정에서 **해당 파일의 내용을 hash 하는 과정을 통해 나오는 값**입니다.
+
+> 다시 말해서, 파일의 내용이 바뀌면, main 뒤에 붙는 값이 바뀌고, 파일의 이름이 바뀌게 됩니다.
+
+따라서, 빌드를 통해 만들어진, `index.html`에서 요청하는 js 파일의 이름도 함께 변하게 됩니다.
+
+```html title="AS-IS"
+<script src="chunk.1234.js" />
+```
+
+```html title="TO-BE"
+<script src="chunk.513dfrer.js" />
+```
+
+그렇다면? 소스코드의 다음 버전이 빌드되고 `Nginx`를 통해 서빙되기 전까지는 항상 동일한 `js`파일을 요청한다는 의미가 됩니다. `css` 파일 또한 마찬가지입니다.  
+이 사실을 통해, `Nginx`의 `cache-control` 설정을 변경시켜, 매번 검증하는 과정을 거치지 않도록 만들 수 있다고 생각했습니다.
+
+<br />
+
+## 🌟 max-age?
+
+먼저, `Cache-Control` 헤더의 값을 어떤 값으로 설정 할 지 결정해야 합니다. `Cache-Control` 헤더에 `max-age` 값을 설정하면, 지정한 값만큼 리소스를 캐시하게 됩니다.
+
+먼저, 파일을 나눠서 생각해보았습니다.  
+가장 먼저, 루트가 되는 `index.html` 파일입니다. `index.html`의 경우에는 빌드가 되어도 항상 동일한 파일명을 가지게 됩니다.
+따라서, `Cache-control` 설정을 `no-cache`에서 특정 기간으로 바꾼다면, `Cache`가 만료되는 특정 기간 동안은 새로운 `index.html` 파일을 서빙 할 수 없습니다. → html 파일에 대한 설정은 변경하지 않기로 했습니다.
+
+다음으로, `js`, `css` 파일입니다. `js`와 `css`파일은 이전 버전과 조금이라도 달라진다면, 빌드된 파일의 이름은 이전 버전과 아예 달라지게 됩니다.
+
+`index.html` 파일은 항상 새로운 버전을 서빙하기 때문에, 만약 `js`와 `css`파일이 변한다면 파일의 이름이 달라지고, `index.html` 파일이 요청하는 `js`, `css` 파일의 이름도 달라질 것입니다.  
+따라서, `js`와 `css`파일은 `Cache`기간을 어떻게 설정하던 상관 없이 항상 새로운 파일을 서빙 할 수 있습니다. → `js`와 `css`파일의 `Cache-Control`은 우리가 생각하는 최대 값인 일년으로 설정하기로 했습니다.
+
+마지막으로, 이미지 파일입니다. 서비스의 특성 상, 이미지 파일 역시, 한번 특정 이미지에 대한 파일의 이름이 정해지면, 바뀌지 않는다고 판단을 했습니다. 이미지 파일은 그래도 어떤 상황이 발생할지 모르니, `한달`로 설정하기로 했습니다.
+
+# # 🌟 Cache Control 변경
+
+`nginx config` 파일 변경을 통해서, 특정 `resource`에 대한 `header`를 변경 할 수 있습니다.
+
+```conf title="AS-IS"
+server {
+        server_name fanup.live;
+        root /root/web03-FanUP/client/build;
+        location / {
+            index index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate/etc/letsencrypt/live/fanup.live/fullchain.pem; # managed by Certbot
+        ssl_certificate_key/etc/letsencrypt/live/fanup.live/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam/etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+```
+
+```conf title="TO-BE" {8-17}
+server {
+        server_name fanup.live;
+        root /root/web03-FanUP/client/build;
+        location / {
+            index index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+        location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+                expires 1M;
+                access_log off;
+                add_header Cache-Control "public";
+        }
+        location ~* \.(?:css|js)$ {
+                expires 1y;
+                access_log off;
+                add_header Cache-Control "public";
+        }
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate/etc/letsencrypt/live/fanup.live/fullchain.pem; # managed by Certbot
+        ssl_certificate_key/etc/letsencrypt/live/fanup.live/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam/etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+```
+
+이미지 파일에 대한 `cache` 기간은 한 달로, `js`와 `css`파일에 대한 `cache` 기간은 1년으로 설정했습니다.
+
+<br />
+
+# 🌟 결과
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/49bd89da-e579-4510-adc9-28ee8fb3f96d" />
+`cache` 설정이 제대로 된 것을 확인 할 수 있습니다.
+
+이제, `js`,`css`,`img` 파일에 대해서는 `max-age` 기간(1M, 1Y)이 지나기 전까지는 서버에 요청을 보내서 `304 modified` 응답을 받을 필요가 없이, 캐시를 통해 더욱 빠른 서비스를 제공 할 수 있습니다.
