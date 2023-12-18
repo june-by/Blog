@@ -1,0 +1,384 @@
+---
+title: "👻 Jotai 동작원리 파헤치기(2)"
+date: "2023-08-02"
+lastmod: "2023-08-02"
+category: "React"
+series: "Jotai 파헤치기"
+tags: ["jotai", "상태관리"]
+description: "상태관리 라이브러리 Jotai의 내부 동작원리를 분석한 포스트입니다. 이 포스트에서는 Store와 관련된 동작에 대해서 다룹니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/1dea5922-8eb2-4eec-a084-3585fdcea440"
+---
+
+# 🏪 store
+
+`Jotai`에서 사용하는 `Store`는 `createStore`함수를 통해 생성됩니다.
+
+`createStore`는 `700`줄이 넘기 때문에, 전체 구현 코드는 생략하겠습니다.
+
+인터페이스를 위해 반환값만 살펴보면 아래와 같습니다.
+
+```tsx
+return {
+  get: readAtom,
+  set: writeAtom,
+  sub: subscribeAtom,
+};
+```
+
+각각에 대해 살펴보면, `get`의 경우 `store`에 존재하는 `atom`의 값을 읽을 때 사용되며, `set`의 경우 `store`의 값을 쓸 때 사용됩니다.
+
+`sub`의 경우, `atom`과`listener`를 매게변수로 받아 `listeners` `set`에 저장합니다.
+
+`jotai`의 모든 동작은 `store`의 `get`, `set`, `sub` 메서드를 통해 이루어지게 됩니다.
+
+`atom`의 값을 업데이트 할 때 사용되는 `useSetAtom` 훅에서는 `set` 메서드를 이용합니다.
+
+```tsx title="useSetAtom"
+export function useSetAtom<Value, Args extends any[], Result>(
+  atom: WritableAtom<Value, Args, Result>,
+  options?: Options
+) {
+  const store = useStore(options)
+  const setAtom = useCallback(
+    (...args: Args) => {
+      ...
+      return store.set(atom, ...args)
+    },
+    [store, atom]
+  )
+  return setAtom
+}
+
+```
+
+`atom`의 값을 읽을 때 사용되는 `useAtomValue` 훅에서는 `get`, `subscribe` 메서드를 이용합니다.
+
+```tsx title="useAtomValue"
+export function useAtomValue<Value>(atom: Atom<Value>, options?: Options) {
+  const store = useStore(options);
+
+  const [[valueFromReducer, storeFromReducer, atomFromReducer], rerender] =
+    useReducer<
+      ReducerWithoutAction<readonly [Value, Store, typeof atom]>,
+      undefined
+    >(
+      (prev) => {
+        const nextValue = store.get(atom);
+        if (
+          Object.is(prev[0], nextValue) &&
+          prev[1] === store &&
+          prev[2] === atom
+        ) {
+          return prev;
+        }
+        return [nextValue, store, atom];
+      },
+      undefined,
+      () => [store.get(atom), store, atom]
+    );
+
+  let value = valueFromReducer;
+  if (storeFromReducer !== store || atomFromReducer !== atom) {
+    rerender();
+    value = store.get(atom);
+  }
+
+  const delay = options?.delayuseEffect(() => {
+    const unsub = store.sub(atom, () => {
+      if (typeof delay === "number") {
+        // delay rerendering to wait a promise possibly to resolve
+        setTimeout(rerender, delay);
+        return;
+      }
+      rerender();
+    });
+    rerender();
+    return unsub;
+  }, [store, atom, delay]);
+
+  return isPromiseLike(value) ? use(value) : (value as Awaited<Value>);
+}
+```
+
+`reducer` 내부 로직을 통해 매 `rendering` 시점, `store.get(atom)`을 통해 `store`에서 해당 atom`의` `value`를 읽어오며, 해당 값을 상태로 사용해, 컴포넌트에 전달하고 있습니다.
+
+```tsx
+const [[valueFromReducer, storeFromReducer, atomFromReducer], rerender] =
+  useReducer<
+    ReducerWithoutAction<readonly [Value, Store, typeof atom]>,
+    undefined
+  >(
+    (prev) => {
+      const nextValue = store.get(atom);
+      if (
+        Object.is(prev[0], nextValue) &&
+        prev[1] === store &&
+        prev[2] === atom
+      ) {
+        return prev;
+      }
+      return [nextValue, store, atom];
+    },
+    undefined,
+    () => [store.get(atom), store, atom]
+  );
+
+let value = valueFromReducer;
+
+return isPromiseLike(value) ? use(value) : (value as Awaited<Value>);
+```
+
+컴포넌트가 `mount` 된 이후, `useEffect` 훅을 통해, `store`를 구독하는 것도 확인할 수 있습니다.
+
+```tsx
+useEffect(() => {
+  const unsub = store.sub(atom, () => {
+    // ...rerender()
+  });
+  rerender();
+  return unsub;
+}, [store, atom, delay]);
+```
+
+이때, 인자로 `rerender` 함수를 전달해, `store`에서 변화가 발생하면, 컴포넌트를 리렌더링 하게 됩니다.
+
+좀 더 확실하게 살펴보기 위해,
+
+`subscribeAtom` 메서드와 `listener`를 실행하는 부분을 살펴보면 아래와 같습니다.
+
+```tsx title="jotai/src/vanilla/store.t (function : createStore)"
+const subscribeAtom = (atom: AnyAtom, listener: () => void) => {
+  const mounted = addAtom(atom);
+  const flushed = flushPending();
+  const listeners = mounted.l;
+  listeners.add(listener);
+  // ...
+  return () => {
+    listeners.delete(listener);
+    delAtom(atom);
+    // ...
+  };
+};
+
+const flushPending = (): void | Set<AnyAtom> => {
+  // ...
+  mounted.l.forEach((listener) => listener());
+  // ...
+};
+```
+
+`subscribeAtom` 메서드를 통해 `listener`를 저장하고, `atom`의 값이 변경 될 때 마다 실행되는 `flushPending` 메서드에서 해당 `listener`를 실행합니다.
+
+그림으로 순서를 나타내면 아래와 같습니다.
+
+![1691162129847_스크린샷 2023-08-05 오전 12 15 21](https://github.com/BY-juun/Blog/assets/78716842/8dc9eb77-c2a7-4d2b-a4aa-a813a99c830f)
+
+1. Component Mount
+2. useEffect Execute and Subscribe Store(store.subscribeAtom)
+3. atom change in store
+4. publish and rerender called
+
+다음 내용을 살펴보기전에, 지금까지 살펴본 `Component`, `Store`, `Provider`, `Atom`의 관계를 살펴보면 아래 그림과 같습니다.
+
+![1691162700796_스크린샷 2023-08-05 오전 12 24 51](https://github.com/BY-juun/Blog/assets/78716842/b86b26ab-8b29-4b86-8615-5a65af495610)
+
+- 각각의 `atom`은 하나의 `store`에 속한다.
+- `Provider`는 `Store`를 가리키는 껍데기이며 각각의 `Subtree`에 독립적인 `Store`를 갖도록 만들어준다.
+- 컴포넌트와 `Store`를 `Pub-Sub` 관계이며, `Store`가 업데이트되면 `Subscribe`를 통해 리렌더링 된다.
+
+<br />
+
+# 🧐 생성한 Atom은 언제 Store에 들어갈까?
+
+다음으로, `atom` 함수를 이용해 만든 `atom config`가 언제 `store`에 들어가는지를 살펴보겠습니다.
+
+결론부터 말하자면, `atom`은 해당 `atom`이 `Store`에서 처음 사용되는 시점에 `Store`에 들어가게 됩니다.
+
+조금 더 자세히 설명하자면, 해당 `atom`이 `Store`의 특정 메서드의 매게변수로 호출되는 시점에 들어가게 됩니다.
+
+`Store`내부에서 `Atom`은 다음과 같은 `WeakMap`을 통해 관리됩니다.
+
+```tsx
+const atomStateMap = new WeakMap<AnyAtom, AtomState>();
+```
+
+해당 `WeakMap`이 `Set`되는 시점은 `setAtomState`가 호출되는 시점밖에 없습니다.
+
+```tsx
+const setAtomState = <Value>(
+    atom: Atom<Value>,
+    atomState: AtomState<Value>
+  ): void => {
+    ...
+    const prevAtomState = atomStateMap.get(atom)
+    atomStateMap.set(atom, atomState)
+    ...
+  }
+
+```
+
+`setAtomState`가 호출되는 시점을 역추적한 결과 아래와 같은 호출 체이닝을 확인 할 수 있었습니다.
+
+1️. readAtomCalled when store.get(atom) called
+
+`const readAtom = <Value>(atom: Atom<Value>): Value => returnAtomValue(readAtomState(atom))`
+
+2️. readAtomState called
+
+3️. setAtomValueOrPromise called
+
+4️. setAtomValue called
+
+5️. setAtomState called
+
+6️. atomStateWeakMap.set(atom) called
+
+`Store` 내부 메서드들의 호출순서를 역추적해본 결과, `store`에 존재하는 `atom`을 읽을 때 (`when store.get(atom) called`), 해당 `atom`이 `store`에 존재하지 않는다면 해당 `atom`을 `store`에 넣는 것을 확인할 수 있었습니다.
+
+따라서, 아래와 같이 컴포넌트 바깥에서 `Store`를 통해 `atom`을 접근해 값을 확인해보면 `Hook` 호출 이전에도, `store`에 `atom`이 들어가 있으며, 해당 값을 사용할 수 있다는 것을 확인할 수 있습니다.
+
+```tsx
+const counterAtom = atom(1);
+const doubleCountAtom = atom((get) => {
+  return get(counterAtom) * 2;
+});
+
+const store = getDefaultStore();
+
+console.log("store.get(counterAtom) : ", store.get(counterAtom)); // 1 출력
+console.log("store.get(doubleCountAtom) : ", store.get(doubleCountAtom)); // 2 출력
+function App() {
+  const [count, setCount] = useAtom(counterAtom);
+  const doubleCount = useAtomValue(doubleCountAtom);
+  return (
+    <div className="App">
+      <div>
+        <button onClick={() => setCount((prev) => prev - 1)}>-</button>
+        <span>{count}</span>
+        <button onClick={() => setCount((prev) => prev + 1)}>+</button>
+      </div>
+      <div>
+        <span>double Count Atom : {doubleCount}</span>
+      </div>
+    </div>
+  );
+}
+```
+
+<br />
+
+# 🛠️ Atom의 Dependency는 어떻게 관리할까?
+
+먼저, [공식문서](https://jotai.org/docs/guides/core-internals#second-version)를 통해 살펴보겠습니다.
+
+> To keep track of all the dependents, we need to add one more property to the atom's state.
+
+Dependency를 관리하기 위해, 아래와 같이 `dependents`라는 `property`를 사용합니다.
+
+```tsx
+const atomState = {
+  value: atom.init,
+  listeners: new Set(),
+  dependents: new Set(),
+};
+```
+
+해당 `dependents` 라는 `property`를 통해 해당 `atom`에 의존적인 `atom`을 관리합니다.
+
+예를 들어, 아래와 같이 `atom X`가 `atom Y`에 의존하는 경우라면, `atom Y`의 `dependents` `property`에는 `atom X`가 들어가 있을 것입니다.
+
+```tsx
+const atomX = atom(1);
+const atomY = atom((get) => get(atomX) + 1);
+```
+
+1편에서 `atom`을 살펴볼 때, `atom`의 값을 읽을때는 `atom` 내부에서 `read`라는 `property`를 통해 `store`에 존재하는 `atom`의 `value`를 가져오는 것을 확인할 수 있었습니다.
+
+```tsx
+export function atom<Value, Args extends unknown[], Result>(
+  read: Value | Read<Value, SetAtom<Args, Result>>,
+  write?: Write<Args, Result>
+) {
+	...
+  if (typeof read === 'function') {
+    config.read = read as Read<Value, SetAtom<Args, Result>>
+  } else {
+		...
+    config.read = (get) => get(config)
+		...
+  }
+  return config
+}
+
+```
+
+`atom`의 첫 번째 매게변수로 받는 `read`의 타입이 함수인지, `atom` `config`인지에 따라, `atom`이 반환하는 `read`가 달라지게 됩니다.
+
+1. read의 타입이 함수인 경우(다른 atom에 의존적인 atom) : 매게변수로 받는 read 반환
+2. read의 타입이 함수가 아닌 경우(다른 atom에 의존적이지 않은 atom) : 자기 자신(atom config)을 매게변수로 넣는 함수를 반환
+
+1편에서 살펴보았듯, 매 `rendering` 마다, `atom`의 `read`가 실행되어 `store`에서 해당 `atom`의 값을 읽어오게 됩니다.
+
+따라서, 다음으로는 `store`에서 해당 `atom`의 값을 읽는 부분을 살펴보겠습니다.
+
+```tsx
+const readAtom = (atom) => {
+  const atomState = getAtomState(atom);
+  const get = (a) => {
+    if (a === atom) {
+      return atomState.value;
+    }
+    const aState = getAtomState(a);
+    aState.dependents.add(atom); // XXX add onlyreturn
+    readAtom(a); // XXX no caching
+  };
+  const value = atom.read(get);
+  atomState.value = value;
+  return value;
+};
+```
+
+`get`함수를 살펴보면 매게변수로 받는 `a`가 자기자신이라면(앞서 살펴본 2번 케이스 → `if (a === atom)`) 해당 `atom`의 `value`를 반환하고, 매게변수로 받는 a가 자기자신이 아닐 경우(앞서 살펴본 1번 케이스), 매게변수로 받는 `a`의 값을 `store`에서 가지고 오게 됩니다(`const aState = getAtomState(a)`).
+
+그 이후, 해당 `atom`의 `dependents` `property`에 `a`를 추가하고(`aState.dependents.add(atom)`), 재귀적으로 `readAtom`을 호출해서 다른 `atom`에 의존적인 `atom`인지 여부에 따라 `read` 로직을 수행하게 됩니다.
+
+`atom`의 값이 바뀔 때는, `dependents` `property`에 저장되어 있는 모든 `atom`에게 `notify`를 하게 되고, 각각의 atom들은 listener 함수를 실행하게 됩니다.(위에서 살펴본 `rerender`)
+
+```tsx
+const notify = (atom) => {
+  const atomState = getAtomState(atom);
+  atomState.dependents.forEach((d) => {
+    if (d !== atom) notify(d);
+  });
+  atomState.listeners.forEach((l) => l());
+};
+
+// writeAtom calls atom.write with the necessary params and triggers notify function
+const writeAtom = (atom, value) => {
+  const atomState = getAtomState(atom);
+
+  // 'a' is some atom from atomStateMap
+  const get = (a) => {
+    const aState = getAtomState(a);
+    return aState.value;
+  };
+
+  // if 'a' is the same as atom, update the value, notify that atom and return else calls writeAtom for 'a' (recursively)
+  const set = (a, v) => {
+    if (a === atom) {
+      atomState.value = v;
+      notify(atom);
+      return;
+    }
+    writeAtom(a, v);
+  };
+
+  atom.write(get, set, value);
+};
+```
+
+최종적으로 아래와 같이 정리가 됩니다.
+
+- 각각의 `atom`은 `dependents` property를 통해 자신에게 의존적인 atom들을 저장한다.
+- atom을 읽을 때(read가 실행되어 store에서 해당 atom의 값을 읽을 때), 해당 `atom`이 다른 `atom`에 의존적인 atom`이라면`, 의존하는 `atom`의 `dependents`에 추가하고 재귀적으로 `atom`의 값을 읽는다
+- `atom`에 값을 쓸 때, 해당 `atom`을 의존하는 `atom`들에게 `notify`를 해주어 각각의 `atom`들이 새롭게 업데이트된 값을 표시할 수 있도록 한다.

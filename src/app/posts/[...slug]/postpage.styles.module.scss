@@ -1,0 +1,22 @@
+.PostWrap {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  font-size: 2.25em;
+}
+
+.description {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.line {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top-width: 1px;
+  border-color: var(--hr);
+}

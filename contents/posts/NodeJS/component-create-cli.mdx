@@ -1,0 +1,223 @@
+---
+title: "컴포넌트 생성 NodeJS CLI 프로그램 만들기"
+date: "2022-12-23"
+lastmod: "2022-12-23"
+category: "NodeJS"
+description: "컴포넌트 생성 과정에서 작성해야 하는 보일러플레이트 코드를 NodeJS CLI프로그램을 만들어, 커맨드를 이용해 자동화한 내용에 대해 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/932fab73-a310-4815-a7d5-de61726c1ce9"
+---
+
+# 🌟배경
+
+엔지니오 클라이언트 프로젝트의 경우, 각 `컴포넌트`는 다음과 같은 구조를 가집니다.
+
+```text
+ComponentDirectory
+├─ index.tsx
+├─ styles.module.scss
+└─ test
+  └─ index.test.tsx
+
+```
+
+`컴포넌트 Directory`안에, `컴포넌트 코드`를 작성하는 `index.tsx`, `스타일 관련 코드`를 작성하는 `styles.module.scss`, `테스트` 관련 파일을 모으는 `test Directory`와 해당 Directory 내에 존재하는 `test`를 위한 `index.test.tsx` 파일이 존재합니다.
+
+기존에, 여러 `Extension`들에서 제공하는 `단축키`를 통해, 빠르게 `탬플릿 코드`를 작성할 수 있었지만, 엔지니오 클라이언트의 각 컴포넌트에서 꼭 사용하는 `보일러플레이트 코드`를 다시 작성해야 하는 번거로움이 있었습니다.
+
+그래서, NodeJS를 활용한 CLI 프로그램을 만들고, 명령어를 등록해, 이 과정을 자동화하도록 만들기로 했습니다.
+
+<br />
+
+# ⚙️ 프로젝트 생성과 전역 설치
+
+먼저, 프로젝트에 사용될 `Directory`를 생성한 뒤, `npm init`을 통해 `package.json` 파일을 생성했습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/2ee53539-5478-44f3-8e21-da0f17b51361" />
+
+다음으로, 프로그램의 `entry point`가 될, `index.js` 파일을 만들었습니다.
+
+```js title="index.js"
+//index.js
+#! /usr/bin/env node
+console.log("engineeo-component-creator");
+
+```
+
+명령어를 등록하기 이전에, `pakage.json` 파일에 등록할 명령어를 `bin` 에 넣어줍니다.
+
+```json
+{
+  "name": "engineeo-component-creator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "By_Juun",
+  "bin": {
+    "ecc": "./index.js"
+  },
+  "license": "MIT"
+}
+```
+
+다음은, `npm i -g` 명령어를 통해, 지금까지 만든 프로젝트를 전역 등록 시켜주었습니다.
+
+`npm i -g` 뒤에 특정 이름을 입력하지 않으면, 현재 위치하고 있는 프로젝트를 전역으로 등록 시켜줍니다.
+
+이후, 명령어가 정상적으로 동작하는지 확인합니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/5ef447fd-f66e-49d7-924d-1741c2c34c7f" />
+
+<br />
+
+# ☑️ 입력값 검증
+
+만들기로 예상한 프로그램은 총 2개의 인자를 받습니다. (컴포넌트가 생성될 경로, 컴포넌트의 이름)
+
+따라서, 인자가 2개 인지 아닌지 검증하는 절차를 추가했습니다.
+
+`NodeJS` `CLI 프로그램`의 경우, `process.argv` 를 통해 인자를 가져올 수 있습니다.
+
+```jsx
+const VALID_ARGV_LENGTH = 2;
+
+function DoArgvLengthValidation() {
+  if (argv.length !== VALID_ARGV_LENGTH) {
+    console.error("인자는 경로와 폴더명 두 가지 이어야 합니다.");
+    return false;
+  }
+  return true;
+}
+
+function main() {
+  const componentPath = argv[0];
+  const componentName = argv[1];
+  if (!DoArgvLengthValidation()) return;
+}
+
+main();
+```
+
+# 📄 Template String
+
+다음으로, 파일을 생성하기 이전에, 각 파일들에 들어갈 내용들을 Template Literal String을 통해 만드는 함수를 추가했습니다.
+
+```js
+export function makeReactTemplate(name) {
+  return `import React from 'react';
+import styles from './styles.module.scss';
+
+const ${name} = () => {
+    return <div>${name}</div>;
+};
+
+export default ${name};
+`;
+}
+
+export function makeScssTemplate() {
+  return `@import 'src/utils/utils';
+  `;
+}
+
+export function makeTestTemplate(name) {
+  return `import React from 'react';
+import { render } from '@testing-library/react';
+import { useRecoilWrapper } from 'src/utils/test_utils';
+import ${name} from '..';
+
+describe('<${name} />', () => {
+    it('rendering test', () => {
+        render(useRecoilWrapper(<${name} />));
+    });
+});
+`;
+}
+```
+
+엔지니오 프로젝트에서는, 각 파일마다 반드시 들어가는 보일러 플레이트 코드가 존재했습니다.
+
+`컴포넌트 파일`의 경우, `React import`, `Style import`, `component function`, `export default component` 가 있으며,
+
+`스타일 파일`의 경우, 내부적으로 반응형 웹 디지인과 색상 코드를 위해 만들어 놓은 `파일을 import` 하는 코드가 있고,
+
+`테스트 파일`의 경우, 필요한 `Library import`, 기본적으로 수행하는 `Rendering test를 위한 코드`, RecoilRoot를 Wrapping 해주는 `useRecoilWrapper 훅 import`와 useRecoilWrapper 훅으로 컴포넌트를 감싼 뒤, `React-testing-libray의 render를 통해, 렌더링` 하는 코드가 있습니다.
+
+<br />
+
+# 🛠 컴포넌트 디렉토리 생성과 각 파일 생성
+
+마지막으로, 각 컴포넌트 디렉토리 생성과 각 파일 생성을 위한 코드를 작성했습니다.
+
+```js
+export function isExistDirectory(path) {
+  const isExist = fs.existsSync(ENGINEEO_PROJECT_BASEPATH + path);
+  if (isExist) console.error("이미 존재하는 컴포넌트입니다");
+  return isExist;
+}
+
+export function createComponentDirectory(path) {
+  fs.mkdirSync(ENGINEEO_PROJECT_BASEPATH + path);
+}
+
+export function createComponentFile(path, fileContent) {
+  fs.writeFileSync(
+    ENGINEEO_PROJECT_BASEPATH + path + "/index.tsx",
+    fileContent
+  );
+}
+
+export function createScssFile(path, fileContent) {
+  fs.writeFileSync(
+    ENGINEEO_PROJECT_BASEPATH + path + "/styles.module.scss",
+    fileContent
+  );
+}
+
+export function createTestDirectory(path) {
+  fs.mkdirSync(ENGINEEO_PROJECT_BASEPATH + path + "/test");
+}
+
+export function createTestFile(path, fileContent) {
+  fs.writeFileSync(
+    ENGINEEO_PROJECT_BASEPATH + path + "/test/index.test.tsx",
+    fileContent
+  );
+}
+```
+
+그리고, `main 함수`에서 해당 함수들을 호출해, `디렉토리`와 `파일`을 생성합니다.
+
+```js
+function main() {
+  const componentPath = argv[0];
+  const componentName = argv[1];
+  if (!DoArgvLengthValidation()) return;
+  if (isExistDirectory(componentPath)) return;
+  createComponentDirectory(componentPath);
+  createTestDirectory(componentPath);
+  createComponentFile(componentPath, makeReactTemplate(componentName));
+  createScssFile(componentPath, makeScssTemplate());
+  createTestFile(componentPath, makeTestTemplate(componentName));
+}
+
+main();
+```
+
+결과
+
+![1671728015545_스크린샷 2022-12-23 오전 1 53 18](https://github.com/BY-juun/Blog/assets/78716842/8f0e3d49-135d-4f3f-9d1c-587ed9565cda)
+![1671728050314_스크린샷 2022-12-23 오전 1 54 04](https://github.com/BY-juun/Blog/assets/78716842/dd5f36ce-68f2-4094-b5af-f3042e869801)
+
+<br />
+
+# 🔧 결론 및 개선 방향
+
+혼자서 사용하거나, 팀원들과 사용할 생각이라 입력값 검증에 대한 부분이 아직 부족하다고 생각이 듭니다.
+
+검증에 대한 코드를 추가하면 더욱 안정적인 CLI 프로그램이 될거 같습니다.
+
+이후에도, 이런 CLI 프로그램, 디자인 시스템, 그 외 여러 자동화 방법을 도입해, 생산성을 증가시킬 수 있는 방향으로, 개선해 나갈 예정입니다.

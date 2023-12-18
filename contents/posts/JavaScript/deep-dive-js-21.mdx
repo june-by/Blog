@@ -1,0 +1,293 @@
+---
+title: "빌트인 객체 [모던 자바스크립트 Deep Dive 21장]"
+date: "2022-06-04"
+category: "JavaScript"
+lastmod: "2022-06-04"
+tags: ["prototype"]
+series: '"모던 자바스크립트 Deep Dive" 읽고 정리하기 📚'
+description: "모던 자바스크립트 Deep Dive 21장 내용을 정리한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/6b4065ee-7d44-4580-899f-58dafcb8b5a7"
+---
+
+# 🌟 자바스크립트 객체의 분류
+
+자바스크립트 객체는 다음과 같이 크게 `3개`의 객체로 분류할 수 있다.
+
+- 표준 빌트인 객체
+  - 표준 빌트인 객체는 ECMAScript 사양에 정의된 객체를 말하며, 애플리케이션 전역의 공통 기능을 제공한다. 표준 빌트인 객체는 ECMAScript 사양에 정의된 객체이므로 자바스크립트 실행 환경(브라우저 또는 NodeJs환경)과 관계없이 언제나 사용 가능하다. 표준 빌트인 객체는 전역 객체의 프로퍼티로서 제공된다.
+- 호스트 객체
+  - 호스트 객체는 ECMAScript 사양에 정의되어 있지 않지만 자바스크립트 실행 환경(브라우저 또는 NodeJs환경)에서 추가로 제공하는 객체를 말한다.
+  - 브라우저 환경에서는 DOM, BOM, Canvas, XMLHttpRequest, fetch, Web Storage 등등이 있다.
+- 사용자 정의 객체
+  - 사용자 정의 객체는 사용자가 직접 정의한 객체를 말한다.
+
+<br />
+
+# 🌟 표준 빌트인 객체
+
+자바스크립트는 Object, String, Number, Boolean, Symbol, Date, Math, RegExp, Array, Function, Promise, JSON, Error 등 40여 개의 표준 빌트인 객체를 제공한다.
+
+Math, Reflect, JSON을 제외한 표준 빌트인 객체는 모두 인스턴스를 생성할 수 있는 `생성자 함수 객체`이다.
+생성자 함수 객체인 표준 빌트인 객체는 프로토타입 메서드와 정적 메서드를 제공한다.
+
+예를 들어, 표준 빌트인 객체인 String, Number, Boolean, Function, Array, Data는 생성자 함수로 호출하여 인스턴스를 생성할 수 있다.
+
+```js
+// String 생성자 함수에 의한 String 객체 생성
+const strObj = new String("Lee"); // String {"Lee"}
+console.log(typeof strObj); // object
+
+// Number 생성자 함수에 의한 Number 객체 생성
+const numObj = new Number(123); // Number {123}
+console.log(typeof numObj); // object
+
+// Boolean 생성자 함수에 의한 Boolean 객체 생성
+const boolObj = new Boolean(true); // Boolean {true}
+console.log(typeof boolObj); // object
+
+// Function 생성자 함수에 의한 Function 객체(함수) 생성
+const func = new Function("x", "return x * x"); // ƒ anonymous(x )
+console.log(typeof func); // function
+
+// Array 생성자 함수에 의한 Array 객체(배열) 생성
+const arr = new Array(1, 2, 3); // (3) [1, 2, 3]
+console.log(typeof arr); // object
+
+// RegExp 생성자 함수에 의한 RegExp 객체(정규 표현식) 생성
+const regExp = new RegExp(/ab+c/i); // /ab+c/i
+console.log(typeof regExp); // object
+
+// Date 생성자 함수에 의한 Date 객체 생성
+const date = new Date(); // Fri May 08 2020 10:43:25 GMT+0900 (대한민국 표준시)
+console.log(typeof date); // object
+```
+
+표준 빌트인 객체가 생성한 인스턴스의 프로토타입은 표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체이다.
+
+```js
+// String 생성자 함수에 의한 String 객체 생성
+const strObj = new String("Lee"); // String {"Lee"}
+
+// String 생성자 함수를 통해 생성한 strObj 객체의 프로토타입은 String.prototype이다.
+console.log(Object.getPrototypeOf(strObj) === String.prototype); // true
+```
+
+<br />
+
+# 🌟 원시값과 래퍼 객체
+
+문자열, 숫자, 불리언 등의 원시값이 있는데도 문자열, 숫자, 불리언 객체를 생성하는 String, Number, Boolean 등의 표준 빌트인 생성자 함수가 존재하는 이유는 무엇일까?
+
+```js
+const str = "hello";
+
+// 원시 타입인 문자열이 프로퍼티와 메서드를 갖고 있는 객체처럼 동작한다.
+console.log(str.length); // 5
+console.log(str.toUpperCase()); // HELLO
+```
+
+위 예제를 살펴보면, 원시 타입인 문자열이 마치 객체처럼 동작한다.  
+이는 원시값에 대해 마치 객체처럼 . 을 이용해 접근하면, 자바스크립트 엔진이 일시적으로 원시값을 연관된 객체로 변환해 주기 때문이다.
+
+이처럼, 문자열, 숫자, 불리언 값에 대해 객체처럼 접근하면 생성되는 임시 객체를 `래퍼 객체`라고 한다.
+
+<br />
+
+# 🌟 전역 객체
+
+전역 객체는 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며, 어떤 객체에도 속하지 않은 최상위 객체다.  
+`브라우저` 환경에서는 `window`가 전역 객체를 가리키지만, `NodeJS` 환경에서는 `global`이 전역 객체를 가리킨다.  
+전역 객체는 표준 빌트인 객체(Object, String, Number, Function, Array 등)와 함께 호스트 객체, 그리고 var키워드로 선언한 전역 변수와 전역 함수를 프로퍼티로 갖는다. (전역객체의 프로퍼티를 참조할 때, window(또는 global)를 생략할 수 있다.)
+
+```js
+// 문자열 'F'를 16진수로 해석하여 10진수로 변환하여 반환한다.
+window.parseInt("F", 16); // -> 15
+// window.parseInt는 parseInt로 호출할 수 있다.
+parseInt("F", 16); // -> 15
+
+window.parseInt === parseInt; // -> true
+// var 키워드로 선언한 전역 변수
+var foo = 1;
+console.log(window.foo); // 1
+
+// 선언하지 않은 변수에 값을 암묵적 전역. bar는 전역 변수가 아니라 전역 객체의 프로퍼티다.
+bar = 2; // window.bar = 2
+console.log(window.bar); // 2
+
+// 전역 함수
+function baz() {
+  return 3;
+}
+console.log(window.baz()); // 3
+let foo = 123;
+console.log(window.foo); // undefined
+```
+
+<br />
+
+# 🌟 빌트인 전역 프로퍼티와 빌트인 전역 함수
+
+Infinity : 무한대를 나타내는 숫자값 Infinity를 갖음.
+
+```js
+// 전역 프로퍼티는 window를 생략하고 참조할 수 있다.
+console.log(window.Infinity === Infinity); // true
+
+// 양의 무한대
+console.log(3 / 0); // Infinity
+// 음의 무한대
+console.log(-3 / 0); // -Infinity
+// Infinity는 숫자값이다.
+console.log(typeof Infinity); // number
+```
+
+NaN : 숫자가 아님을 나타내는 숫자값
+
+```js
+console.log(window.NaN); // NaN
+
+console.log(Number('xyz')); // NaN
+console.log(1 \* 'string'); // NaN
+console.log(typeof NaN); // number
+
+undefined : 원시타입 undefined를 값으로 갖음
+
+console.log(window.undefined); // undefined
+
+var foo;
+console.log(foo); // undefined
+console.log(typeof undefined); // undefined
+```
+
+isFinite : 전달받은 인수가 정상적인 유한수인지 검사, 유한수이면 true 반환 아니면 false반환
+
+```js
+// 인수가 유한수이면 true를 반환한다.
+isFinite(0); // -> true
+isFinite(2e64); // -> true
+isFinite("10"); // -> true: '10' → 10
+isFinite(null); // -> true: null → 0
+
+// 인수가 무한수 또는 NaN으로 평가되는 값이라면 false를 반환한다.
+isFinite(Infinity); // -> false
+isFinite(-Infinity); // -> false
+
+// 인수가 NaN으로 평가되는 값이라면 false를 반환한다.
+isFinite(NaN); // -> false
+isFinite("Hello"); // -> false
+isFinite("2005/12/12"); // -> false
+```
+
+isNaN : 전달받은 인수가 NaNd인지 검사
+
+```js
+// 숫자
+isNaN(NaN); // -> true
+isNaN(10); // -> false
+
+// 문자열
+isNaN("blabla"); // -> true: 'blabla' => NaN
+isNaN("10"); // -> false: '10' => 10
+isNaN("10.12"); // -> false: '10.12' => 10.12
+isNaN(""); // -> false: '' => 0
+isNaN(" "); // -> false: ' ' => 0
+
+// 불리언
+isNaN(true); // -> false: true → 1
+isNaN(null); // -> false: null → 0
+
+// undefined
+isNaN(undefined); // -> true: undefined => NaN
+
+// 객체
+isNaN({}); // -> true: {} => NaN
+
+// date
+isNaN(new Date()); // -> false: new Date() => Number
+isNaN(new Date().toString()); // -> true: String => NaN
+```
+
+parseFloat : 전달받은 문자열 인수를 실수로 parsing하여 반환
+
+```js
+// 문자열을 실수로 해석하여 반환한다.
+parseFloat("3.14"); // -> 3.14
+parseFloat("10.00"); // -> 10
+
+// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.
+parseFloat("34 45 66"); // -> 34
+parseFloat("40 years"); // -> 40
+
+// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.
+parseFloat("He was 40"); // -> NaN
+
+// 앞뒤 공백은 무시된다.
+parseFloat(" 60 "); // -> 60
+```
+
+parseInt : 전달받은 문자열 인수를 정수로 parsing하여 반환, 전달받은 인수가 문자열이 아닐 경우 문자열로 변환 후 정수로 parsing
+
+```js
+// 문자열을 정수로 해석하여 반환한다.
+parseInt("10"); // -> 10
+parseInt("10.123"); // -> 10
+parseInt(10); // -> 10
+parseInt(10.123); // -> 10
+```
+
+encodeURI : 완전한 URI를 인수로 전달 받아, 이스케이프 처리를 위해 인코딩함.
+
+```js
+// 완전한 URI
+const uri = "http://example.com?name=이웅모&job=programmer&teacher";
+
+// encodeURI 함수는 완전한 URI를 전달받아 이스케이프 처리를 위해 인코딩한다.
+const enc = encodeURI(uri);
+console.log(enc);
+// http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
+```
+
+decodeURI : 인코딩된 URI를 인수로 전달 받아, 이스케이프 처리 이전으로 디코딩한다.
+
+```js
+const uri = "http://example.com?name=이웅모&job=programmer&teacher";
+
+// encodeURI 함수는 완전한 URI를 전달받아 이스케이프 처리를 위해 인코딩한다.
+const enc = encodeURI(uri);
+console.log(enc);
+// http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
+
+// decodeURI 함수는 인코딩된 완전한 URI를 전달받아 이스케이프 처리 이전으로 디코딩한다.
+const dec = decodeURI(enc);
+console.log(dec);
+// http://example.com?name=이웅모&job=programmer&teacher
+```
+
+encodeURIComponent / decodeURIComponent
+-> URI 구성요소를 전달받아, 인코딩한다  
+-> 이를 디코딩한다.
+
+```js
+// URI의 쿼리 스트링
+const uriComp = "name=이웅모&job=programmer&teacher";
+
+// encodeURIComponent 함수는 인수로 전달받은 문자열을 URI의 구성요소인 쿼리 스트링의 일부로 간주한다.
+// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &까지 인코딩한다.
+let enc = encodeURIComponent(uriComp);
+console.log(enc);
+// name%3D%EC%9D%B4%EC%9B%85%EB%AA%A8%26job%3Dprogrammer%26teacher
+
+let dec = decodeURIComponent(enc);
+console.log(dec);
+// 이웅모&job=programmer&teacher
+
+// encodeURI 함수는 인수로 전달받은 문자열을 완전한 URI로 간주한다.
+// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &를 인코딩하지 않는다.
+enc = encodeURI(uriComp);
+console.log(enc);
+// name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
+
+dec = decodeURI(enc);
+console.log(dec);
+// name=이웅모&job=programmer&teacher
+```

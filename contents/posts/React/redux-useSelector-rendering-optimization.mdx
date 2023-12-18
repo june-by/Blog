@@ -1,0 +1,155 @@
+---
+title: "Redux useSelector 리렌더링 최적화"
+date: "2022-11-29"
+lastmod: "2022-11-29"
+category: "React"
+tags: ["redux"]
+series: "Frontend 성능 최적화"
+description: "redux에서 제공하는 useSelector를 이용하며 발생한 리렌더링 문제를 해결하는 과정을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/f1ea16ea-5f7b-453e-9a68-f9b1dd03da4e"
+---
+
+# 🌃 배경
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/d1a877d4-e8fb-4aa5-b6f9-0f1b87973fec"/>
+
+영상에 나오는 `ScheduleFanUp` 모달을 열고 닫을 때, 해당 `모달 컴포넌트`(`ScheduleFanUpModal` 컴포넌트)만 렌더링되기를 원했지만, 모달을 감싸고 있는 컴포넌트(`Calendar` 컴포넌트)까지 함께 리렌더링 되었습니다.
+
+코드는 아래와 같았습니다.
+
+```tsx title="Calendar.tsx"
+const Calendar = () => {
+  const { openSchduleModal } = useSelector<ReducerType, ArtistStore>(
+    (state) => state.artistSlice
+  );
+
+  return (
+    <CalendarWrapper>
+      <h1 data-testid="title">LILHUDDY님의 일정</h1>
+      <CalendarHeader />
+      <CalendarBody />
+      {openSchduleModal ? <ScheduleFanUpModal /> : null}
+    </CalendarWrapper>
+  );
+};
+```
+
+<br />
+
+# open 상태를 내부로
+
+위 문제의 경우에는, `Calendar` 컴포넌트가 `Redux Store`의 `openSchduleModal` 상태를 구독하고 있어, 열고 닫을 때 렌더링이 발생되는 상황이라고 생각했습니다.
+
+따라서, `openSchduleModal` 상태를 이용해, `ScheduleFanUpModal` 컴포넌트를 렌더링하는 로직을 `ScheduleFanUpModal` 컴포넌트 내부로 이동시켜 해결했습니다.
+
+```tsx title="Calendar.tsx"
+const Calendar = () => {
+  return (
+    <CalendarWrapper>
+      <h1 data-testid="title">LILHUDDY님의 일정</h1>
+      <CalendarHeader />
+      <CalendarBody />
+      <ScheduleFanUpModal />
+    </CalendarWrapper>
+  );
+};
+```
+
+```tsx title="ScheduleFanUpModal.tsx"
+const ScheduleFanUpModal = () => {
+  const { openSchduleModal } = useSelector<ReducerType, ArtistStore>(
+    (state) => state.artistSlice
+  );
+
+  if (!openSchduleModal) return null;
+  return <>...</>;
+};
+```
+
+<br />
+
+# useSelector 최적화
+
+다음으로 발생한 문제는 모달을 열고 닫을 때, `CalendarHeader`와 `CalendarBody` 컴포넌트가 리랜더링된다는 것이었습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/500c34e9-647f-4734-9cd5-f46de75bfa0e"/>
+
+`CalendarHeader` 컴포넌트와 `CalendarBody` 컴포넌트의 코드는 모두 `Redux Store`를 구독하고 있습니다.
+
+```tsx title="CalendarHeader.tsx"
+const CalendarHeader = () => {
+  const { calendarYear: year, calendarMonth: month } = useSelector<
+    ReducerType,
+    ArtistStore
+  >((state) => state.artistSlice);
+
+  console.log("calendarHeader Render");
+  return <>...</>;
+};
+```
+
+```tsx title="CalendarBody.tsx"
+const CalendarBody = () => {
+  const { calendarYear: year, calendarMonth: month } = useSelector<
+    ReducerType,
+    ArtistStore
+  >((state) => state.artistSlice);
+
+  console.log("CalendarBody Render");
+  return <>...</>;
+};
+```
+
+`react-redux` 공식문어세 따르면, `useSelector`를 이용해 `Redux Store`의 데이터를 가져와 사용하는 컴포넌트는 `useSelector`의 인자로 받는 `selector` 함수가 반환하는 값의 변화 여부에 따라, 리렌더링 된다고 합니다. (<a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates">공식문서</a>)
+
+`CalendarHeader`와 `CalendarBody`에서는 모두 artistSlice에서 관리하는 state 전체를 반환하는 selector를 사용하고 있었습니다.
+
+```tsx
+const { calendarYear: year, calendarMonth: month } = useSelector<
+  ReducerType,
+  StoreState
+>((state) => state.artistSlice);
+```
+
+`redux`에서는 불변성을 위해 매번 새로운 `state`를 만들고, 이로 인해 `state` 전체를 반환하는 `selector`는 항상 반환값이 이전과 달라 리렌더링이 발생했었습니다.
+
+이는 2가지의 방법으로 해결할 수 있습니다.
+
+1. 객체가 아닌 상태를 직접반환
+2. `equalityFn` 활용
+
+1번을 이용한다면, 다음과 같이 각각 개별의 상태를 가져오도록 코드를 수정해야합니다.
+
+```tsx
+const calendarYear = useSelector<ReducerType, number>(
+  (state) => state.artistSlice.calendarYear
+);
+const calendarMonth = useSelector<ReducerType, number>(
+  (state) => state.artistSlice.calendarMonth
+);
+```
+
+이렇게도 문제가 해결되지만, 하나의 `useSelector`에서 상태를 반환하는 것이 코드의 양을 줄이고 가독성을 향상시키기 때문에, 2번 방법을 적용해보았습니다.
+
+`useSelector` 는 두 번째, 매게변수로 `equalifyFn`을 받습니다.  
+`equalifyFn` 이전 상태와 현재 상태를 비교하는데 사용되는 함수입니다.
+<a href="https://react-redux.js.org/api/hooks#useselector">공식문서</a>
+
+이를 이용하면, `useSelector`를 한번만 이용해서, 객체를 반환 받을 수 있다.
+`react-redux`에서는 `shallowEqual` 이라는 메서드를 제공하고, 이 메서드는 객체 안의 가장 겉에 있는 값들을 모두 비교해줍니다.
+
+```tsx
+const { calendarYear: year, calendarMonth: month } = useSelector<
+  ReducerType,
+  StoreState
+>(
+  ({ artistSlice }) => ({
+    calendarYear: artistSlice.calendarYear,
+    calendarMonth: artistSlice.calendarMonth,
+  }),
+  shallowEqual
+);
+```
+
+결과적으로 목표였던 모달이 열고 닫히더라도 Calendar 컴포넌트가 렌더링되지 않도록 만들 수 있었습니다.
+<img src="https://github.com/BY-juun/Blog/assets/78716842/b5440c68-1de7-4a24-a286-83a5db16aa9e"/>

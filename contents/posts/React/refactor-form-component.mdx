@@ -1,0 +1,546 @@
+---
+title: "데이터 구조에 유연하도록 Form 컴포넌트 개선하기"
+date: "2023-09-05"
+lastmod: "2023-09-05"
+category: "React"
+tags: ["context", "react-hook-form"]
+series: "Blog 개발일지"
+description: "데이터와 타입에 강하게 결합되어 있던 Form 컴포넌트를 변화에 유연하도록 개선한 내용을 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/34dd9395-0ca8-4898-8412-d84f7de9902b"
+---
+
+# 🌆 배경
+
+기존 블로그에서는 게시글의 타입이 `Post` 하나밖에 없었고, 이에 따라 이를 위한 `Form` 컴포넌트는 `Post`의 데이터 타입에 의존적이었습니다.
+
+코드로 살펴보면, `Conext`를 통해 Form의 데이터와 데이터를 핸들링 하는 로직을 각 컴포넌트로 전달하는 형태였습니다.
+
+```tsx title="Write.tsx"
+const Write = () => {
+  return (
+    <WriteForm>
+      <div>
+        <div>
+          <WriteForm.Title />
+          <WriteForm.IsPublicCheckBox />
+          <WriteForm.SubmitButton />
+        </div>
+        <div>
+          <WriteForm.CategorySelector />
+          <div>
+            <WriteForm.TagInput />
+            <WriteForm.TagList />
+          </div>
+        </div>
+        <WriteForm.SeriesSelector />
+        <WriteForm.ShortDescription />
+        <WriteForm.Editor />
+        <WriteForm.ThumbNailPicker />
+      </div>
+    </WriteForm>
+  );
+};
+```
+
+각각의 `WriteForm` 의 Compound Component들은 `Context`에서 데이터와 데이터핸들링 함수를 가져와 사용하는 형태입니다.
+
+각각의 컴포넌트 `title`, `content`, `category`, … 라는 <u>데이터의 key</u>에 의존적인 형태입니다.
+
+```tsx title="TitleInput.tsx"
+const TitleInput = () => {
+  const {
+    writeFormData: { title },
+    handleChangeTitle,
+  } = useWriteContext();
+
+  return (
+    <input
+      className={styles.titleInput}
+      value={title}
+      placeholder="제목"
+      onChange={handleChangeTitle}
+    />
+  );
+};
+```
+
+```tsx title="Editor.tsx"
+const Editor = () => {
+  const {
+    writeFormData: { content },
+    handleChangeContent: onChange,
+  } = useWriteContext();
+  const QuillRef = useRef<ReactQuill>(null);
+
+  // ...
+  return (
+    <QuillNoSSRWrapper
+      forwardedRef={QuillRef}
+      value={content}
+      onChange={onChange}
+      modules={modules}
+      formats={formats}
+      theme="snow"
+    />
+  );
+};
+```
+
+이후, `Snippet`이라는 새로운 형태가 생기게 되었고, 해당 `Snippet`의 데이터 구조는 `Post`의 데이터 구조와는 달랐습니다. (`SnippetType`은 `PostType`에서 일부 타입을 가져온 형태)
+
+## Post Type
+
+```tsx
+interface PostType {
+  category: string;
+  createdAt: Date;
+  id: number;
+  title: string;
+  Tags: Array<TagType>;
+  thumbNailUrl: string | null;
+  views: number;
+  isPublic: number;
+  shortDescription: string;
+  SeriesId: number | null;
+  content: string;
+  seriesPosts: { id: number; title: string }[];
+  seriesTitle: string;
+}
+
+export interface PostFormTypeextends Omit<
+    PostType,
+    "id" | "createdAt" | "Tags" | "views" | "seriesPosts" | "seriesTitle"
+  > {
+  tagArr: string[];
+}
+
+```
+
+## Snippet Type
+
+```tsx
+export type SnippetType = Pick<
+  PostType,
+  "id" | "title" | "category" | "content" | "createdAt"
+>;
+export type SnippetFormType = Omit<SnippetType, "createdAt" | "id">;
+```
+
+이에 따라, 게시글 작성을 위한 `Form`을 재활용하기 위해서는 해당 `Form`의 `PostType`에 의존적인 부분을 개선해야 했습니다.
+
+<br />
+
+# 🛠️ Context로 데이터 주입 그리고 Generic
+
+AS-IS 구조는 아래와 같이 데이터를 `Provider`에서 선언하고, 데이터와 데이터 핸들링 함수를 `Context`에서 제공하는 형태입니다.
+
+```tsx title="AS-IS"
+export const WriteFormProvider = ({ children }: { children: JSX.Element }) => {
+  const [writeFormData, dispatch] = useReducer(reducer, initialState);
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "editTitle", title: e.target.value });
+  };
+
+  const handleChangeSeries = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: "editSeries", SeriesId: Number(e.target.value) });
+  };
+
+  return (
+    <WriteFormContext.Provider
+      value={{
+        writeFormData,
+        handleChangeTitle,
+        handleChangeCategory,
+        handleChangeContent,
+        addTag,
+        removeTag,
+        setThumbNailUrl,
+        handleChangeIsPublic,
+        handleChangeShortDescription,
+        handleChangeSeries,
+      }}
+    >
+      {children}
+    </WriteFormContext.Provider>
+  );
+};
+```
+
+문제가 되는 지점은 데이터(상태)를 선언하는 영역이 `Provider`에 있어 데이터와 데이터에 대한 타입이 고정되어 버리는 점과 데이터의 각 영역(`writeFormData.stateKey`)를 변경하는 함수가 일반화 되어있지 않고, 각각 나뉘어져 있다는 점입니다. (`handleChangeTitle`, `handleChangeCategory`, …, `handleChangeSeries`)
+
+이에 따라서, 가장 먼저 `Provider`에서 <u>데이터(상태)를 선언하는 코드</u>를 `Provider` 외부로 이관하고, `Provider`에서 데이터와 데이터핸들링을 위한 함수를 주입받도록 수정해 보았습니다.
+
+```tsx
+interface WriteFormProviderProps<T> {
+  children: React.ReactNode;
+  formData: T;
+  setFormData: Dispatch<SetStateAction<T>>;
+}
+
+const WriteFormContext = createContext<Pick<
+  WriteFormProviderProps<T>,
+  "formData" | "setFormData"
+> | null>(null);
+
+export const WriteFormProvider = <T extends Record<string, any>>({
+  children,
+  formData,
+  setFormData,
+}: WriteFormProviderProps<T>) => {
+  return (
+    <WriteFormContext.Provider value={{ formData, setFormData }}>
+      {children}
+    </WriteFormContext.Provider>
+  );
+};
+```
+
+여기서 문제점은 `WriteFormContext`를 만드는 시점(`createContext`가 호출되는 시점)에 `WriteFormProvider`에서 받은 `Generic Type(T)`을 넘길 수 없다는 점이었고, 이에 따라 `Pick<WriteFormProviderProps<T>,"formData" | "setFormData">` 부분에서 타입에 대해 빨간줄이 생겼습니다.
+
+해당 문제를 없애는 방법은 총 2가지가 있었습니다.
+
+## 1️⃣ 즉시 실행 함수 형태
+
+문제가 되었던 부분은 함수를 호출 할 때 `Generic Type`을 넘길 수 없다는 부분이었습니다.
+
+이에 따라서, 즉시 실행 함수 형태로 만들어 `Generic Type`을 넘기는 방법을 생각하게 되었습니다.
+
+```tsx
+const WriteFormContext = (function <T>() {
+  return createContext<Pick<
+    WriteFormProviderProps<T>,
+    "formData" | "setFormData"
+  > | null>(null);
+})();
+```
+
+이런식으로 `WriteFormContext`를 만들게 될 경우, 타입에 대한 빨간줄이 생기지 않습니다.
+
+하지만, 문제는 타입스크립트에서 넘겨받은 `Generic Type`을 제대로 인식하지 못해, 실제로 해당 `Context`를 `useContext`를 이용해 사용할 경우, `Provider`로 넘긴 데이터의 타입을 사용하지 못한다는 점이었습니다.
+
+## 2️⃣ Context를 Provider 내부에서 만들기
+
+`Provider`에서 제공받은 `Generic Type`을 넘기기 위해 `Context`를 `Provider`안에서 만드는 방법을 생각하게 되었습니다.
+
+```tsx
+interface WriteFormProviderProps<T> {
+  children: React.ReactNode;
+  formData: T;
+  setFormData: Dispatch<SetStateAction<T>>;
+}
+
+const createWriteFormContext = function <T>() {
+  return createContext<Pick<
+    WriteFormProviderProps<T>,
+    "formData" | "setFormData"
+  > | null>(null);
+};
+
+export const WriteFormProvider = <T extends Record<string, any>>({
+  children,
+  formData,
+  setFormData,
+}: WriteFormProviderProps<T>) => {
+  const WriteFormContext = createWriteFormContext<T>(null);
+
+  return (
+    <WriteFormContext.Provider value={{ formData, setFormData }}>
+      {children}
+    </WriteFormContext.Provider>
+  );
+};
+
+const useWriteFormContext = <T extends Record<string, any>>() => {
+  const writeFormContext = createWriteFormContext<T>(null);
+  const value = useContext(writeFormContext);
+
+  if (!value) throw Error("WriteFormContext is Used Before Initialization");
+
+  return value;
+};
+```
+
+이 방법 역시 타입 문제를 해결할 수 있었습니다.
+
+그렇지만, 실제 컴포넌트에서 `useWriteFormContext`를 통해 `Context`의 데이터를 가져오게 될 경우, 매번 `Context`를 생성하게 되어 에러가 발생 했습니다.
+
+<br />
+
+# 🛠️ Without Context
+
+`Context`를 사용하게 될 경우, 필연적으로 타입 혹은 `Context`를 사용할 때, 문제가 발생했습니다.
+
+이에 따라, `Context`를 사용하지 않는 방법을 생각하게 되었습니다.
+
+비슷한 상황에서 유명 라이브러리들은 어떤식으로 구현되어 있는지 살펴보기 위해, `react-hook-form` 라이브러리를 열어서 살펴보았습니다.
+
+`react-hook-form` 라이브러리는 `context`를 사용하지 않고, 각각의 `element`에 전체 데이터의 각 key를 주입하는 방식을 사용했습니다.
+
+```tsx
+import { useForm } from "react-hook-form";
+
+export default function App() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input defaultValue="test" {...register("example")} />
+      <input {...register("exampleRequired", { required: true })} />
+      <input type="submit" />
+    </form>
+  );
+}
+```
+
+해당 라이브러리를 참고하여, `Context`를 사용하지 않고, 각 컴포넌트에 데이터를 `Props`를 통해 넘겨주는 방식으로 변경하게 되었습니다.
+
+각각의 컴포넌트들은 자신이 변경해야 할 `key`를 주입받고, 전체 데이터에서 해당 데이터의 `key`를 변경하는 방식으로 수정되었습니다.
+
+```tsx
+<PostForm.TextInput
+  stateKey="title"
+  value={formState.title}
+  setState={setFormState}
+  label="제목"
+/>;
+
+type Props<T> = Omit<HTMLAttributes<HTMLInputElement>, "onChange"> &
+  PostFormItemSharedType<T>;
+
+const TextInput = <T extends Record<string, any>>({
+  setState,
+  stateKey,
+  value,
+  ...props
+}: Props<T>) => {
+  const handleChangeTextInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        [stateKey]: e.target.value,
+      };
+    });
+  };
+
+  return (
+    <div>
+      <input onChange={handleChangeTextInput} value={value} {...props} />
+    </div>
+  );
+};
+```
+
+<br />
+
+# 🛠️ FormItem 일반화
+
+AS-IS 구조에서는 각각의 `Compound` 컴포넌트들이 데이터의 key(title, category, content, ….)에 강하게 결합되어 있어 재활용 할 수 없었습니다.
+
+이를 해결하기 위해, 데이터의 key와 데이터를 setting 하는 함수를 외부에서 주입받도록 수정했으며, 좀 더 general하게 사용할 수 있도록 수정했습니다.
+
+텍스트 형태의 데이터 입력 을 위한 `TextInput` 컴포넌트
+
+```tsx title="TextInput.tsx"
+type Props<T> = Omit<React.HTMLAttributes<HTMLInputElement>, "onChange"> &
+  PostFormItemSharedType<T>;
+
+const TextInput = <T extends Record<string, any>>({
+  setState,
+  stateKey,
+  value,
+  label,
+  ...props
+}: Props<T>) => {
+  const handleChangeTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        [stateKey]: e.target.value,
+      };
+    });
+  };
+
+  return (
+    <div className={styles.DivWithLabel}>
+      {label && <label>{label}</label>}
+      <input
+        className={styles.TextInput}
+        onChange={handleChangeTextInput}
+        value={value}
+        {...props}
+      />
+    </div>
+  );
+};
+
+export default TextInput;
+```
+
+여러 옵션 중 특정 옵션을 선택하기 위한 `Selector` 컴포넌트
+
+```tsx title="Selector.tsx"
+interface Props<T>
+  extends Omit<React.HTMLAttributes<HTMLSelectElement>, "onChange">,
+    PostFormItemSharedType<T> {
+  options: {
+    key: string | number;
+    value: string | number;
+    text: string | number;
+  }[];
+  valueConverter?: (value: string) => number | boolean | string;
+}
+
+const Selector = <T extends Record<string, any>>({
+  setState,
+  stateKey,
+  value,
+  className,
+  options,
+  label,
+  valueConverter = (value: string) => value,
+  ...props
+}: Props<T>) => {
+  const handleChangeSelector = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        [stateKey]: valueConverter(e.target.value),
+      };
+    });
+  };
+
+  return (
+    <div className={styles.DivWithLabel}>
+      {label && <label>{label}</label>}
+      <select
+        value={value}
+        onChange={handleChangeSelector}
+        className={styles.Selector}
+        {...props}
+      >
+        <option disabled selected>
+          → select an option ←
+        </option>
+        {options.map(({ text, key, value }) => (
+          <option key={key} value={value}>
+            {text}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default Selector;
+```
+
+이 외에 다른 컴포넌트들은 [https://github.com/BY-juun/Blog/tree/master/client/components/postForm/FormItem](https://github.com/BY-juun/Blog/tree/master/client/components/postForm/FormItem)에서 확인할 수 있습니다.
+
+<br />
+
+<br />
+
+# 🛠️ 관련 로직과 데이터를 Hook 으로 뭉치기
+
+마지막으로 관련 로직과 데이터를 `Hook`으로 뭉치는 작업을 진행했습니다.
+
+각각의 컴포넌트에 `props`를 넘기는 방식을 간소화하고, 수정상태일 경우, 기존 데이터와 동기화하는 로직과 입력 여부 validation 로직을 `Hook`으로 분리했습니다.
+
+```tsx title="usePostForm.ts"
+interface Params<T> extends Pick<PostFormItemSharedType<T>, "setState"> {
+  state: T;
+}
+
+const createFormItemProps = <T extends Record<string, any>>({
+  state,
+  setState,
+}: Params<T>): ((
+  stateKey: PostFormItemSharedType<T>["stateKey"]
+) => PostFormItemSharedType<T>) => {
+  return function (stateKey) {
+    return {
+      stateKey,
+      value: state[stateKey],
+      setState,
+    };
+  };
+};
+
+const usePostForm = <T extends Record<string, any>>(initialState: T) => {
+  const [formState, setFormState] = useState(initialState);
+
+  const formItemProps = createFormItemProps({
+    state: formState,
+    setState: setFormState,
+  });
+
+  const syncFormDataAndState = useCallback((data: T) => {
+    setFormState(data);
+  }, []);
+
+  const verifyAllKeysInFormStateEntered = useCallback(() => {
+    const formDataKeys = Object.keys(formState) as (keyof typeof formState)[];
+
+    for (const key of formDataKeys) {
+      if (!formState[key]) return key;
+    }
+
+    return false;
+  }, [formState]);
+
+  return {
+    formItemProps,
+    formState,
+    setFormState,
+    syncFormDataAndState,
+    verifyAllKeysInFormStateEntered,
+  };
+};
+```
+
+결과적으로 아래와 같이 훨씬 읽기 쉽고 어떠한 데이터의 형태에도 유연하게 사용가능한 Form 컴포넌트를 만들 수 있었습니다.
+
+```tsx
+const SnippetWritePage = () => {
+  const {
+    formState,
+    formItemProps,
+    syncFormDataAndState,
+    verifyAllKeysInFormStateEntered,
+  } = usePostForm<SnippetFormType>(snippetFormInitialData);
+
+  const handleSubmitSnippet = () => {
+    const notEnteredKey = verifyAllKeysInFormStateEntered();
+    if (notEnteredKey) return toast.warn(`${notEnteredKey}를 입력해주세요.`);
+  };
+
+  useEffect(() => {
+    if (!data) return;
+    syncFormDataAndState({ ...omit(data, "id", "createdAt") });
+  }, [data, syncFormDataAndState]);
+
+  return (
+    <PostForm>
+      <PostForm.SubmitButton handleSubmit={handleSubmitSnippet} />
+      <PostForm.TextInput {...formItemProps("title")} label="제목" />
+      <PostForm.Selector
+        {...formItemProps("category")}
+        label="카테고리"
+        options={SnippetsCategory.map((category) => {
+          return { key: category, value: category, text: category };
+        })}
+      />
+      <PostForm.Editor {...formItemProps("content")} />
+    </PostForm>
+  );
+};
+```
+
+[https://github.com/BY-juun/Blog/blob/master/client/pages/snippets/write.tsx](https://github.com/BY-juun/Blog/blob/master/client/pages/snippets/write.tsx)
