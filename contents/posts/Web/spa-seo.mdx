@@ -1,0 +1,213 @@
+---
+title: "SPA SEO with Lamda@Edge"
+date: "2023-05-24"
+lastmod: "2023-05-24"
+category: "Web"
+tags: ["spa", "seo", "cloud front"]
+series: "Blog 개발일지"
+description: "CloudFront, Lambda@Edge를 활용해 SPA에서 SEO를 다루는 내용에 관한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/ec4d85e2-e967-42e7-8918-406d433c1a86"
+---
+
+최근에 팀원분과 `SSR`에 관한 이야기를 나누었습니다.
+
+그 분께서 `SSR`의 핵심은 `“FirstPaint가 빨라진다”`, `“SEO”` 이런게 아니라, **렌더링을 서버**에서 하는 것이라고 말씀하셨습니다.
+
+`SEO`가 목적일 경우의 경우, `SSR` 없이, `CloudFront`와 `Lamda@Edge`를 이용해, 처리 가능하다는 이야기를 듣고, 자료를 찾아보고 실제로 구현해보았습니다.
+
+# 🛠 React 기본 세팅
+
+`CRA`를 통해, `React` 프로젝트를 생성하고, 내용은 따로 채우지 않았습니다. (`SEO` 목적)
+
+```jsx
+import React from "react";
+
+function App() {
+  return <div>App</div>;
+}
+
+export default App;
+```
+
+<br />
+
+# 🖥 CloudFront 배포
+
+`React` 프로젝트를 `CloudFront`에 배포 하는 것과 관련된 글은 많기 때문에, 생략합니다.
+
+<br />
+
+# 🤔 Lambda@Edge and CloudFront
+
+`CloudFront`와 `Lamda@Edge`가 정확히 무엇인지, 자세한 설명이 필요하다면 아래 공식문서를 참고하길 바랍니다.
+
+- [What is AWS CloudFront?](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+
+- [What is Lambda@edge?](https://aws.amazon.com/ko/lambda/edge/)
+
+간단하게 설명하자면, 먼저 `CloudFront`는 `AWS`에서 제공하는 `CDN`입니다.
+
+캐싱을 통해 사용자에게 좀 더 빠르게 컨텐츠를 제공하는 것을 목적으로 하는 서비스입니다.
+
+전 세계에 `Edge Server`를 두어, 요청이 들어온 `Client`에 가장 가까운 `Edge Server`를 찾아 `Latency`를 최소화 시킵니다. (거리와 `Latency`는 정비례)
+
+`Lambda@Edge`는 `CloudFront`의 기능 중 하나로, 사용자에게 더 가까운 위치에서 코드를 실행해 성능을 개선하고 지연 시간을 단축시킨다.
+
+즉, `CloudFront`와 관련된 `Request`, `Response`에 특정 함수를 등록해 해당 이벤트가 발생할 대마다, 실행되도록 하는것이다.
+
+`Lambda@Edge`는 정말 많은 부분에서 활용할 수 있다고 한다. (Image Resize, SEO, User Validation)
+
+`CloudFront`와 `Lambda@Edge`를 활용할 때, 사용자의 요청과 응답에 대한 Flow를 그림으로 나타내면 아래와 같다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/f82f878e-944d-411f-b12d-1868a944af68" />
+
+<br />
+
+# 💡 Basic Idea
+
+`SEO`를 위해서는 `Crawler Bot`이 페이지를 요청 할 때, `Meta tag`가 들어있는 페이지를 보내주어야 합니다.
+
+따라서, 총 2가지의 단계로 나누어 수행합니다.
+
+1. `Crawler Bot`을 판단합니다. → `Viewer Request`단계에서 수행합니다.
+2. 요청자가 `Crawler Bot`일 경우, `Meta Tag`가 들어있는 페이지를 응답합니다. → `Origin Response` 단계에서 수행합니다.
+
+`Crawler Bot`이 아닌 일반 클라이언트에게 보내는 페이지에는 `Meta Tag`가 필요하지 않습니다.
+
+따라서, `Origin Response`에서 `Requester`가 `Crawler Bot`으로 판단될 경우, 페이지를 응답하는게 아닌, 적절히 세팅한 `Meta Tag`가 들어간 `HTML`형식의 `String`을 보내면 됩니다.
+
+<br />
+
+# ✍️ Lambda@Edge 함수 작성
+
+참고) `CloudFront`에 `Lambda@Edge` 함수를 달기 위해서는, 꼭 `us-east-1`에서 작성된 `Lambda`함수만 가능하다.
+
+## 1) Viwer Request Lambda Function
+
+`Viwer Request`에서 동작하는 `Lambda 함수`는 `Crawler Bot`을 판단하고, 헤더에 크롤러 여부를 기록합니다.
+
+```jsx
+const bot =
+  /googlebot|bingbot|yandex|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator|kakaotalk-scrap|yeti|naverbot|kakaostory-og-reader|daum/g;
+
+exports.handler = (event, context, callback) => {
+  const request = event.Records[0].cf.request;
+  const user_agent = request.headers["user-agent"][0]["value"].toLowerCase();
+  const referer = request.headers["referer"];
+
+  request.headers["referer"] = [
+    {
+      key: "referer",
+      value:
+        Array.isArray(referer) && referer[0] !== undefined
+          ? referer[0].value
+          : request.headers["host"][0].value,
+    },
+  ];
+
+  if (user_agent) {
+    const found = user_agent.match(bot);
+    request.headers["crawler"] = [
+      {
+        key: "crawler",
+        value: `${!!found}`,
+      },
+    ];
+  }
+  callback(null, request);
+};
+```
+
+## 2) Origin response Lambda Function
+
+`Requester`가 `Crawler Bot`인 경우, `Meta Tag`가 작성된, `HTML String`을 반환합니다.
+
+```javascript
+"use strict";
+const TRUE = "true";
+
+exports.handler = async (event, context, callback) => {
+  const { request, response } = event.Records[0].cf;
+  const { headers, uri } = request || {};
+  const isCrawlerHeader = request.headers["crawler"];
+  let isCrawler = false;
+  if (
+    Array.isArray(isCrawlerHeader) &&
+    isCrawlerHeader[0].value !== undefined &&
+    isCrawlerHeader[0].value !== null
+  ) {
+    isCrawler = isCrawlerHeader[0].value;
+  }
+  if (isCrawler === TRUE) {
+    if (
+      uri.includes("assets/") ||
+      uri.includes(".html") ||
+      uri.includes("robots.txt")
+    ) {
+      callback(null, response);
+      return;
+    }
+
+    const body = `
+    <html>
+        <head>
+            <meta property="og:locale" content="ko_KR" />
+            <meta property="og:locale:alternate" content="en_US" />
+            <meta
+            name="description"
+            content="👨‍💻 안녕하세요 사용자 친화적인 서비스를 개발하고 싶은 개발자 안병준의 블로그입니다."
+            />
+            <meta property="og:title" content="By_juun.com" />
+            <meta
+            property="og:description"
+            content="👨‍💻 안녕하세요 사용자 친화적인 서비스를 개발하고 싶은 개발자 안병준의 블로그입니다."
+            />
+            <meta property="og:image" content={"<https://s3.ap-northeast-2.amazonaws.com/byjuun.com/original/Original.png>"} />
+            <meta property="og:url" content="<https://byjuun.com>" />
+        </head>
+    </html>;
+    `;
+
+    response.headers = {
+      ...response.headers,
+      "content-type": [{ key: "Content-Type", value: "text/html" }],
+    };
+    response.status = "200";
+    response.statusDescription = "OK";
+    response.body = body;
+    callback(null, response);
+  } else {
+    callback(null, response);
+  }
+};
+```
+
+<br />
+
+# 더 나아가…
+
+이번 예제에서는 정적인 `Meta Tag`를 넣은 `HTML`을 반환했지만, `Lambda@Function` 내에서 `Ajax` 요청을 보낼 수 있기 때문에, 이와 요청을 조합해, 동적인 `Meta Tag`를 반환하는 것도 가능합니다.
+
+최적화를 하기 위해서는… 결국 `Body` 내부의 아티클이 필요하다고 합니다. (특정 키워드가 몇 번 나타났는지 등등…)
+
+`Meta Tag`를 반환하는 방식 + 내부 아티클을 합쳐서 보내는 방식으로 수정하는 것이 최적화에 더 유리해보입니다.
+
+위에서도 언급했던 `SEO`이외, `Image Resizing`, `User Validation`, `모니터링` 등등 더 많은 곳에 `Lamda@Edge`를 활용할 수 있습니다.
+
+다음에는, 기회가 된다면 `Lambda@Edge`를 이용한 `Image Resizing`을 공부하고 정리해보겠습니다 :)
+
+<br />
+
+# 정리
+
+`CloudFront`을 위한 배포에서, `End User`와 `CloudFront` 사이, `CloudFront`와 `Origin(Ec2 Instance, S3)`사이의 요청에서 `Lambda@Edge` 함수를 실행시킬 수 있으며, 이를 이용해 `SEO`, `Image Resizing` 과 같은 여러 작업을 할 수 있다.
+
+( + `SSR`의 중요한 점은 `SEO`가 아닌 서버에서 렌더링 한다는 점이다. )
+
+<br />
+
+# 참고자료
+
+- [https://www.youtube.com/watch?v=lUowbPD4N94](https://www.youtube.com/watch?v=lUowbPD4N94)
+
+- [https://aws.amazon.com/ko/lambda/edge/](https://aws.amazon.com/ko/lambda/edge/)
