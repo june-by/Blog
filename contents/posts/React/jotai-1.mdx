@@ -1,0 +1,317 @@
+---
+title: "👻 Jotai 동작원리 파헤치기(1)"
+date: "2023-07-31"
+lastmod: "2023-07-31"
+category: "React"
+tags: ["jotai", "상태관리"]
+description: "상태관리 라이브러리 Jotai의 내부 동작원리와 소스코드를 분석한 포스트입니다. 해당 포스트에서는 기본이 되는 atom과 Provider에 대해서 다룹니다"
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/8bdda62d-0ede-4a77-8570-2f7c4ebefafd"
+---
+
+# 📝 분석에 앞서
+
+> 이 포스트는 상태관리 라이브러리 Jotai V2를 기준으로 작성되었습니다.
+
+현재 진행중인 프로젝트에 `Jotai`를 사용해 전역상태를 관리하고 있습니다.
+
+그 과정에서 아래와 같은 몇 가지 궁금점이 생겼습니다.
+
+1. 어떻게 `Root`를 감싸는 `Provider` 없이 각 컴포넌트에서 동일한 상태를 구독할 수 있지?
+2. `Provider`를 감싸게 될 경우, 가장 가까운 `Provider`의 상태를 가져오게 되는데 어떤 방식으로 동작하는 걸까?
+3. `Provider`가 없을 때, 값을 `update` 할 경우, 어떤 로직으로 `rerendering`이 이루어질까?
+
+궁금중을 해결할겸 상태관리 라이브러리 `Jotai`의 동작원리를 분석하게 되었습니다.
+
+이전에, `Redux`의 동작원리를 살펴본 경험이 있었습니다.
+
+`Redux`의 경우에는 `Vanila JavaScript`에서도 사용 가능한 스토어 구현부(`Pub-Sub` 패턴 사용)가 있었고, `React`에서 사용 가능하도록 한번 Wrapping을 해서 `React`에서 사용 가능하도록(`React-Redux`) 만드는 형태였습니다.
+
+`Jotai` 는 `React` 전용 라이브러리이지만, `Atom`과 이를 저장하는 `Store`의 경우 `Vanila JavaScript`를 이용해 구현되어 있습니다. 그리고 이를 사용하는 `Hook(useAtom, useSetAtom …)`의 경우 `React`에서 제공하는 `Hook`을 이용해 구현되어 있습니다. 이에 따라, `Vanila JavaScript`를 이용해 구현된 `Atom`을 먼저 살펴보고, 이를 사용하는 훅을 차례대로 살펴보겠습니다.
+
+```text
+Jotai
+├─ vanila
+└─ react
+
+```
+
+<br />
+
+# ⚛️ Atom
+
+공식문서에서는 `Atom`을 다음과 같이 설명합니다.
+
+> The atom function is to create an atom config. We call it "atom config" as it's just a definition and it doesn't yet hold a value. We may also call it just "atom" if the context is clear.
+
+`Atom` 함수를 사용해 `Atom Config`를 생성한다.
+
+`Jotai`에서 정의한 `Atom`은 그 자체로 값을 가지지 않으며, `Atom`을 통해 `Store`에 접근해, 값을 가져옵니다(read)
+
+공식문서에 나와있는 바에 따르면, `Atom`을 사용하는 방법은 총 4가지입니다. (primitive, 읽기전용, 쓰기전용, 읽기 and 쓰기)
+
+```tsx
+import { atom } from "jotai";
+
+const primitiveAtom = atom(10);
+
+const readOnlyAtom = atom((get) => get(priceAtom) * 2);
+
+const writeOnlyAtom = atom(null, (get, set, update) => {
+  set(priceAtom, get(priceAtom) - update.discount);
+});
+
+const readWriteAtom = atom(
+  (get) => get(priceAtom) * 2,
+  (get, set, newPrice) => {
+    set(priceAtom, newPrice / 2);
+  }
+);
+```
+
+`atom`의 구현부는 아래와 같습니다.
+
+```tsx title="jotai/src/vanilla/atom.ts"
+export function atom<Value, Args extends unknown[], Result>(
+  read: Value | Read<Value, SetAtom<Args, Result>>,
+  write?: Write<Args, Result>
+) {
+  const key = `atom${++keyCount}`const config = {
+    toString: () => key,
+  } as WritableAtom<Value, Args, Result> & { init?: Value }
+  if (typeof read === 'function') {
+    config.read = read as Read<Value, SetAtom<Args, Result>>
+  } else {
+    config.init = read
+    config.read = (get) => get(config)
+    config.write = ((get: Getter, set: Setter, arg: SetStateAction<Value>) =>set(
+        config as unknown as PrimitiveAtom<Value>,
+        typeof arg === 'function'
+          ? (arg as (prev: Value) => Value)(get(config))
+          : arg
+      )) as unknown as Write<Args, Result>
+  }
+  if (write) {
+    config.write = write
+  }
+  return config
+}
+
+```
+
+이전에 공식문서에 나와 있는 설명대로, `atom` 자체는 상태를 저장하지 않습니다.
+
+저장하지 않고, `init`, `read`, `write`, `toString` 메서드를 가지는 `config`를 만들어 반환할 뿐입니다.
+
+그리고, `Store`에 저장되는 각각의 `atom`이 유니크한 `key`를 가지기 위해 변수 `keyCount`를 사용하고 있습니다.
+
+값을 읽고 쓰는데 사용되는 `read`와 `write` 메서드를 살펴보겠습니다.
+
+먼저 `read`입니다.
+
+공식문서에 `read`에 대해 아래와 같은 설명이 있습니다.
+
+> read: a function that's called on every re-render.
+> The signature of read is (get) => Value | Promise(Value), and get is a function that takes an atom config and returns its value stored in Provider as described below. Dependency is tracked, so if get is used for an atom at least once, the read will be reevaluated whenever the atom value is changed.
+
+공식문서의 내용을 통해, `read`는 `get`이라는 함수를 매게변수로 받는데, 해당 `get` 함수는 `atom config`을 매게변수로 받아, `Store`에 저장되어 있는 값(value)를 가져온다는 것을 확인할 수 있습니다.
+
+추가로 `read`의 타입(`Read`)을 통해서도, `read`가 `Store`에 저장되어 있는 값(value)를 가져온다는 것을 확인할 수 있습니다.
+
+```tsx
+type Read<Value, SetSelf = never> = (
+  get: Getter,
+  options: { readonly signal: AbortSignal; readonly setSelf: SetSelf }
+) => Value;
+
+type Getter = <Value>(atom: Atom<Value>) => Value;
+```
+
+<br />
+
+`Atom`의 값을 쓰기 위해 사용되는 `write`의 경우에는 아래와 같은 구현부를 가지고 있습니다.
+
+```tsx
+config.write = ((get: Getter, set: Setter, arg: SetStateAction<Value>) =>
+  set(
+    config as unknown as PrimitiveAtom<Value>,
+    typeof arg === "function"
+      ? (arg as (prev: Value) => Value)(get(config))
+      : arg
+  )) as unknown as Write<Args, Result>;
+```
+
+첫 번째 매게변수로 위에서 확인했던 `Store`에서 `Atom`의 값(Value)을 가져올 수 있는 `get`을 전달하고, 두 번째 매게변수로 `Atom`의 값을 쓰는 함수로 예상되는 `set`을 전달하며, 마지막으로 특정 동작 혹은 세팅하려는 값을 위한 것으로 예상되는 `arg`를 받는 것을 확인 할 수 있습니다.
+
+지금까지의 구조를 그림으로 나타내면 아래와 같습니다. `Store`에 여러 개의 `atom`이 저장되어 있는 형태이며, 외부에서 `atom`의 값을 읽거나 쓴다면, `Store(Provider)`에 존재하는 `atom`을 read, write하는 구조입니다.
+
+![1691160240950_스크린샷 2023-08-04 오후 11 43 48](https://github.com/BY-juun/Blog/assets/78716842/6a781d45-62a9-44c4-89ec-2012164baf32)
+
+<br />
+
+# 🏠 Provider
+
+이번에는 값을 읽어오는 `Store`의 역할을 하는 `Provider`에 대해 알아보겠습니다.
+
+먼저 공식문서의 설명을 살펴보겠습니다.
+
+`Provider`에 대한 설명입니다.
+
+> The Provider component is to provide state for a component sub tree. Multiple Providers can be used for multiple subtrees, and they can even be nested. This works just like React Context. If an atom is used in a tree without a Provider, it will use the default state. This is so-called provider-less mode.
+
+`Provider`는 `Component Subtree`를 위한 컴포넌트이며, `React Context`와 비슷하게 동작한다. 그리고 `Provider`가 없다면, `default state`를 사용한다’ 라고 나와있습니다.
+
+`Provider`의 소스코드를 아래와 같습니다
+
+```tsx
+const StoreContext = createContext<Store | undefined>(undefined);
+
+export const Provider = ({
+  children,
+  store,
+}: {
+  children?: ReactNode;
+  store?: Store;
+}): FunctionComponentElement<{ value: Store | undefined }> => {
+  const storeRef = useRef<Store>();
+  if (!store && !storeRef.current) {
+    storeRef.current = createStore();
+  }
+  return createElement(
+    StoreContext.Provider,
+    {
+      value: store || storeRef.current,
+    },
+    children
+  );
+};
+```
+
+소스코드를 통해 각각의 `Provider`는 `createContext`를 통해 만들어진, 독자적인 `React Context`라는 사실을 알 수 있습니다.
+
+또한, `Store`를 `Prop`으로 받아, 해당 `Subtree`에서 사용할 `store`를 지정할 수 있으며, `store`라는 매게변수는 `Optional` 하기 때문에, store가 존재하지 않을 경우, `createStore`를 통해 `Store`를 만들어 `Provider`에 저장하는 것을 확인할 수 있습니다.
+
+공식문서의 설명에서는 “ `Provider`가 없다면, `default state`를 사용한다” 라고 나와 있는데, 이는 아래를 통해서 확인할 수 있습니다.
+
+<br />
+
+기본 흐름은 아래와 같습니다.
+
+1. `Jotai`의 기본 동작이 되는 Hook인 `useAtomValue`, `useSetAtom`은 `Store`를 반환하는 `useStore` Hook을 통해, 현재 컴포넌트가 포함되어 있는 `Provider`에 매칭된 `Store`를 가져오게 됩니다.
+2. 이 과정에서 `useStore` Hook은 해당 트리를 따라 탐색하고 컴포넌트가 포함되어 있는 `Provider`가 없다면, `getDefaultStore` 함수를 통해 `defaultStore`를 반환하게 됩니다.
+
+소스코드는 아래와 같습니다.
+
+```tsx
+export function useAtomValue<Value>(atom: Atom<Value>, options?: Options) {
+  const store = useStore(options);
+  // get value from store
+  // ...
+  return isPromiseLike(value) ? use(value) : (value as Awaited<Value>);
+}
+
+export function useSetAtom<Value, Args extends any[], Result>(
+  atom: WritableAtom<Value, Args, Result>,
+  options?: Options
+) {
+  const store = useStore(options);
+  // set value in store
+  const setAtom = useCallback(
+    (...args: Args) => {
+      // ...
+      return store.set(atom, ...args);
+    },
+    [store, atom]
+  );
+  return setAtom;
+}
+
+export const useStore = (options?: Options): Store => {
+  const store = useContext(StoreContext);
+  return options?.store || store || getDefaultStore();
+};
+```
+
+그렇다면, 서로 다른 `Subtree(Provider)`에서, 같은 `store`를 사용한다면 어떤 상황이 벌어질까요?
+
+Counter 예제 소스코드
+
+```tsx
+const counter1Atom = atom(0);
+const counter2Atom = atom(10);
+
+const store1 = createStore();
+const store2 = createStore();
+
+function App() {
+  return (
+    <div className="App">
+      <Provider store={store1}>
+        <ComponentA />
+      </Provider>
+      <Provider store={store2}>
+        <ComponentB />
+      </Provider>
+    </div>
+  );
+}
+
+const ComponentA = () => {
+  const [count, setCount] = useAtom(counter1Atom);
+  const count2 = useAtomValue(counter2Atom);
+  console.log("count2 : ", count2);
+  return <Counter count={count} setCount={setCount} />;
+};
+
+const ComponentB = () => {
+  const [count, setCount] = useAtom(counter2Atom);
+
+  return <Counter count={count} setCount={setCount} />;
+};
+
+const Counter = ({ count, setCount }: CounterProps) => {
+  return (
+    <>
+      <button onClick={() => setCount((prev: any) => prev - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount((prev: any) => prev + 1)}>+</button>
+    </>
+  );
+};
+```
+
+서로 다른 `Subtree`에서 다른 `Store`를 사용하게 될 경우, 다른 `Subtree`에서 갱신된 값을 읽어 올 수 없습니다.
+![257190028-d7a3e534-7f3f-423d-a9d3-0df18a7cf594](https://github.com/BY-juun/Blog/assets/78716842/88982468-2cf9-4aba-96ba-d9137a1a0d80)
+
+반면, 서로 다른 `Subtree`에서 같은 `store`를 사용하게 될 경우, 다른 `Subtree(Provider)`일지라도 업데이트 된 값을 읽어 올수 있습니다.
+![257190799-5817be72-43f8-4d58-804d-8da59f843a0b](https://github.com/BY-juun/Blog/assets/78716842/8c553e01-1b14-4d64-afde-bbd86688be3e)
+
+```tsx
+<Provider store={store1}>
+  <ComponentA />
+</Provider>
+<Provider store={store1}>
+  <ComponentB />
+</Provider>
+```
+
+추가적으로, 다른 `Store`를 사용할 때와 다르게, `counter2Atom`의 값이 업데이트 되면, `ComponentA`가 리렌더링 되어 콘솔이 출력되는것을 확인할 수 있습니다.
+
+이를 통해, `Provider(Context)`는 껍데기이며, 값을 가져오고 업데이트하며 컴포넌트를 리렌더링 시키는 로직은 `Store`에 들어있다는 사실을 알 수 있습니다.
+
+<br />
+
+# 😃 마치며
+
+1편에서는 가장 기본이 되는 `atom`과 `store`의 껍데기가 되는 `Provider`에 대해서 알아보았습니다.
+
+지금까지 파악한 내용을 요약하면 아래와 같습니다.
+
+- `atom`은 그 자체로 값을 가지지 않고 `Store`에 저장되며, 모든 동작은 `store`에서 값을 읽고 쓰는 과정을 통해 이루어진다.
+- `Provider`는 `Store`를 저장하는 껍데기 역할을 하며, `Provider`가 없을 경우, `defaultStore`를 사용한다.
+
+다음 2편에서는 아래와 같은 내용을 살펴볼 예정입니다.
+
+- `Jotai`의 핵심 로직 `Store`
+- `atom`이 변경되었을 때, 컴포넌트는 어떻게 리렌더링 되는가
+- `atom`은 어떤 시점에 `store`에 들어가는가
+- 각 `atom`의 `dependency`를 어떻게 관리되는가
