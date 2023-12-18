@@ -42,6 +42,12 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `https://byjuun.com${post.slug}`,
+      images: post.thumbNail,
+    },
   };
 }
 
