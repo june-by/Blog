@@ -1,0 +1,193 @@
+---
+title: "pnpm 기반의 모노레포 의존성 트러블슈팅"
+date: "2023-12-19"
+lastmod: "2023-12-19"
+category: "TroubleShooting"
+tags: ["monorepo", "pnpm", "jest", "react-testing-library"]
+description: "pnpm 기반의 모노레포 프로젝트에서 라이브러리를 사용하기 위한 셋업 과정에서 발생한 의존성 이슈와 해결 방법에 대해 작성한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/f853d27b-74d6-4d2d-81a3-08a2169b3673"
+---
+
+# 배경
+
+최근 `pnpm` 기반의 모노레포 프로젝트에서 `jest`, `react-testing-library`를 이용해 유닛테스트를 진행 하게 되었습니다.
+
+이 과정에서 `pnpm` 기반의 모노레포였기 때문에, 의존성 호이스팅 관련 이슈가 발생했습니다.
+
+<br />
+
+구체적으로 해당 이슈는 아래와 같습니다.
+
+- pnpm 기반의 모노레포 루트 디렉토리에서 `react-testing-library`를 설치함.
+- 공식문서에 나와 있는대로 아래와 같이 세팅을 진행함.
+
+```js title="jest.config.js"
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  collectCoverageFrom: ["src/**/*.{ts,tsx}"],
+  moduleNameMapper: {
+    "^~/(.*)$": "<rootDir>/src/$1",
+  },
+  //...
+  projects: [
+    {
+      setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
+      testEnvironment: "jsdom",
+      testMatch: ["<rootDir>/apps/shared/**/?(*.)+(spec|test).[jt]s?(x)"],
+    },
+  ],
+};
+```
+
+```ts title="setupTests.ts"
+import "@testing-library/jest-dom";
+```
+
+- `@testing-library/jest-dom` 를 `import` 하지만, 내부에서 `import` 하고 있는 `@types/testing-library__jest-dom` 가 프로젝트에 적용되지 않아, 타입과 관련하여 에러가 발생함.
+
+```tsx
+expect(testElem).not.toHaveAttribute("data-testid");
+// Property 'toHaveAttribute' does not exist on type 'Matchers<void, HTMLDivElement>'.
+```
+
+비슷한 세팅을 `npm` 기반의 프로젝트에서도 진행을 했었지만, 당시에는 위와 같은 상황을 마주하지 않았습니다.
+
+이 문제로,,, 엄청난 삽질과 고통을 받아 발생한 원인과 해결 방법을 정리해보려고 합니다.
+
+<br />
+
+# npm의 의존성 관리와 pnpm의 의존성 관리 비교
+
+먼저 이슈가 왜 발생했는지 파악하기 위해, `npm`과 `pnpm`의 의존성 관리를 비교해보았습니다.
+
+`npm`은 아래와 같이 중복해서 설치되는 `node_modules`를 최소화하기 위해 호이스팅 기법을 사용합니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/31f677c8-4221-490a-8c96-b92748322125" />
+
+<center>
+  출처 : [toss(node_modules로부터 우리를 구원해줄 Yarn
+  Berry)](https://toss.tech/article/node-modules-and-yarn-berry)
+</center>
+
+따라서, 프로젝트에서는 `npm install`을 통해 설치하지 않는 프로젝트에 접근할 수 있으며, 이를 유령 의존성(Phantom Dependency)현상이라고 합니다.
+
+```js
+// B를 설치하지 않았지만, 가능함.
+import * as B from "B";
+```
+
+<br />
+
+반면, `pnpm`에서는 의존성을 아래와 같이 관리합니다. ([공식문서](https://pnpm.io/ko/motivation#%ED%8F%89%ED%83%84%ED%95%98%EC%A7%80-%EC%95%8A%EC%9D%80-node_modules-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EC%83%9D%EC%84%B1))
+
+`pnpm`은 `symlink`를 사용하여 프로젝트의 직접적인 의존성만을 모듈 디렉토리의 루트(root/node_modules)로 추가합니다.
+
+다시 말해, 프로젝트에서 `bar@1.0.0`에 의존하는 `foo@1.0.0`을 설치한다면, 아래와 같은 구조가 됩니다. ([공식문서](https://pnpm.io/ko/symlinked-node-modules-structure))
+
+```text
+node_modules
+├── foo -> ./.pnpm/foo@1.0.0/node_modules/foo
+└── .pnpm
+    ├── bar@1.0.0
+    │   └── node_modules
+    │       └── bar -> <store>/bar
+    └── foo@1.0.0
+        └── node_modules
+            ├── foo -> <store>/foo
+            └── bar -> ../../bar@1.0.0/node_modules/bar
+```
+
+그리고 프로젝트에서는 직접적인 의존성을 가진 `foo@1.0.0`만을 가져와 사용할 수 있습니다.
+
+```js
+import * as Foo from "foo"; // OK
+import * as Bar from "bar"; // XXX
+```
+
+이 모든게 가능한 것은 Node는 심볼릭 링크를 무시하기 때문이며, 관련 자세한 내용은 아래 공식문서를 참고하시기 바랍니다!
+
+- <a href="https://pnpm.io/ko/symlinked-node-modules-structure">
+    https://pnpm.io/ko/symlinked-node-modules-structure
+  </a>
+
+<br />
+
+# 문제 원인 파악
+
+이제 위 `pnpm`의 의존성 관리를 기반으로 `@testing-library/jest-dom` 를 `import` 하지만, 내부에서 `import` 하고 있는 `@types/testing-library__jest-dom` 가 프로젝트에 적용되지 않는 원인에 대해서 파악해보겠습니다.
+
+`npm` 기반의 프로젝트에서 `@testing-library/jest-dom`을 설치할 경우, 아래와 같은 구조가 됩니다.
+
+```text title="npm 기반"
+node_modules
+├── @testing-library
+│   └── jest-dom
+└── @types
+    └── testing-library__jest-dom
+```
+
+pnpm 기반의 프로젝트에서 `@testing-library/jest-dom`을 설치할 경우, 아래와 같은 구조가 됩니다.
+
+```text title="pnpm 기반"
+node_modules
+├── @testing-library
+│   └── jest-dom
+└── .pnpm
+    ├── @testing-library+jest-dom@5.16.5
+    │   └── node_modules
+    │       └── @types
+    │           └── testing-library__jest-dom -> ./.pnpm/@types+testing-library__jest-dom@5.14.5
+    └── @types+testing-library__jest-dom@5.14.5
+```
+
+`npm` 기반의 프로젝트에서는 명시적으로 `@types/testing-libray__jest-dom`을 설치하지 않았지만, `@testing-library/jest-dom`을 설치하며, `@types/testing-libray__jest-dom`가 호이스팅되어 `node_modules/@types`에 존재합니다.
+
+하지만, `pnpm` 기반의 프로젝트에서는 명시적으로 `@types/testing-libray__jest-dom`을 설치하지 않았기 때문에, `@types/testing-libray__jest-dom`가 `node_modules/@types`에 존재하지 않습니다.  
+추가적으로, `@types/testing-libray__jest-dom`는 `@testing-library/jest-dom`의 의존성이기 때문에, .pnpm 에 `@types+testing-library__jest-dom@5.14.5` 가 생성되며 심링크가 생성되게 됩니다.
+
+따라서, `@testing-library/jest-dom` 패키지 내부에서는 타입에 대한 문제가 발생하지 않지만, `setupTests.ts`에서 `@testing-library/jest-dom`을 `import` 하더라도, `node_modules/@types/testing-libray__jest-dom`가 존재하지 않기 때문에, 프로젝트에 적용되지 않았습니다.
+
+<br />
+
+# 해결
+
+제가 찾아본 해결책은 총 2가지였습니다.
+
+1. 명시적으로 `@types/testing-libray__jest-dom` 설치
+2. `@testing-library/jest-dom`만 설치하더라도, `@types/testing-libray__jest-dom`가 설치되도록 config 수정
+
+### 1. 명시적으로 설치하기
+
+명시적으로 `@types/testing-libray__jest-dom`을 설치할경우, 직접 의존성으로 처리되어 프로젝트에 적용되게 됩니다.
+(`react`를 설치하고 `@types/react`를 설치하는것과 같습니다.)
+
+```sh
+pnpm install -D @types/testing-libray__jest-dom
+```
+
+```text {2,3}
+node_modules
+├── @types
+│   └── testing-library__jest-dom
+├── @testing-library
+│   └── jest-dom
+└── .pnpm
+    ├── @testing-library+jest-dom@5.16.5
+    │   └── node_modules
+    │       └── @types
+    │           └── testing-library__jest-dom -> ./.pnpm/@types+testing-library__jest-dom@5.14.5
+    └── @types+testing-library__jest-dom@5.14.5
+```
+
+### 2. config 수정
+
+pnpm에서는 [public-hoist-pattern](https://pnpm.io/ko/npmrc#public-hoist-pattern)이라는 옵션을 통해, 패턴과 일치하는 의존성을 루트 모듈 디렉토리에 호이스트 시킬 수 있습니다.
+
+따라서, `@types/testing-library__jest-dom`를 `public-hoist-pattern`에 추가해, 루트 모듈 디렉토리(node_modules/@types)에 추가할 수 있습니다. (`*eslint*`, `*prettier*` 는 default)
+
+```ini title=".npmrc"
+public-hoist-pattern[]=*eslint*
+public-hoist-pattern[]=*prettier*
+public-hoist-pattern[]=@types/testing-library__jest-dom
+```
