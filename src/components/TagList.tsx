@@ -24,12 +24,12 @@ const TagList = ({ tags, className }: Props) => {
     return null;
   }
   return (
-    <ul className={`flex gap-1 pl-0 ${className}`}>
+    <ul className={`flex gap-1 pl-0 flex-wrap ${className}`}>
       {tags.map((tag, idx) => (
         <li
           onClick={(e) => onClickTag(e, tag)}
           key={`${tag}${idx}`}
-          className="cursor-pointer flex items-center gap-1 hover:text-blue-700"
+          className="cursor-pointer flex items-center gap-1 hover:text-blue-700 "
         >
           <AiFillTag className="text-blue-700 mt-0" />
           <span className="text-sm mb-0">{tag}</span>
