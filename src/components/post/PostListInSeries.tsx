@@ -22,9 +22,16 @@ const PostListInSeries = ({ series, currentPostTitle }: Props) => {
   }
 
   const postListInSeries = getSameSeriesPosts(series);
+
   const currentPostIdx = postListInSeries.findIndex(
     (post) => post.title === currentPostTitle
   );
+  const nextPostInSeries =
+    currentPostIdx === postListInSeries.length - 1
+      ? null
+      : postListInSeries[currentPostIdx + 1];
+  const prevPostInSeries =
+    currentPostIdx === 0 ? null : postListInSeries[currentPostIdx - 1];
 
   return (
     <Collapse className="relative w-full p-4 mb-8 bg-[#f8f9fa] dark:bg-[rgb(33,33,33)]">
@@ -73,15 +80,15 @@ const PostListInSeries = ({ series, currentPostTitle }: Props) => {
           </span>
           <div className="flex gap-1">
             <button
-              onClick={() => push(postListInSeries[currentPostIdx - 1].slug)}
-              disabled={currentPostIdx === 0}
+              onClick={() => push(prevPostInSeries!.slug)}
+              disabled={!prevPostInSeries}
               className="disabled:opacity-30 rounded-full border-[0.5px] text-blue-500 border-gray-200 dark:border-gray-700 enabled:hover:bg-blue-500 enabled:hover:border-blue-500 enabled:hover:text-white"
             >
               <MdOutlineKeyboardArrowLeft className=" w-[25px] h-[25px]" />
             </button>
             <button
-              onClick={() => push(postListInSeries[currentPostIdx + 1].slug)}
-              disabled={currentPostIdx === postListInSeries.length - 1}
+              onClick={() => push(nextPostInSeries!.slug)}
+              disabled={!nextPostInSeries}
               className="disabled:opacity-30 rounded-full border-[0.5px] text-blue-500 border-gray-200 dark:border-gray-700 enabled:hover:bg-blue-500 enabled:hover:border-blue-500 enabled:hover:text-white"
             >
               <MdOutlineKeyboardArrowRight className="w-[25px] h-[25px]" />
