@@ -12,7 +12,7 @@ const PostCard = (post: Post) => {
       href={post.slug}
       className="block p-0 md:flex w-full gap-6 group"
     >
-      <figure className="sm: min-h-[11.25rem] rounded-sm overflow-hidden w-full after:content-[''] after:block after:pb-[60%] md:w-[40%] relative items-center justify-center">
+      <figure className="sm: min-h-[11.25rem] rounded-sm overflow-hidden w-full after:content-[''] after:block after:pb-[60%] md:w-[40%] relative">
         <Image
           src={post.thumbNail}
           fill
