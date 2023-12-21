@@ -9,6 +9,33 @@ export function dateSortDesc(a: string, b: string, reverse: boolean) {
 export function sortedPosts(posts: Post[], reverse = false) {
   return posts.sort((a, b) => dateSortDesc(a.date, b.date, reverse));
 }
+function getCurrentPostIdxInPostList(postList: Post[], post: Post) {
+  return postList.findIndex((v) => v.title === post.title);
+}
+
+function getNextPostInPostList(postList: Post[], currentPostIdx: number) {
+  return currentPostIdx === postList.length - 1
+    ? null
+    : postList[currentPostIdx + 1];
+}
+
+function getPrevPostInPostList(postList: Post[], currentPostIdx: number) {
+  return currentPostIdx === 0 ? null : postList[currentPostIdx - 1];
+}
+
+function getSameSeriesPost(series: Required<Post["series"]>) {
+  return sortedPosts(
+    allPosts.filter((post) => post.series === series),
+    true
+  );
+}
+
+function getSameCategoryPost(category: Post["category"]) {
+  return sortedPosts(
+    allPosts.filter((post) => post.category === category),
+    true
+  );
+}
 
 export function getCategories(posts: Post[]) {
   const categories = Array.from(new Set(posts.map((post) => post.category)));
@@ -23,31 +50,27 @@ export function getCategories(posts: Post[]) {
     .sort((a, b) => b.count - a.count);
 }
 
-export function getSameSeriesPosts(series: Required<Post["series"]>) {
-  return sortedPosts(
-    allPosts.filter((post) => post.series === series),
-    true
-  );
+export function getSeriesInfoWithPost(post: Post) {
+  const postListInSeries = getSameSeriesPost(post.series);
+  const currentPostIdx = getCurrentPostIdxInPostList(postListInSeries, post);
+  const prevPost = getPrevPostInPostList(postListInSeries, currentPostIdx);
+  const nextPost = getNextPostInPostList(postListInSeries, currentPostIdx);
+  return {
+    postListInSeries,
+    currentPostIdx,
+    prevPost,
+    nextPost,
+  };
 }
 
-export function getNextAndPrevPostInSameCategory({
-  title,
-  category,
-}: Pick<Post, "title" | "category">) {
-  const postsInSameCategory = sortedPosts(
-    allPosts.filter((post) => post.category === category),
-    true
-  );
-
-  const currentPostIdx = postsInSameCategory.findIndex(
-    (post) => post.title === title
-  );
+export function getNextAndPrevPostInSameCategory(post: Post) {
+  const postsInSameCategory = getSameCategoryPost(post.category);
+  const currentPostIdx = getCurrentPostIdxInPostList(postsInSameCategory, post);
+  const prevPost = getPrevPostInPostList(postsInSameCategory, currentPostIdx);
+  const nextPost = getNextPostInPostList(postsInSameCategory, currentPostIdx);
 
   return {
-    prev: currentPostIdx === 0 ? null : postsInSameCategory[currentPostIdx - 1],
-    next:
-      currentPostIdx === postsInSameCategory.length - 1
-        ? null
-        : postsInSameCategory[currentPostIdx + 1],
+    prevPost,
+    nextPost,
   };
 }

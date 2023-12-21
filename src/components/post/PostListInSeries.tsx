@@ -1,6 +1,6 @@
 "use client";
 
-import { getSameSeriesPosts } from "@/utils";
+import { getSeriesInfoWithPost } from "@/utils";
 import { Post } from "contentlayer/generated";
 import Link from "next/link";
 import React from "react";
@@ -13,30 +13,20 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import Collapse from "../shared/Collapse";
 
-type Props = { currentPostTitle: Post["title"] } & Pick<Post, "series">;
-
-const PostListInSeries = ({ series, currentPostTitle }: Props) => {
+const PostListInSeries = ({ post }: { post: Post }) => {
   const { push } = useRouter();
-  if (!series) {
+
+  if (!post.series) {
     return null;
   }
 
-  const postListInSeries = getSameSeriesPosts(series);
-
-  const currentPostIdx = postListInSeries.findIndex(
-    (post) => post.title === currentPostTitle
-  );
-  const nextPostInSeries =
-    currentPostIdx === postListInSeries.length - 1
-      ? null
-      : postListInSeries[currentPostIdx + 1];
-  const prevPostInSeries =
-    currentPostIdx === 0 ? null : postListInSeries[currentPostIdx - 1];
+  const { postListInSeries, currentPostIdx, prevPost, nextPost } =
+    getSeriesInfoWithPost(post);
 
   return (
     <Collapse className="relative w-full p-4 mb-8 bg-[#f8f9fa] dark:bg-[rgb(33,33,33)]">
       <ImBookmark className="w-12 h-12 absolute top-0 right-2 text-blue-500" />
-      <h2 className="m-0 mb-4 text-xl mr-7">{series}</h2>
+      <h2 className="m-0 mb-4 text-xl mr-7">{post.series}</h2>
       <Collapse.Content>
         <div className="flex flex-col gap-1 list-inside pl-0">
           {postListInSeries.map((post, idx) => {
@@ -80,15 +70,15 @@ const PostListInSeries = ({ series, currentPostTitle }: Props) => {
           </span>
           <div className="flex gap-1">
             <button
-              onClick={() => push(prevPostInSeries!.slug)}
-              disabled={!prevPostInSeries}
+              onClick={() => push(prevPost!.slug)}
+              disabled={!prevPost}
               className="disabled:opacity-30 rounded-full border-[0.5px] text-blue-500 border-gray-200 dark:border-gray-700 enabled:hover:bg-blue-500 enabled:hover:border-blue-500 enabled:hover:text-white"
             >
               <MdOutlineKeyboardArrowLeft className=" w-[25px] h-[25px]" />
             </button>
             <button
-              onClick={() => push(nextPostInSeries!.slug)}
-              disabled={!nextPostInSeries}
+              onClick={() => push(nextPost!.slug)}
+              disabled={!nextPost}
               className="disabled:opacity-30 rounded-full border-[0.5px] text-blue-500 border-gray-200 dark:border-gray-700 enabled:hover:bg-blue-500 enabled:hover:border-blue-500 enabled:hover:text-white"
             >
               <MdOutlineKeyboardArrowRight className="w-[25px] h-[25px]" />
