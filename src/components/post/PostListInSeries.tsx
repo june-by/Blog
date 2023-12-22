@@ -26,7 +26,12 @@ const PostListInSeries = ({ post }: { post: Post }) => {
   return (
     <Collapse className="relative w-full p-4 mb-8 bg-[#f8f9fa] dark:bg-[rgb(33,33,33)]">
       <ImBookmark className="w-12 h-12 absolute top-0 right-2 text-blue-500" />
-      <h2 className="m-0 mb-4 text-xl mr-7">{post.series}</h2>
+      <Link
+        href={{ pathname: "/", query: { series: post.series } }}
+        className="m-0 mb-4 text-xl mr-7 no-underline hover:underline"
+      >
+        {post.series}
+      </Link>
       <Collapse.Content>
         <div className="flex flex-col gap-1 list-inside pl-0">
           {postListInSeries.map((post, idx) => {
