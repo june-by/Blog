@@ -8,8 +8,9 @@ description: "사내 프로젝트에 도입했던 PlayWright을 이용한 e2e �
 thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/17a1ccd3-0bc6-4acd-a547-70d6216fd6e5"
 ---
 
-사내 프로젝트에 도입했던 Playwright을 통한 e2e 테스트와 자동화에 대한 발표를 정리하고 이를 개인 프로젝트에 적용 시키며, 발생했던 개발 과정에 대해 기록으로 남겨보려고 합니다!  
-아래는 사내 프로젝트에 PlayWright을 이용한 e2e테스트와 자동화를 도입과정에 대해 팀원분께서 발표해주신 영상입니다.
+사내 프로젝트에 도입했던 `Playwright`을 이용한 e2e 테스트와 자동화에 대한 발표를 정리하고 이를 개인 프로젝트에 적용 시키며, 발생했던 개발 과정에 대해 기록으로 남겨보려고 합니다!
+
+아래는 사내 프로젝트에 `PlayWright`을 이용한 e2e 테스트와 자동화를 도입과정에 대해 팀원분께서 발표해주신 영상입니다.
 
 > <a href="https://www.youtube.com/watch?v=jqC1epb96nU">
 >   https://www.youtube.com/watch?v=jqC1epb96nU
@@ -23,35 +24,42 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/17a1ccd3-0bc6-4acd-a
 
 e2e 테스트가 필요했던 이유는 아래와 같습니다.
 
-- 상용 환경에서의 Side Effect 방지, 안정성 향상
+- 상용 환경에서의 `Side Effect` 방지, 안정성 향상
 - 리팩토링을 마음 편하게 진행
 - 사용자 관점의 스펙 기술서
 
 ## 🛠️ 상용 환경에서의 Side Effect 방지, 안정성 향상
 
-프론트엔드에서 수행 할 수 있는 테스트는 유닛테스트, 통합테스트, e2e테스트로 총 3가지의 테스트가 있습니다.  
-이 중에서 외부에서 제공하는 서비스와 연동해 테스트를 수행 하기 위해서는 e2e 테스트가 필요했습니다.  
-(ex, 외부 JS 파일에서 제공하는 인터페이스를 호출해 코드를 작성하고 비즈니스 로직을 수행하는 경우)  
+프론트엔드에서 수행 할 수 있는 테스트는 `유닛테스트`, `통합테스트`, `e2e테스트`로 총 3가지가 있습니다.
+
+이 중에서 외부에서 제공하는 서비스와 연동해 테스트를 수행 하기 위해서는 `e2e 테스트`가 필요했습니다.
+
+- ex, 외부 JS 파일에서 제공하는 인터페이스를 호출해 코드를 작성하고 비즈니스 로직을 수행하는 경우
+
 이외에도, 특정 브라우저(ex, IE, Webkit 기반 브라우저)를 지원해야 하는 경우, 내가 작성한 코드를 통해 제공되는 서비스가 해당 브라우저에서 동작하는지 판단하기 위해서는 e2e 테스트가 필요했습니다.
 
 ## 🛠️ 리팩토링을 마음 편하게 진행
 
-리팩토링을 마음 편하게 진행하기 위해서는 내가 작성한 코드가 서비스 전체에 다른 Side Effect를 일으키지는 않는지 확인할 수 있어야 하며, 이에 따라 타 서비스와 연동해 테스트가 가능한 e2e 테스트를 도입하게 되었습니다.
+리팩토링을 마음 편하게 진행하기 위해서는 내가 작성한 코드가 서비스 전체에 다른 `Side Effect`를 일으키지는 않는지 확인할 수 있어야 하며, 이에 따라 타 서비스와 연동해 테스트가 가능한 e2e 테스트를 도입하게 되었습니다.
 
 ## 📝 사용자 관점의 스펙 기술서
 
-새롭게 합류하고 스펙이 거대해짐에 따라 서비스의 각 스펙을 문서화해 공유하는것이 어려워졌습니다.  
-아래에서 볼 수 있듯, e2e 테스트의 각 Test Case는 서비스의 스펙기술서의 성향이 강하며, 사용자의 관점에서 서비스의 스펙을 파악할 수 있습니다.  
+새롭게 합류하고 스펙이 거대해짐에 따라 서비스의 각 스펙을 문서화해 공유하는것이 어려워졌습니다.
+
+아래에서 볼 수 있듯, e2e 테스트의 각 `Test Case`는 서비스의 `스펙기술서`의 성향이 강하며, 사용자의 관점에서 서비스의 스펙을 파악할 수 있습니다.
+
 또한, 따로 문서를 공유하지 않아도 신규 입사자가 코드 베이스내에서 스펙을 확인하는 것이 가능합니다.
 
 <br />
 
 # ⚙️ e2e 테스트를 위한 기술스택 선정하기
 
-e2e테스트를 위한 기술을 선정할 때, `Selenium` / `Cypress` / `PlayWright` 총 3가지의 기술을 후보로 두었습니다.  
-그 중 `PlayWright`을 선택하게 되었습니다.  
-`PlayWright`은 `Cypress`, `Selenium`에 비해 러닝커브가 낮고, 코드 가독성이 좋으며 `Webkit` 기반의 브라우저를 지원한다는게 장점이었습니다.  
-거기에 추가로 Microsoft에서 만들었기 때문에, `Vscode`와의 궁합도 매우 좋았습니다.  
+e2e테스트를 위한 기술을 선정할 때, `Selenium` / `Cypress` / `PlayWright` 총 3가지의 기술을 후보로 두었고, 그 중 `PlayWright`을 선택하게 되었습니다.
+
+`PlayWright`은 `Cypress`, `Selenium`에 비해 러닝커브가 낮고, 코드 가독성이 좋으며 `Webkit` 기반의 브라우저를 지원한다는게 장점이었습니다.
+
+거기에 추가로 Microsoft에서 만들었기 때문에, `Vscode`와의 궁합도 매우 좋았습니다.
+
 예를 들어, 아래와 같이 각각의 테스트를 개별로 실행 할 수 있는 기능을 제공하며, `describe`로 묶은 여러 관련 테스트를 실행하는 기능을 GUI 형태로 제공하는 기능이 있습니다.
 
 <img src="https://github.com/BY-juun/Blog/assets/78716842/019b7068-d4bd-4317-afcf-64fa0df2767a" />
@@ -66,8 +74,10 @@ e2e테스트를 위한 기술을 선정할 때, `Selenium` / `Cypress` / `P
 
 ## ✏️ 누가 봐도 이해할 수 있는 Test Case 작성
 
-앞서 e2e 테스트의 목적으로 사용자 관점에서의 스펙 기술서를 언급했습니다.  
-이를 위해서는 프로젝트의 기존 개발자가 아닌 누가 봐도 이해할 수 있는 Test Case 작성이 필요합니다.  
+앞서 e2e 테스트의 목적으로 <u>사용자 관점에서의 스펙 기술서</u>를 언급했습니다.
+
+이를 위해서는 프로젝트의 기존 개발자가 아닌 누가 봐도 이해할 수 있는 `Test Case` 작성이 필요합니다.
+
 이를 위해서는 코드를 살펴 보아야 파악할 수 있는 선택자가 아니라 사용자 친화적인 선택자를 사용해야 합니다.
 
 ex) 제출 버튼 선택
@@ -83,7 +93,7 @@ ex) 제출 버튼 선택
 → `postsPage.submitButton.click()`
 
 ```tsx
-Class PostPOM {
+class PostPOM {
 	page;
 	get submitButton() {
 		this.page.locator(’button.buttonIcon.episode-actions-later)
@@ -94,9 +104,11 @@ Class PostPOM {
 
 ## 🏠 POM(Page Object Model)구조 활용
 
-e2e 테스트를 작성하게 되면 동일한 로직, 동일한 선택자를 활용해야하는 경우가 많이 생겼습니다.  
-이에 따라 코드를 공통화하고 Test Case의 가독성을 향상하기 위해 `POM(Page Object Model)`구조를 활용했습니다.  
-아래와 같이 `POM`은 각각의 Test Case에서 사용되는 동일하게 사용되는 모킹, 비즈니스 로직, 선택자를 포함하는 형태이며, 각각의 Test Case는 `POM`을 사용해 가독성을 유저친화적인 테스트를 작성할 수 있습니다.
+e2e 테스트를 작성하게 되면 동일한 로직, 동일한 선택자를 활용해야하는 경우가 많이 생겼습니다.
+
+이에 따라 코드를 공통화하고 Test Case의 가독성을 향상하기 위해 `POM(Page Object Model)`구조를 활용했습니다. ([공식문서](https://playwright.dev/docs/pom))
+
+아래와 같이 `POM`은 각각의 Test Case에서 사용되는 동일하게 사용되는 `모킹`, `로직`, `선택자`를 포함하는 형태이며, 각각의 Test Case는 `POM`을 사용해 가독성을 유저친화적인 테스트를 작성할 수 있습니다.
 
 ```tsx
 export default class PostPOM extends POM {
@@ -211,26 +223,65 @@ export default class PostPOM extends POM {}
 
 ## 🛠️ Stable한 형태의 데이터 관리
 
-실제 상용 API를 이용해 e2e 테스트를 수행할 경우, 데이터가 시시각각 변하게 되어 개발자가 작성한 코드에 상관없이 테스트가 깨지는 상황이 발생합니다.  
-ex) e2e 테스트에서 a라는 게시글 관련 api를 이용함. 해당 a라는 게시글의 상태가 공개 → 비공개로 전환 → 관련 테스트가 모두 깨짐  
-이뿐만 아니라, 다양한 케이스를 위한 각각의 API를 만들고 관리하기는 어렵습니다.  
-이에 따라, 실제 상용 API를 사용하는게 아닌 개발자가 만든 모킹데이터를 활용했습니다.  
+실제 `상용 API`를 이용해 e2e 테스트를 수행할 경우, 데이터가 시시각각 변하게 되어 <u>개발자가 작성한 코드에 상관없이 테스트가 깨지는 상황</u>이 발생합니다.
+
+- e2e 테스트에서 a라는 게시글 관련 api를 이용함. 해당 a라는 게시글의 상태가 공개에서 비공개로 전환되면 관련 테스트가 모두 깨짐
+
+이뿐만 아니라, 다양한 케이스를 위한 각각의 API를 만들고 관리하기는 어렵습니다.
+
+이에 따라, 실제 상용 API를 사용하는게 아닌 개발자가 만든 모킹데이터를 활용했습니다.
+
 모킹 데이터를 사용할 경우 신규필드추가, 기존필드의수정 등이 있을 경우 실제 서비스와 e2e테스트가 달라질 수 있기 때문에, 이에 대해서는 컨벤션으로 정해 신경써서 관리했습니다.
 
 <br />
 
 # 🏭 테스트 자동화
 
-사내 프로젝트에서는 `Bitbucket` + `Jenkins`를 사용했지만, 개인프로젝트에서는 `Github`를 사용하고 있었기 때문에, `Github Action`을 이용해 테스트를 자동화했습니다.  
-[공식문서](https://playwright.dev/docs/ci-intro) 에 자세히 나와있기 때문에, 해당 문서를 보고 `production` 브랜치를 타겟으로 하는 `pull request`가 열렸을 때 테스트가 실행되도록 했습니다. → <a href="https://github.com/BY-juun/Blog/actions/workflows/e2e_test.yml">https://github.com/BY-juun/Blog/actions/workflows/e2e_test.yml</a>
-테스트가 실패할 경우, artifact를 이용해 테스트 결과에 대한 report를 다운받고, 살펴 볼 수 있습니다. → <a href="https://playwright.dev/docs/ci-intro#html-report">https://playwright.dev/docs/ci-intro#html-report</a>
+사내 프로젝트에서는 `Bitbucket` + `Jenkins`를 사용했지만, 개인프로젝트에서는 `Github`를 사용하고 있었기 때문에, `Github Action`을 이용해 테스트를 자동화했습니다.
+
+[공식문서](https://playwright.dev/docs/ci-intro) 에 자세히 나와있기 때문에, 해당 문서를 보고 `production` 브랜치를 타겟으로 하는 `pull request`가 열렸을 때 테스트가 실행되도록 했습니다.
+
+테스트가 실패할 경우, `artifact`를 이용해 테스트 결과에 대한 report를 다운받고, 살펴 볼 수 있습니다. → <a href="https://playwright.dev/docs/ci-intro#html-report">공식문서</a>
+
+```yml title="e2e_test.yml"
+name: E2E-TESTS
+
+on:
+  pull_request:
+    branches:
+      - production
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: ./client/playwright-report/
+          retention-days: 30
+```
 
 <br />
 
 # 😅 아쉬웠던점
 
-개인프로젝트에서는 관리자/사용자를 검증할 때, `SSR`을 활용했습니다.  
-아쉽게도, `PlayWright`의 경우 서버에서 호출하는 API를 `intercept` 하는 기능을 제공하지 않아 해당 케이스에 대한 테스트를 수행할 수 없었습니다.  
+개인프로젝트에서는 관리자/사용자를 검증할 때, `SSR`을 활용했습니다.
+
+아쉽게도, `PlayWright`의 경우 서버에서 호출하는 API를 `intercept` 하는 기능을 제공하지 않아 해당 케이스에 대한 테스트를 수행할 수 없었습니다.
+
 아래 코드에서 `/user` API 요청을 `intercept` 하지 못함
 
 ```tsx
@@ -263,5 +314,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 };
 ```
 
-스크롤 이벤트와 관련된 로직이 있을 경우에도 테스트에 아쉬움이 있었습니다.  
+스크롤 이벤트와 관련된 로직이 있을 경우에도 테스트에 아쉬움이 있었습니다.
+
 실제 사용자가 해당 화면을 보기 위해서는 스크롤을 수행해야 하지만, `PlayWright`의 경우 해당 화면으로 focus가 되는 과정에서 스크롤 이벤트가 발생하지 않아 테스트가 깨지는 현상이 있었습니다.
