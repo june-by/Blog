@@ -72,16 +72,13 @@ export default async function PostPage({ params }: PostProps) {
         <PostTagList tags={post.tags} />
         <hr className="my-4" />
         <div className="relative">
-          <PostListInSeries
-            series={post.series}
-            currentPostTitle={post.title}
-          />
+          <PostListInSeries post={post} />
           <div className="postcontent">
             <Mdx code={post.body.code} />
           </div>
           <TableOfContents headings={post.headings} />
         </div>
-        <RoutePostButtons title={post.title} category={post.category} />
+        <RoutePostButtons post={post} />
         <PostComments />
       </article>
       <ScrollToTopButton />
