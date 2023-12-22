@@ -1,0 +1,134 @@
+---
+title: "SSR과 CSR에 대한 고찰"
+date: "2023-09-27"
+category: "Web"
+lastmod: "2023-09-27"
+tags: ["ssr", "csr"]
+description: "SSR과 CSR에 대해 알아보고, 개인적인 생각을 작성한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/2501dc01-45fc-4537-b41f-a3926fce289e"
+---
+
+# 🌟 Client Side Rendering
+
+먼저 기본적인 `Clinet Side Rendering`의 흐름 아래과 같습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/f69aeb48-2c32-42db-92e7-5e2ddfe3f096" />
+
+단계별로 하나씩 알아보겠습니다.
+
+1. `Browser`가 `Frontend Server`에 `HTML`, `JS`, `CSS` 파일을 요청합니다.
+
+- 순차적으로 나타낼 경우, `HTML`파일을 받은 후, `HTML`파일에 명시되어있는 `JS`, `CSS` 파일을 요청합니다.
+- 여기서 `Frontend Server`는 보통 아래 중 하나일 것입니다.
+  - 빌드가 완료된 `HTML`, `CSS`, `JS` 파일을 서빙하는 웹서버 (ex, `Nginx`)
+  - 빌드가 완료된 `HTML`, `CSS`, `JS` 파일을 서빙하는 CDN (ex, `CloudFront`)
+  - Web Application Server (`NodeJS`, `Java-Spring` 등으로 만든 서버)
+
+2. `Frontend Server`에서 요청받은 파일을 보내줍니다.
+
+   - 서버에서 따로 추가적인 액션(ex, `WAS`에서 meta태그 세팅, `lambda@edge`에서 특정 로직 수행)을 하지 않는다면, 클라이언트에 보내는 `HTML`파일을 아래와 같이 텅비어있는 형태일 것입니다.
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="utf-8" />
+       <link rel="icon" href="/favicon.ico" />
+       <title>React App</title>
+       <script defer="defer" src="/static/js/main.da3ad65d.js"></script>
+       <link href="/static/css/main.f855e6bc.css" rel="stylesheet" />
+     </head>
+     <body>
+       <div id="root"></div>
+     </body>
+   </html>
+   ```
+
+3. `js`파일의 로직이 수행되어 `CSR`이 진행되고, 필요한 데이터를 `Backend Server`에 요청합니다.
+
+4. `Backend Server`에서 요청받은 데이터를 `DataBase`에 요청합니다.
+
+5. `Database Server`에서 쿼리를 통해 요청받은 데이터를 반환한다.
+
+6. `Backend Server`에서 요청받은 데이터를 보낸다.
+
+위 과정 중간중간에 캐싱이 들어갈 경우 요청이 생략될 수 있지만, 없다고 가정한다면 위와 같은 흐름일 것입니다.
+
+> 여기서 중요한 점은 렌더링은 클라이언트에서 한다는 점입니다.
+
+렌더링을 클라이언트에서 한다는 점을 바탕으로 `CSR`의 장점과 단점을 알아보겠습니다.
+
+## ✨ CSR 장점
+
+- 렌더링을 클라이언트에서 하기 때문에, `Frontend Server`의 스펙은 크게 중요하지 않다.
+- 렌더링을 클라이언트에서 하기 때문에, 필요한 데이터만 받아오는 방식을 통해 화면을 업데이트 할 수 있다.
+  - 첫 화면은 SSR, 이후에는 필요한 데이터만 받아와 화면을 업데이트하는 CSR을 활용하기도 합니다. (ex, NextJS)
+
+위 내용 중 제가 생각했을 때 `Client Side Rendering`의 가장 큰 장점은 렌더링을 클라이언트의 컴퓨팅 파워에 위임해, 서버의 리소스를 아낄 수 있다는 점입니다. (서버의 리소스는 곧 돈...)
+
+## ✨ CSR 단점
+
+- 렌더링을 클라이언트에서 하기 때문에, 클라이언트마다 렌더링속도가 다를 수 있다.
+- 렌더링을 클라이언트에서 하기 때문에, 서버에서만 사용할 수 있는 여러 최적화 기법을 활용할 수 없다.
+
+구글에 `CSR`의 단점을 검색하면 아래와 같은 내용들을 확인할 수 있지만, 요즘에는 `SSR`을 도입하지 않고도 이런 부분을 충분히 커버할 수 있기 때문에, 저는 아래 내용들이 `CSR`의 단점이라고 생각하지 않습니다.
+
+- SEO(Search Engine Optimization)과정에서 문제가 발생 할 수 있다.
+
+  - `lambda@edge`와 같은 기능을 사용하면 해결 가능 ([관련해서 작성했던 포스트](https://byjuun.com/posts/Web/spa-seo))
+
+- 페이지를 읽고, 데이터를 받아온 후 화면을 그리는 시간까지 모두 지나야 콘텐츠를 사용자에게 보여줄 수 있기 때문에, 초기 구동 속도가 느리다.
+
+  - `CSR`이라고 꼭 초기 구동 속도가 느린게 아닙니다. 서버가 충분히 최적화되어 있지 않다면, `SSR` 환경에서 서버가 완성된 `HTML`을 만들어 클라이언트에게 전송하는게 더 느릴수도 있습니다.
+
+<br />
+
+# 🌟 Server Side Rendering
+
+먼저 기본적인 `Clinet Side Rendering`의 흐름은 아래와 같습니다.
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/ee143b2c-f246-42a4-a066-e9fa7149f57c" />
+
+1. `Browser`가 `Frontend Server`에 `HTML` 파일을 요청합니다.
+
+2. `Frontend Server`에서 `HTML`파일을 완성하기 위해, `Backend Server`에 필요한 데이터를 요청합니다.
+
+3. `Backend Server`에서 요청받은 데이터를 `DataBase`에 요청합니다.
+
+4. `Database Server`에서 쿼리를 통해 요청받은 데이터를 반환한다.
+
+5. `Backend Server`에서 요청받은 데이터를 'Frontend Server'에 반환합니다.
+
+6. `Frontend Server`에서 `HTML`파일을 완성시킨 후, 클라이언트에게 보내게 됩니다.
+
+7. 그림에는 없지만, 추가적으로 `JS`를 통해, 화면을 Interactive하게 만듭니다. (Hydration)
+
+> 여기서 중요한 점은 렌더링을 서버에서 한 후, 완성된 HTML파일을 보내는 점입니다.
+
+렌더링을 서버에서 한다는 점을 바탕으로 `SSR`의 장점과 단점을 알아보겠습니다.
+
+## ✨ SSR 장점
+
+1️. 렌더링을 서버에서 하기 때문에, 일관된 렌더링 속도를 보장한다.
+
+2️. 렌더링을 서버에서 하기 때문에, 서버에서만 사용할 수 있는 여러 최적화 기법을 사용할 수 있다.
+
+## ✨ SSR 단점
+
+단점의 경우, 하나로 요약할 수 있습니다.
+
+> 서버를 관리해야한다.
+
+결국, 서버에서 그만큼 트래픽을 처리해야하기 때문에, 최적화되지 못한다면 `CSR`보다 느린 상황을 마주할수도 있습니다.
+
+또, 서버에서 `HTML`을 그리는 작업은 절대 가벼운 작업이 아닙니다. 그렇다보니, 적절한 조치가 없다면 서버의 메모리가 부족한 상황을 마주할수도 있습니다.
+
+로그는 어떨까요?
+로그 하나하나가 다 리소스이기 때문에, 이 부분에 대해서도 적절한 조치가 필요합니다.
+
+<br />
+
+결국, 성능을 위해 `SSR`을 선택하기 위해서는 서버를 충분히 관리할 수 있다는 전제조건이 필요합니다.
+
+무작정 `FCP`를 빠르게 하고 성능을 위해 `SSR`을 도입하는 것을 말이 되지 않으며,
+`SSR`을 도입함으로써 얻는 이점과 서버를 관리하며 들어가는 리소스를 적절히 비교하고, 판단을 통해 도입을 결정하는 것이 중요하다고 생각합니다.
