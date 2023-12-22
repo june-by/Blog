@@ -11,10 +11,13 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/883000a0-6c6f-4c2d-8
 
 # ⚙️ 마이그레이션을 진행한 이유
 
-`React Server Component` 가 등장한지는 약 2년, App router가 안정화된 NextJS 13.4버전이 등장한지는 약 6개월의 시간이 지났습니다.  
-올해 TODO 리스트 중에는 `RSC(React Server Component)`의 동작원리 스터디와 블로그 `App Router` 전환이 있었는데요.  
-`App Router` 방식에서는 모든 컴포넌트가 기본적으로 `Server Component`로 동작하기 때문에, `App Router` 전환을 진행하게 된다면, 동시에 `RSC`를 공부할 수 있는 기회가 될 수 있다 생각하여 마이그레이션을 진행하게 되었습니다.  
-추가로 `Pages Router` 구조에서 크게 불편한 점을 느끼지 못해 계속해서 미루다, 최근에 App Router, RSC 관련 여러 아티클들을 많이 접하게 되어 진행했습니다.
+`React Server Component` 가 등장한지는 약 2년, `App router`가 안정화된 NextJS 13.4버전이 등장한지는 약 6개월의 시간이 지났습니다.
+
+올해 TODO 리스트 중에는 `RSC(React Server Component)`의 동작원리 스터디와 블로그 `App Router` 전환이 있었는데요.
+
+`App Router` 방식에서는 모든 컴포넌트가 기본적으로 `Server Component`로 동작하기 때문에, `App Router` 전환을 진행하게 된다면, 동시에 `RSC`를 공부할 수 있는 기회가 될 수 있다 생각하여 마이그레이션을 진행하게 되었습니다.
+
+추가로 `Pages Router` 구조에서 크게 불편한 점을 느끼지 못해 계속해서 미루다, 최근에 `App Router`, `RSC` 관련 여러 아티클들을 많이 접하게 되어 진행했습니다.
 
 <br />
 
@@ -22,18 +25,22 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/883000a0-6c6f-4c2d-8
 
 ## RSC(React Server Component)
 
-기존 React에서는 사용자가 브라우저에 들어가서 번들링된 파일(ex, bundle.js)을 다운로드 받은 후, 해당 파일의 다운로드가 완료되면 파일을 실행하고 화면을 그렸습니다.  
-따라서, 사용자가 브라우저에 처음 들어가 서버로 부터 받게되는 html 파일은 비어있었습니다.(오직 `<div id=”root”></div>` 만 존재)  
-코드스플리팅, 트리쉐이킹등의 최적화 과정을 통해 초기 로드 속도를 조금 더 빠르게 할 수 있지만, 여전히 느리며 js를 다운로드 받을때까지 사용자는 빈 화면만을 보게 되었습니다.  
-`RSC(React Server Component)`는 서버 컴포넌트라는 이름답게 클라이언트(브라우저)가 아닌 서버에서 동작하는 컴포넌트입니다.  
+기존 `React`에서는 사용자가 브라우저에 들어가서 번들링된 파일(ex, bundle.js)을 다운로드 받은 후, 해당 파일의 다운로드가 완료되면 파일을 실행하고 화면을 그렸습니다.
+
+따라서, 사용자가 브라우저에 처음 들어가 서버로 부터 받게되는 html 파일은 비어있었습니다.(오직 `<div id=”root”></div>` 만 존재)
+
+코드스플리팅, 트리쉐이킹등의 최적화 과정을 통해 초기 로드 속도를 조금 더 빠르게 할 수 있지만, 여전히 느리며 js를 다운로드 받을때까지 사용자는 빈 화면만을 보게 되었습니다.
+
+`RSC(React Server Component)`는 서버 컴포넌트라는 이름답게 클라이언트(브라우저)가 아닌 서버에서 동작하는 컴포넌트입니다.
+
 서버에서 동작하는 컴포넌트이기 때문에, 사용자는 해당 컴포넌트의 번들파일을 다운로드 받아 실행할 필요가 없다는 장점이 존재합니다.
 
 RSC가 렌더링되는 절차를 간단히 나타내면 아래와 같습니다. (Reference → <a href="https://www.plasmic.app/blog/how-react-server-components-work">how-react-server-components-work</a>)
 
-1. 서버에서 요청을 받아, 어떤 Component, 어떤 Props를 적용할지 결정한다.
-2. 서버가 루트 Component를 JSON으로 직렬화한다. 이때, Client Component를 만나면 실행하지 않고 직렬화하지 않고, placeholder 해놓는다.
-3. 서버에서 초기 루트 서버 컴포넌트를 기본 HTML 태그와 Client Componet ‘placeholders’의 트리로 렌더링한 후 브라우저로 전송한다.
-4. 브라우저에서는 직렬화된 트리를 역직렬화하고, Clinet Component ‘placeholders’를 서버에서 받아온 JavaScript Bundle 파일을 이용해 실제 Client Component로 교체한다.
+1. 서버에서 요청을 받아, 어떤 `Component`, 어떤 `Props`를 적용할지 결정한다.
+2. 서버가 `Root Component`를 `JSON`으로 직렬화한다. 이때, `Client Component`를 만나면 실행하지 않고 직렬화하지 않고, `placeholder` 해놓는다.
+3. 서버에서 초기 루트 서버 컴포넌트를 기본 `HTML` 태그와 `Client Componet placeholders`의 트리로 렌더링한 후 브라우저로 전송한다.
+4. 브라우저에서는 직렬화된 트리를 역직렬화하고, `Clinet Component placeholders`를 서버에서 받아온 `JavaScript Bundle` 파일을 이용해 실제 `Client Component`로 교체한다.
 5. 최종 결과물을 렌더링하여 사용자에게 보여준다.
 
 ## NextJS에서의 Server Component Rendering
@@ -41,11 +48,11 @@ RSC가 렌더링되는 절차를 간단히 나타내면 아래와 같습니다. 
 NextJS에서는 다음과 같은 절차를 걸쳐 사용자에게 interactive한 페이지를 제공합니다. → <a href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">
 https://nextjs.org/docs/app/building-your-application/rendering/server-components</a>
 
-1. (on the server) React가 Server Component를 렌더링해 RSC Payload를 만든다.
-2. (on the server) 만들어진 RSC Payload와 Client Component JavaScript를 이용해 HTML을 만든다.
-3. (on the client) HTML을 이용해 non-interactive한 화면을 먼저 보게 된다.
-4. (on the client) stream을 통해 받은 RSC Payload를 이용해 Client, Server Component Tree를 재조정하고, DOM을 업데이트한다.
-5. (on the client) Hydration을 통해 interactive하게 만든다.
+1. (on the server) `React`가 `Server Component`를 렌더링해 `RSC Payload`를 만든다.
+2. (on the server) 만들어진 `RSC Payload`와 `Client Component JavaScript`를 이용해 `HTML`을 만든다.
+3. (on the client) `HTML`을 이용해 `non-interactive`한 화면을 먼저 보게 된다.
+4. (on the client) `stream`을 통해 받은 `RSC Payload`를 이용해 `Client`, `Server Component Tree`를 재조정하고, `DOM`을 업데이트한다.
+5. (on the client) `Hydration`을 통해 `interactive`하게 만든다.
 
 이 과정에서 `Full Page`를 가져오는게 아닌 `Navigation`을 변경하는 경우라면, `Client Component`는 서버에서 렌더링되어 `HTML`을 만들지 않고, 오직 `Client`에서만 렌더링 됩니다. (<a href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">https://nextjs.org/docs/app/building-your-application/rendering/server-components</a>)
 
@@ -53,24 +60,31 @@ https://nextjs.org/docs/app/building-your-application/rendering/server-component
 
 ## 기존 SSR (With Client-Component)
 
-기존 SSR은 **Page단위로 렌더링 방식을 결정**할 수 있었습니다.  
-예를 들어, SSG을 하는 Page라고 가정한다면, 해당 Page에서 리얼타임 데이터를 다루는 영역이 있다면, 해당 영역은 서버에서 렌더링을 하지 못합니다.  
-반대로, SSR을 하는 Page에서 특정 영역이 Static한 데이터를 다룬다고 하더라도, 해당 영역을 Static하게 렌더링 할 수 없습니다.
+기존 `SSR`은 <u>Page단위로 렌더링 방식을 결정</u>할 수 있었습니다.
 
-기존 SSR은 실제 **모든 코드가 JavaScript Bundle 파일에 포함**됩니다. 서버에서 렌더링되어 HTML로 변환된 후 클라이언트로 보내지지만, 모든 코드가 포함되어 있는 JavaScript Bundle 파일을 받아온 후 Hydration 과정을 거쳐야 합니다. 따라서, 사용자가 빈 화면이 아닌 초기 화면을 보는 속도를 빠르지만, 페이지와 상호 작용 할 수 있는 `TTI(Time To Interactive)`는 여전히 느립니다.
+- 기존 NextJS의 경우, getServerSideProps를 사용할 경우 SSR
+- 기존 NextJS의 경우, getStaticProps 사용할 경우 SSG
+
+예를 들어, `SSG`을 하는 Page라고 가정한다면, 해당 `Page`에서 리얼타임 데이터를 다루는 영역이 있다면, 해당 영역은 서버에서 렌더링을 하지 못합니다.
+
+반대로, `SSR`을 하는 Page에서 특정 영역이 `Static`한 데이터를 다룬다고 하더라도, 해당 영역을 `Static`하게 렌더링 할 수 없습니다.
+
+기존 `SSR`은 실제 <u>모든 코드가 JavaScript Bundle 파일에 포함</u>됩니다. 서버에서 렌더링되어 `HTML`로 변환된 후 클라이언트로 보내지지만, 모든 코드가 포함되어 있는 JavaScript Bundle 파일을 받아온 후 `Hydration` 과정을 거쳐야 합니다.
+
+따라서, 사용자가 빈 화면이 아닌 초기 화면을 보는 속도를 빠르지만, 페이지와 상호 작용 할 수 있는 `TTI(Time To Interactive)`는 여전히 느립니다.
 
 기존 `SSR`에 `RSC`를 합칠경우 다음과 같은 장점을 얻을 수 있습니다.
 
-- RSC는 서버에서만 동작하기 때문에, **JavaScript Bundle 파일에 포함시키지 않아 파일 사이즈를 줄일 수 있다.**
-- 모든 JavaScript Bundle파일을 받아, Hydration을 하는게 아닌 Stream 형태로 받은 RSC Payload를 통해 Client-Component payload로 마킹되어 있는 부분만 JavaScript Bundle파일을 이용해 클라이언트에서 렌더링하기 때문에, 훨씬 빠른 TTI 시간을 가지게 됩니다.
+- RSC는 서버에서만 동작하기 때문에, <u>JavaScript Bundle 파일에 포함시키지 않아 파일 사이즈를 줄일 수 있다.</u>
+- 모든 JavaScript Bundle파일을 받아, `Hydration`을 하는게 아닌 `Stream` 형태로 받은 `RSC Payload`를 통해 `Client-Component payload`로 마킹되어 있는 부분만 JavaScript Bundle파일을 이용해 클라이언트에서 렌더링하기 때문에, 훨씬 빠른 `TTI` 시간을 가지게 됩니다.
 
-이번에 마이그레이션을 진행한 NextJS의 App Router 방식은 RSC형태를 제공하는 NextJS의 새로운 방식입니다. (RSC 제공 이외에도, 기존의 file system based router가 발전된 형태)
+이번에 마이그레이션을 진행한 `NextJS`의 `App Router` 방식은 `RSC`형태를 제공하는 `NextJS`의 새로운 방식입니다. (RSC 제공 이외에도, 기존의 file system based router가 발전된 형태)
 
 <br/ >
 
 # Trouble Shooting, Feature
 
-마이그레이션은 공식문서를 보고 진행했기 때문에, 자세한 내용은 공식문서를 보는 것을 추천합니다<a href="https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app">https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app</a>
+마이그레이션은 공식문서를 보고 진행했기 때문에, 자세한 내용은 [공식문서](https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app)를 보는 것을 추천합니다
 
 ## Render Props 에러
 
@@ -131,7 +145,7 @@ const PageSkeleton = ({ url }: Props) => {
 
 # Compound Component 패턴 사용 불가
 
-기존에는 아래와 같이 `Compound Component` 패턴을 사용했습니다. → <a href="https://github.com/BY-juun/Blog/blob/page_router/client/pages/post/%5Bid%5D.tsx">원본코드</a>
+기존에는 아래와 같이 `Compound Component` 패턴을 사용했습니다.
 
 ```tsx title="pages/post/index.tsx"
 const PostPage = () => {
@@ -179,7 +193,8 @@ const PostPage = () => {
 
 관련 Reference를 찾아보았지만 없었습니다.
 
-추측하기로는 `Server Component`에서 `Compound Component 패턴`을 사용하게 될 경우, 직렬화 과정에서 필요한 `Component Type`을 파악할 수 없어 에러가 발생하는 것으로 보입니다.  
+추측하기로는 `Server Component`에서 `Compound Component 패턴`을 사용하게 될 경우, 직렬화 과정에서 필요한 `Component Type`을 파악할 수 없어 에러가 발생하는 것으로 보입니다.
+
 해당 컴포넌트를 `Client Component`로 바꿔도 해결이 되지만, `SSG` 페이지에서 사용하는 `Root Component` 였고, `User Interaction`이 거의 없기 때문에, `Compound Component 패턴`을 버리고 각각의 Component를 따로 불러와 사용하는 아래 방식으로 코드를 수정해 해결했습니다.
 
 ```tsx title="app/post/page.tsx"
@@ -222,14 +237,15 @@ const PostPage = async ({ params }: Props) => {
 
 # Good Bye Axios
 
-`App router`에서는 `fetch API`의 옵션을 이용해 렌더링 방식을 결정하게 됩니다. <a href="https://nextjs.org/docs/app/api-reference/functions/fetch">(공식문서)</a>  
-기존에 사용하던 `Axios`를 사용하기 위해서는 캐싱을 위한 세팅이 추가로 필요했습니다.  
-따라서, 기존에 사용하던 `Axios`를 걷어내고 `fetch API`로 전환했습니다.  
-기존에 axios instance를 한번 감싼 함수를 사용했기 때문에, 해당 함수의 구현만 바꾸었습니다.
+`App router`에서는 `fetch API`의 옵션을 이용해 렌더링 방식을 결정하게 됩니다. <a href="https://nextjs.org/docs/app/api-reference/functions/fetch">(공식문서)</a>
 
-AS-IS → <a href="https://github.com/BY-juun/Blog/blob/page_router/client/services/request.ts">Link</a>
+기존에 사용하던 `Axios`를 사용하기 위해서는 캐싱을 위한 세팅이 추가로 필요했습니다.
 
-```ts
+따라서, 기존에 사용하던 `Axios`를 걷어내고 `fetch API`로 전환했습니다.
+
+기존에 `axios instance`를 한번 감싼 함수를 사용했기 때문에, 해당 함수의 구현만 바꾸었습니다.
+
+```ts title="AS-IS"
 interface RequestParams {
   method: "get" | "post" | "patch" | "delete";
   url: string;
@@ -253,9 +269,7 @@ const request = async <T>({
 };
 ```
 
-TO-BE → <a href="https://github.com/BY-juun/Blog/blob/master/client/services/request.ts">Link</a>
-
-```ts
+```ts title="TO-BE"
 interface RequestParams {
   method: "get" | "post" | "patch" | "delete";
   url: string;
@@ -315,9 +329,9 @@ async function convertResponse<T>(res: Response): Promise<T> {
 # Server Component에서 Fetch를 사용할 수 없을 때
 
 `App Router`기반에서는 fetch api의 `cache option`을 통해 렌더링 방식을 결정하게 됩니다.  
-하지만, **데이터를 요청하는 API Call을 라이브러리에서 하게 될 경우**, cache option을 지정할 수 없었습니다.
+하지만, <u>데이터를 요청하는 API Call을 라이브러리에서 하게 될 경우</u>, `cache option`을 지정할 수 없었습니다.
 
-`Notion`에서 제공하는 API를 통해 데이터를 받아와 SSG를 하는 about 페이지가 해당 케이스에 포함되었습니다.
+`Notion`에서 제공하는 API를 통해 데이터를 받아와 `SSG`를 하는 `about` 페이지가 해당 케이스에 포함되었습니다.
 
 ```tsx title="pages/about/index.tsx"
 const AboutPage = ({ recordMap }: Props) => {
@@ -343,7 +357,8 @@ export async function getStaticProps() {
 }
 ```
 
-Notion 서버로 API Call을 하는 코드가 `notion-client` 라이브러리 내부에 있었기 때문에, `cache option`을 설정할 수 없었습니다.  
+Notion 서버로 API Call을 하는 코드가 `notion-client` 라이브러리 내부에 있었기 때문에, `cache option`을 설정할 수 없었습니다.
+
 이 상태 그대로 `App Router`기반으로 마이그레이션을 진행할 경우, `SSG`가 아닌 `SSR`형태로 렌더링되게 됩니다.
 
 이 문제를 해결하기 위해, 내부적으로 `notion-client` 라이브러리를 이용해 데이터를 가져오는 내부 api를 따로 만들고, about 페이지에서는 해당 api를 fetch를 통해 call하게 만들어, `Static Generation`이 가능하도록 만들었습니다.
@@ -388,7 +403,7 @@ export async function GET() {
 
 # Server Component와 Client 로직 분리
 
-아래와 같이 **User Interaction을 위한 핸들러가 없는 경우**에는 번들파일의 크기를 줄이기 위해, `HOC` 패턴을 사용해 `Client` 로직을 컴포넌트로 부터 분리했습니다.
+아래와 같이 <u>User Interaction을 위한 핸들러가 없는 경우</u>에는 번들파일의 크기를 줄이기 위해, `HOC` 패턴을 사용해 `Client` 로직을 컴포넌트로 부터 분리했습니다.
 
 AS-IS
 
@@ -445,7 +460,7 @@ const PostContentWrap = ({
 };
 ```
 
-`HOC` 패턴을 사용한 이유는 `React Tree` 구조에서 `Client Component`가 자식으로 `Server Component`를 가지기 위해서는 **children props를 사용하는 방법밖에 없기 때문**입니다.
+`HOC` 패턴을 사용한 이유는 `React Tree` 구조에서 `Client Component`가 자식으로 `Server Component`를 가지기 위해서는 <u>children props를 사용하는 방법밖에 없기 때문</u>입니다.
 
 자세한 내용은 공식문서에 나와있습니다. → <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props">https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props</a>
 
