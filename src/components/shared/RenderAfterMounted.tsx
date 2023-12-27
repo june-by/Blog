@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useMounted } from "@/hooks";
 
 interface Props {
   children: JSX.Element;
@@ -8,13 +9,9 @@ interface Props {
 }
 
 const RenderAfterMounted = ({ children, fallback = null }: Props) => {
-  const [mounted, setMounted] = useState(false);
+  const isMounted = useMounted();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (!isMounted) {
     return fallback;
   }
 
