@@ -18,7 +18,7 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/34b61861-e074-4190-9
 
 # 🌟 state와 Props를 통한 관리
 
-가장 먼저, 생각 할 수 있는 부분은 최상단 컴포넌트(ex, 각 페이지 컴포넌트)에서 소켓을 연결하고, 해당 소켓을 ₩를 통해, 필요한 컴포넌트들에게 전달하는 방식입니다.
+가장 먼저, 생각 할 수 있는 부분은 최상단 컴포넌트(ex, 각 페이지 컴포넌트)에서 소켓을 연결하고, 해당 소켓을 `props`를 통해, 필요한 컴포넌트들에게 전달하는 방식입니다.
 
 ```tsx {3,18,20}
 const FanUP = () => {
@@ -26,10 +26,14 @@ const FanUP = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    if (!socket && fanUpId) {
-      const newSocket = getSocket(fanUpId);
-      setSocket(newSocket);
+    if (socket) {
+      return;
     }
+    if (!fanUpId) {
+      return;
+    }
+
+    setSocket(getSocket(fanUpId));
   }, [fanUpId]);
 
   return (
@@ -64,21 +68,27 @@ const FanUP = () => {
 `Context` 또는 전역 `Store`를 이용해, 소켓을 관리한다면, `Props Drilling` 문제를 해결 할 수 있습니다.
 
 ```tsx
-export const SocketContext = createContext<{ socket: Socket | null }>({
+interface SocketContextProps {
+  socket: Socket | null;
+}
+
+export const SocketContext = createContext<SocketContextProps>({
   socket: null,
 });
 
-export const SocketProvider: React.FC<{ children: JSX.Element }> = ({
-  children,
-}) => {
+export const SocketProvider = ({ children }: PropsWithChildren) => {
   const { fanUpId } = useParams();
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    if (!socket && fanUpId) {
-      const newSocket = getSocket(fanUpId);
-      setSocket(newSocket);
+    if (socket) {
+      return;
     }
+    if (!fanUpId) {
+      return;
+    }
+
+    setSocket(getSocket(fanUpId));
   }, [fanUpId]);
 
   return (
@@ -109,14 +119,16 @@ const FanUP = () => {
 물론, 상태를 사용하지 않고 값의 형태로 구현 할 수도 있습니다.  
 `React`에서 제공하는 `useMemo` 훅을 이용해, 소켓을 저장하고, `memoization`을 적용하고 값의 형태로 관리할 수 있습니다.
 
-```tsx {9}
-export const SocketContext = createContext<{ socket: Socket | null }>({
+```tsx {11}
+interface SocketContextProps {
+  socket: Socket | null;
+}
+
+export const SocketContext = createContext<SocketContextProps>({
   socket: null,
 });
 
-export const SocketProvider: React.FC<{ children: JSX.Element }> = ({
-  children,
-}) => {
+export const SocketProvider = ({ children }: PropsWithChildren) => {
   const { fanUpId } = useParams();
   const socket = useMemo(() => getSocket(fanUpId), [fanUpId]);
 
@@ -128,10 +140,12 @@ export const SocketProvider: React.FC<{ children: JSX.Element }> = ({
 };
 ```
 
-`Context`를 이용한 `HOC` 패턴과 `useMemo`를 이용해서, 위에서 언급한 `Props Drilling` 문제와, 과연 상태인가? 에 대해서 모두 해결 할 수 있었다.
+`Context`를 이용한 `HOC` 패턴과 `useMemo`를 이용해서, 위에서 언급한 `Props Drilling` 문제와, 과연 상태인가? 에 대해서 모두 해결 할 수 있었습니다.
 
 하지만, 소켓 통신과 P2P 연결이 메인 기능인 우리 서비스에서는 다음과 같은 문제점이 있었습니다.  
-만약, 하나의 컴포넌트에서 여러 개의 소켓을 필요로 한다면?... 우리 서비스는 서버가 `MSA` 구조로 되어 있어, 하나의 컴포넌트에서 여러 개의 소켓 연결을 필요로 할 수도 있었습니다.  
+만약, 하나의 컴포넌트에서 여러 개의 소켓을 필요로 한다면?...  
+서비스의 특성상, 하나의 컴포넌트에서 여러 개의 소켓 연결을 필요로 할 수도 있었습니다.
+
 예를 들면, 다음과 같은 상황입니다.
 
 - **A ➡ B ➡ C ➡ D** 라는 컴포넌트 상속 관계가 있을 때, `Context`가 `A Component`를 감싸고 있는 상태입니다.
@@ -158,7 +172,7 @@ export const SocketProvider: React.FC<{ children: JSX.Element }> = ({
 이에 따라, 소켓을 여러개 관리 할 수 있는 객체를 만들고, 이를 이용해 소켓을 반환하는 `Custom Hook`을 만들기로 했다.
 
 ```tsx
-const sockets: { [key: string]: Socket } = {};
+const sockets: Record<string, Socket> = {};
 
 export function useSocket(chatRoom: string): [Socket, () => void] {
   const disconnect = () => {
