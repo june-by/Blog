@@ -22,7 +22,7 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/b82838e9-23b1-4afb-a
 
 # 🌟Lazy Loading, Preloading
 
-`Lazy Loading`의 경우에는, 리액트에서 제공하는 `React.lazy` 를 이용해서, 쉽게 구현 할 수 있다.
+`Lazy Loading`의 경우에는, 리액트에서 제공하는 `React.lazy` 를 이용해서, 쉽게 구현 할 수 있습니다.
 
 해설영상 링크가 없는 경우에는 `YoutubeModal` 컴포넌트가 필요하지 않기 때문에, 해설 영상이 있고, 또 해설 영상을 열었을 때만, 해당 컴포넌트의 자바스크립트 파일을 `import` 하도록 만들었습니다.
 
@@ -32,11 +32,12 @@ const YoutubeModal = React.lazy(
 );
 ```
 
-여기서 하나의 문제점이 발생했는데, 해당 컴포넌트가 무겁다 보니, `해설 영상 버튼`을 클릭해서 사용자가 실제, 모달 내부의 콘텐츠를 이용 할 수 있을 때까지 **로딩 시간이 길다는 점**이었습니다.
+여기서 하나의 문제점이 발생했는데, 해당 컴포넌트가 무겁다 보니, `해설 영상 버튼`을 클릭해서 사용자가 실제, 모달 내부의 콘텐츠를 이용 할 수 있을 때까지 <u>로딩 시간(Suspense의 fallback이 보여지는 시간)이 길다는 점</u>이었습니다.
 
 이를 해결하기 위해, `youtubeModal` 컴포넌트에 `Preloading`을 적용하기로 했습니다.
 
-해설영상링크가 없는 경우에는, 해설 영상이라는 버튼이 렌더링 되지 않습니다.  
+해설영상링크가 없는 경우에는, 해설 영상이라는 버튼이 렌더링 되지 않습니다.
+
 즉, 해설 영상 버튼이 없다면, `youtuebModal` 컴포넌트를 사용할 일이 없고, 해설 영상 버튼이 있다면, `youtubeModal` 컴포넌트를 사용 할 수도 있습니다.
 
 `Preloading`을 적용하기 이전, `Preloading` 시점을 정해야 했고, 다음 2가지 중 하나의 경우를 선택하기로 했습니다.
@@ -44,29 +45,33 @@ const YoutubeModal = React.lazy(
 - 해설 영상 버튼이 mount 되는 시점
 - 해설 영상 버튼에 마우스가 올라갔을 때 (Hover)
 
-실제 사용자 들 중 해설 영상 버튼을 클릭해서 해설 영상을 시청하는 사용자가 많지 않다는 사실을 알고 있었습니다. 이에 따라 해설 영상 버튼이 mount 되는 시점이 아닌, 해설 영상 버튼이 `Hover` 되었을 때, 컴포넌트를 `Preloading` 하기로 하였습니다.  
+실제 사용자 들 중 해설 영상 버튼을 클릭해서 해설 영상을 시청하는 사용자가 많지 않다는 사실을 알고 있었습니다. 이에 따라 해설 영상 버튼이 mount 되는 시점이 아닌, 해설 영상 버튼이 `Hover` 되었을 때, 컴포넌트를 `Preloading` 하기로 하였습니다.
+
 React에서 Element의 Hover이벤트는 `onMouseEnter` 이벤트를 통해 감지 할 수 있었습니다. 따라서, `onMouseEnter` 이벤트에 대한 콜백 함수를 만들고, 해당 함수에서 동적으로 `YoutubeModal` 컴포넌트를 `import` 하도록 만들었습니다.
 
 ```tsx
-const { openModal } = useModals();
-const onMouseEnterCommentaryVideoButton = useCallback(() => {
-  import("src/utils/youtubeModal/youtube_modal");
-}, []);
+const CommentaryVideoOpenButton = () => {
+  const { openModal } = useModals();
 
-const onClickCommentaryVideoButton = () =>
-  openModal(MODALS.YOUTUBE_MODAL, {
-    url: problem.lectureURL,
-  });
+  const onHoverButton = () => {
+    import("src/utils/youtubeModal/youtube_modal");
+  };
 
-return (
-  <button
-    className={styles.youtubeBtn}
-    onClick={onClickCommentaryVideoButton}
-    onMouseEnter={onMouseEnterCommentaryVideoButton}
-  >
-    해설 영상
-  </button>
-);
+  const onClickButton = () =>
+    openModal(MODALS.YOUTUBE_MODAL, {
+      url: problem.lectureURL,
+    });
+
+  return (
+    <button
+      className={styles.youtubeBtn}
+      onClick={onClickButton}
+      onMouseEnter={onHoverButton}
+    >
+      해설 영상
+    </button>
+  );
+};
 ```
 
 결과적으로, `Lazy Loading`을 통해, `YoutubeModal`을 사용하는 경우에만, 해당 자바스크립트 파일을 `import` 하도록 할 수 있도록 하여 번들 파일의 크기를 줄일 수 있었고,  
