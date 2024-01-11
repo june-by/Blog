@@ -9,9 +9,13 @@ description: "redux에서 제공하는 useSelector를 이용하며 발생한 리
 thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/f1ea16ea-5f7b-453e-9a68-f9b1dd03da4e"
 ---
 
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fposts%2FReact%2Fredux-useSelector-rendering-optimization&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
 # 🌃 배경
 
-<img src="https://github.com/BY-juun/Blog/assets/78716842/d1a877d4-e8fb-4aa5-b6f9-0f1b87973fec"/>
+<img src="https://github.com/BY-juun/Blog/assets/78716842/d1a877d4-e8fb-4aa5-b6f9-0f1b87973fec" />
 
 영상에 나오는 `ScheduleFanUp` 모달을 열고 닫을 때, 해당 `모달 컴포넌트`(`ScheduleFanUpModal` 컴포넌트)만 렌더링되기를 원했지만, 모달을 감싸고 있는 컴포넌트(`Calendar` 컴포넌트)까지 함께 리렌더링 되었습니다.
 
@@ -72,7 +76,7 @@ const ScheduleFanUpModal = () => {
 
 다음으로 발생한 문제는 모달을 열고 닫을 때, `CalendarHeader`와 `CalendarBody` 컴포넌트가 리랜더링된다는 것이었습니다.
 
-<img src="https://github.com/BY-juun/Blog/assets/78716842/500c34e9-647f-4734-9cd5-f46de75bfa0e"/>
+<img src="https://github.com/BY-juun/Blog/assets/78716842/500c34e9-647f-4734-9cd5-f46de75bfa0e" />
 
 `CalendarHeader` 컴포넌트와 `CalendarBody` 컴포넌트의 코드는 모두 `Redux Store`를 구독하고 있습니다.
 
@@ -133,6 +137,7 @@ const calendarMonth = useSelector<ReducerType, number>(
 
 `useSelector` 는 두 번째, 매게변수로 `equalifyFn`을 받습니다.  
 `equalifyFn` 이전 상태와 현재 상태를 비교하는데 사용되는 함수입니다.
+
 <a href="https://react-redux.js.org/api/hooks#useselector">공식문서</a>
 
 이를 이용하면, `useSelector`를 한번만 이용해서, 객체를 반환 받을 수 있다.
@@ -152,4 +157,5 @@ const { calendarYear: year, calendarMonth: month } = useSelector<
 ```
 
 결과적으로 목표였던 모달이 열고 닫히더라도 Calendar 컴포넌트가 렌더링되지 않도록 만들 수 있었습니다.
-<img src="https://github.com/BY-juun/Blog/assets/78716842/b5440c68-1de7-4a24-a286-83a5db16aa9e"/>
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/b5440c68-1de7-4a24-a286-83a5db16aa9e" />
