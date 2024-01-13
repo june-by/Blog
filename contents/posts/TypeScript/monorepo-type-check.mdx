@@ -1,0 +1,120 @@
+---
+title: "모노레포 서브패키지 타입 체킹"
+date: "2024-01-13"
+category: "TypeScript"
+lastmod: "2024-01-13"
+tags: ["tsc", "monorepo"]
+description: "tsc를 이용해 모노레포 구조에서 각 서브패키지에 대한 타입을 체킹하고 이를 자동화한 과정에 대해 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/1cb5ccea-f85b-4606-91ba-409d35a01b7a"
+---
+
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fposts%2FTypeScript%2Fmonorepo-type-check&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
+# 배경
+
+현재 프로젝트에서는 아래와 같은 모노레포 구조를 사용하고 있었습니다.
+
+```text
+├── packages
+│   ├── projectA
+│   │   ├── src
+│   │   └── tsconfig.json
+│   ├── projectB
+│   │   ├── src
+│   │   └── tsconfig.json
+│   └── shared
+│       ├── src
+│       └── tsconfig.json
+└── tsconfig.base.json
+```
+
+`shared` 패키지는 모노레포의 각 패키지에서 공통으로 사용하는 모듈을 모아놓은 패키지이며,  
+모노레포의 각 패키지에서는 자체적으로 `tsconfig.json` 파일을 가지고 있으며,  
+`extends` 필드를 이용해 루트에 존재하는 `tsconfig.base.json` 파일의 공통 설정을 가져와 사용하고 있습니다.
+
+```json
+{
+  // ...
+  "extends": "../../tsconfig.base.json"
+  // ...
+}
+```
+
+문제는 공용으로 사용하는 `shared` 패키지에서 타입을 수정할 경우,  
+이를 사용하는 패키지에서는 프로젝트를 시작하기전까지 타입 오류가 발생했는지 체크할 수 없다는 점이었습니다.
+
+혼자 작업을 하거나, 각각의 작업이 빌드 및 배포된다면,
+어떤 작업, 그리고 누구의 작업으로 문제가 생겼는지 확인할 수 있지만 그렇지 않을 경우 어떤 작업이 영향을 미쳤는지 추적하기 쉽지 않습니다.
+
+이 문제를 해결하기 위해, 개발자가 자신이 공용 패키지에 작업한 내용이 전체 패키지의 타입에 영향을 주는지를 확인할 수 있도록 타입 체킹과정과 자동화를 추가하기로 했습니다.
+
+<br />
+
+# tsc를 이용한 타입 체킹
+
+프로젝트에서 웹팩과 바벨을 이용할 경우, 타입스크립트를 컴파일 하는 방법은 총 2가지입니다.
+(이와 관련해서는 [이전 포스트](https://byjuun.com/posts/TroubleShooting/monorepo-troubleshooting)에서 다룬적이 있습니다.)
+
+1. `ts-loader(tsc)` 사용 → [https://webpack.kr/guides/typescript/](https://webpack.kr/guides/typescript/)
+2. `babel/preset-typescript` 사용 → [https://babeljs.io/docs/babel-preset-typescript](https://babeljs.io/docs/babel-preset-typescript)
+
+`babel/preset-typescript`의 경우, 타입을 체킹하지 않고 단순히 타입을 제거해버립니다.
+
+따라서, `tsc`를 사용해 프로젝트의 타입을 체킹해야했습니다.
+
+## --noEmit
+
+아래와 같이, 기본옵션으로 `tsc`를 사용할 경우 경우 타입스크립트를 컴파일하기 때문에, 컴파일의 결과를 만들어냅니다.
+
+```sh
+npx tsc
+```
+
+하지만, `--noEmit` 옵션을 사용할 경우, 컴파일 결과를 만들어내지 않습니다. [https://www.typescriptlang.org/tsconfig#noEmit](https://www.typescriptlang.org/tsconfig#noEmit)
+
+`tsc` 커맨드 사용 시 함께 설정하거나, `tsconfig.json` 파일에 설정할 수 있습니다.
+
+```sh title="command"
+npx tsc --noEmit
+```
+
+```json title="tsconfig.json"
+{
+  // ...
+  "compilerOptions": {
+    "noEmit": true
+  }
+  // ...
+}
+```
+
+## --project
+
+모노레포 구조에서는 각각의 서브패키지가 `tsconfig.json` 파일을 가지고 있기 때문에,
+각각의 서브패키지에 대해 컴파일을 하기 위해서는, 해당 서브패키지에서 사용하는 `tsconfig.json`을 사용하도록 경로를 설정해주어야합니다.
+
+`--project` 또는 `-p` 옵션을 사용할 경우, 사용할 `tsconfig.json` 파일의 위치를 설정할 수 있습니다.
+
+```sh
+npx tsc --project packages/projectA --noEmit
+
+npx tsc -p packages/projectA --noEmit
+```
+
+만약 각 서브패키지에 `tsconfig.json`이 존재하지 않고 루트의 설정파일을 사용하는 경우에는 필요없는 옵션입니다.
+
+모든 서브패키지를 한번의 tsc 커맨드로 컴파일하는 방법을 찾아보았지만,
+각각이 다른 설정파일을 가지고 있기 때문에 따로 방법을 찾지 못했습니다.
+(혹시 해답을 아시는분이 계시다면 댓글 남겨주세요 🙇)
+
+<br />
+
+# 자동화
+
+<br />
+
+# Reference
+
+> [https://stackoverflow.com/questions/76324071/type-checking-a-typescript-monorepo](https://stackoverflow.com/questions/76324071/type-checking-a-typescript-monorepo)
