@@ -2,7 +2,7 @@
 
 import SwitchCase from "@/components/shared/SwitchCase";
 import { useTheme } from "next-themes";
-import FlexWithCenter from "./shared/FlexWithCenter";
+import Flex from "./shared/Flex";
 
 export function ModeToggle() {
   const { setTheme, theme } = useTheme();
@@ -12,7 +12,9 @@ export function ModeToggle() {
   };
 
   return (
-    <FlexWithCenter
+    <Flex
+      justifyContents="center"
+      alignItems="center"
       tagName="button"
       onClick={onClickThemeToggleButton}
       className="w-6 h-6"
@@ -25,7 +27,7 @@ export function ModeToggle() {
           light: <Dark />,
         }}
       />
-    </FlexWithCenter>
+    </Flex>
   );
 }
 

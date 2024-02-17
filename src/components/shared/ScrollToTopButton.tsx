@@ -1,9 +1,8 @@
 "use client";
 
-import { MdKeyboardArrowUp } from "react-icons/md";
 import React, { memo, useState, useEffect } from "react";
 import { IoIosArrowUp } from "react-icons/io";
-import FlexWithCenter from "./FlexWithCenter";
+import Flex from "./Flex";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +32,9 @@ const ScrollToTopButton = () => {
   }, []);
 
   return (
-    <FlexWithCenter
+    <Flex
+      justifyContents="center"
+      alignItems="center"
       tagName="button"
       className={`${
         !isVisible ? "hidden" : ""
@@ -42,7 +43,7 @@ const ScrollToTopButton = () => {
     >
       <IoIosArrowUp />
       <span className="font-semibold">TOP</span>
-    </FlexWithCenter>
+    </Flex>
   );
 };
 
