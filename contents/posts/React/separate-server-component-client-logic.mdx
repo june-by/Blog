@@ -1,0 +1,153 @@
+---
+title: "React.cloneElement API를 활용해 서버 컴포넌트의 클라이언트 로직 분리하기"
+date: "2024-02-18"
+lastmod: "2024-02-18"
+category: "React"
+tags: ["rsc", "cloneElement"]
+description: "React.cloneElement API를 활용해 클라이언트 로직을 서버 컴포넌트로부터 분리한 방법에 대해 다룬 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/59cfaaf9-3417-43d2-a494-858b2635c40a"
+---
+
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fposts%2FReact%2Fseparate-server-component-client-logic&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
+# 서버 컴포넌트의 클라이언트 로직
+
+서버 컴포넌트를 활용하여 개발을 하다보면 때때로 만들어 두었던 서버 컴포넌트에서 클라이언트 로직을 다뤄야 하는 경우가 있습니다.
+
+제가 겪었던 상황은 아래와 같습니다.
+
+- 링크가 달린 카테고리버튼 컴포넌트가 존재 (AS-IS: Server Component)
+- 현재 선택된 카테고리와 같다면 `ScrollIntoElement` API를 활용해 포커싱 (TO-BE: 클라이언트 로직 추가)
+
+<img src="https://github.com/BY-juun/Blog/assets/78716842/e0fc69cf-c2a8-4a90-bd45-495f91493fdb" />
+
+이런 상황에서 해당 컴포넌트를 아래와 같이 클라이언트 컴포넌트로 만들어 해결할 수 있습니다.
+
+```tsx title="AS-IS(Server Component)"
+"use client";
+
+const CategoryButton = ({ category: { text, count } }: Props) => {
+  return (
+    <Link
+      href={{
+        pathname: "/",
+        query: { category: text },
+      }}
+    >
+      <span>{text}</span>
+      <span>{count}</span>
+    </Link>
+  );
+};
+```
+
+```tsx title="TO-BE(Client Component)"
+"use client";
+
+const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }: Props) => {
+  const ref = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    if (isCurrentSelectedCategory) {
+      ref.current.scrollIntoView({
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [scrollOptions, isCurrentSelectedCategory]);
+
+  return (
+    <Link
+      ref={ref}
+      href={{
+        pathname: "/",
+        query: { category: text },
+      }}
+    >
+      <span>{text}</span>
+      <span>{count}</span>
+    </Link>
+  );
+};
+```
+
+하지만 서버 컴포넌트를 클라이언트 컴포넌트로 전환한다면 해당 컴포넌트는 클라이언트로 서빙되는 JS 번들파일에 포함시키게 되어 JS 번들파일의 사이즈를 키우게 됩니다.
+
+따라서, 서버 컴포넌트를 활용하기로 한 시점에서
+
+- 서버 컴포넌트를 클라이언트 컴포넌트로 전환하는 방향을 최대한 지양하고
+- 각각의 로직이 적절하게 분리가 가능한 상황에서는 클라이언트 로직은 클라이언트 컴포넌트로 서버 로직은 서버 컴포넌트로 분리하는것을 지향했습니다.
+
+단, 아래의 경우에는 분리하지 않았습니다.
+
+- 컴포넌트 사이즈가 크지 않아, 분리로 인한 Overhead가 더 큰 경우
+- 컴포넌트 내부에서 다루어야 하는 로직인 경우
+
+<br />
+
+# React.cloneElement 활용
+
+클라이언트 컴포넌트의 하위 트리에 서버 컴포넌트가 존재하기 위해서는, 클라이언트 컴포넌트의 `children prop`을 활용해야 합니다. → [Supported Pattern: Passing Server Components to Client Components as Props](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props)
+
+`children prop`을 사용해야 하는 경우에는 `React`의 여러 API (`createElement`, `cloneElement`, `createProtal`, ...) 를 이용해 로직을 분리할 수 있습니다.
+
+위에서 언급한 카테고리 버튼 컴포넌트의 예시에서는 `React.cloneElement` API 를 활용해, `현재 선택된 카테고리인 경우 포커스 한다` 라는 클라이언트의 로직을 분리할 수 있습니다.
+
+```tsx title="ScrollIntoElement.tsx"
+// Client Component
+const ScrollInToElement = ({ children, when, scrollOptions }: Props) => {
+  const child = React.Children.only(children);
+  const childRef = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!childRef.current) {
+      return;
+    }
+    if (when) {
+      childRef.current.scrollIntoView(scrollOptions);
+    }
+  }, [scrollOptions, when]);
+
+  return React.cloneElement(child, {
+    ref: childRef,
+  });
+};
+```
+
+```tsx title="CategoryButton.tsx"
+// Server Component
+const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }: Props) => {
+  return (
+    <ScrollInToElement
+      when={isCurrentSelectedCategory}
+      key={text}
+      scrollOptions={{
+        block: "nearest",
+        inline: "center",
+      }}
+    >
+      <Link
+        ref={ref}
+        href={{
+          pathname: "/",
+          query: { category: text },
+        }}
+      >
+        <span>{text}</span>
+        <span>{count}</span>
+      </Link>
+    </ScrollInToElement>
+  );
+};
+```
+
+<br />
+
+# Reference
+
+- asChild pattern: [https://www.jacobparis.com/content/react-as-child](https://www.jacobparis.com/content/react-as-child)
