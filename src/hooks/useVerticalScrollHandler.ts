@@ -8,7 +8,7 @@ interface Params {
 }
 
 const useVerticalScrollHandler = ({ onScroll, onScrollDown, onScrollUp }: Params) => {
-  const yPos = useRef(window ? window.scrollY : 0);
+  const yPos = useRef(typeof window === "undefined" ? 0 : window.scrollY);
 
   const throttleScroll = useMemo(() => {
     const handleScroll = () => {
