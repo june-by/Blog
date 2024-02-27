@@ -1,11 +1,5 @@
-import {
-  ComputedFields,
-  defineDocumentType,
-  makeSource,
-} from "contentlayer/source-files";
-import rehypePrettyCode, {
-  type Options as PrettyCodeOptions,
-} from "rehype-pretty-code";
+import { ComputedFields, defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypePrettyCode, { type Options as PrettyCodeOptions } from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import GithubSlugger from "github-slugger";
 
@@ -23,17 +17,15 @@ const computedFields: ComputedFields = {
     resolve: async (doc) => {
       const regXHeader = /\n(?<flag>#{1,6})\s+(?<content>.+)/g;
       const slugger = new GithubSlugger();
-      const headings = Array.from(doc.body.raw.matchAll(regXHeader)).map(
-        ({ groups }: any) => {
-          const flag = groups?.flag;
-          const content = groups?.content;
-          return {
-            level: flag?.length,
-            text: content,
-            slug: content ? slugger.slug(content) : undefined,
-          };
-        }
-      );
+      const headings = Array.from(doc.body.raw.matchAll(regXHeader)).map(({ groups }: any) => {
+        const flag = groups?.flag;
+        const content = groups?.content;
+        return {
+          level: flag?.length,
+          text: content,
+          slug: content ? slugger.slug(content) : undefined,
+        };
+      });
       return headings;
     },
   },
@@ -97,9 +89,32 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const Snippets = defineDocumentType(() => ({
+  name: "Snippet",
+  filePathPattern: `snippets/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+    date: {
+      type: "date",
+      required: true,
+    },
+    lastmod: {
+      type: "string",
+    },
+  },
+  computedFields,
+}));
+
 export default makeSource({
   contentDirPath: "./contents",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Page, Snippets],
   mdx: {
     rehypePlugins: [[rehypePrettyCode as any, prettyCodeOptions], rehypeSlug],
   },
