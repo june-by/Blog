@@ -1,5 +1,12 @@
-export const groupByStringKey = <T>({ array, key }: { array: T[]; key: keyof T }) => {
-  const keys = Array.from(new Set(array.map((v) => v[key]))).sort() as string[];
+export const groupBy = <T extends Object>(data: T[], key: keyof T): Record<string, T[]> => {
+  return data.reduce((acc: Record<string, T[]>, cur: T) => {
+    var group = cur[key] as unknown as string;
 
-  return keys.reduce((acc, cur) => ({ ...acc, [cur]: array.filter((v) => v[key] === cur) }), {}) as Record<string, T[]>;
+    if (acc[group] === undefined) {
+      acc[group] = [];
+    }
+
+    acc[group].push(cur);
+    return acc;
+  }, {});
 };
