@@ -1,5 +1,5 @@
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
-import { groupByStringKey } from "@/utils";
+import { groupBy } from "@/utils";
 import { allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const SnippetListPage = () => {
-  const snippetsListGroupByCategory = groupByStringKey({ array: allSnippets, key: "category" });
+  const snippetsListGroupByCategory = groupBy(allSnippets, "category");
 
   return (
     <>
