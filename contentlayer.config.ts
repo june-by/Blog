@@ -108,6 +108,10 @@ export const Snippets = defineDocumentType(() => ({
     lastmod: {
       type: "string",
     },
+    category: {
+      type: "string",
+      required: true,
+    },
   },
   computedFields,
 }));
