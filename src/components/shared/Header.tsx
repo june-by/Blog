@@ -12,7 +12,7 @@ const header = () => {
   return (
     <header>
       <div className="flex items-center justify-between">
-        <RenderAfterMounted>
+        <RenderAfterMounted fallback={<div />}>
           <ModeToggle />
         </RenderAfterMounted>
         <div className="flex gap-4">
