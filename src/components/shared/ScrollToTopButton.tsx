@@ -1,20 +1,20 @@
 "use client";
 
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState, useEffect, useCallback } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import Flex from "./Flex";
+import { useVerticalScrollHandler } from "@/hooks";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const checkScroll = () => {
-    const scroll = document.documentElement.scrollTop;
-    if (scroll > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
+  const show = useCallback(() => {
+    setIsVisible(true);
+  }, []);
+
+  const hide = useCallback(() => {
+    setIsVisible(false);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -23,13 +23,7 @@ const ScrollToTopButton = () => {
     });
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", checkScroll);
-
-    return () => {
-      window.removeEventListener("scroll", checkScroll);
-    };
-  }, []);
+  useVerticalScrollHandler({ onScrollDown: show, onScrollUp: hide });
 
   return (
     <Flex
