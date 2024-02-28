@@ -10,9 +10,7 @@ interface Props {
   searchParams: Record<string, string>;
 }
 
-export async function generateMetadata({
-  searchParams,
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   return {
     title: `byjuun.com`,
     description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
@@ -32,8 +30,7 @@ export default function Home({ searchParams }: Props) {
     searchParamsKeys.length === 0
       ? allPosts
       : searchParamsKeys.reduce(
-          (accPosts, curKey) =>
-            accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
+          (accPosts, curKey) => accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
           allPosts
         );
 
@@ -41,15 +38,8 @@ export default function Home({ searchParams }: Props) {
     <>
       <div className="flex flex-col gap-4 mt-4">
         <Categories posts={allPosts} currentCategory={searchParams.category} />
-        {posts.length !== 0 ? (
-          sortedPosts(posts).map((post) => (
-            <PostCard {...post} key={post._id} />
-          ))
-        ) : (
-          <NoPost />
-        )}
+        {posts.length !== 0 ? sortedPosts(posts).map((post) => <PostCard {...post} key={post._id} />) : <NoPost />}
       </div>
-      <ScrollToTopButton />
     </>
   );
 }
@@ -57,8 +47,7 @@ export default function Home({ searchParams }: Props) {
 function getPostsFiltereCB(searchParamsKey: string) {
   switch (searchParamsKey) {
     case "category":
-      return (category: Post["category"]) => (post: Post) =>
-        post.category === category;
+      return (category: Post["category"]) => (post: Post) => post.category === category;
     case "tag":
       return (tag: string) => (post: Post) => post.tags?.includes(tag);
     case "series":

@@ -54,20 +54,17 @@ export default async function PostPage({ params }: SnippetProps) {
   }
 
   return (
-    <>
-      <article className="py-6 prose dark:prose-invert">
-        <PostTitle title={post.title} />
-        <PostDescription description={post.description} />
-        <hr className="my-4" />
-        <div className="relative">
-          <div className="postcontent">
-            <Mdx code={post.body.code} />
-          </div>
-          <TableOfContents headings={post.headings} />
+    <article className="py-6 prose dark:prose-invert">
+      <PostTitle title={post.title} />
+      <PostDescription description={post.description} />
+      <hr className="my-4" />
+      <div className="relative">
+        <div className="postcontent">
+          <Mdx code={post.body.code} />
         </div>
-        <PostComments />
-      </article>
-      <ScrollToTopButton />
-    </>
+        <TableOfContents headings={post.headings} />
+      </div>
+      <PostComments />
+    </article>
   );
 }

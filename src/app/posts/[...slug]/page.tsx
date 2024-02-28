@@ -30,9 +30,7 @@ async function getPostFromParams(params: PostProps["params"]) {
   return post;
 }
 
-export async function generateMetadata({
-  params,
-}: PostProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
   const post = await getPostFromParams(params);
 
   if (!post) {
@@ -65,23 +63,20 @@ export default async function PostPage({ params }: PostProps) {
   }
 
   return (
-    <>
-      <article className="py-6 prose dark:prose-invert">
-        <PostTitle title={post.title} />
-        <PostDescription description={post.description} />
-        <PostTagList tags={post.tags} />
-        <hr className="my-4" />
-        <div className="relative">
-          <PostListInSeries post={post} />
-          <div className="postcontent">
-            <Mdx code={post.body.code} />
-          </div>
-          <TableOfContents headings={post.headings} />
+    <article className="py-6 prose dark:prose-invert">
+      <PostTitle title={post.title} />
+      <PostDescription description={post.description} />
+      <PostTagList tags={post.tags} />
+      <hr className="my-4" />
+      <div className="relative">
+        <PostListInSeries post={post} />
+        <div className="postcontent">
+          <Mdx code={post.body.code} />
         </div>
-        <RoutePostButtons post={post} />
-        <PostComments />
-      </article>
-      <ScrollToTopButton />
-    </>
+        <TableOfContents headings={post.headings} />
+      </div>
+      <RoutePostButtons post={post} />
+      <PostComments />
+    </article>
   );
 }
