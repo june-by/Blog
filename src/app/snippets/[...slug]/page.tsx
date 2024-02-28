@@ -3,6 +3,7 @@ import { allPosts, allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import { PostTitle, PostDescription, PostComments, Mdx, TableOfContents } from "@/components/post";
+import { getDarkThemeClass } from "@/utils";
 
 interface SnippetProps {
   params: {
@@ -54,7 +55,7 @@ export default async function PostPage({ params }: SnippetProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
+    <article className={`py-6 prose ${getDarkThemeClass("prose-invert")}`}>
       <PostTitle title={post.title} />
       <PostDescription description={post.description} />
       <hr className="my-4" />

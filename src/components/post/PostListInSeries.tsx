@@ -1,14 +1,11 @@
 "use client";
 
-import { getSeriesInfoWithPost } from "@/utils";
+import { getDarkThemeClass, getSeriesInfoWithPost } from "@/utils";
 import { Post } from "contentlayer/generated";
 import Link from "next/link";
 import React from "react";
 import { ImBookmark } from "react-icons/im";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import Collapse from "../shared/Collapse";
@@ -20,11 +17,10 @@ const PostListInSeries = ({ post }: { post: Post }) => {
     return null;
   }
 
-  const { postListInSeries, currentPostIdx, prevPost, nextPost } =
-    getSeriesInfoWithPost(post);
+  const { postListInSeries, currentPostIdx, prevPost, nextPost } = getSeriesInfoWithPost(post);
 
   return (
-    <Collapse className="relative w-full p-4 mb-8 bg-[#f8f9fa] dark:bg-[rgb(33,33,33)]">
+    <Collapse className={`relative w-full p-4 mb-8 bg-[#f8f9fa] ${getDarkThemeClass("bg-[rgb(33,33,33)]")}`}>
       <ImBookmark className="w-12 h-12 absolute top-0 right-2 text-blue-500" />
       <Link
         href={{ pathname: "/", query: { series: post.series } }}

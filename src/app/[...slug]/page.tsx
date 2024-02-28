@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { allPages } from "contentlayer/generated";
 import { Mdx } from "@/components/post/MdxComponent";
+import { getDarkThemeClass } from "@/utils";
 
 interface PageProps {
   params: {
@@ -20,9 +21,7 @@ async function getPageFromParams(params: PageProps["params"]) {
   return page;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const page = await getPageFromParams(params);
 
   if (!page) {
@@ -49,7 +48,7 @@ export default async function PagePage({ params }: PageProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
+    <article className={`py-6 prose ${getDarkThemeClass("prose-invert")}`}>
       <h1>{page.title}</h1>
       {page.description && <p className="text-xl">{page.description}</p>}
       <hr />

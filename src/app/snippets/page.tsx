@@ -1,5 +1,6 @@
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import { groupBy } from "@/utils";
+import { getDarkThemeClass } from "@/utils";
 import { allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -33,7 +34,9 @@ const SnippetListPage = () => {
               <Link
                 href={snippet.slug}
                 key={snippet.title}
-                className="rounded bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 p-3 text-ellipsis whitespace-nowrap overflow-hidden"
+                className={`rounded bg-gray-100 hover:bg-gray-200 ${getDarkThemeClass(
+                  "bg-gray-800 hover:bg-gray-700"
+                )} p-3 text-ellipsis whitespace-nowrap overflow-hidden`}
               >
                 {snippet.title}
               </Link>
