@@ -12,7 +12,6 @@ import {
   Mdx,
   TableOfContents,
 } from "@/components/post";
-import { getDarkThemeClass } from "@/utils";
 
 interface PostProps {
   params: {
@@ -64,7 +63,7 @@ export default async function PostPage({ params }: PostProps) {
   }
 
   return (
-    <article className={`py-6 prose ${getDarkThemeClass("prose-invert")}`}>
+    <article className="py-6 prose dark:prose-invert">
       <PostTitle title={post.title} />
       <PostDescription description={post.description} />
       <PostTagList tags={post.tags} />
