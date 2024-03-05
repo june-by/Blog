@@ -39,17 +39,22 @@ function getSameCategoryPost(category: Post["category"]) {
   );
 }
 
-export function getCategories(posts: Post[]) {
-  const categories = Array.from(new Set(posts.map((post) => post.category)));
+let categories: { text: string; count: number }[] | null = null;
 
-  return categories
-    .map((category) => {
-      return {
-        text: category,
-        count: posts.filter((post) => post.category === category).length,
-      };
-    })
-    .sort((a, b) => b.count - a.count);
+export function getCategories(posts: Post[]) {
+  if (categories) {
+    return categories;
+  } else {
+    categories = Array.from(new Set(posts.map((post) => post.category)))
+      .map((category) => {
+        return {
+          text: category,
+          count: posts.filter((post) => post.category === category).length,
+        };
+      })
+      .sort((a, b) => b.count - a.count);
+    return categories;
+  }
 }
 
 export function getSeriesInfoWithPost(post: Post) {
