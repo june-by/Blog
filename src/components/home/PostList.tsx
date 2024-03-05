@@ -20,12 +20,12 @@ const PostList = ({ allPosts }: Props) => {
 
   const [page, setPage] = useState(storedPage.get(currentPathname) || 1);
 
-  if (!allPosts) {
+  if (allPosts.length === 0) {
     return <NoPost />;
   }
 
   const viewedPosts = allPosts.slice(0, page * POST_COUNTE_PER_PAGE);
-  const hasMorePost = viewedPosts.length % POST_COUNTE_PER_PAGE === 0;
+  const hasMorePost = viewedPosts.length < allPosts.length;
 
   return (
     <>
