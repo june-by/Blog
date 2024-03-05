@@ -1,4 +1,7 @@
 import { Post, allPosts } from "contentlayer/generated";
+import { groupBy } from "./array";
+
+export const allPostsSortedByDate = sortedPosts(allPosts);
 
 export function dateSortDesc(a: string, b: string, reverse: boolean) {
   if (a > b) return reverse ? 1 : -1;
@@ -37,17 +40,21 @@ function getSameCategoryPost(category: Post["category"]) {
   );
 }
 
-export function getCategories(posts: Post[]) {
-  const categories = Array.from(new Set(posts.map((post) => post.category)));
+let categories: { text: string; count: number }[] | null = null;
 
-  return categories
-    .map((category) => {
-      return {
+export function getCategories() {
+  if (categories) {
+    return categories;
+  } else {
+    categories = Object.entries(groupBy(allPosts, "category"))
+      .map(([category, posts]) => ({
         text: category,
-        count: posts.filter((post) => post.category === category).length,
-      };
-    })
-    .sort((a, b) => b.count - a.count);
+        count: posts.length,
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    return categories;
+  }
 }
 
 export function getSeriesInfoWithPost(post: Post) {

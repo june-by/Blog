@@ -2,7 +2,14 @@ import { notFound } from "next/navigation";
 import { allPosts, allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
-import { PostTitle, PostDescription, PostComments, Mdx, TableOfContents } from "@/components/post";
+import {
+  PostTitle,
+  PostDescription,
+  PostComments,
+  Mdx,
+  TableOfContents,
+} from "@/components/post";
+import PostLayout from "@/components/layouts/PostLayout";
 
 interface SnippetProps {
   params: {
@@ -21,7 +28,9 @@ async function getSnippetFromParams(params: SnippetProps["params"]) {
   return post;
 }
 
-export async function generateMetadata({ params }: SnippetProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: SnippetProps): Promise<Metadata> {
   const post = await getSnippetFromParams(params);
 
   if (!post) {
@@ -40,7 +49,9 @@ export async function generateMetadata({ params }: SnippetProps): Promise<Metada
   };
 }
 
-export async function generateStaticParams(): Promise<SnippetProps["params"][]> {
+export async function generateStaticParams(): Promise<
+  SnippetProps["params"][]
+> {
   return allPosts.map((post) => ({
     slug: post.slugAsParams.split("/"),
   }));
@@ -54,17 +65,22 @@ export default async function PostPage({ params }: SnippetProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <PostTitle title={post.title} />
-      <PostDescription description={post.description} />
-      <hr className="my-4" />
-      <div className="relative">
-        <div className="postcontent">
-          <Mdx code={post.body.code} />
-        </div>
-        <TableOfContents headings={post.headings} />
-      </div>
-      <PostComments />
-    </article>
+    <PostLayout
+      contentAboveComponent={
+        <>
+          <PostTitle title={post.title} />
+          <PostDescription description={post.description} />
+        </>
+      }
+      contentComponent={
+        <>
+          <div className="postcontent">
+            <Mdx code={post.body.code} />
+          </div>
+          <TableOfContents headings={post.headings} />
+        </>
+      }
+      contentBehindComponent={<PostComments />}
+    />
   );
 }
