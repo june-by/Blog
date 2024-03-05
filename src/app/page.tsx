@@ -1,16 +1,15 @@
-import { Post, allPosts } from "contentlayer/generated";
-import PostCard from "@/components/PostCard";
-import { sortedPosts } from "@/utils";
+import { Post } from "contentlayer/generated";
+
+import { allPostsSortedByDate } from "@/utils";
 import Categories from "@/components/home/Categories";
-import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import { Metadata } from "next";
-import { NoPost } from "@/components/post";
+import PostList from "@/components/home/PostList";
 
 interface Props {
   searchParams: Record<string, string>;
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `byjuun.com`,
     description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
@@ -28,26 +27,26 @@ export default function Home({ searchParams }: Props) {
 
   const posts =
     searchParamsKeys.length === 0
-      ? allPosts
+      ? allPostsSortedByDate
       : searchParamsKeys.reduce(
-          (accPosts, curKey) => accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
-          allPosts
+          (accPosts, curKey) =>
+            accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
+          allPostsSortedByDate
         );
 
   return (
-    <>
-      <div className="flex flex-col gap-4 mt-4">
-        <Categories posts={allPosts} currentCategory={searchParams.category} />
-        {posts.length !== 0 ? sortedPosts(posts).map((post) => <PostCard {...post} key={post._id} />) : <NoPost />}
-      </div>
-    </>
+    <div className="flex flex-col gap-4 mt-4">
+      <Categories posts={posts} currentCategory={searchParams.category} />
+      <PostList allPosts={posts} />
+    </div>
   );
 }
 
 function getPostsFiltereCB(searchParamsKey: string) {
   switch (searchParamsKey) {
     case "category":
-      return (category: Post["category"]) => (post: Post) => post.category === category;
+      return (category: Post["category"]) => (post: Post) =>
+        post.category === category;
     case "tag":
       return (tag: string) => (post: Post) => post.tags?.includes(tag);
     case "series":

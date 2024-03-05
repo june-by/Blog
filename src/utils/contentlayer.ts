@@ -1,5 +1,7 @@
 import { Post, allPosts } from "contentlayer/generated";
 
+export const allPostsSortedByDate = sortedPosts(allPosts);
+
 export function dateSortDesc(a: string, b: string, reverse: boolean) {
   if (a > b) return reverse ? 1 : -1;
   if (a < b) return reverse ? -1 : 1;
