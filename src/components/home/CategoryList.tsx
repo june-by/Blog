@@ -1,16 +1,15 @@
 import { getCategories } from "@/utils";
-import { Post, allPosts } from "contentlayer/generated";
+import { Post } from "contentlayer/generated";
 import Link from "next/link";
 import React from "react";
 import ScrollInToElement from "../shared/ScrollInToElement";
 
 interface Props {
-  posts: Post[];
   currentCategory?: Post["category"];
 }
 
-const CategoryList = ({ posts, currentCategory }: Props) => {
-  const categories = getCategories(posts);
+const CategoryList = ({ currentCategory }: Props) => {
+  const categories = getCategories();
 
   return (
     <div className="pb-2 flex gap-1 overflow-x-scroll scrollbar scrollbar-h-0.5 scrollbar-thumb-blue-500 scrollbar-track-gray-100">

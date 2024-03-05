@@ -1,4 +1,5 @@
 import { Post, allPosts } from "contentlayer/generated";
+import { groupBy } from "./array";
 
 export const allPostsSortedByDate = sortedPosts(allPosts);
 
@@ -41,18 +42,17 @@ function getSameCategoryPost(category: Post["category"]) {
 
 let categories: { text: string; count: number }[] | null = null;
 
-export function getCategories(posts: Post[]) {
+export function getCategories() {
   if (categories) {
     return categories;
   } else {
-    categories = Array.from(new Set(posts.map((post) => post.category)))
-      .map((category) => {
-        return {
-          text: category,
-          count: posts.filter((post) => post.category === category).length,
-        };
-      })
+    categories = Object.entries(groupBy(allPosts, "category"))
+      .map(([category, posts]) => ({
+        text: category,
+        count: posts.length,
+      }))
       .sort((a, b) => b.count - a.count);
+
     return categories;
   }
 }

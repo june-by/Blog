@@ -1,9 +1,9 @@
 import { Post } from "contentlayer/generated";
 
 import { allPostsSortedByDate } from "@/utils";
-import Categories from "@/components/home/CategoryList";
 import { Metadata } from "next";
 import PostList from "@/components/home/PostList";
+import CategoryList from "@/components/home/CategoryList";
 
 interface Props {
   searchParams: Record<string, string>;
@@ -36,7 +36,7 @@ export default function Home({ searchParams }: Props) {
 
   return (
     <div className="flex flex-col gap-4 mt-4">
-      <Categories posts={posts} currentCategory={searchParams.category} />
+      <CategoryList currentCategory={searchParams.category} />
       <PostList allPosts={posts} />
     </div>
   );
