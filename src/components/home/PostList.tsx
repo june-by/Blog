@@ -4,7 +4,7 @@ import InfiniteScroll from "../shared/InfiniteScroll";
 import { Post } from "contentlayer/generated";
 import { NoPost } from "../post";
 import PostCard from "../PostCard";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const POST_COUNTE_PER_PAGE = 8;
 
