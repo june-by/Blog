@@ -25,7 +25,7 @@ const PostList = ({ allPosts }: Props) => {
   }
 
   const viewedPosts = allPosts.slice(0, page * POST_COUNTE_PER_PAGE);
-  const hasMorePost = viewedPosts.length % POST_COUNTE_PER_PAGE === 0;
+  const hasMorePost = viewedPosts.length !== allPosts.length;
 
   return (
     <>
