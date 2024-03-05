@@ -1,7 +1,7 @@
 import { Post } from "contentlayer/generated";
 
 import { allPostsSortedByDate } from "@/utils";
-import Categories from "@/components/home/Categories";
+import Categories from "@/components/home/CategoryList";
 import { Metadata } from "next";
 import PostList from "@/components/home/PostList";
 

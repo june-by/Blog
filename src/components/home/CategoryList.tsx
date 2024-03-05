@@ -9,7 +9,7 @@ interface Props {
   currentCategory?: Post["category"];
 }
 
-const Categories = ({ posts, currentCategory }: Props) => {
+const CategoryList = ({ posts, currentCategory }: Props) => {
   const categories = getCategories(posts);
 
   return (
@@ -48,4 +48,4 @@ const Categories = ({ posts, currentCategory }: Props) => {
   );
 };
 
-export default Categories;
+export default CategoryList;
