@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import InfiniteScroll from "../shared/InfiniteScroll";
 import { Post } from "contentlayer/generated";
 import { NoPost } from "../post";
 import PostCard from "../PostCard";
 import { useSearchParams } from "next/navigation";
+import { useStateWithSyncStorage } from "@/hooks";
 
 const POST_COUNTE_PER_PAGE = 8;
 
@@ -17,8 +18,11 @@ const storedPage: Map<string, number> = new Map();
 const PostList = ({ allPosts }: Props) => {
   const searchParams = useSearchParams();
   const currentPathname = searchParams.toString() || "/";
-
-  const [page, setPage] = useState(storedPage.get(currentPathname) || 1);
+  const [page, setPage] = useStateWithSyncStorage({
+    fallBackData: 1,
+    storage: storedPage,
+    storageKey: currentPathname,
+  });
 
   if (allPosts.length === 0) {
     return <NoPost />;
@@ -29,14 +33,7 @@ const PostList = ({ allPosts }: Props) => {
 
   return (
     <>
-      <InfiniteScroll
-        hasMore={hasMorePost}
-        fetchNext={() => {
-          const nextPage = page + 1;
-          setPage(nextPage);
-          storedPage.set(currentPathname, nextPage);
-        }}
-      >
+      <InfiniteScroll hasMore={hasMorePost} fetchNext={() => setPage(page + 1)}>
         <>
           {viewedPosts.map((post) => (
             <PostCard {...post} key={post._id} />
