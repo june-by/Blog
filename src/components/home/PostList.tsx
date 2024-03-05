@@ -4,6 +4,7 @@ import InfiniteScroll from "../shared/InfiniteScroll";
 import { Post } from "contentlayer/generated";
 import { NoPost } from "../post";
 import PostCard from "../PostCard";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const POST_COUNTE_PER_PAGE = 8;
 
@@ -11,8 +12,13 @@ interface Props {
   allPosts: Post[];
 }
 
+const storedPage: Map<string, number> = new Map();
+
 const PostList = ({ allPosts }: Props) => {
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const currentPathname = searchParams.toString() || "/";
+
+  const [page, setPage] = useState(storedPage.get(currentPathname) || 1);
 
   if (!allPosts) {
     return <NoPost />;
@@ -25,7 +31,11 @@ const PostList = ({ allPosts }: Props) => {
     <>
       <InfiniteScroll
         hasMore={hasMorePost}
-        fetchNext={() => setPage((prev) => prev + 1)}
+        fetchNext={() => {
+          const nextPage = page + 1;
+          setPage(nextPage);
+          storedPage.set(currentPathname, nextPage);
+        }}
       >
         <>
           {viewedPosts.map((post) => (
