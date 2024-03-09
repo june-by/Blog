@@ -1,0 +1,32 @@
+---
+title: "scrollToWithCallback"
+date: "2024-03-09"
+category: "JavaScript"
+lastmod: "2024-03-09"
+description: "window.scrollTo가 완료되어, 해당 스크롤 위치로 이동이 완료된 이후 callback을 실행시킵니다."
+---
+
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fsnippets%2FJavaScript%2FscrollToWithCallback&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
+# CODE
+
+```ts
+function scrollTo<T extends () => void>(offset: number, callback: T) {
+  const fixedOffset = offset.toFixed();
+  const onScroll = function () {
+    if (window.pageYOffset.toFixed() === fixedOffset) {
+      window.removeEventListener("scroll", onScroll);
+      callback();
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
+  onScroll();
+  window.scrollTo({
+    top: offset,
+    behavior: "smooth",
+  });
+}
+```
