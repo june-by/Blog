@@ -7,7 +7,7 @@ const PostTagList = ({ tags }: Pick<Post, "tags">) => {
   if (!tags) return null;
 
   return (
-    <ul className="flex gap-1 pl-0 my-0">
+    <ul className="flex gap-1 pl-0 my-0 flex-wrap">
       {tags.map((tag, idx) => (
         <Link
           href={{
@@ -18,7 +18,7 @@ const PostTagList = ({ tags }: Pick<Post, "tags">) => {
           className="cursor-pointer flex items-center gap-1 hover:text-blue-700 no-underline"
         >
           <AiFillTag className="text-blue-700 mt-0" />
-          <span className="text-sm mb-0">{tag}</span>
+          <span className="text-sm mb-0 whitespace-nowrap">{tag}</span>
         </Link>
       ))}
     </ul>
