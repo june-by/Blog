@@ -9,7 +9,7 @@ interface Props {
   searchParams: Record<string, string>;
 }
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: `byjuun.com`,
   description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
   openGraph: {
