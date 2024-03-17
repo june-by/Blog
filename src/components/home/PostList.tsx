@@ -21,7 +21,7 @@ const PostList = ({ allPosts }: Props) => {
   if (allPosts.length === 0) {
     return <NoPost />;
   }
-  console.log("page : ", page);
+
   const viewedPosts = allPosts.slice(0, page * POST_COUNTE_PER_PAGE);
   const hasMorePost = viewedPosts.length < allPosts.length;
 
