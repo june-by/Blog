@@ -71,3 +71,5 @@ export function generateStorage(): Storage {
   }
   return new MemoryStorage();
 }
+
+export const safeLocalStorage = generateStorage();
