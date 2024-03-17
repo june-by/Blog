@@ -9,18 +9,16 @@ interface Props {
   searchParams: Record<string, string>;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  title: `byjuun.com`,
+  description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
+  openGraph: {
     title: `byjuun.com`,
     description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
-    openGraph: {
-      title: `byjuun.com`,
-      description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
-      url: `https://byjuun.com`,
-      images: ["/profile.png"],
-    },
-  };
-}
+    url: `https://byjuun.com`,
+    images: ["/profile.png"],
+  },
+};
 
 export default function Home({ searchParams }: Props) {
   const searchParamsKeys = Object.keys(searchParams);
@@ -29,8 +27,7 @@ export default function Home({ searchParams }: Props) {
     searchParamsKeys.length === 0
       ? allPostsSortedByDate
       : searchParamsKeys.reduce(
-          (accPosts, curKey) =>
-            accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
+          (accPosts, curKey) => accPosts.filter(getPostsFiltereCB(curKey)(searchParams[curKey])),
           allPostsSortedByDate
         );
 
@@ -45,8 +42,7 @@ export default function Home({ searchParams }: Props) {
 function getPostsFiltereCB(searchParamsKey: string) {
   switch (searchParamsKey) {
     case "category":
-      return (category: Post["category"]) => (post: Post) =>
-        post.category === category;
+      return (category: Post["category"]) => (post: Post) => post.category === category;
     case "tag":
       return (tag: string) => (post: Post) => post.tags?.includes(tag);
     case "series":
