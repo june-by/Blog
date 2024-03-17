@@ -5,7 +5,8 @@ import { Post } from "contentlayer/generated";
 import { NoPost } from "../post";
 import PostCard from "../PostCard";
 import { useSearchParams } from "next/navigation";
-import { useStateWithSyncStorage } from "@/hooks";
+import { useStorageState } from "@/hooks";
+import { generateSessionStorage } from "@/utils";
 
 const POST_COUNTE_PER_PAGE = 8;
 
@@ -13,17 +14,10 @@ interface Props {
   allPosts: Post[];
 }
 
-const storedPage: Map<string, number> = new Map();
-
 const PostList = ({ allPosts }: Props) => {
   const searchParams = useSearchParams();
   const currentPathname = searchParams.toString() || "/";
-  const [page, setPage] = useStateWithSyncStorage({
-    fallBackData: 1,
-    storage: storedPage,
-    storageKey: currentPathname,
-  });
-
+  const [page, setPage] = useStorageState(currentPathname, { storage: generateSessionStorage(), defaultValue: 1 });
   if (allPosts.length === 0) {
     return <NoPost />;
   }
