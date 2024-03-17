@@ -1,0 +1,93 @@
+---
+title: "useStorageState"
+date: "2024-03-17"
+category: "React"
+lastmod: "2024-03-17"
+description: "React의 상태와 인자로 받는 Storage를 동기화하며 동작하는 훅입니다."
+---
+
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fsnippets%2FReact%2FuseStorageState&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
+```tsx
+import { Storage, safeLocalStorage } from "@/utils";
+import { SetStateAction, useCallback, useState } from "react";
+
+type ToPrimitive<T> = T extends string ? string : T extends number ? number : T extends boolean ? boolean : never;
+type ToObject<T> = T extends unknown[] | Record<string, unknown> ? T : never;
+
+type Serializable<T> = T extends string | number | boolean ? ToPrimitive<T> : ToObject<T>;
+
+interface StorageStateOptions<T> {
+  storage?: Storage;
+  defaultValue?: Serializable<T>;
+}
+
+interface StorageStateOptionsWithDefaultValue<T> extends StorageStateOptions<T> {
+  defaultValue: Serializable<T>;
+}
+
+export function useStorageState<T>(
+  key: string,
+  { storage, defaultValue }: StorageStateOptionsWithDefaultValue<T>
+): readonly [Serializable<T>, (value: SetStateAction<Serializable<T>>) => void, () => void];
+
+export function useStorageState<T>(
+  key: string,
+  { storage = safeLocalStorage, defaultValue }: StorageStateOptions<T> = {}
+): readonly [Serializable<T> | undefined, (value: SetStateAction<Serializable<T> | undefined>) => void, () => void] {
+  const getValue = useCallback(<T,>() => {
+    const data = storage.get(key);
+
+    if (data == null) {
+      return defaultValue;
+    }
+
+    try {
+      const result = JSON.parse(data);
+
+      if (result == null) {
+        return defaultValue;
+      }
+
+      return result as T;
+    } catch {
+      return defaultValue;
+    }
+  }, [defaultValue, key, storage]);
+
+  const [state, setState] = useState<Serializable<T> | undefined>(getValue);
+
+  const set = useCallback(
+    (value: SetStateAction<Serializable<T> | undefined>) => {
+      setState((curr) => {
+        const nextValue = typeof value === "function" ? value(curr) : value;
+
+        if (nextValue == null) {
+          storage.remove(key);
+        } else {
+          storage.set(key, JSON.stringify(nextValue));
+        }
+
+        return nextValue;
+      });
+    },
+    [key, storage]
+  );
+
+  const refresh = useCallback(() => {
+    setState(getValue() ?? defaultValue);
+  }, [defaultValue, getValue]);
+
+  return [state, set, refresh] as const;
+}
+
+export default useStorageState;
+```
+
+<br />
+
+# Reference
+
+[https://github.com/toss/slash/blob/main/packages/react/react/src/hooks/useStorageState.ko.md](https://github.com/toss/slash/blob/main/packages/react/react/src/hooks/useStorageState.ko.md)
