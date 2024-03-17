@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["github.com"],
+    remotePatterns: [{ protocol: "https", hostname: "github.com", port: "" }],
   },
 };
 
