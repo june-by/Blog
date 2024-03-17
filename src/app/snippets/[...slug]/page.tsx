@@ -1,14 +1,7 @@
 import { notFound } from "next/navigation";
-import { allPosts, allSnippets } from "contentlayer/generated";
+import { allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
-import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
-import {
-  PostTitle,
-  PostDescription,
-  PostComments,
-  Mdx,
-  TableOfContents,
-} from "@/components/post";
+import { PostTitle, PostDescription, PostComments, Mdx, TableOfContents } from "@/components/post";
 import PostLayout from "@/components/layouts/PostLayout";
 
 interface SnippetProps {
@@ -28,9 +21,7 @@ async function getSnippetFromParams(params: SnippetProps["params"]) {
   return post;
 }
 
-export async function generateMetadata({
-  params,
-}: SnippetProps): Promise<Metadata> {
+export async function generateMetadata({ params }: SnippetProps): Promise<Metadata> {
   const post = await getSnippetFromParams(params);
 
   if (!post) {
@@ -49,10 +40,8 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  SnippetProps["params"][]
-> {
-  return allPosts.map((post) => ({
+export async function generateStaticParams(): Promise<SnippetProps["params"][]> {
+  return allSnippets.map((post) => ({
     slug: post.slugAsParams.split("/"),
   }));
 }
