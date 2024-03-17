@@ -65,7 +65,7 @@ function generateTestKey() {
     .join("");
 }
 
-export function generateStorage(): Storage {
+function generateStorage(): Storage {
   if (LocalStorage.canUse()) {
     return new LocalStorage();
   }
