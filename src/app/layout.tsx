@@ -4,8 +4,10 @@ import Header from "@/components/shared/Header";
 import ToastContainer from "@/components/shared/ToastContainer";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://byjuun.com"),
   title: "byjuun.com",
   description: "Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻",
 };
