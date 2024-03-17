@@ -8,7 +8,7 @@ export interface Storage {
   clear(): void;
 }
 
-class MemoStorage implements Storage {
+class MemoryStorage implements Storage {
   private storage = new Map<string, string>();
 
   public get(key: string) {
@@ -63,4 +63,11 @@ function generateTestKey() {
     .fill(null)
     .map(() => Math.random().toString(36).slice(2))
     .join("");
+}
+
+export function generateStorage(): Storage {
+  if (LocalStorage.canUse()) {
+    return new LocalStorage();
+  }
+  return new MemoryStorage();
 }
