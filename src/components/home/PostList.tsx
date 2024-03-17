@@ -6,7 +6,7 @@ import { NoPost } from "../post";
 import PostCard from "../PostCard";
 import { useSearchParams } from "next/navigation";
 import { useStorageState } from "@/hooks";
-import { generateSessionStorage } from "@/utils";
+import { memoryStorage } from "@/utils";
 
 const POST_COUNTE_PER_PAGE = 8;
 
@@ -17,7 +17,7 @@ interface Props {
 const PostList = ({ allPosts }: Props) => {
   const searchParams = useSearchParams();
   const currentPathname = searchParams.toString() || "/";
-  const [page, setPage] = useStorageState(currentPathname, { storage: generateSessionStorage(), defaultValue: 1 });
+  const [page, setPage] = useStorageState(currentPathname, { storage: memoryStorage, defaultValue: 1 });
   if (allPosts.length === 0) {
     return <NoPost />;
   }
