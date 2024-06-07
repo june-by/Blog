@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback } from "react";
 
 interface Props {
   when: boolean;
@@ -10,19 +10,21 @@ interface Props {
 
 const ScrollInToElement = ({ children, when, scrollOptions }: Props) => {
   const child = React.Children.only(children);
-  const childRef = useRef<Element | null>(null);
 
-  useEffect(() => {
-    if (!childRef.current) {
-      return;
-    }
-    if (when) {
-      childRef.current.scrollIntoView(scrollOptions);
-    }
-  }, [scrollOptions, when]);
+  const scrollIntoElement = useCallback(
+    (node: Element | null) => {
+      if (node === null) {
+        return;
+      }
+      if (when) {
+        node.scrollIntoView(scrollOptions);
+      }
+    },
+    [scrollOptions, when]
+  );
 
   return React.cloneElement(child, {
-    ref: childRef,
+    ref: scrollIntoElement,
   });
 };
 
