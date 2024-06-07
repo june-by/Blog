@@ -1,9 +1,9 @@
 ---
-title: "React.cloneElement API를 활용해 서버 컴포넌트의 클라이언트 로직 분리하기"
+title: "서버 컴포넌트의 클라이언트 로직 분리하기"
 date: "2024-02-18"
 lastmod: "2024-02-18"
 category: "React"
-tags: ["rsc", "cloneElement"]
+tags: ["rsc", "cloneElement", "asChild", "callbackRef"]
 description: "React.cloneElement API를 활용해 클라이언트 로직을 서버 컴포넌트로부터 분리한 방법에 대해 다룬 포스트입니다."
 thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/59cfaaf9-3417-43d2-a494-858b2635c40a"
 ---
@@ -46,7 +46,10 @@ const CategoryButton = ({ category: { text, count } }: Props) => {
 ```tsx title="TO-BE(Client Component)"
 "use client";
 
-const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }: Props) => {
+const CategoryButton = ({
+  category: { text, count },
+  isCurrentSelectedCategory,
+}: Props) => {
   const ref = useRef<Element | null>(null);
 
   useEffect(() => {
@@ -86,7 +89,7 @@ const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }
 단, 아래의 경우에는 분리하지 않았습니다.
 
 - 컴포넌트 사이즈가 크지 않아, 분리로 인한 Overhead가 더 큰 경우
-- 컴포넌트 내부에서 다루어야 하는 로직인 경우
+- 컴포넌트가 다루어야 하는 데이터와 강하게 바인딩 되어 있는 로직인 경우
 
 <br />
 
@@ -121,7 +124,10 @@ const ScrollInToElement = ({ children, when, scrollOptions }: Props) => {
 
 ```tsx title="CategoryButton.tsx"
 // Server Component
-const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }: Props) => {
+const CategoryButton = ({
+  category: { text, count },
+  isCurrentSelectedCategory,
+}: Props) => {
   return (
     <ScrollInToElement
       when={isCurrentSelectedCategory}
@@ -146,8 +152,46 @@ const CategoryButton = ({ category: { text, count }, isCurrentSelectedCategory }
 };
 ```
 
+클라이언트 로직을 기존 서버 컴포넌트로부터 분리함으로써, 서버 컴포넌트의 이점을 그대로 가지고 갈 수 있게 되었습니다.
+
+## 추가 팁 (callback ref)
+
+위에서는 컴포넌트가 렌더링 된 이후(after mount) `Element`에 결합된 `scrollIntoView` 메서드를 실행시키기 위해 `useRef`와 `useEffect`훅을 사용했습니다.
+
+`ref`의 타입선언을 확인한 적이 있다면, ref에 객체 뿐만 아니라 함수도 전달할 수 있습니다.
+
+```ts
+type Ref<T> = RefCallback<T> | RefObject<T> | null;
+```
+
+`ref`의 경우, `Element`의 참조를 위해 사용할수도 있지만, `Element`를 매게변수로 받는 콜백함수로 사용할 수도 있습니다. (`onAfterMount`)  
+따라서 `callback Ref`를 사용할 경우, `useRef`와 `useEffect`훅을 사용하지 않고도 <u>마운트 된 이후 `focus(scrollIntoView)`한다</u> 라는 로직을 구현할 수 있습니다.
+
+```tsx title="ScrollIntoElement.tsx"
+const ScrollInToElement = ({ children, when, scrollOptions }: Props) => {
+  const child = React.Children.only(children);
+
+  const scrollIntoElement = useCallback(
+    (node: Element | null) => {
+      if (node === null) {
+        return;
+      }
+      if (when) {
+        node.scrollIntoView(scrollOptions);
+      }
+    },
+    [scrollOptions, when]
+  );
+
+  return React.cloneElement(child, {
+    ref: scrollIntoElement,
+  });
+};
+```
+
 <br />
 
 # Reference
 
 - asChild pattern: [https://www.jacobparis.com/content/react-as-child](https://www.jacobparis.com/content/react-as-child)
+- Avoiding useEffect with callback refs : [https://tkdodo.eu/blog/avoiding-use-effect-with-callback-refs](https://tkdodo.eu/blog/avoiding-use-effect-with-callback-refs)
