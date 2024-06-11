@@ -1,0 +1,442 @@
+---
+title: "Render Props 패턴을 활용해 로직 분리하기"
+date: "2024-06-11"
+lastmod: "2024-06-11"
+category: "React"
+tags: ["render-props", "context"]
+description: "render props 패턴을 활용해 환경별 비즈니스 로직과 렌더링 로직을 분리해 코드의 가독성을 높인 경험에 대해 작성한 포스트입니다."
+thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/39ef0f4d-7235-44bb-b391-501a8f84f55a"
+---
+
+<div align="right">
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbyjuun.com%2Fposts%2FReact%2Frender-props-pattern&count_bg=%233B82F6&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+</div>
+
+# 배경
+
+클라이언트 사이드의 개발을 진행하다보면, 종종 특정 조건에 대한 분기문을 작성해야 하는 경우가 발생합니다.
+
+예를 들면 아래와 같은 케이스가 존재합니다.
+
+- `Mobile Web` 환경, `Webview` 환경 각각에서 실행, 렌더링 되어야 하는 코드
+- 특정 기능에 대한 권한이 존재할 때 실행, 렌더링 되어야 하는 코드
+- 로그인한 경우에만 실행, 렌더링 되어야 하는 코드
+
+위와 같은 분기가 들어갈 경우, 보통은 `if문`, `3항 연산자` 또는 `논리연산자(&&)`를 이용해 코드를 작성하게 됩니다.
+
+```tsx title="로그인 한 경우 Data Fetch / 로그인 하지 않은 경우 페이지 Redirect"
+const fetchData = () => {
+  if (!isLoggedIn) {
+    return redirect("/login");
+  } else {
+    fetch(xxx);
+  }
+};
+```
+
+```tsx title="Webview 환경인 경우 앱스킴 호출 / Mobile Web 환경인 경우 함수 호출"
+const handleClickCloseButton = () => {
+  if (isWebview) {
+    callAppScheme("app://close");
+  } else {
+    onClose();
+  }
+};
+```
+
+```tsx title="상품 구매 유무에 따라 렌더링/클릭 로직 분기"
+const GotoExamButton = () => {
+  return (
+    <button
+      onClick={() => {
+        if (isAuth) {
+          router.push("/exam");
+        } else {
+          router.push("/store");
+        }
+      }}
+    >
+      {isAuth ? 시험보기 : 시험구매하기}
+    </button>
+  );
+};
+```
+
+위 케이스들은 모두 간단한 케이스이기 때문에 코드의 흐름을 파악하기 어렵지 않습니다.  
+하지만 비즈니스 로직이 복잡해질수록, 코드의 이것저곳에서 하나의 조건을 기준으로 많은 분기문이 발생하게 됩니다.
+
+이때, `Render Props` 패턴을 활용한다면 분기문을 사용하지 않고 각각 케이스가 격리된 상태로 코드를 관리해 더 쉽게 유지보수 할 수 있습니다.
+
+<br />
+
+# Render Props 패턴이란?
+
+`Render Props` 패턴은 컴포넌트의 `prop`으로 `JSX 엘리먼트`를 전달하는 방식입니다.
+
+일반적으로 `Render Props` 패턴은 아래와 같이 `renderXXX` 같은 `prop`으로 렌더링할 컴포넌트(JSX 엘리먼트)를 전달합니다.
+
+```tsx title="Render Props with renderItem prop"
+function List({ items, renderItem }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <div className="List">
+      {items.map((item, index) => {
+        const isHighlighted = index === selectedIndex;
+        return renderItem(item, isHighlighted);
+      })}
+      <hr />
+      <button
+        onClick={() => {
+          setSelectedIndex((i) => (i + 1) % items.length);
+        }}
+      >
+        Next
+      </button>
+    </div>
+  );
+}
+
+<List
+  items={products}
+  renderItem={(product, isHighlighted) => (
+    <Row key={product.id} title={product.title} isHighlighted={isHighlighted} />
+  )}
+/>;
+```
+
+<br />
+
+물론 `renderXXX` prop을 사용하는지않고 `children` prop을 사용할 수도 있습니다.
+
+```tsx title="Render Props with children prop" {22-24}
+function List({ items, children }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <div className="List">
+      {items.map((item, index) => {
+        const isHighlighted = index === selectedIndex;
+        return children(item, isHighlighted);
+      })}
+      <hr />
+      <button
+        onClick={() => {
+          setSelectedIndex((i) => (i + 1) % items.length);
+        }}
+      >
+        Next
+      </button>
+    </div>
+  );
+}
+
+<List items={products}>
+  {(product, isHighlighted) => (
+    <Row key={product.id} title={product.title} isHighlighted={isHighlighted} />
+  )}
+</List>;
+```
+
+`Render Props` 패턴을 더 자세히 살펴보려면 아래 Reference를 확인해주세요.
+
+- [https://react.dev/reference/react/cloneElement#passing-data-with-a-render-prop](https://react.dev/reference/react/cloneElement#passing-data-with-a-render-prop)
+- [https://patterns-dev-kr.github.io/design-patterns/render-props-pattern/](https://patterns-dev-kr.github.io/design-patterns/render-props-pattern/)
+
+<br />
+
+# Render Props 패턴을 활용한 로직 분리
+
+제가 최근에 겪었던 케이스는 아래 케이스였습니다.
+
+- 하나의 컴포넌트를 `Webview`, `Mobile Web` 환경에서 제공
+  - `Mobile Web` 환경 요구사항
+    - 어떤 버튼을 눌렀을 때, 주입받는 혹은 전역 함수 호출
+    - Popup이 등장했을 때, 특정 외부 요소의 css 제어
+    - 맨위로 버튼 노출
+  - `Webview` 환경 요구사항
+    - 어떤 버튼을 눌렀을 때 특정 앱스킴 호출
+    - url query string을 통해 받는 데이터를 React 내부 상태와 동기화 (구현과정에서 필요)
+    - Popup이 등장했을 때, 전역객체(window)에 팝업을 업데이트 하는 함수 주입
+    - 맨위로 버튼 노출 x
+- Popup의 UI는 재활용
+- 특정 data key가 존재하지 않으면 Popup을 렌더링하지 않음
+
+초기에는 아래와 같이 하나의 컴포넌트내에서 모든 코드를 작성했습니다.
+
+```tsx title="AS-IS"
+const SmartOptionPopup = () => {
+  const { seletecStockNo, setSelectedStockNo } = useSmartOption();
+  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
+
+  /********************* Webview Logic ***********************/
+  const callInsertAppScheme = useCallback(
+    (params: CallInsertAppSchemeParams) => {
+      callAppScheme(insetAppScheme + queryString.stringify({ ...params }));
+    },
+    []
+  );
+
+  useAddPropertyOnMount({
+    targetObject: window,
+    key: "update",
+    value: setSelectedSmartOptionStockNo,
+  });
+
+  useAddPropertyOnMount({
+    targetObject: window,
+    key: "set",
+    value: callInsertAppScheme,
+  });
+  /********************* Webview Logic ***********************/
+
+  /********************* Mobile Web Logic ********************/
+  useChangeStyleOnMount({
+    element: document.body,
+    targetStyle: "overflow",
+    styleOnMount: "hidden",
+    styleOnUnMount: "unset",
+  });
+
+  useChangeStyleOnMount({
+    element: document.querySelector(".bottomLayer"),
+    targetStyle: "zIndex",
+    styleOnMount: "100",
+    styleOnUnMount: "10",
+  });
+
+  const [showGotoTopButton, hideGotoTopButton, showGotoTopButton] =
+    useBooleanState(false);
+
+  const [scrollArea, setScrollArea] = useVerticalScrollHandler<HTMLDivElement>({
+    onScrollUp: hideGotoTopButton,
+    onScrollDown: showGotoTopButton,
+  });
+  /********************* Mobile Web Logic ********************/
+
+  if (!data) {
+    return null;
+  }
+
+  return (
+    <div>
+      ...
+      {isApp ? <div>Webview Header</div> : <div>MW Header</div>}
+      <AddButton
+        handleClick={() => {
+          if (isApp) {
+            callInsertAppScheme();
+          } else {
+            addStock();
+          }
+        }}
+      />
+      {!isApp && showGotoTopButton && <GotoTopButton />}
+    </div>
+  );
+};
+```
+
+위 코드의 문제점은 `Webview`, `Mobile Web` 환경에서 필요한 로직과 UI가 한곳에 뭉쳐있다보니, 여러곳의 로직과 JSX 렌더링 부분에 분기문이 들어가 코드의 흐름을 한눈에 파악하기 힘들다는 점이었습니다.
+
+이로인해, 특정 환경에서의 기능 추가 혹은 수정 요청이 들어온다면 기존 코드를 파악하는데 시간이 추가적으로 소모되고, 특정 환경에서의 수정사항이 다른쪽 환경에 영향을 미치지 않는지 추가적으로 확인이 필요했습니다.
+
+<br />
+
+이러한 문제를 해결하기 위해 `Render Props` 패턴을 적용해 각각의 환경별로 실행, 렌더링 되어야하는 코드를 나누었습니다.
+
+```tsx title="SmartOptionWebviewWrapper.tsx"
+const SmartOptionWebviewWrapper = ({ children }: Props) => {
+  const callInsertAppScheme = useCallback(
+    (params: CallInsertAppSchemeParams) => {
+      callAppScheme(insetAppScheme + queryString.stringify({ ...params }));
+    },
+    []
+  );
+
+  useAddPropertyOnMount({
+    targetObject: window,
+    key: "update",
+    value: setSelectedSmartOptionStockNo,
+  });
+
+  useAddPropertyOnMount({
+    targetObject: window,
+    key: "set",
+    value: callInsertAppScheme,
+  });
+
+  return <>{children(callInsertAppScheme)}</>;
+};
+```
+
+```tsx title="SmartOptionMWWrapper.tsx"
+const SmartOptionMWWrapper = ({ children }: Props) => {
+  useChangeStyleOnMount({
+    element: document.body,
+    targetStyle: "overflow",
+    styleOnMount: "hidden",
+    styleOnUnMount: "unset",
+  });
+
+  useChangeStyleOnMount({
+    element: document.querySelector(".bottomLayer"),
+    targetStyle: "zIndex",
+    styleOnMount: "100",
+    styleOnUnMount: "10",
+  });
+
+  const [showGotoTopButton, hideGotoTopButton, showGotoTopButton] =
+    useBooleanState(false);
+
+  const [scrollArea, setScrollArea] = useVerticalScrollHandler<HTMLDivElement>({
+    onScrollUp: hideGotoTopButton,
+    onScrollDown: showGotoTopButton,
+  });
+
+  return (
+    <>
+      {children(addStock)}
+      {showGotoTopButton && <GotoTopButton />}
+    </>
+  );
+};
+```
+
+```tsx title="SmartOption.tsx"
+const SmartOption = () => {
+  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
+
+  if (!data) {
+    return null;
+  }
+
+  if (isApp) {
+    return (
+      <SmartOptionWebviewWrapper>
+        {(callInsertAppScheme) => (
+          <SmartOptionView
+            {...data}
+            handleClickAddButton={callInsertAppScheme}
+          />
+        )}
+      </SmartOptionWebviewWrapper>
+    );
+  }
+
+  return (
+    <SmartOptionMWWrapper>
+      {(addStock) => (
+        <SmartOptionView {...data} handleClickAddButton={addStock} />
+      )}
+    </SmartOptionMWWrapper>
+  );
+};
+```
+
+각각의 환경별로 필요한 코드를 나눔으로써, 환경별로 작업을 진행해야할 때 훨씬 빠르게 코드를 분석하고 개발을 진행할 수 있게 되었습니다.  
+뿐만 아니라, 코드가 분리되어 있어 특정 환경의 변경사항이 다른쪽 환경에 영향을 미치지 않는다는것을 확신할 수 있게 되었습니다.
+
+추가적으로, 위에서는 특정 환경에서 렌더링해야하는 `UI`를 `Wrapper Component`에 넣어놓았지만, 아래와 같이 추가적인 `prop`을 통해 주입하는 방향으로도 구현이 가능합니다.
+
+```tsx
+const SmartOption = () => {
+  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
+
+  if (!data) {
+    return null;
+  }
+
+  if (isApp) {
+    return (
+      <SmartOptionWebviewWrapper>
+        {(callInsertAppScheme) => (
+          <SmartOptionView
+            {...data}
+            handleClickAddButton={callInsertAppScheme}
+            rightBottomComponent={null}
+          />
+        )}
+      </SmartOptionWebviewWrapper>
+    );
+  }
+
+  return (
+    <SmartOptionMWWrapper>
+      {(addStock, showGotoTopButton) => (
+        <SmartOptionView
+          {...data}
+          handleClickAddButton={addStock}
+          rightBottomComponent={showGotoTopButton ? <GotoTopButton> : null}
+        />
+      )}
+    </SmartOptionMWWrapper>
+  );
+};
+```
+
+<br />
+
+# s 패턴이 아닌 Context 활용
+
+위 케이스에 대한 개발을 진행할 당시, `prop` 을 활용해 데이터와 로직(의존성)을 주입하는 방향이 코드를 한눈에 파악하는데 훨씬 쉽다고 판단해 `Render Props` 패턴을 활용했습니다.  
+(`SmartOption`(부모) 컴포넌트만 보고 각각의 상황에서 어떤 데이터, 로직을 넘기는지 한눈에 파악 가능)
+
+반대로 `prop` 을 활용하지 않고 `Context`를 이용해서도 각각의 상황에 맞게 데이터와 로직(의존성)을 주입할 수 있습니다.
+
+```tsx
+const SmartOptionWebviewWrapper = ({ children }: Props) => {
+  return (
+    <SmartOptionContext.Provider
+      value={{
+        handleClickAddButton: addStock,
+      }}
+    >
+      {children}
+    </SmartOptionContext.Provider>
+  );
+};
+
+const SmartOptionMWWrapper = ({ children }: Props) => {
+  return (
+    <SmartOptionContext.Provider
+      value={{
+        handleClickAddButton: callInsertAppScheme,
+      }}
+    >
+      {children}
+    </SmartOptionContext.Provider>
+  );
+};
+
+const SmartOption = () => {
+  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
+
+  if (!data) {
+    return null;
+  }
+
+  if (isApp) {
+    return (
+      <SmartOptionWebviewWrapper>
+        <SmartOptionView />
+      </SmartOptionWebviewWrapper>
+    );
+  }
+
+  return (
+    <SmartOptionMWWrapper>
+      <SmartOptionView />
+    </SmartOptionMWWrapper>
+  );
+};
+
+const SmartOptionView = () => {
+  const { handleClickAddButton } = useSmartOptionContext();
+  return <>...</>;
+};
+```
+
+이외에도 제가 생각하지 못한 더 많은 구현방법이 있겠지만,
+
+개발자라면 주어진 상황에서 본인이 판단했을 때, 적절한 이유를 가지고 최적의 방식을 선택하는것이 중요하다고 생각합니다~!
+
+이상으로 "Render Props 패턴을 활용해 로직 분리하기" 포스트를 마치겠습니다 🙇
