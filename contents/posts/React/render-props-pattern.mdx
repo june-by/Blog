@@ -148,88 +148,48 @@ function List({ items, children }) {
 제가 최근에 겪었던 케이스는 아래 케이스였습니다.
 
 - 하나의 컴포넌트를 `Webview`, `Mobile Web` 환경에서 제공
-  - `Mobile Web` 환경 요구사항
-    - 어떤 버튼을 눌렀을 때, 주입받는 혹은 전역 함수 호출
-    - Popup이 등장했을 때, 특정 외부 요소의 css 제어
-    - 맨위로 버튼 노출
-  - `Webview` 환경 요구사항
-    - 어떤 버튼을 눌렀을 때 특정 앱스킴 호출
-    - url query string을 통해 받는 데이터를 React 내부 상태와 동기화 (구현과정에서 필요)
-    - Popup이 등장했을 때, 전역객체(window)에 팝업을 업데이트 하는 함수 주입
-    - 맨위로 버튼 노출 x
-- Popup의 UI는 재활용
-- 특정 data key가 존재하지 않으면 Popup을 렌더링하지 않음
+  - `Mobile Web` 환경과 `Webview` 환경에서 기본적으로 실행해야 하는 로직이 다름
+  - `Mobile Web` 환경과 `Webview` 환경에서 특정 유저 인터렉션이 발생했을 때 실행되어야 하는 로직이 다름
+  - `Mobile Web` 환경과 `Webview` 환경에서 렌더링 되어야 하는 UI가 다름
 
 초기에는 아래와 같이 하나의 컴포넌트내에서 모든 코드를 작성했습니다.
 
-```tsx title="AS-IS"
-const SmartOptionPopup = () => {
-  const { seletecStockNo, setSelectedStockNo } = useSmartOption();
-  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
-
+```tsx title="AS-IS" {4-8, 14-18}
+const InitialComponent = () => {
   /********************* Webview Logic ***********************/
-  const callInsertAppScheme = useCallback(
-    (params: CallInsertAppSchemeParams) => {
-      callAppScheme(insetAppScheme + queryString.stringify({ ...params }));
-    },
-    []
-  );
 
-  useAddPropertyOnMount({
-    targetObject: window,
-    key: "update",
-    value: setSelectedSmartOptionStockNo,
-  });
+  /**
+   * Webview 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
 
-  useAddPropertyOnMount({
-    targetObject: window,
-    key: "set",
-    value: callInsertAppScheme,
-  });
   /********************* Webview Logic ***********************/
 
   /********************* Mobile Web Logic ********************/
-  useChangeStyleOnMount({
-    element: document.body,
-    targetStyle: "overflow",
-    styleOnMount: "hidden",
-    styleOnUnMount: "unset",
-  });
 
-  useChangeStyleOnMount({
-    element: document.querySelector(".bottomLayer"),
-    targetStyle: "zIndex",
-    styleOnMount: "100",
-    styleOnUnMount: "10",
-  });
+  /**
+   * Mobile Web 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
 
-  const [showGotoTopButton, hideGotoTopButton, showGotoTopButton] =
-    useBooleanState(false);
-
-  const [scrollArea, setScrollArea] = useVerticalScrollHandler<HTMLDivElement>({
-    onScrollUp: hideGotoTopButton,
-    onScrollDown: showGotoTopButton,
-  });
   /********************* Mobile Web Logic ********************/
-
-  if (!data) {
-    return null;
-  }
 
   return (
     <div>
       ...
-      {isApp ? <div>Webview Header</div> : <div>MW Header</div>}
+      {!isApp && <Header />}
       <AddButton
         handleClick={() => {
           if (isApp) {
-            callInsertAppScheme();
+            callAddAppScheme();
           } else {
             addStock();
           }
         }}
       />
-      {!isApp && showGotoTopButton && <GotoTopButton />}
+      {!isApp && <GotoTopButton />}
     </div>
   );
 };
@@ -243,91 +203,70 @@ const SmartOptionPopup = () => {
 
 이러한 문제를 해결하기 위해 `Render Props` 패턴을 적용해 각각의 환경별로 실행, 렌더링 되어야하는 코드를 나누었습니다.
 
-```tsx title="SmartOptionWebviewWrapper.tsx"
-const SmartOptionWebviewWrapper = ({ children }: Props) => {
-  const callInsertAppScheme = useCallback(
-    (params: CallInsertAppSchemeParams) => {
-      callAppScheme(insetAppScheme + queryString.stringify({ ...params }));
-    },
-    []
-  );
+```tsx title="WebviewWrapperComponent.tsx" {8-12, 16}
+interface Props {
+  children: (callInsertAppScheme: CallInsertAppScheme) => React.ReactNode;
+}
 
-  useAddPropertyOnMount({
-    targetObject: window,
-    key: "update",
-    value: setSelectedSmartOptionStockNo,
-  });
+const WebviewWrapperComponent = ({ children }: Props) => {
+  /********************* Webview Logic ***********************/
 
-  useAddPropertyOnMount({
-    targetObject: window,
-    key: "set",
-    value: callInsertAppScheme,
-  });
+  /**
+   * Webview 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
+
+  /********************* Webview Logic ***********************/
 
   return <>{children(callInsertAppScheme)}</>;
 };
 ```
 
-```tsx title="SmartOptionMWWrapper.tsx"
-const SmartOptionMWWrapper = ({ children }: Props) => {
-  useChangeStyleOnMount({
-    element: document.body,
-    targetStyle: "overflow",
-    styleOnMount: "hidden",
-    styleOnUnMount: "unset",
-  });
+```tsx title="MWWrapperComponent.tsx" {8-12, 17-21}
+interface Props {
+  children: (addStock: AddStock) => React.ReactNode;
+}
 
-  useChangeStyleOnMount({
-    element: document.querySelector(".bottomLayer"),
-    targetStyle: "zIndex",
-    styleOnMount: "100",
-    styleOnUnMount: "10",
-  });
+const MWWrapperComponent = ({ children }: Props) => {
+  /********************* Mobile Web Logic ********************/
 
-  const [showGotoTopButton, hideGotoTopButton, showGotoTopButton] =
-    useBooleanState(false);
+  /**
+   * Mobile Web 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
 
-  const [scrollArea, setScrollArea] = useVerticalScrollHandler<HTMLDivElement>({
-    onScrollUp: hideGotoTopButton,
-    onScrollDown: showGotoTopButton,
-  });
+  /********************* Mobile Web Logic ********************/
 
   return (
     <>
+      <Header />
       {children(addStock)}
-      {showGotoTopButton && <GotoTopButton />}
+      <GotoTopButton />
     </>
   );
 };
 ```
 
-```tsx title="SmartOption.tsx"
-const SmartOption = () => {
-  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
-
-  if (!data) {
-    return null;
-  }
-
+```tsx title="ViewComponent.tsx"
+const WrapperComponent = () => {
   if (isApp) {
     return (
-      <SmartOptionWebviewWrapper>
+      <WebviewWrapperComponent>
         {(callInsertAppScheme) => (
-          <SmartOptionView
-            {...data}
-            handleClickAddButton={callInsertAppScheme}
-          />
+          <ViewComponent {...data} handleClickAddButton={callInsertAppScheme} />
         )}
-      </SmartOptionWebviewWrapper>
+      </WebviewWrapperComponent>
     );
   }
 
   return (
-    <SmartOptionMWWrapper>
+    <MWWrapperComponent>
       {(addStock) => (
-        <SmartOptionView {...data} handleClickAddButton={addStock} />
+        <ViewComponent {...data} handleClickAddButton={addStock} />
       )}
-    </SmartOptionMWWrapper>
+    </MWWrapperComponent>
   );
 };
 ```
@@ -338,99 +277,122 @@ const SmartOption = () => {
 추가적으로, 위에서는 특정 환경에서 렌더링해야하는 `UI`를 `Wrapper Component`에 넣어놓았지만, 아래와 같이 추가적인 `prop`을 통해 주입하는 방향으로도 구현이 가능합니다.
 
 ```tsx
-const SmartOption = () => {
-  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
-
-  if (!data) {
-    return null;
-  }
-
+const WrapperComponent = () => {
   if (isApp) {
     return (
-      <SmartOptionWebviewWrapper>
+      <WebviewWrapperComponent>
         {(callInsertAppScheme) => (
-          <SmartOptionView
-            {...data}
-            handleClickAddButton={callInsertAppScheme}
-            rightBottomComponent={null}
-          />
+          <ViewComponent {...data} handleClickAddButton={callInsertAppScheme} />
         )}
-      </SmartOptionWebviewWrapper>
+      </WebviewWrapperComponent>
     );
   }
 
   return (
-    <SmartOptionMWWrapper>
-      {(addStock, showGotoTopButton) => (
-        <SmartOptionView
+    <MWWrapperComponent>
+      {(addStock) => (
+        <ViewComponent
           {...data}
           handleClickAddButton={addStock}
-          rightBottomComponent={showGotoTopButton ? <GotoTopButton> : null}
+          viewContentAboveComponent={<Header />}
+          viewContentBehindComponent={<GotoTopButton />}
         />
       )}
-    </SmartOptionMWWrapper>
+    </MWWrapperComponent>
+  );
+};
+
+interface ViewComponentProps {
+  handleClickAddButton: () => void;
+  viewContentAboveComponent?: React.ReactNode;
+  viewContentBehindComponent?: React.ReactNode;
+}
+
+const ViewCompoent = ({
+  viewContentAboveComponent,
+  viewContentBehindComponent,
+  handleClickAddButton,
+}) => {
+  return (
+    <>
+      {viewContentAboveComponent}
+      {/* ViewContent */}
+      {viewContentBehindComponent}
+    </>
   );
 };
 ```
 
 <br />
 
-# Render Props 패턴이 아닌 Context 활용
+# Context 활용
 
 위 케이스에 대한 개발을 진행할 당시, `prop` 을 활용해 데이터와 로직(의존성)을 주입하는 방향이 코드를 한눈에 파악하는데 훨씬 쉽다고 판단해 `Render Props` 패턴을 활용했습니다.  
-(`SmartOption`(부모) 컴포넌트만 보고 각각의 상황에서 어떤 데이터, 로직을 넘기는지 한눈에 파악 가능)
+(`WrapperComponent`(부모) 컴포넌트만 보고 각각의 상황에서 어떤 데이터, 로직을 넘기는지 한눈에 파악 가능)
 
 반대로 `prop` 을 활용하지 않고 `Context`를 이용해서도 각각의 상황에 맞게 데이터와 로직(의존성)을 주입할 수 있습니다.
 
 ```tsx
-const SmartOptionWebviewWrapper = ({ children }: Props) => {
+const WebviewWrapperComponent = ({ children }: Props) => {
+  /********************* Webview Logic ***********************/
+
+  /**
+   * Webview 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
+
+  /********************* Webview Logic ***********************/
   return (
-    <SmartOptionContext.Provider
+    <SomeContext.Provider
       value={{
         handleClickAddButton: addStock,
       }}
     >
       {children}
-    </SmartOptionContext.Provider>
+    </SomeContext.Provider>
   );
 };
 
-const SmartOptionMWWrapper = ({ children }: Props) => {
+const MWWrapperComponent = ({ children }: Props) => {
+  /********************* Mobile Web Logic ********************/
+
+  /**
+   * Mobile Web 환경에서
+   * Component가 Mount된 이후,
+   * 실행되어야 하는 로직
+   */
+
+  /********************* Mobile Web Logic ********************/
   return (
-    <SmartOptionContext.Provider
+    <SomeContext.Provider
       value={{
         handleClickAddButton: callInsertAppScheme,
       }}
     >
       {children}
-    </SmartOptionContext.Provider>
+    </SomeContext.Provider>
   );
 };
 
-const SmartOption = () => {
-  const { data } = useFetch(`/smart_option/detail/${stockNo}`);
-
-  if (!data) {
-    return null;
-  }
-
+const WrapperComponent = () => {
   if (isApp) {
     return (
-      <SmartOptionWebviewWrapper>
-        <SmartOptionView />
-      </SmartOptionWebviewWrapper>
+      <WebviewWrapperComponent>
+        <ViewComponent />
+      </WebviewWrapperComponent>
     );
   }
 
   return (
-    <SmartOptionMWWrapper>
-      <SmartOptionView />
-    </SmartOptionMWWrapper>
+    <MWWrapperComponent>
+      <ViewComponent />
+    </MWWrapperComponent>
   );
 };
 
-const SmartOptionView = () => {
-  const { handleClickAddButton } = useSmartOptionContext();
+const ViewComponent = () => {
+  const { handleClickAddButton } = useSomeContext();
   return <>...</>;
 };
 ```
