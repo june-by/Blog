@@ -111,13 +111,13 @@ interface PostType {
   seriesTitle: string;
 }
 
-export interface PostFormTypeextends Omit<
+export type PostFormType =
+  extends Omit<
     PostType,
     "id" | "createdAt" | "Tags" | "views" | "seriesPosts" | "seriesTitle"
-  > {
+  > & {
   tagArr: string[];
 }
-
 ```
 
 ## Snippet Type
@@ -171,7 +171,10 @@ export const WriteFormProvider = ({ children }: { children: JSX.Element }) => {
 };
 ```
 
-문제가 되는 지점은 데이터(상태)를 선언하는 영역이 `Provider`에 있어 데이터와 데이터에 대한 타입이 고정되어 버리는 점과 데이터의 각 영역(`writeFormData.stateKey`)를 변경하는 함수가 일반화 되어있지 않고, 각각 나뉘어져 있다는 점입니다. (`handleChangeTitle`, `handleChangeCategory`, …, `handleChangeSeries`)
+문제가 되는 지점은 아래와 같습니다.
+
+- 데이터(상태)를 선언하는 영역이 `Provider`에 있어 데이터와 데이터에 대한 타입이 고정되어 버림
+- 데이터의 각 영역을 변경하는 함수가 일반화 되어있지 않고, 각각 나뉘어져 있음. (`handleChangeTitle`, `handleChangeCategory`, …, `handleChangeSeries`)
 
 이에 따라서, 가장 먼저 `Provider`에서 <u>데이터(상태)를 선언하는 코드</u>를 `Provider` 외부로 이관하고, `Provider`에서 데이터와 데이터핸들링을 위한 함수를 주입받도록 수정해 보았습니다.
 
