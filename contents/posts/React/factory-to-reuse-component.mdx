@@ -16,9 +16,9 @@ thumbNail: "https://github.com/BY-juun/Blog/assets/78716842/4b152b52-7953-4c98-9
 
 엔지니오에서는 새롭게 대기업과 NCS서비스를 개발하게 되었습니다.
 
-대기업과 NCS서비스의 경우에는, 기존에 서비스중인 자격증, 공기업과 다르게 `지문`이 존재하기도 하며, `데이터의 key값(JSON key)`이 기존과 달랐습니다.
+대기업과 NCS서비스의 경우에는, 기존에 서비스중인 자격증, 공기업과 다르게 **지문**이 존재하기도 하며, <u>**데이터의 key값(JSON key)**</u> 이 기존과 달랐습니다.
 
-아래와 같이, 기존에 사용중인 문제풀이 화면에 존재하는 UI 컴포넌트를 최대한 `재사용`하는 방향으로 개발을 진행해야 했기 때문에, 서버에서 제공하는 `데이터`를 `UI 컴포넌트`에서 `사용되는 형태`로 `가공`해, `기존 UI컴포넌트`에서 사용하는 데이터 형태와 동일한 형태로 변경하기로 했습니다. 여기서 `Factory`는 데이터를 가공하는 `Layer`를 의미합니다.
+아래와 같이, 기존에 사용중인 문제풀이 화면에 존재하는 UI 컴포넌트를 최대한 `재사용`하는 방향으로 개발을 진행해야 했기 때문에, 서버에서 제공하는 데이터를 UI 컴포넌트에서 사용되는 형태로 가공해, 기존 UI컴포넌트에서 사용하는 데이터 형태와 동일한 형태로 변경하기로 했습니다.
 
 <img src="https://github.com/BY-juun/Blog/assets/78716842/83536442-4a0b-4187-8842-765565d8d3f2" />
 
@@ -47,7 +47,7 @@ const Problem = ({ currentProblem }: ProblemProps) => {
 
   return (
     <div className={styles.contentMain}>
-      <span className={`${katexClassName}`}>
+      <span className={katexClassName}>
         {currentProblem.isKatex ? (
           <KatexLoader />
         ) : (
@@ -61,11 +61,12 @@ const Problem = ({ currentProblem }: ProblemProps) => {
 export default Problem;
 ```
 
-`현재 문제(CurrentProblem)`을 `Props`로 주입 받아(`Props`로 주입 받은 이유는 여러 곳에서 재사용하기 위함),
+현재 문제(CurrentProblem)을 `Props`로 주입 받아,
 
-`해당 문제의 katex여부(isKatex)`를 확인 후, 해당 문제가 `katex`가 적용된 문제일 경우, `katex 라이브러리`를 이용해, 내부에 지정된 `HTML Element`에 `변환된 내용을 렌더링`하고,
+해당 문제의 katex여부(isKatex)를 확인 후, 해당 문제가 `katex`가 적용된 문제일 경우, katex 라이브러리를 이용해, 내부에 지정된 `HTML Element`에 변환된 내용을 렌더링하고,
 
-`katex`가 아니라면, `RawStringParser`라는 변환 함수를 통해 화면에 렌더링합니다. (`katex`는 `latex`형식으로 작성된 `Text`를 `수식과 같은 형태`로 화면에 렌더링하는 `라이브러리`입니다)
+`katex`가 아니라면, `RawStringParser`라는 변환 함수를 통해 화면에 렌더링합니다.  
+(katex는 latex형식으로 작성된 Text를 수식과 같은 형태로 화면에 렌더링하는 라이브러리입니다)
 
 ## 🔎 요구사항 및 데이터 형태 분석
 
@@ -125,9 +126,9 @@ const Problem = ({ currentProblem }: ProblemProps) => {
 export default Problem;
 ```
 
-`현재 문제(CurrentProblem)`의 `NCS 문제여부(isNcsProblem)`을 확인 후, 이에 따라 데이터를 가공(`splitProblem` 함수를 이용)해 렌더링 하는 방식입니다.
+현재 문제(CurrentProblem)의 NCS 문제여부(isNcsProblem)을 확인 후, 이에 따라 데이터를 가공(`splitProblem` 함수를 이용)해 렌더링 하는 방식입니다.
 
-`2`번의 경우, 다음과 같은 형태로 구현될 수 있습니다. (`1`과 차이점은 `컴포넌트 내부`에서 `Flag`를 정하는지 아니면, `Flag`를 주입받는지)
+2번의 경우, 다음과 같은 형태로 구현될 수 있습니다. (1과 차이점은 컴포넌트 내부에서 Flag를 정하는지 아니면, Flag를 주입받는지)
 
 ```tsx
 const katexClassName = "katex-string-problem";
@@ -160,23 +161,23 @@ const Problem = ({ currentProblem, isNcsProblem }: ProblemProps) => {
 export default Problem;
 ```
 
-`1`번과 `2`번 방법 모두, 결국 `Problem 컴포넌트 내부`를 수정해야 합니다.
+1번과 2번 방법 모두, 결국 Problem 컴포넌트 내부를 수정해야 합니다.
 
-따라서, 후에 `NCS`뿐만 아니라, `다른 형태`의 문제에 대한 요구사항이 생길 경우, `컴포넌트 내부의 로직`을 또 다시 `수정`해야 합니다.
+따라서, 후에 `NCS`뿐만 아니라, `다른 형태`의 문제에 대한 요구사항이 생길 경우, 컴포넌트 내부의 로직을 또 다시 수정해야 합니다.
 
-따라서, `3`번 또는 `4`번의 방법을 사용하기로 결정했습니다.
+따라서, 3번 또는 4번의 방법을 사용하기로 결정했습니다.
 
-`3`번의 경우, `현재 풀고 있는 문제`가 `변경`될 때 마다, `데이터를 가공`해야 합니다.
+3번의 경우, 현재 풀고 있는 문제가 변경될 때 마다, 데이터를 가공해야 합니다.
 
-즉, 서버에서 가져온 데이터를 `캐싱`하더라도, 매번 `데이터를 가공`하는 `로직`을 `실행`해야 합니다.
+즉, 서버에서 가져온 데이터를 캐싱하더라도, 매번 데이터를 가공하는 로직을 실행해야 합니다.
 
-결과적으로, `4`번의 방법을 사용하기로 결정했습니다.
+결과적으로, 4번의 방법을 사용하기로 결정했습니다.
 
 <br />
 
 # 🏭 Factory 도입
 
-앞서 말씀드린, 다음과 같은 `4단계`의 `프로세스` 중, `서버에서 가져온 데이터를 가공`하는 형태는 `2번 단계`에서, `데이터를 가공`하는 형태입니다.
+앞서 말씀드린, 다음과 같은 4단계의 프로세스 중, 서버에서 가져온 데이터를 가공하는 형태는 2번 단계에서, 데이터를 가공하는 형태입니다.
 
 1. `Recoil`에서 제공하는 `Selector`를 이용해, 서버에서 전체문제에 대한 데이터를 배열 형태로 `Fetching`
 2. 서버에서 `Selector`를 통해 가져온 데이터를 `Atom`에 `Set`하여, 전역적으로 관리
@@ -226,12 +227,11 @@ function useProblem() {
 }
 ```
 
-이제, 서버에서 보내주는 데이터의 형식이 달라질 경우, `ProblemFactory`함수만 수정하면 된다.
+이제, 서버에서 새로운 문제관련 데이터 타입이 생기게 될 경우, UI 컴포넌트의 내부 로직을 구현하거나 변경하지 않고 새로운 `Factory`만 추가하면 되기 때문에 훨씬 유연하게 대응이 가능해졌습니다.
 
-결과적으로, `UI 컴포넌트`의 `내부 로직`을 구현하거나, 변경하지 않을 수 있었다.
+`Recoil`을 사용하기 때문에, 비동기 Selector의 `get`, `set`등이 포함되어 조금 더 복잡한 느낌이 들기는 합니다.
 
-`Recoil`을 사용하기 때문에, `비동기 Selector`의 `get`, `set`등이 포함되어 조금 더 복잡한 느낌이 들기는 한다.
+`React Query`를 사용할 경우, `setQueryData`를 통해, 쿼리 데이터를 수정할 수 있으며,   
+`RTK Query`는 `transformReponse`를 통해, 쿼리 데이터를 수정할 수 있습니다.
 
-`React Query`를 사용할 경우, `setQueryData`를 통해, 쿼리 데이터를 수정할 수 있으며, `RTK Query`는 `transformReponse`를 통해, 쿼리 데이터를 수정할 수 있다.
-
-이런 기능이 있는 `라이브러리`를 사용할 경우, 해당 기능에 `Factory`를 추가해서 사용한다면 훨씬 더 쉽게 `Factory`를 적용할 수 있다.
+이런 기능이 있는 `라이브러리`를 사용할 경우, 해당 기능에 `Factory`를 추가해서 사용한다면 훨씬 더 쉽게 `Factory`를 적용할 수 있습니다.
