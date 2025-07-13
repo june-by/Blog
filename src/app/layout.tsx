@@ -5,11 +5,12 @@ import ToastContainer from "@/components/shared/ToastContainer";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import { Metadata } from "next";
+import { SITE_BASE_URL, STTE_DESCRIPTION, STTE_TITLE } from "@/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://byjuun.com"),
-  title: "byjuun.com",
-  description: "Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻",
+  metadataBase: new URL(SITE_BASE_URL),
+  title: STTE_TITLE,
+  description: STTE_DESCRIPTION,
 };
 
 interface RootLayoutProps {

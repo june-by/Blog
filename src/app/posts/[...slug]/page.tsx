@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer/generated";
 import { Metadata } from "next";
-import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import {
   PostTitle,
   PostDescription,
@@ -13,6 +12,7 @@ import {
   TableOfContents,
 } from "@/components/post";
 import PostLayout from "@/components/layouts/PostLayout";
+import { SITE_BASE_URL } from "@/constants";
 
 interface PostProps {
   params: {
@@ -38,23 +38,23 @@ export async function generateMetadata({
 
   if (!post) {
     return {};
-  }
+    }
 
-  return {
-    title: post.title,
-    description: post.description,
-    openGraph: {
+    return {
       title: post.title,
       description: post.description,
-      url: `https://byjuun.com${post.slug}`,
-      images: post.thumbNail,
-    },
-  };
-}
+      openGraph: {
+        title: post.title,
+        description: post.description,
+        url: `${SITE_BASE_URL}${post.slug}`,
+        images: post.thumbNail,
+      },
+    };
+  }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
-  return allPosts.map((post) => ({
-    slug: post.slugAsParams.split("/"),
+  export async function generateStaticParams(): Promise<PostProps["params"][]> {
+    return allPosts.map((post) => ({
+      slug: post.slugAsParams.split("/"),
   }));
 }
 

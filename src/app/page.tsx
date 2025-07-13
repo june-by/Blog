@@ -1,21 +1,21 @@
 import { Post } from "contentlayer/generated";
-
 import { allPostsSortedByDate } from "@/utils";
 import { Metadata } from "next";
 import PostList from "@/components/home/PostList";
 import CategoryList from "@/components/home/CategoryList";
+import { SITE_BASE_URL, STTE_DESCRIPTION, STTE_TITLE } from "@/constants";
 
 interface Props {
   searchParams: Record<string, string>;
 }
 
 export const metadata: Metadata = {
-  title: `byjuun.com`,
-  description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
+  title: STTE_TITLE,
+  description: STTE_DESCRIPTION,
   openGraph: {
-    title: `byjuun.com`,
-    description: `Hi~ I'm FrontEnd Developer Byjuun 🧑‍💻`,
-    url: `https://byjuun.com`,
+    title: STTE_TITLE,
+    description: STTE_DESCRIPTION,
+    url: SITE_BASE_URL,
     images: ["/profile.png"],
   },
 };

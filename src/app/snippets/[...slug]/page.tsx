@@ -3,6 +3,7 @@ import { allSnippets } from "contentlayer/generated";
 import { Metadata } from "next";
 import { PostTitle, PostDescription, PostComments, Mdx, TableOfContents } from "@/components/post";
 import PostLayout from "@/components/layouts/PostLayout";
+import { SITE_BASE_URL } from "@/constants";
 
 interface SnippetProps {
   params: {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: SnippetProps): Promise<Metada
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://byjuun.com${post.slug}`,
+      url: `${SITE_BASE_URL}${post.slug}`,
       images: ["/profile.png"],
     },
   };
