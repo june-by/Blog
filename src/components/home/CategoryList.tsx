@@ -12,7 +12,7 @@ const CategoryList = ({ currentCategory }: Props) => {
   const categories = getCategories();
 
   return (
-    <div className="pb-2 flex gap-1 overflow-x-scroll scrollbar scrollbar-h-0.5 scrollbar-thumb-blue-500 scrollbar-track-gray-100">
+    <div className="pb-2 flex gap-1 overflow-x-scroll scrollbar scrollbar-h-1.5 scrollbar-thumb-blue-500 scrollbar-track-gray-100 dark:scrollbar-track-neutral-800">
       {categories.map(({ text, count }) => {
         const isCurrentSelectedCategory = currentCategory === text;
         return (
