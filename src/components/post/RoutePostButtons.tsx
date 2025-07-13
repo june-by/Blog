@@ -10,7 +10,7 @@ import {
   IoArrowBackCircleOutline,
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
-import MESSAGE from "@/constants";
+import { MESSAGE } from "@/constants";
 
 const RoutePostButtons = ({ post }: { post: Post }) => {
   const { prevPost, nextPost } = getNextAndPrevPostInSameCategory(post);
