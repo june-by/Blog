@@ -5,10 +5,10 @@ import { useTheme } from "next-themes";
 import Flex from "./shared/Flex";
 
 export function ModeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const onClickThemeToggleButton = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(resolvedTheme === "light" ? "dark" : "light");
   };
 
   return (
@@ -21,7 +21,7 @@ export function ModeToggle() {
     >
       <span className="sr-only">Toggle mode</span>
       <SwitchCase
-        value={theme || "dark"}
+        value={resolvedTheme || "dark"}
         caseBy={{
           dark: <Light />,
           light: <Dark />,
